@@ -217,6 +217,19 @@
   var DIZIN=null, TAKVIM=null, SECILI=null, DENEME={}, HASH_ISTEK=false;
   /* 07.10: paket durumu (dizin kodu -> uye-durumu sınav adı). null = paket yok/bilinmiyor; {dersler:null} = tüm dersler açık */
   var PAKET={}, UYE_KOD={sgs:'sgs', smmm:'yeterlilik', kgk:'kgk'};
+  /* 28.10 Cem ("7 deneme alan sadece onu görecek, sitede başka şeye ulaşamayacak"): yalnız Son 20 Gün paketi olan üye ({tur:'sgs'|'yet'})
+     bu sayfada kilitli ders listesi değil, yalnız kendi paket kartını görür (son20Ciz). Başka paketi de varsa olağan sayfa. */
+  var SON20=null;
+  function son20Al(d){ SON20=(d&&d.son20&&d.son20.durum==='aktif')?{tur:d.son20.tur||'sgs', bitis:d.son20.bitis||null}:null; }
+  function son20Yalniz(){ return !!SON20 && !Object.keys(PAKET).length; }
+  function son20Ciz(){
+    var yet=SON20.tur==='yet', acilT=Date.parse(yet?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00'), once=Date.now()<acilT;
+    derslerEl.innerHTML='<a class="sc-deneme" href="'+(yet?'ogrenci.html':'son-20-gun.html')+'"><span><span class="sc-deneme-et">'+(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün</span>'
+      +'<b>'+(yet?'Sadece Denemeler':'Sadece 7 Deneme')+'</b>'
+      +'<span class="sc-deneme-alt">'+(once?'Ön siparişin alındı. Denemelerin '+(yet?'8':'1')+' Kasım 2026\'da açılır; o gün buradan başlarsın.':'Denemelerin açık. Her deneme ders ders testlerden oluşur; puanın ve açıklamalar test bitince açılır.')+'</span></span>'
+      +'<span class="sc-deneme-git">'+(yet?'Hesabıma git →':'Son 20 Gün sayfam →')+'</span></a>'
+      +'<p class="sc-aciklama">Bütün soru bankası için <a href="iletisim.html">Tam Pakete geç</a>; ödediğin 999 TL düşülür.</p>';
+  }
   function trk(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim(); }   /* 07.10: /s+/ (s harfini siliyordu) -> /\s+/ boşluk */
   function dersAcik(kod, ad){ var p=PAKET[kod]; if(!p) return false; if(!p.dersler||!p.dersler.length) return true;
     return p.dersler.some(function(x){ return trk(x)===trk(ad); }); }
@@ -307,6 +320,7 @@
     if(!DIZIN) return;
     var paketli=DIZIN.sinavlar.filter(function(s){ return PAKET[s.kod]; });
     var b=document.getElementById('scBaslik'), a=document.getElementById('scAlt');
+    if(son20Yalniz()){ b.textContent='Senin paketin'; a.style.display='none'; sinavlarEl.style.display='none'; return; }
     if(paketli.length){
       b.textContent='Soru çöz'; a.textContent=paketli.length>1?'Sınavını seç; dersin hemen açılır.':'';
       /* .sc-sinavlar display:grid [hidden]'ı eziyordu (telefonda ölçüldü) -> stil ile */
@@ -322,6 +336,7 @@
   });
 
   function dersleriCiz(){
+    if(son20Yalniz()){ son20Ciz(); return; }
     var s=DIZIN.sinavlar.filter(function(x){return x.kod===SECILI;})[0]; if(!s) return;
     var acik=s.durum==='acik';
     var sinavToplam=s.dersler.reduce(function(t,d){return t+(+d.sinav_soru||0);},0);
@@ -473,9 +488,11 @@
 
   /* 07.10: paket bilgisi gelince (girişliyse) kartlar yeniden çizilir; hata/girişsizde kilit etiketi kalır */
   /* 07.10: önce son bilinen durum (uye-durumu.js önbelleği) - paketli üye ilk çizimde kilit etiketi görmesin */
+  try{ son20Al(window.TetikteUye&&TetikteUye.onbellek); }catch(e){}
   try{ var ob=window.TetikteUye&&TetikteUye.onbellek; if(ob) Object.keys(UYE_KOD).forEach(function(kod){ var o=ob.sinavlar&&ob.sinavlar[UYE_KOD[kod]]; if(o&&o.durum==='aktif') PAKET[kod]={dersler:o.dersler||null}; }); }catch(e){}
   try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){
     var degisti=false; try{ hesapDenemeAl(); }catch(e){}
+    var s20once=JSON.stringify(SON20); son20Al(d); if(JSON.stringify(SON20)!==s20once) degisti=true;
     Object.keys(UYE_KOD).forEach(function(kod){ var o=d&&d.sinavlar&&d.sinavlar[UYE_KOD[kod]];
       if(o&&o.durum==='aktif'){ PAKET[kod]={dersler:o.dersler||null}; degisti=true; }
       else if(PAKET[kod]&&d&&!d.hata){ delete PAKET[kod]; degisti=true; } });   /* önbellek "açık" dedi, sunucu demiyor -> geri al */

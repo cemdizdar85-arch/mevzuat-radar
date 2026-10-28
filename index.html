@@ -206,8 +206,7 @@ html body .kah-linkler .kah-link{display:inline-flex;align-items:center;min-heig
 }
 
 </style><link rel="stylesheet" href="paket-kartlari.css?v=1"><style>
-/* 28.10: sınav seçici + paket kartları ortak dosyada (fiyat.html de kullanır) · ilk ekrandaki büyük seçici alçak, kahraman ekranda kalsın */
-.secim-ust{padding:14px 0 4px} @media(min-width:901px){ html body .secim-ust .sinav{min-height:64px} }
+/* 28.10: sınav seçici + paket kartları ortak dosyada (fiyat.html de kullanır) */
 
 /* kısayollar: fiyat · ders · konu · deneme · seviye · duyuru (Cem: "fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım") */
 .kisayol{padding:36px 0;border-top:1px solid var(--line)}
@@ -387,6 +386,24 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   .dayanak p{display:inline}
   .ekran-dip .btn{min-height:42px}
 }
+/* 28.10 Cem ("o büyük yazılar ilk sayfanın en altında tümden görünsün, en üstte eski yerinde küçüğü de olsun"): bilgisayarda
+   kahraman alçak → hemen altındaki büyük sınav düğmeleri ilk ekranın içinde biter. "Zaten hesabım var" üst menüde ("Giriş yap"),
+   "Ücretsiz, üye olmadan" düğmenin altındaki cümlede var → bilgisayarda bu iki tekrar satırı gizli (telefonda duruyor). */
+@media(min-width:901px){
+  html body .kah .kah-linkler, html body .kah #durum{display:none}
+  html body .kah{padding-bottom:6px}
+  html body .kah .kah-secim{margin-bottom:10px}
+  html body .kah #kahAlt{margin-bottom:0}
+  html body .kah .kah-alt{grid-template-columns:1fr 1fr;max-width:520px}   /* iki düğme her bilgisayar ekranında yan yana */
+  html body .secim-bolum{padding-top:4px}
+  html body .secim-bolum .secim-bas{margin-bottom:8px}
+}
+@media(min-width:901px) and (max-height:860px){
+  html body .kah h1{font-size:clamp(30px,2.8vw,37px);margin-bottom:8px}
+  html body .kah .maskot{max-width:300px}
+  html body .kah{padding-top:12px}
+  html body .secim-bolum .sinav{min-height:64px}
+}
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 <link rel="stylesheet" href="gkt.css?v=2">
@@ -425,21 +442,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <span class="kayan-iz" aria-hidden="true"><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span></span></a>
   <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
-<!-- 28.10 Cem ("şunu ön sayfada görmek istiyorum, tam sayfa"): büyük sınav düğmeleri İLK EKRANDA, kahramanın üstünde (1536x730'da
-     önce 803. pikselde, ekran dışındaydı). Kahramandaki küçük sekmeler kalktı (aynı işi yapıyordu); paketlerin üstündeki büyük kopya
-     kalır. Hepsi aynı seçimi yapar (bütün .sinav[data-sinav] dinlenir); "Sınavı değiştir" bağı #secimBas'a gider. -->
-<section class="secim-bolum secim-ust" aria-labelledby="secimBas">
-  <div class="ic">
-      <p class="secim-bas" id="secimBas">Sınavını seç</p>
-      <div class="secim" role="group" aria-labelledby="secimBas">
-        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
-        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
-        <!-- 13.10 KGK: tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk; kapalıyken "Hazırlanıyor" çipi, teyitsiz tarih yazılmaz. -->
-        <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
-        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
-      </div>
-  </div>
-</section>
 <section class="kah">
     <div class="ic">
     <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
@@ -453,6 +455,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            Konu özeti cevaptan sonra açılır (ölçüm 16.10: SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134) -> sıra
            gerçeğe uygun: önce soru, sonra konu. "Ders / konu anlatımı" yazılmaz (5580). -->
       
+      <!-- 28.10 Cem ("ilk sayfada göreyim bari dersleri" + "hem burada kalsın hem dediğim yere de koy" + "en üstte eski yerinde
+           bunların küçüğü de olsun"): küçük sekmeler açılış ekranında; BÜYÜK hâli kahramanın hemen altında, ilk ekranın en altında
+           tamamen görünür (kahraman o yüzden alçak). İkisi aynı seçimi yapar (bütün .sinav[data-sinav] dinlenir). -->
+      <div class="kah-secim"><p class="kah-secim-bas" id="secimBas">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas">
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <span class="sinav kapali" id="kgkKapali" aria-disabled="true" title="KGK Bağımsız Denetçilik · hazırlanıyor">KGK <small>hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+      </div>
+      </div>
       <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
       <h1 id="kahBas">SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
       <!-- 28.10 Cem ("ücretleri biraz daha yukarı taşı, aşağıda kalıyor, aynı sayfada görelim"): sıra başlık → şart → fiyat → düğmeler;
@@ -822,9 +835,16 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         $('kayanX').onclick=function(){ ks.hidden=true; try{ sessionStorage.setItem('kayan_kapat','1'); }catch(e){} }; } } }catch(e){}
     /* 18.10 üye karşılama şeridi */
     try{ var hz=$('uyeHos'), oz=null, kapali=false; try{ oz=JSON.parse(localStorage.getItem('sc_son_ozet_'+OZET_ANAHTAR[secili])||'null'); kapali=sessionStorage.getItem('uye_hos_kapat')==='1'; }catch(e){}
+      /* 28.10 Cem ("7 deneme alan sadece onu görecek"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */
+      var s20=UYE&&UYE.son20&&UYE.son20.durum==='aktif'&&!Object.keys(UYE.sinavlar||{}).some(function(k){ return UYE.sinavlar[k]&&UYE.sinavlar[k].durum==='aktif'; })?UYE.son20:null;
+      if(hz&&s20&&!kapali){ var y20=s20.tur==='yet', once20=Date.now()<Date.parse(y20?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00');
+        $('uyeHosMetin').innerHTML='👋 <b>Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'.</b> '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\'da açılır.':'Denemelerin seni bekliyor.');
+        $('uyeHosBtn').textContent=y20?'Hesabım →':'Son 20 Gün sayfam →'; $('uyeHosBtn').href=y20?'ogrenci.html':'son-20-gun.html'; hz.hidden=false;
+        $('uyeHosX').onclick=function(){ hz.hidden=true; try{ sessionStorage.setItem('uye_hos_kapat','1'); }catch(e){} };
+      } else
       if(hz&&d.durum==='aktif'&&oz&&oz.ad&&/^[a-z0-9\/._-]+\.html$/i.test(oz.sayfa||'')&&!kapali){
         $('uyeHosMetin').innerHTML='👋 <b>Tekrar hoş geldin.</b> En son <b>'+esc(oz.ad)+'</b>'+(oz.set&&oz.oran!=null?' · Set '+(+oz.set)+' <b>%'+(+oz.oran)+'</b>':'')+'. Kaldığın dersten devam et.';
-        $('uyeHosBtn').href=oz.sayfa; hz.hidden=false;
+        $('uyeHosBtn').textContent='Devam et →'; $('uyeHosBtn').href=oz.sayfa; hz.hidden=false;
         $('uyeHosX').onclick=function(){ hz.hidden=true; try{ sessionStorage.setItem('uye_hos_kapat','1'); }catch(e){} };
       } else if(hz) hz.hidden=true; }catch(e){}
     if(kgkSec){

@@ -1,7 +1,7 @@
 /* uygulama-kapisi.js — MAĞAZA UYGULAMASINDA PAKET KAPISI (25.09.2026)
  *
  * Sitedeki paket-kapisi.js'in uygulama karşılığı. mobil/hazirla.js, uygulamaya gömülen her
- * Kaydır-Çöz sayfasında `<script src="../../paket-kapisi.js">` etiketini şu üçlüyle değiştirir:
+ * Kaydır-Çöz sayfasında `<script src="../../paket-kapisi.js?v=20261028s">` etiketini şu üçlüyle değiştirir:
  *   kutuphane/supabase-*.js  ->  ortak.js  ->  uygulama-kapisi.js
  * Sözleşme paket-kapisi.js ile AYNI: window.__pkKapi = Promise<{acik:true, sb} | {acik:false}>.
  * kasa-yukle.js değişmeden çalışır ve soruları kilitli kasadan (paket_soru, RLS) çeker.

@@ -114,14 +114,14 @@ function esdeger(sorular, satirlar) {
 
 function sinav() {
   let hata = 0; const t = (ad, k) => { console.log((k ? '  geçti: ' : '  DÜŞTÜ: ') + ad); if (!k) hata++; };
-  const html = '<!doctype html><html lang="tr"><head><script src="../../paket-kapisi.js"></script></head><body><div id="akis"></div>\n'
+  const html = '<!doctype html><html lang="tr"><head><script src="../../paket-kapisi.js?v=20261028s"></script></head><body><div id="akis"></div>\n'
     + '<script>\nconst A=1;\nconst SORULAR=[{"id":"e/kp-01","soru":"a ] [ \\" x"}];\nfunction f(){ return SORULAR.length; }\nwindow.addEventListener(\'load\',f);\n</script></body></html>';
   const k = kabukKur(html, 'kaydir/sgs/turkce.html');
   t('kabukta soru metni yok', !k.includes('kp-01') && !k.includes('a ] ['));
   t('kabuk işaretli', k.includes('data-kasa-sayfa="kaydir/sgs/turkce.html"'));
   t('asıl betik bekleyen tipte', k.includes('<script type="text/x-tetikte-kasa" id="kasaAna">\nconst A=1;\nconst SORULAR=window.__KASA_SORULAR||[];\nfunction f()'));
   t('yükleyici </body> önünde, doğru derinlikte', k.includes('<script src="../../kasa-yukle.js"></script></body></html>'));
-  t('kapı betiği yerinde', k.includes('<script src="../../paket-kapisi.js"></script>'));
+  t('kapı betiği yerinde', k.includes('<script src="../../paket-kapisi.js?v=20261028s"></script>'));
   let atti = false; try { kabukKur(k, 'kaydir/sgs/turkce.html'); } catch (e) { atti = true; }
   t('kabuk ikinci kez kurulmaz', atti);
   atti = false; try { kabukKur(html.replace('const SORULAR=', 'const SORULAR=[];const SORULAR='), 'x/y.html'); } catch (e) { atti = true; }

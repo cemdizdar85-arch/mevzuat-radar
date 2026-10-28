@@ -167,6 +167,13 @@
       baslik = 'Hesabında aktif paket yok';
       metin = 'Bu sayfa pakete dahil. Paketi aldığında hesabına tanımlanır ve buradan devam edersin.';
       dugmeler = '<a class="pk-ana" href="' + satinAl + '">Paketi al</a>' + ucretsizA;
+    } else if (tur === 'son20-sgs' || tur === 'son20-yet') {
+      var yet20 = tur === 'son20-yet', acilT = Date.parse(yet20 ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
+      baslik = 'Senin paketin: ' + (yet20 ? 'Yeterlilik Son 20 Gün' : 'Sadece 7 Deneme');
+      metin = 'Bu sayfa paketinde yok. ' + (Date.now() < acilT ? 'Denemelerin ' + (yet20 ? '8' : '1') + ' Kasım 2026\'da açılır.' : 'Denemelerin seni bekliyor.')
+        + ' Bütün soru bankası için Tam Pakete geçebilirsin; ödediğin 999 TL düşülür.';
+      dugmeler = '<a class="pk-ana" href="' + KOK + (yet20 ? 'ogrenci.html' : 'son-20-gun.html') + '">' + (yet20 ? 'Hesabıma git' : 'Son 20 Gün sayfam') + '</a>' +
+        '<a href="' + KOK + 'iletisim.html">Tam Pakete geç</a>';
     } else {
       baslik = 'Bağlantı kurulamadı';
       metin = 'Paket bilgin kontrol edilemedi. İnternet bağlantını kontrol edip yeniden dene.';
@@ -176,7 +183,9 @@
       var d = document.createElement('div');
       d.id = 'pkPerde';
       d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
-      d.innerHTML = '<a class="pk-x" href="' + KOK + 'sorular.html' + (yetSayfa ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs') + '" aria-label="Kapat">✕</a><div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
+      var xAdr = tur === 'son20-sgs' ? KOK + 'son-20-gun.html' : tur === 'son20-yet' ? KOK + 'ogrenci.html'   /* 28.10 Son 20 Gün üyesi kendi sayfasına */
+        : KOK + 'sorular.html' + (yetSayfa ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs');
+      d.innerHTML = '<a class="pk-x" href="' + xAdr + '" aria-label="Kapat">✕</a><div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
       document.body.appendChild(d);
       document.body.style.overflow = 'hidden';
     };
@@ -283,6 +292,10 @@
         ilerleme(sb, oturum.user);          // ... ve kaldığın yerden devam (hesaba eşitlenir)
         return;
       }
+      /* 28.10 Cem ("7 deneme alan sadece onu görecek, sitede başka şeye ulaşamayacak"): yalnız Son 20 Gün paketi olan üyeye
+         "aktif paketin yok · paketi al" DENMEZ; perde kendi paketini söyler ve oraya götürür (asıl kilit kasada, değişmedi). */
+      var s20 = (r.data || []).filter(function (x) { return (!x.bitis || x.bitis >= bugun) && /^son20-(sgs|yet)$/.test(String(x.paket || '').trim().toLowerCase()); })[0];
+      if (s20) return perde(String(s20.paket).trim().toLowerCase() === 'son20-yet' ? 'son20-yet' : 'son20-sgs');
       perde('paket');
     } catch (e) { clearTimeout(zaman); perde('hata'); }
   });
