@@ -1,11 +1,11 @@
 {
-  "tarih": "28.10.2026 02:09",
+  "tarih": "28.10.2026 02:24",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
   "atifli_iddia": 313,
-  "dayanaksiz_iddia": 496,
+  "dayanaksiz_iddia": 500,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -2275,7 +2275,7 @@
       "sayfa": "ogrenci.html",
       "satir": 671,
       "iddia": "20 gün",
-      "metin": "+' Ön siparişin alındı. Denemelerin 8 Kasım 2026\\'da (sınava 20 gün kala) açılır; o gün bu sayfadan başlarsın.'"
+      "metin": "+' '+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. Denemelerin 8 Kasım 2026\\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır.':'Denemelerin Son 20 "
     },
     {
       "sayfa": "ogrenci.html",
@@ -2861,39 +2861,63 @@
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 103,
+      "satir": 105,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün · 7 deneme"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 109,
+      "satir": 113,
       "iddia": "%60",
       "metin": "0/5 %60 ve üstü"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 175,
+      "satir": 166,
+      "iddia": "20 gün",
+      "metin": "+(YET?'Sınava 20 gün kala. ':'')+'Paketini şimdi al; denemeler o gün bu sayfada hesabında açılır. ';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 189,
       "iddia": "%60",
       "metin": "/* 28.10 çalışma görevleri: %60 altı denemeden sonra kurulur (sunucu); açık görev varken çözülmemiş test başlatılmaz */"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 180,
+      "satir": 194,
       "iddia": "%60",
       "metin": "gk.innerHTML=' Çalışma görevlerin Deneme '+gAcik[0].deneme+' sonunda doğru oranın %60\\'ın altında kaldı. Her konuda 4 yeni soru gelir; 3\\'ünü doğru yapınca konu tamamlanır. Görevle"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 233,
+      "satir": 247,
       "iddia": "%5",
       "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 273,
+      "satir": 287,
       "iddia": "%60",
       "metin": "+(r.gorev>0? ' Bu denemede %60\\'ın altında kaldın; '+r.gorev+' konuluk çalışma görevin hazır. Görevler bitince sonraki denemeye başlayabilirsin.' : '');"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 350,
+      "iddia": "20 Gün",
+      "metin": "document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 351,
+      "iddia": "20 Gün",
+      "metin": "$('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 354,
+      "iddia": "%60",
+      "metin": "$('soz').querySelector('.soz-s').innerHTML=' 0/8 şartı tamam ders 3 deneme her derste 2/3 %60 ve üstü gerekir ';"
     },
     {
       "sayfa": "songun.html",
