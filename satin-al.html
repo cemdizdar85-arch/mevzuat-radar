@@ -110,6 +110,7 @@
   #paketler.odak{ display:flex; flex-direction:column; }
   #paketler.odak .pk[data-id="yeterlilik-tum"]{ order:1; } #paketler.odak .pk[data-id^="yeterlilik-"]:not([data-id="yeterlilik-tum"]){ order:2; }
   #paketler.odak .pk[data-id="son20-yet"]{ order:3; }
+  #paketler.odak > :not(.pk){ order:2; }   /* ders seçim kutusu ders satırının hemen altında kalsın (DOM'da ona eklenir) */
   #paketler.odak .pk.sec{ margin-top:14px; }
   /* 18.10: ders sayısı seçicisi (ders kutusunun başında) */
   .ders-sayi{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
@@ -138,9 +139,13 @@
     .pk{ flex-wrap:wrap; }
     .pk .fy{ flex-basis:100%; max-width:none; margin-left:0; text-align:left; padding-left:29px; }
   }
-  .pk .fy span{ display:block; font-size:11px; color:var(--dim); }
+  .pk .fy span{ display:block; font-size:12.5px; color:var(--dim); }   /* 28.10 görüntü turu: 11 px telefonda okunmuyordu */
+  /* 28.10 Cem ("1 ders görünüyor, basınca diğerleri çıkıyor, basmayabilir; ders sayısı yukarıda olsun"): ders sayısı satırın içinde */
+  .pk-ds{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:8px 0 2px; max-width:340px; }
+  .pk-ds button{ min-height:40px; padding:0 4px; white-space:nowrap; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-size:14px; font-weight:750; cursor:pointer; }
+  .pk-ds button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
   .pk .fy s{ display:block; font-size:12px; color:var(--dim); }
-  .pk .harc{ display:block; font-size:11.5px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
+  .pk .harc{ display:block; font-size:12.5px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
   .dersListe{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:7px; }
   .dersListe label{ display:flex; align-items:center; gap:9px; background:color-mix(in srgb,var(--ink) 5%,var(--kart));
        border:1px solid transparent; border-radius:10px; padding:9px 12px; font-size:13.5px; cursor:pointer; }
@@ -493,7 +498,8 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
    (paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta
    "ilk 1.000 üyeden sonra" satırı yazılmaz. Ödenen tutar yine özetteki hesap (sunucu doğrular). */
 function pkFiyatHtml(p){
-  var net = (typeof erkenNet === 'function') ? erkenNet(p) : 0, ayr = '<span>' + p.not + '</span></span>';
+  /* 28.10 görüntü turu: erken kayıt ve Son 20 Gün kartında "açılış fiyatı · ilk 1.000 üye" / "sabit fiyat" notu kalabalık yapıyordu */
+  var net = (typeof erkenNet === 'function') ? erkenNet(p) : 0, ayr = (net || /^son20-/.test(p.id)) ? '</span>' : '<span>' + p.not + '</span></span>';
   if(p.id === 'son20-sgs' || p.id === 'son20-yet')
     return '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b><span style="color:var(--ink);font-weight:700">KDV dahil · ' + kdvHaric(p.fiyat) + ' TL + KDV</span>'
       + '<span>denemeler ' + (p.id === 'son20-yet' ? '8' : '1') + ' Kasım\'da açılır</span>' + ayr;
@@ -519,6 +525,8 @@ function pkFiyatHtml(p){
        + '<span class="er">' + p.erisim + '</span>'
        + '<span class="harc">' + p.harcYazi + '</span>'
        + (p.id === 'yeterlilik-tum' ? ayriKiyas() : '')
+       + (/^yeterlilik-[1-4]$/.test(p.id) ? '<span class="pk-ds" role="group" aria-label="Kaç ders?">' + [1,2,3,4].map(function(n){
+           return '<button type="button" data-pkds="yeterlilik-' + n + '" aria-pressed="' + (p.id === 'yeterlilik-' + n) + '">' + n + ' ders</button>'; }).join('') + '</span>' : '')
        + '<span class="enCok" data-pk="' + p.id + '" style="display:none;color:var(--amber);font-weight:700;font-size:12px;margin-top:3px">En çok seçilen</span>'
        + '</span>'
        + pkFiyatHtml(p) + '</label>';
@@ -531,6 +539,13 @@ function pkFiyatHtml(p){
       if(!id) return;
       var el = kap.querySelector('.enCok[data-pk="' + id + '"]'); if(el) el.style.display = 'block';
     });
+  });
+  /* 28.10: satır içi ders sayısı düğmesi → o ders paketinin radyosu (etiket tıklaması kendi satırını seçmesin) */
+  kap.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('button[data-pkds]'); if(!b) return;
+    e.preventDefault(); e.stopPropagation();
+    var r = kap.querySelector('input[name=paket][value="' + b.getAttribute('data-pkds') + '"]'); if(!r) return;
+    r.checked = true; r.dispatchEvent(new Event('change', { bubbles:true }));
   });
   kap.addEventListener('change', function(e){
     if(e.target.name !== 'paket') return;
@@ -579,7 +594,7 @@ function dersCiz(){
   (function(){
     var on = kgk ? 'kgk-' : 'yeterlilik-', aile = PAKETLER.filter(function(p){ return p.id.indexOf(on) === 0 && /\d$/.test(p.id); });
     var yer = document.getElementById('dersSayi');
-    if(aile.length < 2){ yer.innerHTML = ''; yer.hidden = true; return; }
+    if(aile.length < 2 || !kgk){ yer.innerHTML = ''; yer.hidden = true; return; }   /* 28.10: Yeterlilik'te ders sayısı paket satırının içinde (.pk-ds) */
     yer.hidden = false;
     yer.innerHTML = '<span>Kaç ' + (kgk ? 'modül' : 'ders çalışacaksın') + '?</span>' + aile.map(function(p){
       var m = +p.id.replace(on, '');
