@@ -834,10 +834,14 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
     /* 28.10 söz başlığı: yalnız SGS, 21 Kasım sınavından önce; öteki sınavda statik başlık ve açıklama geri gelir */
-    try{ var soz=(secili==='sgs'&&Date.now()<Date.UTC(2026,10,21,21,0,0)), hb=$('kahBas'), ha=$('kahAlt');
+    /* 28.10 Cem ("kazanana kadar değil geçene kadar Tetikte; bitirme aynı şekilde"): kampanya adıyla aynı fiil (sınav "geçilir").
+       SGS: "Geçemezsen, geçene kadar Tetikte." + şart satırı (söz kampanya-son-20-gun.html'de yazılı). Yeterlilik: aynı aile, SÖZSÜZ
+       "Geçene kadar Tetikte." — Yeterlilik'in söz şartları yazılmadı; "Geçemezsen" + şart satırı söz kararı verilince eklenir. */
+    try{ var soz=(secili==='sgs'&&Date.now()<Date.UTC(2026,10,21,21,0,0)), yetB=(secili==='yeterlilik'&&Date.now()<Date.UTC(2026,10,28,21,0,0)), hb=$('kahBas'), ha=$('kahAlt');
       if(!hb.getAttribute('data-ilk')){ hb.setAttribute('data-ilk',hb.innerHTML); ha.setAttribute('data-ilk',ha.innerHTML); }
-      hb.innerHTML=soz?'Kazanamazsan,<br>kazanana kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
-      ha.innerHTML=soz?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
+      hb.innerHTML=soz?'Geçemezsen,<br>geçene kadar <span class="kah-kutu">Tetikte</span><em>.</em>'
+        :yetB?'Geçene kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
+      ha.innerHTML=(soz||yetB)?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
       $('kahSoz').hidden=!soz; }catch(e){}
     try{ kahFiyatCiz(secili, d.durum==='aktif'); pkSuz(secili); }catch(e){}
     ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
