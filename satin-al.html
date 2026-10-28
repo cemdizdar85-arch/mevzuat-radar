@@ -106,7 +106,10 @@
   .grup{ font-size:12.5px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
   /* 17.10: ?paket= ile seçilerek gelinince yalnız o paket (öteki paketler "Başka paket seç" ile) */
   #paketler.odak .pk:not(.sec):not(.kardes), #paketler.odak .grup, #paketler.odak > p{ display:none; }
-  #paketler.odak{ display:flex; flex-direction:column; } #paketler.odak .pk.sec{ order:-1; }   /* 28.10: seçilen üstte, kardeşi altında */
+  /* 28.10: sabit sıra (tıklayınca satır kaymasın) — SGS: Tam Paket · 7 Deneme (PAKETLER sırası) · Yeterlilik: tüm dersler · ders ders · Son 20 Gün */
+  #paketler.odak{ display:flex; flex-direction:column; }
+  #paketler.odak .pk[data-id="yeterlilik-tum"]{ order:1; } #paketler.odak .pk[data-id^="yeterlilik-"]:not([data-id="yeterlilik-tum"]){ order:2; }
+  #paketler.odak .pk[data-id="son20-yet"]{ order:3; }
   #paketler.odak .pk.sec{ margin-top:14px; }
   /* 18.10: ders sayısı seçicisi (ders kutusunun başında) */
   .ders-sayi{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
@@ -862,9 +865,16 @@ ozetCiz();
     /* 28.10 Cem ("satın al bastığımda paketlerde bu çıkıyor, iki tane çıkması lazım, 7 test koyduk artık"): odakta seçilenin yanında
        o sınavın öteki ana seçeneği de görünür — Staja Giriş: Tam Paket ↔ Sadece 7 Deneme · Yeterlilik: seçilen ders paketi /
        tüm dersler ↔ Son 20 Gün. Öteki paketler yine "Başka paket seç" ile açılır. */
-    var KARDES = { 'sgs':['son20-sgs'], 'son20-sgs':['sgs'], 'son20-yet':['yeterlilik-tum'] };
-    var kardes = KARDES[q] || (/^yeterlilik-/.test(q) ? ['son20-yet'] : []);
-    kardes.forEach(function(id){ var el = kap.querySelector('.pk[data-id="' + id + '"]'); if(el) el.classList.add('kardes'); });
+    /* 28.10 Cem ("burda tek dersleri koyalım"): Yeterlilik'te üç seçenek birlikte — tüm dersler · ders ders (seçili ders sayısı ya da
+       1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */
+    function kardesKur(){
+      var id = secili ? secili.id : q, liste;
+      if(id === 'sgs') liste = ['son20-sgs']; else if(id === 'son20-sgs') liste = ['sgs'];
+      else if(/^yeterlilik-|^son20-yet$/.test(id)) liste = ['yeterlilik-tum', /^yeterlilik-\d$/.test(id) ? id : 'yeterlilik-1', 'son20-yet'];
+      else liste = [];
+      Array.prototype.forEach.call(kap.querySelectorAll('.pk'), function(el){ el.classList.toggle('kardes', liste.indexOf(el.getAttribute('data-id')) > -1); });
+    }
+    kardesKur(); kap.addEventListener('change', kardesKur);
     var b = document.createElement('button'); b.type = 'button'; b.id = 'pkTumu'; b.className = 'pk-tumu';
     b.textContent = 'Başka paket seç';
     b.addEventListener('click', function(){ kap.classList.remove('odak'); b.remove(); });
