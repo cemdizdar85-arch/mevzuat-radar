@@ -374,8 +374,10 @@
     <span><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
     <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
     <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını onaylıyorum.</span></label>
+  <!-- 28.10 Cem onayı: ön satış paketlerinde (fiyat-motoru acilis alanı) cayma açılış gününe kadar sürer; metin ifaYaziCiz ile değişir.
+       Aynı madde on-bilgilendirme / mesafeli-satis / teslimat-iade "Ön satış paketleri" paragrafında. -->
   <label class="onay"><input type="checkbox" id="onIfa">
-    <span>Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
+    <span id="onIfaYazi">Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
     yasal cayma hakkı olmadığını biliyorum.</span></label>
   <label class="onay"><input type="checkbox" id="onKvkk">
     <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
@@ -615,8 +617,22 @@ document.getElementById('dersSayi').addEventListener('click', function(e){
 /* 12.10: anlık teklif tek derste dersin seçili olmasına bağlı → ders değişince tutar yeniden hesaplanır */
 document.getElementById('dersListe').addEventListener('change', function(){ if(TEKLIF) ozetCiz(); });
 
+var IFA_YAZI_ESKI = null;
+function acilisYazi(p){ if(!p || !p.acilis) return ''; var d = new Date(p.acilis + 'T00:00:00+03:00');
+  return Date.now() < d.getTime() ? d.toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric', timeZone:'Europe/Istanbul' }) : ''; }
+function ifaYaziCiz(){
+  var e = document.getElementById('onIfaYazi'); if(!e) return; if(IFA_YAZI_ESKI === null) IFA_YAZI_ESKI = e.innerHTML;
+  var a = acilisYazi(secili), yeni = a
+    ? 'Denemelerin <b>' + a + '\'da</b> hesabımda açılmasını istiyorum. O güne kadar destek@tetikte.com\'a yazarak cayabileceğimi ve ödediğim tutarın tamamının iade edileceğini, denemeler hesabımda açıldığı anda cayma hakkımın sona ereceğini biliyorum.'
+    : IFA_YAZI_ESKI;
+  if(e.innerHTML !== yeni){ e.innerHTML = yeni; document.getElementById('onIfa').checked = false; }   /* metin değişince eski onay geçmez */
+  var o = document.getElementById('odemeNot');   /* ön satışta "paketin hemen açılır" yazılmaz */
+  if(o && kartAcik()) o.textContent = 'Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. '
+    + (a ? 'Ön siparişin ödemeyle kayda geçer; denemeler ' + a + '\'da hesabında açılır.' : 'Kartla ödeyince paketin hemen açılır.');
+}
 function ozetCiz(){
   if(typeof erkenKutuCiz === 'function') erkenKutuCiz(secili ? secili.id : '');
+  ifaYaziCiz();
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
   document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Bir paket seç.';
@@ -1153,7 +1169,7 @@ btn.addEventListener('click', function(){
     if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ hata('T.C. kimlik no 11 hane olmalı.', 2); return; }
   }
   if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
-  if(!document.getElementById('onIfa').checked){ goster('Hizmetin hemen başlatılması onayını işaretle.', false); return; }
+  if(!document.getElementById('onIfa').checked){ goster(acilisYazi(secili) ? 'Denemelerin açılış günü ve cayma onayını işaretle.' : 'Hizmetin hemen başlatılması onayını işaretle.', false); return; }
   if(!document.getElementById('onKvkk').checked){ goster('Aydınlatma metnini okuduğunu işaretle.', false); return; }
 
   /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
@@ -1245,7 +1261,7 @@ btn.addEventListener('click', function(){
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
         'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
-        'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · anında ifa onayı · aydınlatma okundu · ' + new Date().toISOString() })});
+        'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · ' + (acilisYazi(secili) ? 'ön satış cayma onayı · açılış ' + secili.acilis : 'anında ifa onayı') + ' · aydınlatma okundu · ' + new Date().toISOString() })});
   }
   function yedekYol(){ postala().then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
   function kendiKodu(err){ return !!err && /ELCI_KENDI_KODU/.test(String(err.message || '') + ' ' + String(err.details || '')); }
