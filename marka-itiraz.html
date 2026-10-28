@@ -467,6 +467,7 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
     })
     .then(function(r){ return r.json(); })
     .then(function(v){
+      try{ history.replaceState(null,'',location.pathname); if(v===true) localStorage.removeItem('nbJeton'); }catch(e){}   /* 28.10: jeton adres çubuğunda/geçmişte kalmasın */
       nbDurum(v===true ? '<b>Nöbet kapatıldı.</b> Bu marka için artık e-posta göndermeyeceğiz.'
                        : 'Bu bağlantıya ait açık bir nöbet bulunamadı (zaten kapatılmış olabilir).');
     })
