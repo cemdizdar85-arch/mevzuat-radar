@@ -1,6 +1,32 @@
 {
-  "tarih": "2026-10-28 00:59:29",
-  "durum": "KOR",
-  "sebep": "port-yok",
-  "ci": true
+  "tarih": "2026-10-28 02:32:26",
+  "durum": "YESIL",
+  "ci": true,
+  "ekranlar": [
+    "telefon 390x844",
+    "bilgisayar 1366x860"
+  ],
+  "olcum_toplam": 174,
+  "KOR": 0,
+  "senaryolar": [
+    "ders-sgs",
+    "ders-smmm",
+    "cihaz-baska",
+    "cihaz-sinir",
+    "ekip",
+    "duvar"
+  ],
+  "katman_sayisi": 22,
+  "kusurlu": 0,
+  "kapanan_katman_cesidi": {
+    "div#pkPerde": 2,
+    "div#ttTelif": 4,
+    "div.setOzet": 4,
+    "div#ttNn.acik": 4,
+    "div#ckPerde": 4,
+    "div#ttEkipBildirim": 2,
+    "div#ttDuvar": 2
+  },
+  "kusurlar": [],
+  "olculemeyenler": []
 }
