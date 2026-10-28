@@ -27,6 +27,7 @@ gorsel/**/*.svg
 gorsel/**/*.jpg           # 17.10 ana sayfa maskotu (gorsel/maskot-giris.jpg)
 gorsel/**/*.webp
 ses/cizim/**/*.mp3        # 22.10 "Nöbetçi çizerek çözsün" maskot sesi (cizerek-coz.js SES tablosu; cümle başına bir dosya)
+mobil/uygulama/ilerleme.js  # 28.10 TEK KAYNAK ilerleme kaydı (uygulama + site ortak): ilerleme-web.js (kaldığın yer, hesapla eşitleme) ve ogrenci.html (günlük hedef) dinamik yükler. Beyaz liste yayınına geçişte düştü → canlıda 404 (28.10 kilit sınavında bulundu). mobil/ YASAK'tan yalnız bu dosya muaf (site-yayin.js).
 sayfalar/*.html
 arsiv/*.html              # kartlar.html -> arsiv/index.html -> günlük kart arşivi
 arsiv/degisim/*.html
