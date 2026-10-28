@@ -104,6 +104,19 @@ jobs:
           ./arac/ikiz-soru.ps1
           if(Test-Path veri/ikiz-soru.json){ (Get-Item veri/ikiz-soru.json).LastWriteTime = Get-Date; "ikiz raporu olcum anina damgalandi" } else { throw 'ikiz raporu uretilemedi - KAPI-IK calismaz, yayin durur' }
 
+      # 28.10.2026 (Cem "SGS'de ayni konu art arda gelmesin"): sgs-650-bas.ps1 artik motor/sgs-ders-sira.js ile siralar (konu
+      #   karisik). Uygulama kaldigin yeri SIRA NUMARASIYLA tutar -> kasa yeni siraya yazilmadan ONCE eski sira (yalniz kimlik)
+      #   yedeklenir, kasaya yazildiktan SONRA her hesabin SGS konumu cevrilir (12.10 bitirme duzeni, ayni arac --kod sgs).
+      #   Yedek alinamazsa yayin YAPILMAZ (kaldigin yer bozulmasin). Gunluge yalniz sayi basilir.
+      - name: Eski SGS sirasini yedekle (kaldigin yer gocu icin)
+        id: sgsSiraYedek
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node arac/smmm-konum-gocu.js --kod sgs --yedekle "$env:RUNNER_TEMP\eski-sgs-sira.json"
+          if($LASTEXITCODE){ "::error::eski SGS sirasi yedeklenemedi - yayin yapilmiyor (kaldigin yer bozulmasin)"; exit 1 }
+
       - name: Sayfalari bas (Kaydir-Coz)
         shell: powershell
         env:
@@ -223,6 +236,17 @@ jobs:
           if($kod -ne 0){ throw "kasa yukleyici cikis $kod - sayfalar ITILMEYECEK" }
           node motor/kasa-kabuk.js --yaz
           if($LASTEXITCODE -ne 0){ throw "kabuk cikis $LASTEXITCODE - tam sayfa depoya gitmesin diye durdu" }
+
+      # 28.10: kasa yeni SGS sirasina yazildiktan HEMEN sonra her hesabin SGS konumu cevrilir (eski i -> kimlik -> yeni i, q yazilir).
+      #   Kosullu yazim: arada cihaz esitlediyse satir atlanir. GORMEZ: cihazda seviye sirasiyla gorulen dizilim, esitlenmemis cihaz.
+      - name: Kaldigin yeri yeni SGS sirasina cevir
+        if: always() && steps.sgsSiraYedek.outcome == 'success'
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node arac/smmm-konum-gocu.js --kod sgs --goc "$env:RUNNER_TEMP\eski-sgs-sira.json" --yaz
+          if($LASTEXITCODE){ "::error::SGS kaldigin yer cevrilemedi - uygulama kullanicisi yanlis soruya donebilir"; exit 1 }
 
       - name: Degisen varsa ite
         shell: powershell

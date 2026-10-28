@@ -283,6 +283,14 @@ $masterJson = [string](ConvertTo-Json -InputObject @($cikti.ToArray()) -Depth 3)
 [IO.File]::WriteAllText($masterYol,$masterJson,[Text.UTF8Encoding]::new($false))
 Write-Host ("`nyazildi: veri/sinav/kaydir-secim/{0}" -f $masterAd)
 
+# 28.10.2026 (Cem "ders sayfalarinda ayni konudan sorular art arda gelmesin"): OLCULDU 28.10 - 15 SGS ders sayfasinin 15'inde ayni
+#   konu 3+ soru art arda (Yabanci Dil 28, Denetim 15); 7 derste ilk 10 sorunun 10'u tek konu. Kok: yukaridaki birlestirme secim
+#   dosyalarini (her biri tek konu) dosya sirasiyla diziyordu. motor/sgs-ders-sira.js dosyayi YERINDE dizer: ilk 10 farkli konu,
+#   sonrasi yumusak agirlikli + art arda ayni konu yok; KUME DEGISMEZ (degisirse cikis 2, dosya yazilmaz). Duserse eski sirayla
+#   basilir (uyari) - sayfa yayini durmaz. Kaldigin yer: yayin-bas.yml ayni iste smmm-konum-gocu.js --kod sgs ile cevirir.
+& node (Join-Path $depoKok 'motor\sgs-ders-sira.js') --secim $masterYol
+if($LASTEXITCODE){ Write-Host ("::warning::SGS SIRA uygulanamadi (cikis {0}) - eski (konu kumeli) sirayla basiliyor" -f $LASTEXITCODE) -ForegroundColor Yellow }
+
 # Eski uzun-adli sayfalar arsive (SILINMEZ - 30.08 kurali)
 $arsiv=Join-Path $depoKok 'kaydir\_arsiv'
 foreach($eski in @('borclar-hukuku-ticaret-ve-borclar','ticaret-hukuku-ticaret-ve-borclar','is-ve-sosyal-guvenlik-hukuku-is-ve-sosyal-guvenlik')){
