@@ -1227,7 +1227,10 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
         const vSec=new Set((s.verilen||[]).map(p=>p[0]+','+p[1]));
         const formulOf=r=>{ const a=(s.adimlar||[]).find(x=>(x.doldur||[]).some(p=>p[0]===r)); if(!a) return ''; let f=String(a.formul||'').split(/;/)[0].replace(/\s*\((soruda verilen[^)]*|\d+\.\s*adımda bulduk|bizim bildiğimiz kural|bizim bilgimiz)\)/gi,'').replace(/\s{2,}/g,' ').trim();
           const p=f.split(/\s=\s/); f=p.length>=3?p.slice(1,-1).join(' = '):(p.length===2&&/\d/.test(p[0])?p[0]:''); return f.length>90?'':f; };
-        const satirlar=tb.satirlar.slice(bas).map((r,k)=>({r:bas+k,ad:String(r[0]||'').trim(),deger:String(r[r.length-1]||'').trim()})).filter(x=>x.ad&&x.deger&&x.deger!=='-'&&!/^VERİLENLER$/i.test(x.ad));
+        // 28.10 (kasa ölçüsü): değer YALNIZ son sütundan alınıyordu → 62 tabloda 212 satırda tutar yerine " TL" / "Ekle" görünüyordu
+        //   (tutar ile birim ya da yön ayrı sütunda). Değer = kalemden sonraki dolu hücrelerin hepsi (birimse boşlukla, değilse " · " ile).
+        const hucre=r=>r.slice(1).map(c=>String(c==null?'':c).trim()).filter(c=>c&&c!=='-'); const birleş=h=>h.reduce((a,c)=>a?(a+(/^(TL|₺|%|gün|ay|yıl|adet|saat|birim|kg)$/i.test(c)?' ':' · ')+c):c,'');
+        const satirlar=tb.satirlar.slice(bas).map((r,k)=>({r:bas+k,ad:String(r[0]||'').trim(),deger:birleş(hucre(r))})).filter(x=>x.ad&&x.deger&&!/^VERİLENLER$/i.test(x.ad));
         // 28.10 (Cem "doğru şekilde, yanlışımız yok"): ÖLÇÜLDÜ bankanın tamamında - 4.233 tablonun 20'sinde SON satır ("Kontrol",
         //   "Sağlama", "Toplam") yanlış bir şıkkın rakamıydı ve yeşil "sonuç" boyanıyordu. Sonuç satırı = değeri DOĞRU şıkla tutan
         //   son satır (%16 = 0,16 = 16 eşdeğer); hiçbir satır tutmazsa tablo HİÇ çizilmez (yalnız Akılda tut). Ölçü: arac/hesap-tablosu-kapisi.js

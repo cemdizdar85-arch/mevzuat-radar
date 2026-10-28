@@ -20,6 +20,10 @@ const rkSatir = (kod.match(/const rk=t=>\([^\n]+/) || [])[0], tutSatir = (kod.ma
 if (!rkSatir || !tutSatir) { console.log('KAPI-HT: kaydir-coz.ps1 içinde rk/tutar kuralı bulunamadı — kod değişmiş'); process.exit(1); }
 // eslint-disable-next-line no-new-func
 const kur = new Function('s', rkSatir + '\n' + tutSatir + '\nreturn tutar;');
+// 28.10: satır kurma (değer = kalemden sonraki dolu hücrelerin hepsi) da kaydir-coz.ps1'den okunur
+const hucreSatir = (kod.match(/const hucre=r=>[^\n]+/) || [])[0], satirSatir = (kod.match(/const satirlar=tb\.satirlar\.slice\(bas\)[^\n]+/) || [])[0];
+if (!hucreSatir || !satirSatir) { console.log('KAPI-HT: kaydir-coz.ps1 içinde satır kurma kuralı bulunamadı — kod değişmiş'); process.exit(1); }
+const satirKur = new Function('tb', 'bas', hucreSatir + '\n' + satirSatir + '\nreturn satirlar;');
 function sonucSatiri(s, satirlar) {
   if (MUT === 'son-satir') return satirlar.length - 1;
   const tutar = kur(s); let sonI = -1; satirlar.forEach((x, i) => { if (tutar(x)) sonI = i; }); return sonI;
@@ -28,7 +32,8 @@ function tabloSatirlari(s) {
   const tb = s.tablo; const teori = !!(s.teori || s.tip === 'teori' || (tb && tb.basliklar && tb.basliklar[0] === 'Adım'));
   if (!tb || !tb.satirlar || !tb.satirlar.length || teori || s.tip === 'kayit') return null;
   const hi = tb.satirlar.findIndex(r => /^HESAP$/i.test(String(r[0] || '').trim())), bas = hi >= 0 ? hi + 1 : 0;
-  const L = tb.satirlar.slice(bas).map(r => ({ ad: String(r[0] || '').trim(), deger: String(r[r.length - 1] || '').trim() })).filter(x => x.ad && x.deger && x.deger !== '-' && !/^VERİLENLER$/i.test(x.ad));
+  const L = satirKur(tb, bas);
+  if (MUT === 'son-sutun') L.forEach((x, i) => { const r = tb.satirlar[x.r]; x.deger = String(r[r.length - 1] || '').trim(); });
   return L.length >= 2 && L.length <= 14 ? L : null;
 }
 // sonuç satırının rakamı yanlış bir şıkta geçiyor mu (doğru şıkta da geçmiyorsa)
@@ -49,6 +54,10 @@ function sinav() {
   t('hiçbir satır doğru şıkla tutmuyor → tablo çizilmez (-1)', sonucSatiri(s3, tabloSatirlari(s3)) === -1);
   const s4 = { dogru: 'C', siklar: { C: '9' }, tip: 'teori', tablo: { satirlar: [['A', '1'], ['B', '9']] } };
   t('kuram sorusunda tablo yok', tabloSatirlari(s4) === null);
+  const s5 = { dogru: 'B', siklar: { A: '60.000', B: '64.000' }, tablo: { basliklar: ['Kalem', 'Tutar', 'Birim'], satirlar: [['HESAP', '-', ''], ['Bono', '64.000', ' TL'], ['Faiz', '4.000', ' TL']] } };
+  const L5 = tabloSatirlari(s5);
+  t('çok sütun: değer "64.000 TL" (son sütun " TL" değil)', L5 && L5[0].deger === '64.000 TL');
+  t('çok sütun: sonuç doğru şıkla tutar', L5 && sonucSatiri(s5, L5) === 0);
   V.forEach(([a, k]) => console.log((k ? '  ✓ ' : '  ✗ ') + a));
   const g = V.filter(v => v[1]).length; console.log('KAPI-HT ÖZ-SINAV: ' + g + '/' + V.length + (MUT ? ' (mutasyon ' + MUT + ')' : '')); return g === V.length;
 }
@@ -67,8 +76,10 @@ async function kasa() {
 
 const a = process.argv.slice(2);
 if (a.includes('--mutasyon')) {
-  const r = require('child_process').spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { HT_MUTASYON: 'son-satir' }), encoding: 'utf8' });
-  console.log('  mutasyon son-satir ' + (r.status ? 'KIRMIZI (doğru)' : 'YEŞİL — SINAV KÖR') + '\nMUTASYON: ' + (r.status ? 1 : 0) + '/1 → KIRMIZI'); process.exit(r.status ? 0 : 1);
+  let ok = 0; const M = ['son-satir', 'son-sutun'];
+  for (const m of M) { const r = require('child_process').spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { HT_MUTASYON: m }), encoding: 'utf8' });
+    if (r.status) ok++; console.log('  mutasyon ' + m + ' ' + (r.status ? 'KIRMIZI (doğru)' : 'YEŞİL — SINAV KÖR')); }
+  console.log('MUTASYON: ' + ok + '/' + M.length + ' → KIRMIZI'); process.exit(ok === M.length ? 0 : 1);
 } else if (a.includes('--sinav')) process.exit(sinav() ? 0 : 1);
 else if (a.includes('--kasa')) kasa().then(ok => process.exit(ok ? 0 : 1));
 else { console.log('kullanım: --sinav | --mutasyon | --kasa [--liste]'); process.exit(1); }
