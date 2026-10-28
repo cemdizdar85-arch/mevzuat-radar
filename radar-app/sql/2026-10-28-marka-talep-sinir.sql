@@ -66,7 +66,11 @@ begin
   perform public.marka_talep_ac(e || ' ipsiz', null, 'olcu');
   n := n + 1;   -- IP okunamazsa (servis/robot) sınır uygulanmaz, genel tavan geçerli
   update public.marka_talep set created_at = now() - interval '8 days' where unvan = e || ' 1';
-  if public.marka_talep_ip_temizle() < 1 or (select ip from public.marka_talep where unvan = e || ' 1') is not null then raise exception 'OLCU5: 7 gun temizligi'; end if;
+  -- ayrı iki ifade: aynı ifadedeki alt sorgu, fonksiyonun güncellemesini görmez (tek anlık görüntü; ilk koşu bu yüzden düştü)
+  i := public.marka_talep_ip_temizle();
+  if i < 1 then raise exception 'OLCU5a: temizlik % satir', i; end if;
+  if (select ip from public.marka_talep where unvan = e || ' 1') is not null then raise exception 'OLCU5b: 8 gunluk IP silinmedi'; end if;
+  if (select count(*) from public.marka_talep where unvan like e || '%' and ip is not null) <> 20 then raise exception 'OLCU5c: taze IP de silindi'; end if;
   n := n + 1;
   if has_function_privilege('anon', 'public.marka_talep_ip_temizle()', 'execute') then raise exception 'OLCU6: temizlik anon acik'; end if;
   if not has_function_privilege('anon', 'public.marka_talep_ac(text, text, text)', 'execute') then raise exception 'OLCU7: sayfa fonksiyonu kapandi'; end if;
