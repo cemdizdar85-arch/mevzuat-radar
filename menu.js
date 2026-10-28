@@ -552,9 +552,27 @@ function ustSeritKur(){
   return true;
 }
 
+/* 28.10 Cem ("bunu en yukarıya koymayalım mı, küçük şeklini"): üstteki "Bize hemen ulaş" bandında uygulama bağlantıları, YAZI hâlinde
+   (resmî rozet 40 px'ten küçük gösterilemez — Apple kuralı; rozetler sayfa dibinde). Bant iki yerden gelir: menu.js #ttUlas ve
+   index.html kendi #ulasBant'ı → ikisine de buradan eklenir. Telefonda (≤620 px) gizli: orada ana sayfa rozeti + iPhone akıllı bandı var. */
+function ttUlasUygulama(){
+  var ic = document.querySelector('#ttUlas .ic, #ulasBant .ic'); if(!ic || ic.querySelector('.ulas-uyg')) return;
+  if(!document.getElementById('ttUlasUygStil')){
+    var s=document.createElement('style'); s.id='ttUlasUygStil';
+    s.textContent='.ulas-uyg{display:inline-flex;align-items:center;gap:8px;opacity:.95}.ulas-uyg .uu-ad{opacity:.75;font-weight:500}'+
+      '@media(max-width:620px){.ulas-uyg{display:none!important}}';
+    document.head.appendChild(s);
+  }
+  var sp=document.createElement('span'); sp.className='ulas-uyg';
+  sp.innerHTML='<span class="uu-ad">Uygulama:</span><a href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener">App Store</a>'+
+    '<span aria-hidden="true">·</span><a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play</a>';
+  var wp=ic.querySelector('.ulas-wp'); ic.insertBefore(sp, wp || null);
+}
+
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   var ortakSerit=false; try{ ortakSerit=ustSeritKur(); }catch(e){}
+  try{ ttUlasUygulama(); }catch(e){}
   /* 07.10: tema-bas.js eski .top iz satırını bu ana dek gizliyordu (görünüp kaybolmasın) - şerit kuruldu ya da kurulmayacak, aç */
   document.documentElement.classList.remove('tt-ust-bekle');
   if(!ortakSerit){ try{ geriKur(); }catch(e){} }
