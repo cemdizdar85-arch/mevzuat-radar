@@ -583,7 +583,7 @@
 <script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
-<script src="uye-durumu.js?v=20261028s20"></script>
+<script src="uye-durumu.js?v=20261028z"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261028b"></script>
@@ -663,6 +663,15 @@
       else if(ILR.secili) ilerlemeCiz(ILR.secili);   /* sekme şeridi yeniden çizilsin */
     }
     /* 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme alana "Aktif paketin yok" denmez; denemeler son-20-gun.html'de */
+    if(!sinavlar.length && d.son20 && d.son20.durum==='aktif' && d.son20.tur==='yet'){   /* 28.10 Yeterlilik Son 20 Gün ön satış */
+      kap.innerHTML='<div class="og-paket"><span class="og-paket-et">SMMM Yeterlilik · Son 20 Gün</span><b>Sadece Denemeler</b>'
+        +'<span class="og-paket-alt">Ön siparişin alındı. Denemelerin 8 Kasım 2026\'da (sınava 20 gün kala) açılır; o gün bu sayfadan başlarsın.'
+        +(d.son20.bitis?' Erişim '+esc(U.tarihYazi(d.son20.bitis))+' tarihine kadar.':'')+'</span>'
+        +'<div class="og-btnler"><a class="og-btn" href="iletisim.html">Tüm derslere geç (999 TL düşülür)</a></div>'
+        +PB_HTML+'</div>';
+      pbKur(user);
+      return;
+    }
     if(!sinavlar.length && d.son20 && d.son20.durum==='aktif'){
       var s20bas=Date.now()>=Date.parse('2026-11-01T00:00:00+03:00');
       kap.innerHTML='<div class="og-paket"><span class="og-paket-et">Staja Giriş · Son 20 Gün</span><b>Sadece 7 Deneme</b>'

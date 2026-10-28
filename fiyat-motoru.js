@@ -114,13 +114,19 @@ if(erkenKayitAcik()){ ELCI.indirim.sgs = ERKEN_KAYIT.indirim; }
    yerde aynı rakam"): yalnız yeterlilik-tum; sunucu elci_indirim yeterlilik-tum = 600 + kanal kodu ERKENYET600
    (radar-app/sql/2026-10-28-yet-erken-kayit.sql); satın almada kod kutusu boşsa kendiliğinden uygulanır (satin-al otoKod).
    Süre bitince erken-kayit-yet-kapat.yml kodu kapatır, satırı 400'e geri yazar; site bu tarihle kendiliğinden eski fiyata döner. */
-var ERKEN_YET = { bitis:Date.UTC(2026, 10, 7, 20, 59, 59), indirim:600, kod:'ERKENYET600', paket:'yeterlilik-tum' };
+/* 28.10 Cem ("ders ders tam fiyatın altında kaldı, örnek 4 ders" → "ders başı 120 TL indir"): erken kayıtta 4 ders 2.988,
+   tüm dersler 2.868'di. Ders merdiveni de ders başı 120 TL (KDV dahil) iner: 1.068 / 1.668 / 2.148 / 2.508 · tüm 2.868
+   (+KDV 890 / 1.390 / 1.790 / 2.090 / 2.390). Sunucu: radar-app/sql/2026-10-28-yet-erken-ders.sql; kapanışta 50/100/150/200. */
+var ERKEN_YET = { bitis:Date.UTC(2026, 10, 7, 20, 59, 59), indirim:600, kod:'ERKENYET600', paket:'yeterlilik-tum',
+                  ders:{ 'yeterlilik-1':120, 'yeterlilik-2':240, 'yeterlilik-3':360, 'yeterlilik-4':480 } };
 function erkenYetAcik(){ return Date.now() < ERKEN_YET.bitis; }
-if(erkenYetAcik()){ ELCI.indirim[ERKEN_YET.paket] = ERKEN_YET.indirim; }
+function erkenYetInd(id){ return !erkenYetAcik() ? 0 : id === ERKEN_YET.paket ? ERKEN_YET.indirim : (ERKEN_YET.ders[id] || 0); }
+if(erkenYetAcik()){ ELCI.indirim[ERKEN_YET.paket] = ERKEN_YET.indirim;
+  for(var _ed in ERKEN_YET.ders){ ELCI.indirim[_ed] = ERKEN_YET.ders[_ed]; } }
 /* Erken kayıt süresince paketin KDV dahil indirimli tutarı (yoksa 0), kodu ve bitiş yazısı — sayfalar tek yerden okur */
 function erkenNet(p){ if(!p) return 0; if(p.id === 'sgs' && erkenKayitAcik()) return p.fiyat - ERKEN_KAYIT.indirim;
-  if(p.id === ERKEN_YET.paket && erkenYetAcik()) return p.fiyat - ERKEN_YET.indirim; return 0; }
-function erkenKod(id){ return (id === 'sgs' && erkenKayitAcik()) ? ERKEN_KAYIT.kod : (id === ERKEN_YET.paket && erkenYetAcik()) ? ERKEN_YET.kod : ''; }
+  if(erkenYetInd(p.id)) return p.fiyat - erkenYetInd(p.id); return 0; }
+function erkenKod(id){ return (id === 'sgs' && erkenKayitAcik()) ? ERKEN_KAYIT.kod : erkenYetInd(id) ? ERKEN_YET.kod : ''; }
 function erkenBitisYazi(id){ return id === 'sgs' ? '1 Kasım 23:59\'a kadar' : '7 Kasım 23:59\'a kadar'; }
 
 /* ÖZEL İNDİRİM KODU — 19.10.2026 Cem ("birisine 600 TL indirim" → "hem yeterlilik hem SGS için bir kod").
@@ -206,7 +212,7 @@ var KGK_PAKET_MERDIVENI = false;
    yazılmışken bizimkini hariç yazmak farklı temelde kıyas olurdu (karşılaştırmalı reklam).
 --------------------------------------------------------------------------- */
 /* 01.10 (aynı gece) Cem "bitirme artı kdv olarak göster": Yeterlilik paketleri de '+ KDV' (anahtar paket kimliğiyle). */
-var KDV_HARIC_GOSTER = { sgs:true, 'son20-sgs':true, 'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
+var KDV_HARIC_GOSTER = { sgs:true, 'son20-sgs':true, 'son20-yet':true,'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
 /* 27.10: 999 TL'nin KDV hariç tutarı 832,50 (yuvarlanırsa 833 + KDV = 999,60 olurdu); kuruşlu tutar iki haneyle yazılır. */
 function kdvHaric(n){ var h = Math.round(n / (1 + KDV_ORAN) * 100) / 100; return h % 1 ? h.toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) : tl(h); }
 function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? kdvHaric(n) + ' TL + KDV' : tl(n) + ' TL'; }
@@ -249,6 +255,7 @@ var FIYAT = {
   /* 27.10.2026 CEM KARARI ("sadece soru alana 999 tl"): Son 20 Gün "Sadece 7 Deneme" — 7 deneme + konu görevleri,
      sitedeki diğer SGS soruları YOK. KDV dahil 999 (832,50 + KDV). Kotasız; elçi/erken kayıt kodu işlemez. */
   son20Sgs:       { kurulus:999, liste:999 },
+  son20Yet:       { kurulus:999, liste:999 },   /* 28.10 Yeterlilik Son 20 Gün ön satış (8 Kasım'da açılır) */
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.188 < 1.260 · 2 ders 1.908 < 2.520 · 3 ders 2.508 < 3.780
      4 ders 2.988 < 5.040 · tüm dersler 3.468 < 10.080 (01.10 fiyatları, KDV dahil)
@@ -473,6 +480,12 @@ function paketler(){
            fiyat:FIYAT.son20Sgs.kurulus, liste:FIYAT.son20Sgs.liste, kota:null,
            erisim:'21 Kasım 2026 sınavına kadar · denemeler 1 Kasım\'da açılır', sinav:'sgs', acilis:'2026-11-01',
            harcYazi:'7 deneme + konu görevleri · sitedeki diğer SGS soruları yok', acik:true });
+  /* 28.10 Cem ("satın al diyeceğiz, 20 gün kala o gün açılacak diye yaz"): Yeterlilik Son 20 Gün ön satış. Kimlik bilerek
+     'yeterlilik' ile BAŞLAMAZ (paket_erisim_var 'yeterlilik-%' bütün bankayı açar). Sunucu: radar-app/sql/2026-10-28-son20-yet.sql. */
+  L.push({ id:'son20-yet', grup:'SMMM Yeterlilik', ad:'Son 20 Gün — Yeterlilik Sadece Denemeler',
+           fiyat:FIYAT.son20Yet.kurulus, liste:FIYAT.son20Yet.liste, kota:null,
+           erisim:'28 Kasım 2026 sınavına kadar · denemeler 8 Kasım\'da açılır', sinav:'yeterlilik', acilis:'2026-11-08',
+           harcYazi:'8 ders × 3 deneme + konu görevleri · sitedeki diğer Yeterlilik soruları yok', acik:true });
 
   for(var n = 1; n <= 4; n++){
     L.push({ id:'yeterlilik-' + n, grup:'SMMM Yeterlilik',

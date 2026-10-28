@@ -45,7 +45,8 @@
       if(s7&&s7.acik) h+='<br><a href="satin-al.html?paket=son20-sgs'+K+'">Sadece 7 Deneme '+esc(fiyatAna('son20-sgs',s7.fiyat))+'</a>'+dahil('son20-sgs',s7.fiyat);
     } else {
       var t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0;   /* 28.10 Yeterlilik erken kayıt (7 Kasım 23:59) */
-      h='<span class="ana">1 ders '+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>Bir dersin sınav ücreti '+tl(HARC.yeterlilik.ders)+' TL'
+      var pn=(typeof erkenNet==='function'&&erkenNet(p))||p.fiyat;   /* 28.10: ders merdiveni de ders başı 120 TL */
+      h='<span class="ana">1 ders '+esc(fiyatAna(id,pn))+'</span>'+dahil(id,pn)+'<br>Bir dersin sınav ücreti '+tl(HARC.yeterlilik.ders)+' TL'
         +(t&&t.acik?' · tüm dersler '+esc(fiyatAna('yeterlilik-tum',tn||t.fiyat))+dahil('yeterlilik-tum',tn||t.fiyat)
           +(tn?' <small>(erken kayıt, 7 Kasım 23:59\'a kadar · sonra '+tl(t.fiyat)+' TL)</small>':''):'');
     }

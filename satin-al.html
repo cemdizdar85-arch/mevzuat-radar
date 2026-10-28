@@ -349,7 +349,9 @@
     <!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar
          elçi altyapısında, süre bitince .github/workflows/erken-kayit-kapat.yml kapatır. Koşullar: kampanya-son-20-gun.html -->
     <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Geçene Kadar Tetikte erken kayıt:</b> 1 Kasım 23:59'a kadar SGS Tam Pakette <b>600 TL indirim</b> (2.988 TL yerine 2.388 TL). <b>Kod gerekmez</b>, indirim kendiliğinden uygulanır. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. İndirim "Sadece 7 Deneme" paketine uygulanmaz. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
-    <script>(function(){ try { if (Date.now() < Date.UTC(2026,10,1,20,59,59)) document.getElementById('erkenKayit').hidden = false; } catch(e){} })();</script>
+    <script>/* 28.10: SGS kutusu yalnız SGS paketi seçiliyken (Yeterlilik seçene SGS kampanyası yazılmaz); ozetCiz her seçimde yeniden çağırır */
+      function erkenKutuCiz(id){ try { document.getElementById('erkenKayit').hidden = !(Date.now() < Date.UTC(2026,10,1,20,59,59) && (!id || id === 'sgs' || id === 'son20-sgs')); } catch(e){} }
+      erkenKutuCiz(new URLSearchParams(location.search).get('paket'));</script>
     <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
     <div id="kodKutu" hidden>
       <label class="et" for="kod">Elçi / indirim kodu</label>
@@ -440,7 +442,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261028y"></script>
+<script src="fiyat-motoru.js?v=20261028z"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -614,6 +616,7 @@ document.getElementById('dersSayi').addEventListener('click', function(e){
 document.getElementById('dersListe').addEventListener('change', function(){ if(TEKLIF) ozetCiz(); });
 
 function ozetCiz(){
+  if(typeof erkenKutuCiz === 'function') erkenKutuCiz(secili ? secili.id : '');
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
   document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Bir paket seç.';

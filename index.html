@@ -596,13 +596,15 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <!-- 28.10 Cem ("bunu da Yeterlilik'e geliyor diye ekleyelim; son 20 gün kala gelecek; üye olmak isteyenlere erken üyelik verelim,
            kaçırmayalım; 20 gün ne kadar kaldı ölç, o gün açacağız"): 28 Kasım − 20 gün = 8 Kasım 2026. Fiyat/kurgu kararı YOK →
            kartta fiyat ve deneme sayısı yazılmaz; düğme mevcut ön kayıt formuna (e-posta + izin, ucretsiz-dene.html#onkayit). -->
-      <article class="pk-kart pk-yakinda" data-sinav-kart="yeterlilik">
+      <!-- 28.10 Cem ("buna satın al diyeceğiz; kaçında açacaksan 20 gün kala o gün açılacak diye yaz"): ön kayıt kartı satışa döndü
+           (son20-yet, 999 TL KDV dahil, SGS 7 Deneme ile aynı düzen). Açılış 8 Kasım = 28 Kasım − 20 gün; kalan gün [data-yet20-gun]. -->
+      <article class="pk-kart" data-paket="son20-yet">
         <p class="pk-sinav">SMMM Yeterlilik · Son 20 Gün</p>
-        <h3>8 Kasım'da açılıyor</h3>
-        <p class="pk-fiyat" style="font-size:22px" data-yet20-gun>Yakında</p><p class="pk-alt">28 Kasım sınavına son 20 gün</p>
-        <ul><li>Sınava özel yeni sorular</li><li>Son 10 yılın en sık çıkan konularından</li><li>Ön kayıt olana açılınca ilk haber</li></ul>
-        <a class="pk-al" href="ucretsiz-dene.html?sinav=yeterlilik&amp;onkayit=yet-s20&amp;k=yet-s20#onkayit">Ön kayıt ol</a>
-        <p class="pk-sonra">Fiyat ve paket 8 Kasım'da açıklanır.</p>
+        <h3>Sadece Denemeler</h3>
+        <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
+        <ul><li>8 dersin her birinde 3 deneme</li><li>Konu görevleri ve açıklamalar</li><li>Denemeler 8 Kasım'da açılır: sınava 20 gün kala</li></ul>
+        <a class="pk-al" href="satin-al.html?paket=son20-yet">Satın al · 8 Kasım'da başla</a>
+        <p class="pk-sonra" data-yet20-gun></p>
       </article>
     </div>
   </div>
@@ -751,9 +753,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261028y"></script>
+<script src="fiyat-motoru.js?v=20261028z"></script>
 <script src="gkt.js?v=1"></script>
-<script src="uye-durumu.js?v=20261028s20"></script>
+<script src="uye-durumu.js?v=20261028z"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script>
 (function(){
@@ -860,25 +862,25 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       if(sec==='sgs'){ var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), y=paketBul('son20-sgs');
         /* 28.10 Cem ("7 deneme 1 Kasım'da gelecek, onu belli edelim; 1 Kasım sonraki fiyatları da yazsak"): sonraki fiyat + açılış günü */
         h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · erken kayıt 1 Kasım 23:59\'a kadar, sonra Tam Paket '+tl(paketBul('sgs').fiyat)+' TL':'')+' · 7 deneme 1 Kasım\'da açılıyor</small>'; }
-      else if(sec==='yeterlilik'){ var a=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0;
+      else if(sec==='yeterlilik'){ var a0=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0,
+          a={fiyat:(typeof erkenNet==='function'&&erkenNet(a0))||a0.fiyat};   /* 28.10: ders merdiveni de erken kayıtta ders başı 120 TL */
         /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda.
            28.10 Cem: tüm derslerde 7 Kasım 23:59'a kadar erken kayıt (fiyat-motoru.js ERKEN_YET), sonraki fiyat yazılır. */
         h='1 ders <b>'+fiyatAna('yeterlilik-1',a.fiyat)+'</b>\'den · tüm dersler <b>'+fiyatAna('yeterlilik-tum',tn||t.fiyat)+'</b><small>KDV dahil '+tl(a.fiyat)+' TL / '+tl(tn||t.fiyat)+' TL'
-          +(tn?' · tüm dersler erken kayıt 7 Kasım 23:59\'a kadar, sonra '+tl(t.fiyat)+' TL':' · ders sayısını satın alırken seçersin')+'</small>'; }
+          +(tn?' · erken kayıt 7 Kasım 23:59\'a kadar, sonra tüm dersler '+tl(t.fiyat)+' TL':' · ders sayısını satın alırken seçersin')
+          +(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, 8 Kasım\'da açılır':'')+'</small>'; }
     }catch(x){ h=''; }
     e.innerHTML=h; e.hidden=!h||aktif;
   }
   function pkSuz(sec){
     var bol=$('paketler'); if(!bol) return; var gor=0;
     [].forEach.call(bol.querySelectorAll('.pk-kart[data-paket]'),function(k){
-      var id=k.getAttribute('data-paket'), s=(id==='sgs'||id==='son20-sgs')?'sgs':(id.indexOf('yeterlilik')===0?'yeterlilik':'kgk');
+      var id=k.getAttribute('data-paket'), s=(id==='sgs'||id==='son20-sgs')?'sgs':(id.indexOf('yeterlilik')===0||id==='son20-yet'?'yeterlilik':'kgk');
       k.hidden=(s!==sec); if(!k.hidden) gor++; });
-    /* 28.10 Yeterlilik Son 20 Gün ön kayıt kartı: 8 Kasım 2026'ya (28 Kasım − 20) kalan gün; açılış günü gelince kart kalkar */
-    [].forEach.call(bol.querySelectorAll('.pk-kart[data-sinav-kart]'),function(k){
-      var acilis=Date.parse('2026-11-08T00:00:00+03:00'), kal=Math.ceil((acilis-Date.now())/864e5);
-      k.hidden=(k.getAttribute('data-sinav-kart')!==sec)||kal<=0;
-      var g=k.querySelector('[data-yet20-gun]'); if(g) g.textContent=kal>1?kal+' gün sonra':'Yarın';
-      if(!k.hidden) gor++; });
+    /* 28.10 Yeterlilik Son 20 Gün: 8 Kasım 2026'ya (28 Kasım − 20) kalan gün kartın altında */
+    var g=bol.querySelector('[data-yet20-gun]');
+    if(g){ var kal=Math.ceil((Date.parse('2026-11-08T00:00:00+03:00')-Date.now())/864e5);
+      g.textContent=kal>1?'Açılışa '+kal+' gün var':kal===1?'Yarın açılıyor':'Denemeler açıldı'; }
     bol.hidden=!gor;
     var b=$('paketBas'); if(b) b.textContent=sec==='yeterlilik'?'SMMM Yeterlilik paketleri':'SMMM Staja Giriş paketleri';
   }
@@ -890,7 +892,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       var yt=paketBul('yeterlilik-tum'), yn=erkenNet(yt);
       m='🎯 <b>SMMM YETERLİLİK ERKEN KAYIT</b> · 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL ('+tl(yt.fiyat)+' TL yerine) · Son 20 Gün 8 Kasım\'da · <u>Hemen al →</u>'; href='satin-al.html?paket=yeterlilik-tum'; a.setAttribute('aria-label','Yeterlilik erken kayıt: 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL. Satın al.'); }
     else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){   /* 28.10: Yeterlilik Son 20 Gün ön kaydı */
-      m='🎯 <b>SMMM YETERLİLİK · SON 20 GÜN</b> · 28 Kasım sınavına son 20 gün, 8 Kasım\'da açılıyor · sınava özel yeni sorular · <u>Ön kayıt ol →</u>'; href='ucretsiz-dene.html?sinav=yeterlilik&onkayit=yet-s20&k=yet-s20-serit#onkayit'; a.setAttribute('aria-label','SMMM Yeterlilik Son 20 Gün 8 Kasım\'da açılıyor. Ön kayıt ol.'); }
+      m='🎯 <b>SMMM YETERLİLİK · SON 20 GÜN</b> · 28 Kasım sınavına son 20 gün, denemeler 8 Kasım\'da açılıyor · Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL · <u>Satın al →</u>'; href='satin-al.html?paket=son20-yet'; a.setAttribute('aria-label','SMMM Yeterlilik Son 20 Gün: denemeler 8 Kasım\'da açılıyor. Satın al.'); }
     else { m='🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · '+(sec==='yeterlilik'?'SMMM Yeterlilik':'Staja Giriş')+' · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u>'; href='en-cok-cikan-sorular.html?sinav='+(sec==='yeterlilik'?'yeterlilik':'sgs'); a.setAttribute('aria-label','Yeni: Sınavda en çok çıkan konulardan sorular, ders ders. Aç.'); }
     iz.innerHTML='<span>'+m+'</span><span>'+m+'</span>'; a.href=href;
   }
@@ -1072,17 +1074,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     var hr=KDV_HARIC_GOSTER[p.id], a=k.querySelector('.pk-al');
     /* 28.10 Cem ("burada 2388 yazıyor başka yerde farklı fiyatlar"): erken kayıt süresince SGS Tam Paketin TEK büyük rakamı
        2.388 TL (KDV dahil, satın almada kodsuz uygulanan indirim); "ilk 1.000 üyeden sonra" satırı bu sürede yazılmaz. */
-    if(p.id==='son20-sgs'){   /* 28.10: 7 Deneme kartı KDV dahil (kampanya kartlarıyla aynı dil) */
+    if(p.id==='son20-sgs'||p.id==='son20-yet'){   /* 28.10: Son 20 Gün kartları KDV dahil (kampanya kartlarıyla aynı dil) */
       k.querySelector('[data-fiyat]').innerHTML=tl(p.fiyat)+' <small>TL</small>';
-      k.querySelector('[data-dahil]').textContent='KDV dahil · '+kdvHaric(p.fiyat)+' TL + KDV · denemeler 1 Kasım\'da açılır';
-      k.querySelector('[data-sonra]').innerHTML=''; return;
+      k.querySelector('[data-dahil]').textContent='KDV dahil · '+kdvHaric(p.fiyat)+' TL + KDV · denemeler '+(p.id==='son20-yet'?'8':'1')+' Kasım\'da açılır';
+      var ds=k.querySelector('[data-sonra]'); if(ds) ds.innerHTML=''; return;
     }
-    if(p.id==='yeterlilik-tum'&&typeof erkenYetAcik==='function'&&erkenYetAcik()){   /* 28.10 Yeterlilik erken kayıt: kartın kendi + KDV yazımı */
+    if(typeof erkenYetInd==='function'&&erkenYetInd(p.id)){   /* 28.10 Yeterlilik erken kayıt (tüm + ders ders): kartın kendi + KDV yazımı */
       var yn=erkenNet(p);
       k.querySelector('[data-fiyat]').innerHTML=kdvHaric(yn)+' <small>TL + KDV</small>';
       k.querySelector('[data-dahil]').textContent='KDV dahil '+tl(yn)+' TL · '+tl(p.fiyat)+' TL yerine · 7 Kasım 23:59\'a kadar erken kayıt';
       k.querySelector('[data-sonra]').innerHTML='';
-      a.textContent='Satın al'; a.setAttribute('href','satin-al.html?paket=yeterlilik-tum'); a.removeAttribute('aria-disabled');
+      a.textContent='Satın al'; a.setAttribute('href','satin-al.html?paket='+p.id); a.removeAttribute('aria-disabled');
       return;
     }
     if(p.id==='sgs'&&typeof erkenKayitAcik==='function'&&erkenKayitAcik()){

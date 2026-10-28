@@ -57,7 +57,7 @@ const SEVIYE = (ek, eksik) => {
     canonical: '<link rel="canonical" href="https://tetikte.com/seviye-testi.html">',
     sayac: '<script data-goatcounter="https://x.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>',
     menu: '<script src="menu.js" defer></script>', komutcss: '<link rel="stylesheet" href="komut.css">', komut: '<script src="komut.js" defer></script>',
-    fiyat: '<script src="fiyat-motoru.js?v=1"></script>', uye: '<script src="uye-durumu.js?v=1"></script>'
+    fiyat: '<script src="fiyat-motoru.js?v=20261028z"></script>', uye: '<script src="uye-durumu.js?v=20261028z"></script>'
   };
   if (eksik) delete satir[eksik];
   return '<!doctype html><html lang="tr"><head>' + satir.canonical + '<link rel="stylesheet" href="stil.css"></head><body>' +

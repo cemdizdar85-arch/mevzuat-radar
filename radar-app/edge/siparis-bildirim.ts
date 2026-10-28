@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "487207003d419c6b";
+const KOD_IMZA = "cf8d944203554d74";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -113,16 +113,19 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   // 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme ön satış — "paketin açıldı, hemen başla" YAZILMAZ; denemeler 1 Kasım'da
   // son-20-gun.html'de açılır. Öteki paketlerin maili birebir aynı.
-  const onSiparis = s.paket === "son20-sgs";
+  // 28.10: Yeterlilik Son 20 Gün (son20-yet) de ön satış — denemeler 8 Kasım'da; sayfası henüz yok → adres Hesabım.
+  const onYet = s.paket === "son20-yet";
+  const onSiparis = s.paket === "son20-sgs" || onYet;
+  const acilisG = onYet ? "8 Kasım 2026" : "1 Kasım 2026";
   const durumAd = onSiparis ? "ön siparişin kayda geçti" : "paketin açıldı";
   const konu = tekMail ? `Siparişin onaylandı: ${s.siparis_no} · ${durumAd}` : `Ödemen onaylandı, ${durumAd}: ${s.paket_ad || s.paket}`;
   const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
   const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
-  const adres = onSiparis ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
+  const adres = onSiparis && !onYet ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
   const giris = onSiparis
     ? (hesapVar
-      ? "Son 20 Gün denemelerin 1 Kasım 2026'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından başla."
-      : "Son 20 Gün denemelerin 1 Kasım 2026'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.")
+      ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, ${onYet ? "Hesabım'dan" : "Son 20 Gün sayfasından"} başla.`
+      : `Son 20 Gün denemelerin ${acilisG}'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.`)
     : hesapVar
     ? "tetikte.com'a bu e-postayla giriş yap; Hesabım'da paketin görünür, soru çözmeye hemen başlayabilirsin."
     : "Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.";

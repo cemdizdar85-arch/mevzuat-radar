@@ -14,7 +14,7 @@
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit (kapalı, enabledInstallments [1]) · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "fc605e0c6c3aae12";
+const KOD_IMZA = "177d114a08b7932a";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -80,6 +80,7 @@ function paketFiyat(F: any, paket: string) {
   if (paket === "yeterlilik-tum") return { f: F.yeterlilikTum, sinav: "yeterlilik" };
   // 27.10 Geçene Kadar Tetikte: "Sadece 7 Deneme" (KOTA'da satırı yok → taban liste = kuruluş = 999)
   if (paket === "son20-sgs") return { f: F.son20Sgs, sinav: "son20" };
+  if (paket === "son20-yet") return { f: F.son20Yet, sinav: "son20" };   // 28.10 Yeterlilik Son 20 Gün ön satış
   return null;
 }
 
