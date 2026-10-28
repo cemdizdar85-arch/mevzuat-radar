@@ -835,7 +835,12 @@ function ttSorguHakki(anahtar){
      eski cihazlardaki mrOnizleme işareti de silinir; gizli sayfa artık herkese kapalı. */
   try {
     localStorage.removeItem('mrOnizleme');
-    if (GIZLI.test(location.pathname)) { location.replace('/index.html'); return; }
+    /* 28.10 marka nöbeti (marka kolu ba4ad5f7): sayfa gizli kalır, ama maildeki iki bağlantı açılır — "onayla"
+       (?nobet=onay&j=, radar-app/edge/marka-nobet.ts) ve "nöbeti kapat" (?nobet=kapat&jeton=, motor/marka-uyari.js). Kapat
+       bağlantısı ana sayfaya düşüyordu → abone maildeki bağlantıyla çıkamıyordu (KVKK). Başka sorgu muaf değil. */
+    var mailBag = /(^|\/)marka-itiraz\.html$/.test(location.pathname)
+      && /^\?nobet=(onay&j=[A-Za-z0-9]+|kapat&jeton=[A-Za-z0-9_-]+)$/.test(location.search);
+    if (GIZLI.test(location.pathname) && !mailBag) { location.replace('/index.html'); return; }
   } catch (e) {}
   function suz() {
     var kendi = location.pathname;
