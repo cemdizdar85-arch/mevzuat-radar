@@ -78,6 +78,13 @@
   .og-btn:hover{border-color:var(--amber)}
   .og-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
   .og-btnler{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+  .hk-satir{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}.hk-satir.hk-tamam{opacity:.75}
+  .hk-bas{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;font-size:14.5px}.hk-ders{display:block;color:var(--muted);font-size:12.5px;margin-top:1px}
+  .hk-et{flex:none;font-size:12px;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--line)}.hk-et.iyi{background:#e3f4e5;color:#1b5e20}.hk-et.kotu{background:#fdecea;color:#b71c1c}.hk-et.orta{background:#fff4e0;color:#8a5a00}
+  .hk-olcu{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:10px;margin-top:6px;font-size:13px}
+  .hk-cubuk{position:relative;display:block;height:8px;border-radius:99px;background:var(--line);overflow:visible}.hk-cubuk i{display:block;height:100%;border-radius:99px}
+  .hk-cubuk b{position:absolute;top:-3px;width:2px;height:14px;background:var(--ink,#222);opacity:.6}
+  .hk-tum>summary{cursor:pointer;color:var(--link);font-weight:700;font-size:14px;margin-top:6px}
   .og-hedef{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:13.5px;color:var(--ink2,inherit)}
   .og-hedef-sec{display:flex;gap:6px}
   .og-hedef-sec button{font:inherit;font-weight:700;min-width:44px;min-height:36px;border-radius:99px;border:1px solid var(--line);background:transparent;color:inherit;cursor:pointer}
@@ -451,6 +458,16 @@
       <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
     </div>
     </details>
+    <!-- 28.10 KONU HEDEFLERİN (Cem "SmartPath gibi yapalım"; UWorld ürün içi ölçüm 28.10): sık konu başına iki çubuk - çözülen soru / hedef,
+         doğru oranı / geçme kuralı. Veri: calisma-ozet.js dokunulmamis() r.tumu (coz/olc/dog/banka). Hedef kaynağı kutunun altında yazılı. -->
+    <div class="og-bolum og-gizli" id="ogHedefK" style="margin-top:8px">
+      <div class="og-kutu">
+        <span class="og-paket-et">🎯 Konu hedeflerin</span>
+        <p class="og-alt" id="ogHedefKUst" style="margin:6px 0 10px;font-size:14px"></p>
+        <div id="ogHedefKListe"></div>
+        <p class="og-alt" id="ogHedefKAlt" style="margin:10px 0 0;font-size:12.5px"></p>
+      </div>
+    </div>
     <!-- 07.10 Nöbetçi planı madde 2: sık çıkıp hiç dokunulmamış konular (Yeterlilik) / dersler (SGS) - calisma-ozet.js dokunulmamis() -->
     <details class="op-katli">
       <summary><span class="op-k-ik"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><span class="op-k-yazi"><b id="opDokunmaOzet">Sık çıkıp hiç dokunmadığın konular</b><small id="opDokunmaAlt">Okunuyor…</small></span></summary>
@@ -569,7 +586,7 @@
 <script src="uye-durumu.js?v=20261028s20"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
-<script src="calisma-ozet.js?v=20261028a"></script>
+<script src="calisma-ozet.js?v=20261028b"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -775,10 +792,44 @@
 
   /* 07.10 Nöbetçi planı madde 2: "Hiç dokunmadığın konular". Rakam yalnız Yeterlilik'te ve metinden okunmuş sayımdan
      (kural: "dışarı çıkan sınav rakamı"): dönem sayısı + kanıt (dönem, soru no). SGS'de ders listesi, rakamsız. */
+  /* 28.10 KONU HEDEFLERİN (Cem "SmartPath gibi"): her sık konu için iki çubuk.
+     DOĞRU ORANI HEDEFİ %60 — resmî: SGS = SMMM Staj Yönetmeliği m.7 "staja giriş sınavından en az 60 puan"; Yeterlilik = SMMM/YMM
+       Sınav Yönetmeliği m.16(b) "her konudan 100 üzerinden en az 50 … ortalamanın en az 60". Oran en az 5 bilinen cevapla gösterilir.
+     SORU HEDEFİ: konu başına 20 soru (bankada daha azı varsa hepsi) — tasarım kararı, ekranda açıkça yazılır; "geçenlerin %90'ı"
+       gibi bir cümle KURULMAZ (geçen aday verisi birikene dek). Sıra: hedefte olmayanlar önce, konunun çıkma sıklığına göre.
+     🚫 GÖRMEZ: ücretsiz örnek cevapları hesapta yok (yalnız bu cihazdaki kc_kayit) · 2026-10-28 SQL'inden önce hesaptan gelen
+       cevabın doğruluğu (o=null, orana girmez) · KGK (konu bağı yok, bölüm gizli). */
+  var HEDEF_ORAN=60, HEDEF_SORU=20;
+  function hedefKonuCiz(r){
+    var kap=$('ogHedefK'); if(!kap) return;
+    if(!r||r.tur!=='konu'||!Array.isArray(r.tumu)||!r.tumu.length){ kap.classList.add('og-gizli'); return; }
+    var ys=r.sinav==='yeterlilik';
+    var L=r.tumu.map(function(x){ var hs=Math.max(1,Math.min(HEDEF_SORU,x.banka||HEDEF_SORU)), oran=x.olc>=5?Math.round(100*x.dog/x.olc):null;
+      var tamam=x.coz>=hs&&oran!==null&&oran>=HEDEF_ORAN; return { x:x, hs:hs, oran:oran, tamam:tamam }; });
+    L.sort(function(a,b){ return (a.tamam-b.tamam)||((b.x.donSay||0)-(a.x.donSay||0)); });
+    var tamamSay=L.filter(function(z){ return z.tamam; }).length;
+    $('ogHedefKUst').textContent=(ys?'Her dersin en sık çıkan 5 konusu':'Staja Giriş\'te en sık çıkan '+L.length+' konu')+': '+tamamSay+' / '+L.length+' konuda hedeftesin.'+(tamamSay<L.length?' Sıradaki:':'');
+    var cubuk=function(y,isaret,renk){ return '<span class="hk-cubuk"><i style="width:'+Math.max(0,Math.min(100,y))+'%;background:'+renk+'"></i>'+(isaret!=null?'<b style="left:'+isaret+'%"></b>':'')+'</span>'; };
+    var satir=function(z,ilk){ var x=z.x, sy=Math.round(100*Math.min(1,x.coz/z.hs));
+      var durum=z.tamam?'<span class="hk-et iyi">✓ Hedefte</span>':x.coz===0?'<span class="hk-et">Başlamadın</span>':(z.oran!==null&&z.oran<HEDEF_ORAN)?'<span class="hk-et kotu">Doğru oranı düşük</span>':'<span class="hk-et orta">Devam</span>';
+      return '<div class="hk-satir'+(z.tamam?' hk-tamam':'')+'"><div class="hk-bas"><b>'+esc(x.konu)+'</b>'+durum+'</div>'
+        +(ys?'<small class="hk-ders">'+esc(x.ders)+'</small>':'')
+        +'<div class="hk-olcu"><span>Soru <b>'+x.coz+' / '+z.hs+'</b></span>'+cubuk(sy,null,'var(--amber-dolgu)')+'</div>'
+        +'<div class="hk-olcu"><span>Doğru '+(z.oran===null?'<b>—</b> <small>(5 soru sonra)</small>':'<b>%'+z.oran+'</b> / %'+HEDEF_ORAN)+'</span>'+cubuk(z.oran===null?0:z.oran,HEDEF_ORAN,z.oran!==null&&z.oran>=HEDEF_ORAN?'var(--yesil,#2e7d32)':'var(--kirmizi,#c62828)')+'</div>'
+        +(ilk?'<a class="og-btn ana og-kucuk" style="margin-top:8px" href="'+esc(x.sayfa)+'">Şimdi bunu çöz →</a>':'')+'</div>'; };
+    var ilkAcik=L.findIndex(function(z){ return !z.tamam; });
+    var ust=L.slice(0,5), alt=L.slice(5);
+    $('ogHedefKListe').innerHTML=ust.map(function(z,j){ return satir(z,j===ilkAcik); }).join('')
+      +(alt.length?'<details class="hk-tum"><summary>Tüm sık konular ('+L.length+')</summary>'+alt.map(function(z){ return satir(z,false); }).join('')+'</details>':'');
+    $('ogHedefKAlt').textContent='Hedef nereden: doğru oranı %'+HEDEF_ORAN+' sınavın geçme kuralı ('+(ys?'SMMM/YMM Sınav Yönetmeliği m.16: her dersten en az 50, ortalama en az 60':'SMMM Staj Yönetmeliği m.7: en az 60 puan')+'). Soru hedefi: her sık konudan '+HEDEF_SORU+' soru (bankada daha az varsa hepsi). Konular, '+(r.pencere?r.pencere.replace('-','–')+' arasındaki ':'')+(r.donem?r.donem+' sınavda ':'çıkmış sınavlarda ')+'en sık sorulanlar. Oran, en az 5 cevaptan sonra görünür.';
+    kap.classList.remove('og-gizli');
+    try{ if(window.ttSay&&!window.__hkSay){ window.__hkSay=1; ttSay('hesabim/konu-hedef','Hesabım: konu hedefleri görüldü'); } }catch(e){}
+  }
   function dokunmaCiz(s){
     if(!window.ttCalisma||!ttCalisma.dokunulmamis) return;
     ttCalisma.dokunulmamis(s,function(r){
       if(ILR.secili!==s) return;
+      try{ hedefKonuCiz(r); }catch(e){}
       var kap=$('ogDokunma');
       if(!r){ kap.classList.add('og-gizli'); try{ kap.closest('details').classList.add('og-gizli'); }catch(e){} return; }
       try{ kap.closest('details').classList.remove('og-gizli'); }catch(e){}
