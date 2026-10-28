@@ -1,11 +1,11 @@
 {
-  "tarih": "28.10.2026 05:11",
+  "tarih": "28.10.2026 07:27",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
   "atifli_iddia": 313,
-  "dayanaksiz_iddia": 517,
+  "dayanaksiz_iddia": 518,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -1469,43 +1469,49 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 728,
+      "satir": 729,
       "iddia": "30 gün",
       "metin": "/* 13.10: Instagram/Facebook'tan gelen mi? menu.js'in kaynak etiketi (?k=, 30 gün cihazda) ya da yönlendiren adres. */"
     },
     {
       "sayfa": "index.html",
-      "satir": 808,
+      "satir": 809,
       "iddia": "20 Gün",
       "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, 8 Kasım\\'da açılır':'')+' '; }"
     },
     {
       "sayfa": "index.html",
-      "satir": 820,
+      "satir": 821,
       "iddia": "20 Gün",
       "metin": "else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){ /* 28.10: Yeterlilik Son 20 Gün ön kaydı */"
     },
     {
       "sayfa": "index.html",
-      "satir": 863,
+      "satir": 864,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek\"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */"
     },
     {
       "sayfa": "index.html",
-      "satir": 866,
+      "satir": 867,
       "iddia": "20 Gün",
       "metin": "$('uyeHosMetin').innerHTML='👋 Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'. '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\\'da açılır.':'Denemelerin seni bek"
     },
     {
       "sayfa": "index.html",
-      "satir": 941,
+      "satir": 876,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Cem (GM önerisi 2 \"yap\"): Son 20 Gün denemeleri AÇIKKEN paketli üyenin karşılama şeridi Son 20 Gün olur (Hesabım ve Soru çöz"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 951,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1006,
+      "satir": 1016,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
