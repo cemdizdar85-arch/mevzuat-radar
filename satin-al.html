@@ -105,7 +105,8 @@
   /* --- paket secimi --- */
   .grup{ font-size:12.5px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
   /* 17.10: ?paket= ile seçilerek gelinince yalnız o paket (öteki paketler "Başka paket seç" ile) */
-  #paketler.odak .pk:not(.sec), #paketler.odak .grup, #paketler.odak > p{ display:none; }
+  #paketler.odak .pk:not(.sec):not(.kardes), #paketler.odak .grup, #paketler.odak > p{ display:none; }
+  #paketler.odak{ display:flex; flex-direction:column; } #paketler.odak .pk.sec{ order:-1; }   /* 28.10: seçilen üstte, kardeşi altında */
   #paketler.odak .pk.sec{ margin-top:14px; }
   /* 18.10: ders sayısı seçicisi (ders kutusunun başında) */
   .ders-sayi{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
@@ -485,6 +486,25 @@ var ELCI_GRUPLAR = (function(){
 })();
 if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GRUP || p.grup === 'Ek'; }); }
 else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPLAR[p.grup] || p.grup === 'Ek'; }); }
+/* 28.10 Cem (ekran görüntüsü: kartta 2.490 + KDV / 2.988, özette 2.388): paket kartı ana sayfa kartıyla AYNI rakamı yazar
+   (paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta
+   "ilk 1.000 üyeden sonra" satırı yazılmaz. Ödenen tutar yine özetteki hesap (sunucu doğrular). */
+function pkFiyatHtml(p){
+  var net = (typeof erkenNet === 'function') ? erkenNet(p) : 0, ayr = '<span>' + p.not + '</span></span>';
+  if(p.id === 'son20-sgs' || p.id === 'son20-yet')
+    return '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b><span style="color:var(--ink);font-weight:700">KDV dahil · ' + kdvHaric(p.fiyat) + ' TL + KDV</span>'
+      + '<span>denemeler ' + (p.id === 'son20-yet' ? '8' : '1') + ' Kasım\'da açılır</span>' + ayr;
+  if(net && p.id === 'sgs')
+    return '<span class="fy"><b>' + tl(net) + ' TL</b><span style="color:var(--ink);font-weight:700">KDV dahil · ' + tl(p.fiyat) + ' TL yerine</span>'
+      + '<span>erken kayıt · ' + erkenBitisYazi(p.id) + '</span>' + ayr;
+  if(net)
+    return '<span class="fy"><b>' + kdvHaric(net) + ' TL + KDV</b><span style="color:var(--ink);font-weight:700">KDV dahil ' + tl(net) + ' TL · ' + tl(p.fiyat) + ' TL yerine</span>'
+      + '<span>erken kayıt · ' + erkenBitisYazi(p.id) + '</span>' + ayr;
+  return '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
+    + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
+    + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
+    + ayr;
+}
 (function(){
   var kap = document.getElementById('paketler'), grup = '', h = '';
   PAKETLER.forEach(function(p){
@@ -498,10 +518,7 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
        + (p.id === 'yeterlilik-tum' ? ayriKiyas() : '')
        + '<span class="enCok" data-pk="' + p.id + '" style="display:none;color:var(--amber);font-weight:700;font-size:12px;margin-top:3px">En çok seçilen</span>'
        + '</span>'
-       + '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
-       + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
-       + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
-       + '<span>' + p.not + '</span></span></label>';
+       + pkFiyatHtml(p) + '</label>';
   });
   if(ODAK_GRUP || ELCI_GRUPLAR){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
   kap.innerHTML = h;
@@ -842,6 +859,12 @@ ozetCiz();
      paket TEK başına görünür; öteki paketler "Başka paket seç" ile açılır. Ders seçimi (ders bazlı pakette zorunlu) hemen altında. */
   if(r){
     var kap = document.getElementById('paketler'); kap.classList.add('odak');
+    /* 28.10 Cem ("satın al bastığımda paketlerde bu çıkıyor, iki tane çıkması lazım, 7 test koyduk artık"): odakta seçilenin yanında
+       o sınavın öteki ana seçeneği de görünür — Staja Giriş: Tam Paket ↔ Sadece 7 Deneme · Yeterlilik: seçilen ders paketi /
+       tüm dersler ↔ Son 20 Gün. Öteki paketler yine "Başka paket seç" ile açılır. */
+    var KARDES = { 'sgs':['son20-sgs'], 'son20-sgs':['sgs'], 'son20-yet':['yeterlilik-tum'] };
+    var kardes = KARDES[q] || (/^yeterlilik-/.test(q) ? ['son20-yet'] : []);
+    kardes.forEach(function(id){ var el = kap.querySelector('.pk[data-id="' + id + '"]'); if(el) el.classList.add('kardes'); });
     var b = document.createElement('button'); b.type = 'button'; b.id = 'pkTumu'; b.className = 'pk-tumu';
     b.textContent = 'Başka paket seç';
     b.addEventListener('click', function(){ kap.classList.remove('odak'); b.remove(); });
@@ -1040,7 +1063,9 @@ function davetKodOku(){
     var k = document.querySelector('input[name=ftip]:checked');
     if(k && k.value === 'kurumsal'){ k.dispatchEvent(new Event('change')); }
     akdOzetCiz();
-    if(adim1Hata()){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
+    /* 28.10 Cem ("iki tane çıkması lazım"): seçilen paketin kardeşi varsa (Tam Paket ↔ 7 Deneme) paket adımı AÇIK başlar,
+       iki seçenek görünür; kişi seçip "Devam"a basar. Kardeşsiz pakette eski akış (bilgiler adımı açılır). */
+    if(adim1Hata() || document.querySelector('#paketler.odak .pk.kardes')){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
     barGuncelle();
     /* 07.10 (titreme): sipariş alanı adımlar kurulunca görünür. Sayfa betiğinin sonunda açılıyordu; canlı telefonda baslat ~1,9 sn'de
        1. adımı kapatıp 2.'yi açınca alan zıplıyordu (kayma 0,26). 5 sn yedek head'de. */
