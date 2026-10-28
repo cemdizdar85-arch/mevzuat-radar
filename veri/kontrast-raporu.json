@@ -1,38 +1,7 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 245,
-  "koyu_gecis": 82,
-  "koyu_bekleyen": [],
-  "temiz_sayfa": 244,
-  "denetlenen_metin": 24025,
-  "toplam_kirik": 1,
-  "denetlenen_sinir": 6597,
-  "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "kampanya-son-20-gun.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Yeterlilik koşulları →",
-          "oran": 1.54,
-          "esik": 4.5,
-          "renk": "rgb(255, 194, 75)",
-          "zemin": "rgb(251,250,248)",
-          "iz": "<a href=\"#yeterlilik\">Yeterlilik koşulları →</a>"
-        }
-      ]
-    }
-  ]
+  "chrome_stderr": "[2441:2478:1028/072848.825959:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2441:2478:1028/072853.104331:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2441:2478:1028/072853.104364:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
 }
