@@ -19,15 +19,15 @@
   + '<article class="pk-kart" data-paket="yeterlilik-1"><p class="pk-sinav">SMMM Yeterlilik</p><h3>Seçtiğin dersler</h3>'
   + '<div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
-  + '<ul><li>Yalnız kaldığın sınav dersleri</li><li>Son 20 Gün: seçtiğin her dersin 3 denemesi</li><li>Kalırsan o ders geçene kadar ücretsiz</li></ul>'
+  + '<ul><li>Yalnız kaldığın sınav dersleri</li><li>Son 20 Gün: seçtiğin her dersin 5 denemesi</li><li>Kalırsan o ders geçene kadar ücretsiz</li></ul>'
   + '<a class="pk-al" href="satin-al.html?paket=yeterlilik-1">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart pk-one" data-paket="yeterlilik-tum"><p class="pk-sinav">SMMM Yeterlilik</p><h3>Tüm dersler</h3>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
-  + '<ul><li>Sınırsız soru: sekiz dersin tamamı</li><li>Son 20 Gün: 8 ders × 3 deneme</li><li>Kalırsan kaldığın dersler geçene kadar ücretsiz</li></ul>'
+  + '<ul><li>Sınırsız soru: sekiz dersin tamamı</li><li>Son 20 Gün: 8 ders × 5 deneme</li><li>Kalırsan kaldığın dersler geçene kadar ücretsiz</li></ul>'
   + '<a class="pk-al" href="satin-al.html?paket=yeterlilik-tum">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart" data-paket="son20-yet"><p class="pk-sinav">SMMM Yeterlilik · Son 20 Gün</p><h3>Sadece Denemeler</h3>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
-  + '<ul><li>8 dersin her birinde 3 deneme</li><li>Konu görevleri ve açıklamalar</li><li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li></ul>'
+  + '<ul><li>8 dersin her birinde 5 deneme</li><li>Konu görevleri ve açıklamalar</li><li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li></ul>'
   + '<a class="pk-al" href="satin-al.html?paket=son20-yet">Satın al · 8 Kasım\'da başla</a><p class="pk-sonra" data-yet20-gun></p></article>';
 
   function tlx(n){ return typeof tl === 'function' ? tl(n) : String(n); }

@@ -16,7 +16,7 @@
   var SINIR={ sgs:{ acilis:'2026-11-01T00:00:00+03:00', son:'2026-11-22T00:00:00+03:00', gun:'1' },
               yet:{ acilis:'2026-11-08T00:00:00+03:00', son:'2026-11-29T00:00:00+03:00', gun:'8' } };
   var KURAL={ sgs:'Söze yalnız bu 7 deneme sayılır: 7\'sini bitir, en az 5\'inde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla.',
-              yet:'Söz her ders için ayrı: o dersin 3 denemesini bitir, en az 2\'sinde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla; hepsi 28 Kasım\'dan önce.' };
+              yet:'Söz her ders için ayrı: o dersin 5 denemesini bitir, en az 3\'ünde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla; hepsi 28 Kasım\'dan önce.' };
   var bekleyen=null;
   function kalanGun(t){ return Math.max(0, Math.ceil((t-Date.now())/864e5)); }
   function puan(d){ var top=0,dog=0,bitti=!!(d.dersler&&d.dersler.length);

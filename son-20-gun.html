@@ -349,12 +349,12 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
   function yetCiz(){
     document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';
     $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik';
-    $('s20Alt').textContent='SMMM Yeterlilik · 28 Kasım 2026. Her dersin 3 denemesi var (20 soru, 45 dakika); bir denemeyi bitirdiğinde sonucun ve açıklamalar açılır.';
+    $('s20Alt').textContent='SMMM Yeterlilik · 28 Kasım 2026. Her dersin 5 denemesi var (20 soru, 45 dakika); bir denemeyi bitirdiğinde sonucun ve açıklamalar açılır.';
     var ko=document.querySelector('.ust a[href="kampanya-son-20-gun.html"]'); if(ko) ko.href='kampanya-son-20-gun.html#yeterlilik';
-    $('soz').querySelector('.soz-s').innerHTML='<div><b>0/8</b><span>şartı tamam ders</span></div><div><b>3</b><span>deneme her derste</span></div><div><b>2/3</b><span>%60 ve üstü gerekir</span></div>';
-    $('sozNot').innerHTML='Şart, her ders için ayrı: o dersin 3 denemesini bitir, en az 2\'sinde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla; hepsi 28 Kasım\'dan önce. <a href="kampanya-son-20-gun.html#yeterlilik">Koşullar</a>';
+    $('soz').querySelector('.soz-s').innerHTML='<div><b>0/8</b><span>şartı tamam ders</span></div><div><b>5</b><span>deneme her derste</span></div><div><b>3/5</b><span>%60 ve üstü gerekir</span></div>';
+    $('sozNot').innerHTML='Şart, her ders için ayrı: o dersin 5 denemesini bitir, en az 3\'ünde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla; hepsi 28 Kasım\'dan önce. <a href="kampanya-son-20-gun.html#yeterlilik">Koşullar</a>';
     $('denemeler').innerHTML=YET_DERSLER.map(function(ders){
-      return '<article class="kart dn"><h2>'+esc(ders)+' <small>3 deneme</small></h2><ul class="dersler">'+[1,2,3].map(function(n){
+      return '<article class="kart dn"><h2>'+esc(ders)+' <small>5 deneme</small></h2><ul class="dersler">'+[1,2,3,4,5].map(function(n){
         return '<li><span class="ad">Deneme '+n+'<small>20 soru · 45 dk</small></span><span><span class="sonuc-rozet">'+(Date.now()<ACILIS?'8 Kasım\'da açılır':'Bugün içinde açılır')+'</span></span></li>'; }).join('')+'</ul></article>'; }).join('');
     sb.auth.getSession().then(function(r){ var k=$('kapi');
       if(!(r&&r.data&&r.data.session)){ k.hidden=false; k.innerHTML='<h2>Giriş yap ya da paketini al</h2><p>Son 20 Gün denemeleri <b>Sadece Denemeler</b>, <b>Tüm dersler</b> ve <b>ders ders</b> paket üyelerine açık (ders ders pakette seçtiğin dersler).</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a></div>'; } }).catch(function(){});

@@ -485,7 +485,7 @@ function paketler(){
   L.push({ id:'son20-yet', grup:'SMMM Yeterlilik', ad:'Son 20 Gün — Yeterlilik Sadece Denemeler',
            fiyat:FIYAT.son20Yet.kurulus, liste:FIYAT.son20Yet.liste, kota:null,
            erisim:'28 Kasım 2026 sınavına kadar · denemeler 8 Kasım\'da açılır', sinav:'yeterlilik', acilis:'2026-11-08',
-           harcYazi:'8 ders × 3 deneme + konu görevleri · sitedeki diğer Yeterlilik soruları yok', acik:true });
+           harcYazi:'8 ders × 5 deneme + konu görevleri · sitedeki diğer Yeterlilik soruları yok', acik:true });
 
   for(var n = 1; n <= 4; n++){
     L.push({ id:'yeterlilik-' + n, grup:'SMMM Yeterlilik',
