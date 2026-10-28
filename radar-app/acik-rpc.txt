@@ -23,13 +23,13 @@ elci_panelim                   U  # sayfa: elci.html, ogrenci.html
 elci_sozlesme_onayla           U  # sayfa: elci.html
 hatirlatma_ret                 A  # sayfa: hatirlatma-ret.html
 hesabimi_sil                   U  # sayfa: mobil/uygulama/uygulama.js
-kasa_cevap_yaz                 A  # sayfa: kasa-yukle.js
-kasa_ders_fihrist              A  # sayfa: kasa-yukle.js
-kasa_dizin                     A  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js
-kasa_soru_getir                A  # sayfa: kasa-yukle.js, mobil/hazirla-sinavi.js +1
-kasa_soru_idler                A  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js +1
-kasa_soru_parca                A  # sayfa: kasa-yukle.js
-kasa_tavan_bildir              A  # sayfa: kasa-yukle.js, sinav-gibi.html
+kasa_cevap_yaz                 U  # sayfa: kasa-yukle.js
+kasa_ders_fihrist              U  # sayfa: kasa-yukle.js
+kasa_dizin                     A  # mağaza uygulaması (uygulama-karma.js) girişsiz çağırırsa [] bekler; içerik vermez
+kasa_soru_getir                U  # sayfa: kasa-yukle.js, mobil/hazirla-sinavi.js +1
+kasa_soru_idler                U  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js +1
+kasa_soru_parca                U  # sayfa: kasa-yukle.js
+kasa_tavan_bildir              U  # sayfa: kasa-yukle.js, sinav-gibi.html
 kaynak_say                     A  # sayfa: menu.js, paket-kapisi.js
 kaynak_uye                     U  # sayfa: menu.js
 kurucu_sayac                   A  # sayfa: fiyat-motoru.js
