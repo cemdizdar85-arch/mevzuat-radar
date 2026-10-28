@@ -1310,8 +1310,11 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       if(j>=0){ const d=document.createElement('div'); d.className='moralNot';
         d.innerHTML='🌱 <button type="button" class="moralB">'+(tur==='konu'?'Aynı konudan kolay bir soru dene':'Bu dersten kolay bir soruyla devam et')+' →</button>';
         geri.appendChild(d); gcOlay('moral/teklif/'+GC_YOL,'Kolay benzer soru: teklif');
-        d.querySelector('.moralB').addEventListener('click',()=>{ window.__DONUS={j:j,geri:i+1}; gcOlay('moral/tikla/'+GC_YOL,'Kolay benzer soru: tıklandı');
-          const hk=akis.children[j]; if(hk){ hk.scrollIntoView({behavior:'smooth'}); const sb=hk.querySelector('.sadeSonraki'); if(sb) sb.textContent='Kaldığın yere dön →'; } }); } } }catch(e){}
+        // 28.10 (Cem "kimse kitlenmesin"; kilit sınavında Cem'in hesabında bulundu): kolay soru TAM sıradaki soruysa (j===i+1)
+        //   dönüş noktası kendisiydi → "Kaldığın yere dön" kişiyi bulunduğu karta yolluyor, düğme hiçbir şey yapmıyordu.
+        //   O durumda özel dönüş kurulmaz; düğme olağan "Sonraki soru" kalır.
+        d.querySelector('.moralB').addEventListener('click',()=>{ window.__DONUS=(j>i+1)?{j:j,geri:i+1}:null; gcOlay('moral/tikla/'+GC_YOL,'Kolay benzer soru: tıklandı');
+          const hk=akis.children[j]; if(hk){ hk.scrollIntoView({behavior:'smooth'}); const sb=hk.querySelector('.sadeSonraki'); if(sb&&j>i+1) sb.textContent='Kaldığın yere dön →'; } }); } } }catch(e){}
   };
   k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>cevapla(b,b.dataset.h)));
   { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
