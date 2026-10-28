@@ -41,12 +41,12 @@ if (process.argv.includes('--mutasyon')) {
 }
 
 /* --------------------------- geçici depo kurucu --------------------------- */
-const KABUK = (yol, ek) => '<!doctype html><html data-kasa-sayfa="' + yol + '" lang="tr"><head><script src="../../paket-kapisi.js?v=20261028s"></script>' +
+const KABUK = (yol, ek) => '<!doctype html><html data-kasa-sayfa="' + yol + '" lang="tr"><head><script src="../../paket-kapisi.js?v=20261028t"></script>' +
   '<title>Tetikte · Kaydır-Çöz</title></head><body><div id="akis"></div>' + (ek || '') +
   '<script type="text/x-tetikte-kasa" id="kasaAna">const SORULAR=window.__KASA_SORULAR||[];</script><script src="../../kasa-yukle.js"></script></body></html>';
 const VITRIN = (ek, adet) => {
   const d = []; for (let i = 0; i < (adet || 1); i++) d.push({ soru: 'Mal fiyatı artarsa? ' + i, ders: 'D' + (i % 3), dogru: 'B' });
-  return '<!doctype html><html lang="tr"><head><script src="../../paket-kapisi.js?v=20261028s"></script></head><body>' +
+  return '<!doctype html><html lang="tr"><head><script src="../../paket-kapisi.js?v=20261028t"></script></head><body>' +
     '<script>const SORULAR=' + JSON.stringify(d) + ';' + (ek || '') + '</script></body></html>';
 };
 
@@ -68,7 +68,7 @@ const SEVIYE = (ek, eksik) => {
 /* 09.10 1.8.1 öteki site sayfaları: hepsi bütün söküm işaretlerini taşır (listelenmeyen işaret çıktıda kalır, zararsız);
    sinav-gibi.html ayrıca kökteki paket-kapisi.js etiketini taşır. */
 const SITE_DIGER = ['yanlislarim.html', 'canli-deneme.html', 'en-cok-cikan-konular-sgs.html', 'en-cok-cikan-konular-yeterlilik.html'];
-const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" href="stil.css">', kapisiz ? '' : '<script src="paket-kapisi.js?v=20261028s"></script>')
+const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" href="stil.css">', kapisiz ? '' : '<script src="paket-kapisi.js?v=20261028t"></script>')
   .replace('<a href="ogrenci.html', '<a href="sorular.html#sgs">Soru çöz</a><a href="ogrenci.html');
 const SITE_EK_SAHTE = {};
 ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js',
@@ -127,11 +127,11 @@ const VAKALAR = [
   { ad: 'vitrin 12 soru → dokunulmaz (12)', bekle: 0, desen: /ücretsiz 1 sayfa\/12 soru/,
     d: { 'kaydir/vitrin/ornek-sgs.html': VITRIN('', 12) } },
   { ad: 'vitrinde SORULAR dizisi okunamıyor → KAPI-UCRETSIZ', bekle: 1, desen: /KAPI-UCRETSIZ/,
-    d: { 'kaydir/vitrin/ornek-sgs.html': '<html><head><script src="../../paket-kapisi.js?v=20261028s"></script></head><body><script>const SORULAR=[{bozuk</script></body></html>' } },
+    d: { 'kaydir/vitrin/ornek-sgs.html': '<html><head><script src="../../paket-kapisi.js?v=20261028t"></script></head><body><script>const SORULAR=[{bozuk</script></body></html>' } },
   { ad: 'kasa sayfasında gömülü SORULAR → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*gömülü/,
     d: { 'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html', '<script>const SORULAR=[{"x":1}]</script>') } },
   { ad: 'kabuk işareti yok (eski gömülü sayfa listeye yazılmış) → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*işareti yok/,
-    d: { 'kaydir/sgs/turkce.html': '<html><head><script src="../../paket-kapisi.js?v=20261028s"></script></head><body></body></html>' } },
+    d: { 'kaydir/sgs/turkce.html': '<html><head><script src="../../paket-kapisi.js?v=20261028t"></script></head><body></body></html>' } },
   { ad: 'kasa listesinde beklenmeyen yol → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*beklenmeyen yol/,
     d: { 'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html', 'veri/deneme/sgs-set-01.json'] }) } },
   { ad: 'uygulama dosyasında "dogru": → KAPI-SIZINTI', bekle: 1, desen: /KAPI-SIZINTI/,

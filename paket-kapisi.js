@@ -172,7 +172,7 @@
       baslik = 'Senin paketin: ' + (yet20 ? 'Yeterlilik Son 20 Gün' : 'Sadece 7 Deneme');
       metin = 'Bu sayfa paketinde yok. ' + (Date.now() < acilT ? 'Denemelerin ' + (yet20 ? '8' : '1') + ' Kasım 2026\'da açılır.' : 'Denemelerin seni bekliyor.')
         + ' Bütün soru bankası için Tam Pakete geçebilirsin; ödediğin 999 TL düşülür.';
-      dugmeler = '<a class="pk-ana" href="' + KOK + (yet20 ? 'ogrenci.html' : 'son-20-gun.html') + '">' + (yet20 ? 'Hesabıma git' : 'Son 20 Gün sayfam') + '</a>' +
+      dugmeler = '<a class="pk-ana" href="' + KOK + (yet20 ? 'son-20-gun.html?sinav=yeterlilik' : 'son-20-gun.html') + '">Son 20 Gün sayfam' + '</a>' +
         '<a href="' + KOK + 'iletisim.html">Tam Pakete geç</a>';
     } else {
       baslik = 'Bağlantı kurulamadı';
@@ -183,7 +183,7 @@
       var d = document.createElement('div');
       d.id = 'pkPerde';
       d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
-      var xAdr = tur === 'son20-sgs' ? KOK + 'son-20-gun.html' : tur === 'son20-yet' ? KOK + 'ogrenci.html'   /* 28.10 Son 20 Gün üyesi kendi sayfasına */
+      var xAdr = tur === 'son20-sgs' ? KOK + 'son-20-gun.html' : tur === 'son20-yet' ? KOK + 'son-20-gun.html?sinav=yeterlilik'   /* 28.10 Son 20 Gün üyesi kendi sayfasına */
         : KOK + 'sorular.html' + (yetSayfa ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs');
       d.innerHTML = '<a class="pk-x" href="' + xAdr + '" aria-label="Kapat">✕</a><div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
       document.body.appendChild(d);

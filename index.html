@@ -864,7 +864,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       var s20=UYE&&UYE.son20&&UYE.son20.durum==='aktif'&&!Object.keys(UYE.sinavlar||{}).some(function(k){ return UYE.sinavlar[k]&&UYE.sinavlar[k].durum==='aktif'; })?UYE.son20:null;
       if(hz&&s20&&!kapali){ var y20=s20.tur==='yet', once20=Date.now()<Date.parse(y20?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00');
         $('uyeHosMetin').innerHTML='👋 <b>Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'.</b> '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\'da açılır.':'Denemelerin seni bekliyor.');
-        $('uyeHosBtn').textContent=y20?'Hesabım →':'Son 20 Gün sayfam →'; $('uyeHosBtn').href=y20?'ogrenci.html':'son-20-gun.html'; hz.hidden=false;
+        $('uyeHosBtn').textContent='Son 20 Gün sayfam →'; $('uyeHosBtn').href=y20?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html'; hz.hidden=false;
         $('uyeHosX').onclick=function(){ hz.hidden=true; try{ sessionStorage.setItem('uye_hos_kapat','1'); }catch(e){} };
       } else
       if(hz&&d.durum==='aktif'&&oz&&oz.ad&&/^[a-z0-9\/._-]+\.html$/i.test(oz.sayfa||'')&&!kapali){

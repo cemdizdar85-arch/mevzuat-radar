@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "3593b93e8d3f19d2";
+const KOD_IMZA = "fc4f0a974e43fbdc";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -121,10 +121,10 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const konu = tekMail ? `Siparişin onaylandı: ${s.siparis_no} · ${durumAd}` : `Ödemen onaylandı, ${durumAd}: ${s.paket_ad || s.paket}`;
   const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
   const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
-  const adres = onSiparis && !onYet ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
+  const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : onSiparis ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
   const giris = onSiparis
     ? (hesapVar
-      ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, ${onYet ? "Hesabım'dan" : "Son 20 Gün sayfasından"} başla.`
+      ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından başla.`
       : `Son 20 Gün denemelerin ${acilisG}'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.`)
     : hesapVar
     ? "tetikte.com'a bu e-postayla giriş yap; Hesabım'da paketin görünür, soru çözmeye hemen başlayabilirsin."
@@ -157,7 +157,7 @@ ${odemeAd ? satir("Ödeme", kacis(odemeAd)) : ""}
 <p>${kacis(giris)}</p>
 ${cayma ? `<p>${kacis(cayma)}</p>` : ""}
 <p style="color:#3d4b63">${kacis(baska)}</p>
-<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onYet ? "Hesabıma git" : onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
+<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
 ${tekMail ? `<p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz. E-arşiv faturan da bu adrese gönderilir.</p>` : ""}
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };

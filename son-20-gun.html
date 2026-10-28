@@ -87,6 +87,8 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
 .dog{color:var(--green);font-weight:850}.yan{color:var(--red);font-weight:850}
 .inc .a{font-size:14.5px;color:var(--muted);margin:4px 0 0;white-space:pre-wrap}
 .uyari{color:var(--red);font-weight:650}
+.kart.acilis{border:2px solid var(--amber-dolgu,#f3a52a);background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 9%,var(--kagit,#fff))}
+.kart.acilis h2{margin:0 0 4px}.kart.acilis p{margin:0}.kart.acilis .gun{color:var(--amber,#9a6400);font-weight:800}
 .dip{font-size:12.5px;color:var(--dim);margin-top:26px}
 @media(max-width:640px){ .soz-s{grid-template-columns:1fr 1fr 1fr;gap:6px} .soz-s b{font-size:20px} .skor{grid-template-columns:1fr 1fr}
   .dersler li{flex-wrap:wrap} .soru{font-size:16px} }
@@ -101,7 +103,9 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
 
   <section id="liste" aria-labelledby="s20Bas">
     <h1 id="s20Bas">Son 20 Gün · 7 deneme</h1>
-    <p class="alt">SMMM Staja Giriş · 21 Kasım 2026. Her deneme ders ders testlerden oluşur; bir dersin testini bitirdiğinde sonucun ve açıklamalar açılır.</p>
+    <p class="alt" id="s20Alt">SMMM Staja Giriş · 21 Kasım 2026. Her deneme ders ders testlerden oluşur; bir dersin testini bitirdiğinde sonucun ve açıklamalar açılır.</p>
+    <!-- 28.10 Cem ("giremiyorsun deme, 1 Kasım açılacak orası"): açılıştan önce sayfa ne zaman açılacağını söyler, "hazırlanıyor" demez -->
+    <div class="kart acilis" id="acilisKart" hidden></div>
     <div class="kart soz" id="soz" aria-live="polite">
       <h2>Söz sayacın</h2>
       <div class="soz-s">
@@ -152,6 +156,16 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
   var sb=window.__pkSb||(window.__pkSb=supabase.createClient(SB_URL,SB_KEY));
   var DENEME_SAYI=7, LISTE=null, T=null, saat=null;
   function $(i){ return document.getElementById(i); }
+  /* 28.10 Cem ("1 Kasım açılacak orası; hem staja giriş hem bitirmede"): açılış öncesi kartı. Yeterlilik (?sinav=yeterlilik) 8 Kasım. */
+  var YET=/[?&]sinav=(yeterlilik|smmm)\b/.test(location.search), ACILIS=Date.parse(YET?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00');
+  function kalanGun(){ return Math.max(0, Math.ceil((ACILIS-Date.now())/864e5)); }
+  function acilisCiz(){
+    var k=$('acilisKart'); if(!k) return; if(Date.now()>=ACILIS){ k.hidden=true; return; }
+    var g=kalanGun();
+    k.innerHTML='<h2>Denemeler '+(YET?'8':'1')+' Kasım 2026\'da açılıyor</h2><p><span class="gun">'+(g>1?g+' gün kaldı':'Yarın açılıyor')+'</span> · '
+      +(YET?'Sınava 20 gün kala. ':'')+'Paketini şimdi al; denemeler o gün bu sayfada hesabında açılır.</p>';
+    k.hidden=false;
+  }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function uyar(m){ $('uyariMetin').textContent=m; $('uyari').hidden=false; window.scrollTo(0,0); }
   $('uyariX').addEventListener('click',function(){ $('uyari').hidden=true; });
@@ -191,11 +205,11 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     for(var no=1; no<=DENEME_SAYI; no++){
       var d=byNo[no];
       h+='<article class="kart dn" id="d'+no+'"><h2>Deneme '+no;
-      if(!d){ h+='</h2><p class="not">Hazırlanıyor. Kalite kontrolünden geçince burada açılır.</p></article>'; continue; }
+      if(!d){ h+='</h2><p class="not">'+(Date.now()<ACILIS?'1 Kasım 2026\'da açılır.':'Bugün içinde açılır.')+'</p></article>'; continue; }
       var p=puan(d);
       if(p.bitti) h+=' <span class="puan '+(p.puan>=60?'ok':'no')+'">'+'%'+p.puan.toLocaleString('tr-TR')+' doğru'+(p.puan>=60?' ✓':'')+'</span>';
       h+=' <small>'+d.toplam+' soru</small></h2>';
-      if(!d.acik){ h+='<p class="not">'+(d.acilis&&new Date(d.acilis)>new Date()? esc(tarih(d.acilis))+' itibarıyla açılır.' : 'Kalite kontrolünden geçince açılır.')+'</p></article>'; continue; }
+      if(!d.acik){ h+='<p class="not">'+(d.acilis&&new Date(d.acilis)>new Date()? esc(tarih(d.acilis))+'\'da açılır.' : Date.now()<ACILIS? '1 Kasım 2026\'da açılır.' : 'Bugün içinde açılır.')+'</p></article>'; continue; }
       if(!p.bitti) h+='<p class="not">Doğru oranı, bütün ders testleri bitince çıkar: toplam doğru / '+d.toplam+'.</p>';
       h+='<ul class="dersler">'+d.dersler.map(function(x){
         var s=x.sonuc, sag=s? '<span class="sonuc-rozet">'+s.dogru+'/'+s.toplam+' doğru</span><button type="button" class="dg iki" data-no="'+no+'" data-ders="'+esc(x.ders)+'">Yeniden çöz</button>'
@@ -328,7 +342,25 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     window.scrollTo(0, $('gGeri').offsetTop-80);
   });
   $('gCik').addEventListener('click',function(){ G=null; goster('liste'); yukle(); });
-  yukle();
+  /* 28.10 Yeterlilik görünümü (8 Kasım öncesi): sunucu kaydı henüz yok → ders kartları + açılış günü + şart; giriş yapmamışa kapı.
+     Denemeler yüklendiğinde bu görünüm s20 Yeterlilik kaydına bağlanacak (plan A+B). */
+  var YET_DERSLER=['Finansal Muhasebe','Finansal Tablolar ve Analizi','Maliyet Muhasebesi','Muhasebe Denetimi',
+    'Vergi Mevzuatı ve Uygulaması','Hukuk','Meslek Hukuku','Sermaye Piyasası Mevzuatı'];
+  function yetCiz(){
+    document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';
+    $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik';
+    $('s20Alt').textContent='SMMM Yeterlilik · 28 Kasım 2026. Her dersin 3 denemesi var (20 soru, 45 dakika); bir denemeyi bitirdiğinde sonucun ve açıklamalar açılır.';
+    var ko=document.querySelector('.ust a[href="kampanya-son-20-gun.html"]'); if(ko) ko.href='kampanya-son-20-gun.html#yeterlilik';
+    $('soz').querySelector('.soz-s').innerHTML='<div><b>0/8</b><span>şartı tamam ders</span></div><div><b>3</b><span>deneme her derste</span></div><div><b>2/3</b><span>%60 ve üstü gerekir</span></div>';
+    $('sozNot').innerHTML='Şart, her ders için ayrı: o dersin 3 denemesini bitir, en az 2\'sinde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla; hepsi 28 Kasım\'dan önce. <a href="kampanya-son-20-gun.html#yeterlilik">Koşullar</a>';
+    $('denemeler').innerHTML=YET_DERSLER.map(function(ders){
+      return '<article class="kart dn"><h2>'+esc(ders)+' <small>3 deneme</small></h2><ul class="dersler">'+[1,2,3].map(function(n){
+        return '<li><span class="ad">Deneme '+n+'<small>20 soru · 45 dk</small></span><span><span class="sonuc-rozet">'+(Date.now()<ACILIS?'8 Kasım\'da açılır':'Bugün içinde açılır')+'</span></span></li>'; }).join('')+'</ul></article>'; }).join('');
+    sb.auth.getSession().then(function(r){ var k=$('kapi');
+      if(!(r&&r.data&&r.data.session)){ k.hidden=false; k.innerHTML='<h2>Giriş yap ya da paketini al</h2><p>Son 20 Gün denemeleri <b>Sadece Denemeler</b>, <b>Tüm dersler</b> ve <b>ders ders</b> paket üyelerine açık (ders ders pakette seçtiğin dersler).</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a></div>'; } }).catch(function(){});
+  }
+  acilisCiz();
+  if(YET) yetCiz(); else yukle();
 })();
 </script>
 </body>

@@ -225,7 +225,7 @@
   function son20Yalniz(){ return !!SON20 && !Object.keys(PAKET).length; }
   function son20Ciz(){
     var yet=SON20.tur==='yet', acilT=Date.parse(yet?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00'), once=Date.now()<acilT;
-    derslerEl.innerHTML='<a class="sc-deneme" href="'+(yet?'ogrenci.html':'son-20-gun.html')+'"><span><span class="sc-deneme-et">'+(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün</span>'
+    derslerEl.innerHTML='<a class="sc-deneme" href="'+(yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html')+'"><span><span class="sc-deneme-et">'+(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün</span>'
       +'<b>'+(yet?'Sadece Denemeler':'Sadece 7 Deneme')+'</b>'
       +'<span class="sc-deneme-alt">'+(once?'Ön siparişin alındı. Denemelerin '+(yet?'8':'1')+' Kasım 2026\'da açılır; o gün buradan başlarsın.':'Denemelerin açık. Her deneme ders ders testlerden oluşur; puanın ve açıklamalar test bitince açılır.')+'</span></span>'
       +'<span class="sc-deneme-git">'+(yet?'Hesabıma git →':'Son 20 Gün sayfam →')+'</span></a>'
