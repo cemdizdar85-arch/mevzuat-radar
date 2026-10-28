@@ -58,7 +58,9 @@ const eslesir = (L, y) => L.dahil.some(r => r.test(y)) && !L.haric.some(r => r.t
 /* ---- YASAK: yayına ASLA girmeyecek iç dosyalar (listeden bağımsız ikinci kilit) ---- */
 const YASAK = [
   /(^|\/)[^/]*\.(md|ps1|psm1|psd1|sql|ts|yml|yaml|bat|cmd|sh|py|cs|csproj|sln|env|pem|key|bak|log)$/i,
-  /^(motor|arac|radar-app|rag-motor|mobil|evrak-app|tasarim|pazarlama|kapsam|kaynak-ozetleri|gelen|_[^/]*|\.[^/]*)\//,
+  /* 28.10: mobil/uygulama/ilerleme.js TEK istisna - sitenin kendisi kullanır (ilerleme-web.js kaldığın yer + ogrenci.html günlük
+     hedef dinamik yükler; kopya tutulmaz). Beyaz liste yayınına geçişte düşmüştü, canlıda 404 (kilit sınavında bulundu). */
+  /^(motor|arac|radar-app|rag-motor|mobil(?!\/uygulama\/ilerleme\.js$)|evrak-app|tasarim|pazarlama|kapsam|kaynak-ozetleri|gelen|_[^/]*|\.[^/]*)\//,
   /^\.(git|github)/,
   /^(CLAUDE|DEVIR-NOTU|README)(\.|$)/i,
 ];
@@ -66,7 +68,8 @@ const yasakMi = y => YASAK.some(r => r.test(y));
 
 /* ---- ZORUNLU: sitenin olmazsa olmazı + haritadaki ve canlı taramadaki her sayfa ---- */
 function zorunluListe(kok) {
-  const z = ['index.html', '404.html', 'CNAME', 'robots.txt', 'sitemap.xml', 'manifest.webmanifest', 'menu.js', 'stil.css', 'stil-acik.css'];
+  const z = ['index.html', '404.html', 'CNAME', 'robots.txt', 'sitemap.xml', 'manifest.webmanifest', 'menu.js', 'stil.css', 'stil-acik.css',
+    'mobil/uygulama/ilerleme.js'];   // 28.10: dinamik yüklenir (KOPUK denetimi görmez) → olmazsa olmaz listesinde
   try {
     const h = fs.readFileSync(path.join(kok, 'sitemap.xml'), 'utf8');
     for (const m of h.matchAll(/<loc>https?:\/\/[^/<]+\/([^<]*)<\/loc>/g)) z.push(m[1] === '' || m[1].endsWith('/') ? m[1] + 'index.html' : m[1]);
@@ -175,6 +178,7 @@ function sinav() {
     'sitemap.xml': '<urlset><url><loc>https://x.com/</loc></url><url><loc>https://x.com/fiyat.html</loc></url></urlset>',
     'kaydir/sgs/turkce.html': '<img src="../../gorsel/a.png">', 'gorsel/a.png': 'p',
     'veri/a.json': '{}', 'veri/b.json': '{}', 'veri/IC-NOT.md': '#', 'veri/ic.json': '{}',
+    'mobil/uygulama/ilerleme.js': '/* tek kaynak */', 'mobil/uygulama/uygulama.js': '/* iç */',   // 28.10 istisna: biri yayında, öteki YASAK
     'CLAUDE.md': '#', 'motor/x.ps1': '', 'radar-app/sql/UYGULANDI.md': '', 'radar-app/edge/f.ts': '', 'kok-not.md': '',
     'gizli.html': '<!-- motor/x.ps1 üretir --> <script>/* "arac/y.js" yorumu */</script>', 'arac/y.js': '',
     'motor/canli-tarama.js': "const SAYFALAR = [\n  ['index.html', ['#nav', '.uc'], true],\n  ['kaydir/sgs/turkce.html?x=1', ['body'], false],\n];",
@@ -182,7 +186,7 @@ function sinav() {
     '.github/workflows/b.yml': 'name: Yalniz okur\n# git push yapmaz\njobs: {}\n',
     '.github/workflows/site-yayin.yml': 'on:\n  workflow_run:\n    workflows:\n' + TETIK_BAS + '\n      - "Robot A (ite)"   # a.yml\n' + TETIK_SON + '\n',
   };
-  const LISTE = '*.html\n*.js\n*.css\n*.webmanifest\nCNAME\nrobots.txt\nsitemap.xml\nkaydir/**\ngorsel/**\nveri/a.json\nveri/b.json\n';
+  const LISTE = '*.html\n*.js\n*.css\n*.webmanifest\nCNAME\nrobots.txt\nsitemap.xml\nkaydir/**\ngorsel/**\nveri/a.json\nveri/b.json\nmobil/uygulama/ilerleme.js\n';
   function kos(ad, ekDosya, liste, bekleIhlal) {
     const kok = fs.mkdtempSync(path.join(os.tmpdir(), 'sy-'));
     yaz(kok, Object.assign({}, TEMEL, ekDosya)); fs.writeFileSync(path.join(kok, '_liste.txt'), liste);
@@ -209,6 +213,8 @@ function sinav() {
   kos('liste veri/** açtı', {}, LISTE + 'veri/**\n', 'YASAK');
   // 5) liste motor/ açtı
   kos('liste motor/** açtı', {}, LISTE + 'motor/**\n', 'YASAK');
+  kos('liste mobil/** açtı (istisna yalnız ilerleme.js)', {}, LISTE + 'mobil/**\n', 'YASAK');   // 28.10
+  kos('ilerleme.js listeden düştü', {}, LISTE.replace('mobil/uygulama/ilerleme.js\n', ''), 'ZORUNLU');   // 28.10 canlıda 404 olmuştu
   // 6) haric satırı çalışıyor: veri/** açık ama !veri/*.md ve !veri/ic.json kapalı -> temiz
   kos('hariç satırı', {}, LISTE + 'veri/**\n!veri/*.md\n!veri/ic.json\n', '');
   // 7) zorunlu sayfa (haritadaki fiyat.html) silinmiş

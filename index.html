@@ -11,6 +11,7 @@
      Bayat anahtarda Hesabım giriş formunu gösterir (ogrenci.html ana sayfaya geri atmaz - döngü yok, 17.10 okundu). -->
 <script>try{ if(!/[?&](ana|sinav)=/.test(location.search) && !/^#ekran/.test(location.hash) && Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; })) location.replace('ogrenci.html'); }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-itunes-app" content="app-id=6816072026">   <!-- 28.10: iPhone Safari akıllı bandı (App Store, Apple çizer) -->
 <meta name="color-scheme" content="light">
 <title>Tetikte — SMMM Staja Giriş ve Yeterlilik sınavı: yanlışını sebebiyle birlikte öğren</title>
 <link rel="canonical" href="https://tetikte.com/">
@@ -89,8 +90,11 @@ html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 18.10 Cem ("üst şeritleri sadeleştir"): telefonda tek şerit - kayan duyuru görünürken Android indirme ve prova şeritleri çıkmaz (✕ ile duyuru kapanınca geri gelir) */
 body:has(#kayanSerit:not([hidden])) #uygSerit,body:has(#kayanSerit:not([hidden])) #provaSerit{display:none!important}
 .uyg-serit [data-kapat]{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-.uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
-html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
+.uyg-indir{margin:12px 0 0;font-size:14.5px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px}
+html body .uyg-indir a{display:block;line-height:0}
+.uyg-indir a[hidden]{display:none}
+.uyg-indir img.uyg-as{height:40px;width:auto}
+.uyg-indir img.uyg-gp{height:58px;width:auto;margin:-9px;max-width:none}   /* Google rozeti iç boşluklu: görünen boy Apple'la eşit */
 .uyg-serit{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink)}
 .uyg-serit>span{flex:1 1 auto;min-width:0}
 html body .uyg-serit a{color:var(--ink)!important;font-weight:700;white-space:nowrap}
@@ -398,11 +402,22 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   html body .secim-bolum{padding-top:4px}
   html body .secim-bolum .secim-bas{margin-bottom:8px}
 }
-@media(min-width:901px) and (max-height:860px){
-  html body .kah h1{font-size:clamp(30px,2.8vw,37px);margin-bottom:8px}
-  html body .kah .maskot{max-width:300px}
-  html body .kah{padding-top:12px}
-  html body .secim-bolum .sinav{min-height:64px}
+/* 28.10 Cem ("tam sığmıyor, sığdır ve kontrol et"): ekran boyuna göre sabit kural yetmedi (ölçeklenmiş ekranlar). sigdir() açılışta,
+   sınav değişince ve pencere değişince büyük düğmelerin altını ölçer; ekran dışındaysa sıkıştırma basamağını artırır (sig1..sig4). */
+@media(min-width:901px){
+  html.sig1 body .kah h1{font-size:clamp(30px,2.8vw,40px);margin-bottom:8px}
+  html.sig1 body .kah{padding-top:12px}
+  html.sig1 body .secim-bolum .sinav{min-height:64px}
+  html.sig2 body .kah .maskot{max-width:280px}
+  html.sig2 body .kah h1{font-size:34px}
+  html.sig2 body .kah .kah-secim{margin-bottom:6px}
+  html.sig2 body .kah .kah-ust{margin-bottom:4px}
+  html.sig3 body .kah #kahAlt{display:none}
+  html.sig3 body .kah h1{font-size:30px}
+  html.sig3 body .kah .kah-secim-bas{display:none}
+  html.sig4 body .kah .maskot{max-width:200px}
+  html.sig4 body .secim-bolum .sinav{min-height:52px}
+  html.sig4 body .secim-bolum .secim-bas{display:none}
 }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
@@ -491,7 +506,11 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <!-- 17.10 Duolingo "Zaten hesabım var" küçük bağlantı; oturumu açık olana gizli (dugmeCiz) -->
       <p class="kah-linkler"><a class="kah-link" id="kahGiris" href="ogrenci.html">Zaten hesabım var · Giriş yap</a></p>
       <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
-      <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
+      <!-- 28.10 Cem: telefonda kahramanın altında cihazın mağaza rozeti (iPhone → App Store, Android → Google Play; resmî rozetler,
+           uygulama-indir.js [data-uyg]); bilgisayarda bu satır gizli, rozetler sayfa dibindeki bantta. -->
+      <p class="uyg-indir"><span>Uygulamamız telefonda:</span>
+        <a data-uyg="ios" href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener"><img class="uyg-as" src="gorsel/magaza/app-store-tr.svg" width="151" height="40" alt="App Store'dan indirin"></a>
+        <a data-uyg="android" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener"><img class="uyg-gp" src="gorsel/magaza/google-play-tr.png" width="150" height="58" alt="Google Play'den alın"></a></p>
     </div>
   </div>
 </section>
@@ -671,10 +690,10 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="fiyat-motoru.js?v=20261028z"></script>
-<script src="paket-kartlari.js?v=1"></script>
+<script src="paket-kartlari.js?v=2"></script>
 <script src="gkt.js?v=1"></script>
 <script src="uye-durumu.js?v=20261028z"></script>
-<script src="uygulama-indir.js?v=20261009a"></script>
+<script src="uygulama-indir.js?v=20261028m"></script>
 <script>
 (function(){
   'use strict';
@@ -815,11 +834,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
     /* 28.10 söz başlığı: yalnız SGS, 21 Kasım sınavından önce; öteki sınavda statik başlık ve açıklama geri gelir */
-    try{ var soz=(secili==='sgs'&&Date.now()<Date.UTC(2026,10,21,21,0,0)), hb=$('kahBas'), ha=$('kahAlt');
-      if(!hb.getAttribute('data-ilk')){ hb.setAttribute('data-ilk',hb.innerHTML); ha.setAttribute('data-ilk',ha.innerHTML); }
-      hb.innerHTML=soz?'Kazanamazsan,<br>kazanana kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
-      ha.innerHTML=soz?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
-      $('kahSoz').hidden=!soz; }catch(e){}
+    /* 28.10 Cem ("kazanana kadar değil geçene kadar Tetikte; bitirme aynı şekilde"): kampanya adıyla aynı fiil (sınav "geçilir").
+       SGS: "Geçemezsen, geçene kadar Tetikte." + şart satırı (söz kampanya-son-20-gun.html'de yazılı). Yeterlilik: aynı aile, SÖZSÜZ
+       "Geçene kadar Tetikte." — Yeterlilik'in söz şartları yazılmadı; "Geçemezsen" + şart satırı söz kararı verilince eklenir. */
+    /* 28.10 Cem şart onayı ("Yeterlilik sözünü önerdiğin şartlarla yaz"): Yeterlilik'te de "Geçemezsen" + kendi şart satırı (ders ders;
+       kampanya-son-20-gun.html#yeterlilik, 5. madde). */
+    try{ var soz=(secili==='sgs'&&Date.now()<Date.UTC(2026,10,21,21,0,0)), yetB=(secili==='yeterlilik'&&Date.now()<Date.UTC(2026,10,28,21,0,0)), hb=$('kahBas'), ha=$('kahAlt'), hs=$('kahSoz');
+      if(!hb.getAttribute('data-ilk')){ hb.setAttribute('data-ilk',hb.innerHTML); ha.setAttribute('data-ilk',ha.innerHTML); hs.setAttribute('data-ilk',hs.innerHTML); }
+      hb.innerHTML=(soz||yetB)?'Geçemezsen,<br>geçene kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
+      ha.innerHTML=(soz||yetB)?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
+      hs.innerHTML=yetB?'Şart: Son 20 Gün\'de girdiğin her dersin 3 denemesinin en az 2\'sinde %60 ve üstü doğru yap. <a href="kampanya-son-20-gun.html#yeterlilik">Şartlar</a>':hs.getAttribute('data-ilk');
+      hs.hidden=!(soz||yetB); }catch(e){}
     try{ kahFiyatCiz(secili, d.durum==='aktif'); pkSuz(secili); }catch(e){}
     ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
     try{ $('dene30').hidden=kgkSec||d.durum==='aktif'; $('dene5').href=ornek; }catch(e){}
@@ -902,7 +927,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
          aynı ekranda değişir. */
     });
   });
-  if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
+  if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); if(window.ttSigdir) setTimeout(ttSigdir,0);var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
     if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Üye ol'; c.href=ok?'sorular.html':'ogrenci.html#uye-ol'; } });   /* 17.10 Cem: ziyaretçiye "Üye ol" (5 soru kahramanda) */
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
@@ -1002,6 +1027,29 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+/* 28.10 Cem ("tam sığmıyor, sığdır ve kontrol et"): bilgisayarda büyük sınav düğmeleri ilk ekranın içinde bitsin. Ölçer, sığmazsa
+   sıkıştırma basamağını (sig1..sig4, stil yukarıda) birer birer artırır. Telefonda (<901 px) dokunmaz. */
+(function(){
+  var h=document.documentElement, SINIF=['sig1','sig2','sig3','sig4'];
+  function sigdir(){
+    try{
+      SINIF.forEach(function(c){ h.classList.remove(c); });
+      var b=document.querySelector('.secim-bolum .secim'); if(!b||innerWidth<901) return;
+      for(var i=0;i<=SINIF.length;i++){
+        if(i) h.classList.add(SINIF[i-1]);
+        if(b.getBoundingClientRect().bottom+scrollY<=innerHeight-10) return;
+      }
+    }catch(e){}
+  }
+  var z; function sonra(){ clearTimeout(z); z=setTimeout(sigdir,60); }
+  sigdir(); addEventListener('load',sigdir); addEventListener('resize',sonra);
+  try{ document.fonts.ready.then(sigdir); }catch(e){}
+  /* sınav değişince başlık/şart satırı değişir; şerit ✕ ile kapanınca yer açılır */
+  document.addEventListener('click',function(e){ if(e.target.closest&&e.target.closest('.sinav,#kayanX,#uyeHosX')) sonra(); });
+  window.ttSigdir=sigdir;
+})();
+</script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

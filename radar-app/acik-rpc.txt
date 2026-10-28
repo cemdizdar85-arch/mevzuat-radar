@@ -36,7 +36,7 @@ kurucu_sayac                   A  # sayfa: fiyat-motoru.js
 marka_bulten_durum             A  # sayfa: marka-portfoy.html
 marka_bulten_itiraz            A  # sayfa: marka-itiraz.html
 marka_bulten_sahip             A  # sayfa: marka-portfoy.html
-marka_takip_ac                 A  # sayfa: marka-itiraz.html
+marka_takip_onayla             A  # sayfa: marka-itiraz.html ?nobet=onay (48 haneli tek kullanımlık jeton, 48 saat) — 2026-10-28-marka-nobet-onay.sql
 marka_takip_gor                A  # jetonlu (48 hane), çağıran sayfa yok; veri/sql-marka-takip.sql
 marka_takip_kapat              A  # sayfa: marka-itiraz.html
 marka_takip_sayac              A  # motor/marka-uyari.js (veri/sql-marka-*.sql)

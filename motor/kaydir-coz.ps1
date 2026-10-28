@@ -1310,8 +1310,11 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       if(j>=0){ const d=document.createElement('div'); d.className='moralNot';
         d.innerHTML='🌱 <button type="button" class="moralB">'+(tur==='konu'?'Aynı konudan kolay bir soru dene':'Bu dersten kolay bir soruyla devam et')+' →</button>';
         geri.appendChild(d); gcOlay('moral/teklif/'+GC_YOL,'Kolay benzer soru: teklif');
-        d.querySelector('.moralB').addEventListener('click',()=>{ window.__DONUS={j:j,geri:i+1}; gcOlay('moral/tikla/'+GC_YOL,'Kolay benzer soru: tıklandı');
-          const hk=akis.children[j]; if(hk){ hk.scrollIntoView({behavior:'smooth'}); const sb=hk.querySelector('.sadeSonraki'); if(sb) sb.textContent='Kaldığın yere dön →'; } }); } } }catch(e){}
+        // 28.10 (Cem "kimse kitlenmesin"; kilit sınavında Cem'in hesabında bulundu): kolay soru TAM sıradaki soruysa (j===i+1)
+        //   dönüş noktası kendisiydi → "Kaldığın yere dön" kişiyi bulunduğu karta yolluyor, düğme hiçbir şey yapmıyordu.
+        //   O durumda özel dönüş kurulmaz; düğme olağan "Sonraki soru" kalır.
+        d.querySelector('.moralB').addEventListener('click',()=>{ window.__DONUS=(j>i+1)?{j:j,geri:i+1}:null; gcOlay('moral/tikla/'+GC_YOL,'Kolay benzer soru: tıklandı');
+          const hk=akis.children[j]; if(hk){ hk.scrollIntoView({behavior:'smooth'}); const sb=hk.querySelector('.sadeSonraki'); if(sb&&j>i+1) sb.textContent='Kaldığın yere dön →'; } }); } } }catch(e){}
   };
   k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>cevapla(b,b.dataset.h)));
   { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
@@ -1907,12 +1910,14 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       tabloSar.querySelectorAll('tr.kayit[data-kod]').forEach(tr=>{ const k2=tr.dataset.kod; const an=k2&&kodlar.has(k2); if(son){ gosterilen.add(k2); } tr.classList.toggle('goster',gosterilen.has(k2)); tr.classList.toggle('vurguS',!!an); });
       tabloSar.querySelectorAll('tr.ara').forEach(ara=>{ const gi=ara.dataset.grp; ara.classList.toggle('goster',[...tabloSar.querySelectorAll('tr.kayit[data-kod][data-grp="'+gi+'"]')].some(tr=>tr.classList.contains('goster'))); });
       adimBar.querySelectorAll('i').forEach(n=>{ const q=parseInt(n.dataset.j); n.classList.toggle('simdi',q===j); n.classList.toggle('gecti',q<j); });
-      bOnce.disabled=(j===0); bSonra.disabled=son; bSonra.textContent=son?'Bitti ✓':'İleri ▶';
+      // 28.10 (Cem "kimse sitede kitlenmesin"; kilit sınavında bulundu): son adımda "Bitti ✓" PASİFTİ - dokununca hiçbir şey
+      //   olmuyordu (kitlendi hissi). Artık basılabilir ve Nöbetçi'yi kapatır (aşağıdaki bSonra dinleyicisi).
+      bOnce.disabled=(j===0); bSonra.disabled=false; bSonra.textContent=son?'Bitti ✓':'İleri ▶';
       const vurgu=tabloSar.querySelector('td.vurgu, tr.vurguS'); if(vurgu) vurgu.scrollIntoView({block:'nearest',behavior:'smooth'});
     }
     const adimGit=d=>{ const cur=s.adimlar[adimNo]; if(d>0&&cur&&tahminGerek(cur,adimNo,adimNo===s.adimlar.length-1)&&serit.querySelector('.tahminK')){ tahmin[adimNo]={atla:true}; adimGoster(adimNo,1); return; }   // 06.09: tahmin ekranında ileri = "göster"
       const j=Math.min(s.adimlar.length-1,Math.max(0,adimNo+d)); if(j===adimNo) return; adimGoster(j,d); };
-    bOnce.addEventListener('click',()=>adimGit(-1)); bSonra.addEventListener('click',()=>adimGit(1));
+    bOnce.addEventListener('click',()=>adimGit(-1)); bSonra.addEventListener('click',()=>{ if(adimNo>=s.adimlar.length-1&&!serit.querySelector('.tahminK')){ ders.classList.remove('acik'); return; } adimGit(1); });
     // fare tekerlegi, klavye oklari, parmakla yatay kaydirma (sola = ileri)
     let tekerKilit=0; serit.addEventListener('wheel',e=>{ e.preventDefault(); const t=Date.now(); if(t-tekerKilit<350) return; tekerKilit=t; adimGit((e.deltaY||e.deltaX)>0?1:-1); },{passive:false});
     let sx=null; serit.addEventListener('pointerdown',e=>{ sx=e.clientX; }); serit.addEventListener('pointerup',e=>{ if(sx===null) return; const dx=e.clientX-sx; sx=null; if(Math.abs(dx)>50) adimGit(dx<0?1:-1); });
