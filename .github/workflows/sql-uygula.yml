@@ -68,6 +68,21 @@ jobs:
           done
           echo "GOC: uygulanan $uygulanan · onceden uygulanmis $atlanan"
           echo "### SQL gocleri: uygulanan $uygulanan · onceden uygulanmis $atlanan" >> "$GITHUB_STEP_SUMMARY"
+      # 28.10.2026 RPC YETKI KAPISI: Supabase yeni fonksiyona anon+authenticated grant veriyor, "revoke from public" kapatmaz
+      # (s20_deneme_yukle, kasa_cekim_izin2 olaylari). Goc SONRASI: anon/uye calistirabilen her SECURITY DEFINER fonksiyon
+      # radar-app/acik-rpc.txt'te olmali; yoksa KIRMIZI + mail. Yetkiyi geri ALMAZ (goc uygulandi) - duzeltme yeni gocle.
+      - name: RPC yetki kapisi (anon/uye acik SD fonksiyon izin listesinde mi)
+        env:
+          DB: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -euo pipefail
+          psql "$DB" -qtA -F $'\t' -v ON_ERROR_STOP=1 -c "select p.proname, pg_get_function_identity_arguments(p.oid),
+            case when has_function_privilege('anon', p.oid, 'execute') then 't' else 'f' end,
+            case when has_function_privilege('authenticated', p.oid, 'execute') then 't' else 'f' end
+            from pg_proc p where p.pronamespace = 'public'::regnamespace and p.prokind in ('f','p') and p.prosecdef
+              and p.prorettype not in ('trigger'::regtype, 'event_trigger'::regtype)
+              and not exists (select 1 from pg_depend d where d.objid = p.oid and d.deptype = 'e') order by 1, 2" > "$RUNNER_TEMP/sd.tsv"
+          node arac/rpc-yetki-kapisi.js --tsv "$RUNNER_TEMP/sd.tsv" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Hata olursa Cem'e mail
         if: failure()
         shell: pwsh

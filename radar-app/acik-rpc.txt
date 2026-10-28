@@ -1,0 +1,97 @@
+# İZİN LİSTESİ — public şemada anon/üye ÇALIŞTIRABİLEN security definer fonksiyonlar (arac/rpc-yetki-kapisi.js).
+# Biçim: <ad>  A|U  # gerekçe     A = anon + üye · U = yalnız üye (authenticated). Listede olmayan açık SD fonksiyon = KIRMIZI.
+# Yeni sayfa RPC'si eklerken: göçte revoke from public, anon, authenticated + gereken role grant; sonra buraya satır.
+# İç (yalnız başka SD fonksiyonun çağırdığı) fonksiyon buraya YAZILMAZ — kapatılır.
+# Başlangıç: 28.10.2026 canlı durumu (kasa_cekim_izin2, alacak_abone_mi, rate_limit_check kapatıldıktan sonra).
+
+alacak_ara                     A  # sayfa: alacak-radari.html
+alacak_sayi                    A  # robot motor/alacak-*-yukle.ps1 sayım; herkese açık sayaç
+alacak_toplu                   A  # sayfa: alacak-radari.html
+alacak_vitrin                  A  # sayfa: alacak-radari.html
+anlik_teklif_al                U  # sayfa: anlik-teklif.js, satin-al.html
+anlik_teklif_kontrol           U  # sayfa: satin-al.html
+cevap_kaydet                   A  # kapalı evrak-app (_kapali-araclar); panel — ADAY: kapatılabilir
+cihaz_cikar                    U  # sayfa: cihaz-kapisi.js
+cihaz_kontrol                  U  # sayfa: cihaz-kapisi.js
+cihazlarim                     U  # sayfa: cihaz-kapisi.js, ogrenci.html
+cizim_ses_erisim               U  # depolama okuma politikası (authenticated), 2026-10-22-cizim-ses-paket-kasasi.sql
+destek_takip_iptal             A  # sayfa: iptal.html
+ekibe_cevap_goruldu            U  # sayfa: mobil/uygulama/uygulama.js, ogrenci.html
+elci_bagla                     U  # sayfa: elci.html
+elci_google_bagla              U  # sayfa: elci.html, ogrenci.html
+elci_kodu_kontrol              A  # sayfa: satin-al.html
+elci_panelim                   U  # sayfa: elci.html, ogrenci.html
+elci_sozlesme_onayla           U  # sayfa: elci.html
+hatirlatma_ret                 A  # sayfa: hatirlatma-ret.html
+hesabimi_sil                   U  # sayfa: mobil/uygulama/uygulama.js
+istek_getir                    A  # kapalı evrak-app (_kapali-araclar); panel — ADAY: kapatılabilir
+kasa_cevap_yaz                 A  # sayfa: kasa-yukle.js
+kasa_ders_fihrist              A  # sayfa: kasa-yukle.js
+kasa_dizin                     A  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js
+kasa_soru_getir                A  # sayfa: kasa-yukle.js, mobil/hazirla-sinavi.js +1
+kasa_soru_idler                A  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js +1
+kasa_soru_parca                A  # sayfa: kasa-yukle.js
+kasa_tavan_bildir              A  # sayfa: kasa-yukle.js, sinav-gibi.html
+kaynak_say                     A  # sayfa: menu.js, paket-kapisi.js
+kaynak_uye                     U  # sayfa: menu.js
+kurucu_sayac                   A  # sayfa: fiyat-motoru.js
+marka_ayna_durum               A  # marka radarı (panel)
+marka_ayna_sahip               A  # marka radarı (panel)
+marka_bulten_durum             A  # sayfa: marka-portfoy.html
+marka_bulten_itiraz            A  # sayfa: marka-itiraz.html
+marka_bulten_sahip             A  # sayfa: marka-portfoy.html
+marka_takip_ac                 A  # sayfa: marka-itiraz.html
+marka_takip_gor                A  # marka radarı (panelden kurulmuş, depoda tanım yok 28.10)
+marka_takip_kapat              A  # sayfa: marka-itiraz.html
+marka_takip_sayac              A  # motor/marka-uyari.js (panel)
+marka_talep_ac                 A  # sayfa: marka-portfoy.html, radar-app.html
+marka_talep_sonuc              A  # sayfa: marka-portfoy.html, marka-rapor.html
+mukellef_pano                  A  # kapalı evrak-app (_kapali-araclar); panel — ADAY: kapatılabilir
+olay_say                       A  # sayfa: mobil/uygulama/ilerleme.js
+ozel_kod_kontrol               A  # sayfa: satin-al.html
+paket_erisim_var               A  # depolama okuma politikası + kasa içi (cizim-ses kasası); oturumsuz false döner
+paket_secim_sayac              A  # sayfa: fiyat-motoru.js
+paketimi_bagla                 U  # sayfa: ogrenci.html
+prova_cizim                    A  # sayfa: canli-deneme.html, cizerek-coz.js
+s20_erisim                     U  # 2026-10-28-s20-yetki.sql bilerek üyeye
+s20_liste                      A  # sayfa: son-20-gun.html
+s20_test_bitir                 U  # sayfa: son-20-gun.html
+s20_test_getir                 U  # sayfa: son-20-gun.html
+seviye_aciklama                A  # sayfa: seviye-testi.html
+seviye_cizim                   A  # sayfa: seviye-testi.html
+seviye_kiyas                   A  # sayfa: seviye-testi.html
+seviye_kontrol                 A  # sayfa: seviye-testi.html
+sik_yuzdesi                    A  # sayfa: kaydir/kgk/bankacilik.html, kaydir/kgk/denetim-standartlari.html +34
+uyari_teyit                    A  # sayfa: uyari-teyit.html
+uyari_teyit_durum              A  # sayfa: uyari-teyit.html
+uye_calisma_ozetim             U  # sayfa: ogrenci.html
+uye_cozdugum_sorular           U  # sayfa: kasa-yukle.js, ogrenci.html
+yonetici_mi                    U  # yönetim sayfaları (oturumlu)
+yonetim_bagsiz_siparisler      U  # sayfa: yonetim.html
+yonetim_ders_hediye            U  # sayfa: yonetim.html
+yonetim_ekip_cevapla           U  # sayfa: yonetim.html
+yonetim_ekip_hakli             U  # sayfa: yonetim.html
+yonetim_ekip_sorulari          U  # sayfa: yonetim.html
+yonetim_elci_bagi_coz          U  # sayfa: yonetim.html
+yonetim_elci_durum             U  # sayfa: yonetim.html
+yonetim_elci_ekle              U  # sayfa: yonetim.html
+yonetim_elci_eposta_yaz        U  # sayfa: yonetim.html
+yonetim_elci_hesaba_bagla      U  # sayfa: yonetim.html
+yonetim_elci_hesap_bul         U  # sayfa: yonetim.html
+yonetim_elci_hesaplar          U  # sayfa: yonetim.html
+yonetim_eposta_onayla          U  # sayfa: yonetim.html
+yonetim_hesap_bul              U  # sayfa: yonetim.html
+yonetim_kaynak                 U  # sayfa: yonetim.html
+yonetim_nobetci_ozet           U  # sayfa: ogrenci.html, yonetim.html
+yonetim_ozel_kod_iptal         U  # sayfa: yonetim.html
+yonetim_ozel_kod_uret          U  # eski sürüm, sayfa _uret2 kullanıyor — ADAY: kapatılabilir
+yonetim_ozel_kod_uret2         U  # sayfa: yonetim.html
+yonetim_ozel_kodlar            U  # sayfa: yonetim.html
+yonetim_ozet                   U  # sayfa: ogrenci.html, yonetim.html
+yonetim_paket_kapat            U  # sayfa: yonetim.html
+yonetim_paket_ver              U  # sayfa: yonetim.html
+yonetim_siparis_hesaba_bagla   U  # sayfa: yonetim.html
+yonetim_siparis_iade           U  # sayfa: yonetim.html
+yonetim_siparis_iptal          U  # sayfa: yonetim.html
+yonetim_siparis_onayla         U  # sayfa: yonetim.html
+yonetim_soru_getir             U  # sayfa: yonetim.html
