@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "fc4f0a974e43fbdc";
+const KOD_IMZA = "c75a753db3e8e75d";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -73,6 +73,11 @@ export function b64(metin: string): string {
   return btoa(s);
 }
 
+// 28.10 Cem "1 ve 2 yap": iPhone uygulaması siteden alınan paketi AÇMAZ (mobil/uygulama/ortak.js IOS_SATIS=false, Apple 3.1.1).
+// SGS alıcısı uygulamada paketini göremedi, hesabını silip paketini kaybetti → her sipariş mailinde doğru yol yazar.
+// mobil/magaza-urunleri.json "ios_satis" true olup yeni iOS sürümü yayına girince bu satır KALDIRILIR.
+export const IPHONE_SATIR = "iPhone kullanıyorsan paketini Tetikte uygulamasında değil, tetikte.com'da Safari ile aç: uygulama şimdilik yalnız örnek sorularla çalışıyor. İstersen Safari'de Paylaş → Ana Ekrana Ekle ile siteyi uygulama gibi kullanabilirsin.";
+
 export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; tutar: number }) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   const konu = `Siparişin alındı: ${s.siparis_no} · ${tl(s.tutar)}`;
@@ -85,6 +90,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     `Açıklama: ${s.siparis_no}  (havale açıklamasına yalnız sipariş numaranı yaz)`, "",
     "Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.",
     "Siparişi verdiğin e-postayla tetikte.com'da ücretsiz hesap açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.", "",
+    IPHONE_SATIR, "",
     "Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi'nin bu siparişe ait kopyası bu e-postanın ekindedir:",
     "https://tetikte.com/on-bilgilendirme.html", "https://tetikte.com/mesafeli-satis.html", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir.",
@@ -101,6 +107,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 </table>
 <p>Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.</p>
 <p>Siparişi verdiğin e-postayla <a href="https://tetikte.com/ogrenci.html#uye-ol">tetikte.com'da ücretsiz hesap</a> açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.</p>
+<p><b>${kacis(IPHONE_SATIR)}</b></p>
 <p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz.</p>
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };
@@ -139,7 +146,7 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
        `Ödenen tutar (KDV dahil): ${tl(Number(s.tutar))}`, ...(odemeAd ? [`Ödeme: ${odemeAd}`] : [])]
     : [`Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`];
   const satirlar = [`Merhaba ${ad},`, "", tekMail ? `Siparişin onaylandı, ödemen alındı ve ${durumAd}.` : `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`, "",
-    ...ozet, "", giris, "", ...(cayma ? [cayma, ""] : []), baska, "", adres, "",
+    ...ozet, "", giris, "", IPHONE_SATIR, "", ...(cayma ? [cayma, ""] : []), baska, "", adres, "",
     ...(tekMail ? [ekCumle, "https://tetikte.com/on-bilgilendirme.html", "https://tetikte.com/mesafeli-satis.html", ""] : []),
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir."];
   const satir = (k: string, v: string) => `<tr><td style="padding:4px 14px 4px 0;color:#3d4b63">${k}</td><td>${v}</td></tr>`;
@@ -155,6 +162,7 @@ ${odemeAd ? satir("Ödeme", kacis(odemeAd)) : ""}
 <p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>`;
   const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p>${ust}
 <p>${kacis(giris)}</p>
+<p><b>${kacis(IPHONE_SATIR)}</b></p>
 ${cayma ? `<p>${kacis(cayma)}</p>` : ""}
 <p style="color:#3d4b63">${kacis(baska)}</p>
 <p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
