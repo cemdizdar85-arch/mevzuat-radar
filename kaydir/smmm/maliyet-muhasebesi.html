@@ -313,7 +313,7 @@ details.konuTani,details.soruGoster{margin:12px 0 0;border:1px solid var(--cizgi
 .kagitOzet{font-size:.8em;color:var(--dim);margin:6px 2px 0;line-height:1.5}.kagitOzet b{color:var(--yazi)}.kagitYanlis{color:var(--kirmizi);font-weight:700}
 .son{justify-content:center;text-align:center}.son .buyuk{font-size:2.6em;font-weight:900;margin:8px 0}.son .seri{font-size:1.1em;color:var(--altin);font-weight:800}
 .paylas{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:14px;margin:14px auto;max-width:320px;text-align:left;font-size:.9em}
-</style><script src="../../paket-kapisi.js?v=20261028t"></script><script src="../../cizerek-coz.js?v=9" defer></script></head><body>
+</style><script src="../../paket-kapisi.js"></script><script src="../../cizerek-coz.js?v=9" defer></script></head><body>
 <div id="akis"></div><button id="temaB" class="temaB" type="button" aria-label="Koyu temaya geç">☾</button>
 <script type="text/x-tetikte-kasa" id="kasaAna">
 // 09.09 tema + vitrin: varsayılan açık (site), koyu yalnız düğmeyle; ?tema=koyu|acik zorlar; ?vitrin=1 = ana sayfa vitrini
@@ -654,7 +654,13 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
         const formulOf=r=>{ const a=(s.adimlar||[]).find(x=>(x.doldur||[]).some(p=>p[0]===r)); if(!a) return ''; let f=String(a.formul||'').split(/;/)[0].replace(/\s*\((soruda verilen[^)]*|\d+\.\s*adımda bulduk|bizim bildiğimiz kural|bizim bilgimiz)\)/gi,'').replace(/\s{2,}/g,' ').trim();
           const p=f.split(/\s=\s/); f=p.length>=3?p.slice(1,-1).join(' = '):(p.length===2&&/\d/.test(p[0])?p[0]:''); return f.length>90?'':f; };
         const satirlar=tb.satirlar.slice(bas).map((r,k)=>({r:bas+k,ad:String(r[0]||'').trim(),deger:String(r[r.length-1]||'').trim()})).filter(x=>x.ad&&x.deger&&x.deger!=='-'&&!/^VERİLENLER$/i.test(x.ad));
-        if(satirlar.length>=2&&satirlar.length<=14){ const son=satirlar[satirlar.length-1];
+        // 28.10 (Cem "doğru şekilde, yanlışımız yok"): ÖLÇÜLDÜ bankanın tamamında - 4.233 tablonun 20'sinde SON satır ("Kontrol",
+        //   "Sağlama", "Toplam") yanlış bir şıkkın rakamıydı ve yeşil "sonuç" boyanıyordu. Sonuç satırı = değeri DOĞRU şıkla tutan
+        //   son satır (%16 = 0,16 = 16 eşdeğer); hiçbir satır tutmazsa tablo HİÇ çizilmez (yalnız Akılda tut). Ölçü: arac/hesap-tablosu-kapisi.js
+        const rk=t=>(String(t||'').replace(/\s*(TL|₺)\s*/gi,' ').match(/-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?/g)||[]).map(n=>{ const v=parseFloat(n.replace(/\./g,'').replace(',','.').replace(/^-/,'')); return isNaN(v)?null:v; }).filter(v=>v!==null);
+        const dS=rk((s.siklar||{})[s.dogru]); const tutar=x=>rk(x.deger).some(v=>dS.some(d=>[d,d/100,d*100].some(e=>Math.abs(e-v)<1e-6)));
+        let sonI=-1; satirlar.forEach((x,ii)=>{ if(tutar(x)) sonI=ii; });
+        if(satirlar.length>=2&&satirlar.length<=14&&sonI>=0){ const son=satirlar[sonI];
           hh+='<div class="et">🧮 Hesap</div><table class="hesapT"><tbody>'+satirlar.map(x=>{ const f=vSec.has(x.r+',1')?'':formulOf(x.r); return '<tr'+(x===son?' class="hSonuc"':'')+'><td>'+esc(x.ad)+(f?'<div class="hFormul">'+esc(f)+'</div>':'')+'</td><td class="hDeger">'+esc(x.deger)+'</td></tr>'; }).join('')+'</tbody></table>'; } }
       const hapT=String(s.hap||'').trim(); if(hapT) hh+='<div class="akildaTut">📌 <b>Akılda tut:</b> '+esc(hapT)+'</div>';
       if(hh){ hz.innerHTML=hh; oz.after(hz); const eskiHap=k.querySelector('.hap'); if(eskiHap) eskiHap.style.display='none'; }

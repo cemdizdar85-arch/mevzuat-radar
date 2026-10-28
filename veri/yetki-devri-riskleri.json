@@ -1,11 +1,11 @@
 {
-  "tarih": "28.10.2026 02:24",
+  "tarih": "28.10.2026 02:37",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
   "atifli_iddia": 313,
-  "dayanaksiz_iddia": 500,
+  "dayanaksiz_iddia": 501,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2537,55 +2537,61 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 353,
+      "satir": 358,
       "iddia": "20 Gün",
       "metin": "<!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 493,
+      "satir": 498,
       "iddia": "20 Gün",
       "metin": "(paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 867,
+      "satir": 501,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 görüntü turu: erken kayıt ve Son 20 Gün kartında \"açılış fiyatı · ilk 1.000 üye\" / \"sabit fiyat\" notu kalabalık yapıyordu */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 882,
       "iddia": "20 Gün",
       "metin": "tüm dersler ↔ Son 20 Gün. Öteki paketler yine \"Başka paket seç\" ile açılır. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 869,
+      "satir": 884,
       "iddia": "20 Gün",
       "metin": "1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 900,
+      "satir": 915,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1247,
+      "satir": 1262,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1249,
+      "satir": 1264,
       "iddia": "90 gün",
       "metin": "/* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1308,
+      "satir": 1323,
       "iddia": "24 saat",
       "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1359,
+      "satir": 1374,
       "iddia": "24 saat",
       "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
     },
