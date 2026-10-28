@@ -195,7 +195,9 @@ async function sekme(ad) {
   const sv = await js(`(()=>{const k=[...document.querySelectorAll('button,a')].find(e=>/seviyeni ölç/i.test(e.innerText)&&e.getBoundingClientRect().height>0); if(!k) return null;
       const kap=k.closest('.kart,.satir,li,section,div')||k; const b=[...kap.querySelectorAll('button,a')].find(e=>/^Başla/.test(e.innerText.trim()))||k;
       const r=b.getBoundingClientRect(); const x=r.left+r.width/2,y=r.top+r.height/2; const u=document.elementFromPoint(x,y); return {x,y,ustte:u===b||b.contains(u)};})()`);
-  if (!sv) sonuc('seviye testi kartı bulundu', false);
+  /* 28.10: 30 soruluk seviye testi kartı 27.10'da bilerek kapandı (246eeb30, uygulama-sinavlar.js `if (false && …)`; Cem 17.10 "30 soru
+     çözdürmeyelim, 5 örnek soru"). Kartın YOKLUĞU artık beklenen durum; geri gelirse aşağıdaki akış yine sınar. */
+  if (!sv) sonuc('30 soruluk seviye testi kartı yok (17.10 kararı; giriş 5 örnek soru)', true);
   else if (!sv.ustte) sonuc('seviye testi düğmesi dokunulabilir', false);
   else {
     await dokun(sv); await bekle(4000);
