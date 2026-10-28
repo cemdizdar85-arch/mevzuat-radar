@@ -82,7 +82,8 @@
       var aktif = !r.bitis || r.bitis >= bugun;
       /* 28.10 Cem ("7 deneme ön sipariş verecekler"): son20-sgs hiçbir sınavın bankasını açmaz (paketSinavlari []) → Hesabım
          "Aktif paketin yok" diyordu. Ayrı işaret: görünüm içindir, denemelerin kilidi sunucuda (s20_erisim). */
-      if (String(r.paket || '').trim().toLowerCase() === 'son20-sgs') d.son20 = { durum: aktif ? 'aktif' : 'bitmis', bitis: r.bitis || null };
+      var s20 = String(r.paket || '').trim().toLowerCase();   /* 28.10: son20-yet (Yeterlilik Son 20 Gün) de aynı işaret, tur ile */
+      if (s20 === 'son20-sgs' || s20 === 'son20-yet') d.son20 = { durum: aktif ? 'aktif' : 'bitmis', bitis: r.bitis || null, tur: s20 === 'son20-yet' ? 'yet' : 'sgs' };
       paketSinavlari(r.paket).forEach(function (k) {
         var o = d.sinavlar[k];
         if (o.durum === 'aktif' && (!aktif || !o.bitis || (r.bitis && o.bitis >= r.bitis))) return;  /* aktif olan kalır; ikisi aktifse geç biten */

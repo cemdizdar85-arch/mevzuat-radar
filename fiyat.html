@@ -484,7 +484,7 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
 <!-- GERCEK TAKVIM — uydurma geri sayim yok. Takvim ve fiyat verisi 21.08'de
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
-<script src="fiyat-motoru.js?v=20261028y"></script>
+<script src="fiyat-motoru.js?v=20261028z"></script>
 <script src="gkt.js?v=1" defer></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';
@@ -503,7 +503,7 @@ tk.innerHTML = h;
    1 Kasım 23:59'dan sonra eski gösterim kendiliğinden döner. Ödenen tutar satin-al'da (sunucu doğrular). */
 function erkenSgs(p){ return (p && p.id === 'sgs' && typeof erkenKayitAcik === 'function' && erkenKayitAcik()) ? p.fiyat - ERKEN_KAYIT.indirim : 0; }
 /* 28.10 Cem: Yeterlilik tüm derslerde 7 Kasım 23:59'a kadar erken kayıt (fiyat-motoru.js ERKEN_YET); kartın kendi "+ KDV" yazımı */
-function erkenYetP(p){ return (p && p.id === 'yeterlilik-tum' && typeof erkenNet === 'function') ? erkenNet(p) : 0; }
+function erkenYetP(p){ return (p && typeof erkenYetInd === 'function' && erkenYetInd(p.id)) ? erkenNet(p) : 0; }   /* tüm + ders ders (ders başı 120) */
 function kart(id, p){
   var pid = p.id, hr = KDV_HARIC_GOSTER[pid], ek = erkenSgs(p), ey = erkenYetP(p);
   if(ey){
@@ -614,13 +614,13 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
     var p = paketBul('yeterlilik-' + n), harc = HARC.yeterlilik.ders * n;
     var tr = document.createElement('tr');
     tr.innerHTML = '<td>' + n + ' ders</td><td class="sag">' + tl(harc) + ' TL</td>'
-                 + '<td class="sag simdi">' + tl(p.fiyat) + ' TL</td>';
+                 + '<td class="sag simdi">' + tl(erkenYetP(p) || p.fiyat) + ' TL</td>';   /* 28.10: erken kayıtta ders başı 120 */
     t.appendChild(tr);
   });
   var pt = paketBul('yeterlilik-tum'), tr = document.createElement('tr');
   tr.innerHTML = '<td><b>Tüm dersler (8)</b></td><td class="sag">'
                + tl(HARC.yeterlilik.ilkBasvuru) + ' TL</td>'
-               + '<td class="sag simdi"><b>' + tl(pt.fiyat) + ' TL</b></td>';
+               + '<td class="sag simdi"><b>' + tl(erkenYetP(pt) || pt.fiyat) + ' TL</b></td>';
   t.appendChild(tr);
 })();
 

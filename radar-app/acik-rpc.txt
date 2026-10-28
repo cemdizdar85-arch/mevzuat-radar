@@ -10,7 +10,6 @@ alacak_toplu                   A  # sayfa: alacak-radari.html
 alacak_vitrin                  A  # sayfa: alacak-radari.html
 anlik_teklif_al                U  # sayfa: anlik-teklif.js, satin-al.html
 anlik_teklif_kontrol           U  # sayfa: satin-al.html
-cevap_kaydet                   A  # kapalı evrak-app (_kapali-araclar); panel — ADAY: kapatılabilir
 cihaz_cikar                    U  # sayfa: cihaz-kapisi.js
 cihaz_kontrol                  U  # sayfa: cihaz-kapisi.js
 cihazlarim                     U  # sayfa: cihaz-kapisi.js, ogrenci.html
@@ -24,29 +23,25 @@ elci_panelim                   U  # sayfa: elci.html, ogrenci.html
 elci_sozlesme_onayla           U  # sayfa: elci.html
 hatirlatma_ret                 A  # sayfa: hatirlatma-ret.html
 hesabimi_sil                   U  # sayfa: mobil/uygulama/uygulama.js
-istek_getir                    A  # kapalı evrak-app (_kapali-araclar); panel — ADAY: kapatılabilir
-kasa_cevap_yaz                 A  # sayfa: kasa-yukle.js
-kasa_ders_fihrist              A  # sayfa: kasa-yukle.js
-kasa_dizin                     A  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js
-kasa_soru_getir                A  # sayfa: kasa-yukle.js, mobil/hazirla-sinavi.js +1
-kasa_soru_idler                A  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js +1
-kasa_soru_parca                A  # sayfa: kasa-yukle.js
-kasa_tavan_bildir              A  # sayfa: kasa-yukle.js, sinav-gibi.html
+kasa_cevap_yaz                 U  # sayfa: kasa-yukle.js
+kasa_ders_fihrist              U  # sayfa: kasa-yukle.js
+kasa_dizin                     A  # mağaza uygulaması (uygulama-karma.js) girişsiz çağırırsa [] bekler; içerik vermez
+kasa_soru_getir                U  # sayfa: kasa-yukle.js, mobil/hazirla-sinavi.js +1
+kasa_soru_idler                U  # sayfa: mobil/karma-sinavi.js, mobil/uygulama/uygulama-karma.js +1
+kasa_soru_parca                U  # sayfa: kasa-yukle.js
+kasa_tavan_bildir              U  # sayfa: kasa-yukle.js, sinav-gibi.html
 kaynak_say                     A  # sayfa: menu.js, paket-kapisi.js
 kaynak_uye                     U  # sayfa: menu.js
 kurucu_sayac                   A  # sayfa: fiyat-motoru.js
-marka_ayna_durum               A  # marka radarı (panel)
-marka_ayna_sahip               A  # marka radarı (panel)
 marka_bulten_durum             A  # sayfa: marka-portfoy.html
 marka_bulten_itiraz            A  # sayfa: marka-itiraz.html
 marka_bulten_sahip             A  # sayfa: marka-portfoy.html
 marka_takip_ac                 A  # sayfa: marka-itiraz.html
-marka_takip_gor                A  # marka radarı (panelden kurulmuş, depoda tanım yok 28.10)
+marka_takip_gor                A  # jetonlu (48 hane), çağıran sayfa yok; veri/sql-marka-takip.sql
 marka_takip_kapat              A  # sayfa: marka-itiraz.html
-marka_takip_sayac              A  # motor/marka-uyari.js (panel)
+marka_takip_sayac              A  # motor/marka-uyari.js (veri/sql-marka-*.sql)
 marka_talep_ac                 A  # sayfa: marka-portfoy.html, radar-app.html
 marka_talep_sonuc              A  # sayfa: marka-portfoy.html, marka-rapor.html
-mukellef_pano                  A  # kapalı evrak-app (_kapali-araclar); panel — ADAY: kapatılabilir
 olay_say                       A  # sayfa: mobil/uygulama/ilerleme.js
 ozel_kod_kontrol               A  # sayfa: satin-al.html
 paket_erisim_var               A  # depolama okuma politikası + kasa içi (cizim-ses kasası); oturumsuz false döner
@@ -86,7 +81,6 @@ yonetim_hesap_bul              U  # sayfa: yonetim.html
 yonetim_kaynak                 U  # sayfa: yonetim.html
 yonetim_nobetci_ozet           U  # sayfa: ogrenci.html, yonetim.html
 yonetim_ozel_kod_iptal         U  # sayfa: yonetim.html
-yonetim_ozel_kod_uret          U  # eski sürüm, sayfa _uret2 kullanıyor — ADAY: kapatılabilir
 yonetim_ozel_kod_uret2         U  # sayfa: yonetim.html
 yonetim_ozel_kodlar            U  # sayfa: yonetim.html
 yonetim_ozet                   U  # sayfa: ogrenci.html, yonetim.html

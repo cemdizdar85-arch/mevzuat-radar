@@ -34,6 +34,13 @@ jobs:
             -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{"aktif": false}'
           curl -sS --fail -X PATCH "$R/elci_indirim?paket=eq.yeterlilik-tum" "${H[@]}" \
             -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{"indirim_tl": 400}'
+          # 28.10 ders ders erken kayıt (2026-10-28-yet-erken-ders.sql): 120/240/360/480 → sözleşme 50/100/150/200
+          for n in 1 2 3 4; do
+            curl -sS --fail -X PATCH "$R/elci_indirim?paket=eq.yeterlilik-$n" "${H[@]}" \
+              -H "Content-Type: application/json" -H "Prefer: return=minimal" -d "{\"indirim_tl\": $((50 * n))}"
+            d=$(curl -sS --fail "$R/elci_indirim?paket=eq.yeterlilik-$n&select=indirim_tl" "${H[@]}")
+            if [ "$d" != "[{\"indirim_tl\":$((50 * n))}]" ]; then echo "yeterlilik-$n INDIRIMI $((50 * n)) DEGIL ($d) - KIRMIZI"; exit 1; fi
+          done
           acik=$(curl -sS --fail "$R/elciler?kod=eq.ERKENYET600&aktif=eq.true&select=kod" "${H[@]}")
           ind=$(curl -sS --fail "$R/elci_indirim?paket=eq.yeterlilik-tum&select=indirim_tl" "${H[@]}")
           echo "geri okuma (aktif kod): $acik · yeterlilik-tum indirimi: $ind"

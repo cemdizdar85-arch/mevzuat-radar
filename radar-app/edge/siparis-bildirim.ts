@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "487207003d419c6b";
+const KOD_IMZA = "3593b93e8d3f19d2";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -113,19 +113,24 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   // 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme ön satış — "paketin açıldı, hemen başla" YAZILMAZ; denemeler 1 Kasım'da
   // son-20-gun.html'de açılır. Öteki paketlerin maili birebir aynı.
-  const onSiparis = s.paket === "son20-sgs";
+  // 28.10: Yeterlilik Son 20 Gün (son20-yet) de ön satış — denemeler 8 Kasım'da; sayfası henüz yok → adres Hesabım.
+  const onYet = s.paket === "son20-yet";
+  const onSiparis = s.paket === "son20-sgs" || onYet;
+  const acilisG = onYet ? "8 Kasım 2026" : "1 Kasım 2026";
   const durumAd = onSiparis ? "ön siparişin kayda geçti" : "paketin açıldı";
   const konu = tekMail ? `Siparişin onaylandı: ${s.siparis_no} · ${durumAd}` : `Ödemen onaylandı, ${durumAd}: ${s.paket_ad || s.paket}`;
   const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
   const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
-  const adres = onSiparis ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
+  const adres = onSiparis && !onYet ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
   const giris = onSiparis
     ? (hesapVar
-      ? "Son 20 Gün denemelerin 1 Kasım 2026'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından başla."
-      : "Son 20 Gün denemelerin 1 Kasım 2026'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.")
+      ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, ${onYet ? "Hesabım'dan" : "Son 20 Gün sayfasından"} başla.`
+      : `Son 20 Gün denemelerin ${acilisG}'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.`)
     : hesapVar
     ? "tetikte.com'a bu e-postayla giriş yap; Hesabım'da paketin görünür, soru çözmeye hemen başlayabilirsin."
     : "Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.";
+  // 28.10 Cem onayı (ön satış cayma): açılışa kadar tam iade — sözleşmelerdeki "Ön satış paketleri" maddesiyle aynı.
+  const cayma = onSiparis ? `Denemeler açılana kadar (${acilisG} 00:00) bu e-postayı yanıtlayarak cayabilirsin; ödediğin tutarın tamamı iade edilir.` : "";
   // 12.10: alıcı Google ile BAŞKA adresten girdi, paketi göremedi → kendi başına çözebileceği yol mailde yazar
   const baska = `Siteye başka bir e-postayla (ör. Google hesabınla) girdiysen paket orada görünmez: Hesabım → "Ödedim ama paketim görünmüyor"a bas, sipariş numarasını (${s.siparis_no}) ve bu e-postayı yaz; paket o hesaba bağlanır.`;
   const ekCumle = "Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi'nin bu siparişe ait kopyası bu e-postanın ekindedir; saklamanı öneririz. E-arşiv faturan da bu adrese gönderilir.";
@@ -134,7 +139,7 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
        `Ödenen tutar (KDV dahil): ${tl(Number(s.tutar))}`, ...(odemeAd ? [`Ödeme: ${odemeAd}`] : [])]
     : [`Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`];
   const satirlar = [`Merhaba ${ad},`, "", tekMail ? `Siparişin onaylandı, ödemen alındı ve ${durumAd}.` : `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`, "",
-    ...ozet, "", giris, "", baska, "", adres, "",
+    ...ozet, "", giris, "", ...(cayma ? [cayma, ""] : []), baska, "", adres, "",
     ...(tekMail ? [ekCumle, "https://tetikte.com/on-bilgilendirme.html", "https://tetikte.com/mesafeli-satis.html", ""] : []),
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir."];
   const satir = (k: string, v: string) => `<tr><td style="padding:4px 14px 4px 0;color:#3d4b63">${k}</td><td>${v}</td></tr>`;
@@ -150,8 +155,9 @@ ${odemeAd ? satir("Ödeme", kacis(odemeAd)) : ""}
 <p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>`;
   const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p>${ust}
 <p>${kacis(giris)}</p>
+${cayma ? `<p>${kacis(cayma)}</p>` : ""}
 <p style="color:#3d4b63">${kacis(baska)}</p>
-<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
+<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onYet ? "Hesabıma git" : onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
 ${tekMail ? `<p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz. E-arşiv faturan da bu adrese gönderilir.</p>` : ""}
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };

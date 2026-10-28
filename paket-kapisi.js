@@ -101,7 +101,7 @@
         (yet ? 'Dersini seç, satın al →' : 'Satın al →') + '</a>' +
         '<p style="margin:6px 0 0;font-size:12.5px;opacity:.75;text-align:center">Kartla ödersen paketin hemen açılır.</p>';
     };
-    if (ornekS) try { var fm = document.createElement('script'); fm.src = '/fiyat-motoru.js?v=20261019b'; fm.onload = fiyatYaz; document.head.appendChild(fm); } catch (e) {}
+    if (ornekS) try { var fm = document.createElement('script'); fm.src = '/fiyat-motoru.js?v=20261028z'; fm.onload = fiyatYaz; document.head.appendChild(fm); } catch (e) {}
     var nbBasla = function () { nbYaz(); sonYaz(); try { new MutationObserver(function () { nbYaz(); sonYaz(); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {} };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', nbBasla); else nbBasla();
     return;

@@ -76,8 +76,8 @@ CREATE OR REPLACE FUNCTION public._paket_kapsar(p_var text, p_var_ders text[], p
 AS $function$
 declare v text := lower(btrim(coalesce(p_var, ''))); s text := public._paket_sinavi(p_yeni);
 begin
-  if lower(btrim(coalesce(p_yeni, ''))) = 'son20-sgs' then                          -- 27.10 Geçene Kadar Tetikte
-    return v = 'son20-sgs' or v in ('tam', 'kurucu') or public._paket_sinavi(v) is not null;
+  if lower(btrim(coalesce(p_yeni, ''))) in ('son20-sgs', 'son20-yet') then          -- 27.10 + 28.10 Son 20 Gün ön satış
+    return v in ('son20-sgs', 'son20-yet', 'tam', 'kurucu') or public._paket_sinavi(v) is not null;
   end if;
   if v in ('tam', 'kurucu') then return true; end if;
   if s is null or public._paket_sinavi(v) is distinct from s then return false; end if;
