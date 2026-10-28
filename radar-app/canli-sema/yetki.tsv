@@ -67,8 +67,8 @@ kurucu_sayac		SD	t	t	record	depoda
 madde_ara	sorgu text, adet integer	inv	t	t	dokumanlar	depoda
 madde_ara_deneme	sorgu text, adet integer	inv	t	t	dokumanlar	depoda
 madde_ara_deneme_puan	sorgu text, adet integer, ayar jsonb	inv	t	t	record	depoda
-marka_ayna_durum		SD	t	t	record	depoda
-marka_ayna_sahip	p_unvan text, p_tavan integer	SD	t	t	record	depoda
+marka_ayna_durum		SD	f	f	record	depoda
+marka_ayna_sahip	p_unvan text, p_tavan integer	SD	f	f	record	depoda
 marka_bulten_durum		SD	t	t	record	depoda
 marka_bulten_itiraz	p_ad text, p_sinif integer[], p_gun integer, p_esik real, p_tavan integer, p_yalniz_acik boolean	SD	t	t	record	depoda
 marka_bulten_mutabakat		SD	f	f	record	depoda
