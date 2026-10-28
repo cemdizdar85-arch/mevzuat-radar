@@ -178,7 +178,8 @@ html body .kah-secim .sinav.kapali small::before{content:"· "}
 html body .kah-secim .sinav[hidden]{display:none}
 #kahUstDegis{display:none}
 @media(max-width:900px){ html body .kah-secim .secim{justify-content:center;gap:6px} html body .kah-secim .sinav{padding:7px 11px;font-size:13.5px} .kah-secim-bas{text-align:center} }
-.kah-soz{margin:-4px 0 18px;font-size:15px;font-weight:650;color:var(--ink)}
+.kah-soz{margin:0 0 12px;font-size:15px;font-weight:650;color:var(--ink)}
+#kahAlt{margin:14px 0 4px;font-size:16px}
 .kah-kutu{background:#111a2e;color:#f5a524;padding:0 .18em;border-radius:.16em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 html body .kah-soz a{font-size:14px;font-weight:600;color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px;margin-left:4px}
 .kah-ust b:empty{display:none}
@@ -193,6 +194,8 @@ html body .kah-linkler .kah-link{display:inline-flex;align-items:center;min-heig
   /* telefonda düğme ilk ekranda kalsın (14.10 ölçüm hedefi): maskot yüzü, 128 px kare; açıklamanın ikinci cümlesi gizli */
   .maskot{max-width:132px;min-width:0;aspect-ratio:1/1}
   .maskot img{object-position:50% 34%}
+  /* 28.10 Cem ("ücretleri yukarı taşı, aynı sayfada görelim"): telefonda maskot küçük, fiyat + düğmeler ilk ekranda */
+  @media(max-width:600px){ .maskot{max-width:76px} html body .kah{padding-top:10px} html body .kah h1{font-size:30px;margin-bottom:10px} .kah-secim-bas{display:none} }
   .alt .alt-ek{display:none}
   .kah-ust{justify-content:center}
   .kah-yazi{margin:0 auto}
@@ -498,7 +501,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       </div>
       <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
       <h1 id="kahBas">SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
-      <p class="alt" id="kahAlt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.<span class="alt-ek"> Çıkmış sınavlarda en sık sorulan konulardan.</span></p>
+      <!-- 28.10 Cem ("ücretleri biraz daha yukarı taşı, aşağıda kalıyor, aynı sayfada görelim"): sıra başlık → şart → fiyat → düğmeler;
+           açıklama cümlesi (kahAlt) düğmelerin altına indi. -->
       <!-- 28.10 Cem ("açıklama olarak kazanamazsan bir sonraki sınav bizde, Geçene kadar Tetikte yazsak" → "üst yazıyı kazanamazsan
            kazanana kadar tetikte yapsak, daha fazla dikkat çeksin"): söz yalnız SGS Son 20 Gün kampanyasında (kampanya-son-20-gun.html §2)
            → yalnız SGS seçiliyken ve 21 Kasım sınavından önce başlık sözü söyler, açıklama "soruyu çöz, konuyu öğren"le başlar, altında
@@ -512,6 +516,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         <!-- 17.10 Cem ("paketleri gör büyük olsun"): ikinci büyük düğme paket kartlarına iner; pakette olana "Kaldığın yerden devam" (dugmeCiz) -->
         <a class="dg dg-iki" id="cta2" href="#paketler">Paketleri gör</a>
       </div>
+      <p class="alt" id="kahAlt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.<span class="alt-ek"> Çıkmış sınavlarda en sık sorulan konulardan.</span></p>
       <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
            11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu bağlantı 30 soruluk ölçüm (dugmeCiz)
            14.10: tek büyük düğme; öteki iki yol yazı bağlantısı -->
@@ -565,7 +570,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         <h3>Sadece 7 Deneme</h3>
         <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
         <ul><li>7 deneme, ders ders testler</li><li>Konu görevleri ve açıklamalar</li><li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li></ul>
-        <a class="pk-al" href="satin-al.html?paket=son20-sgs">Satın al</a>
+        <!-- 28.10 Cem ("bu 1 Kasım açılacak, buna kayıt ol, ücreti ödet"): ön satış olduğu düğmede de yazar -->
+        <a class="pk-al" href="satin-al.html?paket=son20-sgs">Şimdi kaydol · 1 Kasım'da başla</a>
         <p class="pk-sonra" data-sonra></p>
       </article>
       <!-- 18.10 Cem ("buraya tek ders diye giriyoruz, iki ders üç ders diye almam lazım, niye alamıyorum"): kart ders sayısı seçicili;
@@ -745,7 +751,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261027a"></script>
+<script src="fiyat-motoru.js?v=20261028y"></script>
 <script src="gkt.js?v=1"></script>
 <script src="uye-durumu.js?v=20261028s20"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
@@ -852,10 +858,13 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     var e=$('kahFiyat'); if(!e) return; var h='';
     try{
       if(sec==='sgs'){ var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), y=paketBul('son20-sgs');
-        h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · 1 Kasım 23:59\'a kadar erken kayıt, '+tl(paketBul('sgs').fiyat)+' TL yerine':'')+'</small>'; }
-      else if(sec==='yeterlilik'){ var a=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum');
-        /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda */
-        h='1 ders <b>'+fiyatAna('yeterlilik-1',a.fiyat)+'</b>\'den · tüm dersler <b>'+fiyatAna('yeterlilik-tum',t.fiyat)+'</b><small>KDV dahil '+tl(a.fiyat)+' TL / '+tl(t.fiyat)+' TL · ders sayısını satın alırken seçersin</small>'; }
+        /* 28.10 Cem ("7 deneme 1 Kasım'da gelecek, onu belli edelim; 1 Kasım sonraki fiyatları da yazsak"): sonraki fiyat + açılış günü */
+        h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · erken kayıt 1 Kasım 23:59\'a kadar, sonra Tam Paket '+tl(paketBul('sgs').fiyat)+' TL':'')+' · 7 deneme 1 Kasım\'da açılıyor</small>'; }
+      else if(sec==='yeterlilik'){ var a=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0;
+        /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda.
+           28.10 Cem: tüm derslerde 7 Kasım 23:59'a kadar erken kayıt (fiyat-motoru.js ERKEN_YET), sonraki fiyat yazılır. */
+        h='1 ders <b>'+fiyatAna('yeterlilik-1',a.fiyat)+'</b>\'den · tüm dersler <b>'+fiyatAna('yeterlilik-tum',tn||t.fiyat)+'</b><small>KDV dahil '+tl(a.fiyat)+' TL / '+tl(tn||t.fiyat)+' TL'
+          +(tn?' · tüm dersler erken kayıt 7 Kasım 23:59\'a kadar, sonra '+tl(t.fiyat)+' TL':' · ders sayısını satın alırken seçersin')+'</small>'; }
     }catch(x){ h=''; }
     e.innerHTML=h; e.hidden=!h||aktif;
   }
@@ -877,6 +886,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     var iz=document.querySelector('#kayanSerit .kayan-iz'), a=$('kayanA'); if(!iz||!a) return;
     var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), m, href;
     if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
+    else if(sec==='yeterlilik'&&typeof erkenYetAcik==='function'&&erkenYetAcik()){   /* 28.10: Yeterlilik erken kayıt (7 Kasım 23:59) */
+      var yt=paketBul('yeterlilik-tum'), yn=erkenNet(yt);
+      m='🎯 <b>SMMM YETERLİLİK ERKEN KAYIT</b> · 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL ('+tl(yt.fiyat)+' TL yerine) · Son 20 Gün 8 Kasım\'da · <u>Hemen al →</u>'; href='satin-al.html?paket=yeterlilik-tum'; a.setAttribute('aria-label','Yeterlilik erken kayıt: 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL. Satın al.'); }
     else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){   /* 28.10: Yeterlilik Son 20 Gün ön kaydı */
       m='🎯 <b>SMMM YETERLİLİK · SON 20 GÜN</b> · 28 Kasım sınavına son 20 gün, 8 Kasım\'da açılıyor · sınava özel yeni sorular · <u>Ön kayıt ol →</u>'; href='ucretsiz-dene.html?sinav=yeterlilik&onkayit=yet-s20&k=yet-s20-serit#onkayit'; a.setAttribute('aria-label','SMMM Yeterlilik Son 20 Gün 8 Kasım\'da açılıyor. Ön kayıt ol.'); }
     else { m='🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · '+(sec==='yeterlilik'?'SMMM Yeterlilik':'Staja Giriş')+' · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u>'; href='en-cok-cikan-sorular.html?sinav='+(sec==='yeterlilik'?'yeterlilik':'sgs'); a.setAttribute('aria-label','Yeni: Sınavda en çok çıkan konulardan sorular, ders ders. Aç.'); }
@@ -1064,6 +1076,14 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       k.querySelector('[data-fiyat]').innerHTML=tl(p.fiyat)+' <small>TL</small>';
       k.querySelector('[data-dahil]').textContent='KDV dahil · '+kdvHaric(p.fiyat)+' TL + KDV · denemeler 1 Kasım\'da açılır';
       k.querySelector('[data-sonra]').innerHTML=''; return;
+    }
+    if(p.id==='yeterlilik-tum'&&typeof erkenYetAcik==='function'&&erkenYetAcik()){   /* 28.10 Yeterlilik erken kayıt: kartın kendi + KDV yazımı */
+      var yn=erkenNet(p);
+      k.querySelector('[data-fiyat]').innerHTML=kdvHaric(yn)+' <small>TL + KDV</small>';
+      k.querySelector('[data-dahil]').textContent='KDV dahil '+tl(yn)+' TL · '+tl(p.fiyat)+' TL yerine · 7 Kasım 23:59\'a kadar erken kayıt';
+      k.querySelector('[data-sonra]').innerHTML='';
+      a.textContent='Satın al'; a.setAttribute('href','satin-al.html?paket=yeterlilik-tum'); a.removeAttribute('aria-disabled');
+      return;
     }
     if(p.id==='sgs'&&typeof erkenKayitAcik==='function'&&erkenKayitAcik()){
       var ek=p.fiyat-ERKEN_KAYIT.indirim;

@@ -110,6 +110,18 @@ var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':
 var ERKEN_KAYIT = { bitis:Date.UTC(2026, 10, 1, 20, 59, 59), indirim:600, kod:'ERKEN600' };
 function erkenKayitAcik(){ return Date.now() < ERKEN_KAYIT.bitis; }
 if(erkenKayitAcik()){ ELCI.indirim.sgs = ERKEN_KAYIT.indirim; }
+/* 28.10.2026 YETERLİLİK ERKEN KAYIT (Cem: "Tüm dersler 3.468 yerine 2.868 TL, kodsuz, 7 Kasım 23:59'a kadar, SGS'deki gibi her
+   yerde aynı rakam"): yalnız yeterlilik-tum; sunucu elci_indirim yeterlilik-tum = 600 + kanal kodu ERKENYET600
+   (radar-app/sql/2026-10-28-yet-erken-kayit.sql); satın almada kod kutusu boşsa kendiliğinden uygulanır (satin-al otoKod).
+   Süre bitince erken-kayit-yet-kapat.yml kodu kapatır, satırı 400'e geri yazar; site bu tarihle kendiliğinden eski fiyata döner. */
+var ERKEN_YET = { bitis:Date.UTC(2026, 10, 7, 20, 59, 59), indirim:600, kod:'ERKENYET600', paket:'yeterlilik-tum' };
+function erkenYetAcik(){ return Date.now() < ERKEN_YET.bitis; }
+if(erkenYetAcik()){ ELCI.indirim[ERKEN_YET.paket] = ERKEN_YET.indirim; }
+/* Erken kayıt süresince paketin KDV dahil indirimli tutarı (yoksa 0), kodu ve bitiş yazısı — sayfalar tek yerden okur */
+function erkenNet(p){ if(!p) return 0; if(p.id === 'sgs' && erkenKayitAcik()) return p.fiyat - ERKEN_KAYIT.indirim;
+  if(p.id === ERKEN_YET.paket && erkenYetAcik()) return p.fiyat - ERKEN_YET.indirim; return 0; }
+function erkenKod(id){ return (id === 'sgs' && erkenKayitAcik()) ? ERKEN_KAYIT.kod : (id === ERKEN_YET.paket && erkenYetAcik()) ? ERKEN_YET.kod : ''; }
+function erkenBitisYazi(id){ return id === 'sgs' ? '1 Kasım 23:59\'a kadar' : '7 Kasım 23:59\'a kadar'; }
 
 /* ÖZEL İNDİRİM KODU — 19.10.2026 Cem ("birisine 600 TL indirim" → "hem yeterlilik hem SGS için bir kod").
    Yönetim panelinden kişiye üretilir, tek kullanımlık; paketler, paket başına tutar ve süre kodun kendisinde (sunucu:

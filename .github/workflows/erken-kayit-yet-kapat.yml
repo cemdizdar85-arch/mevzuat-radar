@@ -1,0 +1,42 @@
+# .github/workflows/erken-kayit-yet-kapat.yml — YETERLİLİK ERKEN KAYIT İNDİRİMİNİ KAPATIR (28.10.2026, Cem: "Tüm dersler 3.468
+# yerine 2.868 TL, kodsuz, 7 Kasım 23:59'a kadar")
+#
+# radar-app/sql/2026-10-28-yet-erken-kayit.sql elci_indirim yeterlilik-tum'u 600 yaptı ve ERKENYET600 kanal kodunu açtı (satın
+# almada Yeterlilik tüm dersler seçilip kod kutusu boşsa site kendiliğinden uygular). Bu iş 7 Kasım 2026 23:59 TR'de (20:59 UTC):
+#   1) ERKENYET600'ü aktif=false yapar,
+#   2) elci_indirim yeterlilik-tum satırını 400'e (elçi sözleşmesi tutarı, kampanya öncesi değer) geri yazar,
+#   3) ikisini de geri okur; kod açık kalırsa ya da indirim 400 değilse KIRMIZI biter.
+# Site tarafı (fiyat-motoru.js ERKEN_YET.bitis) aynı anda kendiliğinden eski fiyata döner. Zamanlanmış işler gecikebildiği için
+# iki yedek koşu var (aynı sonucu verir). Yıl kapısı: 2026 dışındaki 7 Kasım'larda bir şey yapmaz. Elle çalıştırma da aynı işi yapar.
+name: Yeterlilik Erken Kayit Kapat (7 Kasim 2026 23:59 TR)
+on:
+  schedule:
+    - cron: '59 20 7 11 *'
+    - cron: '20 21 7 11 *'
+    - cron: '0 22 7 11 *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  kapat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Kodu kapat, yeterlilik-tum indirimini 400'e indir, geri oku
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ "$(date -u +%Y)" != "2026" ] && [ "${{ github.event_name }}" = "schedule" ]; then echo "2026 degil - atlandi"; exit 0; fi
+          R='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1'
+          H=(-H "apikey: $SUPABASE_SERVICE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_KEY")
+          curl -sS --fail -X PATCH "$R/elciler?kod=eq.ERKENYET600" "${H[@]}" \
+            -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{"aktif": false}'
+          curl -sS --fail -X PATCH "$R/elci_indirim?paket=eq.yeterlilik-tum" "${H[@]}" \
+            -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{"indirim_tl": 400}'
+          acik=$(curl -sS --fail "$R/elciler?kod=eq.ERKENYET600&aktif=eq.true&select=kod" "${H[@]}")
+          ind=$(curl -sS --fail "$R/elci_indirim?paket=eq.yeterlilik-tum&select=indirim_tl" "${H[@]}")
+          echo "geri okuma (aktif kod): $acik · yeterlilik-tum indirimi: $ind"
+          if [ "$acik" != "[]" ]; then echo "AKTIF KOD KALDI - KIRMIZI"; exit 1; fi
+          if [ "$ind" != '[{"indirim_tl":400}]' ]; then echo "YETERLILIK INDIRIMI 400 DEGIL - KIRMIZI"; exit 1; fi
+          echo "ERKENYET600 kapatildi, yeterlilik-tum elci indirimi 400"
