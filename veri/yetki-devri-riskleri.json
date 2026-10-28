@@ -1,11 +1,11 @@
 {
-  "tarih": "28.10.2026 08:03",
+  "tarih": "28.10.2026 10:57",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
   "atifli_iddia": 314,
-  "dayanaksiz_iddia": 519,
+  "dayanaksiz_iddia": 520,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2621,25 +2621,31 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1262,
+      "satir": 1153,
+      "iddia": "2 saat",
+      "metin": "2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1268,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1264,
+      "satir": 1270,
       "iddia": "90 gün",
       "metin": "/* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1323,
+      "satir": 1329,
       "iddia": "24 saat",
       "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1374,
+      "satir": 1380,
       "iddia": "24 saat",
       "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
     },
