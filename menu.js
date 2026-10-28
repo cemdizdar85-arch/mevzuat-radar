@@ -180,13 +180,23 @@ function ttOdemeBandi(yer) {
       /* 08.10 Cem ("yanlışın sebebiyle öğren güzel görünmüyor telefonda"): dar ekranda logo ile slogan yan yana sıkışıyordu
          (logo iri, slogan kalın) -> slogan logonun altında kendi satırında, sade */
       '@media(max-width:560px){#ttOdemeBandi .ob-soz{flex-basis:100%;margin-top:-6px;font-size:13.5px;font-weight:600;color:var(--dim)}}' +
-      '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}';
+      '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}' +
+      /* 28.10 Cem: App Store + Google Play resmî rozetleri. Google rozeti kendi iç boşluğunu taşır → görünen boyu Apple'la eşit olsun diye
+         daha büyük çizilip boşluk kadar kırpılır (Google rozet kuralı: öteki mağaza rozetiyle aynı boyda). */
+      '#ttOdemeBandi .ob-mag{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px}' +
+      '#ttOdemeBandi .ob-mag span{font-size:13px;font-weight:650;color:var(--muted)}' +
+      '#ttOdemeBandi .ob-mag a{display:block;line-height:0}#ttOdemeBandi .ob-mag img.ob-as{height:40px;width:auto}' +
+      '#ttOdemeBandi .ob-mag img.ob-gp{height:58px;width:auto;margin:-9px -9px -9px -9px;max-width:none}';
     (document.head || document.documentElement).appendChild(st);
   }
   var b = document.createElement('div'); b.id = 'ttOdemeBandi';
   /* 04.10 Cem "Tetikte ismimiz sadece yukarıda görünüyor, aşağıda olmaz mı": her sayfanın dibinde logo + ana cümle */
   b.innerHTML = '<a class="marka ob-marka" href="/index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:20px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>' +
     '<span class="ob-soz">Yanlışını, sebebiyle birlikte öğren.</span><span class="ob-ara" aria-hidden="true"></span>' +
+    '<span class="ob-mag"><span>Telefonda da çalış:</span>' +
+    '<a href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener"><img class="ob-as" src="/gorsel/magaza/app-store-tr.svg" width="151" height="40" alt="App Store\'dan indirin" loading="lazy"></a>' +
+    '<a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener"><img class="ob-gp" src="/gorsel/magaza/google-play-tr.png" width="150" height="58" alt="Google Play\'den alın" loading="lazy"></a></span>' +
+    '<span class="ob-ara" aria-hidden="true"></span>' +
     '<img class="ob-acik" src="/gorsel/odeme/iyzico-logo-bandi.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
     '<img class="ob-koyu" src="/gorsel/odeme/iyzico-logo-bandi-beyaz.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
     '<span>🔒 Bu sitedeki bütün bağlantılar SSL (HTTPS) ile şifrelenir.</span>';

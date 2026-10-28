@@ -11,6 +11,7 @@
      Bayat anahtarda Hesabım giriş formunu gösterir (ogrenci.html ana sayfaya geri atmaz - döngü yok, 17.10 okundu). -->
 <script>try{ if(!/[?&](ana|sinav)=/.test(location.search) && !/^#ekran/.test(location.hash) && Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; })) location.replace('ogrenci.html'); }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-itunes-app" content="app-id=6816072026">   <!-- 28.10: iPhone Safari akıllı bandı (App Store, Apple çizer) -->
 <meta name="color-scheme" content="light">
 <title>Tetikte — SMMM Staja Giriş ve Yeterlilik sınavı: yanlışını sebebiyle birlikte öğren</title>
 <link rel="canonical" href="https://tetikte.com/">
@@ -89,8 +90,11 @@ html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 18.10 Cem ("üst şeritleri sadeleştir"): telefonda tek şerit - kayan duyuru görünürken Android indirme ve prova şeritleri çıkmaz (✕ ile duyuru kapanınca geri gelir) */
 body:has(#kayanSerit:not([hidden])) #uygSerit,body:has(#kayanSerit:not([hidden])) #provaSerit{display:none!important}
 .uyg-serit [data-kapat]{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-.uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
-html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
+.uyg-indir{margin:12px 0 0;font-size:14.5px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px}
+html body .uyg-indir a{display:block;line-height:0}
+.uyg-indir a[hidden]{display:none}
+.uyg-indir img.uyg-as{height:40px;width:auto}
+.uyg-indir img.uyg-gp{height:58px;width:auto;margin:-9px;max-width:none}   /* Google rozeti iç boşluklu: görünen boy Apple'la eşit */
 .uyg-serit{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink)}
 .uyg-serit>span{flex:1 1 auto;min-width:0}
 html body .uyg-serit a{color:var(--ink)!important;font-weight:700;white-space:nowrap}
@@ -502,7 +506,11 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <!-- 17.10 Duolingo "Zaten hesabım var" küçük bağlantı; oturumu açık olana gizli (dugmeCiz) -->
       <p class="kah-linkler"><a class="kah-link" id="kahGiris" href="ogrenci.html">Zaten hesabım var · Giriş yap</a></p>
       <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
-      <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
+      <!-- 28.10 Cem: telefonda kahramanın altında cihazın mağaza rozeti (iPhone → App Store, Android → Google Play; resmî rozetler,
+           uygulama-indir.js [data-uyg]); bilgisayarda bu satır gizli, rozetler sayfa dibindeki bantta. -->
+      <p class="uyg-indir"><span>Uygulamamız telefonda:</span>
+        <a data-uyg="ios" href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener"><img class="uyg-as" src="gorsel/magaza/app-store-tr.svg" width="151" height="40" alt="App Store'dan indirin"></a>
+        <a data-uyg="android" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener"><img class="uyg-gp" src="gorsel/magaza/google-play-tr.png" width="150" height="58" alt="Google Play'den alın"></a></p>
     </div>
   </div>
 </section>
@@ -685,7 +693,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <script src="paket-kartlari.js?v=1"></script>
 <script src="gkt.js?v=1"></script>
 <script src="uye-durumu.js?v=20261028z"></script>
-<script src="uygulama-indir.js?v=20261009a"></script>
+<script src="uygulama-indir.js?v=20261028m"></script>
 <script>
 (function(){
   'use strict';
