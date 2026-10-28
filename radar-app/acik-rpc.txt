@@ -33,15 +33,13 @@ kasa_tavan_bildir              A  # sayfa: kasa-yukle.js, sinav-gibi.html
 kaynak_say                     A  # sayfa: menu.js, paket-kapisi.js
 kaynak_uye                     U  # sayfa: menu.js
 kurucu_sayac                   A  # sayfa: fiyat-motoru.js
-marka_ayna_durum               A  # marka radarı (panel)
-marka_ayna_sahip               A  # marka radarı (panel)
 marka_bulten_durum             A  # sayfa: marka-portfoy.html
 marka_bulten_itiraz            A  # sayfa: marka-itiraz.html
 marka_bulten_sahip             A  # sayfa: marka-portfoy.html
 marka_takip_ac                 A  # sayfa: marka-itiraz.html
-marka_takip_gor                A  # marka radarı (panelden kurulmuş, depoda tanım yok 28.10)
+marka_takip_gor                A  # jetonlu (48 hane), çağıran sayfa yok; veri/sql-marka-takip.sql
 marka_takip_kapat              A  # sayfa: marka-itiraz.html
-marka_takip_sayac              A  # motor/marka-uyari.js (panel)
+marka_takip_sayac              A  # motor/marka-uyari.js (veri/sql-marka-*.sql)
 marka_talep_ac                 A  # sayfa: marka-portfoy.html, radar-app.html
 marka_talep_sonuc              A  # sayfa: marka-portfoy.html, marka-rapor.html
 olay_say                       A  # sayfa: mobil/uygulama/ilerleme.js

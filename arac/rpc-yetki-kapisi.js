@@ -98,8 +98,11 @@ if (a.includes('--sinav')) {
 
 if (a.includes('--ozet')) {
   // canli-sema.yml: tüm fonksiyon TSV'si (ad, arg, SD/inv, anon, üye, dönüş) → yetki.tsv (+depoda) + OZET.md
-  const kok = path.join(__dirname, '..'), sqlKlasor = path.join(kok, 'radar-app', 'sql');
-  const sqlMetin = fs.readdirSync(sqlKlasor).filter(f => f.endsWith('.sql')).map(f => fs.readFileSync(path.join(sqlKlasor, f), 'utf8')).join('\n').toLowerCase();
+  // tanım aranan yerler: göçler (radar-app/sql) + eski radar SQL'leri (veri/sql-*.sql; 28.10: marka_* orada, özet "yok" sanmıştı)
+  const kok = path.join(__dirname, '..');
+  const sqlMetin = [path.join(kok, 'radar-app', 'sql'), path.join(kok, 'veri')]
+    .flatMap(k => fs.existsSync(k) ? fs.readdirSync(k).filter(f => f.endsWith('.sql')).map(f => path.join(k, f)) : [])
+    .map(f => fs.readFileSync(f, 'utf8')).join('\n').toLowerCase();
   const satir = fs.readFileSync(arg('--ozet'), 'utf8').split(/\r?\n/).filter(Boolean).map(s => s.split('\t'));
   const depoda = ad => new RegExp('function\\s+(public\\.)?"?' + ad + '"?\\s*\\(').test(sqlMetin);
   const out = satir.map(([ad, ar, sd, an, uy, don]) => [ad, ar, sd, an, uy, don, depoda(ad) ? 'depoda' : 'DEPODA-YOK']);
