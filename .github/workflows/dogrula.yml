@@ -320,6 +320,11 @@ jobs:
               kabuk: bash, komut: "node arac/site-yayin.js --sinav --mutasyon" }
           - { ad: "Site beyaz liste DENETIMI (gercek depo - yasak/zorunlu/kopuk/tetik)",
               kabuk: bash, komut: "node arac/site-yayin.js --kur /tmp/_site --denetim --tetik" }
+          # 28.10.2026 - RPC YETKI KAPISI (arac/rpc-yetki-kapisi.js; canli kosu sql-uygula.yml + canli-sema.yml):
+          # anon/uye calistirabilen SECURITY DEFINER fonksiyon radar-app/acik-rpc.txt'te degilse KIRMIZI.
+          # Oz-sinav 10 vaka; mutasyon 5/5 KIRMIZI (anon/uye/bicim/cift/kor).
+          - { ad: "RPC yetki kapisi OZ-SINAVI (mutasyonlu)",
+              kabuk: bash, komut: "node arac/rpc-yetki-kapisi.js --sinav --mutasyon" }
 
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),

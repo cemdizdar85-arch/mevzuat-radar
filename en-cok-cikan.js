@@ -44,9 +44,10 @@
       var s7=paketBul('son20-sgs');
       if(s7&&s7.acik) h+='<br><a href="satin-al.html?paket=son20-sgs'+K+'">Sadece 7 Deneme '+esc(fiyatAna('son20-sgs',s7.fiyat))+'</a>'+dahil('son20-sgs',s7.fiyat);
     } else {
-      var t=paketBul('yeterlilik-tum');
+      var t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0;   /* 28.10 Yeterlilik erken kayıt (7 Kasım 23:59) */
       h='<span class="ana">1 ders '+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>Bir dersin sınav ücreti '+tl(HARC.yeterlilik.ders)+' TL'
-        +(t&&t.acik?' · tüm dersler '+esc(fiyatAna('yeterlilik-tum',t.fiyat))+dahil('yeterlilik-tum',t.fiyat):'');
+        +(t&&t.acik?' · tüm dersler '+esc(fiyatAna('yeterlilik-tum',tn||t.fiyat))+dahil('yeterlilik-tum',tn||t.fiyat)
+          +(tn?' <small>(erken kayıt, 7 Kasım 23:59\'a kadar · sonra '+tl(t.fiyat)+' TL)</small>':''):'');
     }
     h+='<br><small>Açılış fiyatı ilk '+tl(p.kota)+' ödeyene; sonra '+esc(fiyatAna(id,p.liste))+'. Kartla ödersen paketin hemen açılır.</small>';
     f.innerHTML=h; f.hidden=false;

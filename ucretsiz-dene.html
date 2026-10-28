@@ -156,7 +156,24 @@
      (Yeterlilik) kendi açık vitrinine gider - "Yeterlilik giriyorum Staja Giriş çıkıyor" (23.09) tekrarlanmasın. */
   /* 07.10 Cem ("ücretsiz soru çöz yine 10 soru çıkıyor"): içeriği açık başka sınav kendi 30 soruluk seviye testine gider (10 soruluk vitrine değil); 27.10: s.olc artık 5 örnek soru (uye-durumu.js) */
   /* 13.10 KGK: seviye testi yok -> ders listesi (SINAVLAR.kgk.gir) */
-  if(s.icerik){ if(k!=='sgs'&&(s.olc||s.gir)) location.replace(s.olc||s.gir); return; }
+  /* 28.10 Cem ("Yeterlilik'e Son 20 Gün geliyor; üye olmak isteyenlere erken üyelik verelim, kaçırmayalım"): ?onkayit=yet-s20 →
+     içeriği açık Yeterlilik'te de ön kayıt formu (8 Kasım 2026 = 28 Kasım − 20 gün). Kayıt aynı uçtan, konusu ayrı. */
+  var s20=(k==='yeterlilik' && new URLSearchParams(location.search).get('onkayit')==='yet-s20');
+  if(s.icerik && !s20){ if(k!=='sgs'&&(s.olc||s.gir)) location.replace(s.olc||s.gir); return; }
+  if(s20){
+    document.title='Ön kayıt · SMMM Yeterlilik Son 20 Gün | Tetikte';
+    $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · SMMM Yeterlilik · Son 20 Gün';
+    $('ucBas').querySelector('h1').textContent='Son 20 Gün 8 Kasım\'da açılıyor.';
+    $('ucBas').querySelector('p:not(.uc-goz)').textContent='28 Kasım Yeterlilik sınavına son 20 gün: sınava özel yeni sorular, son 10 yılın en sık çıkan konularından. Fiyat ve paket 8 Kasım\'da açıklanır.';
+    $('ucKartlar').hidden=true; $('ucPaket').hidden=true;
+    var orn=document.querySelector('.uc-ornek'); if(orn) orn.hidden=true;
+    $('onkayit').hidden=false;
+    $('okBaslik').textContent='Açıldığı gün ilk sen öğren';
+    $('okMetin').textContent='E-postanı bırak; Son 20 Gün açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';
+    var rz=document.querySelector('#okForm .uc-riza span'); if(rz) rz.firstChild.textContent='E-postamın, SMMM Yeterlilik Son 20 Gün açıldığında bilgilendirilmem için işlenmesine izin veriyorum. İstediğimde çıkabilirim. ';
+    $('okTamam').textContent='✓ Ön kaydın alındı. Son 20 Gün açıldığı gün e-postana yazacağız.';
+  }
+  else {
   document.title='Ön kayıt · '+s.uzun+' | Tetikte';
   $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';
@@ -166,6 +183,7 @@
   $('onkayit').hidden=false;
   $('okBaslik').textContent=s.ad+' açıldığında ilk sen öğren';
   $('okMetin').textContent='E-postanı bırak; ücretsiz deneme ve paket açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';
+  }
   $('okForm').addEventListener('submit',function(e){
     e.preventDefault();
     var ep=$('okEposta').value.trim(), h=$('okHata'); h.textContent='';
@@ -174,7 +192,7 @@
     var dugme=this.querySelector('button'); dugme.disabled=true;
     fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',
       headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},
-      body:JSON.stringify({email:ep,subject:'Ön kayıt: '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
+      body:JSON.stringify({email:ep,subject:'Ön kayıt: '+k+(s20?' Son 20 Gün':''),from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
     }).then(function(y){ return y.ok?y.json():Promise.reject(y.status); }).then(function(){
       $('okForm').hidden=true; $('okTamam').hidden=false;
     }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da destek@tetikte.com adresine yaz.'; });

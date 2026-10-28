@@ -484,7 +484,7 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
 <!-- GERCEK TAKVIM — uydurma geri sayim yok. Takvim ve fiyat verisi 21.08'de
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
-<script src="fiyat-motoru.js?v=20261027a"></script>
+<script src="fiyat-motoru.js?v=20261028y"></script>
 <script src="gkt.js?v=1" defer></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';
@@ -502,8 +502,17 @@ tk.innerHTML = h;
    2.388 TL (KDV dahil; satın almada kodsuz uygulanan indirimle aynı). "İlk 1.000 üyeden sonra" satırı bu sürede yazılmaz;
    1 Kasım 23:59'dan sonra eski gösterim kendiliğinden döner. Ödenen tutar satin-al'da (sunucu doğrular). */
 function erkenSgs(p){ return (p && p.id === 'sgs' && typeof erkenKayitAcik === 'function' && erkenKayitAcik()) ? p.fiyat - ERKEN_KAYIT.indirim : 0; }
+/* 28.10 Cem: Yeterlilik tüm derslerde 7 Kasım 23:59'a kadar erken kayıt (fiyat-motoru.js ERKEN_YET); kartın kendi "+ KDV" yazımı */
+function erkenYetP(p){ return (p && p.id === 'yeterlilik-tum' && typeof erkenNet === 'function') ? erkenNet(p) : 0; }
 function kart(id, p){
-  var pid = p.id, hr = KDV_HARIC_GOSTER[pid], ek = erkenSgs(p);
+  var pid = p.id, hr = KDV_HARIC_GOSTER[pid], ek = erkenSgs(p), ey = erkenYetP(p);
+  if(ey){
+    document.getElementById('fy' + id).innerHTML = kdvHaric(ey) + ' <small>TL + KDV</small>';
+    document.getElementById('ls' + id).innerHTML = '';
+    var khY = document.getElementById('kh' + id); if(khY) khY.innerHTML = '<span class="kdv-dahil" style="font-size:13px">KDV dahil ' + tl(ey) + ' TL · ' + tl(p.fiyat) + ' TL yerine</span>';
+    var ktY = document.getElementById('kt' + id); if(ktY && ktY.parentNode) ktY.parentNode.textContent = 'erken kayıt · 7 Kasım 23:59\'a kadar';
+    return;
+  }
   if(ek){
     document.getElementById('fy' + id).innerHTML = tl(ek) + ' <small>TL</small>';
     document.getElementById('ls' + id).innerHTML = '';
@@ -549,7 +558,7 @@ var pTek = paketBul('yeterlilik-1'); kart('Tek', pTek); document.getElementById(
   document.getElementById('alTek').setAttribute('href', 'satin-al.html?paket=' + p.id);
 }); });
 [].forEach.call(document.querySelectorAll('#fozet [data-paket]'), function(a){ var p = paketBul(a.getAttribute('data-paket')); if(!p){ a.hidden = true; return; }
-  a.querySelector('[data-f]').innerHTML = erkenSgs(p) ? tl(erkenSgs(p)) + ' TL' : fiyatAnaHtml(p.id, p.fiyat); });   /* 17.10 telefon özeti: rakam motordan · 28.10 erken kayıt */
+  a.querySelector('[data-f]').innerHTML = erkenSgs(p) ? tl(erkenSgs(p)) + ' TL' : erkenYetP(p) ? fiyatAnaHtml(p.id, erkenYetP(p)) : fiyatAnaHtml(p.id, p.fiyat); });   /* 17.10 telefon özeti: rakam motordan · 28.10 erken kayıt */
 
 // Erisim yazisi: "en yakin sinavi kapsamiyorsa ucretsiz uzatilir" kurali
 // motorda; sayfa onu yazar, ayri hesap yapmaz.
@@ -640,7 +649,9 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
     /* 02.10: tablo KDV dahil basıyordu, sayfa notu "KDV hariç gösterilir" diyor → motorun yardımcısıyla (01.10 kararı) */
     var dahil = function(n){ var d = fiyatDahilNot(id, n); return d ? '<br><span class="kucuk">' + d + '</span>' : ''; };
     tr.innerHTML = '<td>' + p.ad + '</td>'
-      + '<td class="sag simdi">' + (erkenSgs(p) ? tl(erkenSgs(p)) + ' TL<br><span class="kucuk">erken kayıt, 1 Kasım 23:59\'a kadar · sonra ' + fiyatAnaHtml(id, p.fiyat) + '</span>' : fiyatAnaHtml(id, p.fiyat) + dahil(p.fiyat)) + '</td>'
+      + '<td class="sag simdi">' + (erkenSgs(p) ? tl(erkenSgs(p)) + ' TL<br><span class="kucuk">erken kayıt, 1 Kasım 23:59\'a kadar · sonra ' + fiyatAnaHtml(id, p.fiyat) + '</span>'
+          : erkenYetP(p) ? fiyatAnaHtml(id, erkenYetP(p)) + dahil(erkenYetP(p)) + '<br><span class="kucuk">erken kayıt, 7 Kasım 23:59\'a kadar · sonra ' + fiyatAnaHtml(id, p.fiyat) + '</span>'
+          : fiyatAnaHtml(id, p.fiyat) + dahil(p.fiyat)) + '</td>'
       + '<td class="sag">' + fiyatAnaHtml(id, p.liste) + dahil(p.liste) + '</td>'
       + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üye' : '—') + '<br><span class="kucuk kurucuKalan"></span></td>';
     t.appendChild(tr);
