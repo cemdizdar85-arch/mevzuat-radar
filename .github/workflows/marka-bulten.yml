@@ -184,6 +184,16 @@ jobs:
           RESEND_YANIT: ${{ secrets.RESEND_YANIT }}
         run: node motor/marka-bulten-nobet.js
 
+      # 28.10: marka sorgusu (marka_talep) IP'si kişi başı günlük sınır için yazılıyor; KVKK: 7 gün sonra silinir.
+      # Sorgu gelmeyen günlerde de silinsin diye her gece (2026-10-28-marka-talep-sinir.sql). Yalnız sayı basılır.
+      - name: Marka sorgu IP temizligi (7 gun)
+        if: always()
+        env:
+          SB: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          n=$(curl -sf -X POST "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/rpc/marka_talep_ip_temizle" -H "apikey: $SB" -H "Authorization: Bearer $SB" -H "Content-Type: application/json" -d '{}')
+          echo "silinen IP: $n"
+
       # 08.09 (Cem "13.10'da kutuya bak" yerine kendi kendine): nobet ya da
       # uyari adimi duserse Cem'e alarm gider - "kutuya bakmayi unutmak" diye
       # bir sey kalmaz. Basari sessizdir (o zaten musteri maili olarak gorunur).

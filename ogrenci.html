@@ -8,6 +8,7 @@
 <script src="tema-bas.js"></script>
 <script src="tazelik.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-itunes-app" content="app-id=6816072026">   <!-- 28.10: iPhone Safari akıllı bandı (App Store, Apple çizer) -->
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <!-- 18.10 Cem "Apple'da çözenleri de halletsin": iPhone'da Safari → Paylaş → Ana Ekrana Ekle ile simge + tam ekran (App Store uygulaması yok) -->
@@ -231,6 +232,9 @@
 .op-app{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px 12px 18px;margin:18px 0}
 .op-app .op-coz{margin-left:auto;white-space:nowrap}.op-app .op-coz+.op-coz{margin-left:0}
 .op-app{flex-wrap:wrap}.op-app-adim{flex-basis:100%;margin:4px 0 4px 54px;padding-left:18px;font-size:14px;color:var(--muted);line-height:1.6}
+/* 28.10 resmî mağaza rozetleri (Google rozeti iç boşluklu: görünen boy Apple'la eşit) */
+.op-app-rozet{margin-left:auto;display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
+.op-app-rozet a{display:block;line-height:0}.op-app-rozet img{height:40px;width:auto}.op-app-rozet img.gp{height:58px;margin:-9px;max-width:none}
 .op-x{flex:none;width:44px;height:44px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:16px;cursor:pointer}.op-x:hover{background:var(--bg2);color:var(--ink)}
 .op-konubos{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
 .op-konubos h3{margin:0 0 4px}.op-konubos p{margin:0;font-size:14.5px;color:var(--muted)}
@@ -240,7 +244,8 @@
 .op-cipler{display:flex;gap:8px;flex-wrap:wrap}.op-cipler span{font-size:13px;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--bg2);color:var(--ink)}
 @media(max-width:860px){ .op-konubos,.op-den-bos{grid-template-columns:1fr} .op-konubos .og-btn,.op-den-bos .og-btn{width:100%;box-sizing:border-box;text-align:center;justify-content:center}
   .op-app{display:grid;grid-template-columns:40px 1fr 44px;align-items:start;gap:4px 12px;padding:12px}
-  .op-app .op-k-ik{grid-row:1/3} .op-app .op-x{grid-column:3;grid-row:1} .op-app .op-coz{grid-column:2/4;grid-row:2;margin:6px 0 0;justify-self:start} .op-app .op-app-adim{grid-column:1/4;grid-row:3;margin:8px 0 0} }
+  .op-app .op-k-ik{grid-row:1/3} .op-app .op-x{grid-column:3;grid-row:1} .op-app .op-coz{grid-column:2/4;grid-row:2;margin:6px 0 0;justify-self:start} .op-app .op-app-adim{grid-column:1/4;grid-row:3;margin:8px 0 0}
+  .op-app .op-app-rozet{grid-column:2/4;grid-row:2;margin:8px 0 0;justify-self:start} }
   @media(max-width:860px){ .op-karne{grid-template-columns:1fr 1fr} .op-iki{grid-template-columns:1fr} .op-gizle-m{display:none} html body .op-bugun #ogSimdiBtn{width:100%;text-align:center} }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
@@ -524,16 +529,14 @@
          Android → Google Play · iPhone/iPad → Safari'de "Ana Ekrana Ekle" adımları · bilgisayar → ikisi birden. App Store bağlantısı yok (yayında değil). -->
     <div class="op-app" id="opApp">
       <span class="op-k-ik"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg></span>
-      <span class="op-k-yazi"><b id="opAppBas">Telefonda da çalış</b><small id="opAppMetin">Android uygulamasında bu hesapla gir; paketin orada da açık.</small></span>
-      <a class="og-btn op-coz" id="opAppPlay" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play →</a>
-      <button type="button" class="og-btn op-coz og-gizli" id="opAppIos" aria-expanded="false">Nasıl eklenir?</button>
+      <!-- 28.10 Cem: iOS uygulaması App Store'da (24.10) → "Ana Ekrana Ekle" adımları yerine resmî mağaza rozetleri;
+           iPhone → App Store, Android → Google Play, bilgisayar → ikisi (aşağıdaki betik). -->
+      <span class="op-k-yazi"><b id="opAppBas">Telefonda da çalış</b><small id="opAppMetin">Uygulamada bu hesapla gir; paketin orada da açık.</small></span>
+      <span class="op-app-rozet">
+        <a id="opAppAs" href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener"><img src="gorsel/magaza/app-store-tr.svg" width="151" height="40" alt="App Store'dan indirin"></a>
+        <a id="opAppPlay" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener"><img class="gp" src="gorsel/magaza/google-play-tr.png" width="150" height="58" alt="Google Play'den alın"></a>
+      </span>
       <button type="button" class="op-x" id="opAppX" aria-label="Kapat">✕</button>
-      <ol class="op-app-adim og-gizli" id="opAppAdim">
-        <li>Bu sayfayı <b>Safari</b>'de aç (Chrome'da da olur: sağ üstteki paylaş simgesi).</li>
-        <li>Alttaki <b>Paylaş</b> düğmesine dokun (kare ve yukarı ok).</li>
-        <li>Listeyi kaydır, <b>Ana Ekrana Ekle</b> → <b>Ekle</b>.</li>
-        <li>Ana ekrandaki <b>Tetikte</b> simgesinden aç; ilk açılışta bir kez giriş yap.</li>
-      </ol>
     </div>
 
     <!-- HESAP AYARLARI -->
@@ -584,7 +587,7 @@
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js?v=20261028z"></script>
-<script src="uygulama-indir.js?v=20261009a"></script>
+<script src="uygulama-indir.js?v=20261028m"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261028b"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
@@ -665,9 +668,9 @@
     /* 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme alana "Aktif paketin yok" denmez; denemeler son-20-gun.html'de */
     if(!sinavlar.length && d.son20 && d.son20.durum==='aktif' && d.son20.tur==='yet'){   /* 28.10 Yeterlilik Son 20 Gün ön satış */
       kap.innerHTML='<div class="og-paket"><span class="og-paket-et">SMMM Yeterlilik · Son 20 Gün</span><b>Sadece Denemeler</b>'
-        +'<span class="og-paket-alt">Ön siparişin alındı. Denemelerin 8 Kasım 2026\'da (sınava 20 gün kala) açılır; o gün bu sayfadan başlarsın.'
+        +'<span class="og-paket-alt">'+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. Denemelerin 8 Kasım 2026\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır.':'Denemelerin Son 20 Gün sayfasında; her dersin 3 denemesi var.')
         +(d.son20.bitis?' Erişim '+esc(U.tarihYazi(d.son20.bitis))+' tarihine kadar.':'')+'</span>'
-        +'<div class="og-btnler"><a class="og-btn" href="iletisim.html">Tüm derslere geç (999 TL düşülür)</a></div>'
+        +'<div class="og-btnler"><a class="og-btn ana" href="son-20-gun.html?sinav=yeterlilik">Son 20 Gün sayfası</a><a class="og-btn" href="iletisim.html">Tüm derslere geç (999 TL düşülür)</a></div>'
         +PB_HTML+'</div>';
       pbKur(user);
       return;
@@ -1248,11 +1251,8 @@
     var kapali=false; try{ kapali=!!localStorage.getItem('op_app_kapat'); }catch(e){}
     if(kapali||tamEkran) opApp.remove();   /* ana ekrandan açılmışsa zaten "uygulama" - şerit gereksiz */
     else {
-      if(ios){ $('opAppBas').textContent='iPhone\'da uygulama gibi aç'; $('opAppMetin').textContent='Ana ekranına Tetikte simgesi ekle; tek dokunuşla tam ekran açılır.';
-        $('opAppPlay').classList.add('og-gizli'); $('opAppIos').classList.remove('og-gizli'); }
-      else if(!andr){ $('opAppMetin').innerHTML='Android: Google Play uygulaması · iPhone: Safari\'de Paylaş → <b>Ana Ekrana Ekle</b>.';
-        $('opAppIos').textContent='iPhone adımları'; $('opAppIos').classList.remove('og-gizli'); }
-      $('opAppIos').onclick=function(){ var a=$('opAppAdim'), ac=a.classList.toggle('og-gizli'); this.setAttribute('aria-expanded',!ac); };
+      if(ios) $('opAppPlay').classList.add('og-gizli');   /* 28.10: cihazın mağazası; bilgisayarda ikisi */
+      else if(andr) $('opAppAs').classList.add('og-gizli');
       $('opAppX').onclick=function(){ try{ localStorage.setItem('op_app_kapat','1'); }catch(e){} opApp.remove(); };
     } } }catch(e){}
   function opYuzde(d,c){ return c?Math.round(100*d/c):null; }

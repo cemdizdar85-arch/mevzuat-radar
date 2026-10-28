@@ -2328,6 +2328,44 @@ end;
 $function$
 ;
 
+-- marka_takip_ac2(text,integer[],text)
+CREATE OR REPLACE FUNCTION public.marka_takip_ac2(p_ad text, p_sinif integer[], p_eposta text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public', 'extensions'
+AS $function$
+declare v_n text; v_e text; r public.marka_takip; v_oj text;
+begin
+  v_n := public.marka_norm(p_ad);
+  v_e := lower(btrim(coalesce(p_eposta, '')));
+  if v_n = '' or length(btrim(coalesce(p_ad, ''))) < 2 or length(p_ad) > 120 then return jsonb_build_object('durum', 'AD_GECERSIZ'); end if;
+  if v_e !~ '^[^@[:space:]]+@[^@[:space:]]+\.[a-z]{2,}$' or length(v_e) > 254 then return jsonb_build_object('durum', 'EPOSTA_GECERSIZ'); end if;
+  if (select count(*) from public.marka_takip t where lower(t.eposta) = v_e and t.aktif) >= 25 then
+    return jsonb_build_object('durum', 'TAVAN'); end if;
+
+  select * into r from public.marka_takip t where t.ad_norm = v_n and lower(t.eposta) = v_e limit 1;
+  if found and r.aktif and r.onaylandi is not null then
+    return jsonb_build_object('durum', 'ZATEN_ACIK', 'ad', r.ad); end if;
+  if found and r.onay_gonderim > now() - interval '10 minutes' then
+    return jsonb_build_object('durum', 'BEKLE', 'ad', r.ad); end if;
+
+  v_oj := encode(extensions.gen_random_bytes(24), 'hex');
+  if not found then
+    insert into public.marka_takip (ad, ad_norm, sinif, eposta, jeton, aktif, onaylandi, onay_jeton, onay_son, onay_gonderim)
+    values (btrim(p_ad), v_n, coalesce(p_sinif, '{}'), v_e, encode(extensions.gen_random_bytes(24), 'hex'),
+            false, null, v_oj, now() + interval '48 hours', now())
+    returning * into r;
+  else
+    update public.marka_takip t
+       set sinif = coalesce(p_sinif, t.sinif), aktif = false, onaylandi = null,
+           onay_jeton = v_oj, onay_son = now() + interval '48 hours', onay_gonderim = now()
+     where t.id = r.id returning * into r;
+  end if;
+  return jsonb_build_object('durum', 'ONAY_GONDER', 'ad', r.ad, 'sinif', r.sinif, 'onay', v_oj);
+end; $function$
+;
+
 -- marka_takip_bekleyen(integer)
 CREATE OR REPLACE FUNCTION public.marka_takip_bekleyen(p_tavan integer DEFAULT 500)
  RETURNS TABLE(takip_id uuid, eposta text, jeton text, takip_ad text, takip_sinif integer[], basvuru_no text, bulten_no integer, ad text, sahip text, sinif integer[], yayin_tarihi date, itiraz_son date, kalan_gun integer, benzerlik real, ayni_sinif boolean, kademe text, sebep text, tur text, hatirlatma integer)
@@ -2375,6 +2413,7 @@ AS $function$
        limit 200
     ) b
    where t.aktif
+     and t.onaylandi is not null
      and b.kademe <> 'ZAYIF'
    order by t.id, (b.kademe = 'YUKSEK') desc, b.itiraz_son asc
    limit least(greatest(p_tavan, 1), 5000);
@@ -2433,6 +2472,26 @@ AS $function$
 $function$
 ;
 
+-- marka_takip_onayla(text)
+CREATE OR REPLACE FUNCTION public.marka_takip_onayla(p_onay text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare r public.marka_takip;
+begin
+  if p_onay is null or p_onay !~ '^[0-9a-f]{48}$' then return jsonb_build_object('durum', 'GECERSIZ'); end if;
+  select * into r from public.marka_takip t where t.onay_jeton = p_onay for update;
+  if not found then return jsonb_build_object('durum', 'GECERSIZ'); end if;
+  if r.onay_son < now() then
+    update public.marka_takip set onay_jeton = null where id = r.id;
+    return jsonb_build_object('durum', 'SURESI_DOLDU', 'ad', r.ad); end if;
+  update public.marka_takip set aktif = true, onaylandi = now(), onay_jeton = null where id = r.id;
+  return jsonb_build_object('durum', 'ONAYLANDI', 'ad', r.ad, 'sinif', r.sinif, 'jeton', r.jeton);
+end; $function$
+;
+
 -- marka_takip_sayac()
 CREATE OR REPLACE FUNCTION public.marka_takip_sayac()
  RETURNS TABLE(aktif_nobet bigint, uyarilan bigint)
@@ -2452,17 +2511,36 @@ CREATE OR REPLACE FUNCTION public.marka_talep_ac(p_unvan text, p_email text DEFA
  SECURITY DEFINER
  SET search_path TO 'public'
 AS $function$
-declare v_jeton text; v_gunluk int;
+declare v_jeton text; v_gunluk int; v_ip text;
 begin
   if p_unvan is null or length(btrim(p_unvan)) < 3 or length(p_unvan) > 160 then
     raise exception 'Unvan 3-160 karakter olmali'; end if;
+  v_ip := nullif(btrim(split_part(coalesce(current_setting('request.headers', true)::json->>'x-forwarded-for', ''), ',', 1)), '');
+  if v_ip is not null and (select count(*) from public.marka_talep
+                            where ip = v_ip and created_at > now() - interval '1 day') >= 20 then
+    raise exception 'Bugunluk sorgu hakkin doldu (gunde 20). Yarin tekrar dene.'; end if;
   select count(*) into v_gunluk from public.marka_talep where created_at > now() - interval '1 day';
   if v_gunluk > 3000 then raise exception 'Gunluk sorgu tavani doldu, yarin tekrar dene'; end if;
+  update public.marka_talep set ip = null where ip is not null and created_at < now() - interval '7 days';
   v_jeton := replace(gen_random_uuid()::text,'-','') || replace(gen_random_uuid()::text,'-','');
-  insert into public.marka_talep(jeton, unvan, email, user_id, kaynak)
+  insert into public.marka_talep(jeton, unvan, email, user_id, kaynak, ip)
   values (v_jeton, btrim(p_unvan), nullif(btrim(coalesce(p_email,'')),''), auth.uid(),
-          left(nullif(btrim(coalesce(p_kaynak,'')),''),40));
+          left(nullif(btrim(coalesce(p_kaynak,'')),''),40), v_ip);
   return v_jeton;
+end; $function$
+;
+
+-- marka_talep_ip_temizle()
+CREATE OR REPLACE FUNCTION public.marka_talep_ip_temizle()
+ RETURNS integer
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare n int;
+begin
+  update public.marka_talep set ip = null where ip is not null and created_at < now() - interval '7 days';
+  get diagnostics n = row_count; return n;
 end; $function$
 ;
 
