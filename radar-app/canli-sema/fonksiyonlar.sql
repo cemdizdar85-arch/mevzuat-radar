@@ -3366,6 +3366,22 @@ begin
 end $function$
 ;
 
+-- siparis_otomatik_iptal(text[])
+CREATE OR REPLACE FUNCTION public.siparis_otomatik_iptal(p_nolar text[])
+ RETURNS integer
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare n int;
+begin
+  update public.siparisler set durum = 'iptal', iptal_neden = 'otomatik', iptal_zaman = now()
+   where siparis_no = any(coalesce(p_nolar, '{}')) and durum = 'odeme_bekliyor';
+  get diagnostics n = row_count;
+  return n;
+end $function$
+;
+
 -- siparis_paket_bagla(uuid,text)
 CREATE OR REPLACE FUNCTION public.siparis_paket_bagla(p_uid uuid, p_eposta text)
  RETURNS text
@@ -4229,7 +4245,8 @@ begin
         'ozel_kod', s.ozel_kod, 'ozel_kod_tl', s.ozel_kod_tl,
         'indirim_kaynak', s.indirim_kaynak, 'kaynak_etiket', s.kaynak_etiket,
         'ad', s.ad_soyad, 'eposta', s.email,
-        'tarih', s.olusturma, 'odendi', s.odendi_tarihi
+        'tarih', s.olusturma, 'odendi', s.odendi_tarihi,
+        'iptal_neden', s.iptal_neden
       ) order by s.olusturma desc)
       from public.siparisler s
     ), '[]'::jsonb),
@@ -4377,7 +4394,9 @@ begin
   if p_bitis is null or p_bitis <= current_date then raise exception 'BITIS_GECERSIZ'; end if;
   select * into s from public.siparisler where siparis_no = p_no for update;
   if not found then raise exception 'SIPARIS_YOK'; end if;
-  if s.durum <> 'odeme_bekliyor' then raise exception 'DURUM_%', upper(s.durum); end if;
+  -- coalesce ŞART: iptal_neden null iken "not (… and null)" null olur, if çalışmaz ve elle iptal de açılırdı (ilk koşuda öz-sınav yakaladı)
+  if s.durum <> 'odeme_bekliyor' and not (s.durum = 'iptal' and coalesce(s.iptal_neden, '') = 'otomatik') then
+    raise exception 'DURUM_%', upper(s.durum); end if;
 
   update public.siparisler set durum = 'odendi', paket_bitis = p_bitis where id = s.id;   -- odendi_tarihi tetikleyicide
 

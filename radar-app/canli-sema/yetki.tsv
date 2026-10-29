@@ -118,6 +118,7 @@ siparis_elci_damga		SD	t	t	trigger	depoda
 siparis_gads_tiklama_suz		inv	f	f	trigger	depoda
 siparis_odeme_kontrol	p_no text	SD	f	f	text	depoda
 siparis_odendi_damga		inv	t	t	trigger	depoda
+siparis_otomatik_iptal	p_nolar text[]	SD	f	f	integer	depoda
 siparis_paket_bagla	p_uid uuid, p_eposta text	SD	f	f	text	depoda
 siparis_teklif_damga		SD	t	t	trigger	depoda
 tr_fold	t text	inv	t	t	text	depoda
