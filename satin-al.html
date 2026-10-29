@@ -1206,6 +1206,36 @@ function havaleKur(no){
     /* 29.10 akşam (Cem "havale yaparken niye mail gönderiyoruz"): buradaki IBAN maili kalktı; bilgi bu kutuda */
   });
 }catch(e){} })();
+/* 29.10 gece (Cem "ya da siteye yönlendirelim tekrar"): bekleyen siparişe WhatsApp/mail ile tek bağlantı → ?ode=<no>[&t=<tutar>].
+   Büyük sitelerin "siparişini öde" sayfası: kart düğmesi üstte (?kartla= akışı, tutar SUNUCUDA hesaplanır), havale bilgisi altında açık.
+   Sipariş tablosu tarayıcıdan okunamaz (kişi verisi); tutar yalnız bağlantıdaki t'den gösterilir, yoksa satırı çıkmaz.
+   Yeni sipariş açılmasın diye sipariş formu ve alttaki çubuk gizlenir. Mail gitmez. */
+(function(){ try{ var q = new URLSearchParams(location.search), no = String(q.get('ode') || '');
+  if(!/^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(no)) return;
+  var t = String(q.get('t') || ''); t = /^[0-9]{3,5}$/.test(t) ? tl(+t) + ' TL' : '';
+  var kv = function(k, v){ return '<div class="kv"><b>' + k + '</b><span>' + v + '</span></div>'; };
+  var d = document.createElement('div'); d.className = 'kutu'; d.id = 'odeKutu';
+  d.innerHTML = '<h2 style="margin:0 0 6px">Siparişini tamamla</h2>'
+    + '<p style="margin:0 0 12px;font-size:14px"><b>' + no + '</b> numaralı siparişin ödeme bekliyor. Yeniden sipariş vermene gerek yok.</p>'
+    + (kartAcik() ? '<a class="btn" id="odeKart" href="satin-al.html?kartla=' + no + '" style="display:block;text-align:center;text-decoration:none;font-weight:800;margin:0 0 6px">💳 Kartla öde — paketin hemen açılsın</a>'
+      + '<p class="kucuk" style="margin:0 0 14px">Ödeme iyzico\'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. Taksit yok.</p>' : '')
+    + '<p style="margin:0 0 6px;font-size:15px"><b>' + (kartAcik() ? 'Ya da havale/EFT ile öde' : 'Havale/EFT ile öde') + '</b></p>'
+    + '<p style="margin:0 0 10px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün paketin açılır.</p>'
+    + kv('Alıcı', 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.') + kv('Banka', BANKA.ad)
+    + (t ? kv('Tutar', '<b>' + t + '</b>') : '')
+    + '<div class="kv" style="display:block"><b style="display:block;margin-bottom:4px">IBAN</b><span class="iban">' + BANKA.iban + '</span></div>'
+    + '<p style="margin:10px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına yalnız sipariş numaranı yaz: ' + no + '</b></p>'
+    + '<p class="kucuk" style="margin:10px 0 0">📸 Bu ekranın görüntüsünü al ya da IBAN\'ı kopyala. Paketin açılınca sipariş özetin ve sözleşme kopyan e-postana gelir.</p>'
+    + '<p class="kucuk" style="margin:8px 0 0">Takıldığın yerde bize yaz: <a href="https://wa.me/905323448058">WhatsApp 0532 344 80 58</a> · <a href="mailto:destek@tetikte.com">destek@tetikte.com</a> (sipariş no: <b>' + no + '</b>).'
+    + ' Başka bir paket almak istersen <a href="satin-al.html">yeni sipariş ver</a>.</p>';
+  document.addEventListener('DOMContentLoaded', function(){
+    var h1 = document.querySelector('h1');   /* sayfada <main> yok: kutu başlığın altına */
+    if(h1) h1.parentNode.insertBefore(d, h1.nextSibling); else document.body.insertBefore(d, document.body.firstChild);
+    var st = document.createElement('style'); st.textContent = '#mbar,#duzen,header.bas .alt{display:none!important}'; document.head.appendChild(st);
+    try{ adimSay('ode-sayfa'); }catch(e){}
+    try{ var k = document.getElementById('odeKart'); if(k) k.onclick = function(){ adimSay('ode-kart'); }; }catch(e){}
+  });
+}catch(e){} })();
 /* 19.10 havale hatırlatması (motor/havale-hatirlatma.mjs): maildeki "Kartla öde" → ?kartla=<sipariş no>. Kartla ödeme kutusundaki
    akışın aynısı: yalnız sipariş no gider, tutarı iyzico-odeme ?islem=baslat SUNUCUDA hesaplar (ödenmiş/iptal siparişte başlamaz). */
 (function(){ try{ var q = new URLSearchParams(location.search), no = String(q.get('kartla') || '');
