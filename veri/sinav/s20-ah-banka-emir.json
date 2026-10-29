@@ -21,11 +21,19 @@
       "girdi": "veri/sinav/s20-ah-banka-aday-2.json",
       "aciklama": "banka adayları dalga 2 — emir 1'de bakılmamış 960 aday (deneme yerleri öncelik sırasıyla), 12 USD tavanda durur",
       "onay_notu": "Cem 27.10: AH ikinci tur tavan 12 USD ONAYLI",
-      "harcanan_usd": 0.0,
+      "harcanan_usd": 0,
       "durum": "toplu kuyruk bitmedi (27.10.2026 23:44) — aynı emir yeniden koşunca kuyruktaki partiye bağlanır/bedava hasat eder",
       "uygulandi": "28.10.2026 00:55",
       "gercek_usd": 9.42,
       "sonuc": "veri/sinav/s20-ah-banka-karar-2.json"
+    },
+    {
+      "no": 3,
+      "onay": true,
+      "tavan_usd": 3,
+      "girdi": "veri/sinav/s20-ah-banka-aday-3.json",
+      "aciklama": "banka adaylari dalga 3 - D1-D7 bos yerler (Vergi, Borclar, Ticaret, Turkce, Yabanci Dil, MTA, Denetim): 114 aday, oncelik sirasiyla, 3 USD tavanda durur",
+      "onay_notu": "Cem 29.10: AH ucuncu emir ≈2,2 USD ONAYLI (tavan 3 USD)"
     }
   ]
 }
