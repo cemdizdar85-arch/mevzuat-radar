@@ -844,7 +844,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       if(!hb.getAttribute('data-ilk')){ hb.setAttribute('data-ilk',hb.innerHTML); ha.setAttribute('data-ilk',ha.innerHTML); hs.setAttribute('data-ilk',hs.innerHTML); }
       hb.innerHTML=(soz||yetB)?'Geçemezsen,<br>geçene kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
       ha.innerHTML=(soz||yetB)?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
-      hs.innerHTML=yetB?'Şart: Son 20 Gün\'de girdiğin her dersin 5 denemesinin en az 3\'ünde %60 ve üstü doğru yap. <a href="kampanya-son-20-gun.html#yeterlilik">Şartlar</a>':hs.getAttribute('data-ilk');
+      /* 29.10 Cem yönetim kurulu kararı: 1 Kasım 23:59 TR'ye (20:59 UTC) kadar şart satırı yerine karar; sonra eski şart satırı kendiliğinden döner */
+      var ykK=Date.now()<Date.UTC(2026,10,1,20,59,59);
+      hs.innerHTML=ykK?'<b>Yönetim kurulu kararı:</b> 1 Kasım 23:59\'a kadar paket alana deneme barajı, görev şartı yok. <a href="kampanya-son-20-gun.html#karar">Ayrıntı</a>':(yetB?'Şart: Son 20 Gün\'de girdiğin her dersin 5 denemesinin en az 3\'ünde %60 ve üstü doğru yap. <a href="kampanya-son-20-gun.html#yeterlilik">Şartlar</a>':hs.getAttribute('data-ilk'));
       hs.hidden=!(soz||yetB); }catch(e){}
     try{ kahFiyatCiz(secili, d.durum==='aktif'); pkSuz(secili); }catch(e){}
     ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });

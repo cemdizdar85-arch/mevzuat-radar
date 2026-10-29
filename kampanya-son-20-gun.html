@@ -62,6 +62,11 @@ details.kos summary::after{content:"+";font-weight:900;color:var(--muted)}
 details.kos[open] summary::after{content:"−"}
 details.kos[open]{padding-bottom:6px}
 @media(max-width:640px){ .ks-adim,.ks-iki{grid-template-columns:1fr} }
+/* 29.10 yönetim kurulu kararı kutusu: renk yalnız jetondan */
+.yk-karar{border:2px solid var(--accent2);background:color-mix(in srgb,var(--accent2) 8%,transparent);border-radius:14px;padding:14px 16px;margin:0 0 18px;text-align:left}
+.yk-karar p{margin:4px 0;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.yk-karar .yk-ust{font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--accent2)}
+.yk-karar .yk-bas{font-size:19px;font-weight:850;color:var(--ink);letter-spacing:-.2px}
 </style>
 <link rel="stylesheet" href="stil-acik.css">
 </head>
@@ -73,6 +78,13 @@ details.kos[open]{padding-bottom:6px}
     <div class="top">Kampanya koşulları</div>
     <h1 class="gkt-h" id="gktBas">Geçene Kadar Tetikte · Son 20 Gün</h1>
     <p class="gkt-alt">Sınavda kalırsan, geçene kadar <b>TETİKTE.</b> İki paket, söz ikisinde de var.</p>
+    <!-- 29.10 Cem ("internet sitesini yönetim kurulu kararı gibi alalım", "1 kasıma kadar bunların olduğunu belli et"):
+         Dizdar Denetim Yönetim Kurulu Duyurusu Sayı 2026/01 (Instagram DfFCXmpCFIQ) aynen; ayrıntı aşağıda #karar. -->
+    <div class="yk-karar" role="note">
+      <p class="yk-ust">Yönetim Kurulu Kararı · 29 Ekim 2026 · Son gün 1 Kasım 23:59</p>
+      <p class="yk-bas">1 Kasım 23:59'a kadar paket alana şart yok.</p>
+      <p>1 Kasım 2026 saat 23:59'a kadar paket alan <b>ilk 2.000 üye</b>, satın aldığı paketin kapsamındaki sınavı kazanana kadar ek üyelik ücreti ödemez. <b>Deneme barajı, görev şartı, süre sınırı yok;</b> girdiğin her sınavın sonuç belgesini bizimle paylaşman yeterli. 2027 sınavlarına hazırlananlar ve daha önce paket almış üyelerimiz de dahil. <a href="#karar">Kararın ayrıntısı →</a></p>
+    </div>
     <!-- 28.10 Cem ("burada smmm bitirme geliyor diyelim" → altta görünmüyordu: "buraya"): başlığın altında, kartların üstünde.
          Fiyat/koşul YAZILMAZ (karar verilmedi); yalnız geliyor + gün (28 Kasım sınavından 20 gün önce). -->
     <!-- 28.10 Cem ("burda kalırsan SGS sınavında gibi aynı şeyleri verelim" → şart onayı): Yeterlilik'te de söz var; koşullar aşağıda #yeterlilik -->
@@ -94,7 +106,7 @@ details.kos[open]{padding-bottom:6px}
       </article>
     </div>
     <span class="gkt-iki-soz">Söz ikisinde de var.</span>
-    <p class="gkt-dip">Şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil</p>
+    <p class="gkt-dip"><b>1 Kasım 23:59'a kadar alana şart yok</b> (yönetim kurulu kararı) · Sonra alanlarda şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil</p>
   </div>
 </section>
 <div class="wrap" id="icerik" role="main">
@@ -102,6 +114,7 @@ details.kos[open]{padding-bottom:6px}
        numaralı hak kazanma adımları, paket başına ne verildiği; uzun hukuki metin AYNEN aşağıda katlı bölümlerde (metin değişmedi). -->
   <h2 class="ks-bas">Söz nasıl işler?</h2>
   <p class="ks-alt">Hazırlığını tamamla; buna rağmen 21 Kasım'da kalırsan, sınavı geçene kadar Tetikte'desin.</p>
+  <p class="ks-not"><b>1 Kasım 23:59'a kadar alanlar için:</b> 2. adım aranmaz. Paketini al, kalırsan sonuç belgeni gönder; sınavı kazanana kadar ek üyelik ücreti ödemezsin (<a href="#karar">yönetim kurulu kararı</a>).</p>
   <ol class="ks-adim">
     <li><b>Paketini al</b><span>Tam Paket ya da Sadece 7 Deneme. Denemeler 1 Kasım 2026'da hesabında açılır.</span></li>
     <li><b>7 denemeyi bitir</b><span>En az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), kaldığın denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce.</span></li>
@@ -118,6 +131,7 @@ details.kos[open]{padding-bottom:6px}
        28.10 Cem: ders başına 5 deneme, şart 5'in 3'ü; önceki 3'ün 2'si şartı o tarihe kadar alanlar için korunur (6. madde: aleyhe değişmez). -->
   <h2 class="ks-bas" id="yeterlilik" style="margin-top:34px;scroll-margin-top:80px">SMMM Yeterlilik · 28 Kasım</h2>
   <p class="ks-alt">Her dersin hazırlığını tamamla; buna rağmen o dersten kalırsan, o dersi geçene kadar Tetikte'desin.</p>
+  <p class="ks-not"><b>1 Kasım 23:59'a kadar alanlar için:</b> 2. adım aranmaz. Aldığın ders ya da derslerin sınavını geçene kadar ek üyelik ücreti ödemezsin; kaldığın dersin sonuç belgesini göndermen yeterli (<a href="#karar">yönetim kurulu kararı</a>).</p>
   <ol class="ks-adim">
     <li><b>Paketini al</b><span>Tüm dersler, seçtiğin dersler ya da Sadece Denemeler. Son 20 Gün denemeleri 8 Kasım 2026'dan itibaren hesabında açılır.</span></li>
     <li><b>Her dersin 5 denemesini bitir</b><span>Girdiğin her derste 5 denemenin en az 3'ünde %60 ve üstü doğru yap (ilk çözüm sayılır), çıkan çalışma görevlerini tamamla. Hepsi 28 Kasım'dan önce.</span></li>
@@ -131,6 +145,19 @@ details.kos[open]{padding-bottom:6px}
   <p class="ks-not"><b>Erken kayıt:</b> 7 Kasım 2026 saat 23:59'a kadar tüm dersler 3.468 TL yerine <b>2.868 TL</b>; ders ders paketlerde ders başına 120 TL indirim. Kod gerekmez.</p>
 
   <h2 class="ks-bas" style="margin-top:30px">Ayrıntılı koşullar</h2>
+
+  <details class="kos" id="karar" open style="scroll-margin-top:80px"><summary>Yönetim Kurulu Kararı (29 Ekim 2026): 1 Kasım 23:59'a kadar şartsız</summary>
+  <p>Dizdar Denetim ve Yazılım Ticaret A.Ş. Yönetim Kurulu Duyurusu, Sayı 2026/01, İzmir, 29 Ekim 2026:</p>
+  <ul>
+    <li><b>1 Kasım 2026 saat 23:59'a kadar</b> (Türkiye saati) paket alan <b>ilk 2.000 üye</b>, satın aldığı paketin kapsamındaki sınavı kazanana kadar Tetikte'den ek üyelik ücreti ödemeden yararlanmaya devam eder.</li>
+    <li><b>Staja Giriş paketi</b> alanlar, Staja Giriş Sınavı'nı kazanana kadar ek üyelik ücreti ödemez.</li>
+    <li><b>Yeterlilik paketi</b> alanlar, satın aldıkları ders veya dersler kapsamındaki ilgili sınavları geçene kadar ek üyelik ücreti ödemez.</li>
+    <li>Kasım 2026 sınavına girmeyecek, <b>2027 sınavlarına hazırlanacak adaylar</b> da 1 Kasım 2026 saat 23:59'a kadar paket satın almaları hâlinde bu haktan yararlanır; üyelikleri, satın aldıkları paketin kapsamındaki sınavı kazanana kadar açık kalır.</li>
+    <li><b>Deneme barajı, görev şartı veya süre sınırı yoktur.</b> 2. ve 5. maddedeki deneme, doğru oranı ve çalışma görevi şartları bu karar kapsamındaki üyelerde aranmaz. Üyenin girdiği her sınava ait sonuç belgesini Tetikte ile paylaşması gerekir.</li>
+    <li><b>Daha önce paket satın almış üyeler</b> de bu haktan yararlanır.</li>
+  </ul>
+  <p>Kampanya, 1 Kasım 2026 saat 23:59'da veya ilk 2.000 üyelik kontenjanı dolduğunda, hangisi önce gerçekleşirse sona erer. Fiyatlarda değişiklik yapılmadı; erken kayıt takvimi ilan edildiği gibidir. Bu bir indirim değil, bize güvenerek kayıt olan adaylara verilen bir sözdür.</p>
+  </details>
 
   <details class="kos"><summary>1. Son 20 Gün nedir? Hangi pakette ne var?</summary>
   <p>Staja Giriş Sınavı (SGS) 21 Kasım 2026 dönemine hazırlananlar için bir çalışma programıdır. Denemeler 1 Kasım 2026'da üyelerin hesabında açılır. İki yolla alınır:</p>
@@ -204,7 +231,7 @@ details.kos[open]{padding-bottom:6px}
   <p>Bu koşullar kampanya süresince üyeler aleyhine değiştirilmez. Koşullarda yazmayan konularda <a href="uyelik-sozlesmesi.html">Üyelik Sözleşmesi</a>, <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> ve <a href="teslimat-iade.html">Teslimat ve İade Koşulları</a> geçerlidir. Sorularınız için <a href="iletisim.html">iletişim</a> sayfasından bize yazabilirsiniz.</p>
   </details>
   
-<div class="dip">Yayım tarihi: 27 Ekim 2026 · Güncelleme: 28 Ekim 2026 (iki paket, 600 TL erken kayıt, kodsuz indirim; söz ölçütünün adı "doğru oranı"; SMMM Yeterlilik ders ders devam sözü, 5. madde; aynı gün ders başına 5 deneme, şart 5'in 3'ü, önceki şart korunarak) · <a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> · <a href="uyelik-sozlesmesi.html">Üyelik Sözleşmesi</a> · <a href="kvkk.html">KVKK</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></div>
+<div class="dip">Yayım tarihi: 27 Ekim 2026 · Güncelleme: 28 Ekim 2026 (iki paket, 600 TL erken kayıt, kodsuz indirim; söz ölçütünün adı "doğru oranı"; SMMM Yeterlilik ders ders devam sözü, 5. madde; aynı gün ders başına 5 deneme, şart 5'in 3'ü, önceki şart korunarak) · Güncelleme: 29 Ekim 2026 (Yönetim Kurulu Kararı: 1 Kasım 23:59'a kadar paket alan ilk 2.000 üyeye şartsız söz) ·<a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> · <a href="uyelik-sozlesmesi.html">Üyelik Sözleşmesi</a> · <a href="kvkk.html">KVKK</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></div>
 </div>
 <script src="fiyat-motoru.js?v=20261028y5"></script>
 <script src="gkt.js?v=1"></script>
