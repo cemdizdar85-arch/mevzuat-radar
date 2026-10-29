@@ -424,9 +424,9 @@
     <div class="kv"><b>Sipariş no</b><span id="tmNo" style="font-weight:800;color:var(--amber)"></span></div>
     <div class="kv"><b>Paket</b><span id="tmPaket"></span></div>
     <div class="kv"><b>Tutar</b><span id="tmTutar" style="font-weight:800"></span></div>
-    <!-- 28.10 (Cem "direkt IBAN'ı görsünler"): havale bilgisi baştan açık; havaleSec düğmesi artık gizli (havaleKur).
-         Kartla ödeyene tek mail (ödeme onayı); IBAN maili kart düğmesine basmadan sayfadan ayrılana bir kez gider. -->
-    <button type="button" id="havaleSec" class="btn" hidden style="width:100%;margin:14px 0 0;background:transparent;color:var(--ink);border:1px solid var(--line2);font-weight:700">🏦 Havale/EFT ile ödeyeceğim</button>
+    <!-- 29.10 (Cem "ilk önce kredi kartı" → "kart tek yol, IBAN gizli"): kart açıkken IBAN gizli; altta küçük "havale" bağlantısı
+         ya da kart başarısızlığı açar (havaleKur). 28.10'daki "IBAN baştan açık" bununla geri alındı. -->
+    <button type="button" id="havaleSec" hidden style="width:100%;margin:12px 0 0;padding:6px 0;background:none;border:0;color:var(--muted,#667);font-size:13px;text-decoration:underline;cursor:pointer">Kartım yok, havale/EFT ile ödeyeceğim</button>
     <div id="havaleBlok">
     <p style="margin:14px 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
     hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
@@ -1131,8 +1131,9 @@ function kartHazirla(no){
       var j = await r.json().catch(function(){ return {}; });
       if(j.odemeSayfasi){ KART_GITTI = true; location.href = j.odemeSayfasi; return; }
       h.textContent = j.hata === 'paket zaten acik' ? 'Bu paket hesabında zaten açık; ikinci kez ödeme almıyoruz. Hesabım sayfasından devam et.'
-        : j.hata === 'tutar guncel fiyatla uyusmuyor' ?'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
-    }catch(e){ h.textContent = 'Bağlantı hatası. Havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
+        : j.hata === 'tutar guncel fiyatla uyusmuyor' ?'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Aşağıdaki hesaba havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
+      if(j.hata !== 'paket zaten acik') havaleAc('kart-baslamadi');
+    }catch(e){ h.textContent = 'Bağlantı hatası. Aşağıdaki hesaba havale ile ödeyebilir ya da yeniden deneyebilirsin.'; havaleAc('kart-baslamadi'); }
     b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın';
   };
 }
@@ -1151,16 +1152,23 @@ function alindiGonder(no){
    kart düğmesine basmadan sayfadan ayrılana (sekme gizlendi / bankacılık uygulamasına geçti / sayfa kapandı) bir kez gider.
    Kart denemesi iyzico'ya gidemezse bayrak kalkar, sonra ayrılınca yine gider. Sunucu kapısı aynı: yalnız ödeme bekleyen,
    2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */
-var KART_GITTI = false;
+/* 29.10 (Cem "büyük firmalar ne yapıyorsa"; "ilk önce kredi kartı" → "kart tek yol, IBAN gizli"): son 7 günde kartla 30 kişi
+   ödedi, havaleyle 2; havalede 13 sipariş bekliyordu ve "IBAN maili gelmedi" şikâyeti bu kişilerden. Kart açıkken IBAN gizli;
+   "Kartım yok, havale…" bağlantısı ya da kart başlatılamazsa (havaleAc) açılır ve IBAN maili o an bir kez gider.
+   Sayfadan hiçbir şeye basmadan ayrılana IBAN maili yine bir kez gider (28.10 kuralı, güvenlik ağı). */
+var KART_GITTI = false, havaleAc = function(){};
 function havaleKur(no){
   var blok = document.getElementById('havaleBlok'), sec = document.getElementById('havaleSec'), nt = document.getElementById('mailNot');
   if(!blok) return;
   /* .btn display verdiği için yalnız hidden yetmez */
   var gor = function(el, acik){ if(el){ el.hidden = !acik; el.style.display = acik ? '' : 'none'; } };
-  gor(blok, true); gor(sec, false);
-  if(!kartAcik()){ gor(nt, false); alindiGonder(no); return; }
-  gor(nt, true);
+  if(!kartAcik()){ gor(blok, true); gor(sec, false); gor(nt, false); alindiGonder(no); return; }
+  gor(blok, false); gor(sec, true); gor(nt, true);
   var gitti = false;
+  havaleAc = function(neden){ gor(blok, true); gor(sec, false);
+    try{ adimSay(neden || 'havale-sec'); }catch(e){}
+    if(!gitti){ gitti = true; alindiGonder(no); } };
+  if(sec) sec.onclick = function(){ havaleAc('havale-sec'); blok.scrollIntoView({behavior:'smooth', block:'start'}); };
   var ayril = function(){ if(gitti || KART_GITTI) return; gitti = true; adimSay('havale-ayrildi'); alindiGonder(no); };
   document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') ayril(); });
   window.addEventListener('pagehide', ayril);
