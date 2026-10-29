@@ -199,5 +199,5 @@ powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 
 ```
 Dosya adı `hazir-kgk-…` ise (ya da `-IkizEtiket kgk-…`) KGK sıkı modu kendiliğinden açılır: ADIM YOK / SADE YOK / SIM KUSUR · KGK HARF ANMA ·
 KGK SORUDA VERİLEN · KGK FIKRA ATFI · KGK-DC "Doğru cevap" kayması · KGK-MK eski sigorta makamı (14.10) · **KGK-CZ çizim kapısı (22.10, K17)** · KGK uzunluk tavanı (Denetim 784, Muhasebe Standartları 661 — etikette tms/tfrs yoksa `-Tavan 661`;
-KGK'da `-Ders` VERME, SGS sözlüğü kurulur) · KGK KAPI-K. Çıktıda KUSUR kalmaz. Sonra İKİNCİ GÖZ (yeterlilik talimatı) → yükle → plan → bulut sırası.
+KGK'da `-Ders` VERME, SGS sözlüğü kurulur) · KGK KAPI-K · **KAPI-A1 çıkmış benzerlik (29.10, her sınavda)**. Çıktıda KUSUR kalmaz. Sonra İKİNCİ GÖZ (yeterlilik talimatı) → yükle → plan → bulut sırası.
 Onarım: `node arac/onarim-hatti.js teslim <klasör>` kgk- etiketini artık `veri/sinav/kgk-elle-ret.json`'a yazar (07.10, K8).

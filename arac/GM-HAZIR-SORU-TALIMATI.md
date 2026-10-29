@@ -211,4 +211,5 @@ yeniden koşar. Kapıların GÖRMEDİĞİ sınıflar (madde/fıkra atfı, uydurm
 
 ## Teslimden önce (zorunlu)
 `powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya <dosya> -IkizEtiket smmm-<etiket>`
-Çıktıda KAPI-Y / KAPI-K DUSER / KAPI-KALITE / ADIM YOK / SADE YOK kalmaz. (KAPI-S'in bir türünü ön denetim görmeyebilir — gm7'de 1 vaka.)
+Çıktıda KAPI-Y / KAPI-K DUSER / KAPI-KALITE / ADIM YOK / SADE YOK / KAPI-A1 kalmaz. KAPI-A1 (29.10): çıkmış sorudan ≥15 kelime
+aynı dizi ya da sorunun %60'ı tek çıkmış belgede → soruyu kendi cümlenle yeniden kur (kanun/standart lafzı, hesap adı, kök kalıbı muaf). (KAPI-S'in bir türünü ön denetim görmeyebilir — gm7'de 1 vaka.)

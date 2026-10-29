@@ -17,7 +17,8 @@
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
       [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi,
-      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi,[switch]$KgkKapiSinavi)
+      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi,[switch]$KgkKapiSinavi,
+      [switch]$A1Yok,[switch]$A1Sinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -568,7 +569,13 @@ if($YilSinavi){
   $v=@(@('2025 yılı gelirleri için yıllık beyan','KUSUR'),@('2025 yılı gelirleri için 2026 yılı Mart ayında verilecek beyanname','ok'),@('2025 gelirleri, beyan 2026''da','ok'),@('6183 ve 2004 sayılı Kanun hükümlerine göre','ok'),@('5520 s. Kanun ve 2004 s. Kanun','ok'),@('yıl geçmeyen soru','ok'),@('2024 ve 2025 yılları','KUSUR'))
   $h=0; foreach($x in $v){ $c=$(if(YilKusurOlc $x[0] 2026){ 'KUSUR' } else { 'ok' }); if($c -ne $x[1]){ $h++; "  DUSTU: '$($x[0])' -> $c (beklenen $($x[1]))" } }
   if($h){ "KAPI-Y SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-Y SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
-}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi / -SimSinavi)' }
+}
+if($A1Sinavi){
+  # arşivden 30 kelimelik lafız dışı kopya → KUSUR · 16 kelimesi gömülü soru → KUSUR · özgün → ok (arac/cikmis-benzerlik-kapisi.js --sinav)
+  if(-not "$env:SUPABASE_SERVICE_KEY".Trim()){ $env:SUPABASE_SERVICE_KEY="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
+  & node (Join-Path $depoKokD 'arac\cikmis-benzerlik-kapisi.js') --sinav; exit $LASTEXITCODE
+}
+if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi / -SimSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -646,8 +653,22 @@ if(-not $KaynakYok){
     $kaynakOlcu=$true; "KAYNAK ADI: $($adlarT.Count) benzersiz ad · ambarda yok: $(@($kaynakVar.Keys | Where-Object { $kaynakVar[$_] -eq $false }).Count) · okunamadı: $(@($kaynakVar.Keys | Where-Object { $null -eq $kaynakVar[$_] }).Count)"
   } else { "KAYNAK ADI: ÖLÇÜLMEDİ (SUPABASE_SERVICE_KEY yok)" }
 }
+# 29.10.2026 KAPI-A1 ÇIKMIŞ BENZERLİK (Cem "evet kur"; sözleşme A1 kapısızdı): soru+şıklarda çıkmış arşivle (SGS + SMMM test +
+#   SMMM komisyon cevabı 2008–2025) ≥15 kelime aynı dizi → KUSUR; mevzuat-hazir'de de geçen öbek (kanun lafzı, hesap adı) muaf.
+#   Ölçü ve GÖRMEZ listesi arac/cikmis-benzerlik-kapisi.js başında. Dosya başına bir node çağrısı (önbellek veri/fabrika/*-5li.bin).
+#   29.10 ölçümü: 140 Son 20 Gün sorusu 0 KUSUR (en uzun 9) · muafiyet kapalıyken 2 (GVK lafzı 15 + 18 kelime) · öz-sınav 3/3.
+$a1Kusur=@{}
+if(-not $A1Yok){
+  $a1Js=Join-Path $depoKokD 'arac\cikmis-benzerlik-kapisi.js'
+  if((Test-Path $a1Js) -and (Get-Command node -ErrorAction SilentlyContinue)){
+    if(-not "$env:SUPABASE_SERVICE_KEY".Trim()){ $env:SUPABASE_SERVICE_KEY="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
+    foreach($l in @(& node $a1Js --dosya (Resolve-Path $Dosya).Path 2>&1 | ForEach-Object { "$_" })){
+      $p=$l -split "`t",3; if($p[0] -eq 'A1' -and $p.Count -eq 3){ $a1Kusur[[int]$p[1]]=$p[2] } elseif($p[0] -eq 'A1-BILGI'){ $p[1] } }
+  } else { "ÇIKMIŞ BENZERLİK (KAPI-A1): ÖLÇÜLMEDİ — node ya da arac/cikmis-benzerlik-kapisi.js yok" }
+} else { "ÇIKMIŞ BENZERLİK (KAPI-A1): KAPALI (-A1Yok)" }
 foreach($q in $liste){
   $i++; $k=New-Object System.Collections.Generic.List[string]
+  if($a1Kusur.ContainsKey($i)){ $k.Add($a1Kusur[$i]) }
   $not=New-Object System.Collections.Generic.List[string]   # kapıyı DÜŞÜRMEYEN uyarılar (KAPI-K tek kelime gibi)
   $harf=@('A','B','C','D','E')
   foreach($h in $harf){ if(-not $q.siklar.PSObject.Properties[$h]){ $k.Add("sik $h yok") } }
