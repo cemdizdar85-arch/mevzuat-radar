@@ -6,9 +6,9 @@
   "koyu_gecis": 82,
   "koyu_bekleyen": [],
   "temiz_sayfa": 244,
-  "denetlenen_metin": 24029,
-  "toplam_kirik": 1,
-  "denetlenen_sinir": 6597,
+  "denetlenen_metin": 24165,
+  "toplam_kirik": 8,
+  "denetlenen_sinir": 6605,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -21,16 +21,61 @@
   "kirik_sayfalar": [
     {
       "sayfa": "kampanya-son-20-gun.html [koyu]",
-      "adet": 1,
+      "adet": 8,
       "ornekler": [
         {
-          "oge": "a",
-          "yazi": "Yeterlilik koşulları →",
-          "oran": 1.54,
+          "oge": "p.yk-ust",
+          "yazi": "Yönetim Kurulu Kararı · 29 Ekim 2026 · S",
+          "oran": 1.49,
           "esik": 4.5,
           "renk": "rgb(255, 194, 75)",
-          "zemin": "rgb(251,250,248)",
-          "iz": "<a href=\"#yeterlilik\">Yeterlilik koşulları →</a>"
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p class=\"yk-ust\">Yönetim Kurulu Kararı · 29 Ekim 2026 · Son gün 1 Kasım 23:59</p>"
+        },
+        {
+          "oge": "p.yk-bas",
+          "yazi": "1 Kasım 23:59'a kadar paket alana şart y",
+          "oran": 1.04,
+          "esik": 3,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p class=\"yk-bas\">1 Kasım 23:59'a kadar paket alana şart yok.</p>"
+        },
+        {
+          "oge": "p",
+          "yazi": "1 Kasım 2026 saat 23:59'a kadar paket al",
+          "oran": 2.43,
+          "esik": 4.5,
+          "renk": "rgb(147, 161, 179)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p>1 Kasım 2026 saat 23:59'a kadar paket alan <b>ilk 2.000 üye</b>, satın aldığı paketin kapsamındaki sınavı k"
+        },
+        {
+          "oge": "b",
+          "yazi": "ilk 2.000 üye",
+          "oran": 1.04,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<b>ilk 2.000 üye</b>"
+        },
+        {
+          "oge": "b",
+          "yazi": "Deneme barajı, görev şartı, süre sınırı ",
+          "oran": 1.04,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<b>Deneme barajı, görev şartı, süre sınırı yok;</b>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Kararın ayrıntısı →",
+          "oran": 1.49,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<a href=\"#karar\">Kararın ayrıntısı →</a>"
         }
       ]
     }
