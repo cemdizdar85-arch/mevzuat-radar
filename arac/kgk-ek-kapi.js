@@ -149,7 +149,23 @@ function CZ(q) {
   const kural = [...new Set(ne.map(n => (CZ_KURAL.find(([re]) => re.test(n)) || [0, 'CZ6 kök/şık biçimi'])[1]))];
   return [`KGK-CZ çizim kapısından dönüyor → ${kural.join(' · ')} :: ${ne.slice(0, 3).join(' | ').slice(0, 240)}`];
 }
-const denetle = q => [...DC(q), ...MK(q), ...KA(q), ...CZ(q)];
+// KGK-G2 (DURDURUR) öncüllü çeldirici: şıklar Romen öncül kümesiyse ("Yalnız I", "I ve III", "I, II ve IV") her yanlış şık doğru
+//   kümeden TAM BİR öncülle ayrılmalı (simetrik fark = 1). 29.10 KGK bitiş dalgası, Cem "gm önerilerini yap": Bankacılık t9
+//   okumalarında çıkarılan 11 sorunun 7'si bu sınıftı (r1–r5 ayrı ayrı "çeldirici iki öncülle ayrılıyor, tek yanılgı bu şıkkı
+//   vermiyor" diye CIKAR); her biri beş tur okuma harcamıştı. Kapı okuyucunun uyguladığı kuralı teslimde mekanik yapar.
+//   🚫 GÖRMEZ: çıkmış KGK sınavında 3 öncüllü soruda iki öncülle ayrılan şık görülebilir (ölçülmedi) — bu kapı bizim okuma
+//   ölçütümüzle aynıdır, sınavdan sıkı olabilir; çözüm dördüncü öncül eklemek · tek yanılgının açıklamada gerçekten yazılı olması
+//   (anlam) · Romen dışı öncül numarası (a, b, 1., 2.).
+const ROMA_K = /^(I{1,3}|IV|V|VI{0,3})$/;
+function kumeOku(t) { const p = String(t || '').replace(/^\s*Yalnız\s+/i, '').split(/\s*(?:,|\bve\b)\s*/).map(x => x.trim()).filter(Boolean); return p.length && p.every(x => ROMA_K.test(x)) ? new Set(p) : null; }
+function G2(q) {
+  if (MUT === 'g2') return [];
+  const s = q.siklar || {}, d = String(q.dogru || '').toUpperCase(), D = kumeOku(s[d]); if (!D) return [];
+  const H = Object.keys(s).filter(h => h !== d); const K = H.map(h => [h, kumeOku(s[h])]); if (K.some(([, k]) => !k)) return [];
+  const kotu = K.filter(([, k]) => [...k].filter(x => !D.has(x)).length + [...D].filter(x => !k.has(x)).length !== 1).map(([h]) => `${h} (${s[h]})`);
+  return kotu.length ? [`KGK-G2 öncüllü çeldirici doğru kümeden (${s[d]}) birden çok öncülle ayrılıyor: ${kotu.join(', ')} — her yanlış şık TEK öncül eklemeli/çıkarmalı (gerekirse dördüncü öncül ekle)`] : [];
+}
+const denetle = q => [...DC(q), ...MK(q), ...KA(q), ...CZ(q), ...G2(q)];
 
 /* KGK-CZ öz-sınav soruları: hazır dosya biçiminde, uydurma (bankadaki hiçbir soruyla aynı değil) */
 const czO = (o) => Object.assign({ konu: 'uydurma öncül', zorluk: 'cokzor',
@@ -207,6 +223,11 @@ function sinav() {
     ['CZ: hesap adımı tutmuyor → CZ4', czH({ adimlar: [czH().adimlar[0], { formul: 'Aylık kira = 48.000 / 12 = 4.500', anlatim: '' }, { formul: 'Toplam = 4.000 × 12 = 48.000', anlatim: '' }] }), /KGK-CZ.*CZ4/, 1],
     ['CZ: hesap sorusu geçer', czH(), /KGK-CZ/, 0],
     ['CZ: yanlış şıkkın açıklaması yok → CZ5', czD({ aciklama: Object.assign({}, czD().aciklama, { C: '' }) }), /KGK-CZ.*CZ5/, 1],
+    // ---- KGK-G2 (29.10) ----
+    ['G2: her çeldirici tek öncülle ayrılıyor → geçer', sq({ siklar: { A: 'Yalnız I', B: 'I ve III', C: 'Yalnız III', D: 'I, II ve III', E: 'I, III ve IV' }, dogru: 'B' }), /KGK-G2/, 0],
+    ['G2: "II ve IV" ↔ doğru "I ve III" (dört öncül fark) → KUSUR', sq({ siklar: { A: 'Yalnız I', B: 'I ve III', C: 'II ve IV', D: 'I, II ve III', E: 'I, III ve IV' }, dogru: 'B' }), /KGK-G2/, 1],
+    ['G2: "Yalnız I" ↔ doğru "I, II ve III" (iki öncül fark) → KUSUR', sq({ siklar: { A: 'Yalnız I', B: 'I ve II', C: 'I ve III', D: 'II ve III', E: 'I, II ve III' }, dogru: 'E' }), /KGK-G2/, 1],
+    ['G2: öncülsüz şıklar → ölçülmez', sq(), /KGK-G2/, 0],
   ];
   const kos = () => { let h = 0; const d = []; for (const [ad, q, re, bek] of V) { const n = denetle(q).filter(x => re.test(x)).length > 0 ? 1 : 0; if (n !== bek) { h++; d.push(`  DÜŞTÜ: ${ad} → ${n} (beklenen ${bek})`); } }
     // dönüştürücü alanları (site biçimi motor/kaydir-coz.ps1 ile aynı): tuzak adı · kural/olay ayrımı · taktik
@@ -218,7 +239,7 @@ function sinav() {
   if (t.h) { console.log(t.d.join('\n')); console.log(`KGK EK KAPI SINAVI KIRMIZI: ${t.h}/${V.length}`); process.exit(1); }
   console.log(`KGK EK KAPI SINAVI YEŞİL: ${V.length}/${V.length}`);
   let kor = 0;
-  const MS = ['dc', 'mk', 'ka', 'sigorta', 'cz', 'cz-gecir', 'cz-tuzak', 'cz-tuzakayir', 'cz-taktik', 'cz-kural'];
+  const MS = ['dc', 'mk', 'ka', 'sigorta', 'cz', 'cz-gecir', 'cz-tuzak', 'cz-tuzakayir', 'cz-taktik', 'cz-kural', 'g2'];
   for (const m of MS) { MUT = m; const r = kos(); console.log(`  mutasyon ${m}: ${r.h ? `KIRMIZI (${r.h} vaka düştü) ✓` : 'YEŞİL ✗ sınav bu bozmayı görmüyor'}`); if (!r.h) kor++; }
   MUT = '';
   if (kor) { console.log(`MUTASYON: ${kor} bozma yakalanmadı — sınav eksik`); process.exit(1); }
