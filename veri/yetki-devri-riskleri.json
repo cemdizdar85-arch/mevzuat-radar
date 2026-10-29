@@ -1,11 +1,11 @@
 {
-  "tarih": "29.10.2026 15:10",
+  "tarih": "29.10.2026 18:23",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
   "atifli_iddia": 315,
-  "dayanaksiz_iddia": 524,
+  "dayanaksiz_iddia": 525,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2633,43 +2633,49 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1153,
+      "satir": 1154,
       "iddia": "2 saat",
       "metin": "2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1172,
+      "satir": 1155,
+      "iddia": "7 gün",
+      "metin": "/* 29.10 (Cem \"büyük firmalar ne yapıyorsa\"; \"ilk önce kredi kartı\" → \"kart tek yol, IBAN gizli\"): son 7 günde kartla 30 kişi"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1180,
       "iddia": "3 saat",
       "metin": "kişinin elinde 3 saatlik hatırlatmaya kadar hiçbir şey yoktu, sayfa tek satır kırmızı yazı gösteriyordu (\"yeniden dene\" düğmesi bile yoktu)."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1174,
+      "satir": 1182,
       "iddia": "2 saat",
       "metin": "aynı: ödeme bekleyen, 2 saatten yeni, siparişte bir kez) + spam notu yalnız mail gerçekten kabul edildiyse. SMS hattımız YOK. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1313,
+      "satir": 1321,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1315,
+      "satir": 1323,
       "iddia": "90 gün",
       "metin": "/* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1374,
+      "satir": 1382,
       "iddia": "24 saat",
       "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1425,
+      "satir": 1433,
       "iddia": "24 saat",
       "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
     },
