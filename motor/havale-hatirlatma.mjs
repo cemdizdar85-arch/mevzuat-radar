@@ -138,7 +138,8 @@ async function ana() {
   const ayar = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'hatirlatma-ayar.json'), 'utf8'));
   const im = imza(), acik = !process.argv.includes('--kuru') && ayar.havale_acik === true && ayar.havale_onayli_imza === im;
   const L = await hepsi('/rest/v1/siparisler?select=siparis_no,ad_soyad,email,paket,paket_ad,tutar,durum,odeme,olusturma&order=olusturma.asc');
-  const gitti = new Set((await hepsi(`/rest/v1/form_kayit?select=alanlar&konu=eq.${encodeURIComponent(KAYIT)}`)).flatMap(x => (x.alanlar || {}).kapsar || [(x.alanlar || {}).siparis_no]).filter(Boolean));
+  /* 29.10: motor/kart-takildi.mjs maili giden siparişe ikinci (havale) hatırlatma gitmez - iki kayıt birlikte okunur */
+  const gitti = new Set((await hepsi(`/rest/v1/form_kayit?select=alanlar&konu=in.(${encodeURIComponent('"' + KAYIT + '","Kart takıldı maili gönderildi"')})`)).flatMap(x => (x.alanlar || {}).kapsar || [(x.alanlar || {}).siparis_no]).filter(Boolean));
   const { out: aday, say } = sec(L, gitti, new Date());
   /* 21.10 çift ödeme kapısı: paketi başka yoldan (Play / başka e-postayla sipariş) açılmış kişiye "ödemeni yap" gitmez.
      siparis_odeme_kontrol yoksa (göç basılmadan) ya da okunamazsa eski davranış sürer. */

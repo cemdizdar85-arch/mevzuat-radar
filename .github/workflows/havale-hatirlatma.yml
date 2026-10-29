@@ -4,10 +4,14 @@
 # "kartla ode / havale bilgisi" maili (motor/havale-hatirlatma.mjs). Saat basi kosar.
 # Gonderim arac/hatirlatma-ayar.json havale_acik + havale_onayli_imza ile ACILIR; kapaliyken yalniz SAYI.
 # Gunluk PUBLIC: betik e-posta/ad/siparis no basmaz. Oz-sinav once kosar; duserse gonderim yapilmaz.
+# 29.10 (Cem "Evet, kur"): ayni akista motor/kart-takildi.mjs - iyzico'da takilan siparise son denemeden 30 dk sonra BIR KEZ
+# "kartla yeniden dene / havale bilgisi" maili. 30 dk'yi tutturmak icin 15 dakikada bir kosar (havale betigi 3 saatlik
+# esigini kendi sayar; sik kosmasi ayni siparise ikinci mail gondermez, form_kayit kaydi tek seferi tutar).
+# Kart takildi gonderimi arac/hatirlatma-ayar.json kart_takildi_acik + kart_takildi_onayli_imza ile ACILIR.
 name: Havale hatirlatmasi
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "2,17,32,47 * * * *"
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,10 +28,20 @@ jobs:
         with:
           node-version: 24
       - name: Oz-sinav
-        run: node motor/havale-hatirlatma.mjs --sinav
+        id: oz
+        run: |
+          node motor/havale-hatirlatma.mjs --sinav
+          node motor/kart-takildi.mjs --sinav
       - name: Say ya da gonder
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: node motor/havale-hatirlatma.mjs
+      - name: Kart takildi - say ya da gonder
+        if: ${{ !cancelled() && steps.oz.outcome == 'success' }}
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/kart-takildi.mjs
