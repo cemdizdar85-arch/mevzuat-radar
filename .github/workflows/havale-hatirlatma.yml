@@ -32,16 +32,18 @@ jobs:
         run: |
           node motor/havale-hatirlatma.mjs --sinav
           node motor/kart-takildi.mjs --sinav
-      - name: Say ya da gonder
-        env:
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          RESEND_KEY: ${{ secrets.RESEND_KEY }}
-          RESEND_FROM: ${{ secrets.RESEND_FROM }}
-        run: node motor/havale-hatirlatma.mjs
+      # 29.10: kart adimi ONCE kosar (ilk koşuda havale once kosup ayni siparise iki mail gitti, UU4A). Iki betik de
+      # iki kaydi okur; ayni siparise hangisi once giderse digeri atlar.
       - name: Kart takildi - say ya da gonder
-        if: ${{ !cancelled() && steps.oz.outcome == 'success' }}
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: node motor/kart-takildi.mjs
+      - name: Say ya da gonder
+        if: ${{ !cancelled() && steps.oz.outcome == 'success' }}
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/havale-hatirlatma.mjs

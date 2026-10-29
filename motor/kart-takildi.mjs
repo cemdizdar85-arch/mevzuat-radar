@@ -150,7 +150,8 @@ async function ana() {
   const im = imza(), acik = !process.argv.includes('--kuru') && ayar.kart_takildi_acik === true && ayar.kart_takildi_onayli_imza === im;
   const L = await hepsi('/rest/v1/siparisler?select=siparis_no,ad_soyad,email,paket,paket_ad,tutar,durum,olusturma,alindi_mail&order=olusturma.asc');
   const K = await hepsi('/rest/v1/kart_odemeleri?select=siparis_no,durum,olusturma&deneme=eq.false&order=id.asc');
-  const gitti = new Set((await hepsi(`/rest/v1/form_kayit?select=alanlar&konu=eq.${encodeURIComponent(KAYIT)}`)).flatMap(x => (x.alanlar || {}).kapsar || [(x.alanlar || {}).siparis_no]).filter(Boolean));
+  /* 29.10 (ilk koşu UU4A'ya iki mail): havale hatırlatması gitmiş siparişe de gitmez - iki kayıt birlikte okunur */
+  const gitti = new Set((await hepsi(`/rest/v1/form_kayit?select=alanlar&konu=in.(${encodeURIComponent('"' + KAYIT + '","Havale hatırlatması gönderildi"')})`)).flatMap(x => (x.alanlar || {}).kapsar || [(x.alanlar || {}).siparis_no]).filter(Boolean));
   const { out, say } = sec(L, K, gitti, Date.now());
   let git = 0, dus = 0;
   if (acik) {
