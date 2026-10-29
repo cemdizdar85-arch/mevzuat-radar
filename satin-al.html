@@ -1165,8 +1165,53 @@ function havaleKur(no){
   document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') ayril(); });
   window.addEventListener('pagehide', ayril);
 }
-/* iyzico'dan başarısız dönüş: ?odeme=hata&no=... */
-(function(){ try{ var q = new URLSearchParams(location.search); if(q.get('odeme') === 'hata'){ var d = document.createElement('div'); d.className = 'kutu'; d.style.borderColor = 'var(--red)'; d.innerHTML = '<b style="color:var(--red)">Kart ödemesi tamamlanmadı.</b> Kartından para çekilmediyse siparişin ödeme bekliyor durumunda; havale ile ödeyebilir ya da yeniden deneyebilirsin. Sipariş no: <b>' + String(q.get('no') || '—').replace(/[^A-Z0-9-]/g, '') + '</b>'; document.addEventListener('DOMContentLoaded', function(){ var m = document.querySelector('main') || document.body; m.insertBefore(d, m.firstChild); }); } }catch(e){} })();
+/* iyzico'dan başarısız dönüş: ?odeme=hata&no=...
+   29.10 (Cem "ödemede sorun yaşayanlar oluyor, mail gidiyor görüyorlar mı, oraya açıklama koy" → "hata verince mail ya da telefona
+   bilgi gitmiyor mu"): ölçüldü (kart_odemeleri) 15 siparişte kart hiç geçmedi (11 iyzico sayfasında kaldı, 4 dönüşte hata: limit/bakiye,
+   doğrulanamadı); 8'i sonra ödedi. 28.10'dan beri kart düğmesine basana 'alindi' (IBAN) maili gitmiyordu (KART_GITTI) → hata ile dönen
+   kişinin elinde 3 saatlik hatırlatmaya kadar hiçbir şey yoktu, sayfa tek satır kırmızı yazı gösteriyordu ("yeniden dene" düğmesi bile yoktu).
+   Şimdi: sık sebepler + "Kartla yeniden dene" (?kartla= akışı) + IBAN/açıklama burada + 'alindi' maili BURADA bir kez (sunucu kapısı
+   aynı: ödeme bekleyen, 2 saatten yeni, siparişte bir kez) + spam notu yalnız mail gerçekten kabul edildiyse. SMS hattımız YOK. */
+(function(){ try{ var q = new URLSearchParams(location.search); if(q.get('odeme') !== 'hata') return;
+  var no = String(q.get('no') || ''); if(!/^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(no)) no = '';
+  var d = document.createElement('div'); d.className = 'kutu'; d.id = 'kartHataKutu'; d.style.borderColor = 'var(--red)';
+  var tutar = ''; try{ (JSON.parse(localStorage.getItem('tt_siparisler') || '[]') || []).forEach(function(x){ if(x && x.no === no && x.tutar) tutar = tl(x.tutar) + ' TL'; }); }catch(e){}
+  var kv = function(k, v){ return '<div class="kv"><b>' + k + '</b><span>' + v + '</span></div>'; };
+  d.innerHTML = '<h2 style="color:var(--red);margin:0 0 6px">Kart ödemesi tamamlanmadı</h2>'
+    + '<p style="margin:0 0 10px;font-size:14px">Ödeme onaylanmadığı için kartından para çekilmedi. ' + (no ? 'Siparişin <b>' + no + '</b> numarasıyla duruyor; yeniden sipariş vermene gerek yok.' : 'Siparişin duruyor; yeniden sipariş vermene gerek yok.') + '</p>'
+    + '<p style="margin:0 0 4px;font-size:14px"><b>En sık sebepler:</b></p>'
+    + '<ul style="margin:0 0 12px;padding-left:20px;font-size:14px;line-height:1.55">'
+    + '<li>Kartın <b>internetten alışverişe kapalı</b>: banka uygulamasından "internet alışverişi"ni açıp yeniden dene.</li>'
+    + '<li>Bankanın gönderdiği <b>SMS şifresi</b> gelmedi, yanlış girildi ya da süresi doldu.</li>'
+    + '<li>Kartın <b>limiti ya da bakiyesi</b> yetmedi.</li>'
+    + '<li>Banka güvenlik nedeniyle onaylamadı: başka bir kartla dene ya da bankanı ara.</li></ul>'
+    + (no && kartAcik() ? '<a class="btn" id="kartTekrar" href="satin-al.html?kartla=' + no + '" style="display:block;text-align:center;text-decoration:none;font-weight:800;margin:0 0 14px">💳 Kartla yeniden dene</a>' : '')
+    + '<p style="margin:0 0 6px;font-size:14px"><b>Ya da havale/EFT ile öde</b> — havaleyi gördüğümüz gün paketin açılır:</p>'
+    + kv('Alıcı', 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.') + kv('Banka', BANKA.ad)
+    + (tutar ? kv('Tutar', '<b>' + tutar + '</b>') : '')
+    + '<div class="kv" style="display:block"><b style="display:block;margin-bottom:4px">IBAN</b><span class="iban">' + BANKA.iban + '</span></div>'
+    + (no ? '<p style="margin:10px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına yalnız sipariş numaranı yaz: ' + no + '</b></p>' : '')
+    + '<p class="kucuk" id="kartHataMail" style="margin:10px 0 0"></p>'
+    + '<p class="kucuk" style="margin:8px 0 0">Takıldığın yerde bize yaz, birlikte çözelim: <a href="https://wa.me/905323448058">WhatsApp 0532 344 80 58</a> · <a href="mailto:destek@tetikte.com">destek@tetikte.com</a>' + (no ? ' (sipariş no: <b>' + no + '</b>)' : '') + '.</p>';
+  document.addEventListener('DOMContentLoaded', function(){
+    var h1 = document.querySelector('h1');   /* sayfada <main> yok: kutu başlığın altına */
+    if(h1) h1.parentNode.insertBefore(d, h1.nextSibling); else document.body.insertBefore(d, document.body.firstChild);
+    /* alttaki "Ödenecek · Devam" çubuğu yeni sipariş açtırıyordu; sipariş zaten var */
+    var st = document.createElement('style'); st.textContent = '#mbar{display:none!important}'; document.head.appendChild(st);
+    try{ adimSay('kart-hata'); }catch(e){}
+    try{ var kt = document.getElementById('kartTekrar'); if(kt) kt.onclick = function(){ adimSay('kart-hata-tekrar'); }; }catch(e){}
+    if(!no) return;
+    /* IBAN maili: yalnız sunucu kabul ettiyse "gönderdik" denir (zaten gitmişse de) */
+    fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
+      headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
+      body: JSON.stringify({ tur:'alindi', no:no }) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(j){ if(!j || !j.success) return;
+        var m = document.getElementById('kartHataMail');
+        if(m) m.innerHTML = '📧 Bu havale bilgilerini sipariş verdiğin e-posta adresine de gönderdik. Birkaç dakikada gelen kutuna düşmezse <b>Spam / Gereksiz</b> klasörüne bak (gönderen: bildirim@tetikte.com).'; })
+      .catch(function(){});
+  });
+}catch(e){} })();
 /* 19.10 havale hatırlatması (motor/havale-hatirlatma.mjs): maildeki "Kartla öde" → ?kartla=<sipariş no>. Kartla ödeme kutusundaki
    akışın aynısı: yalnız sipariş no gider, tutarı iyzico-odeme ?islem=baslat SUNUCUDA hesaplar (ödenmiş/iptal siparişte başlamaz). */
 (function(){ try{ var q = new URLSearchParams(location.search), no = String(q.get('kartla') || '');
