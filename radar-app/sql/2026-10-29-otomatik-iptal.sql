@@ -42,7 +42,8 @@ begin
   if p_bitis is null or p_bitis <= current_date then raise exception 'BITIS_GECERSIZ'; end if;
   select * into s from public.siparisler where siparis_no = p_no for update;
   if not found then raise exception 'SIPARIS_YOK'; end if;
-  if s.durum <> 'odeme_bekliyor' and not (s.durum = 'iptal' and s.iptal_neden = 'otomatik') then
+  -- coalesce ŞART: iptal_neden null iken "not (… and null)" null olur, if çalışmaz ve elle iptal de açılırdı (ilk koşuda öz-sınav yakaladı)
+  if s.durum <> 'odeme_bekliyor' and not (s.durum = 'iptal' and coalesce(s.iptal_neden, '') = 'otomatik') then
     raise exception 'DURUM_%', upper(s.durum); end if;
 
   update public.siparisler set durum = 'odendi', paket_bitis = p_bitis where id = s.id;   -- odendi_tarihi tetikleyicide
