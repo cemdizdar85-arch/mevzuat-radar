@@ -23,5 +23,9 @@
  "kart_takildi_acik": true,
  "kart_takildi_onayli_imza": "933d610df0420cfd",
  "kart_takildi_onaylayan": "Cem Dizdar (sohbette \"Onaylıyorum, aç\" - metin önizlemesiyle, imza 933d610df0420cfd)",
- "kart_takildi_onay_tarihi": "2026-10-29"
+ "kart_takildi_onay_tarihi": "2026-10-29",
+ "_son_hatirlatma_not": "29.10: motor/siparis-son-hatirlatma.mjs (24 saatte ödenmeyen havale siparişine bir kez son hatırlatma, 72 saat + 24 saat sonra otomatik iptal) AYRI anahtar: son_hatirlatma_acik=true VE son_hatirlatma_onayli_imza = node motor/siparis-son-hatirlatma.mjs --imza; iptal ayrıca otomatik_iptal_acik=true. Yalnız Cem metni onaylayınca yazılır.",
+ "son_hatirlatma_acik": false,
+ "son_hatirlatma_onayli_imza": "",
+ "otomatik_iptal_acik": false
 }
