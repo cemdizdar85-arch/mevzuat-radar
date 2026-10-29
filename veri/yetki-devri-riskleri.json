@@ -1,11 +1,11 @@
 {
-  "tarih": "29.10.2026 12:10",
+  "tarih": "29.10.2026 15:10",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
-  "atifli_iddia": 314,
-  "dayanaksiz_iddia": 522,
+  "atifli_iddia": 315,
+  "dayanaksiz_iddia": 524,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -1487,31 +1487,31 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 864,
+      "satir": 866,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek\"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */"
     },
     {
       "sayfa": "index.html",
-      "satir": 867,
+      "satir": 869,
       "iddia": "20 Gün",
       "metin": "$('uyeHosMetin').innerHTML='👋 Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'. '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\\'da açılır.':'Denemelerin seni bek"
     },
     {
       "sayfa": "index.html",
-      "satir": 876,
+      "satir": 878,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (GM önerisi 2 \"yap\"): Son 20 Gün denemeleri AÇIKKEN paketli üyenin karşılama şeridi Son 20 Gün olur (Hesabım ve Soru çöz"
     },
     {
       "sayfa": "index.html",
-      "satir": 951,
+      "satir": 953,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1016,
+      "satir": 1018,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
@@ -1523,235 +1523,247 @@
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 71,
+      "satir": 76,
       "iddia": "20 Gün",
       "metin": "Geçene Kadar Tetikte · Son 20 Gün · 7 Deneme · SGS 21 Kasım"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 74,
+      "satir": 79,
       "iddia": "20 Gün",
       "metin": "Geçene Kadar Tetikte · Son 20 Gün"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 77,
+      "satir": 89,
       "iddia": "20 gün",
       "metin": "Fiyat/koşul YAZILMAZ (karar verilmedi); yalnız geliyor + gün (28 Kasım sınavından 20 gün önce). -->"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 84,
+      "satir": 96,
       "iddia": "20 Gün",
       "metin": "✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 89,
+      "satir": 101,
       "iddia": "2.388 TL",
       "metin": "Tam Paket 2.388 TL 2.988 TL yerine 1.990 TL + KDV"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 92,
+      "satir": 104,
       "iddia": "%50",
       "metin": "★ Bizimle geçersen bitirme (Yeterlilik) paketinde %50 indirim"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 97,
+      "satir": 109,
       "iddia": "en az 5",
-      "metin": "Şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil"
+      "metin": "1 Kasım 23:59'a kadar alana şart yok (yönetim kurulu kararı) · Sonra alanlarda şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 107,
+      "satir": 120,
       "iddia": "En az 5",
       "metin": "7 denemeyi bitir En az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), kaldığın denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 108,
+      "satir": 121,
       "iddia": "30 gün",
       "metin": "Kalırsan sonuç belgeni gönder Sonuçlar açıklandıktan sonra 30 gün içinde. Hakkın her dönem yenilenir, sınavı geçene kadar sürer."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 111,
+      "satir": 124,
       "iddia": "%50",
       "metin": "Tam Paket Kalırsan bütün üyeliğin geçene kadar ücretsiz uzar. Bizimle geçersen bitirme (Yeterlilik) paketinde %50 indirim."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 112,
+      "satir": 125,
       "iddia": "20 Gün",
       "metin": "Sadece 7 Deneme Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 114,
+      "satir": 127,
       "iddia": "2026 saat",
       "metin": "Erken kayıt: 1 Kasım 2026 saat 23:59'a kadar Tam Paket 2.988 TL yerine 2.388 TL . Kod gerekmez, indirim satın almada kendiliğinden uygulanır."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 116,
+      "satir": 129,
       "iddia": "en az 2",
       "metin": "<!-- 28.10 Cem onayı: \"Yeterlilik sözünü önerdiğin şartlarla yaz: her ders için 3 denemenin en az 2'sinde %60 doğru, görevler tamam,"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 122,
+      "satir": 136,
       "iddia": "20 Gün",
       "metin": "Paketini al Tüm dersler, seçtiğin dersler ya da Sadece Denemeler. Son 20 Gün denemeleri 8 Kasım 2026'dan itibaren hesabında açılır."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 123,
+      "satir": 137,
       "iddia": "en az 3",
       "metin": "Her dersin 5 denemesini bitir Girdiğin her derste 5 denemenin en az 3'ünde %60 ve üstü doğru yap (ilk çözüm sayılır), çıkan çalışma görevlerini tamamla. Hepsi 28 Kasım'dan önce."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 124,
+      "satir": 138,
       "iddia": "30 gün",
       "metin": "Kalırsan sonuç belgeni gönder Sonuçlar açıklandıktan sonra 30 gün içinde. Hak, şartını sağladığın ve kaldığın derslerde geçerlidir; ders geçilene kadar sürer."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 129,
+      "satir": 143,
       "iddia": "20 Gün",
       "metin": "Sadece Denemeler Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 131,
+      "satir": 145,
       "iddia": "2026 saat",
       "metin": "Erken kayıt: 7 Kasım 2026 saat 23:59'a kadar tüm dersler 3.468 TL yerine 2.868 TL ; ders ders paketlerde ders başına 120 TL indirim. Kod gerekmez."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 135,
+      "satir": 155,
+      "iddia": "2026 saat",
+      "metin": "Kasım 2026 sınavına girmeyecek, 2027 sınavlarına hazırlanacak adaylar da 1 Kasım 2026 saat 23:59'a kadar paket satın almaları hâlinde bu haktan yararlanır; üyelikleri, satın aldıkl"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 159,
+      "iddia": "2026 saat",
+      "metin": "Kampanya, 1 Kasım 2026 saat 23:59'da veya ilk 2.000 üyelik kontenjanı dolduğunda, hangisi önce gerçekleşirse sona erer. Fiyatlarda değişiklik yapılmadı; erken kayıt takvimi ilan ed"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 162,
       "iddia": "20 Gün",
       "metin": "1. Son 20 Gün nedir? Hangi pakette ne var?"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 138,
+      "satir": 165,
       "iddia": "2.988 TL",
       "metin": "Tam Paket (Tetikte SGS paketi, KDV dahil 2.988 TL): Son 20 Gün'ün 7 denemesi ve konu görevleri, ayrıca sitedeki bütün SGS soruları, provalar ve çalışma araçları. Son 20 Gün bu pake"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 139,
+      "satir": 166,
       "iddia": "20 Gün",
       "metin": "Sadece 7 Deneme (KDV dahil 999 TL): yalnız Son 20 Gün'ün 7 denemesi ve konu görevleri. Sitedeki diğer SGS soruları bu pakette yoktur . Erişim 21 Kasım 2026 sınavına kadardır. Erken"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 154,
+      "satir": 181,
       "iddia": "20 Gün",
       "metin": "Sadece 7 Deneme üyesine sonraki dönemin Son 20 Gün paketi ücretsiz verilir."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 158,
+      "satir": 185,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün'ün 7 denemesinin hepsini bitirmiş olmak;"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 159,
+      "satir": 186,
       "iddia": "en az 5",
       "metin": "7 denemenin en az 5'inde %60 ve üstü doğru oranına ulaşmış olmak (en fazla 2 denemede %60'ın altında kalma hakkı vardır);"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 165,
+      "satir": 192,
       "iddia": "20 Gün",
       "metin": "Uzatma: Tam Paket üyeliği bir sonraki Staja Giriş Sınavı dönemine kadar uzatılır; Sadece 7 Deneme üyesine bir sonraki dönemin Son 20 Gün paketi açılır. Bu dönemde de kalan üye, ayn"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 170,
+      "satir": 197,
       "iddia": "2026 saat",
       "metin": "Süre: 600 TL indirim 28 Ekim 2026 saat 00:00 – 1 Kasım 2026 saat 23:59 (Türkiye saati); 27 Ekim 2026'da indirim 400 TL'ydi. Süre bitince indirim kendiliğinden kalkar."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 171,
+      "satir": 198,
       "iddia": "2.988 TL",
       "metin": "Tutar: SGS Tam Paketin satın alma sayfasındaki fiyatından 600 TL (KDV dahil) indirim: 2.988 TL yerine 2.388 TL. Kod gerekmez ; indirim satın alma ekranında kendiliğinden uygulanır "
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 173,
+      "satir": 200,
       "iddia": "20 Gün",
       "metin": "Bir siparişte tek indirim uygulanır; indirimler birleştirilmez. Erken kayıtla Tam Pakete üye olan, üyeliği hemen başlar ve bütün sisteme hemen erişir; Son 20 Gün denemeleri 1 Kasım"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 176,
+      "satir": 203,
       "iddia": "%50",
       "metin": "4. Bitirme bonusu: Tam Paketle geçene %50"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 178,
+      "satir": 205,
       "iddia": "20 Gün",
       "metin": "21 Kasım 2026 Staja Giriş Sınavı'nı, sınav döneminde Tetikte Tam Paket üyesiyken ve o dönemin Son 20 Gün denemelerini bitirmiş olarak geçen üyeye, staj sonunda girdiği Yeterlilik ("
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 180,
+      "satir": 207,
       "iddia": "20 Gün",
       "metin": "5. SMMM Yeterlilik: Son 20 Gün ve ders ders devam sözü"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 181,
+      "satir": 208,
       "iddia": "20 Gün",
       "metin": "SMMM Yeterlilik Sınavı 28 Kasım 2026 dönemine hazırlananlar için Son 20 Gün denemeleri 8 Kasım 2026'dan itibaren üyelerin hesabında açılır; denemeler hazır oldukça ders ders açılır"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 185,
+      "satir": 212,
       "iddia": "%60",
       "metin": "Doğru oranı: Bir denemedeki doğru sayısının denemedeki soru sayısına (20) oranıdır; örneğin 12 doğru %60'tır. Bu oran gerçek sınavın puanı değildir: Yeterlilik Sınavı'nda ders puan"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 186,
+      "satir": 213,
       "iddia": "%60",
       "metin": "Çalışma görevi: Bir denemede %60'ın altında kalan üyeye, o dersin yanlış yapılan konularından görev verilir; görev düzeni Staja Giriş'tekiyle aynıdır (1. madde)."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 191,
+      "satir": 218,
       "iddia": "20 Gün",
       "metin": "Sadece Denemeler paketinde: sonraki dönemin Son 20 Gün paketi ücretsiz verilir."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 195,
+      "satir": 222,
       "iddia": "20 Gün",
       "metin": "O dersin Son 20 Gün'deki 5 denemesinin hepsini bitirmiş olmak;"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 196,
+      "satir": 223,
       "iddia": "en az 3",
       "metin": "5 denemenin en az 3'ünde %60 ve üstü doğru oranına ulaşmış olmak;"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 200,
+      "satir": 227,
       "iddia": "en az 2",
       "metin": "Önceki şart korunur: 28 Ekim 2026'da yayımlanan ilk metinde bir dersteki şart \"3 denemenin hepsini bitirip en az 2'sinde %60\" idi. Bu güncellemeden (28 Ekim 2026) önce Yeterlilik p"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
-      "satir": 201,
+      "satir": 228,
       "iddia": "30 gün",
       "metin": "Şartı sağlanmayan derste söz geçerli değildir; şartı sağlanan öteki derslerde geçerliliğini korur. Yalnız ilk çözüm sayılır; yeniden çözümler hesaba girmez. Başvuru, uzatma, kişiye"
     },
