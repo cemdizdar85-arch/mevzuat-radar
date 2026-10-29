@@ -1,0 +1,27 @@
+{
+  "no": 4,
+  "tarih": "2026-10-29 15:57",
+  "girdi": "veri/sinav/s20-ah-banka-aday-4.json",
+  "hakem": {
+    "model": "model-c",
+    "effort": "medium",
+    "maxTok": 3200
+  },
+  "sayim": {
+    "aday": 2,
+    "gonderilen": 2,
+    "temiz": 2,
+    "kusurlu": 0,
+    "olculemedi": 0,
+    "onceki": 0,
+    "butce_yetmedi": 0,
+    "bulunamadi": 0,
+    "usd": 0.03
+  },
+  "olculen_oran": 0.791,
+  "gerekce": "ambarda: kalip_parti etiket '__s20/ah-banka-karar-4' (depoya girmez)",
+  "kararlar": {
+    "sgs-k13b-inkilap-kolay/kp-01": "TEMIZ",
+    "sgs-t1-genel-inkilap-kolay/kp-16": "TEMIZ"
+  }
+}
