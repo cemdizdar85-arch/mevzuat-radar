@@ -185,6 +185,10 @@
   Yazar bu modüllerde gerçek oranı hedefler: kök medyanı ±%30, olumsuz kök gerçeğe yakın, öncüllü gerçeğin en çok 1,5 katı, şık kısa.
   Madde 4 ("olumlu kök tercih") bu modüllerde gerçek payı HEDEF alır. K15 geçerli ama şart tek cümleyle.
   🚫 GÖRMEZ (ölçü): modül sınıfı anahtar kelimeyle (yanlış sınıf olabilir) · kitapçıkta iki sütun karışması.
+- **KGK-G2 (29.10, DURDURUR):** öncüllü soruda her yanlış şık doğru kümeden TAM BİR öncülle ayrılır ("I ve III" doğruysa "Yalnız I",
+  "Yalnız III", "I, II ve III", "I, III ve IV"; "II ve IV" yazılmaz). Bankacılık t9 okumalarında çıkan 11 sorunun 7'si bu sınıftı. 3 öncüllü
+  soruda "Yalnız II" ya da "I, II ve III" doğruysa dört komşu şık kurulamaz → dördüncü öncül ekle. Kasada yayındaki 205 öncüllü KGK
+  sorusunun 10'u bu kurala uymuyor (29.10 ölçümü; ayrı iş).
 - **Zorunlu kapı (öneri B):** okumaya gönderilmeden ÖNCE ve plan kurulmadan ÖNCE teslim denetimi + KGK-CZ 0 KUSUR. Plan kurucu
   (`kgk-is\plan-kur.js`) KUSURLU dosyayla plan yazmaz. Neden (23.10 ölçüldü): t8 spk-g5 teslim denetimi koşulmadan okumaya gitti;
   21 sorunun 11'i bulutta KAPI-Ş'den düştü, dört tur okuma boşa gitti.
@@ -195,5 +199,5 @@ powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 
 ```
 Dosya adı `hazir-kgk-…` ise (ya da `-IkizEtiket kgk-…`) KGK sıkı modu kendiliğinden açılır: ADIM YOK / SADE YOK / SIM KUSUR · KGK HARF ANMA ·
 KGK SORUDA VERİLEN · KGK FIKRA ATFI · KGK-DC "Doğru cevap" kayması · KGK-MK eski sigorta makamı (14.10) · **KGK-CZ çizim kapısı (22.10, K17)** · KGK uzunluk tavanı (Denetim 784, Muhasebe Standartları 661 — etikette tms/tfrs yoksa `-Tavan 661`;
-KGK'da `-Ders` VERME, SGS sözlüğü kurulur) · KGK KAPI-K. Çıktıda KUSUR kalmaz. Sonra İKİNCİ GÖZ (yeterlilik talimatı) → yükle → plan → bulut sırası.
+KGK'da `-Ders` VERME, SGS sözlüğü kurulur) · KGK KAPI-K · **KAPI-A1 çıkmış benzerlik (29.10, her sınavda)**. Çıktıda KUSUR kalmaz. Sonra İKİNCİ GÖZ (yeterlilik talimatı) → yükle → plan → bulut sırası.
 Onarım: `node arac/onarim-hatti.js teslim <klasör>` kgk- etiketini artık `veri/sinav/kgk-elle-ret.json`'a yazar (07.10, K8).
