@@ -178,6 +178,17 @@
 - 🚫 Kapının GÖRMEDİĞİ (cizerek-coz.js): çizimin anlamca doğruluğu, hap/tuzak metninin hukuken doğruluğu, şartlı hüküm cümlesinin hangi öncüle
   ait olduğu — bunlar hakem + okuyucu işidir.
 
+## ⭐ K18 — SINAV PROFİLİ HEDEFİ + ZORUNLU KAPI (29.10.2026, Cem "gm önerilerini yap ve bağımsız denetimi bitirelim")
+- **Profil HEDEFİ (tavan değil)** — 27.10 "sınava benzemiyor" kuralının KGK karşılığı. Ölçüldü 29.10 (çıkmış KGK 2016+ ↔ t8 hazırları,
+  `C:\TETIKTE-CALISMA\kgk-is\profil-olc.js`, anahtar kelimeyle modül sınıfı): kök medyanı SPK 174↔460 · Banka 192↔489 · Sigorta 200↔495 ·
+  TSRS 426↔476 krk; olumsuz kök SPK %48↔%11 · Banka %34↔%8 · Sigorta %36↔%8 · TSRS %35↔%4; öncüllü SPK %11↔%27 · Banka %12↔%23.
+  Yazar bu modüllerde gerçek oranı hedefler: kök medyanı ±%30, olumsuz kök gerçeğe yakın, öncüllü gerçeğin en çok 1,5 katı, şık kısa.
+  Madde 4 ("olumlu kök tercih") bu modüllerde gerçek payı HEDEF alır. K15 geçerli ama şart tek cümleyle.
+  🚫 GÖRMEZ (ölçü): modül sınıfı anahtar kelimeyle (yanlış sınıf olabilir) · kitapçıkta iki sütun karışması.
+- **Zorunlu kapı (öneri B):** okumaya gönderilmeden ÖNCE ve plan kurulmadan ÖNCE teslim denetimi + KGK-CZ 0 KUSUR. Plan kurucu
+  (`kgk-is\plan-kur.js`) KUSURLU dosyayla plan yazmaz. Neden (23.10 ölçüldü): t8 spk-g5 teslim denetimi koşulmadan okumaya gitti;
+  21 sorunun 11'i bulutta KAPI-Ş'den düştü, dört tur okuma boşa gitti.
+
 ## Teslimden önce (zorunlu)
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya veri/fabrika/hazir-kgk-<…>.json
