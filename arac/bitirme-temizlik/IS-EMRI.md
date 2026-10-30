@@ -16,6 +16,11 @@
   soru sayısı × birim bedel Cem'e yazılır, fren yalnız Cem "aç" deyince kalkar.
 - Rapor: her parti sonunda üç sayı ayrı — kontrol edilen · inen · düzeltilip geri giren. "Düzeldi" demeden sitede ölç.
 
+## ⚠ K8 — KONU İÇİ KARIŞIM (2–4. işlerin hepsi)
+Kartın `kalip` alanı görülen örnektir, tek tip emri değil. Aynı konudan yazdığın sorular dersin gerçek kalıp kümesine yayılır; ≥5 sorulu
+konuda tek kalıp %60'ı geçmez (FTA'da hesap %80). Sitede tek tip konu oranı: FTA %97 · Maliyet %90 · FM %59 · Vergi %58 — Oturum 4'ün
+açık tablosunda konu başına "kalıp karışımı açığı" da yer alır (araç: kalip-ayirici.js ayir()).
+
 ## Oturum 1 — KONTROL (bankanın tamamı, öğrencinin ilk gördüğünden başla)
 `node arac/bitirme-temizlik/temizlik.js indir 120 tur3` (ilk 80 kontrol edildi; kontrol-edilen.json'daki 682 atlanır) → `kor-tur3/` ders dosyalarını
 **iki ayrı** kör çözücü turuna ver (`COZUCU-TALIMAT.md`; A ve B turunda dersleri farklı eşle) → `temizlik.js karsilastir tur3` → `temizlik.js ozet tur3`

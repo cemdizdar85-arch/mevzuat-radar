@@ -33,6 +33,13 @@
 - **K5 Beceri oranı:** Denetim/Meslek/SPK 20/20 bilgi · Hukuk 18–19 bilgi · Vergi ≈10 bilgi/3–4 uygulama/7 analiz · Maliyet 8/8/4 · FM ve FTA 14–15 uygulama, 3–4 analiz. Bilgi derslerinde zorluk VAKA ile değil, ince ayrıntı + yakın çeldiriciyle verilir.
 - **K6 Kökte:** kanun "<sayı> sayılı <tam ad> Kanunu'na göre" (kısaltma yok); madde/paragraf numarası yazılmaz (Hukuk'ta ≤3/20 istisna); kişi "Bay (A)", şirket "(Y) A.Ş." yalnız Vergi vakasında; FM'de özne "İşletme"; FTA'da ortak veri bloğu.
 - **K7 Tekrar yok:** aynı paragraftan bir sayfanın ilk 40'ında en çok 1 soru; bankada aynı kök kalıbı + aynı cevap = ikiz, atılır.
+- **K8 KONU İÇİ KARIŞIM (30.10, KGK'da bulunan kusur bitirmede ölçüldü):** gerçek sınav aynı konuyu FARKLI kalıplarla soruyor; biz tek tip soruyoruz.
+  Ölçüldü (bedel 0, kalıp ayırıcı %94): 2026 testinde ≥2 sorusu olan konuların Maliyet 9/9, Denetim 11/11, Hukuk 10/11, SPK 10/12'si en az iki farklı kalıpla soruldu.
+  Sitede ≥5 sorulu konuların "%80+ tek kalıp" oranı: **FTA %97 · Maliyet %90 · FM %59 · Vergi %58** · Hukuk %31 · Denetim %30 · Meslek %11 · SPK %7.
+  Kural: kartın `kalip` alanı o konuda GÖRÜLEN örnektir, tek kalıp emri DEĞİLDİR. Aynı konudan yazılan sorular dersin gerçek kalıp kümesine yayılır
+  (hesap konusu → hesap + "doğrudur/yanlıştır" hüküm + kayıt/hesap adı + sırasıyla; hüküm konusu → değildir/yanlıştır/kaç gün/boşluk/öncüllü/tanım).
+  ≥5 sorulu konuda tek kalıp soruların %60'ını geçmez (FTA'da hesap %80'e kadar — gerçek FTA %88 hesap). Konu kartında konunun "ne sorar" maddeleri
+  farklı kalıplarla sorulur: aynı kuralı hem hesaplatıp hem hükmünü sordur.
 
 ## 3 · ŞIKLAR (Ş1–Ş10 — NBME + Haladyna 2002, bize uyarlanmış)
 
