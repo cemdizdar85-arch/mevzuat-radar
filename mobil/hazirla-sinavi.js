@@ -214,24 +214,33 @@ for (const v of VAKALAR) {
   sonuc('kapsar()/sinaviBul() paket-kapisi.js ile aynı (' + 15 * 3 + ' paket×sınav + 4 yol)', tamam, not);
 }
 
-/* --------------------------- 02.10 B1: iPhone'da satış kapalıyken web paketi açılmaz --------------------------- */
+/* ------ 30.10 (Cem, 02.10 B1'in yerine): iPhone'da web paketi AÇILIR; satış iPhone'da kapalı kalır;
+          "yalnız ücretsiz" görünüm yalnız paketsiz iPhone kullanıcısında ------ */
 {
   let kaynak = fs.readFileSync(path.join(__dirname, 'uygulama', 'ortak.js'), 'utf8');
-  if (process.env.HZ_MUTASYON === 'ioskilit') kaynak = kaynak.replace('if (iosKilitli())', 'if (false)');
-  const dene = async (platform, iosSatis) => {
-    let sorgu = 0;
-    const kutu = { window: platform ? { Capacitor: { getPlatform: () => platform } } : {}, localStorage: { setItem() {}, getItem() { return null; } }, navigator: {}, indexedDB: null };
+  if (process.env.HZ_MUTASYON === 'ioskilit') kaynak = kaynak.replace('function iosKilitli() { return iosSatisYok() && !iosPaketli(); }', 'function iosKilitli() { return iosSatisYok(); }');
+  const dene = async (platform, iosSatis, satirlar) => {
+    let sorgu = 0; const depo = {};
+    const kutu = { window: platform ? { Capacitor: { getPlatform: () => platform } } : {}, navigator: {}, indexedDB: null,
+      localStorage: { setItem(k, v) { depo[k] = String(v); }, getItem(k) { return k in depo ? depo[k] : null; }, removeItem(k) { delete depo[k]; } } };
     vm.createContext(kutu);
     vm.runInContext(iosSatis ? kaynak.replace('var IOS_SATIS = false; /*HAZIRLA:IOS_SATIS*/', 'var IOS_SATIS = true;') : kaynak, kutu);
-    const sb = { from: () => ({ select: () => ({ eq: async () => { sorgu++; return { data: [{ paket: 'sgs', bitis: null }], error: null }; } }) }) };
-    const r = await kutu.window.TT.paketler(sb, 'u1');
-    return { acar: kutu.window.TT.acarMi(r.satir, 'sgs'), sorgu };
+    const sb = { from: () => ({ select: () => ({ eq: async () => { sorgu++; return { data: satirlar, error: null }; } }) }) };
+    const TT = kutu.window.TT, once = TT.yalnizUcretsiz();
+    const r = await TT.paketler(sb, 'u1');
+    return { acar: TT.acarMi(r.satir, 'sgs'), sorgu, ucretsizOnce: once, ucretsizSonra: TT.yalnizUcretsiz(), satisGizli: !!(TT.satisGizli && TT.satisGizli()) };
   };
   (async () => {
-    const ios = await dene('ios', false), iosAcik = await dene('ios', true), android = await dene('android', false), web = await dene(null, false);
-    const tamam = ios.acar === false && ios.sorgu === 0 && iosAcik.acar === true && android.acar === true && web.acar === true;
-    sonuc('iPhone satış kapalı → web paketi açılmaz; iPhone satış açık / Android / web → açılır', tamam,
-      JSON.stringify({ ios, iosAcik, android, web }));
+    const PAKET = [{ paket: 'sgs', bitis: null }], BITMIS = [{ paket: 'sgs', bitis: '2020-01-01' }];
+    const ios = await dene('ios', false, PAKET), iosBos = await dene('ios', false, []), iosBitmis = await dene('ios', false, BITMIS),
+      iosAcik = await dene('ios', true, PAKET), android = await dene('android', false, PAKET), web = await dene(null, false, PAKET);
+    const tamam = ios.acar === true && ios.sorgu === 1 && ios.ucretsizOnce === true && ios.ucretsizSonra === false && ios.satisGizli === true &&
+      iosBos.acar === false && iosBos.ucretsizSonra === true && iosBos.satisGizli === true &&
+      iosBitmis.acar === false && iosBitmis.ucretsizSonra === true &&
+      iosAcik.acar === true && iosAcik.satisGizli === false && iosAcik.ucretsizSonra === false &&
+      android.acar === true && android.satisGizli === false && web.acar === true;
+    sonuc('iPhone: web paketi açılır, satış gizli; paketsiz/bitmiş iPhone yalnız ücretsiz; Android/web aynen', tamam,
+      JSON.stringify({ ios, iosBos, iosBitmis, iosAcik, android, web }));
     console.log('HAZIRLA-SINAVI: ' + (gecen === toplam ? 'YESIL' : 'KIRMIZI') + ' — ' + gecen + '/' + toplam + (process.env.HZ_MUTASYON ? ' · HZ_MUTASYON=' + process.env.HZ_MUTASYON : ''));
     process.exitCode = gecen === toplam ? 0 : 1;
   })();

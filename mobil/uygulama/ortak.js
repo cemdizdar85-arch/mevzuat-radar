@@ -162,13 +162,24 @@
      magaza-urunleri.json "ios_satis"tan yazılır (hazirla.js işareti değiştirir; işaret bulunamazsa derleme durur).
      Android ve site etkilenmez. */
   var IOS_SATIS = false; /*HAZIRLA:IOS_SATIS*/
-  function iosKilitli() {
+  function iosSatisYok() {
     try { return !IOS_SATIS && !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios'); } catch (e) { return false; }
   }
+  /* 30.10 Cem ("iPhone'dan üye, ordan çözmek istiyor, açabilmesi lazım"): B1 KALKTI — siteden alınan paket iPhone'da da
+     AÇILIR (paketler() her platformda sunucudan okur). Satış (fiyat, "Kilidi aç", mağaza) yine IOS_SATIS / katalog
+     iosSatis'e bağlı, iPhone'da kapalı kalır. "Yalnız ücretsiz" görünüm artık yalnız PAKETİ OLMAYAN iPhone kullanıcısı
+     içindir (Apple 08.10 "How do users unlock exams?": paketsize kilit/paket gösterilmez). Paketli mi: son paket okuması
+     (PAKET_ANAHTARI, çıkışta silinir) — eşzamanlı, sayfa açılışında da okunabilsin diye. */
+  function iosPaketli() {
+    try {
+      var k = JSON.parse(localStorage.getItem(PAKET_ANAHTARI) || 'null');
+      return !!(k && (k.satir || []).some(aktifMi));
+    } catch (e) { return false; }
+  }
+  function iosKilitli() { return iosSatisYok() && !iosPaketli(); }
 
   /* Paket satırları: ağdan; ağ yoksa son başarılı okuma (en fazla CEVRIMDISI_GUN gün). */
   async function paketler(sb, kullaniciId) {
-    if (iosKilitli()) return { satir: [], cevrimdisi: false, iosKilit: true };
     try {
       var r = await sb.from('paket_uyeler').select('paket,bitis').eq('user_id', kullaniciId);
       if (r.error) throw r.error;
@@ -197,6 +208,8 @@
     sinaviBul: sinaviBul, kapsar: kapsar, cikis: cikis, onbellekTemizle: temizle,
     /* 09.10 Apple 2.1 "How do users unlock exams?": iPhone'da satış kapalıyken kilit/paket HİÇ gösterilmez */
     yalnizUcretsiz: iosKilitli,
+    /* 30.10: iPhone'da satış öğesi sökücü (uygulama-sayfa.js) paketli üyede de çalışır — satış IOS_SATIS'e bağlı */
+    satisGizli: iosSatisYok,
     CEVRIMDISI_GUN: CEVRIMDISI_GUN, SB_URL: SB_URL, SB_KEY: SB_KEY
   };
 })();
