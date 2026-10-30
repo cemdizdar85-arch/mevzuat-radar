@@ -25,7 +25,7 @@ açık tablosunda konu başına "kalıp karışımı açığı" da yer alır (ar
 `node arac/bitirme-temizlik/temizlik.js indir 120 tur3` (ilk 80 kontrol edildi; kontrol-edilen.json'daki 682 atlanır) → `kor-tur3/` ders dosyalarını
 **iki ayrı** kör çözücü turuna ver (`COZUCU-TALIMAT.md`; A ve B turunda dersleri farklı eşle) → `temizlik.js karsilastir tur3` → `temizlik.js ozet tur3`
 → `DOGRULAYICI-TALIMAT.md` ile karar → INDIR'leri uygula, sitede ölç. Sonra 160, 200 … sayfa sonuna kadar.
-Öteki oturumların `ret-oneri-*.json`'larını da doğrula ve uygula. YIL_VERGI çıkanları Oturum 2'ye bırak (`yil-vergi-<etiket>.json`).
+**ÖNCE** `veri/sinav/bitirme-duzeltme/ogrenci-alarm.json`'daki öğrenci verisi alarmlarını (kontrol_edildi=false olanlar) kontrol et — alarm anahtar yanlış demek değildir, kararı resmî metin verir. Öteki oturumların `ret-oneri-*.json`'larını da doğrula ve uygula. YIL_VERGI çıkanları Oturum 2'ye bırak (`yil-vergi-<etiket>.json`).
 
 ## Oturum 2 — VERGİ YIL KURALI (D7)
 Liste: `veri/sinav/bitirme-duzeltme/vergi-2025.json` (149, alt sınır) + Oturum 1'in `yil-vergi-*.json`'ları. Her soru 2025 takvim yılı/hesap dönemine ve
