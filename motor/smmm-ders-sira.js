@@ -24,6 +24,14 @@
 //       okunur (yayın betiği zaten indirmiştir; seçim dosyası yine yalnız kimlik taşır). Metin ya da ders kalıbı yoksa benzer
 //       kümesi boş → sıra 30.10 öncesiyle BİREBİR aynı (öz-sınav eşdeğerlik çapası). ANAHTAR arac/smmm-soru-sirasi.json
 //       "sinava_benzer_once". Ölçü: 30.10 prova, ilk 40'ta Denetim kök 329→143 (gerçek 178), Vergi şık 7→92 (gerçek 72).
+//    5) KALIP UYUMU (30.10, Cem "1.2.3 üçünü de yap"): her sorunun soru cümlesi kalıbı motor/soru-kalibi.js ile okunur;
+//       gerçek dağılım veri/sinav/smmm-soru-kalibi.json (2026/1+2, ders başına 40 soru, elle). a) Dersin gerçek dağılımında
+//       payı 0 olan kalıptaki soru benzer kümesine GİRMEZ (Meslek/SPK "doğrudur", Hukuk hesap…) → öteki kümesine düşer.
+//       b) İlk 40 gerçek kalıp oranına yakın kurulur: ilk 10'da her konu için en açığı olan kalıbın sorusu, 11–40 arası
+//       en büyük açıklı kalıptan (kalıp içinde 3. kuralın sırası korunur); benzerler 40'ı doldurmazsa kalan yerler ötekinden yine
+//       kalıp oranıyla (benzerler hep önde; payı 0 kalıp ancak başka kalmayınca); 40'tan sonrası 3. kuralla aynen. c) SONA (silinmez):
+//       Hukuk'ta hesap kalıbı (F), Denetim'de kökte şirket adlı vaka (vakaMi) — benzemeyenlerden de sonra.
+//       ANAHTAR arac/smmm-soru-sirasi.json "kalip_uyumu"; kalıp verisi yoksa ya da anahtar kapalıysa sıra 4. kuraldaki gibi.
 //  KÜME DEĞİŞMEZ: yalnız sıra değişir. Çıktı girdiyle aynı sayıda ve aynı kimliklerden oluşmazsa ÇIKIŞ 2 (dosya yazılmaz).
 //  🚫 GÖRMEZ: sorunun gerçek zorluğu (etiket/plan üretim isteğidir, öğrenci verisi değil) · "orta" etiketi bankada yok (12.10) ·
 //    planı olmayan elle yazılmış 15 sorunun zorluğu (gm-p1/gm-p2/denetim-30) · eşlemenin tek okuyucu hatası · sayfanın seviye testine göre yeniden sıralaması
@@ -102,8 +110,9 @@ function zorluk(id) {
   return planZorluk()[String(id || '').split('/')[0]] || '?';
 }
 
-// ilk 10: en sık konulardan, her biri farklı konu, orta/zor (yoksa kolay, en son etiketsiz); çok zor hiç
-function ilkOn(taban, konuBul, agirlik) {
+// ilk 10: en sık konulardan, her biri farklı konu, orta/zor (yoksa kolay, en son etiketsiz); çok zor hiç.
+// secici (5. kural): konunun adaylarından birini seçer (adaylar, şimdiye kadar seçilenler) → kimlik; yoksa ilk aday.
+function ilkOn(taban, konuBul, agirlik, secici) {
   const ilkKonum = {}; taban.forEach((id, i) => { const k = konuBul(id); if (k && agirlik[k] > 0 && !(k in ilkKonum)) ilkKonum[k] = i; });
   const konular = Object.keys(ilkKonum).sort((p, q) => (agirlik[q] - agirlik[p]) || (ilkKonum[p] - ilkKonum[q]));
   const secilen = [], kullanilan = new Set(), alinan = new Set();
@@ -111,7 +120,8 @@ function ilkOn(taban, konuBul, agirlik) {
     for (const k of konular) {
       if (secilen.length >= ILK) break;
       if (kullanilan.has(k)) continue;
-      const id = taban.find(x => !alinan.has(x) && konuBul(x) === k && tur.includes(zorluk(x)));
+      const id = secici ? secici(taban.filter(x => !alinan.has(x) && konuBul(x) === k && tur.includes(zorluk(x))), secilen)
+        : taban.find(x => !alinan.has(x) && konuBul(x) === k && tur.includes(zorluk(x)));
       if (id) { secilen.push(id); kullanilan.add(k); alinan.add(id); }
     }
   }
@@ -137,45 +147,108 @@ function zorlukSerpistir(sirali) {
   return out;
 }
 
-// bir dersin kimlikleri → yeni sıra (küme aynı). benzer: sınava benzeyen kimlik kümesi (Set) ya da yok → 4. kural kapalı
-function dersSirala(idler, ders, es, A, benzer) {
+// 5. kural: kalıp açığı. havuzdaki kalıplardan gerçek payı > 0 olanların payı, n. konumda olması gereken sayı = pay × n / toplam;
+// açık = olması gereken − yerleşen. sec: ilk 10'da konunun adaylarından en açıklı kalıbınki (eşitlikte önce gelen);
+// diz: ilk N'ye kadar her konumda en açıklı kalıbın sıradaki sorusu (eşitlikte payı büyük, sonra ilk görülen), sonrası aynen.
+function kalipAcigi(havuz, harf, pay) {
+  const top = [...new Set(havuz.map(harf))].reduce((t, h) => t + (pay[h] || 0), 0);
+  const acik = (h, n, yer) => top ? (pay[h] || 0) * n / top - (yer[h] || 0) : 0;
+  const say = liste => { const y = {}; liste.forEach(id => { const h = harf(id); y[h] = (y[h] || 0) + 1; }); return y; };
+  // önce gerçek payı > 0 kalıp (payı 0 kalıp ancak başka kalmayınca), sonra en büyük açık, sonra büyük pay
+  const ust = (h, a, e, eA) => ((pay[h] || 0) > 0) !== ((pay[e] || 0) > 0) ? (pay[h] || 0) > 0
+    : a > eA + 1e-9 || (Math.abs(a - eA) <= 1e-9 && (pay[h] || 0) > (pay[e] || 0));
+  return {
+    sec(adaylar, secilen) {
+      if (!adaylar.length) return undefined;
+      const yer = say(secilen), n = secilen.length + 1;
+      let en = adaylar[0], enA = acik(harf(en), n, yer);
+      for (const id of adaylar) { const a = acik(harf(id), n, yer); if (harf(id) !== harf(en) && ust(harf(id), a, harf(en), enA)) { en = id; enA = a; } }
+      return en;
+    },
+    diz(ilk, kalan, N) {
+      const yer = say(ilk), kova = {}, sira = [], out = [];
+      kalan.forEach(id => { const h = harf(id); if (!kova[h]) { kova[h] = []; sira.push(h); } kova[h].push(id); });
+      for (let n = ilk.length + 1; n <= N; n++) {
+        const dolu = sira.filter(h => kova[h].length); if (!dolu.length) break;
+        let en = dolu[0], enA = acik(en, n, yer);
+        for (const h of dolu) { const a = acik(h, n, yer); if (ust(h, a, en, enA)) { en = h; enA = a; } }
+        out.push(kova[en].shift()); yer[en] = (yer[en] || 0) + 1;
+      }
+      const alinan = new Set(out);
+      return out.concat(kalan.filter(id => !alinan.has(id)));
+    }
+  };
+}
+const KOTA = 40;   // 5b: gerçek kalıp oranına yakın kurulan baş
+
+// bir dersin kimlikleri → yeni sıra (küme aynı). benzer: sınava benzeyen kimlik kümesi (Set) ya da yok → 4. kural kapalı.
+// kalip (5. kural): { harf: {kimlik: kalıp harfi}, pay: {harf: gerçek sayı}, sona: Set } ya da yok → 5. kural kapalı
+function dersSirala(idler, ders, es, A, benzer, kalip) {
   const agirlik = (A && A[ders]) || {};
   const { dizi, sifir } = agirlikliDiz(idler, konuBulucu(es, agirlik), agirlik);
   const konuSirasi = MUT === 'konu-yok' ? idler.slice().sort() : dizi.concat(sifir);
-  const bz = (MUT === 'benzer-yok' || !benzer) ? new Set() : benzer;
-  const bOnce = konuSirasi.filter(id => bz.has(id)), oteki = konuSirasi.filter(id => !bz.has(id));
+  const kb = kalip && kalip.harf && kalip.pay ? kalip : null;
+  const harf = id => (kb && kb.harf[id]) || '?';
+  const sona = kb && kb.sona && MUT !== 'sona-yok' ? kb.sona : new Set();
+  let bz = (MUT === 'benzer-yok' || !benzer) ? new Set() : benzer;
+  if (kb) bz = new Set([...bz].filter(id => !sona.has(id) && (MUT === 'kalip-suzgec-yok' || (kb.pay[harf(id)] || 0) > 0)));
+  const bOnce = konuSirasi.filter(id => bz.has(id)), oteki = konuSirasi.filter(id => !bz.has(id) && !sona.has(id));
+  const son = konuSirasi.filter(id => !bz.has(id) && sona.has(id));
+  const kota = kb && MUT !== 'kota-yok' ? kalipAcigi(bOnce, harf, kb.pay) : null;
   let ilk = [];
   if (MUT !== 'ilk-sik-yok') {
-    ilk = ilkOn(bOnce, konuBulucu(es, agirlik), agirlik);
+    ilk = ilkOn(bOnce, konuBulucu(es, agirlik), agirlik, kota ? kota.sec : undefined);
     if (ilk.length < ILK) {   // benzerlerden 10 dolmadıysa: kalan yerler, kullanılmamış konulardan, öteki sorulardan (2. kural aynen)
       const kn = konuBulucu(es, agirlik), kul = new Set(ilk.map(kn));
-      ilk = ilk.concat(ilkOn(oteki.filter(id => !kul.has(kn(id))), kn, agirlik).slice(0, ILK - ilk.length));
+      const ilkB = ilk, kotaT = kota && kalipAcigi(bOnce.concat(oteki), harf, kb.pay);   // 5b: öteki dolgusu da kalıp oranıyla
+      ilk = ilk.concat(ilkOn(oteki.filter(id => !kul.has(kn(id))), kn, agirlik, kotaT ? (ad, sec) => kotaT.sec(ad, ilkB.concat(sec)) : undefined).slice(0, ILK - ilk.length));
     }
   }
   const ilkS = new Set(ilk);
-  return ilk.concat(zorlukSerpistir(bOnce.filter(id => !ilkS.has(id))), zorlukSerpistir(oteki.filter(id => !ilkS.has(id))));
+  let bKalan = zorlukSerpistir(bOnce.filter(id => !ilkS.has(id))), oKalan = zorlukSerpistir(oteki.filter(id => !ilkS.has(id)));
+  if (kota) {
+    bKalan = kota.diz(ilk, bKalan, KOTA);
+    // benzerler 40'ı doldurmadıysa: kalan yerler ötekinden yine gerçek kalıp oranıyla (benzerler yine önde)
+    if (ilk.length + bKalan.length < KOTA) oKalan = kalipAcigi(bOnce.concat(oteki), harf, kb.pay).diz(ilk.concat(bKalan), oKalan, KOTA);
+  }
+  return ilk.concat(bKalan, oKalan, zorlukSerpistir(son));
 }
 
 // 4. kural: seçimdeki kimliklerden sınava benzeyenler. Ders kalıbı veri/sinav-anatomisi-smmm.json; ad eşlemesi aşağıda.
 const KALIP_AD = { 'Meslek Hukuku': 'Muhasebecilik ve Mali Müşavirlik Meslek Hukuku', Hukuk: 'Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)',
   'Sermaye Piyasası Mevzuatı': 'Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)' };
+// 5. kural da buradan beslenir: harf = her metinli sorunun soru cümlesi kalıbı, sona = 5c kümesi (ders kuralı SONA'da).
+const SONA = { Hukuk: (v, h) => h === 'F', 'Muhasebe Denetimi': v => require('./soru-kalibi.js').vakaMi(v.soru) };
 function benzerKume(liste, ders) {
-  const { benzerMi } = require('./sinav-benzerlik-olcu.js');
+  const { benzerMi } = require('./sinav-benzerlik-olcu.js'), { soruKalibi } = require('./soru-kalibi.js');
   let kalip = null;
   try { const C = jsonOku(path.join(KOK, 'veri', 'sinav-anatomisi-smmm.json')).C_ders_kalibi; kalip = C[KALIP_AD[ders] || ders] || null; } catch (e) {}
-  const s = new Set(), parti = {}, fab = process.env.SIRA_FABRIKA || path.join(KOK, 'veri', 'fabrika');
+  const s = new Set(), harf = {}, sona = new Set(), parti = {}, fab = process.env.SIRA_FABRIKA || path.join(KOK, 'veri', 'fabrika');
   let metinsiz = 0;
-  if (!kalip) return { s, kalip: false, metinsiz: liste.length };
+  if (!kalip) return { s, kalip: false, metinsiz: liste.length, harf, sona };
   for (const x of liste) {
     if (!(x.etiket in parti)) { try { parti[x.etiket] = jsonOku(path.join(fab, 'kalip-parti-' + x.etiket + '.json')); } catch (e) { parti[x.etiket] = null; } }
     const v = parti[x.etiket] && parti[x.etiket][x.id];
     if (!v || !v.soru) { metinsiz++; continue; }
-    if (benzerMi(v, kalip)) s.add(x.etiket + '/' + x.id);
+    const k = x.etiket + '/' + x.id, h = soruKalibi(v);
+    harf[k] = h;
+    if (SONA[ders] && SONA[ders](v, h)) sona.add(k);
+    if (benzerMi(v, kalip)) s.add(k);
   }
-  return { s, kalip: true, metinsiz };
+  return { s, kalip: true, metinsiz, harf, sona };
 }
-function benzerAnahtari() {
-  try { return jsonOku(path.join(KOK, 'arac', 'smmm-soru-sirasi.json')).sinava_benzer_once === true; } catch (e) { return false; }
+const anahtar = ad => { try { return jsonOku(path.join(KOK, 'arac', 'smmm-soru-sirasi.json'))[ad] === true; } catch (e) { return false; } };
+const benzerAnahtari = () => anahtar('sinava_benzer_once');
+// gerçek kalıp dağılımı (dersin 40 sorusu, harf → sayı) ya da null
+function kalipPay(ders) {
+  try { const d = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-soru-kalibi.json')).ders[ders]; if (!d) return null; const p = Object.assign({}, d); delete p.n; return p; } catch (e) { return null; }
+}
+// ilk N'nin kalıp dağılımının gerçekten sapması (toplam değişim uzaklığı, %): ½ Σ |pay_baş − pay_gerçek|
+function kalipSapma(bas, harf, pay) {
+  const n = bas.length, g = Object.values(pay).reduce((t, x) => t + x, 0), say = {};
+  bas.forEach(id => { const h = harf[id] || '?'; say[h] = (say[h] || 0) + 1; });
+  const H = new Set(Object.keys(say).concat(Object.keys(pay)));
+  return Math.round(50 * [...H].reduce((t, h) => t + Math.abs((say[h] || 0) / n - (pay[h] || 0) / g), 0));
 }
 
 function ayniKume(a, b) {
@@ -200,15 +273,19 @@ function secimSirala(dosya) {
   const anahtar = x => x.etiket + '/' + x.id, harita = new Map(liste.map(x => [anahtar(x), x]));
   if (harita.size !== liste.length) throw new Error('seçimde kimlik tekrarı');
   const { es, A } = veriYukle();
-  const bk = benzerAnahtari() ? benzerKume(liste, ders) : null;
-  const yeni = dersSirala([...harita.keys()], ders, es, A, bk && bk.s);
+  const bAc = benzerAnahtari(), kAc = anahtar('kalip_uyumu');
+  const bkTum = (bAc || kAc) ? benzerKume(liste, ders) : null, bk = bAc ? bkTum : null;
+  const pay = kAc ? kalipPay(ders) : null, kb = bkTum && pay ? { harf: bkTum.harf, pay, sona: bkTum.sona } : null;
+  const yeni = dersSirala([...harita.keys()], ders, es, A, bk && bk.s, kb);
   if (!ayniKume([...harita.keys()], yeni)) { const e = new Error('KÜME DEĞİŞTİ — sıra yazılmadı'); e.kod = 2; throw e; }
   fs.writeFileSync(dosya, JSON.stringify(yeni.map(k => harita.get(k)), null, 1), 'utf8');
   const z = {}; yeni.slice(0, 40).forEach(k => { const t = zorluk(k); z[t] = (z[t] || 0) + 1; });
   const esli = yeni.filter(k => es[k]).length;
   const bzYazi = !bk ? 'sınava benzer önce KAPALI' : !bk.kalip ? 'sınava benzer: DERS KALIBI YOK (eski sıra)'
     : `sınava benzer ${bk.s.size} · ilk 40'ta ${yeni.slice(0, 40).filter(k => bk.s.has(k)).length}` + (bk.metinsiz ? ` · metni okunamayan ${bk.metinsiz}` : '');
-  console.log(`  SIRA ${ders}: ${yeni.length} soru · eşlemeli ${esli} · ilk 10 farklı konu ${new Set(yeni.slice(0, 10).map(konuBulucu(es, A[ders] || {}))).size}/10 · ilk 10 çok zor ${yeni.slice(0, 10).filter(k => zorluk(k) === 'cokzor').length} · ilk 40 ${KOVA.filter(k => z[k]).map(k => k + ' ' + z[k]).join(' ')} · ${bzYazi}`);
+  const kYazi = !kAc ? 'kalıp uyumu KAPALI' : !kb ? 'kalıp uyumu: GERÇEK DAĞILIM YOK (4. kural sırası)'
+    : `kalıp uyumu: ilk 40 gerçekten sapma %${kalipSapma(yeni.slice(0, 40), kb.harf, kb.pay)} · payı 0 kalıp ${bk ? [...bk.s].filter(k => !(kb.pay[kb.harf[k]] > 0)).length : 0} · sona ${kb.sona.size}`;
+  console.log(`  SIRA ${ders}: ${yeni.length} soru · eşlemeli ${esli} · ilk 10 farklı konu ${new Set(yeni.slice(0, 10).map(konuBulucu(es, A[ders] || {}))).size}/10 · ilk 10 çok zor ${yeni.slice(0, 10).filter(k => zorluk(k) === 'cokzor').length} · ilk 40 ${KOVA.filter(k => z[k]).map(k => k + ' ' + z[k]).join(' ')} · ${bzYazi} · ${kYazi}`);
 }
 
 // ---------------------------------------------------------------- ÖZ-SINAV
@@ -266,6 +343,29 @@ function sinav() {
   t('benzer kümesi boş/yok → sıra 30.10 öncesiyle BİREBİR aynı', JSON.stringify(dersSirala(alfabe, 'D', es, A, new Set())) === JSON.stringify(y) && JSON.stringify(dersSirala(alfabe, 'D', es, A, null)) === JSON.stringify(y));
   const az = new Set([alfabe.find(k => kn(k) === 'k01' && zorluk(k) === 'zor')]), ya = dersSirala(alfabe, 'D', es, A, az);
   t('benzer 10dan azsa ilk 10 ötekinden tamamlanır, konu tekrarı yok', az.has(ya[0]) && new Set(ya.slice(0, 10).map(kn)).size === 10 && ya.slice(0, 10).every(k => zorluk(k) !== 'cokzor'));
+  // 5. kural (30.10): kalıp uyumu. Her soru benzer; kalıplar sırayla F A C G (bankada eşit). Gerçek pay: F 0, A 2, C 6, G 2
+  // → ilk 40 hedefi A 8 · C 24 · G 8, F hiç. Sona: her 12 sorudan biri (C kalıbından, konulara yayılır).
+  const KH = ['F', 'A', 'C', 'G'], harfK = {}; alfabe.forEach((k, i) => { harfK[k] = KH[i % 4]; });
+  const sonaK = new Set(alfabe.filter((k, i) => i % 12 === 6)), payK = { A: 2, C: 6, G: 2 }, hepsi = new Set(alfabe);
+  const yk = dersSirala(alfabe, 'D', es, A, hepsi, { harf: harfK, pay: payK, sona: sonaK }), b40 = yk.slice(0, 40);
+  const say40 = h => b40.filter(k => harfK[k] === h).length, bzN = alfabe.filter(k => harfK[k] !== 'F' && !sonaK.has(k)).length;
+  t('kalıp: küme ve sayı aynı', ayniKume(alfabe, yk));
+  t('kalıp: gerçek payı 0 kalıp (F) benzer kümesine girmez — hepsi benzerlerden sonra', yk.slice(0, bzN).every(k => harfK[k] !== 'F'));
+  t(`kalıp: ilk 40 gerçek orana yakın (A ${say40('A')}/8 · C ${say40('C')}/24 · G ${say40('G')}/8, ±2)`, Math.abs(say40('A') - 8) <= 2 && Math.abs(say40('C') - 24) <= 2 && Math.abs(say40('G') - 8) <= 2);
+  t('kalıp: ilk 10 yine benzer, farklı konu, çok zor yok', yk.slice(0, 10).every(k => harfK[k] !== 'F' && !sonaK.has(k) && zorluk(k) !== 'cokzor') && new Set(yk.slice(0, 10).map(kn)).size === 10);
+  t('kalıp: sona kümesi en sonda, silinmez', yk.slice(-sonaK.size).every(k => sonaK.has(k)) && sonaK.size > 0);
+  t('kalıp: kalıp kotası tek başına (11–40) — ilk 10 dışındaki 30 soruda C en az 17', b40.slice(10).filter(k => harfK[k] === 'C').length >= 17);
+  const az5 = new Set(alfabe.filter(k => harfK[k] === 'A' && !sonaK.has(k)).slice(0, 5)), ya5 = dersSirala(alfabe, 'D', es, A, az5, { harf: harfK, pay: payK, sona: sonaK });
+  const c5 = ya5.slice(0, 40).filter(k => harfK[k] === 'C').length;
+  t(`kalıp: benzer 5 iken 40 ötekinden de orana yakın dolar (C ${c5}/24), benzerler önde, F yok`, ayniKume(alfabe, ya5) && c5 >= 20 && ya5.slice(0, 40).every(k => harfK[k] !== 'F') && [...az5].every(k => ya5.indexOf(k) < ILK + az5.size));
+  t('kalıp verisi yok → sıra 4. kuralla BİREBİR aynı', JSON.stringify(dersSirala(alfabe, 'D', es, A, bz, null)) === JSON.stringify(yb));
+  t('kalıp: hiçbir sorunun metni okunamadıysa (benzer yok, kalıp yok) sıra 4. kuralla aynı', JSON.stringify(dersSirala(alfabe, 'D', es, A, new Set(), { harf: {}, pay: payK, sona: new Set() })) === JSON.stringify(y));
+  t('kalıp: Hukuk hesap ve Denetim vaka sona kuralı', SONA.Hukuk({}, 'F') && !SONA.Hukuk({}, 'C') && SONA['Muhasebe Denetimi']({ soru: '(T) A.Ş.\'nin denetiminde' }) && !SONA['Muhasebe Denetimi']({ soru: 'BDS 220\'ye göre' }) && !SONA['Meslek Hukuku']);
+  try {
+    const kv = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-soru-kalibi.json')).ders, dn = Object.keys(kv);
+    t(`gerçek kalıp dağılımı: ${dn.length} ders × 40 soru, Meslek/SPK "doğrudur" 0, Hukuk hesap 0`, dn.length === 8 && dn.every(d => kv[d].n === 40 && Object.keys(kv[d]).filter(h => h !== 'n').reduce((t, h) => t + kv[d][h], 0) === 40)
+      && !kv['Meslek Hukuku'].A && !kv['Sermaye Piyasası Mevzuatı'].A && !kv.Hukuk.F && kalipPay('Hukuk') && !('n' in kalipPay('Hukuk')));
+  } catch (e) { t('gerçek kalıp dağılımı okunamadı: ' + e.message, false); }
   const eskiF = process.env.SIRA_FABRIKA; process.env.SIRA_FABRIKA = path.join(KOK, 'yok-boyle-klasor');
   const bkY = benzerKume([{ etiket: 'smmm-x', id: 'kp-01' }], 'Finansal Muhasebe');
   if (eskiF === undefined) delete process.env.SIRA_FABRIKA; else process.env.SIRA_FABRIKA = eskiF;
@@ -292,7 +392,7 @@ if (require.main === module) {
   try {
     if (a.includes('--mutasyon')) {
       // kural 8: her bozmada öz-sınav KIRMIZI düşmeli
-      const { spawnSync } = require('child_process'); let tutan = 0; const M = ['ilk-sik-yok', 'serpistirme-yok', 'konu-yok', 'plan-yok', 'benzer-yok'];
+      const { spawnSync } = require('child_process'); let tutan = 0; const M = ['ilk-sik-yok', 'serpistirme-yok', 'konu-yok', 'plan-yok', 'benzer-yok', 'kalip-suzgec-yok', 'kota-yok', 'sona-yok'];
       for (const m of M) {
         const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { SIRA_MUTASYON: m }), encoding: 'utf8' });
         const k = r.status !== 0; if (k) tutan++; console.log(`  mutasyon ${m.padEnd(16)} ${k ? 'KIRMIZI (doğru)' : 'YEŞİL — SINAV KÖR'}`);
@@ -304,4 +404,4 @@ if (require.main === module) {
     else { console.log('kullanım: --secim <dosya> | --sinav'); process.exitCode = 1; }
   } catch (e) { console.log('SIRA DÜŞTÜ: ' + e.message); process.exitCode = e.kod || 1; }
 }
-module.exports = { agirlikHaritasi, agirlikliDiz, konuBulucu, zorluk, zorlukSerpistir, ilkOn, dersSirala, ayniKume };
+module.exports = { agirlikHaritasi, agirlikliDiz, konuBulucu, zorluk, zorlukSerpistir, ilkOn, dersSirala, ayniKume, kalipAcigi, kalipSapma };

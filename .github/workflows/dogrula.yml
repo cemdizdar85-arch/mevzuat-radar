@@ -705,8 +705,12 @@ jobs:
           # havuzla ayni (gercek eslemede 8 ders esdegerlik capasi). GORMEZ: sorunun gercek zorlugu, etiketsiz soru.
           - { ad: "Bitirme soru sirasi OZ-SINAVI (ilk 10 kolay, kume ayni, havuz sirasi)",
               kabuk: bash, komut: "node motor/smmm-ders-sira.js --sinav" }
-          - { ad: "Bitirme soru sirasi MUTASYON (3 kural bozulunca sinav duser mi)",
+          - { ad: "Bitirme soru sirasi MUTASYON (8 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node motor/smmm-ders-sira.js --mutasyon" }
+          # 30.10 soru cumlesi kalibi (motor/soru-kalibi.js): 17 kalip + sirketli vaka. Gercek 320 soruda elle etikete karsi
+          # 301/320 (kitapcik depoda yok). Sira 5. kurali (kalip uyumu) bunu kullanir. GORMEZ: anlam, ayiricinin %6 yanilgisi.
+          - { ad: "Soru cumlesi kalibi OZ-SINAVI (17 kalip, sirket adli vaka)",
+              kabuk: bash, komut: "node motor/soru-kalibi.js --sinav" }
           # 30.10 sinava benzerlik olcusu (tek soru): kok/sik boyu gercek ders kalibina gore. GORMEZ: anlam, konu, dogruluk.
           - { ad: "Sinava benzerlik olcusu OZ-SINAVI (kok/sik esikleri, sozel siklı derste ciplak rakam)",
               kabuk: bash, komut: "node motor/sinav-benzerlik-olcu.js --sinav" }
