@@ -10,6 +10,9 @@ Vergi yıl (Oturum 2), kalıp dışı (Oturum 3) ve KALSIN-DUZELT soruları **ay
 2. **Düzeltilen soru YANLIŞ OLMASIN — dört kontrol, hepsi geçmeden teslim YOK:** (a) kanıt cümlesi ambarda aynen (D2), (b) düzeltilen kök+şık
    İKİ AYRI KÖR çözücüye (anahtar/açıklama görmeden) — ikisi de yeni anahtarı bulmalı (D3), (c) açıklama yeni cevapla tutarlı, (d) ilk 20'yi Cem okur (D4).
    Geçmeyen soru düzeltmeye döner; iki turda geçmezse `onarilamadi` → elle rete (iner).
+   **SINAVA BENZER — ÖLÇEREK (B31, standart bölüm 7):** her soru için ölçü satırı: `kalip-ayirici.js ayir()` sonucu kartın kalıp kümesinde ve derste gerçek ·
+   kök uzunluğu kartın `kok_hedef_kr` aralığında · şık türü kartın `sik_turu` ile aynı · `motor/sinav-benzerlik-olcu.js benzerMi` geçer · `arac/soru-kalite-kapisi.js`
+   KUSUR yok · yıl 2025. "Uydum" yazmak geçerli değil; satırı eksik soru teslim edilmez. İlk 20'de her sorunun yanında aynı konunun gerçek 2026 örneği (dönem + soru no).
 3. Taslak biçimi ve teslim: `arac/onarim-hatti.js` başlığı — `<klasör>/<etiket>__<kp>.json` (beyan: yeni / degisen_alanlar / kok_degisti) +
    `<klasör>/_tam/<etiket>__<kp>.tam.json`; `node arac/onarim-hatti.js uygula <klasör>` (fark denetimi) → `teslim <klasör>`.
    ⚠ teslim Windows PowerShell betikleri çağırır → **yalnız Cem'in bilgisayarındaki oturumda** (bulutta değil). Klasör `veri/fabrika/onarim-<ad>/` (gitignore).

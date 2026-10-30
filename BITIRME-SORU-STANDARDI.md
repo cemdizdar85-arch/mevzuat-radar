@@ -65,3 +65,29 @@ Ders şık türü: FM hesap kaydı cümlesi/tam kayıt · FTA yalnız sayı · D
 ## 6 · HER DALGADA SIRA (atlanmaz)
 
 konu kartı → yazım (kalıp + kanıt cümlesi) → mekanik kapı (uzunluk, kalıp, şık, D5, ikiz) → iki kör çözücü → açıklama kontrolü → Cem okuması (ilk parti) → gözlemde yayın → 30 çözüm ölçümü → kalıcı.
+
+## 7 · HER KURAL ÖLÇÜLÜR — "uydum" demek yetmez (Cem 30.10)
+
+> Cem: *"kuralın nasıl ölçüleceği … bununla ilgili kural oluşturalım."* Kural yazmak yarım iştir; model yazılı kurala her zaman uymaz
+> (sözleşme "İstem yumuşak bir kapıdır"). Bu yüzden **her kuralın yanında ölçüsü yazılıdır**; yazar "kurala uydum" diyemez,
+> ölçünün çıktısını gösterir. Ölçüsü olmayan kural "ÖLÇÜLMÜYOR" diye işaretlenir ve o kuralı yalnız Cem'in okuması güvenceye alır.
+
+| Kural | Nasıl ölçülür (araç / kim) | Geçme şartı |
+|---|---|---|
+| D2 kanıt cümlesi | `node arac/bitirme-temizlik/ambar-ara.js icinde "%<kaynak>%" "<cümleden parça>"` | cümle ambarda aynen bulunur |
+| D3 iki kör çözücü | `arac/bitirme-temizlik/COZUCU-TALIMAT.md` ile iki ayrı ajan (yalnız kök+şık) + `temizlik.js karsilastir` | ikisi de anahtarı bulur, kusur notu yok |
+| D4 Cem okuması | ilk 20 soru, her birinin yanında gerçek 2026 örneği (dönem + soru no) ve aşağıdaki ölçüler | Cem "sınav sorusu" der |
+| D5 bilinen hatalar | `node arac/soru-kalite-kapisi.js` (KAPI-AS2/EK/HK/BOS/TR/YY/ADIM) + D5 listesi elle | KUSUR yok |
+| D7 yıl | `temizlik/yil-tarama.js` mantığı: kökte yıllık gelir/tutar cümlesinde yıl = 2025 | 2026 yıllık gelir/tutar yok |
+| K3 uzunluk | kök karakter sayısı ↔ kartın `kok_hedef_kr` | aralıkta |
+| K4 kalıp | `require('./arac/bitirme-temizlik/kalip-ayirici.js').ayir(kok, siklar)` | kartın kalıp kümesinde ve o derste gerçek sınavda bulunan kalıp |
+| K4/Ş3 şık türü | kartın `sik_turu` ↔ şıklar (sayı/kayıt/terim/cümle) | aynı tür |
+| K5 beceri | kartın `beceri` ↔ yazarın beyanı, ilk 20'de Cem | ders oranı tutar |
+| K7 tekrar / ikiz | `arac/ikiz-olcusu.ps1` + aynı paragraf sayımı | ikiz yok |
+| K8 karışım | `node arac/bitirme-temizlik/konu-konu-karisim.js <çıktı.md>` (dalga sonrası) | ≥5 sorulu konuda tek kalıp ≤%60 (FTA hesap ≤%80) |
+| Ş4 doğru şık en uzun değil | şık uzunlukları (dalga toplamı) | doğru şık en uzun oranı ≤ %40 |
+| Ş10 / D6 öğrenci verisi | `cevap_kayit` şık oranları (≥30 çözüm) | %5 altı şık yeniden yazılır; anahtar alarmı kontrol edilir |
+| Benzerlik toplu | `motor/sinav-benzerlik-olcu.js` `benzerMi` | geçer |
+
+**Teslim raporu (her parti):** her soru için bir satır — kimlik · kalıp (ölçülen/kart) · kök uzunluğu/hedef · şık türü · iki çözücünün cevabı ·
+kanıt cümlesi bulundu mu · kalite kapısı · YIL. Satırı eksik soru teslim edilmez. Ölçü aracı çalışmazsa soru "ÖLÇÜLMEDİ" olarak bekler, geçer sayılmaz.
