@@ -116,10 +116,13 @@ begin
     insert into auth.users (id, instance_id, aud, role, email, created_at, updated_at) values
       (a, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'olcu-iptal-a@tetikte.invalid', now(), now()),
       (y, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'olcu-iptal-y@tetikte.invalid', now(), now());
-    insert into public.paket_uyeler (user_id, paket, bitis) values (a, 'yeterlilik-tum', current_date + 90);
+    -- sipariş ÖNCE (açık paketli hesaba sipariş açılmaz: PAKET_ZATEN_ACIK); ödenince paket tetikleyiciyle açılmadıysa elle
     insert into public.siparisler (siparis_no, paket, tutar, ad_soyad, email, odeme, durum) values
       ('TT-20261030-U301', 'yeterlilik-tum', 2868, 'Olcu Iptal', 'olcu-iptal-a@tetikte.invalid', 'kart', 'odeme_bekliyor');
     update public.siparisler set durum = 'odendi' where siparis_no = 'TT-20261030-U301';
+    if not exists (select 1 from public.paket_uyeler where user_id = a and bitis >= current_date) then
+      insert into public.paket_uyeler (user_id, paket, bitis) values (a, 'yeterlilik-tum', current_date + 90);
+    end if;
     insert into auth.sessions (id, user_id, created_at, updated_at) values (gen_random_uuid(), a, now(), now());
 
     -- 1) yönetici olmayan çağıramaz
