@@ -707,6 +707,9 @@ jobs:
               kabuk: bash, komut: "node motor/smmm-ders-sira.js --sinav" }
           - { ad: "Bitirme soru sirasi MUTASYON (3 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node motor/smmm-ders-sira.js --mutasyon" }
+          # 30.10 sinava benzerlik olcusu (tek soru): kok/sik boyu gercek ders kalibina gore. GORMEZ: anlam, konu, dogruluk.
+          - { ad: "Sinava benzerlik olcusu OZ-SINAVI (kok/sik esikleri, sozel siklı derste ciplak rakam)",
+              kabuk: bash, komut: "node motor/sinav-benzerlik-olcu.js --sinav" }
           # 12.10 kaldigin yer gocu (eski sira -> kimlik -> yeni sira). GORMEZ: cihazdaki seviye dizilimi, esitlenmemis cihaz.
           - { ad: "Kaldigin yer gocu OZ-SINAVI (eski i -> kimlik -> yeni i, SGS'ye dokunmaz)",
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --sinav" }
