@@ -4,6 +4,20 @@
 > `BITIRME-SORU-STANDARDI.md`'ye (D1–D7 · K1–K7 · Ş1–Ş10 · Ö1–Ö5 · Y1–Y5) ve `BITIRME-KONU-KARTLARI.md`'ye bağlıdır. Standartla
 > çelişen kestirme YOK. Kuşkuda soru YAYINA GİRMEZ / İNER.
 
+## ⭐ ESKİ SORU YERİNDE DÜZELTİLİR (Cem 30.10 akşam — hız için; önceki "yeni kimlik" kuralının yerine)
+Vergi yıl (Oturum 2), kalıp dışı (Oturum 3) ve KALSIN-DUZELT soruları **aynı kimlikte** düzeltilir — mevcut onarım hattıyla:
+1. Soruyu kasadan al (tam kayıt) → kartına ve standarda göre düzelt (2025 yılı/tutarları · kartın kalıbı · Ş1–Ş10 · açıklama Ö1–Ö5).
+2. **Düzeltilen soru YANLIŞ OLMASIN — dört kontrol, hepsi geçmeden teslim YOK:** (a) kanıt cümlesi ambarda aynen (D2), (b) düzeltilen kök+şık
+   İKİ AYRI KÖR çözücüye (anahtar/açıklama görmeden) — ikisi de yeni anahtarı bulmalı (D3), (c) açıklama yeni cevapla tutarlı, (d) ilk 20'yi Cem okur (D4).
+   Geçmeyen soru düzeltmeye döner; iki turda geçmezse `onarilamadi` → elle rete (iner).
+3. Taslak biçimi ve teslim: `arac/onarim-hatti.js` başlığı — `<klasör>/<etiket>__<kp>.json` (beyan: yeni / degisen_alanlar / kok_degisti) +
+   `<klasör>/_tam/<etiket>__<kp>.tam.json`; `node arac/onarim-hatti.js uygula <klasör>` (fark denetimi) → `teslim <klasör>`.
+   ⚠ teslim Windows PowerShell betikleri çağırır → **yalnız Cem'in bilgisayarındaki oturumda** (bulutta değil). Klasör `veri/fabrika/onarim-<ad>/` (gitignore).
+4. Kök/şık/anahtar değişen soruda onarım hattı model alanlarını siler ve soruyu **yeniden hakeme kadar elle rete** alır (kural, değişmez):
+   soru, hakem bitene kadar sitede görünmez. Bu yüzden teslim PARTİ PARTİ yapılır ve hakem aynı gün koşar. Hakem ÜCRETLİ ve FRENDE:
+   parti başına soru sayısı × birim bedel Cem'e yazılır (ölçülmüş örnek: 79 rehakem ≈ 11 USD → ≈0,14 USD/soru), onaysız gönderilmez.
+5. Cevabı değişen sorunun eski şık yüzdeleri yeni soruya ait değildir — raporda "cevabı değişti" sayısı ayrıca yazılır (cevap_kayit SİLİNMEZ).
+
 ## Ortak kurallar (4 oturum)
 - Önce oku: `CLAUDE.md`, `BITIRME-SORU-STANDARDI.md`, `BITIRME-KONU-KARTLARI.md`, bu dosya.
 - Soru metni, şık, cevap, açıklama **DEPOYA GİRMEZ** (depo herkese açık). Çalışma dosyaları `veri/fabrika/temizlik/` (gitignore).
