@@ -141,6 +141,7 @@ yonetim_elci_eposta_yaz	p_kod text, p_eposta text	SD	f	t	jsonb	depoda
 yonetim_elci_hesaba_bagla	p_kod text, p_eposta text	SD	f	t	jsonb	depoda
 yonetim_elci_hesap_bul	p_eposta text	SD	f	t	jsonb	depoda
 yonetim_elci_hesaplar		SD	f	t	jsonb	depoda
+yonetim_engelliler		SD	f	t	jsonb	depoda
 yonetim_eposta_onayla	p_eposta text	SD	f	t	jsonb	depoda
 yonetim_hesap_bul	p_eposta text	SD	f	t	jsonb	depoda
 yonetim_kaynak	p_gun integer	SD	f	t	jsonb	depoda
@@ -157,3 +158,5 @@ yonetim_siparis_iade	p_no text, p_neden text	SD	f	t	jsonb	depoda
 yonetim_siparis_iptal	p_no text, p_neden text	SD	f	t	jsonb	depoda
 yonetim_siparis_onayla	p_no text, p_bitis date	SD	f	t	jsonb	depoda
 yonetim_soru_getir	p_id text	SD	f	t	jsonb	depoda
+yonetim_uye_engel_kaldir	p_eposta text, p_neden text	SD	f	t	jsonb	depoda
+yonetim_uyelik_iptal	p_eposta text, p_neden text, p_engelle boolean, p_iade boolean	SD	f	t	jsonb	depoda

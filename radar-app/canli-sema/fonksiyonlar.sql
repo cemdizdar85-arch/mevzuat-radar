@@ -3970,6 +3970,26 @@ begin
 end $function$
 ;
 
+-- yonetim_engelliler()
+CREATE OR REPLACE FUNCTION public.yonetim_engelliler()
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object('eposta', lower(u.email), 'engel_bitis', u.banned_until,
+             'neden', k.neden, 'zaman', k.zaman) order by k.zaman desc nulls last)
+    from auth.users u
+    left join lateral (select neden, zaman from public.uye_islem_kutugu x
+                        where x.user_id = u.id and x.islem = 'iptal' order by x.zaman desc limit 1) k on true
+    where u.banned_until > now()
+  ), '[]'::jsonb);
+end $function$
+;
+
 -- yonetim_eposta_onayla(text)
 CREATE OR REPLACE FUNCTION public.yonetim_eposta_onayla(p_eposta text)
  RETURNS jsonb
@@ -4425,6 +4445,62 @@ begin
            'teshis', veri->'teshis', 'dayanak', veri->'dayanak')
     into v from public.paket_soru where id = p_id;
   return v;   -- kasada yoksa null (soru yayından kalkmış ya da kimlik eski)
+end $function$
+;
+
+-- yonetim_uye_engel_kaldir(text,text)
+CREATE OR REPLACE FUNCTION public.yonetim_uye_engel_kaldir(p_eposta text, p_neden text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v_ep text := lower(trim(coalesce(p_eposta, ''))); v_uid uuid;
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  select id into v_uid from auth.users where lower(email) = v_ep limit 1;
+  if v_uid is null then raise exception 'HESAP_YOK'; end if;
+  update auth.users set banned_until = null, updated_at = now() where id = v_uid;
+  insert into public.uye_islem_kutugu (user_id, eposta, islem, neden, yapan)
+  values (v_uid, v_ep, 'engel_kaldir', left(trim(coalesce(p_neden, '')), 300), auth.uid());
+  return jsonb_build_object('eposta', v_ep, 'engel', false);
+end $function$
+;
+
+-- yonetim_uyelik_iptal(text,text,boolean,boolean)
+CREATE OR REPLACE FUNCTION public.yonetim_uyelik_iptal(p_eposta text, p_neden text, p_engelle boolean, p_iade boolean)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v_ep text := lower(trim(coalesce(p_eposta, ''))); v_uid uuid; v_paket int := 0; v_iade text[] := '{}';
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  if length(trim(coalesce(p_neden, ''))) < 3 then raise exception 'NEDEN_GEREKLI'; end if;
+  select id into v_uid from auth.users where lower(email) = v_ep limit 1;
+  if v_uid is null then raise exception 'HESAP_YOK'; end if;
+  if exists (select 1 from public.yoneticiler where user_id = v_uid) then raise exception 'YONETICI_KAPATILAMAZ'; end if;
+
+  update public.paket_uyeler set bitis = current_date - 1 where user_id = v_uid and bitis >= current_date;
+  get diagnostics v_paket = row_count;
+
+  if coalesce(p_iade, false) then
+    with g as (
+      update public.siparisler set durum = 'iade' where lower(email) = v_ep and durum = 'odendi' returning siparis_no
+    ) select coalesce(array_agg(siparis_no), '{}') into v_iade from g;
+  end if;
+
+  if coalesce(p_engelle, false) then
+    update auth.users set banned_until = now() + interval '100 years', updated_at = now() where id = v_uid;
+    delete from auth.refresh_tokens where user_id = v_uid::text;
+    delete from auth.sessions where user_id = v_uid;
+  end if;
+
+  insert into public.uye_islem_kutugu (user_id, eposta, islem, neden, engel, paket_kapanan, iade_siparis, yapan)
+  values (v_uid, v_ep, 'iptal', left(trim(p_neden), 300), coalesce(p_engelle, false), v_paket, v_iade, auth.uid());
+
+  return jsonb_build_object('eposta', v_ep, 'paket_kapanan', v_paket, 'iade', to_jsonb(v_iade), 'engel', coalesce(p_engelle, false));
 end $function$
 ;
 
