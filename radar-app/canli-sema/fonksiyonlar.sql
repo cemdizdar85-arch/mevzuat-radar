@@ -4032,6 +4032,62 @@ begin
 end $function$
 ;
 
+-- yonetim_islem_kaydi(integer)
+CREATE OR REPLACE FUNCTION public.yonetim_islem_kaydi(p_gun integer DEFAULT 30)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v_bas timestamptz := now() - make_interval(days => least(greatest(coalesce(p_gun, 30), 1), 365));
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  return coalesce((select jsonb_agg(e order by z desc) from (
+    select x.zaman z, jsonb_build_object('zaman', x.zaman, 'tur', case x.islem when 'iptal' then 'Üyelik iptal' else 'Giriş engeli kaldırıldı' end,
+             'eposta', x.eposta, 'ayrinti', concat_ws(' · ', nullif(x.neden, ''), case when x.engel then 'girişi engellendi' end,
+               case when x.paket_kapanan > 0 then x.paket_kapanan || ' paket kapandı' end,
+               case when coalesce(array_length(x.iade_siparis, 1), 0) > 0 then array_to_string(x.iade_siparis, ', ') || ' iade' end),
+             'yapan', (select lower(email) from auth.users where id = x.yapan))
+      from public.uye_islem_kutugu x where x.zaman > v_bas
+    union all
+    select h.tarih z, jsonb_build_object('zaman', h.tarih, 'tur', 'Hediye paket verildi', 'eposta', h.eposta,
+             'ayrinti', concat_ws(' · ', h.paket || coalesce(' (' || array_to_string(h.dersler, ', ') || ')', ''),
+               to_char(h.bitis, 'DD.MM.YYYY') || '''e kadar', nullif(h.neden, ''), 'elçi ' || h.elci_kodu), 'yapan', h.veren)
+      from public.paket_hediye h where h.tarih > v_bas
+    union all
+    select h.iptal z, jsonb_build_object('zaman', h.iptal, 'tur', 'Hediye paket kapatıldı', 'eposta', h.eposta, 'ayrinti', h.paket, 'yapan', h.veren)
+      from public.paket_hediye h where h.iptal > v_bas
+    union all
+    select s.odendi_tarihi z, jsonb_build_object('zaman', s.odendi_tarihi, 'tur', 'Sipariş ödendi', 'eposta', s.email,
+             'ayrinti', concat_ws(' · ', s.siparis_no, s.paket, s.tutar || ' TL',
+               case s.odeme when 'kart' then 'kart (iyzico, otomatik)' when 'havale' then 'havale (panelden onay)' else s.odeme end,
+               s.ad_soyad, case when s.durum = 'iade' then 'SONRADAN İADE' end), 'yapan', null)
+      from public.siparisler s where s.odendi_tarihi > v_bas
+    union all
+    select s.iptal_zaman z, jsonb_build_object('zaman', s.iptal_zaman, 'tur', 'Sipariş iptal', 'eposta', s.email,
+             'ayrinti', concat_ws(' · ', s.siparis_no, s.paket, s.tutar || ' TL',
+               case when s.iptal_neden = 'otomatik' then 'otomatik (ödeme gelmedi)' else s.iptal_neden end), 'yapan', null)
+      from public.siparisler s where s.iptal_zaman > v_bas
+    union all
+    select s.bagli_tarih z, jsonb_build_object('zaman', s.bagli_tarih, 'tur', 'Sipariş hesaba bağlandı', 'eposta', s.email,
+             'ayrinti', concat_ws(' · ', s.siparis_no, '→ ' || (select lower(email) from auth.users where id = s.bagli_kullanici), nullif(s.bagli_yol, '')), 'yapan', null)
+      from public.siparisler s where s.bagli_tarih > v_bas
+    union all
+    select o.olusturma z, jsonb_build_object('zaman', o.olusturma, 'tur', 'Özel indirim kodu üretildi', 'eposta', null,
+             'ayrinti', concat_ws(' · ', o.kod, o.kime, coalesce(o.aciklama, o.indirim_tl || ' TL'), 'son gün ' || to_char(o.son, 'DD.MM.YYYY')),
+             'yapan', (select lower(email) from auth.users where id = o.olusturan))
+      from public.ozel_kod o where o.olusturma > v_bas
+    union all
+    select o.iptal z, jsonb_build_object('zaman', o.iptal, 'tur', 'Özel indirim kodu iptal', 'eposta', null, 'ayrinti', concat_ws(' · ', o.kod, o.kime), 'yapan', null)
+      from public.ozel_kod o where o.iptal > v_bas
+    union all
+    select e.olusturma z, jsonb_build_object('zaman', e.olusturma, 'tur', 'Elçi kodu oluşturuldu', 'eposta', null, 'ayrinti', concat_ws(' · ', e.kod, e.ad_soyad), 'yapan', null)
+      from public.elciler e where e.olusturma > v_bas
+    order by 1 desc limit 400
+  ) t(z, e)), '[]'::jsonb);
+end $function$
+;
+
 -- yonetim_kaynak(integer)
 CREATE OR REPLACE FUNCTION public.yonetim_kaynak(p_gun integer DEFAULT 60)
  RETURNS jsonb
@@ -4078,6 +4134,68 @@ begin
   ), '[]'::jsonb);
 end
 $function$
+;
+
+-- yonetim_kullanim()
+CREATE OR REPLACE FUNCTION public.yonetim_kullanim()
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v jsonb;
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  with c as (
+    select k.user_id, k.sayfa, k.dogru, k.zaman from public.kasa_cevap k
+  ), u as (
+    select c.user_id, count(*) n, count(*) filter (where c.zaman > now() - interval '7 days') n7,
+           count(*) filter (where c.dogru) d, max(c.zaman) son, min(c.zaman) ilk
+      from c group by c.user_id
+  ), ud as (
+    select distinct on (user_id) user_id, sayfa from (select user_id, sayfa, count(*) n from c group by 1, 2) x
+     order by user_id, n desc
+  ), os as (
+    select user_id, count(*) filter (where tur = 'set') sets, count(*) filter (where tur = 'deneme') deneme,
+           count(*) filter (where tur = 'seviye') seviye, max(olusturma) son
+      from public.ogrenci_sonuc group by user_id
+  )
+  select jsonb_build_object(
+    'olcum', now(),
+    'uye', coalesce((
+      select jsonb_agg(jsonb_build_object('eposta', lower(au.email), 'cevap', coalesce(u.n, 0), 'cevap7', coalesce(u.n7, 0),
+               'dogru', coalesce(u.d, 0), 'son', greatest(u.son, os.son), 'ilk', u.ilk, 'ders', ud.sayfa,
+               'set', coalesce(os.sets, 0), 'deneme', coalesce(os.deneme, 0), 'seviye', coalesce(os.seviye, 0)))
+        from auth.users au
+        left join u on u.user_id = au.id left join ud on ud.user_id = au.id left join os on os.user_id = au.id
+       where u.user_id is not null or os.user_id is not null), '[]'::jsonb),
+    'gunluk', coalesce((
+      select jsonb_agg(jsonb_build_object('gun', g.gun::date, 'cevap', coalesce(x.n, 0), 'kisi', coalesce(x.k, 0)) order by g.gun)
+        from generate_series((now() at time zone 'Europe/Istanbul')::date - 29, (now() at time zone 'Europe/Istanbul')::date, interval '1 day') g(gun)
+        left join (select (zaman at time zone 'Europe/Istanbul')::date gun, count(*) n, count(distinct user_id) k
+                     from c where zaman > now() - interval '31 days' group by 1) x on x.gun = g.gun::date), '[]'::jsonb),
+    'ders', coalesce((
+      select jsonb_agg(jsonb_build_object('sayfa', sayfa, 'cevap', n, 'cevap7', n7, 'kisi', k, 'kisi7', k7, 'dogru', d) order by n7 desc, n desc)
+        from (select sayfa, count(*) n, count(*) filter (where zaman > now() - interval '7 days') n7,
+                     count(distinct user_id) k, count(distinct user_id) filter (where zaman > now() - interval '7 days') k7,
+                     count(*) filter (where dogru) d
+                from c group by sayfa) y), '[]'::jsonb),
+    'ozet', jsonb_build_object(
+      'kisi24', (select count(distinct user_id) from c where zaman > now() - interval '24 hours'),
+      'kisi7',  (select count(distinct user_id) from c where zaman > now() - interval '7 days'),
+      'kisi30', (select count(distinct user_id) from c where zaman > now() - interval '30 days'),
+      'cevap7', (select count(*) from c where zaman > now() - interval '7 days'),
+      'paketli', (select count(*) from public.paket_uyeler where bitis >= current_date),
+      'paketli_hic', (select count(*) from public.paket_uyeler p where p.bitis >= current_date
+                        and not exists (select 1 from c where c.user_id = p.user_id)),
+      'paketli_7g_yok', (select count(*) from public.paket_uyeler p where p.bitis >= current_date
+                        and not exists (select 1 from c where c.user_id = p.user_id and c.zaman > now() - interval '7 days')),
+      'anonim7', (select count(*) from public.cevap_kayit where olusturma > now() - interval '7 days'),
+      'anonim_oturum7', (select count(distinct oturum) from public.cevap_kayit where olusturma > now() - interval '7 days'),
+      'kayit_baslangic', (select min(zaman) from c))
+  ) into v;
+  return v;
+end $function$
 ;
 
 -- yonetim_nobetci_ozet()
@@ -4445,6 +4563,57 @@ begin
            'teshis', veri->'teshis', 'dayanak', veri->'dayanak')
     into v from public.paket_soru where id = p_id;
   return v;   -- kasada yoksa null (soru yayından kalkmış ya da kimlik eski)
+end $function$
+;
+
+-- yonetim_uye_ayrinti(text)
+CREATE OR REPLACE FUNCTION public.yonetim_uye_ayrinti(p_eposta text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v_ep text := lower(trim(coalesce(p_eposta, ''))); au auth.users%rowtype; v jsonb;
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  select * into au from auth.users where lower(email) = v_ep limit 1;
+  if au.id is null then raise exception 'HESAP_YOK'; end if;
+  select jsonb_build_object(
+    'hesap', jsonb_build_object('eposta', lower(au.email), 'kayit', au.created_at, 'son_giris', au.last_sign_in_at,
+       'onayli', au.email_confirmed_at is not null, 'saglayici', au.raw_app_meta_data->'providers',
+       'engel_bitis', case when au.banned_until > now() then au.banned_until end,
+       'kaynak', au.raw_user_meta_data->>'kaynak', 'elci', nullif(au.raw_user_meta_data->>'elci_kodu', ''),
+       'yonetici', exists (select 1 from public.yoneticiler y where y.user_id = au.id)),
+    'paket', (select jsonb_build_object('paket', p.paket, 'bitis', p.bitis, 'dersler', p.dersler, 'eklenme', p.eklenme)
+                from public.paket_uyeler p where p.user_id = au.id),
+    'siparisler', coalesce((select jsonb_agg(jsonb_build_object('no', s.siparis_no, 'paket', s.paket, 'tutar', s.tutar,
+                    'durum', s.durum, 'odeme', s.odeme, 'ad', s.ad_soyad, 'eposta', s.email, 'tarih', s.olusturma,
+                    'odendi', s.odendi_tarihi, 'iptal_neden', s.iptal_neden, 'elci', s.elci_kodu, 'ozel_kod', s.ozel_kod,
+                    'bagli', s.bagli_kullanici = au.id) order by s.olusturma desc)
+                  from public.siparisler s where lower(s.email) = v_ep or s.bagli_kullanici = au.id), '[]'::jsonb),
+    'hediyeler', coalesce((select jsonb_agg(jsonb_build_object('paket', h.paket, 'dersler', h.dersler, 'bitis', h.bitis,
+                    'neden', h.neden, 'veren', h.veren, 'elci', h.elci_kodu, 'tarih', h.tarih, 'iptal', h.iptal) order by h.tarih desc)
+                  from public.paket_hediye h where h.user_id = au.id), '[]'::jsonb),
+    'cevap', (select jsonb_build_object('toplam', count(*), 'dogru', count(*) filter (where k.dogru),
+                    'cevap7', count(*) filter (where k.zaman > now() - interval '7 days'), 'ilk', min(k.zaman), 'son', max(k.zaman))
+                from public.kasa_cevap k where k.user_id = au.id),
+    'dersler', coalesce((select jsonb_agg(jsonb_build_object('sayfa', sayfa, 'cevap', n, 'dogru', d, 'son', son) order by son desc)
+                  from (select sayfa, count(*) n, count(*) filter (where dogru) d, max(zaman) son
+                          from public.kasa_cevap where user_id = au.id group by sayfa) x), '[]'::jsonb),
+    'gunluk', coalesce((select jsonb_agg(jsonb_build_object('gun', gun, 'cevap', n) order by gun)
+                  from (select (zaman at time zone 'Europe/Istanbul')::date gun, count(*) n from public.kasa_cevap
+                         where user_id = au.id and zaman > now() - interval '30 days' group by 1) x), '[]'::jsonb),
+    'sonuclar', coalesce((select jsonb_agg(jsonb_build_object('tur', o.tur, 'sinav', o.sinav, 'anahtar', o.anahtar, 'tarih', o.olusturma) order by o.olusturma desc)
+                  from (select * from public.ogrenci_sonuc where user_id = au.id order by olusturma desc limit 40) o), '[]'::jsonb),
+    's20', coalesce((select jsonb_agg(jsonb_build_object('deneme', s.deneme, 'ders', s.ders, 'dogru', s.dogru, 'yanlis', s.yanlis,
+                    'bos', s.bos, 'toplam', s.toplam, 'zaman', s.zaman) order by s.zaman desc)
+                  from public.s20_sonuc s where s.user_id = au.id), '[]'::jsonb),
+    'islemler', coalesce((select jsonb_agg(jsonb_build_object('islem', x.islem, 'neden', x.neden, 'engel', x.engel,
+                    'paket_kapanan', x.paket_kapanan, 'iade', x.iade_siparis, 'zaman', x.zaman,
+                    'yapan', (select lower(email) from auth.users where id = x.yapan)) order by x.zaman desc)
+                  from public.uye_islem_kutugu x where x.user_id = au.id), '[]'::jsonb)
+  ) into v;
+  return v;
 end $function$
 ;
 
