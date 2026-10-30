@@ -88,6 +88,29 @@ konu kartı → yazım (kalıp + kanıt cümlesi) → mekanik kapı (uzunluk, ka
 | Ş4 doğru şık en uzun değil | şık uzunlukları (dalga toplamı) | doğru şık en uzun oranı ≤ %40 |
 | Ş10 / D6 öğrenci verisi | `cevap_kayit` şık oranları (≥30 çözüm) | %5 altı şık yeniden yazılır; anahtar alarmı kontrol edilir |
 | Benzerlik toplu | `motor/sinav-benzerlik-olcu.js` `benzerMi` | geçer |
+| D1 güncel madde | `node arac/degisiklik-nobetcisi.js` bekleyen not listesi ↔ sorunun dayanak maddesi | dayanak maddede okunmamış değişiklik notu yok |
+| K1 kartlı soru | sorunun `konu` alanı ↔ `veri/sinav/bitirme-konu-kartlari.json` konu adı | konu bir kartla birebir eşleşir |
+| K1b ambarda yok | kartın `dayanak` alanı "AMBARDA YOK" içeriyor mu | içeriyorsa o karta soru YAZILMAZ |
+| K1c yeni hesap kodları | şık/kökte 245·551·624·647 geçiyor mu → kaynak "KGK FİNANSAL RAPORLAMA STANDARTLARINA UYGUN HESAP PLANI" mı | kod o planın anlamıyla; eski Tekdüzen anlamıyla karışmaz |
+| K2 konu ağırlığı (dalga planı) | plandaki konu başına soru ↔ kartın `donem_sayisi` sırası | çok sorulan konu önce; dönemi 0 konuya soru yok |
+| K6 kök biçimi | düzenli ifade: "<sayı> sayılı … Kanunu'na göre" · kökte "m.\d"/"madde \d" yok (Hukuk ≤3/20) · "Bay (A)/(Y) A.Ş." yalnız Vergi · FM öznesi "İşletme" | hepsi tutar |
+| Ş2 her yanlış şıkkın hatası | soru kaydında her yanlış şık için `teshis`/çeldirici yolu dolu (`arac/bos-alan-kapisi.js`) | 4/4 dolu |
+| Ş5 ipucu | doğru şıkta kökten ≥2 içerik kelimesi tekrarı yok · "her zaman/hiçbir şekilde/yalnızca" yalnız yanlış şıklarda yığılmamış | tutar |
+| Ş7 şıkları kapat | üçüncü kör çözücü YALNIZ kökü görür, cevabı serbest yazar | serbest cevap doğru şıkla aynı anlam |
+| Ş8 sayısal sıra | sayı şıkları küçükten büyüğe (ya da tutarlı ters) | sıralı |
+| Ş9 hepsi/hiçbiri | düzenli ifade | yok |
+| A4 harf dengesi | parti içinde doğru harf sayımı | hiçbir harf %30'u geçmez |
+| Ö1–Ö3 açıklama | `arac/bos-alan-kapisi.js` (şık açıklaması boş/yer tutucu) · hap ≤140 kr | eksik yok |
+| Ö5 açıklama doğruluğu | doğrulayıcı (`arac/bitirme-temizlik/DOGRULAYICI-TALIMAT.md`) açıklamadaki her hükmü resmî metinle karşılaştırır | çelişen hüküm yok |
+| K5 beceri | **ÖLÇÜLMÜYOR** (mekanik ölçü yok) — yazar beyanı + Cem'in ilk 20 okuması | Cem onayı |
+| Ş1 saçma şık · Ş6 tek fikir | **ÖLÇÜLMÜYOR** yayından önce — Cem okuması; yayından sonra Ş10 | Cem onayı |
+
+**KURULMAMIŞ — kural var, düzen YOK (30.10, açık borç; kurulana kadar "yapıldı" denmez):**
+- **Y1 gözlemde yayın** — yeni soruyu sınırlı açıp 30 çözümden sonra kalıcı yapan düzen sitede YOK. Kurulana kadar: yeni/düzeltilen soru parti parti açılır, D6/Ş10 haftalık ölçülür.
+- **Y2 "Bu soru hatalı" düğmesi + 48 saat** — YOK (site kolu).
+- **Y4 pazartesi tek satır rapor** — otomatik DEĞİL; oturum elle yazar.
+- **FTA ortak veri bloğu** — gerçekte 40'ta 28, sitede 0; soru ekranı tek soru gösteriyor (site kolu). Kurulana kadar tablo her sorunun kökünde tekrarlanır.
+- **SGS ve KGK ölçü tablosu** — bu bölümün eşi o sınavlar için kurulmadı (B31).
 
 **Teslim raporu (her parti):** her soru için bir satır — kimlik · kalıp (ölçülen/kart) · kök uzunluğu/hedef · şık türü · iki çözücünün cevabı ·
 kanıt cümlesi bulundu mu · kalite kapısı · YIL. Satırı eksik soru teslim edilmez. Ölçü aracı çalışmazsa soru "ÖLÇÜLMEDİ" olarak bekler, geçer sayılmaz.
