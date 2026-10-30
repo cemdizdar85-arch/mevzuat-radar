@@ -86,7 +86,7 @@ function karar(eski, tam, bey) {
 function yeniSoruMu(k) { const t = [k && k.kor_cozum && k.kor_cozum.tarih, k && k.hakem2 && k.hakem2.tarih].filter(Boolean).map(String).sort().pop(); return !!t && t >= '2026-10-01'; }
 
 const okuJ = p => { const h = fs.readFileSync(p, 'utf8'); return { bom: h.charCodeAt(0) === 0xfeff, j: JSON.parse(h.replace(/^﻿/, '')) }; };
-function uygula(K, yaz, atla = new Set()) {
+function uygula(K, yaz, atla = new Set(), fab = path.join(KOK, 'veri', 'fabrika')) {
   const tamDir = path.join(K, '_tam'); if (!fs.existsSync(tamDir)) throw new Error('_tam yok: ' + K);
   const s = { aciklama: [], rehakem: [], red: [], onarilamadi: [], atlanan: [], onceden: [] }; const partiler = new Map();
   // DEFTER: bu klasörden daha önce uygulanan kayıt YENİDEN uygulanmaz (30.09 ölçüldü: grup-D yeniden koşulsa, sonra kalite-ek'in
@@ -97,7 +97,7 @@ function uygula(K, yaz, atla = new Set()) {
     if (defter[ad]) { s.onceden.push(ad); continue; }
     if (atla.has(et)) { s.atlanan.push(ad); continue; }
     const bp = path.join(K, et + '__' + kp + '.json'); if (!fs.existsSync(bp)) { s.red.push(ad + ' (beyan yok)'); continue; }
-    const pf = path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + et + '.json'); if (!fs.existsSync(pf)) { s.red.push(ad + ' (parti yok)'); continue; }
+    const pf = path.join(fab, 'kalip-parti-' + et + '.json'); if (!fs.existsSync(pf)) { s.red.push(ad + ' (parti yok)'); continue; }
     if (!partiler.has(et)) partiler.set(et, { pf, ...okuJ(pf), degisti: false });
     const P = partiler.get(et);
     const r = karar(P.j[kp], JSON.parse(fs.readFileSync(path.join(tamDir, f), 'utf8')), JSON.parse(fs.readFileSync(bp, 'utf8')));
@@ -152,28 +152,121 @@ function retGuncelle(kay, ornek, aciklama, rehakem, dog, klasor, baskaSebep) {
 }
 const retKayit = (ornek, gerekce) => { const r = { gerekce }; if ('tarih' in ornek) r.tarih = new Date().toISOString().slice(0, 10); if ('kaynak' in ornek) r.kaynak = 'onarim-rehakem'; return r; };
 
-async function teslim(K) {
-  const kos = ps(['-File', 'arac/bulut-kosan-etiketler.ps1', '-Kati']);
-  const atla = new Set((kos.stdout || '').split(/\s+/).filter(Boolean));
-  const kuru = uygula(K, false, atla);
-  if (!kuru.etiketler.length) return console.log(`${path.basename(K)}: uygulanacak kayıt yok · atlanan ${kuru.atlanan.length} · red ${kuru.red.length}`);
-  const sinav = retSec(kuru.etiketler); console.log(`${path.basename(K)}: sınav ${sinav} · elle ret ${path.basename(RET)}`);
-  const Y = path.join('C:\\TETIKTE-YEDEK',`onarim-${path.basename(K)}-${kuru.zaman.replace(/[:.]/g, '')}`); fs.mkdirSync(Y, { recursive: true });
-  for (const e of kuru.etiketler) fs.copyFileSync(path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json'), path.join(Y, 'kalip-parti-' + e + '.json'));
-  const u = uygula(K, true, atla);
-  const yuk = u.etiketler.map(e => ({ e, cikis: ps(['-File', 'arac/parti-senkron.ps1', '-Yukle', '-Etiket', e, '-Sinav', sinav, '-Yaz']).status }));
-  const Kk = anahtar(); const onb = {}; const dog = new Set(), uys = [];
-  for (const ad of [...u.aciklama, ...u.rehakem]) {
-    const [e, kp] = ad.split('/'); if (!onb[e]) onb[e] = await ambarParti(e, Kk);
-    const yerel = okuJ(path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json')).j[kp];
-    if (esit(onb[e][kp], yerel) || yalnizModelIzi(onb[e][kp], yerel)) dog.add(ad); else uys.push(ad);
+// ============================================================================
+// 31.10.2026 (Cem "DUR" + "teslim yalnız değişen soruyu yazacak, yerel dosya ambardan eskiyse teslim duracak"):
+//   ÖLÇÜLEN AÇIK: teslim, parti-senkron -Yukle ile partinin TAMAMINI ambara yazıyordu (on_conflict=etiket, satır baştan).
+//   Yerel kopya bayatsa partideki DOKUNULMAYAN soruların ambardaki yeni hâli (bulut hakemi, bulut onarımı, şık takası) ezilirdi.
+//   kd1 teslimi (30.10, 19 parti) bunu fiilen yaptı; o seferde ezilen kayıt bulunmadı (118 kayıt, kanıt: bulut koşu günlükleri),
+//   ama aynı ölçümde kd2–kd6'nın 89 etiketinin 12'sinde yerel ≠ ambar çıktı — sıradaki teslim ezecekti.
+// YENİ DÜZEN:
+//   (1) TAZELİK KAPISI: her etiket için ambar satırı okunur; yerel parti ambarla (model adı claude-…↔model-x farkı hariç) kayıt kayıt
+//       KARŞILAŞTIRILIR. Tek kayıt farklıysa (değişecek kayıt dahil — taslak eski tabana yazılmış olur) teslim HİÇBİR ŞEY YAZMADAN durur.
+//   (2) YALNIZ DEĞİŞEN SORU: ambara giden içerik AMBARDAKİ parti + yalnız bu klasörün değiştirdiği kayıtlardır (birlestir). Öteki kayıtlar
+//       ambardaki hâliyle, bayt bayt aynı gider. (Tablo parti başına tek satır; satır-altı yazma yok — bu yüzden taban ambar.)
+//   (3) YARIŞ KAPISI: yazmadan hemen önce ambar 'guncelleme' damgası yeniden okunur; tazelik okumasından sonra değiştiyse durur.
+//   --kuru: (1)'i gerçek ambara karşı koşar, hiçbir şey yazmaz. --sahte: ağsız sahte ambarla üç senaryo (öz-sınavda da koşar).
+// 🚫 GÖRMEZ: yarış kapısı ile yükleme arasındaki birkaç saniyede başka yazan · ambarın model kodu dışındaki normalizasyonu ·
+//   yeni (ambarda olmayan) parti — bu durumda teslim durur, elle karar.
+// ============================================================================
+const modelKod = m => { const s = String(m).trim(); if (!/^claude-/i.test(s)) return m; if (/haiku/i.test(s)) return 'model-a'; if (/sonnet/i.test(s)) return 'model-b'; if (/opus/i.test(s)) return 'model-c'; return 'model-x'; };
+const notrModel = v => Array.isArray(v) ? v.map(notrModel) : (v && typeof v === 'object') ? Object.keys(v).reduce((o, k) => (o[k] = (k === 'model' && typeof v[k] === 'string') ? modelKod(v[k]) : notrModel(v[k]), o), {}) : v;
+function tazelikFarki(yerel, ambar) {
+  const f = []; for (const kp of new Set([...Object.keys(yerel || {}), ...Object.keys(ambar || {})])) if (!esit(notrModel((yerel || {})[kp]), notrModel((ambar || {})[kp]))) f.push(kp);
+  return f.sort();
+}
+function birlestir(ambar, yerelYeni, kpler) { const o = JSON.parse(JSON.stringify(ambar)); for (const kp of kpler) o[kp] = yerelYeni[kp]; return o; }
+async function ambarSatir(e, K) {
+  const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=icerik,guncelleme&etiket=eq.' + encodeURIComponent(e), { headers: { apikey: K, Authorization: 'Bearer ' + K, 'User-Agent': 'mevzuat-radar-robot/1.0' } });
+  if (!r.ok) throw new Error('ambar ' + r.status); const row = (await r.json())[0]; if (!row) return null;
+  return { icerik: typeof row.icerik === 'string' ? JSON.parse(row.icerik) : (row.icerik || {}), guncelleme: String(row.guncelleme) };
+}
+const GERCEK_IO = {
+  kosan: () => new Set((ps(['-File', 'arac/bulut-kosan-etiketler.ps1', '-Kati']).stdout || '').split(/\s+/).filter(Boolean)),
+  anahtar, ambarSatir, fabrika: path.join(KOK, 'veri', 'fabrika'), yedekKok: 'C:\\TETIKTE-YEDEK',
+  yukle: (e, sinav) => ps(['-File', 'arac/parti-senkron.ps1', '-Yukle', '-Etiket', e, '-Sinav', sinav, '-Yaz']).status,
+  retYaz: fn => retYaz(fn), log: (...a) => console.log(...a),
+};
+async function teslim(K, opt = {}) {
+  const io = { ...GERCEK_IO, ...(opt.io || {}) }; const ad = path.basename(K); const pf = e => path.join(io.fabrika, 'kalip-parti-' + e + '.json');
+  const atla = io.kosan();
+  const kuru = uygula(K, false, atla, io.fabrika);
+  if (!kuru.etiketler.length) { io.log(`${ad}: uygulanacak kayıt yok · atlanan ${kuru.atlanan.length} · red ${kuru.red.length}`); return { durum: 'bos' }; }
+  const sinav = opt.io ? 'SMMM' : retSec(kuru.etiketler); io.log(`${ad}: sınav ${sinav}`);
+  const degisen = {}; for (const x of [...kuru.aciklama, ...kuru.rehakem]) { const [e, kp] = x.split('/'); (degisen[e] ||= []).push(kp); }
+  // (1) TAZELİK KAPISI — yazmadan önce, bütün etiketler
+  const Kk = io.anahtar(); const amb = {}; const bayat = [];
+  for (const e of kuru.etiketler) {
+    const A = await io.ambarSatir(e, Kk); if (!A) { bayat.push(`${e}: ambarda satır yok (yeni parti — elle karar)`); continue; }
+    amb[e] = A; const f = tazelikFarki(okuJ(pf(e)).j, A.icerik);
+    if (f.length) bayat.push(`${e}: ${f.length} kayıt farklı (${f.slice(0, 8).join(',')}${f.length > 8 ? ',…' : ''})`);
+  }
+  if (bayat.length) { io.log(`⛔ TESLİM DURDU — YEREL PARTİ AMBARDAN FARKLI (bayat). HİÇBİR ŞEY YAZILMADI.\n  ${bayat.join('\n  ')}\n  Yol: parti-senkron -Indir -Etiket <e> ile tazele, taslağı tazelenmiş kayda göre yeniden kur, 'uygula' kuru koşusunu tekrarla.`); return { durum: 'bayat', bayat }; }
+  if (opt.kuru) { io.log(`KURU: tazelik kapısı GEÇTİ (${kuru.etiketler.length} parti). Yazılacak: ${Object.entries(degisen).map(([e, k]) => e + '[' + k.join(',') + ']').join(' ')} · ambara/ret listesine yazılmadı.`); return { durum: 'kuru', degisen }; }
+  // yedek: yerel + AMBAR kopyası (teslimden önceki ambar hâli artık her teslimde saklanır)
+  const Y = path.join(io.yedekKok, `onarim-${ad}-${kuru.zaman.replace(/[:.]/g, '')}`); fs.mkdirSync(Y, { recursive: true });
+  for (const e of kuru.etiketler) { fs.copyFileSync(pf(e), path.join(Y, 'kalip-parti-' + e + '.json')); fs.writeFileSync(path.join(Y, 'ambar-' + e + '.json'), JSON.stringify(amb[e], null, 1)); }
+  // (3) YARIŞ KAPISI
+  const yaris = []; for (const e of kuru.etiketler) { const A2 = await io.ambarSatir(e, Kk); if (!A2 || A2.guncelleme !== amb[e].guncelleme) yaris.push(e); }
+  if (yaris.length) { io.log(`⛔ TESLİM DURDU — tazelik okumasından sonra ambara başka yazan oldu: ${yaris.join(', ')}. HİÇBİR ŞEY YAZILMADI.`); return { durum: 'yaris', yaris }; }
+  const u = uygula(K, true, atla, io.fabrika);
+  // (2) YALNIZ DEĞİŞEN SORU: taban ambar, üstüne yalnız bu klasörün kayıtları
+  const yuk = [];
+  for (const e of u.etiketler) {
+    const o = okuJ(pf(e)); const kpler = [...u.aciklama, ...u.rehakem].filter(x => x.startsWith(e + '/')).map(x => x.split('/')[1]);
+    const birlesik = birlestir(amb[e].icerik, o.j, kpler); fs.writeFileSync(pf(e), (o.bom ? '﻿' : '') + JSON.stringify(birlesik, null, 4));
+    yuk.push({ e, kpler, cikis: io.yukle(e, sinav) });
+  }
+  const onb = {}; const dog = new Set(), uys = [];
+  for (const x of [...u.aciklama, ...u.rehakem]) {
+    const [e, kp] = x.split('/'); if (!onb[e]) onb[e] = (await io.ambarSatir(e, Kk) || {}).icerik || {};
+    const yerel = okuJ(pf(e)).j[kp];
+    if (esit(onb[e][kp], yerel) || yalnizModelIzi(onb[e][kp], yerel)) dog.add(x); else uys.push(x);
   }
   const baskaSebep = [];
-  const rr = retYaz((kay, ornek) => retGuncelle(kay, ornek, u.aciklama, u.rehakem, dog, path.basename(K), baskaSebep));
-  if (baskaSebep.length) console.log(`  LİSTEDE BAŞKA SEBEPLE, ÇIKARILMADI (${baskaSebep.length}): ${baskaSebep.join(', ')}`);
-  console.log(`${path.basename(K)}: aciklama ${u.aciklama.length} · rehakem ${u.rehakem.length} · red ${u.red.length} · atlanan ${u.atlanan.length} · parti ${u.etiketler.length} (yükleme hatası ${yuk.filter(x => x.cikis).length})`);
-  console.log(`  ambar geri okuma ${dog.size}/${u.aciklama.length + u.rehakem.length}${uys.length ? ' · UYUŞMAZ ' + uys.join(',') : ''} · elle ret ${rr.once}→${rr.sonra} (çıkan ${rr.cikan}, eklenen ${rr.eklenen})`);
-  for (const r of u.red) if (!/hic fark yok/.test(r)) console.log('  RED ' + r);
+  const rr = io.retYaz((kay, ornek) => retGuncelle(kay, ornek, u.aciklama, u.rehakem, dog, ad, baskaSebep));
+  if (baskaSebep.length) io.log(`  LİSTEDE BAŞKA SEBEPLE, ÇIKARILMADI (${baskaSebep.length}): ${baskaSebep.join(', ')}`);
+  io.log(`${ad}: aciklama ${u.aciklama.length} · rehakem ${u.rehakem.length} · red ${u.red.length} · atlanan ${u.atlanan.length} · parti ${u.etiketler.length} (yükleme hatası ${yuk.filter(x => x.cikis).length}) · YALNIZ DEĞİŞEN: ${yuk.map(x => x.e + '[' + x.kpler.join(',') + ']').join(' ')}`);
+  io.log(`  ambar geri okuma ${dog.size}/${u.aciklama.length + u.rehakem.length}${uys.length ? ' · UYUŞMAZ ' + uys.join(',') : ''} · elle ret ${rr.once}→${rr.sonra} (çıkan ${rr.cikan}, eklenen ${rr.eklenen})`);
+  for (const r of u.red) if (!/hic fark yok/.test(r)) io.log('  RED ' + r);
+  return { durum: 'yazildi', yuk, dog: [...dog], uys };
+}
+
+// SAHTE DENEME (ağ yok, gerçek ambar/ret listesi/fabrika yok): geçici klasörde 3 kayıtlı sahte parti + 1 açıklama onarımı taslağı.
+async function sahteDeneme(sessiz) {
+  const os = require('os'); const T = fs.mkdtempSync(path.join(os.tmpdir(), 'onarim-sahte-')); const fab = path.join(T, 'fab'), K = path.join(T, 'onarim-sahte'), Y = path.join(T, 'yedek');
+  [fab, path.join(K, '_tam'), Y].forEach(d => fs.mkdirSync(d, { recursive: true }));
+  const e = 'smmm-sahte-x', taban = () => ({
+    'kp-01': { soru: 'Kök 1', dogru: 'B', siklar: { A: '1', B: '2' }, aciklama: { A: 'a', B: 'b' }, hakem: { karar: 'EVET', model: 'claude-sonnet-4-5' } },
+    'kp-02': { soru: 'Kök 2', dogru: 'A', siklar: { A: 'x', B: 'y' }, aciklama: { A: 'p', B: 'q' }, hakem: { karar: 'EVET', model: 'claude-sonnet-4-5' } },
+    'kp-03': { soru: 'Kök 3', dogru: 'A', siklar: { A: 'm', B: 'n' }, aciklama: { A: 'r', B: 's' } } });
+  const tam = taban()['kp-01']; tam.aciklama = { A: 'a-YENİ', B: 'b' };
+  fs.writeFileSync(path.join(K, '_tam', e + '__kp-01.tam.json'), JSON.stringify(tam)); fs.writeFileSync(path.join(K, e + '__kp-01.json'), JSON.stringify({ degisen_alanlar: ['aciklama.A'] }));
+  const kur = (ambarIcerik, damgalar) => {
+    fs.writeFileSync(path.join(fab, 'kalip-parti-' + e + '.json'), JSON.stringify(taban(), null, 4)); try { fs.unlinkSync(path.join(K, '_uygulanan.json')); } catch (x) { }
+    const giden = []; let n = 0; const ret = { kayitlar: {} };
+    const io = { kosan: () => new Set(), anahtar: () => 'x', fabrika: fab, yedekKok: Y, log: sessiz ? () => { } : (...a) => console.log('    ' + a.join(' ')),
+      ambarSatir: async () => ({ icerik: JSON.parse(JSON.stringify(giden.length ? giden[giden.length - 1] : ambarIcerik)), guncelleme: damgalar[Math.min(n++, damgalar.length - 1)] }),
+      yukle: et => { giden.push(okuJ(path.join(fab, 'kalip-parti-' + et + '.json')).j); return 0; },
+      retYaz: fn => { const once = Object.keys(ret.kayitlar).length; const not = fn(ret.kayitlar, {}); return { once, sonra: Object.keys(ret.kayitlar).length, ...not }; } };
+    return { io, giden, yerel: () => okuJ(path.join(fab, 'kalip-parti-' + e + '.json')).j };
+  };
+  const S = [];
+  { // 1) BAYAT: ambarda kp-02 bulutta düzeltilmiş (yerelde eski) → teslim durmalı, hiçbir şey gitmemeli, yerel değişmemeli
+    const amb = taban(); amb['kp-02'].soru = 'Kök 2 (bulutta düzeltildi)'; amb['kp-02'].hakem.model = 'model-b'; const t = kur(amb, ['d1']);
+    const r = await teslim(K, { io: t.io }); S.push(['BAYAT yerel (kp-02 ambarda yeni) → DURUR, ambara 0 yazma, yerel aynı', r.durum === 'bayat' && t.giden.length === 0 && t.yerel()['kp-01'].aciklama.A === 'a']); }
+  { // 2) TAZE: ambar = yerel (yalnız model adı kod) → yalnız kp-01 değişir; kp-02/kp-03 ambardaki hâliyle (model-b dahil) gider
+    const amb = taban(); amb['kp-01'].hakem.model = 'model-b'; amb['kp-02'].hakem.model = 'model-b'; const t = kur(amb, ['d1']);
+    const r = await teslim(K, { io: t.io }); const g = t.giden[0] || {};
+    S.push(['TAZE → yazıldı, tek parti, yalnız kp-01', r.durum === 'yazildi' && t.giden.length === 1 && r.yuk[0].kpler.join() === 'kp-01']);
+    S.push(['TAZE → kp-01 yeni açıklamayla gitti', g['kp-01'] && g['kp-01'].aciklama.A === 'a-YENİ']);
+    S.push(['TAZE → kp-02 ve kp-03 AMBARDAKİ hâliyle gitti (model-b korunur, bayt bayt)', esit(g['kp-02'], amb['kp-02']) && esit(g['kp-03'], amb['kp-03'])]); }
+  { // 3) YARIŞ: tazelik okumasından sonra damga değişti → DURUR, 0 yazma
+    const amb = taban(); const t = kur(amb, ['d1', 'd2']);
+    const r = await teslim(K, { io: t.io }); S.push(['YARIŞ (damga değişti) → DURUR, ambara 0 yazma', r.durum === 'yaris' && t.giden.length === 0]); }
+  { // 4) KURU (--kuru) → yazma yok
+    const t = kur(taban(), ['d1']); const r = await teslim(K, { io: t.io, kuru: true }); S.push(['KURU → yazma yok, değişecek kp-01 raporlanır', r.durum === 'kuru' && t.giden.length === 0 && (r.degisen[e] || []).join() === 'kp-01']); }
+  fs.rmSync(T, { recursive: true, force: true });
+  return S;
 }
 
 // Yeniden hakem kapsamı AÇIK kaynaktan: verilen plan dosyalarının pilotId'leri (gerekçe metnine bakılmaz — risk taramasından
@@ -228,17 +321,28 @@ function sinav() {
     ['sgs- etiketi → SGS (davranış aynı)', retSecim(['sgs-c2-fmuh-zor-r3']), r => r.sinav === 'SGS' && r.dosya === 'sgs-elle-ret.json'],
     ['smmm- etiketi → SMMM (davranış aynı)', retSecim(['smmm-gm9-1-yvergi-zor']), r => r.sinav === 'SMMM' && r.dosya === 'smmm-elle-ret.json'],
     ['kgk + sgs karışık → DURUR', { durum: (() => { try { retSecim(['kgk-a', 'sgs-b']); return 'x'; } catch (e) { return 'ok'; } })() }, r => r.durum === 'ok'],
+    // 31.10 tazelik kapısı + yalnız değişen soru
+    ['tazelik: yalnız model adı farkı (claude↔model-b) → FARK YOK', { durum: tazelikFarki({ k: { soru: 'a', hakem: { model: 'claude-sonnet-4-5' } } }, { k: { soru: 'a', hakem: { model: 'model-b' } } }).length === 0 ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['tazelik: içerik farkı → o kayıt listelenir', { durum: tazelikFarki({ k1: { soru: 'a' }, k2: { soru: 'b' } }, { k1: { soru: 'a' }, k2: { soru: 'B' } }).join() === 'k2' ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['tazelik: ambarda olup yerelde olmayan kayıt → fark', { durum: tazelikFarki({ k1: { soru: 'a' } }, { k1: { soru: 'a' }, k9: { soru: 'z' } }).join() === 'k9' ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['birleştir: yalnız verilen kayıt değişir, öteki ambardaki hâliyle', { durum: (() => { const b = birlestir({ a: { s: 1 }, b: { s: 2 } }, { a: { s: 9 }, b: { s: 7 } }, ['a']); return b.a.s === 9 && b.b.s === 2 ? 'ok' : 'x'; })() }, r => r.durum === 'ok'],
   ];
   let ok = 0; for (const [ad, r, t] of V) { const g = t(r); if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad); }
-  console.log(`ONARIM HATTI ÖZ-SINAVI ${ok === V.length ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${V.length})`); process.exit(ok === V.length ? 0 : 1);
+  return { ok, toplam: V.length };
 }
 
-module.exports = { karar, fark, esit, retCikabilir, retSecim, yalnizModelIzi, retGuncelle };
+module.exports = { karar, fark, esit, retCikabilir, retSecim, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
-  if (kmt === '--sinav') sinav();
+  if (kmt === '--sinav') (async () => {
+    const a = sinav(); const s = await sahteDeneme(true); let sok = 0;
+    for (const [ad, g] of s) { if (g) sok++; console.log((g ? '  ✓ ' : '  ✗ ') + 'SAHTE AMBAR: ' + ad); }
+    const ok = a.ok + sok, top = a.toplam + s.length;
+    console.log(`ONARIM HATTI ÖZ-SINAVI ${ok === top ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${top})`); process.exit(ok === top ? 0 : 1);
+  })();
+  else if (kmt === '--sahte') sahteDeneme(false).then(s => { for (const [ad, g] of s) console.log((g ? '✓ ' : '✗ ') + ad); process.exit(s.every(x => x[1]) ? 0 : 1); });
   else if (kmt === 'uygula') { const u = uygula(path.resolve(arg), yaz === '--yaz'); console.log(JSON.stringify({ aciklama: u.aciklama.length, rehakem: u.rehakem.length, red: u.red, atlanan: u.atlanan.length })); }
-  else if (kmt === 'teslim') teslim(path.resolve(arg)).catch(e => { console.error(e.message); process.exit(1); });
+  else if (kmt === 'teslim') teslim(path.resolve(arg), { kuru: yaz === '--kuru' }).then(r => process.exit(r && (r.durum === 'bayat' || r.durum === 'yaris') ? 3 : 0)).catch(e => { console.error(e.message); process.exit(1); });
   else if (kmt === 'hakem') hakem(process.argv.slice(3)).catch(e => { console.error(e.message); process.exit(1); });
   else { console.log('komut: uygula|teslim|hakem|--sinav'); process.exit(2); }
 }
