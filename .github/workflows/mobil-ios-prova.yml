@@ -141,8 +141,10 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:4723/status > /dev/null && break; sleep 2; done
           curl -sf http://127.0.0.1:4723/status > /dev/null || { echo "::error title=appium::sunucu acilmadi"; exit 1; }
 
+      # 30.10: girisli asama TEK simulatorde (iOS 26) - iki simulator ayni hesapla girince cihaz kapisi (en fazla 3 cihaz,
+      # tek aktif ekran) devreye giriyor ve gercek kullanicinin aktif ekranini aliyordu. Prova sonunda --temizle izini siler.
       - name: Paketli giris oturumu (yalniz paketli_eposta verildiyse; jetonlar maskeli)
-        if: ${{ inputs.paketli_eposta != '' }}
+        if: ${{ inputs.paketli_eposta != '' && matrix.ios == '26' }}
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           EPOSTA: ${{ inputs.paketli_eposta }}
@@ -154,6 +156,13 @@ jobs:
         run: |
           node mobil/cihaz-akis-ios.js kanit || echo "PROVA_KIRMIZI=1" >> $GITHUB_ENV
           rm -f "$RUNNER_TEMP/prova-oturum.json"
+
+      - name: Paketli giris izini temizle (simulator cihazi + olaylar + aktif ekran geri)
+        if: ${{ always() && inputs.paketli_eposta != '' && matrix.ios == '26' }}
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -f "$RUNNER_TEMP/prova-oturum.json.iz.json" ]; then node mobil/prova-oturum.js --temizle "$RUNNER_TEMP/prova-oturum.json.iz.json"; else echo "iz dosyasi yok"; fi
           ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -i "^App" || echo "cokme raporu yok"
 
       - name: Appium gunlugu (hata satirlari)
