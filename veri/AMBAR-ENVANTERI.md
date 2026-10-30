@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **29.10.2026 15:09** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **30.10.2026 15:01** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50556 parça · 2795 tekil kaynak | Bütünlük ölçülen: 2795 (delikli: 406; son ölçüm: 29.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 29.10.2026 15:08)
+**ÖZET:** 51052 parça · 2800 tekil kaynak | Bütünlük ölçülen: 2800 (delikli: 408; son ölçüm: 30.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 30.10.2026 14:59)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -780,6 +780,7 @@
 | KDVK — İstisnalar ve iade (m.11,12,32) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KDVK — Sorumluluk ve tevkifat (m.9) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KDVK (3065 s.K.) | kanun-madde | 170 | DELİK-İNCELE(par:1/kesik:4/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KGK FİNANSAL RAPORLAMA STANDARTLARINA UYGUN HESAP PLANI (Kurul Kararı 29.07.2024; Duyuru 2024-51) | kanun-madde | 346 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KGK Kurulus KHK (660 s.) | kanun-madde | 50 | DELİK-İNCELE(par:11/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KIDEM TAZMİNATI TAVANI - HMB MALİ VE SOSYAL HAKLAR GENELGELERİ (2025/1, 2025/5, 2026/1, 2026/5) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KİK (4734 s.K.) | kanun-madde | 180 | DELİK-İNCELE(par:0/kesik:1/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1851,6 +1852,7 @@
 | SMMM Staj Yonetmeligi | kanun-madde | 38 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik | kanun-madde | 80 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SMMM ve YMM K. Disiplin Yonetmeligi | kanun-madde | 47 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SMMM ve YMM Odaları ile TÜRMOB Organlarının Denetimi Hakkında Yönetmelik (son değ. RG 05.01.2013) | kanun-madde | 20 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Diğer - Türkiye Değerleme Uzmanları Birliği Statüsü | kanun-madde | 63 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Diğer - Türkiye Sermaye Piyasaları Birliği Statüsü | kanun-madde | 51 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Diğer Karar - Bağımsız Denetime Tabi Şirketlerin Belirlenmesine Dair Karar | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2587,9 +2589,11 @@
 | TTK (6102 s.K.) | kanun-madde | 1596 | DELİK-İNCELE(par:20/kesik:2/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Payı K. (7183 s.K.) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Teşvik K. (2634 s.K.) | kanun-madde | 90 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Türkiye Serbest Muhasebeci Mali Müşavirler ve Yeminli Mali Müşavirler Odaları Birliği Yönetmeliği (RG 11.06.1990/20545; son değ. RG 14.01.2026/33137) | kanun-madde | 73 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Birlik Yön. | kanun-madde | 70 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Etik İlkeler Yön. | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Etik İlkeler Yön. EK | kanun-madde | 22 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TÜRMOB Sürekli Mesleki Geliştirme Eğitimi Yönetmeliği (son değ. RG 14.01.2026/33137) | kanun-madde | 30 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Uluslararası İşgücü K. (6735 s.K.) | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Ürün Güvenliği K. (7223 s.K.) | kanun-madde | 42 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Vakıflar K. (5737 s.K.) | kanun-madde | 65 | DELİK-İNCELE(par:36/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2813,5 +2817,6 @@
 | Yatirim Hizmetleri ve Faaliyetleri Tebligi (III-37.1) | kanun-madde | 125 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yatirim Kuruluslarinin Kurulus ve Faaliyet Esaslari Tebligi (III-39.1) | kanun-madde | 118 | DELİK-İNCELE(par:0/kesik:2/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yatirimci Tazmin Merkezi Yonetmeligi | kanun-madde | 56 | DELİK-İNCELE(par:3/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Yeminli Mali Müşavirlerin Tasdik Edecekleri Belgeler, Tasdik Konuları, Tasdike İlişkin Usul ve Esaslar Hakkında Yönetmelik (son değ. RG 31.05.1995) | kanun-madde | 27 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Yerli Mali Tebligi (SGM-2024/10) | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | YMM ve SMMM Sinav Yonetmeligi | kanun-madde | 28 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
