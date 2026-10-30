@@ -1,5 +1,8 @@
 # TETİKTE — SORU ÜRETİM SÖZLEŞMESİ
 
+> ⛔⭐ **BİTİRME (SMMM Yeterlilik) için 30.10.2026'dan itibaren tek sayfa standart: [`BITIRME-SORU-STANDARDI.md`](BITIRME-SORU-STANDARDI.md)**
+> (yanlış yok · sınava benzer, ders ders/konu konu 309 kart · şık Ş1–Ş10 · öğretici · yayın düzeni). Bitirmede çelişkide standart kazanır.
+
 > **10.09.2026 · Cem: "harfiyen uyacaksın."** Bu dosya, soru üreten HER hattın
 > (RAG motoru `rag-motor/`, PowerShell hattı `motor/kalip-parti-uret.ps1`, elle
 > yazım) üstünde bağlayıcıdır. Çelişki çıkarsa **bu dosya kazanır**.
