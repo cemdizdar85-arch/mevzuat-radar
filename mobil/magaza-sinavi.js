@@ -32,7 +32,10 @@ const MUTASYONLAR = {
   'apple-hesap':  ['if (String(a.appAccountToken || "").toLowerCase() !== String(kullaniciId).toLowerCase()) return "baska-hesap";', ''],
   'apple-urun':   ['if (a.productId !== urunId) return "urun-uyusmuyor";', ''],
   'apple-iade':   ['if (a.revocationDate) return "iptal";', ''],
-  'apple-uygulama': ['if (a.bundleId !== PAKET_ADI) return "baska-uygulama";', '']
+  'apple-uygulama': ['if (a.bundleId !== PAKET_ADI) return "baska-uygulama";', ''],
+  'sandbox-acik': ['if (aktif) return { islem: "red", neden: "sandbox-acik-paket" };', ''],
+  'sandbox-gun':  ['bitis: trGunu(simdiMs + 86400000)', 'bitis: karar.yeni.bitis'],
+  'sandbox-izin': ['if (izinli || karar.islem === "red") return karar;', 'if (karar.islem === "red") return karar;']
 };
 
 if (process.argv.includes('--mutasyon')) {
@@ -63,7 +66,7 @@ if (mut) {
 }
 const E = {};
 vm.createContext(E);
-vm.runInContext(saf + '\n;this.X={URUNLER,DERSLER,SINAV_TARIHI,SURE_GUN,bitisHesapla,paketSinavlari,dersleriDogrula,hakKarari,googleHukmu,appleHukmu,trGunu};', E);
+vm.runInContext(saf + '\n;this.X={URUNLER,DERSLER,SINAV_TARIHI,SURE_GUN,bitisHesapla,paketSinavlari,dersleriDogrula,hakKarari,sandboxKarari,googleHukmu,appleHukmu,trGunu};', E);
 const X = E.X;
 
 /* ---- A) hakKarari ---- */
@@ -120,6 +123,17 @@ t("B15 Apple: iade edilmiş işlem → iptal", X.appleHukmu(A({ revocationDate: 
 t("B16 Apple: başka uygulamanın işlemi → baska-uygulama", X.appleHukmu(A({ bundleId: "com.baska.app" }), U, "sgs") === "baska-uygulama");
 t("B17 Apple: yanıt yok → yanit-yok; tüketilemez tür → urun-turu", X.appleHukmu(null, U, "sgs") === "yanit-yok" && X.appleHukmu(A({ type: "Non-Consumable" }), U, "sgs") === "urun-turu");
 
+/* ---- B-Sandbox) 30.10: Apple deneme ödemesi (para çekilmez) yalnız izinli hesaba tam hak verir ---- */
+const sk = (satir, izinli) => X.sandboxKarari(X.hakKarari(satir, 'sgs', null, SIMDI), satir, izinli, SIMDI);
+r = sk(null, false);
+t('B18 sandbox + izinsiz + paketsiz → ekle, bitiş YARIN (2026-09-26)', r.islem === 'ekle' && r.yeni.bitis === '2026-09-26' && r.yeni.paket === 'sgs', JSON.stringify(r));
+r = sk({ paket: 'sgs', bitis: gelecek, dersler: null }, false);
+t('B19 sandbox + izinsiz + AÇIK paket → RED sandbox-acik-paket (gerçek paketin üstüne yazmaz)', r.islem === 'red' && r.neden === 'sandbox-acik-paket', JSON.stringify(r));
+r = sk({ paket: 'sgs', bitis: gecmis, dersler: null }, false);
+t('B20 sandbox + izinsiz + bitmiş paket → guncelle, bitiş YARIN', r.islem === 'guncelle' && r.yeni.bitis === '2026-09-26', JSON.stringify(r));
+r = sk(null, true);
+t('B21 sandbox + izinli (inceleme hesabı/yönetici) → normal hak (2026-12-24)', r.islem === 'ekle' && r.yeni.bitis === '2026-12-24', JSON.stringify(r));
+
 /* ---- C) bitiş = fiyat-motoru.js ---- */
 const F = { window: {}, console };
 vm.createContext(F);
@@ -166,9 +180,10 @@ t('C2 sınav tarihleri ve süre fiyat-motoru.js ile aynı',
   t('E2 ders listesi JSON = edge DERSLER', JSON.stringify(J.dersler.yeterlilik) === JSON.stringify(X.DERSLER.yeterlilik));
   const siteFiyat = { sgs: Z.FIYAT.sgs.kurulus, yeterlilik_tum: Z.FIYAT.yeterlilikTum.kurulus };
   for (let n = 1; n <= 4; n++) siteFiyat['yeterlilik_' + n] = Z.FIYAT.yeterlilik[n].kurulus;
-  const fiyatFark = J.urunler.filter((u) => u.site_tl !== siteFiyat[u.id] || u.fiyat_tl !== Math.ceil(u.site_tl / 0.85))
-    .map((u) => u.id + ' site ' + u.site_tl + '/' + siteFiyat[u.id] + ' mağaza ' + u.fiyat_tl + '/' + Math.ceil(u.site_tl / 0.85));
-  t('E3 site fiyatı = fiyat-motoru kuruluş · mağaza fiyatı = ⌈site ÷ 0,85⌉', fiyatFark.length === 0, fiyatFark.join(' | '));
+  /* 30.10: 18.10 Cem kararı "Play fiyatı = site" (Google payını biz üstleniriz) → mağaza fiyatı = site; ÷0,85 kuralı eskidi */
+  const fiyatFark = J.urunler.filter((u) => u.site_tl !== siteFiyat[u.id] || u.fiyat_tl !== u.site_tl)
+    .map((u) => u.id + ' site ' + u.site_tl + '/' + siteFiyat[u.id] + ' mağaza ' + u.fiyat_tl + '/' + u.site_tl);
+  t('E3 site fiyatı = fiyat-motoru kuruluş · mağaza fiyatı = site (18.10 kararı)', fiyatFark.length === 0, fiyatFark.join(' | '));
   const dizin = fs.readFileSync(path.join(DEPO, 'kaydir', 'smmm', 'index.html'), 'utf8');
   const kasaAd = [];
   const re = /<div class="ad">([^<]*)<\/div>/g; let mm;

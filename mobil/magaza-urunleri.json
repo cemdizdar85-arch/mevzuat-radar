@@ -1,7 +1,7 @@
 {
   "aciklama": "Mağaza (Google Play / App Store) uygulama içi ürünleri — 25.09.2026 Cem kararı: SGS + Yeterlilik birlikte, fiyat = site kuruluş fiyatı ÷ 0,85 idi; 18.10.2026 Cem onayıyla Play TR fiyatı SİTEYLE AYNI (KDV dahil; Google %15 payını biz üstleniriz - 06.10 kararı), API ile yazıldı ve geri okundu. Fiyat Play Console'da girilir; buradaki 'fiyat_tl' yalnız kayıt ve kıyas içindir, uygulama fiyatı mağazadan okur. Ürün→paket eşlemesinin sunucu kopyası radar-app/edge/magaza-dogrula.ts URUNLER; mobil/hazirla-sinavi.js ikisini kıyaslar.",
-  "ios_satis": false,
-  "ios_satis_not": "App Store satisi ACIK/KAPALI anahtari. Apple Paid Apps sozlesmesi Active + 6 urun App Store Connect te onayli + magaza-dogrula Apple gizlileri tanimli olunca true yapilir ve iOS yeniden derlenir. false iken iPhone da Paketler ekrani ve Paket sec dugmesi gorunmez.",
+  "ios_satis": true,
+  "ios_satis_not": "30.10.2026 ACILDI (Cem: 1.9.0; Paid Apps Active, IAP anahtari 7BRH39CJF6 Supabase MAGAZA_APPLE_*, 6 urun READY_TO_SUBMIT, Apple TR fiyat 2999/1189.99/1909.99/2500/2999/3449.99). App Store satisi ACIK/KAPALI anahtari. Apple Paid Apps sozlesmesi Active + 6 urun App Store Connect te onayli + magaza-dogrula Apple gizlileri tanimli olunca true yapilir ve iOS yeniden derlenir. false iken iPhone da Paketler ekrani ve Paket sec dugmesi gorunmez.",
   "urunler": [
     { "id": "sgs",            "ad": "Staja Başlama (SGS) — soru bankası", "paket": "sgs",            "sinav": "sgs",        "ders": 0, "site_tl": 2988, "fiyat_tl": 2988 },
     { "id": "yeterlilik_1",   "ad": "Yeterlilik — 1 ders",                "paket": "yeterlilik-1",   "sinav": "yeterlilik", "ders": 1, "site_tl": 1188, "fiyat_tl": 1188 },
