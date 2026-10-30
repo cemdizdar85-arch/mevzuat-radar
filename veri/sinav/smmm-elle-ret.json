@@ -1195,6 +1195,61 @@
             "gerekce": "kd1 yayinda acilama harf uyumsuz (teslimde C<->E sik takasi aciklama.C ve sade.dogru metnini guncellememis; aciklama hakemi KUSURLU) - duzeltme kd1b ile gelene kadar yayin disi",
             "kaynak": "bitirme kd1 aciklama harf uyumsuzlugu (Cem 30.10 hatalilari indir)",
             "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r7/kp-01": {
+            "gerekce": "Hurda değer verilip çerçeve (VUK/TMS 16) belirtilmemiş; VUK okumasıyla anahtar, TMS 16 okumasıyla başka şık doğru — iki çözücü ayrıştı, kök iki okumaya açık.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r3-2/kp-21": {
+            "gerekce": "THP'de maddi olmayan duran varlıkların itfası 268 Birikmiş Amortismanlar hesabıyla yapılır; anahtar 263'ü doğrudan alacaklandırıyor ve 268'li doğru kayıt şıklarda yok — öğrenciye yanlış kayıt öğretiyor.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-d1-yfta-kolay-r2/kp-05": {
+            "gerekce": "Şüpheli ticari alacak (128) bakiyesi verilmeden karşılığı (129) alıcılardan düşülüyor; kök verisi tutarsız ve iki okumanın sonucu da şıklarda (C/D).",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-zor-r1/kp-10": {
+            "gerekce": "Normal firenin tamamlanma derecesi ve eşdeğer birime katılıp katılmayacağı kökte yok; iki okumanın sonucu da şıklarda (B/C). tur3'teki aynı kusurlu fire soruları da indi.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-zor-r3/kp-20": {
+            "gerekce": "Safha sonu normal firenin FIFO eşdeğer birime katılması yönteme bağlı; katılmayan okumanın sonucu da şıklarda (A/C). tur3'te aynı kurgulu soru (ab2-a-maliyet/kp-39) indi — tutarlılık için iner.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r4/kp-03": {
+            "gerekce": "Açıklama yanlış kural öğretiyor: devamlılık İKK sayılmanın şartıdır, kurumun tek seferlik kazancını vergi dışı bırakmaz; kökte arsanın kime ait olduğu ve \"olumlu/olumsuz düzeltme\" terimi tanımsız (iki çözücü muğlak notu).",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-cokzor-r7/kp-01": {
+            "gerekce": "Kurgu kavramı karıştırıyor: \"imalatçı aleyhine matrah değişikliği\" imalatçı–ihracatçı arasındaki bedel/kur farkıdır (ihracatçı faturasıyla); fiili ihracat bedelinin düşük gerçekleşmesi kendiliğinden imalatçı matrahını değiştirmez.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r10/kp-20": {
+            "gerekce": "Yurt dışında verilen hizmetten Türkiye'de faydalanılıp faydalanılmadığı kökte yok; KDVK m.6/b'ye göre faydalanılıyorsa konu içine girer — iki okumanın sonucu da şıklarda (C/D), iki çözücü aynı belirsizliği yazdı.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w4-fmuh-zor/kp-22": {
+            "gerekce": "kd3 önerisi doğrulandı: alacak senedi reeskontunun dönem başı iptali THP'de 647 Reeskont Faiz Gelirleri'ne yazılır; anahtar 642'ye yazıyor, kök THP'de bulunmayan 652 koduyla gider veriyor (reeskont gideri 657). Yanlış hesap kodu öğretiyor.",
+            "kaynak": "Cem 30.10 oturum önerileri (kd3, kd4, vy2); Ajan 1 resmî metinle / ikiz ölçüsüyle doğruladı",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-zor-r2/kp-13": {
+            "gerekce": "kd4 önerisi doğrulandı — K7 ikiz: bankadaki smmm-4k-a-yvergi-kolay-r10/kp-17 ile aynı DVK m.14 hükümleri, aynı olumsuz kök kalıbı ve aynı cevap önermesi (ikiz-olcusu.ps1: doğru şık benzerliği 1,0; kök 0,28 — kök anlatım kipinde). Öğrencinin önce gördüğü (sıra 19) kalır, bu (sıra 121) iner.",
+            "kaynak": "Cem 30.10 oturum önerileri (kd3, kd4, vy2); Ajan 1 resmî metinle / ikiz ölçüsüyle doğruladı",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12b-2-yvergi-zor/kp-02": {
+            "gerekce": "vy2 önerisi: sitedeki hâl 2026 yılı (D7) ve vy2 onarımı iki kör turda geçmedi (onarilamadi) → İŞ EMRİ: iki turda geçmeyen soru elle rete iner.",
+            "kaynak": "Cem 30.10 oturum önerileri (kd3, kd4, vy2); Ajan 1 resmî metinle / ikiz ölçüsüyle doğruladı",
+            "tarih": "2026-10-30"
         }
     }
 }
