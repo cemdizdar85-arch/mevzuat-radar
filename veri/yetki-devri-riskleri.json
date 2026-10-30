@@ -1,5 +1,5 @@
 {
-  "tarih": "30.10.2026 09:11",
+  "tarih": "30.10.2026 12:15",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -3401,97 +3401,97 @@
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 550,
+      "satir": 560,
       "iddia": "30 gün",
       "metin": "$('kNot2').innerHTML='Paketi açık '+(o.paketli||0)+' üyeden '+(o.paketli_hic||0)+' kişi hiç soru çözmedi. Son 30 günde çözen üye: '+(o.kisi30||0)+'.'"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 551,
+      "satir": 561,
       "iddia": "7 gün",
       "metin": "+' Üye olmadan / paketsiz çözülen (örnek sorular, ücretsiz sayfalar) son 7 gün: '+(o.anonim7||0).toLocaleString('tr-TR')+' cevap, '+(o.anonim_oturum7||0)+' ayrı oturum — bunlar kiş"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 556,
+      "satir": 566,
       "iddia": "7 gün",
       "metin": "$('tDers').innerHTML=' Ders Son 7 gün soru Son 7 gün kişi Toplam soru Toplam kişi Doğru '"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 560,
+      "satir": 570,
       "iddia": "7 gün",
       "metin": "$('tCozen').innerHTML=' Ad E-posta Son 7 gün Toplam Doğru En çok çözdüğü ders Son çözüm '"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 578,
+      "satir": 588,
       "iddia": "7 gün",
       "metin": "+' '+(c.cevap7||0)+' son 7 günde '"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 586,
+      "satir": 596,
       "iddia": "30 gün",
       "metin": "x+=' Son 30 gün '; }"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 596,
+      "satir": 606,
       "iddia": "20 Gün",
       "metin": "if(S2.length) x+=' Son 20 Gün denemeleri Deneme Ders Doğru Yanlış Boş Tarih '"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 659,
+      "satir": 669,
       "iddia": "90 gün",
       "metin": "KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üret"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 762,
+      "satir": 772,
       "iddia": "90 gün",
       "metin": "tutar tavanı (5.000) ve süre (1-90 gün) sunucuda da sınanır */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 765,
+      "satir": 775,
       "iddia": "90 gün",
       "metin": "if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 873,
+      "satir": 883,
       "iddia": "%99",
       "metin": "else if(tur==='oran' && deger>99) hata='Oran en çok %99 olabilir (ücretsiz vermek için \"Ücretsiz paket ver\" kutusunu kullan).';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 878,
+      "satir": 888,
       "iddia": "5.000 TL",
       "metin": "if(!hata && !(ind>=1 && ind<p.fiyat && ind<=5000)) hata=p.ad+': indirim ('+tl(ind)+') fiyattan ('+tl(p.fiyat)+') küçük ve en çok 5.000 TL olmalı.';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 938,
+      "satir": 948,
       "iddia": "24 saat",
       "metin": "/* 10.10 (Cem \"1.2.3\"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 940,
+      "satir": 950,
       "iddia": "30 gün",
       "metin": "$('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 941,
+      "satir": 951,
       "iddia": "24 saat",
       "metin": "+(d.ekip_gec?' · 24 saati geçen: '+d.ekip_gec+' ':'')"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 957,
+      "satir": 967,
       "iddia": "24 saat",
       "metin": "+(gec?' · ⏰ '+saat+' saattir bekliyor (söz: 24 saat) ':'')"
     }
