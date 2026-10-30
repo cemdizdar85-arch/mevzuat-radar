@@ -2,6 +2,37 @@
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
                      {
+                         "ad":  "Türkiye Serbest Muhasebeci Mali Müşavirler ve Yeminli Mali Müşavirler Odaları Birliği Yönetmeliği (RG 11.06.1990/20545; son değ. RG 14.01.2026/33137)",
+                         "pdfId":  "G7:4661",
+                         "slug":  "turmob-birlik-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: TURMOB organlari, gorevleri, gelirleri. mevzuat.gov.tr MevzuatNo 4661 Tur 7, GeneratePdf + pdftotext -enc UTF-8 (TR IP)."
+                     },
+                     {
+                         "ad":  "TÜRMOB Sürekli Mesleki Geliştirme Eğitimi Yönetmeliği (son değ. RG 14.01.2026/33137)",
+                         "pdfId":  "G7:24715",
+                         "slug":  "turmob-smge-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: SMGE kredi yukumlulukleri. mevzuat.gov.tr MevzuatNo 24715 Tur 7."
+                     },
+                     {
+                         "ad":  "SMMM ve YMM Odaları ile TÜRMOB Organlarının Denetimi Hakkında Yönetmelik (son değ. RG 05.01.2013)",
+                         "pdfId":  "G7:9610",
+                         "slug":  "turmob-organ-denetim-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: oda/Birlik organlarinin denetimi. mevzuat.gov.tr MevzuatNo 9610 Tur 7."
+                     },
+                     {
+                         "ad":  "Yeminli Mali Müşavirlerin Tasdik Edecekleri Belgeler, Tasdik Konuları, Tasdike İlişkin Usul ve Esaslar Hakkında Yönetmelik (son değ. RG 31.05.1995)",
+                         "pdfId":  "G7:7019",
+                         "slug":  "ymm-tasdik-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: YMM tasdik konulari. mevzuat.gov.tr MevzuatNo 7019 Tur 7."
+                     },
+                     {
+                         "ad":  "KGK FİNANSAL RAPORLAMA STANDARTLARINA UYGUN HESAP PLANI (Kurul Kararı 29.07.2024; Duyuru 2024-51)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-frs-hesap-plani",
+                         "kaynakUrl":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Kurul%20Karar%C4%B1/Finansal%20Raporlama%20Standartlar%C4%B1na%20Uygun%20Hesap%20Plan%C4%B1%20_18.07.pdf",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. 2026/2 SMMM Yeterlilik FM S18-S19 bu planin YENI kodlarini kullandi (245 GUD YAG, 551 MDV yeniden degerleme artislari, 624 dagitilmayan sabit GUG, 647 YAG gelirleri); eski Tekduzen ambarda vardi bu plan yoktu. Zorunlu degil (TFRS/BOBI FRS uygulayanlar). KGK resmi PDF, pdftotext -enc UTF-8, 210 sayfa."
+                     },
+                     {
                          "ad":  "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390)",
                          "pdfId":  "G7:9611",
                          "slug":  "smmm-ucret-yon",
