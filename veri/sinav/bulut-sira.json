@@ -12,46 +12,13 @@
     "sira":  [
                  {
                      "plan":  "veri/sinav/plan-kgk-t8-banka-d.json",
-                     "butce_usd":  "2.2",
+                     "butce_usd":  "3.6",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-29T20:04:03Z",
+                     "eklenme":  "2026-10-30T07:16:07Z",
                      "ekleyen":  "kgk-bitis-e2186e",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-k3-a.json",
-                     "butce_usd":  "5.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-29T20:14:48Z",
-                     "ekleyen":  "7 sınavlık test hazırlığı [889a2f]",
-                     "yeniden":  false,
-                     "not":  "SGS s20 D5-D7 k3-a; Cem onayi 29.10 tavan 18 USD"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-k3-b.json",
-                     "butce_usd":  "12.2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-29T20:19:23Z",
-                     "ekleyen":  "7 sınavlık test hazırlığı [889a2f]",
-                     "yeniden":  false,
-                     "not":  "SGS s20 D5-D7 k3-b; Cem onayi 29.10 toplam 18 USD (k3-a 5,8 + k3-b 12,2)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t9-banka-a.json",
-                     "butce_usd":  "3.4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-29T20:24:11Z",
-                     "ekleyen":  "kgk-bitis-e2186e",
-                     "yeniden":  false,
+                     "yeniden":  true,
                      "not":  ""
                  }
              ]
