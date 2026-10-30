@@ -188,7 +188,15 @@ const KT = require('./katman-tarama');
 const A = { js: (e) => js(e), bul: (s, m) => bul(s, m), dokun: (o) => dokun(o), bekle: (ms) => bekle(ms), sonuc: (a, t, n) => sonuc(a, t, n) };
 async function xler(ad) { return KT.katmanTara(A, ad); }
 /* iPhone kuralı: görünür düğme/bağlantıda satış çağrısı yok (Apple 3.1.1; 08.10 reddi "kilitli yollar") */
+/* 30.10: katalog iosSatis true iken App Store satın alması SERBEST (3.1.1 uyumlu); yasak kalan = uygulamadan siteye satış bağlantısı */
+let IOS_SATIS_ACIK = false;
 async function satisYok(ad) {
+  if (IOS_SATIS_ACIK) {
+    const d = await js(`[].slice.call(document.querySelectorAll('a[href]')).filter(function(e){var r=e.getBoundingClientRect();
+      return r.width>0&&r.height>0&&/satin-al|fiyat\\.html|#paketler/i.test(e.getAttribute('href')||'')&&/^https?:/i.test(e.getAttribute('href')||'');}).map(function(e){return e.getAttribute('href').slice(0,40);})`);
+    sonuc(ad + ': iPhone\'da siteye satış bağlantısı yok (App Store satışı açık)', !d.length, d.length ? d.slice(0, 3).join(' | ') : '');
+    return;
+  }
   const l = await js(`[].slice.call(document.querySelectorAll('button,a,[role=button]')).filter(function(e){var r=e.getBoundingClientRect();
     return r.width>0&&r.height>0&&/satın al|paket seç|paketi al|paketinde yok|tam paket|₺/i.test(e.innerText||'');}).map(function(e){return (e.id?'#'+e.id:e.tagName)+':'+(e.innerText||'').trim().slice(0,30);})`);
   sonuc(ad + ': iPhone\'da satış düğmesi yok', !l.length, l.length ? l.slice(0, 3).join(' | ') : '');
@@ -278,7 +286,9 @@ async function kartDugmesi(desen, dugme) {
   console.log('BILGI bağlandı (sayfa köprüsü) · ekran ' + pen.width + 'x' + pen.height + ' · sayfa ' + ic.w + 'x' + ic.h + ' · adres ' + (await adres()));
   sonuc('WebView tam ekran (dokunuş koordinatı doğru)', Math.abs(olcek - 1) < 0.02 && Math.abs(pen.height - ic.h * olcek) < 2, 'ölçek ' + olcek.toFixed(3));
   await js(hataToplayici);
-  sonuc('uygulama iOS kipinde (yalnız ücretsiz)', !!(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
+  IOS_SATIS_ACIK = !!(await js('!!(window.TT_KATALOG&&TT_KATALOG.iosSatis===true)'));
+  if (IOS_SATIS_ACIK) sonuc('uygulama iOS kipinde, App Store satışı açık (yalnız-ücretsiz kip kapalı)', !(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')) && !!(await js('!!(window.TT&&TT.satisGizli&&!TT.satisGizli())')));
+  else sonuc('uygulama iOS kipinde (yalnız ücretsiz)', !!(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
 
   // 1) tanıtım
   if (await bas('tanıtım Başla', '.kAlt .ana', /^Başla$/, 30)) {
