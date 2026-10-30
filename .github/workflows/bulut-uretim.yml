@@ -159,6 +159,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 30.10.2026 Cem "soru basimini tumden durduralim": acil fren artik yalniz sirayi degil,
+      # elle (gh workflow run) ve halka ile acilan isi de durdurur. Kaldirmak = bulut-sira.json durdur=false (Cem onayi).
+      # Yalniz hasat (bedel 0, odenmis partiyi toplar) frenden gecer.
+      - name: ACIL FREN (veri/sinav/bulut-sira.json durdur)
+        shell: powershell
+        run: |
+          $s = Get-Content veri/sinav/bulut-sira.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          if ($s.durdur -and '${{ inputs.yalniz_hasat }}' -ne '1') { "ACIL FREN ACIK: soru basimi durduruldu (Cem 30.10). Kaldirmak icin bulut-sira.json durdur=false."; exit 1 }
+          "acil fren: kapali ya da yalniz hasat"
+
       - name: Gizli kasa (anahtar varsa)
         if: env.KASA_VAR == 'true'
         uses: actions/checkout@v4

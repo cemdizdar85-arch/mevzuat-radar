@@ -1,6 +1,6 @@
 {
     "aciklama":  "Bulut soru basim sirasi (29.09.2026). Elle DUZENLENMEZ: motor/bulut-sira.ps1 -Ekle / -Cikar / -Temizle yazar, sonra commit+push. Robot .github/workflows/bulut-sira.yml 15 dk\u0027da bir paya gore acar. Acildi mi = GitHub kosu gecmisi (dosyaya isaret yazilmaz). Acil fren: durdur=true.",
-    "durdur":  false,
+    "durdur":  true,
     "pay":  {
                 "toplam":  8,
                 "smmm":  3,
