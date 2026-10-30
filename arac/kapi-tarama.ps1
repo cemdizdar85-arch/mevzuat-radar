@@ -29,7 +29,7 @@ $bas = @{ apikey = $anahtar; Authorization = "Bearer $anahtar"; Accept = 'applic
 
 if ($Indir) {
   $r = Invoke-WebRequest -UseBasicParsing -Uri ("$uc" + '?select=etiket,icerik&etiket=like.' + [uri]::EscapeDataString("__kapi/$Desen*") + '&order=etiket.asc&limit=500') -Headers $bas -TimeoutSec 120
-  $satir = @([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json)
+  $satir = @(([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json) | ForEach-Object { $_ })
   foreach ($s in $satir) { $ic = $s.icerik; if ($ic -is [string]) { $ic = ConvertFrom-Json $ic }; $ad = "$($s.etiket)".Substring(7)
     foreach ($k in 'on', 'alinti', 'cizim', 'g2') { [IO.File]::WriteAllText((Join-Path $Klasor "$ad.$k.txt"), "$($ic.$k)", (New-Object Text.UTF8Encoding $false)) }
     "$ad · $($ic.ozet) · koşu $($ic.kosu) · $($ic.zaman)" }
