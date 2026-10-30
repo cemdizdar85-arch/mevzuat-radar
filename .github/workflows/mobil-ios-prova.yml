@@ -21,8 +21,19 @@
 name: Mobil - iOS cihaz provasi (simulator)
 
 on:
+  # 30.10: paketli_eposta verilirse prova o hesapla (sifresiz, e-postasiz oturum: mobil/prova-oturum.js) girisli asamayi da kosar
   workflow_dispatch:
+    inputs:
+      paketli_eposta:
+        description: 'Paketli giris asamasi icin hesap e-postasi (bos = atla)'
+        required: false
+        default: ''
   workflow_call:
+    inputs:
+      paketli_eposta:
+        type: string
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -130,9 +141,19 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:4723/status > /dev/null && break; sleep 2; done
           curl -sf http://127.0.0.1:4723/status > /dev/null || { echo "::error title=appium::sunucu acilmadi"; exit 1; }
 
+      - name: Paketli giris oturumu (yalniz paketli_eposta verildiyse; jetonlar maskeli)
+        if: ${{ inputs.paketli_eposta != '' }}
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          EPOSTA: ${{ inputs.paketli_eposta }}
+        run: |
+          node mobil/prova-oturum.js "$EPOSTA" "$RUNNER_TEMP/prova-oturum.json"
+          echo "PROVA_OTURUM_DOSYA=$RUNNER_TEMP/prova-oturum.json" >> $GITHUB_ENV
+
       - name: Simulatorde prova (iOS ${{ matrix.ios }})
         run: |
           node mobil/cihaz-akis-ios.js kanit || echo "PROVA_KIRMIZI=1" >> $GITHUB_ENV
+          rm -f "$RUNNER_TEMP/prova-oturum.json"
           ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -i "^App" || echo "cokme raporu yok"
 
       - name: Appium gunlugu (hata satirlari)

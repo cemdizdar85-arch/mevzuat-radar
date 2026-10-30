@@ -388,6 +388,43 @@ async function kartDugmesi(desen, dugme) {
     }
   } else console.log('BILGI iPhone\'da "Ders ders çöz" görünmüyor (yalnız ücretsiz kip)');
 
+  // 5b) 30.10 (Cem "benim iPhone yok, sen şimdiden ölç"): PAKETLİ GİRİŞ — yalnız PROVA_OTURUM_DOSYA verilince
+  //     (mobil/prova-oturum.js üretir; şifresiz, e-postasız). Siteden alınan paket iPhone'da açılıyor mu, ders sorusu kasadan geliyor mu.
+  //     GÖRMEZ: giriş formu / Google-Apple girişi (oturum doğrudan kurulur), App Store satın alma (simülatör ödeme yapamaz).
+  const OTURUM_DOSYA = process.env.PROVA_OTURUM_DOSYA;
+  if (OTURUM_DOSYA && fs.existsSync(OTURUM_DOSYA)) {
+    const oturum = fs.readFileSync(OTURUM_DOSYA, 'utf8'); try { fs.unlinkSync(OTURUM_DOSYA); } catch (e) { }
+    await js(`(localStorage.setItem('sb-'+new URL(TT.SB_URL).host.split('.')[0]+'-auth-token', ${JSON.stringify(oturum)}),1)`);
+    await anaSayfa();
+    let durum = null;
+    for (let i = 0; i < 30; i++) {
+      durum = await js('window.TT_DURUM?{girisli:!!TT_DURUM.girisli,acik:TT_DURUM.acik}:null');
+      if (durum && durum.girisli && durum.acik !== undefined) break;
+      await bekle(1000);
+    }
+    const acik = durum && Array.isArray(durum.acik) ? durum.acik : [];
+    sonuc('paketli giriş: oturum kuruldu', !!(durum && durum.girisli));
+    sonuc('paketli giriş: iPhone\'da paket AÇIK ("Paket yok" değil)', acik.length > 0, 'açık ders ' + acik.length);
+    sonuc('paketli giriş: yalnız-ücretsiz kip kapalı', !(await js('!!(TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
+    await sekme('Hesap'); await bekle(1500); await goruntu('paketli-hesap');
+    const profil = await js(`(document.querySelector('#profilKart small')||{}).innerText||''`);
+    sonuc('paketli giriş: Hesap kartı ders sayısını gösteriyor', /ders açık/.test(profil) && !/Paket yok/.test(profil), profil);
+    await sekme('Sınavlar'); await bekle(1500); await goruntu('paketli-sinavlar');
+    const kart = await bekleBul('#liste a.ders', null, 10);
+    if (!kart) sonuc('paketli giriş: ders kartı listede', false);
+    else {
+      await dokun(kart);
+      const sik = await bekleBul('.sik', null, 45);
+      await goruntu('paketli-ders');
+      sonuc('paketli ders: soru kasadan 45 sn içinde geldi', !!sik, 'adres ' + (await adres()));
+      if (sik) { await donma('paketli ders sayfası'); await satisYok('paketli ders sayfası'); await xler('paketli ders sayfası'); }
+    }
+    // temizlik: yalnız BU cihazın oturumu kapanır (scope local); hesabın başka cihazlardaki oturumları kalır
+    await anaSayfa();
+    await js(`(async function(){try{await TT.istemci().auth.signOut({scope:'local'})}catch(e){}try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(/^sb-.*-auth-token$/.test(k))localStorage.removeItem(k)}}catch(e){}})(),1`);
+    await bekle(2000);
+  } else console.log('BILGI paketli giriş aşaması atlandı (PROVA_OTURUM_DOSYA yok)');
+
   // 6) çökme / JS hataları
   const st = await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] });
   sonuc('uygulama hâlâ ön planda (çökme yok)', st === 4, 'durum ' + st);
