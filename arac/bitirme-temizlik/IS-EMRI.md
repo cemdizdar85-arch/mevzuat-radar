@@ -39,6 +39,9 @@ Konu kartındaki gerçek kalıpla YENİ soru yaz (Meslek/SPK'da "doğrudur" yok;
 ## Oturum 4 — EKSİK TAMAMLAMA (ders ders, konu konu — K1/K2)
 1) Konu konu açığı ölç: her kartın konusu için sitede kaç soru var (`paket_soru.konu` + `veri/sinav/smmm-banka-esleme.json` köprüsü), kartın ağırlığı
    (dönem sayısı) ile hedef; açık = hedef − sitede. Kalıp açığı: `BITIRME-SORU-KALIBI-OLCUM.md` "EKSİK KALIP BASIM PLANI" (188 alt sınır).
+   **KONU KONU KALIP AÇIĞI (ölçüldü 30.10):** `veri/sinav/bitirme-duzeltme/konu-konu-kalip.md` — 185 test konusunun her biri için gerçek sınavın
+   kalıpları ↔ sitedeki dağılım, "eksik kalıp" ve "tek tip" sütunları (98 konuda gerçek kalıp sitede hiç yok; 50 konu tek tip). Yeni sorular ÖNCE
+   bu eksik kalıplara yazılır (ör. Maliyet GÜG yükleme: gerçek 3× "sırasıyla", sitede 85 hesap 0 sırasıyla). Yeniden ölç: `node arac/bitirme-temizlik/konu-konu-karisim.js <çıktı.md>`.
 2) Açığı en büyük konulardan, kartın kalıbı/beceri/kök hedefi/şık türüyle YENİ soru yaz. Dayanağı "AMBARDA YOK" kartlara YAZMA (K1b).
    2026/2 yeni hesap kodları (245/551/624/647) için kaynak: ambardaki "KGK FİNANSAL RAPORLAMA STANDARTLARINA UYGUN HESAP PLANI".
 3) Her soru: kanıt cümlesi ambarda (D2) → iki kör çözücü (D3) → ilk 20'yi Cem okur (D4) → hakem (FREN: Cem onayı) → yayın.
