@@ -14,6 +14,12 @@
 - **D3 İki kör çözücü:** soruyu yazmayan iki ayrı çözücü, anahtar ve açıklama GÖRMEDEN, yalnız kök + şıkla çözer. İkisi de anahtarı bulmazsa ya da biri "iki şık doğru / kök eksik" derse soru atılır. (Çözücü dosyasına çözüm tablosu, adım, açıklama KONMAZ — 30.10'da sızıntı yaşandı.)
 - **D4 İnsan son göz:** her yeni dalganın ilk partisini Cem (ya da atadığı uzman) gerçek sınav sorusunun yanında okur; "sınav sorusu" demeden dalga açılmaz.
 - **D5 Bilinen hata listesi (her soruda tek tek):** iki şık doğru / hiç doğru yok · kökte yanlış madde atfı · kökte "Kanun'a göre" deyip Tebliğ hükmü sormak · eski hesap kodu (398→397, 590↔591, 780↔660) · terim karışması (DİMM "fiyat", DİŞ "ücret") · kökte verilmeyen veriye dayanmak · yuvarlama yüzünden şık tutmaması (%66,67 değil "üçte iki") · ders dışı konu · doğru şıkta kanunda olmayan ek cümle · kavram hatası (ayrılmış çalışana karşılık). *(30.10 temizliğinde 320 soruda bulunanlar.)*
+- **D7 YIL KURALI (Cem 30.10 — gerçek sınavda ölçüldü):** 2026 sınavına hazırlayan soruda
+  - **yıllık gelir / kazanç / beyan / hesap dönemi = 2025** ve kullanılan her yıllık tutar (tarife, istisna, had, beyan sınırı, binek gider sınırı, kıdem tavanı, asgari ücret) **2025'in resmî tutarı**. Ölçüldü: 2026/1–2026/2 Vergi kitapçıklarında yıllık gelir/kurum kazancı soran 5 sorunun 5'i 2025 (2026/1 S1, S14 · 2026/2 S1, S10, S11), 2026 yılı geliri soran 0.
+  - **aylık KDV dönemi** 2025/Aralık ya da 2026/Ocak olabilir (ikisi de çıktı: 2026/2 S4, S15).
+  - **geçmiş olay tarihi** (kuruluş, sermaye artırımı, geçmiş yıl zararı) önceki yıllar olabilir (2026/1 S13, S14).
+  - **FM / Maliyet / FTA** tarihleri 2026 dahil serbest (2026/2 FTA çeyrek verisi, Maliyet ay verisi) — yıllık vergi tutarı kullanmadıkça.
+  - "2026 takvim yılı / 2026 hesap dönemi" geliri hesaplatan bitirme sorusu YAZILMAZ; 2027 sınavına geçişte kural bir yıl kayar (sınav yılı − 1).
 - **D6 Yayından sonra:** ≥30 çözümde iyi öğrencilerin çoğu aynı yanlış şıkkı seçiyorsa ya da doğru oranı %10'un altındaysa soru otomatik incelemeye; doğrulanan hata → soru iner, yeni kimlikle döner.
 
 ## 2 · SINAVA BENZER — DERS DERS, KONU KONU (kalıp kapısı — kartsız soru YAZILMAZ)
