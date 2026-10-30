@@ -4384,9 +4384,18 @@ begin
         'indirim_kaynak', s.indirim_kaynak, 'kaynak_etiket', s.kaynak_etiket,
         'ad', s.ad_soyad, 'eposta', s.email,
         'tarih', s.olusturma, 'odendi', s.odendi_tarihi,
-        'iptal_neden', s.iptal_neden
+        'iptal_neden', s.iptal_neden,
+        'paket_durum', case
+            when s.durum <> 'odendi' then 'odeme_yok'
+            when s.bagli_kullanici is null then 'bagli_degil'
+            when pu.user_id is null then 'yok'
+            when pu.bitis is not null and pu.bitis < current_date then 'bitti'
+            else 'acik' end,
+        'paket_bitis', pu.bitis,
+        'paket_hesap', pu.paket
       ) order by s.olusturma desc)
       from public.siparisler s
+      left join public.paket_uyeler pu on pu.user_id = s.bagli_kullanici
     ), '[]'::jsonb),
     'elciler', coalesce((
       select jsonb_agg(jsonb_build_object('kod', e.kod, 'ad', e.ad_soyad, 'aktif', e.aktif) order by e.olusturma)
