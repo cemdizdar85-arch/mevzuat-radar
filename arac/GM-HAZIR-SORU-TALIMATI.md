@@ -1,5 +1,10 @@
 # GM HAZIR SORU YAZIM TALİMATI — Yeterlilik (bitirme) · kalıcı şablon
 
+> ⛔⭐ **30.10.2026 (Cem): BİTİRME SORUSU ÖNCE `BITIRME-SORU-STANDARDI.md` İLE YAZILIR.** Yazar ajana İLK o sayfa ve
+> `BITIRME-KONU-KARTLARI.md`'deki ilgili kart verilir; soru kartın kalıbı/beceri/kök hedefi/şık türü dışına çıkamaz,
+> dört doğruluk kapısından (güncel madde · kanıt cümlesi · iki kör çözücü · Cem okuması) geçmeden yayına girmez.
+> Bu dosyanın aşağısı (hata listeleri, adım/sade biçimi, dalga düzeni) standardın ALTINDA geçerlidir; çelişkide standart kazanır.
+
 > 05.10.2026, Cem "1.2.3" (GM2). Her GM turunda yazar ajana BU dosya verilir; tura özgü konu/zorluk ayrıca söylenir.
 > Neden kalıcı: GM talimatları oturum scratchpad'inde duruyordu ve oturumla kayboldu (gm3 TALIMAT.md bulunamadı).
 > Soru metni bu dosyaya ve depoya GİRMEZ; yazar yalnız kendisine verilen yerel dosyaya yazar (`veri/fabrika/hazir-*.json` gitignore'da).
