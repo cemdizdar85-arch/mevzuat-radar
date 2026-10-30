@@ -1,9 +1,9 @@
 {
- "aciklama": "30.10.2026 elle okuma: 2026/1 + 2026/2 Yeterlilik test kitapçıkları, ders başına 40 soru (2 dönem × 20), soru cümlesi kalıbı sayısı. Harfler motor/soru-kalibi.js başlığında. Kullanan: motor/smmm-ders-sira.js (sınava benzeyen önce: payı 0 kalıp benzer kümesine girmez, ilk 40 bu orana yakın). Soru metni YOK.",
+ "aciklama": "30.10.2026 elle okuma: 2026/1 + 2026/2 Yeterlilik test kitapçıkları, ders başına 40 soru (toplam) (2 dönem × 20), soru cümlesi kalıbı sayısı. Harfler motor/soru-kalibi.js başlığında. Kullanan: motor/smmm-ders-sira.js (sınava benzeyen önce: payı 0 kalıp benzer kümesine girmez, ilk 40 bu orana yakın). Soru metni YOK.",
  "kaynak": "TÜRMOB 2026/1 ve 2026/2 SMMM Yeterlilik test kitapçıkları (elle okuma C:/TETIKTE-CALISMA/kalip-olcum/kalip-elle-320.json)",
  "ders": {
   "Finansal Muhasebe": {
-   "n": 40,
+   "toplam": 40,
    "A": 17,
    "I": 10,
    "J": 7,
@@ -13,14 +13,14 @@
    "C": 1
   },
   "Finansal Tablolar ve Analizi": {
-   "n": 40,
+   "toplam": 40,
    "F": 35,
    "S": 3,
    "C": 1,
    "M": 1
   },
   "Maliyet Muhasebesi": {
-   "n": 40,
+   "toplam": 40,
    "F": 13,
    "L": 10,
    "A": 5,
@@ -32,7 +32,7 @@
    "I": 1
   },
   "Muhasebe Denetimi": {
-   "n": 40,
+   "toplam": 40,
    "B": 12,
    "E": 6,
    "A": 5,
@@ -45,7 +45,7 @@
    "U": 1
   },
   "Vergi Mevzuatı ve Uygulaması": {
-   "n": 40,
+   "toplam": 40,
    "C": 10,
    "F": 10,
    "G": 6,
@@ -57,7 +57,7 @@
    "U": 1
   },
   "Hukuk": {
-   "n": 40,
+   "toplam": 40,
    "C": 11,
    "G": 10,
    "B": 4,
@@ -70,7 +70,7 @@
    "P": 1
   },
   "Meslek Hukuku": {
-   "n": 40,
+   "toplam": 40,
    "C": 16,
    "G": 9,
    "E": 4,
@@ -82,7 +82,7 @@
    "U": 1
   },
   "Sermaye Piyasası Mevzuatı": {
-   "n": 40,
+   "toplam": 40,
    "B": 12,
    "D": 8,
    "C": 5,

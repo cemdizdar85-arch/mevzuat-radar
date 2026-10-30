@@ -241,7 +241,7 @@ const anahtar = ad => { try { return jsonOku(path.join(KOK, 'arac', 'smmm-soru-s
 const benzerAnahtari = () => anahtar('sinava_benzer_once');
 // gerçek kalıp dağılımı (dersin 40 sorusu, harf → sayı) ya da null
 function kalipPay(ders) {
-  try { const d = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-soru-kalibi.json')).ders[ders]; if (!d) return null; const p = Object.assign({}, d); delete p.n; return p; } catch (e) { return null; }
+  try { const d = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-soru-kalibi.json')).ders[ders]; if (!d) return null; const p = Object.assign({}, d); delete p.toplam; return p; } catch (e) { return null; }
 }
 // ilk N'nin kalıp dağılımının gerçekten sapması (toplam değişim uzaklığı, %): ½ Σ |pay_baş − pay_gerçek|
 function kalipSapma(bas, harf, pay) {
@@ -363,8 +363,8 @@ function sinav() {
   t('kalıp: Hukuk hesap ve Denetim vaka sona kuralı', SONA.Hukuk({}, 'F') && !SONA.Hukuk({}, 'C') && SONA['Muhasebe Denetimi']({ soru: '(T) A.Ş.\'nin denetiminde' }) && !SONA['Muhasebe Denetimi']({ soru: 'BDS 220\'ye göre' }) && !SONA['Meslek Hukuku']);
   try {
     const kv = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-soru-kalibi.json')).ders, dn = Object.keys(kv);
-    t(`gerçek kalıp dağılımı: ${dn.length} ders × 40 soru, Meslek/SPK "doğrudur" 0, Hukuk hesap 0`, dn.length === 8 && dn.every(d => kv[d].n === 40 && Object.keys(kv[d]).filter(h => h !== 'n').reduce((t, h) => t + kv[d][h], 0) === 40)
-      && !kv['Meslek Hukuku'].A && !kv['Sermaye Piyasası Mevzuatı'].A && !kv.Hukuk.F && kalipPay('Hukuk') && !('n' in kalipPay('Hukuk')));
+    t(`gerçek kalıp dağılımı: ${dn.length} ders × 40 soru, Meslek/SPK "doğrudur" 0, Hukuk hesap 0`, dn.length === 8 && dn.every(d => kv[d].toplam === 40 && Object.keys(kv[d]).filter(h => h !== 'toplam').reduce((t, h) => t + kv[d][h], 0) === 40)
+      && !kv['Meslek Hukuku'].A && !kv['Sermaye Piyasası Mevzuatı'].A && !kv.Hukuk.F && kalipPay('Hukuk') && !('toplam' in kalipPay('Hukuk')));
   } catch (e) { t('gerçek kalıp dağılımı okunamadı: ' + e.message, false); }
   const eskiF = process.env.SIRA_FABRIKA; process.env.SIRA_FABRIKA = path.join(KOK, 'yok-boyle-klasor');
   const bkY = benzerKume([{ etiket: 'smmm-x', id: 'kp-01' }], 'Finansal Muhasebe');
