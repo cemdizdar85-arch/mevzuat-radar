@@ -443,16 +443,26 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     $('uSay').textContent=liste.length+' / '+uyeler.length+' üye gösteriliyor.';
 
     /* siparişler */
-    var sBas='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Kaynak</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
-    var sh=sBas, bh=sBas, nOd=0, nBek=0;
+    var sBas='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Kaynak</th><th>Durum</th><th>Sitede paket</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
+    /* 30.10 (Cem "açıldı mı nasıl göreceğim, açıldı kapalı görelim"): siparişin bağlı olduğu hesapta paket bugün açık mı - 2026-10-30-siparis-paket-durumu.sql */
+    var pDurum=function(s){ var d=s.paket_durum, k=function(t){ return '<b style="color:var(--red)">● KAPALI</b> <span class="not" style="margin:0">'+t+'</span>'; };
+      if(d==='acik') return '<b style="color:var(--green)">● AÇIK</b> <span class="not" style="margin:0">'+tarih(s.paket_bitis)+' bitiş'+(s.paket_hesap&&s.paket_hesap!==s.paket?' · hesapta '+esc(s.paket_hesap):'')+'</span>';
+      if(d==='bagli_degil') return k('ödendi ama hesaba bağlanmadı - alıcı bu e-postayla üye olmadı; "Hesaba bağla"');
+      if(d==='bitti') return k('süresi bitti ('+tarih(s.paket_bitis)+')');
+      if(d==='yok') return k('hesapta paket yok (kapatılmış)');
+      if(d==='odeme_yok') return '<span class="not" style="margin:0">kapalı</span>';
+      return '—'; };
+    var sh=sBas, bh=sBas, nOd=0, nBek=0, nKapali=0;
     VERI.siparisler.forEach(function(s){
       var odenen=s.durum==='odendi'||s.durum==='iade';
       if(odenen) nOd++; else nBek++;
-      var satir='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (otomatik, ödeme gelmedi)':({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum)))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'<button class="btn" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Havale geç geldi, paketi aç</button>':'')))+'</td></tr>';   /* 29.10: otomatik iptal (motor/siparis-son-hatirlatma.mjs) sonrası gelen havale panelden açılır - 2026-10-29-otomatik-iptal.sql */
+      if(s.durum==='odendi'&&s.paket_durum&&s.paket_durum!=='acik') nKapali++;
+      var satir='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (otomatik, ödeme gelmedi)':({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum)))+'</td><td>'+pDurum(s)+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'<button class="btn" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Havale geç geldi, paketi aç</button>':'')))+'</td></tr>';   /* 29.10: otomatik iptal (motor/siparis-son-hatirlatma.mjs) sonrası gelen havale panelden açılır - 2026-10-29-otomatik-iptal.sql */
       if(odenen) sh+=satir; else bh+=satir;
     });
-    if(!nOd) sh+='<tr><td colspan="10" class="not">Henüz ödenmiş sipariş yok.</td></tr>';
-    if(!nBek) bh+='<tr><td colspan="10" class="not">Yok.</td></tr>';
+    if(nKapali) sh=sBas.replace('</tr>','</tr><tr><td colspan="11"><b style="color:var(--red)">⚠ Ödenmiş '+nKapali+' siparişin paketi sitede KAPALI</b> - "Sitede paket" sütununa bak.</td></tr>')+sh.slice(sBas.length);
+    if(!nOd) sh+='<tr><td colspan="11" class="not">Henüz ödenmiş sipariş yok.</td></tr>';
+    if(!nBek) bh+='<tr><td colspan="11" class="not">Yok.</td></tr>';
     $('tSiparis').innerHTML=sh; $('tBekleyen').innerHTML=bh;
     $('bekSay').textContent='— '+nBek+' sipariş (açmak için tıkla)';
     /* 12.10 satış ayrımı: elçili · anlık teklif · doğrudan (indirimsiz) - iptal hariç; ödenen ayrıca. Eski kayıtta indirim_kaynak yoksa elçi/teklif alanından çıkarılır. */
