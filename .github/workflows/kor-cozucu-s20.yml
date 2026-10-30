@@ -1,0 +1,38 @@
+# SGS Son 20 Gün — iki kör çözücü (bitirme standardı D3). Cem 31.10 "bulutta koştur", onay ≈25 USD.
+# ⛔ ELLE TETİKLENİR (cron yok). Soru metni dosyaya yazılmaz; çıktı yalnız kimlik + cevap harfleri, artifact olarak.
+name: Kor Cozucu SGS s20
+on:
+  workflow_dispatch:
+    inputs:
+      liste:
+        description: "liste dosyasi (depoda): {ids:[...], desenler:[...]}"
+        required: true
+        type: string
+      limit:
+        description: "0 = hepsi; deneme icin 20"
+        required: false
+        default: "0"
+        type: string
+      butce_usd:
+        description: "bedel tavani (USD)"
+        required: true
+        type: string
+jobs:
+  coz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Iki kor cozucu (batch)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node arac/kor-cozucu-s20.js "${{ inputs.liste }}" kor-sonuc.json --limit "${{ inputs.limit }}" --butce "${{ inputs.butce_usd }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kor-sonuc
+          path: kor-sonuc.json
