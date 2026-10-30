@@ -26,9 +26,10 @@
 
 - **K1 Konu kartı:** her soru `BITIRME-KONU-KARTLARI.md`'deki 309 karttan BİRİNE göre yazılır (FM 47 · FTA 22 · Maliyet 18 · Denetim 44 · Vergi 57 · Hukuk 57 · Meslek 29 · SPK 35). Her kartta o konuya ÖZGÜ: kaç dönemde sorulduğu · 2026 test örneği · soru cümlesi kalıbı · beceri · kök uzunluk hedefi · şık türü ve boyu · ne sorduğu · dayanak madde · konuya özgü çeldiriciler · yazım tuzağı. Yazar kartın kalıbı, beceri düzeyi, kök hedefi ve şık türü dışına çıkamaz; ölçü kapısı tutmayanı atar.
 - **K1b Dayanağı "AMBARDA YOK" olan kart:** kaynak ambara girmeden o konuya soru YAZILMAZ (32 kart, 30.10). Resmî metni olmayan ders kitabı konuları (safha, MHK, GKGDS, Altman…) için dayanak ayrıca Cem kararıyla belirlenir.
-- **K1c Hesap kodu:** 2026/2 sınavı YENİ Tekdüzen kodlarını kullanıyor (245 YAG-GUD, 551, 624, 647); ambarda yalnız eski plan var → yeni plan ambara girene kadar bu kodlarla şık yazılmaz; eski anlamıyla (245 Bağlı Ortaklıklar, 647 Reeskont Faiz Gelirleri) da yazılmaz.
+- **K1c Hesap kodu:** 2026/2 sınavı YENİ Tekdüzen kodlarını kullanıyor (245 YAG-GUD, 551, 624, 647); ambarda yalnız eski plan var → yeni plan ambara girene kadar bu kodlarla şık yazılmaz; eski anlamıyla (245 Bağlı Ortaklıklar, 647 Reeskont Faiz Gelirleri) da yazılmaz. ⚠ 30.10 gece ölçüldü: "KGK FİNANSAL RAPORLAMA STANDARTLARINA UYGUN HESAP PLANI (Kurul Kararı 29.07.2024; Duyuru 2024-51)" ambarda VAR — bu maddenin gevşetilmesi Cem kararı (henüz verilmedi).
+- **K1d TMS 1 kalır (Cem 30.10 gece "TMS 1 kalsın"):** 2026 sınavı TMS 1 soruyor (2026/1 S19, S20); TFRS 18 1.1.2027'de yürürlüğe giriyor. Bitirme sorusunda TMS 1 atfı yazılır; kökü TFRS 18'e dayandırmak YASAK (sınav tarihinde yürürlükte değil — kd2'de iki kör çözücü yakaladı). `arac/eski-kurallar.json` EK9'un TMS 1 işareti bitirme için bu karara göre okunur.
 - **K2 Konu ağırlığı:** yazılı (2016–2025) + test (2026) sınavlarından birlikte. Testte çıkmamış konu basılır, kalıbı "tahmini" (ders oranı).
-- **K3 Uzunluk HEDEF:** o konudaki gerçek sorunun uzunluğu ±%25; yoksa dersin aynı kalıptaki medyanı. Tavan değil hedef.
+- **K3 Uzunluk HEDEF:** o konudaki gerçek sorunun uzunluğu ±%25; yoksa dersin aynı kalıptaki medyanı. Tavan değil hedef. **Bağlayıcı ölçü KONU KARTIDIR** (Cem 30.10 gece "konu kartı"): kartın `kok_hedef_kr`'i ile dersin ortalamasına bakan `benzerMi` çelişirse kart geçerlidir (ör. kayıtlı sermaye kartı 684–1140 kr ister, SPK ders ölçüsü ≤394; Vergi vaka kartları 446–929, ders ölçüsü ≤447 — 30.10'da kd1/vy1/ek1 partilerinde 36 soruda ölçüldü).
 - **K4 Soru cümlesi kalıbı:** 17 kalıptan biri; dersin gerçek oranıyla dağıtılır. Gerçekte o derste HİÇ olmayan kalıp yazılmaz (ör. Hukuk'ta hesap, Meslek/SPK'da "doğrudur").
 - **K5 Beceri oranı:** Denetim/Meslek/SPK 20/20 bilgi · Hukuk 18–19 bilgi · Vergi ≈10 bilgi/3–4 uygulama/7 analiz · Maliyet 8/8/4 · FM ve FTA 14–15 uygulama, 3–4 analiz. Bilgi derslerinde zorluk VAKA ile değil, ince ayrıntı + yakın çeldiriciyle verilir.
 - **K6 Kökte:** kanun "<sayı> sayılı <tam ad> Kanunu'na göre" (kısaltma yok); madde/paragraf numarası yazılmaz (Hukuk'ta ≤3/20 istisna); kişi "Bay (A)", şirket "(Y) A.Ş." yalnız Vergi vakasında; FM'de özne "İşletme"; FTA'da ortak veri bloğu.
@@ -87,7 +88,7 @@ konu kartı → yazım (kalıp + kanıt cümlesi) → mekanik kapı (uzunluk, ka
 | K8 karışım | `node arac/bitirme-temizlik/konu-konu-karisim.js <çıktı.md>` (dalga sonrası) | ≥5 sorulu konuda tek kalıp ≤%60 (FTA hesap ≤%80) |
 | Ş4 doğru şık en uzun değil | şık uzunlukları (dalga toplamı) | doğru şık en uzun oranı ≤ %40 |
 | Ş10 / D6 öğrenci verisi | `cevap_kayit` şık oranları (≥30 çözüm) | %5 altı şık yeniden yazılır; anahtar alarmı kontrol edilir |
-| Benzerlik toplu | `motor/sinav-benzerlik-olcu.js` `benzerMi` | geçer |
+| Benzerlik toplu | `motor/sinav-benzerlik-olcu.js` `benzerMi` | geçer — uzunluk bulgusu kartla çelişirse kart bağlayıcı (K3, Cem 30.10); çelişki ölçü satırına yazılır |
 | D1 güncel madde | `node arac/degisiklik-nobetcisi.js` bekleyen not listesi ↔ sorunun dayanak maddesi | dayanak maddede okunmamış değişiklik notu yok |
 | K1 kartlı soru | sorunun `konu` alanı ↔ `veri/sinav/bitirme-konu-kartlari.json` konu adı | konu bir kartla birebir eşleşir |
 | K1b ambarda yok | kartın `dayanak` alanı "AMBARDA YOK" içeriyor mu | içeriyorsa o karta soru YAZILMAZ |
