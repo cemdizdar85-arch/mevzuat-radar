@@ -82,6 +82,20 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   #tUye td.u-ad{font-weight:700;font-size:15px;justify-content:flex-start}
   #tUye td.u-ep{justify-content:flex-start;color:var(--muted);word-break:break-all;text-align:left}
 }
+/* 30.10 kullanım + üye kartı: 30 günlük çubuk + kart bölümleri */
+.cubuk{display:flex;align-items:flex-end;gap:2px;height:120px;padding:8px 10px 0;background:var(--kagit);border:1px solid var(--line);border-radius:12px}
+.cubuk div{flex:1;min-width:3px;background:var(--amber-dolgu);border-radius:3px 3px 0 0}
+.cubuk div.bos{background:var(--line)}
+.cubuk-alt{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--dim);margin-top:4px}
+.pencere .ic.genis{max-width:780px}
+.kart-b{margin:14px 0 0}
+.kart-b h4{margin:0 0 6px;font-size:14px}
+.kart-b table{font-size:13px}
+.kart-b .cubuk{height:70px}
+.ozet-satir{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.ozet-satir div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12.5px;color:var(--muted)}
+.ozet-satir b{display:block;font-size:18px;color:var(--ink)}
+a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .pencere .dugmeler{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
@@ -99,10 +113,12 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     <nav class="sekmeler" role="tablist" aria-label="Yönetim bölümleri">
       <button type="button" role="tab" data-sekme="ozet">Özet</button>
       <button type="button" role="tab" data-sekme="uyeler">Üyeler</button>
-      <button type="button" role="tab" data-sekme="siparisler">Siparişler <span class="rozet" id="rzSiparis" hidden></span></button>
+      <button type="button" role="tab" data-sekme="kullanim">Kullanım</button>
+      <button type="button" role="tab" data-sekme="siparisler">Siparişler</button>
       <button type="button" role="tab" data-sekme="elciler">Elçiler ve kodlar</button>
       <button type="button" role="tab" data-sekme="destek">Destek <span class="rozet" id="rzDestek" hidden></span></button>
       <button type="button" role="tab" data-sekme="pazarlama">Pazarlama</button>
+      <button type="button" role="tab" data-sekme="kayit">İşlem kaydı</button>
       <button type="button" role="tab" data-sekme="araclar">Araçlar</button>
     </nav>
 
@@ -111,7 +127,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       <div class="kutu"><b id="sToplam">0</b><span>toplam üye</span></div>
       <div class="kutu"><b id="sYedi">0</b><span>son 7 günde yeni üye</span></div>
       <div class="kutu"><b id="sPaketli">0</b><span>aktif paketli</span></div>
-      <div class="kutu"><b id="sBekleyen">0</b><span>ödeme bekleyen sipariş</span></div>
+      <div class="kutu"><b id="sOdenen">0</b><span>ödenmiş sipariş (iade hariç)</span></div>
     </div>
 
     <h2>Kim nereden geldi, hangi sınava</h2>
@@ -121,6 +137,41 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     <h2>Satış ayrımı</h2>
     <!-- 12.10 (Cem "elçi harici nasıl satış yapacağımızı takip edeceğiz"): satış ayrımı - indirim kaynağı (sunucu yazar) + kaynak etiketi (?k=) -->
     <div class="kaydir"><table id="tSatisAyrim"></table></div>
+    </section>
+
+    <!-- 30.10 (Cem "öğrenciler kullanıyor mu, kim nerede soru çözüyor"): radar-app/sql/2026-10-30-uye-ayrinti.sql yonetim_kullanim -->
+    <section class="bolum" data-bolum="kullanim" hidden>
+    <h2>Öğrenciler soru çözüyor mu?</h2>
+    <div class="sayilar">
+      <div class="kutu"><b id="kSaat">–</b><span>son 24 saatte çözen üye</span></div>
+      <div class="kutu"><b id="kHafta">–</b><span>son 7 günde çözen üye</span></div>
+      <div class="kutu"><b id="kCevap">–</b><span>son 7 günde çözülen soru</span></div>
+      <div class="kutu"><b id="kSessiz">–</b><span>paketi açık ama 7 gündür çözmeyen</span></div>
+    </div>
+    <p class="not" id="kNot2"></p>
+
+    <h2>Son 30 gün: günlük çözülen soru</h2>
+    <div class="cubuk" id="kCubuk"></div>
+    <div class="cubuk-alt"><span id="kCubukBas"></span><span>çubuğa gel ya da dokun: gün · soru · kişi</span><span id="kCubukSon"></span></div>
+
+    <h2>Hangi derste çözülüyor</h2>
+    <div class="kaydir"><table id="tDers"></table></div>
+
+    <h2>En çok çözen üyeler (son 7 gün)</h2>
+    <div class="kaydir"><table id="tCozen"></table></div>
+    <p class="not">Bir üyenin ayrıntısı için adına ya da e-postasına tıkla.</p>
+    </section>
+
+    <!-- 30.10: panel/ödeme olayları tek akışta (yonetim_islem_kaydi) -->
+    <section class="bolum" data-bolum="kayit" hidden>
+    <h2>İşlem kaydı</h2>
+    <div class="suzgec">
+      <input id="kAra" type="search" placeholder="E-posta, sipariş no ya da kod ara" aria-label="Ara">
+      <select id="kGun" aria-label="Dönem"><option value="7">Son 7 gün</option><option value="30" selected>Son 30 gün</option><option value="90">Son 90 gün</option></select>
+      <select id="kTur" aria-label="İşlem türü"><option value="">Tüm işlemler</option></select>
+    </div>
+    <div class="kaydir"><table id="tKayit"></table></div>
+    <p class="not">Kart ödemeleri iyzico'dan kendiliğinden "ödendi" olur; havale "panelden onay"dır. 30.10 öncesindeki sipariş iadelerinin zamanı tutulmuyordu (yalnız "SONRADAN İADE" etiketi görünür).</p>
     </section>
 
     <section class="bolum" data-bolum="pazarlama" hidden>
@@ -176,7 +227,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       <input id="fAra" type="search" placeholder="Ad, e-posta ya da elçi kodu ara" aria-label="Ara">
       <select id="fSinav" aria-label="Sınava göre süz"><option value="">Tüm sınavlar</option><option>Staja Giriş</option><option>Yeterlilik</option><option>Tümü (tam paket)</option><option>Belirsiz</option></select>
       <select id="fKaynak" aria-label="Kaynağa göre süz"><option value="">Tüm kaynaklar</option><option>Ücretli</option><option>Elçi ile ücretli</option><option>Hediye</option><option>Elle verilmiş</option><option>Ücretsiz üye</option></select>
-      <select id="fDurum" aria-label="Duruma göre süz"><option value="">Tüm hesaplar</option><option value="paketli">Paketi açık</option><option value="engelli">Girişi engelli</option></select>
+      <select id="fDurum" aria-label="Duruma göre süz"><option value="">Tüm hesaplar</option><option value="paketli">Paketi açık</option><option value="sessiz">Paketi açık, 7 gündür çözmüyor</option><option value="cozen">Son 7 günde çözen</option><option value="engelli">Girişi engelli</option></select>
     </div>
     <div class="kaydir"><table id="tUye"></table></div>
     <p class="not" id="uSay"></p>
@@ -212,7 +263,13 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       <div class="kaydir" style="margin-top:8px"><table id="tBagsiz"></table></div>
       <p class="not">Alıcı siteye siparişteki e-postadan başka bir adresle (çoğu zaman Google ile) girdiyse paket görünmez. Alıcıya hangi e-postayla girdiğini sor, "Hesaba bağla"ya o adresi yaz. Alıcı bunu kendisi de yapabilir: Hesabım → "Ödedim, paketim görünmüyor" (sipariş no + siparişteki e-posta).</p>
     </div>
+    <h2 style="font-size:15px;margin-top:18px">Ödenen siparişler</h2>
     <div class="kaydir"><table id="tSiparis"></table></div>
+    <details class="kutu" style="margin-top:14px">
+      <summary style="cursor:pointer"><b>Ödemesi gelmeyenler</b> <span class="not" id="bekSay"></span></summary>
+      <p class="not">Bunlar satış DEĞİLDİR: sipariş formu doldurulmuş, para gelmemiş. Ödenmeyen havale 3 gün sonra kendiliğinden iptal olur. Para sonradan hesaba geçerse buradan "Ödendi, paketi aç".</p>
+      <div class="kaydir"><table id="tBekleyen"></table></div>
+    </details>
     </section>
 
     <section class="bolum" data-bolum="destek" hidden>
@@ -235,6 +292,16 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     <p id="kartSonuc" class="not"></p>
     <button class="btn ana" id="kartDene" type="button">Kartla 5 TL dene</button>
     </section>
+  </div>
+</div>
+
+<!-- 30.10 üye kartı (yonetim_uye_ayrinti) -->
+<div class="pencere" id="akPencere" hidden role="dialog" aria-modal="true" aria-labelledby="akBaslik">
+  <div class="ic genis">
+    <button type="button" class="kapat" id="akKapat" aria-label="Kapat">✕</button>
+    <h3 id="akBaslik">Üye</h3>
+    <div id="akIcerik"><p class="not">Yükleniyor…</p></div>
+    <div class="dugmeler" id="akDugme"></div>
   </div>
 </div>
 
@@ -320,13 +387,12 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     /* 30.10: üye satırında ad (en yeni siparişteki ad) + giriş engeli (yonetim_engelliler) */
     var AD={}; VERI.siparisler.forEach(function(s){ var k=String(s.eposta||'').toLowerCase(); if(s.ad&&!AD[k]) AD[k]=s.ad; });
     var uyeler=VERI.uyeler.map(function(u){ var k=kaynakBul(u), ep=String(u.eposta||'').toLowerCase(); return Object.assign({},u,{ sinav:sinavBul(u), kaynak:k.ad, sinif:k.sinif, elci:k.elci, ad:AD[ep]||'', engel:!!ENGEL[ep] }); });
-    var bek=VERI.siparisler.filter(function(s){ return s.durum==='odeme_bekliyor'; }).length;
-    $('rzSiparis').hidden=!bek; $('rzSiparis').textContent=bek;
     var yedi=Date.now()-7*86400000;
     $('sToplam').textContent=uyeler.length;
     $('sYedi').textContent=uyeler.filter(function(u){ return new Date(u.kayit).getTime()>=yedi; }).length;
     $('sPaketli').textContent=uyeler.filter(function(u){ return u.kaynak!=='Ücretsiz üye'; }).length;
-    $('sBekleyen').textContent=VERI.siparisler.filter(function(s){ return s.durum==='odeme_bekliyor'; }).length;
+    /* 30.10 Cem ("parası gelmeyenleri koymayalım, onlar geliyor sanki"): özet ve liste yalnız ÖDENENİ sayar */
+    $('sOdenen').textContent=VERI.siparisler.filter(function(s){ return s.durum==='odendi'; }).length;
 
     /* çapraz tablo: satır = kaynak, sütun = sınav */
     var SIN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'], KAY=['Ücretli','Elçi ile ücretli','Hediye','Elle verilmiş','Ücretsiz üye'];
@@ -352,18 +418,22 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
 
     /* üye listesi (süzgeçli) */
     var fs=$('fSinav').value, fk=$('fKaynak').value, fd=$('fDurum').value, fa=trKucuk($('fAra').value.trim());
-    var liste=uyeler.filter(function(u){ return (!fs||u.sinav===fs)&&(!fk||u.kaynak===fk)&&(!fd||(fd==='engelli'?u.engel:u.kaynak!=='Ücretsiz üye'))
+    var kul=function(u){ return KUL[String(u.eposta||'').toLowerCase()]||{cevap:0,cevap7:0,dogru:0}; };
+    var durumUyar=function(u){ var a=u.kaynak!=='Ücretsiz üye';
+      return fd==='engelli'?u.engel : fd==='paketli'?a : fd==='sessiz'?(a&&!u.engel&&!kul(u).cevap7) : fd==='cozen'?kul(u).cevap7>0 : true; };
+    var liste=uyeler.filter(function(u){ return (!fs||u.sinav===fs)&&(!fk||u.kaynak===fk)&&(!fd||durumUyar(u))
       &&(!fa||trKucuk(u.eposta).indexOf(fa)>-1||trKucuk(u.ad).indexOf(fa)>-1||trKucuk(u.elci).indexOf(fa)>-1); });
-    var uh='<tr><th>Ad</th><th>E-posta</th><th>Durum</th><th>İşlem</th><th>Sınav</th><th>Kaynak</th><th>Paket</th><th>Bitiş</th><th>Kayıt</th><th>Son giriş</th><th>Elçi</th><th>Giriş yolu</th></tr>';
+    var uh='<tr><th>Ad</th><th>E-posta</th><th>Durum</th><th>Çözdüğü soru</th><th>Son çözüm</th><th>İşlem</th><th>Sınav</th><th>Kaynak</th><th>Paket</th><th>Bitiş</th><th>Kayıt</th><th>Son giriş</th><th>Elçi</th><th>Giriş yolu</th></tr>';
     liste.forEach(function(u){
+      var k=kul(u), cozH=k.cevap ? '<b>'+k.cevap+'</b> <span class="not" style="margin:0">(7 gün: '+k.cevap7+' · doğru %'+Math.round(100*k.dogru/k.cevap)+')</span>' : (KUL_HATA?'<span class="not" style="margin:0">'+KUL_HATA+'</span>':'<span class="not" style="margin:0">hiç çözmedi</span>');
       var aktif=u.kaynak!=='Ücretsiz üye';
       var durumH=u.engel?'<span class="etiket e-engel">Girişi engelli</span>':(aktif?'<span class="etiket e-ucretli">Paketi açık</span>':'<span class="etiket e-bos">Paketsiz</span>');
       var isl='<span style="display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">'+((u.kaynak==='Hediye'||u.kaynak==='Elle verilmiş')?'<button class="btn" data-kapat="'+esc(u.eposta)+'" data-hediye="'+(u.kaynak==='Hediye'?1:0)+'">Paketi kapat</button> ':'')
         +(u.engel?'<button class="btn" data-engelkaldir="'+esc(u.eposta)+'">Engeli kaldır</button>'
                  :'<button class="btn tehlike" data-uyeiptal="'+esc(u.eposta)+'">Üyeliği iptal et</button>')+'</span>';
-      uh+='<tr><td class="u-ad">'+esc(u.ad||'—')+'</td><td class="u-ep">'+esc(u.eposta)+'</td><td data-l="Durum">'+durumH+'</td><td data-l="İşlem">'+isl+'</td><td data-l="Sınav">'+esc(u.sinav)+'</td><td data-l="Kaynak"><span class="etiket '+u.sinif+'">'+esc(u.kaynak)+'</span></td><td data-l="Paket">'+esc(u.paket||'—')+(u.dersler&&u.dersler.length?' ('+u.dersler.length+' ders)':'')+'</td><td data-l="Bitiş">'+tarih(u.bitis)+'</td><td data-l="Kayıt">'+tarih(u.kayit)+'</td><td data-l="Son giriş">'+tarih(u.son_giris)+'</td><td data-l="Elçi">'+esc(u.elci||'—')+'</td><td data-l="Giriş yolu">'+esc(u.yol)+'</td></tr>';
+      uh+='<tr><td class="u-ad"><a class="uye-ac" data-ayrinti="'+esc(u.eposta)+'" role="button" tabindex="0">'+esc(u.ad||'Ayrıntı')+'</a></td><td class="u-ep"><a class="uye-ac" data-ayrinti="'+esc(u.eposta)+'" role="button" tabindex="0">'+esc(u.eposta)+'</a></td><td data-l="Durum">'+durumH+'</td><td data-l="Çözdüğü soru">'+cozH+'</td><td data-l="Son çözüm">'+(k.son?tarih(k.son)+' <span class="not" style="margin:0">'+kacGun(k.son)+'</span>':'—')+'</td><td data-l="İşlem">'+isl+'</td><td data-l="Sınav">'+esc(u.sinav)+'</td><td data-l="Kaynak"><span class="etiket '+u.sinif+'">'+esc(u.kaynak)+'</span></td><td data-l="Paket">'+esc(u.paket||'—')+(u.dersler&&u.dersler.length?' ('+u.dersler.length+' ders)':'')+'</td><td data-l="Bitiş">'+tarih(u.bitis)+'</td><td data-l="Kayıt">'+tarih(u.kayit)+'</td><td data-l="Son giriş">'+tarih(u.son_giris)+'</td><td data-l="Elçi">'+esc(u.elci||'—')+'</td><td data-l="Giriş yolu">'+esc(u.yol)+'</td></tr>';
     });
-    if(!liste.length) uh+='<tr><td colspan="12" class="not">Bu süzgeçle üye yok.</td></tr>';
+    if(!liste.length) uh+='<tr><td colspan="14" class="not">Bu süzgeçle üye yok.</td></tr>';
     $('tUye').innerHTML=uh;
     /* engelli hesaplar (üye listesinde görünmese de) */
     var EL=Object.keys(ENGEL).map(function(k){ return ENGEL[k]; });
@@ -373,26 +443,33 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('uSay').textContent=liste.length+' / '+uyeler.length+' üye gösteriliyor.';
 
     /* siparişler */
-    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Kaynak</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
+    var sBas='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Kaynak</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
+    var sh=sBas, bh=sBas, nOd=0, nBek=0;
     VERI.siparisler.forEach(function(s){
-      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (otomatik, ödeme gelmedi)':({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum)))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'<button class="btn" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Havale geç geldi, paketi aç</button>':'')))+'</td></tr>';   /* 29.10: otomatik iptal (motor/siparis-son-hatirlatma.mjs) sonrası gelen havale panelden açılır - 2026-10-29-otomatik-iptal.sql */
+      var odenen=s.durum==='odendi'||s.durum==='iade';
+      if(odenen) nOd++; else nBek++;
+      var satir='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (otomatik, ödeme gelmedi)':({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum)))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'<button class="btn" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Havale geç geldi, paketi aç</button>':'')))+'</td></tr>';   /* 29.10: otomatik iptal (motor/siparis-son-hatirlatma.mjs) sonrası gelen havale panelden açılır - 2026-10-29-otomatik-iptal.sql */
+      if(odenen) sh+=satir; else bh+=satir;
     });
-    if(!VERI.siparisler.length) sh+='<tr><td colspan="10" class="not">Henüz sipariş yok.</td></tr>';
-    $('tSiparis').innerHTML=sh;
+    if(!nOd) sh+='<tr><td colspan="10" class="not">Henüz ödenmiş sipariş yok.</td></tr>';
+    if(!nBek) bh+='<tr><td colspan="10" class="not">Yok.</td></tr>';
+    $('tSiparis').innerHTML=sh; $('tBekleyen').innerHTML=bh;
+    $('bekSay').textContent='— '+nBek+' sipariş (açmak için tıkla)';
     /* 12.10 satış ayrımı: elçili · anlık teklif · doğrudan (indirimsiz) - iptal hariç; ödenen ayrıca. Eski kayıtta indirim_kaynak yoksa elçi/teklif alanından çıkarılır. */
     var tur=function(s){ var k=s.indirim_kaynak||''; if(k.indexOf('ozel:')===0||s.ozel_kod_tl) return 'Özel kod'; if(k==='anlik-teklif'||s.anlik_teklif) return 'Anlık teklif'; if(k.indexOf('elci:')===0||s.elci) return 'Elçili'; return 'Doğrudan (indirimsiz)'; };
-    var ay={}, ke={}; VERI.siparisler.forEach(function(s){ if(s.durum==='iptal') return; var t=tur(s), e=s.kaynak_etiket||'(etiketsiz)';
-      [[ay,t],[ke,e]].forEach(function(x){ var o=x[0][x[1]]||(x[0][x[1]]={n:0,od:0,tl:0}); o.n++; if(s.durum==='odendi'){ o.od++; o.tl+=(s.tutar||0); } }); });
-    var ah='<tr><th>Satış türü</th><th>Sipariş</th><th>Ödenen</th><th>Ödenen tutar</th></tr>';
-    ['Elçili','Anlık teklif','Özel kod','Doğrudan (indirimsiz)'].forEach(function(t){ var o=ay[t]||{n:0,od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
-    ah+='<tr><th>Kaynak etiketi (?k=)</th><th>Sipariş</th><th>Ödenen</th><th>Ödenen tutar</th></tr>';
-    Object.keys(ke).sort().forEach(function(e){ var o=ke[e]; ah+='<tr><td>'+esc(e)+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
+    /* 30.10: yalnız ÖDENEN satış sayılır (ödenmeyen sipariş "geliyor" gibi görünmesin) */
+    var ay={}, ke={}; VERI.siparisler.forEach(function(s){ if(s.durum!=='odendi') return; var t=tur(s), e=s.kaynak_etiket||'(etiketsiz)';
+      [[ay,t],[ke,e]].forEach(function(x){ var o=x[0][x[1]]||(x[0][x[1]]={od:0,tl:0}); o.od++; o.tl+=(s.tutar||0); }); });
+    var ah='<tr><th>Satış türü</th><th>Ödenen satış</th><th>Tutar</th></tr>';
+    ['Elçili','Anlık teklif','Özel kod','Doğrudan (indirimsiz)'].forEach(function(t){ var o=ay[t]||{od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
+    ah+='<tr><th>Kaynak etiketi (?k=)</th><th>Ödenen satış</th><th>Tutar</th></tr>';
+    Object.keys(ke).sort().forEach(function(e){ var o=ke[e]; ah+='<tr><td>'+esc(e)+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
     $('tSatisAyrim').innerHTML=ah;
   }
   ['fSinav','fKaynak','fDurum','fAra'].forEach(function(i){ $(i).addEventListener('input',function(){ if(VERI) ciz(); }); });
 
   /* ---- 30.10 SEKMELER (Cem "alanları ayrı üyeleri ayrı kurumsal bir yapı"): bölüm adresi #uyeler gibi; yenileyince aynı sekme ---- */
-  var SEKMELER=['ozet','uyeler','siparisler','elciler','destek','pazarlama','araclar'];
+  var SEKMELER=['ozet','uyeler','kullanim','siparisler','elciler','destek','pazarlama','kayit','araclar'];
   function sekmeAc(ad){
     if(SEKMELER.indexOf(ad)<0) ad='ozet';
     document.querySelectorAll('.sekmeler [data-sekme]').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.sekme===ad?'true':'false'); });
@@ -442,6 +519,128 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     mesaj('✓ '+d.eposta+': üyelik iptal edildi · '+(d.paket_kapanan?d.paket_kapanan+' paket kapandı':'açık paket yoktu')+((d.iade||[]).length?' · '+d.iade.join(', ')+' iade işaretlendi':'')+(d.engel?' · siteye girişi engellendi.':' · giriş açık kaldı.'), true);
     if(YUKLE) await YUKLE();
   });
+
+  /* ---- 30.10 KULLANIM + ÜYE KARTI + İŞLEM KAYDI (radar-app/sql/2026-10-30-uye-ayrinti.sql).
+     Kaynak kasa_cevap: paketli üyenin hesabına bağlı cevaplar, 11.10.2026'dan beri. Paketsiz/girişsiz çözüm kişiye bağlı değil. ---- */
+  var KUL={}, KUL_HATA='', KULV=null;
+  function kacGun(t){ var g=Math.floor((Date.now()-new Date(t).getTime())/86400000); return g<=0?'(bugün)':g===1?'(dün)':'('+g+' gün önce)'; }
+  var KELIME={is:'İş',guvenlik:'Güvenlik',turkce:'Türkçe',borclar:'Borçlar',piyasasi:'Piyasası',mevzuati:'Mevzuatı',uygulamasi:'Uygulaması',
+    isletme:'İşletme',yonetim:'Yönetim',yonetimi:'Yönetimi',kultur:'Kültür',ataturk:'Atatürk',inkilap:'İnkılap',ingilizce:'İngilizce',ve:'ve',
+    tablolar:'Tablolar',analizi:'Analizi',denetimi:'Denetimi',maliyet:'Maliyet',hukuku:'Hukuku',ilkeleri:'İlkeleri',tarihi:'Tarihi',
+    istatistik:'İstatistik',matematik:'Matematik',muhasebesi:'Muhasebesi',ozel:'Özel',genel:'Genel',sosyal:'Sosyal'};
+  function dersAd(sayfa){
+    var p=String(sayfa||'').split('/'), sin={sgs:'Staja Giriş',smmm:'Yeterlilik',kgk:'KGK'}[p[1]]||p[1]||'';
+    var d=(p[2]||'').replace(/\.html.*$/,'').split('-').map(function(w,i){ var t=KELIME[w]||(w.charAt(0).toUpperCase()+w.slice(1)); return i&&w==='ve'?'ve':t; }).join(' ');
+    return (sin?sin+' · ':'')+(d||esc(sayfa));
+  }
+  async function kullanimYukle(){
+    var r=await sb.rpc('yonetim_kullanim'); KUL={}; KUL_HATA='';
+    if(r.error){ KUL_HATA=/PGRST202|Could not find/i.test(r.error.message||'')?'kurulum bekliyor':'okunamadı'; KULV=null; return; }
+    KULV=r.data||{}; (KULV.uye||[]).forEach(function(u){ KUL[u.eposta]=u; });
+  }
+  function cubukCiz(el, gunler, kisili){
+    var mx=Math.max.apply(null,[1].concat(gunler.map(function(g){ return g.cevap; })));
+    el.innerHTML=gunler.map(function(g){ var t=tarih(g.gun+'T12:00:00')+' · '+g.cevap+' soru'+(kisili?' · '+g.kisi+' kişi':'');
+      return '<div'+(g.cevap?'':' class="bos"')+' style="height:'+Math.max(2,Math.round(100*g.cevap/mx))+'%" title="'+t+'" aria-label="'+t+'"></div>'; }).join('');
+  }
+  function kullanimCiz(){
+    if(!KULV){ $('kNot2').textContent=KUL_HATA==='kurulum bekliyor'?'Kurulum bekliyor (veritabanı göçü).':'Kullanım verisi okunamadı.'; return; }
+    var o=KULV.ozet||{};
+    $('kSaat').textContent=o.kisi24||0; $('kHafta').textContent=o.kisi7||0; $('kCevap').textContent=(o.cevap7||0).toLocaleString('tr-TR'); $('kSessiz').textContent=o.paketli_7g_yok||0;
+    $('kNot2').innerHTML='Paketi açık '+(o.paketli||0)+' üyeden '+(o.paketli_hic||0)+' kişi hiç soru çözmedi. Son 30 günde çözen üye: '+(o.kisi30||0)+'.'
+      +'<br>Üye olmadan / paketsiz çözülen (örnek sorular, ücretsiz sayfalar) son 7 gün: '+(o.anonim7||0).toLocaleString('tr-TR')+' cevap, '+(o.anonim_oturum7||0)+' ayrı oturum — bunlar kişiye bağlı değil.'
+      +'<br>Kayıt başlangıcı: '+tarih(o.kayit_baslangic)+' (paketli üyenin cevapları bu günden beri hesaba yazılıyor).';
+    var g=KULV.gunluk||[]; cubukCiz($('kCubuk'), g, true);
+    $('kCubukBas').textContent=g.length?tarih(g[0].gun+'T12:00:00'):''; $('kCubukSon').textContent=g.length?tarih(g[g.length-1].gun+'T12:00:00'):'';
+    var D=KULV.ders||[];
+    $('tDers').innerHTML='<tr><th>Ders</th><th>Son 7 gün soru</th><th>Son 7 gün kişi</th><th>Toplam soru</th><th>Toplam kişi</th><th>Doğru</th></tr>'
+      +(D.length?D.map(function(d){ return '<tr><td>'+dersAd(d.sayfa)+'</td><td class="s"><b>'+d.cevap7+'</b></td><td class="s">'+d.kisi7+'</td><td class="s">'+d.cevap+'</td><td class="s">'+d.kisi+'</td><td class="s">%'+(d.cevap?Math.round(100*d.dogru/d.cevap):0)+'</td></tr>'; }).join(''):'<tr><td colspan="6" class="not">Henüz çözüm yok.</td></tr>');
+    var AD2={}; (VERI&&VERI.siparisler||[]).forEach(function(s){ var k=String(s.eposta||'').toLowerCase(); if(s.ad&&!AD2[k]) AD2[k]=s.ad; });
+    var C=(KULV.uye||[]).filter(function(u){ return u.cevap7>0; }).sort(function(a,b){ return b.cevap7-a.cevap7; }).slice(0,25);
+    $('tCozen').innerHTML='<tr><th>Ad</th><th>E-posta</th><th>Son 7 gün</th><th>Toplam</th><th>Doğru</th><th>En çok çözdüğü ders</th><th>Son çözüm</th></tr>'
+      +(C.length?C.map(function(u){ return '<tr><td>'+esc(AD2[u.eposta]||'—')+'</td><td><a class="uye-ac" data-ayrinti="'+esc(u.eposta)+'" role="button" tabindex="0">'+esc(u.eposta)+'</a></td><td class="s"><b>'+u.cevap7+'</b></td><td class="s">'+u.cevap+'</td><td class="s">%'+(u.cevap?Math.round(100*u.dogru/u.cevap):0)+'</td><td>'+(u.ders?dersAd(u.ders):'—')+'</td><td>'+tarih(u.son)+' <span class="not" style="margin:0">'+kacGun(u.son)+'</span></td></tr>'; }).join(''):'<tr><td colspan="7" class="not">Son 7 günde çözen yok.</td></tr>');
+  }
+
+  /* üye kartı */
+  var SDURUM={odeme_bekliyor:'ödemesi gelmedi',odendi:'ödendi',iptal:'iptal',iade:'iade'};
+  async function ayrintiAc(ep){
+    $('akBaslik').textContent=ep; $('akIcerik').innerHTML='<p class="not">Yükleniyor…</p>'; $('akDugme').innerHTML=''; $('akPencere').hidden=false;
+    var r=await sb.rpc('yonetim_uye_ayrinti', { p_eposta:ep });
+    if(r.error){ $('akIcerik').innerHTML='<p class="not">'+(/PGRST202|Could not find/i.test(r.error.message||'')?'Kurulum bekliyor (veritabanı göçü).':esc(hataYazi(r.error)))+'</p>'; return; }
+    var d=r.data||{}, h=d.hesap||{}, p=d.paket, c=d.cevap||{}, ad='';
+    (d.siparisler||[]).some(function(s){ if(s.ad){ ad=s.ad; return true; } return false; });
+    $('akBaslik').textContent=(ad?ad+' · ':'')+h.eposta;
+    var sag=(h.saglayici||[]).map(function(s){ return s==='google'?'Google':(s==='apple'?'Apple':(s==='email'?'e-posta + şifre':s)); }).join(', ');
+    var paketAcik=p&&p.bitis>=bugun;
+    var x='<div class="ozet-satir">'
+      +'<div><b>'+(paketAcik?esc(p.paket):'—')+'</b>'+(paketAcik?tarih(p.bitis)+'\'e kadar'+(p.dersler&&p.dersler.length?' · '+p.dersler.length+' ders':''):(p?'paket kapalı ('+tarih(p.bitis)+')':'paketi yok'))+'</div>'
+      +'<div><b>'+(c.toplam||0)+'</b>çözdüğü soru'+(c.toplam?' · doğru %'+Math.round(100*c.dogru/c.toplam):'')+'</div>'
+      +'<div><b>'+(c.cevap7||0)+'</b>son 7 günde</div>'
+      +'<div><b>'+(c.son?tarih(c.son):'—')+'</b>son çözüm '+(c.son?kacGun(c.son):'')+'</div>'
+      +'<div><b>'+(h.son_giris?tarih(h.son_giris):'hiç')+'</b>son giriş</div>'
+      +'<div><b>'+(h.engel_bitis?'ENGELLİ':(h.onayli?'açık':'onaysız'))+'</b>giriş durumu</div>'
+      +'</div>'
+      +'<p class="not">Kayıt '+tarih(h.kayit)+' · giriş türü: '+esc(sag||'—')+(h.elci?' · elçi linki: '+esc(h.elci):'')+(h.kaynak?' · geldiği yer: '+esc(h.kaynak):'')+(h.yonetici?' · <b>yönetici</b>':'')+'</p>';
+    var G=d.gunluk||[];
+    if(G.length){ var m={}; G.forEach(function(g){ m[g.gun]=g.cevap; }); var gs=[]; for(var i=29;i>=0;i--){ var t=new Date(Date.now()-i*86400000+3*3600000).toISOString().slice(0,10); gs.push({gun:t,cevap:m[t]||0}); }
+      x+='<div class="kart-b"><h4>Son 30 gün</h4><div class="cubuk" id="akCubuk"></div></div>'; }
+    var DS=d.dersler||[];
+    x+='<div class="kart-b"><h4>Ders ders çözdüğü</h4>'+(DS.length?'<div class="kaydir"><table><tr><th>Ders</th><th>Soru</th><th>Doğru</th><th>Son</th></tr>'
+      +DS.map(function(s){ return '<tr><td>'+dersAd(s.sayfa)+'</td><td class="s">'+s.cevap+'</td><td class="s">%'+Math.round(100*s.dogru/s.cevap)+'</td><td>'+tarih(s.son)+'</td></tr>'; }).join('')+'</table></div>'
+      :'<p class="not" style="margin:0">Hesabına bağlı çözüm yok (paketsiz çözdükleri kişiye bağlı tutulmuyor).</p>')+'</div>';
+    var SO=d.sonuclar||[];
+    if(SO.length){ var tm={set:'Konu seti',deneme:'Deneme',seviye:'Seviye testi'}, sm={sgs:'Staja Giriş',smmm:'Yeterlilik',kgk:'KGK'};
+      x+='<div class="kart-b"><h4>Bitirdiği set / deneme ('+SO.length+')</h4><div class="kaydir"><table><tr><th>Tarih</th><th>Tür</th><th>Sınav</th><th>Ne</th></tr>'
+        +SO.slice(0,15).map(function(s){ return '<tr><td>'+tarih(s.tarih)+'</td><td>'+esc(tm[s.tur]||s.tur)+'</td><td>'+esc(sm[s.sinav]||s.sinav)+'</td><td>'+esc(String(s.anahtar||'').replace(/^set-/,'').replace(/-[a-z0-9]{6,}$/,'').replace(/-/g,' '))+'</td></tr>'; }).join('')+'</table></div></div>'; }
+    var S2=d.s20||[];
+    if(S2.length) x+='<div class="kart-b"><h4>Son 20 Gün denemeleri</h4><div class="kaydir"><table><tr><th>Deneme</th><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th><th>Tarih</th></tr>'
+      +S2.map(function(s){ return '<tr><td>'+s.deneme+'</td><td>'+esc(s.ders)+'</td><td class="s">'+s.dogru+' / '+s.toplam+'</td><td class="s">'+s.yanlis+'</td><td class="s">'+s.bos+'</td><td>'+tarih(s.zaman)+'</td></tr>'; }).join('')+'</table></div></div>';
+    var SP=d.siparisler||[];
+    x+='<div class="kart-b"><h4>Siparişler</h4>'+(SP.length?'<div class="kaydir"><table><tr><th>No</th><th>Tarih</th><th>Paket</th><th>Tutar</th><th>Ödeme</th><th>Durum</th></tr>'
+      +SP.map(function(s){ return '<tr><td>'+esc(s.no)+(s.bagli?' <span class="not" style="margin:0">(hesaba bağlandı)</span>':'')+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.odeme||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (ödeme gelmedi)':esc(SDURUM[s.durum]||s.durum))+'</td></tr>'; }).join('')+'</table></div>':'<p class="not" style="margin:0">Sipariş yok.</p>')+'</div>';
+    var HD=d.hediyeler||[];
+    if(HD.length) x+='<div class="kart-b"><h4>Hediyeler</h4><div class="kaydir"><table><tr><th>Tarih</th><th>Paket</th><th>Bitiş</th><th>Neden</th><th>Veren</th><th>Durum</th></tr>'
+      +HD.map(function(g){ return '<tr><td>'+tarih(g.tarih)+'</td><td>'+esc(g.paket)+(g.dersler&&g.dersler.length?' ('+esc(g.dersler.join(', '))+')':'')+'</td><td>'+tarih(g.bitis)+'</td><td>'+esc(g.neden||'—')+'</td><td>'+esc(g.veren||'—')+'</td><td>'+(g.iptal?'kapatıldı '+tarih(g.iptal):'açık')+'</td></tr>'; }).join('')+'</table></div></div>';
+    var IS=d.islemler||[];
+    if(IS.length) x+='<div class="kart-b"><h4>Panel işlemleri</h4><div class="kaydir"><table><tr><th>Tarih</th><th>İşlem</th><th>Neden</th><th>Yapan</th></tr>'
+      +IS.map(function(i){ return '<tr><td>'+tarih(i.zaman)+'</td><td>'+(i.islem==='iptal'?'Üyelik iptal'+(i.engel?' + giriş engeli':''):'Engel kaldırıldı')+'</td><td>'+esc(i.neden||'—')+'</td><td>'+esc(i.yapan||'—')+'</td></tr>'; }).join('')+'</table></div></div>';
+    $('akIcerik').innerHTML=x;
+    if(G.length) cubukCiz($('akCubuk'), gs, false);
+    $('akDugme').innerHTML=(h.engel_bitis?'<button class="btn" data-engelkaldir="'+esc(h.eposta)+'">Engeli kaldır</button>':(h.yonetici?'':'<button class="btn tehlike" data-uyeiptal="'+esc(h.eposta)+'">Üyeliği iptal et</button>'))
+      +'<button type="button" class="btn ikincil" data-akkapat="1">Kapat</button>';
+  }
+  function ayrintiKapat(){ $('akPencere').hidden=true; }
+  $('akKapat').addEventListener('click', ayrintiKapat);
+  $('akPencere').addEventListener('click', function(ev){ if(ev.target===this) ayrintiKapat(); });
+  document.addEventListener('keydown', function(ev){ if(ev.key==='Escape'&&!$('akPencere').hidden&&$('ipPencere').hidden) ayrintiKapat(); });
+  document.addEventListener('click', function(ev){
+    var a=ev.target.closest&&ev.target.closest('[data-ayrinti]'); if(a){ ev.preventDefault(); ayrintiAc(a.dataset.ayrinti); return; }
+    var k=ev.target.closest&&ev.target.closest('[data-akkapat]'); if(k) ayrintiKapat();
+    var u=ev.target.closest&&ev.target.closest('#akDugme [data-uyeiptal],#akDugme [data-engelkaldir]'); if(u) ayrintiKapat();
+  });
+  document.addEventListener('keydown', function(ev){ var a=ev.target.closest&&ev.target.closest('[data-ayrinti]'); if(a&&(ev.key==='Enter'||ev.key===' ')){ ev.preventDefault(); ayrintiAc(a.dataset.ayrinti); } });
+
+  /* işlem kaydı */
+  var KAYIT=[];
+  async function kayitYukle(){
+    var r=await sb.rpc('yonetim_islem_kaydi', { p_gun:parseInt($('kGun').value,10)||30 });
+    if(r.error){ KAYIT=null; $('tKayit').innerHTML='<tr><td class="not">'+(/PGRST202|Could not find/i.test(r.error.message||'')?'Kurulum bekliyor (veritabanı göçü).':'Okunamadı.')+'</td></tr>'; return; }
+    KAYIT=r.data||[];
+    var turler={}, sec=$('kTur').value; KAYIT.forEach(function(e){ turler[e.tur]=1; });
+    $('kTur').innerHTML='<option value="">Tüm işlemler</option>'+Object.keys(turler).sort().map(function(t){ return '<option'+(t===sec?' selected':'')+'>'+esc(t)+'</option>'; }).join('');
+    kayitCiz();
+  }
+  function kayitCiz(){
+    if(!KAYIT) return;
+    var ft=$('kTur').value, fa=trKucuk($('kAra').value.trim());
+    var L=KAYIT.filter(function(e){ return (!ft||e.tur===ft)&&(!fa||trKucuk([e.eposta,e.ayrinti,e.yapan].join(' ')).indexOf(fa)>-1); });
+    var zt=function(t){ try{ return new Date(t).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){ return tarih(t); } };
+    $('tKayit').innerHTML='<tr><th>Zaman</th><th>İşlem</th><th>Kişi</th><th>Ayrıntı</th><th>Yapan</th></tr>'
+      +(L.length?L.map(function(e){ return '<tr><td>'+zt(e.zaman)+'</td><td><b>'+esc(e.tur)+'</b></td><td>'+(e.eposta?'<a class="uye-ac" data-ayrinti="'+esc(e.eposta)+'" role="button" tabindex="0">'+esc(e.eposta)+'</a>':'—')+'</td><td style="white-space:normal;min-width:240px">'+esc(e.ayrinti||'—')+'</td><td>'+esc(e.yapan||'—')+'</td></tr>'; }).join('')
+        :'<tr><td colspan="5" class="not">Bu süzgeçle kayıt yok.</td></tr>');
+  }
+  $('kGun').addEventListener('change', function(){ kayitYukle().catch(function(){}); });
+  ['kTur','kAra'].forEach(function(i){ $(i).addEventListener('input', kayitCiz); });
 
   /* ---- 04.10 İŞLEMLER (Cem: "her gün SQL basamam ... Amazon/Trendyol nasıl yapıyorsa"): günlük işler düğmeyle.
      Sunucu fonksiyonları radar-app/sql/2026-10-05-yonetim-islemleri.sql; her biri önce yönetici mi diye bakar. ---- */
@@ -657,11 +856,14 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       durum('Veri okunamadı: '+esc(r.error.message||'bilinmeyen hata')); return;
     }
     VERI=Object.assign({uyeler:[],siparisler:[],elciler:[]}, r.data||{});
-    await engelYukle().catch(function(){ ENGEL={}; ENGEL_HATA='Okunamadı.'; });
+    await Promise.all([engelYukle().catch(function(){ ENGEL={}; ENGEL_HATA='Okunamadı.'; }),
+                       kullanimYukle().catch(function(){ KUL={}; KULV=null; KUL_HATA='okunamadı'; })]);
     $('yOlcum').textContent='Son okuma: '+new Date(VERI.olcum||Date.now()).toLocaleString('tr-TR')+' · sayfayı yenileyince tazelenir.';
     $('yIcerik').hidden=false; ciz();
+    kullanimCiz();
     bagsizCiz();
     ozelCiz();
+    kayitYukle().catch(function(){});
   }
   /* 19.10 özel kod 2: paket kutuları + önizleme. Fiyat fiyat-motoru.js paketBul (satın alma sayfasıyla aynı rakam). */
   var OZEL_PAKET=['sgs','yeterlilik-tum','yeterlilik-1','yeterlilik-2','yeterlilik-3','yeterlilik-4'];   /* = SQL yonetim_ozel_kod_uret2 izinli */
@@ -719,6 +921,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     if(r.error){ t.innerHTML=''; say.textContent=/PGRST202|Could not find/i.test(r.error.message||'')?'(kurulum bekliyor: veritabanı göçü)':'(okunamadı)'; return; }
     var L=r.data||[];
     say.textContent=L.length?'— '+L.length+' sipariş':'— yok';
+    $('bagsizKutu').hidden=!L.length;   /* 30.10: sorun yokken kutu yer kaplamasın */
     if(!L.length){ t.innerHTML='<tr><td class="not">Ödenmiş her sipariş bir hesapta açık.</td></tr>'; return; }
     t.innerHTML='<tr><th>Sipariş no</th><th>Ödendi</th><th>Ad</th><th>Sipariş e-postası</th><th>Paket</th><th>Tutar</th><th>Bu e-postayla hesap</th><th></th></tr>'
       +L.map(function(s){ return '<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.odendi)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket_ad||s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.hesap_var?'var (paket açılmamış)':'<b style="color:var(--red)">yok</b>')+'</td><td><button class="btn ana" data-sipbag="'+esc(s.no)+'" data-ep="'+esc(s.eposta)+'" data-ad="'+esc(s.ad)+'">Hesaba bağla</button></td></tr>'; }).join('');
