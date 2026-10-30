@@ -1233,9 +1233,9 @@
 ### KVK › Örtülü sermaye
 - **Dönem:** 5 (son 2026/2) · **Test:** 2026/2 S11
 - **Kalıp:** A doğrudur · **Beceri:** ANALIZ · **Kök:** 486–810 kr · **Şık:** hüküm cümlesi (~99 kr)
-- **Ne sorar:** ortak/ilişkili kişiden borçlanmada örtülü sermaye ve öz sermaye ölçütü (KVK 12) · dönem başı öz sermaye · banka ve ilişkili kurum kredilerinin farklı sayılma oranı · ortak teminatıyla üçüncü kişiden borç
-- **Dayanak:** KVK m.12
-- **Çeldirici:** dönem sonu öz sermayeyi kullanmak · ortak bankadan alınan krediyi tamamen dikkate almak ya da hiç almamak · ortağın teminatıyla alınan borcu dışarıda bırakmak · ilişkili kurumun aracılık ettiği krediyi dikkate almamak
+- **Ne sorar:** ortak/ilişkili kişiden borçlanmada örtülü sermaye ve öz sermaye ölçütü (KVK 12) · dönem başı öz sermaye · banka ve ilişkili kurum kredilerinin farklı sayılma oranı · ortağın gayrinakdî teminatıyla üçüncü kişiden borç örtülü sermaye sayılmaz, nakdî teminatla sağlanan kredi sayılır (KVK 12/6-a; KVK GUT 12.2.1) · ilişkili kurumun bankadan temin edip aynı şartlarla kullandırdığı kredi sayılmaz (12/6-b)
+- **Dayanak:** KVK m.12 (özellikle 12/6-a, 12/6-b); KVK GUT (1 Seri No) b.12.2.1
+- **Çeldirici:** dönem sonu öz sermayeyi kullanmak · ortak bankadan alınan krediyi tamamen dikkate almak ya da hiç almamak · ortağın gayrinakdî teminatıyla üçüncü kişiden alınan borcu örtülü sermaye kıyasına katmak (12/6-a gereği sayılmaz) · nakdî teminatla sağlanan krediyi kıyas dışı bırakmak · ilişkili kurumun bankadan temin edip aynı şartlarla kullandırdığı krediyi örtülü sermayeye katmak (12/6-b gereği sayılmaz)
 - **Yazım notu:** vaka 3–4 madde imli borçlanma, her kalem bir kuralı sınar; oran ifadeleri ambardaki KVK 12 lafzından
 
 ### GVK › Diğer istisnalar ve muaflıklar
