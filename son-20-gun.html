@@ -186,12 +186,12 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     var biten=0, alt=0;
     L.denemeler.forEach(function(d){ var p=puan(d); if(p.bitti){ biten++; if(p.puan>=60) alt++; } });
     $('sozBiten').textContent=biten+'/7'; $('soz60').textContent=Math.min(alt,5)+'/5';
-    /* 28.10 çalışma görevleri: %60 altı denemeden sonra kurulur (sunucu); açık görev varken çözülmemiş test başlatılmaz */
+    /* 28.10 çalışma görevleri: her deneme bitince yanlış konulardan kurulur (31.10 Cem "herkese"; sunucu); açık görev varken çözülmemiş test başlatılmaz */
     var G=L.gorevler||[], gAcik=G.filter(function(g){ return !g.tamam; });
     $('sozGorev').textContent=G.length? (G.length-gAcik.length)+'/'+G.length : (biten?'yok':'—');
     var gk=$('gorevKart');
     if(gAcik.length){ gk.hidden=false;
-      gk.innerHTML='<h2>Çalışma görevlerin</h2><p class="not">Deneme '+gAcik[0].deneme+' sonunda doğru oranın %60\'ın altında kaldı. Her konuda 4 yeni soru gelir; 3\'ünü doğru yapınca konu tamamlanır. Görevler bitince sonraki denemeye başlayabilirsin.</p>'
+      gk.innerHTML='<h2>Çalışma görevlerin</h2><p class="not">Deneme '+gAcik[0].deneme+' bitti; yanlış yaptığın konuları pekiştirme zamanı. Her konuda 4 yeni soru gelir; 3\'ünü doğru yapınca konu tamamlanır. Görevler bitince sonraki denemeye başlayabilirsin.</p>'
         +'<ul class="dersler">'+G.filter(function(g){ return g.deneme===gAcik[0].deneme; }).map(function(g){
           return '<li><span class="ad">'+esc(g.konu)+'<small>'+esc(g.ders)+(g.tamam?'':' · tur '+g.tur+' · '+g.cevaplanan+'/4 cevap · '+g.dogru+' doğru')+'</small></span><span>'
             +(g.tamam?'<span class="sonuc-rozet" style="color:var(--green)">Tamam ✓</span>':'<button type="button" class="dg" data-gd="'+g.deneme+'" data-gders="'+esc(g.ders)+'" data-gkonu="'+esc(g.konu)+'">'+(g.cevaplanan?'Devam et':'Çöz')+'</button>')+'</span></li>'; }).join('')+'</ul>';
@@ -284,7 +284,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     $('rBas').textContent='Deneme '+t.no+' · '+t.ders;
     $('rNot').innerHTML= (r.ilk? 'İlk çözümün kaydedildi; söz sayacında bu sonuç sayılır.' :
       'Bu bir yeniden çözüm. Söz sayacında ilk çözümün sayılır: <b>'+r.kayitli.dogru+'/'+r.kayitli.toplam+' doğru</b>.')
-      +(r.gorev>0? '<br><b>Bu denemede %60\'ın altında kaldın; '+r.gorev+' konuluk çalışma görevin hazır.</b> Görevler bitince sonraki denemeye başlayabilirsin.' : '');
+      +(r.gorev>0? '<br><b>Yanlış yaptığın konulardan '+r.gorev+' konuluk çalışma görevin hazır.</b> Görevler bitince sonraki denemeye başlayabilirsin.' : '');
     $('rSkor').innerHTML='<div><b>'+r.dogru+'</b><span>doğru / '+r.toplam+'</span></div><div><b>'+r.yanlis+'</b><span>yanlış</span></div><div><b>'+r.bos+'</b><span>boş</span></div><div><b>%'+Math.round(100*r.dogru/r.toplam)+'</b><span>başarı</span></div>';
     $('rListe').innerHTML='<h2 style="font-size:17px;margin:0 0 4px">Sorular ve açıklamalar</h2>'+(r.sorular||[]).map(function(s,k){
       var v=s.veri||{}, c=t.cevap[s.id], d=v.dogru, ac=v.aciklama||{};
