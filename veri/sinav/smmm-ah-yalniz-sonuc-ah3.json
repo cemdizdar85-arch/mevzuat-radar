@@ -1,0 +1,71 @@
+{
+ "ad": "ah3",
+ "tarih": "2026-10-31T18:09:27.748Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41227761357",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.15,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 3,
+  "gonderilen": 3,
+  "temiz": 3,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 3,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.055
+ },
+ "kararlar": {
+  "smmm-4k-a-yfta-zor-r4/kp-17": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w2-yhukuk-cokzor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w9-1-fmuh-zor/kp-08": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
