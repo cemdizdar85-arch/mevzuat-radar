@@ -540,6 +540,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <p class="et" id="s20bEt">SMMM Staja Giriş · Son 20 Gün</p>
       <h2 id="s20bBas">7 deneme, 1 Kasım'da açılıyor</h2>
       <p class="ozet" id="s20bOzet">Sınavdaki soru sayısı ve ders dağılımıyla 7 deneme (her biri 130 soru). Her denemeden sonra eksik konularını kapatırsın.</p>
+      <p class="ozet" id="s20bTempo"><b>Takvim:</b> 3 günde 1 deneme · Deneme 1 → 1–3 Kasım … Deneme 7 → 19–20 Kasım · 21 Kasım sınav.</p>
       <p class="uye" id="s20bUye" hidden></p>
       <div class="dgs"><a class="dg dg-ana" id="s20bDg1" href="son-20-gun.html">Denemeleri gör →</a><a class="dg dg-iki" id="s20bDg2" href="#paketler">Paketleri gör</a></div>
     </div>
@@ -567,6 +568,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
                                 : (once?'7 deneme, 1 Kasım\'da açılıyor':'7 deneme açık');
     $('s20bOzet').textContent=yet? 'Her dersin 5 denemesi (20 soru, 45 dakika). Her denemeden sonra eksik konularını kapatırsın.'
                                  : 'Sınavdaki soru sayısı ve ders dağılımıyla 7 deneme (her biri 130 soru). Her denemeden sonra eksik konularını kapatırsın.';
+    $('s20bTempo').hidden=yet;
     var adres=yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
     $('s20bDg1').href=adres; $('s20bDg1').textContent='Denemeleri gör →'; $('s20bDg2').hidden=false; $('s20bUye').hidden=true;
     if(!yet&&window.ttSon20) ttSon20.durum('sgs',true).then(function(k){
