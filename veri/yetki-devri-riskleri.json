@@ -1,11 +1,11 @@
 {
-  "tarih": "31.10.2026 07:13",
+  "tarih": "31.10.2026 12:51",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 900,
   "riskli_madde": 1315,
   "sayfa": 82,
   "atifli_iddia": 315,
-  "dayanaksiz_iddia": 546,
+  "dayanaksiz_iddia": 543,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -1567,7 +1567,7 @@
       "sayfa": "kampanya-son-20-gun.html",
       "satir": 120,
       "iddia": "En az 5",
-      "metin": "7 denemeyi bitir En az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), kaldığın denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce."
+      "metin": "7 denemeyi bitir En az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), her denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
@@ -2993,27 +2993,9 @@
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 189,
-      "iddia": "%60",
-      "metin": "/* 28.10 çalışma görevleri: %60 altı denemeden sonra kurulur (sunucu); açık görev varken çözülmemiş test başlatılmaz */"
-    },
-    {
-      "sayfa": "son-20-gun.html",
-      "satir": 194,
-      "iddia": "%60",
-      "metin": "gk.innerHTML=' Çalışma görevlerin Deneme '+gAcik[0].deneme+' sonunda doğru oranın %60\\'ın altında kaldı. Her konuda 4 yeni soru gelir; 3\\'ünü doğru yapınca konu tamamlanır. Görevle"
-    },
-    {
-      "sayfa": "son-20-gun.html",
       "satir": 247,
       "iddia": "%5",
       "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
-    },
-    {
-      "sayfa": "son-20-gun.html",
-      "satir": 287,
-      "iddia": "%60",
-      "metin": "+(r.gorev>0? ' Bu denemede %60\\'ın altında kaldın; '+r.gorev+' konuluk çalışma görevin hazır. Görevler bitince sonraki denemeye başlayabilirsin.' : '');"
     },
     {
       "sayfa": "son-20-gun.html",
@@ -3993,7 +3975,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.11 [7/7]",
-      "kesit": "... usûl ve esaslar Bakanlıkça çıkarılacak yönetmelikle belirlenir. Denetim, bilgi verme ve bildirim yükümlülüğü:16..."
+      "kesit": "... usûl ve esaslar Bakanlıkça çıkarılacak yönetmelikle belirlenir...."
     },
     {
       "dosya": "cevre",
@@ -4012,8 +3994,13 @@
     },
     {
       "dosya": "cevre",
+      "kaynak_ad": "Çevre K. (2872 s.K.) m.18 [2/2]",
+      "kesit": "...Cumhurbaşkanı (a) ve (b) bentlerinde yer alan oranları ayrı ayrı veya topluca sıfıra kadar indirmeye veya kanunî oranına kadar yükseltmeye yetkilidir.26 Atıksu arıtımı, atık bertarafı ve katı atık ger..."
+    },
+    {
+      "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.19 - Bakanlıkça çıkarılacak yönetmelikle belirlenir.27 Fonun kullanılması",
-      "kesit": "...Bakanlıkça çıkarılacak yönetmelikle belirlenir.27 Fonun kullanılması: Madde 19 – (Mülga: 21/2/2001 - 4629/6 md.) BEŞİNCİ BÖLÜM Cezai hükümler İdari nitelikteki cezalar:28..."
+      "kesit": "...n görüşü üzerine Bakanlıkça çıkarılacak yönetmelikle belirlenir.27 Fonun kullanılması: Madde 19 – (Mülga: 21/2/2001 - 4629/6 md.) BEŞİNCİ BÖLÜM Cezai hükümler..."
     },
     {
       "dosya": "cevre",
@@ -4038,7 +4025,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.20 [16/16]",
-      "kesit": "... maddede öngörülen ceza miktarlarını on katına kadar artırmaya Cumhurbaşkanı yetkilidir.39 29/11/2018 tarihli ve 30621 sayılı Resmi Gazete’de yayımlanan 7153 sayılı Kanunun 5 inci maddesiyle bu fıkray..."
+      "kesit": "... maddede öngörülen ceza miktarlarını on katına kadar artırmaya Cumhurbaşkanı yetkilidir.39 Bu maddenin uygulamasında Türk Ceza Kanunu ile diğer kanunların, fiilin suç oluşturması haline ilişkin hüküml..."
     },
     {
       "dosya": "cevre",
@@ -4048,7 +4035,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.25",
-      "kesit": "... görüşü alınarak Bakanlıkça çıkarılacak yönetmelikle belirlenir. Adlî nitelikteki cezalar:42..."
+      "kesit": "... görüşü alınarak Bakanlıkça çıkarılacak yönetmelikle belirlenir...."
     },
     {
       "dosya": "cevre",
@@ -4092,13 +4079,8 @@
     },
     {
       "dosya": "cevre",
-      "kaynak_ad": "Çevre K. (2872 s.K.) ek m.11 - Geri kazanım katılım payı [1/3]",
+      "kaynak_ad": "Çevre K. (2872 s.K.) ek m.11 - Geri kazanım katılım payı [1/2]",
       "kesit": "...ükümleri uyarınca tespit ve ilan edilen yeniden değerleme oranında artırılarak uygulanır. Bu şekilde hesaplanan tutarların %5’ini aşmayan kesirler dikkate alınmaz. Cumhurbaşkanı, bu listede yer alan v..."
-    },
-    {
-      "dosya": "cevre",
-      "kaynak_ad": "Çevre K. (2872 s.K.) ek m.11 - Geri kazanım katılım payı [2/3]",
-      "kesit": "...nmak suretiyle belirlenen tutarları iki katına kadar artırmaya veya yarısına kadar” şeklinde değiştirilmiştir...."
     },
     {
       "dosya": "cevre",
@@ -4108,7 +4090,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) ek m.13 - Poşet ücreti",
-      "kesit": "...ak komisyon aracılığı ile belirlenir ve her yıl için güncellenir. Bu maddedeki düzenlemelere ilişkin usul ve esaslar..."
+      "kesit": "...ak komisyon aracılığı ile belirlenir ve her yıl için güncellenir...."
     },
     {
       "dosya": "cmk",
@@ -7133,12 +7115,12 @@
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.851",
-      "kesit": "...abancı paralar üzerinden kurulabileceği Cumhurbaşkanınca belirlenir.41..."
+      "kesit": "...abancı paralar üzerinden kurulabileceği Cumhurbaşkanınca belirlenir...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.913",
-      "kesit": "...borç senedi ve irat senedinin şekilleri Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.42..."
+      "kesit": "...borç senedi ve irat senedinin şekilleri Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "medeni",
@@ -7148,32 +7130,32 @@
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.997",
-      "kesit": "..., nasıl tutulacağı ve yardımcı siciller Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.44 2. Taşınmazların kaydedilmesi a. Kaydedilecek taşınmazlar..."
+      "kesit": "..., nasıl tutulacağı ve yardımcı siciller Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.998",
-      "kesit": "...dedilmesi için gerekli koşullar ve usul Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir. Süreklilik koşulunun gerçekleşmesi için hakkın süresiz veya en az otuz yıl süreli olması gerekir.45 Kat mülk..."
+      "kesit": "...dedilmesi için gerekli koşullar ve usul Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir. Süreklilik [45] koşulunun gerçekleşmesi için hakkın süresiz veya en az otuz yıl süreli olması gerekir. Kat m..."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1000",
-      "kesit": "...n birleştirilmesi hâlinde uyulacak usul Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.46 Kütüğün her sayfasındaki özel sütunlara şunlar tescil edilir: 1. Mülkiyet, 2. Taşınmaz üzerinde kurulmuş o..."
+      "kesit": "...n birleştirilmesi hâlinde uyulacak usul Cumhurbaşkanınca çıkarılan yönetmelikle [46] belirlenir. Kütüğün her sayfasındaki özel sütunlara şunlar tescil edilir: 1. Mülkiyet, 2. Taşınmaz üzerinde kurulmu..."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1003",
-      "kesit": "...s alınır. Plânların nasıl hazırlanacağı Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.47..."
+      "kesit": "...nır. [47] Plânların nasıl hazırlanacağı Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1012",
-      "kesit": "... bu sütuna yazılabilecek diğer hususlar Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.48 Özel kanun hükümleri saklıdır...."
+      "kesit": "...ütuna yazılabilecek diğer hususlar [48] Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir. Özel kanun hükümleri saklıdır...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1017",
-      "kesit": "...e terkin ile verilecek örneklerin şekli Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.49..."
+      "kesit": "...e terkin ile verilecek örneklerin şekli Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "meslekiegitim",
