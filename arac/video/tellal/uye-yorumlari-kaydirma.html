@@ -25,6 +25,13 @@
   .soz { text-align: center; color: #fff; font-size: 72px; font-weight: 900; line-height: 1.22; }
   .soz b { color: #f5b301; }
   .imza { text-align: center; color: #ffe08a; font-size: 30px; font-weight: 800; letter-spacing: 4px; margin-top: 30px; }
+  /* sahne sayfası (Tetikte'yle bir gün) */
+  .ust { text-align: center; color: #ffe08a; font-size: 30px; font-weight: 800; letter-spacing: 4px; }
+  .not { text-align: center; color: rgba(255,255,255,.55); font-size: 24px; font-weight: 700; margin-top: -18px; }
+  .saat { text-align: center; color: #f5b301; font-size: 150px; font-weight: 900; line-height: 1; margin-top: 30px; }
+  .yer { text-align: center; color: #fff; font-size: 46px; font-weight: 800; margin-top: -10px; }
+  .metin { background: #fff; color: #1b2430; border-radius: 26px; padding: 34px 38px; font-size: 40px; font-weight: 700; line-height: 1.35;
+           box-shadow: 0 14px 34px rgba(0,0,0,.45); margin-top: 20px; }
   #sayac { position: absolute; top: 44px; right: 60px; color: rgba(255,255,255,.55); font-size: 28px; font-weight: 800; }
   #no { position: absolute; bottom: 44px; left: 0; right: 0; text-align: center; }
   #no span { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.3); margin: 0 6px; }
@@ -38,9 +45,18 @@
   const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
   window.kur = v => {
     const s = document.getElementById('sayfa'), p = v.sayfa;
+    if (v.dikey) {   // Reels 1080×1920: Instagram arayüzü için üst %14, alt %35 boş kalır
+      document.documentElement.style.height = document.body.style.height = '1920px';
+      Object.assign(s.style, { top: '270px', bottom: '690px', left: '70px', right: '70px' });
+      document.getElementById('no').style.display = 'none';
+    }
     if (p.baslik) { s.appendChild(el('div', 'baslik', p.baslik)); s.appendChild(el('div', 'altbaslik', p.altbaslik)); }
     for (const [y, k] of p.kartlar || []) { const c = el('div', 'kart'); c.appendChild(el('div', 'y', y)); c.appendChild(el('div', 'k', k)); s.appendChild(c); }
     if (p.son) { const c = el('div', 'son'); p.son.forEach((x, i) => { const d = el('div', 's' + (i + 1), x); c.appendChild(i === 0 ? d : d); if (i === 0) c.appendChild(document.createElement('br')); }); s.appendChild(c); }
+    if (p.sahne) {
+      s.appendChild(el('div', 'ust', p.ust)); s.appendChild(el('div', 'not', p.not));
+      s.appendChild(el('div', 'saat', p.sahne[0])); s.appendChild(el('div', 'yer', p.sahne[1])); s.appendChild(el('div', 'metin', p.sahne[2]));
+    }
     if (p.soz) {   // ilk cümle beyaz, ikinci cümle (varsa) sarı vurgulu
       const d = el('div', 'soz'), [a, ...b] = p.soz.split(/(?<=[.:]) /);
       d.appendChild(document.createTextNode(a + (b.length ? ' ' : '')));

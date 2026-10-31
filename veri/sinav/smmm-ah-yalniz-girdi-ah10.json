@@ -1,0 +1,42 @@
+{
+ "ad": "ah10",
+ "olusturma": "2026-10-31T23:09:29.048Z",
+ "kaynak_klasor": "veri/fabrika/temizlik/onarim-ah10",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK.",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-4k-a-ymeslek-zor-r6/kp-03",
+   "taslak_sha": "ff1689a2829cd9a6aebc4384298202a1e66e81b99c097b221053349435cb820e",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.45 [1/2]",
+     "alinti": "2 nci maddede yazılı işlerin yürütülmesi amacıyla gerçek ve tüzelkişilere tabi ve onların işyerlerine bağlı olarak hizmet akdi ile çalışamazlar"
+    },
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.45 [1/2]",
+     "alinti": "bu kurum ve kuruluşların yönetim kurulu başkanlığı, üyeliği, denetçiliği görevleri ile bilirkişilik ve tasfiye memurluğu meslekle bağdaşmayan işler sayılmaz"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w9-4-fmuh-kolay/kp-02",
+   "taslak_sha": "f6a471a4d3213f3801bfc6dad5c08bdc89bf3877deebd90a07b0441d7e35bd51",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Hesaplanan karşılık tutarı bu hesaba alacak, \"654- Karşılık Giderleri Hesabı\"na borç kaydedilir"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w9-4-yvergi-cokzor/kp-01",
+   "taslak_sha": "db49c82435df14949819fca12e212466227e958eb32cf78eab5c03293800f8d5",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.6",
+     "alinti": "sermayenin tamamlanmasına karar verilen şirketin ortakları tarafından zarar sebebiyle karşılıksız kalan kısmı kapatacak miktarda aktarılan tutarlar kurum kazancının tespitinde dikkate alınmaz"
+    }
+   ]
+  }
+ ]
+}

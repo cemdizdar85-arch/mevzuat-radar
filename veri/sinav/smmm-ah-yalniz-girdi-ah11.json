@@ -1,0 +1,44 @@
+{
+ "ad": "ah11",
+ "olusturma": "2026-10-31T23:16:28.405Z",
+ "kaynak_klasor": "veri/fabrika/temizlik/onarim-ah11",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK.",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-gm5-5-fmuh-zor/kp-03",
+   "taslak_sha": "0c3ed0b19a68c7c2c441670a8c0b4b209cdd57e5dee4ff3c41fa0e7ce87a196b",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 780 - Finansman Giderleri Hesabı",
+     "alinti": "İşletme faaliyetlerinin aksamadan yürütülebilmesi amacıyla borçlanılan tutarlarla ilgili faiz, kur farkları, komisyon ve benzeri giderler bu hesaba borç kaydedilir"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm5-9-fmuh-zor/kp-07",
+   "taslak_sha": "52392a5f3deed28fa9ffa6f2efb672e995f59f4d07f54a8ec5776f7b26efc46e",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 642 - Faiz Gelirleri",
+     "alinti": "Her türlü kısa ve uzun vadeli mali yatırımlardan sağlanan faiz gelirlerinin izlendiği hesaptır"
+    },
+    {
+     "kaynak_ad": "THP 645 - MENKUL KIYMET SATIŞ KARLARI",
+     "alinti": "Menkul kıymetler satıldığında, satış değeri ile maliyet değeri arasındaki olumlu farkın izlendiği hesaptır"
+    },
+    {
+     "kaynak_ad": "THP 646 - KAMBİYO KÂRLARI",
+     "alinti": "Kambiyo işlemlerinden doğan kârların izlendiği hesaptır"
+    },
+    {
+     "kaynak_ad": "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+     "alinti": "Aktifle ilgili olarak ayrılan karşılıklardan iptal edilen tutarlar bu hesapta izlenir"
+    },
+    {
+     "kaynak_ad": "THP 648 - ENFLASYON DÜZELTMESİ KÂRLARI",
+     "alinti": "Mali tabloların enflasyon düzeltmesinden ortaya çıkan net olumlu farkların 698- Enflasyon Düzeltme Hesabından"
+    }
+   ]
+  }
+ ]
+}
