@@ -1,5 +1,5 @@
 /* ============================================================================
-   BOT KORUMASI (Cloudflare Turnstile) — SİTE TARAFI AÇIK (01.10), SUPABASE PANELİ KAPALI
+   BOT KORUMASI (Cloudflare Turnstile) — SİTE TARAFI KAPALI (31.10), SUPABASE PANELİ KAPALI
    23.09.2026, Cem "2 yap": turnstile'lı formlar hazır dursun, canlıya alınmasın.
 
    NEDEN: 23.09'da e-posta onayı kapatıldı; sahte hesap açmak kolaylaştı. Koruma
@@ -38,8 +38,11 @@
      - Canlı sınav sayfası (canli-deneme.html) giriş istemez; oraya bağlı DEĞİL.
    ============================================================================ */
 (function(){
-  /* 01.10.2026 Cem: AÇILDI (adım 2). Site anahtarı herkese açıktır, gizli anahtar yalnız Supabase panelinde. */
-  var AYAR = window.TT_CAPTCHA = window.TT_CAPTCHA || { ACIK: true, SITE_ANAHTARI: '0x4AAAAAAFLbkRtRcjMK9cnY' };
+  /* 01.10.2026 Cem: AÇILDI (adım 2). Site anahtarı herkese açıktır, gizli anahtar yalnız Supabase panelinde.
+     31.10.2026 Cem "Evet, kapat": KAPATILDI. Ölçüldü (31.10, Hesabım): token 22,7 sn bekletti ve gelmedi; giriş düğmesi
+     2 × 20 sn'ye kadar dönüyordu. Supabase paneli KAPALI (sahte token ile tokensiz istek aynı cevabı aldı, 120–250 ms) →
+     bekleme hiçbir koruma vermiyordu. Yeniden açarken: önce panel tarafı + bekleme tavanı, sonra burada ACIK:true. */
+  var AYAR = window.TT_CAPTCHA = window.TT_CAPTCHA || { ACIK: false, SITE_ANAHTARI: '0x4AAAAAAFLbkRtRcjMK9cnY' };
   var BETIK = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
   var betikSozu = null;
 
