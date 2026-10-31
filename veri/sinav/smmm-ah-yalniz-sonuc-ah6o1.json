@@ -1,8 +1,8 @@
 {
  "ad": "ah6o1",
- "tarih": "2026-10-31T20:00:58.768Z",
+ "tarih": "2026-10-31T20:06:11.198Z",
  "yol": "smmm-ah-yalniz",
- "kosu": "gh41236634613",
+ "kosu": "gh41237043935",
  "hakem": {
   "model": "model-c",
   "effort": "medium",
@@ -15,26 +15,30 @@
  "sayim": {
   "istenen": 36,
   "gonderilen": 30,
-  "temiz": 24,
-  "kusurlu": 6,
+  "temiz": 22,
+  "kusurlu": 8,
   "olculemedi": 0,
   "onceki": 0,
   "atlanan": 6,
   "yazilan": 0,
   "kaynaksiz": 1,
   "kaynaksiz_kusurlu": 0,
-  "usd": 0.598
+  "usd": 0.602
  },
  "kararlar": {
   "smmm-4k-a-fmuh-kolay-r3-2/kp-02": {
-   "karar": "TEMIZ",
-   "kusur_alanlari": [],
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "aciklama.D",
+    "teshis.D.gercek"
+   ],
    "madde_kaynak": "kayit",
    "madde_adlari": [
     "kaynak_metin_ozet"
    ],
    "alinti_dogrulandi": true,
-   "kayda_yazildi": false
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
   },
   "smmm-4k-a-yhukuk-cokzor-r3/kp-01": {
    "karar": "KUSURLU",
@@ -80,20 +84,14 @@
    "kayda_yazildi": false
   },
   "smmm-gm5-20-fmuh-zor/kp-09": {
-   "karar": "KUSURLU",
-   "kusur_alanlari": [
-    "aciklama.D",
-    "aciklama.E",
-    "sade.siklar.D",
-    "teshis.D"
-   ],
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
    "madde_kaynak": "kayit",
    "madde_adlari": [
     "kaynak_metin_ozet"
    ],
    "alinti_dogrulandi": true,
-   "kayda_yazildi": false,
-   "kaynak_okundu": false
+   "kayda_yazildi": false
   },
   "smmm-gm5-23-fmuh-zor/kp-10": {
    "karar": "TEMIZ",
@@ -136,14 +134,18 @@
    "kayda_yazildi": false
   },
   "smmm-w13-3-fmuh-zor/kp-02": {
-   "karar": "TEMIZ",
-   "kusur_alanlari": [],
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "aciklama.E",
+    "teshis.E"
+   ],
    "madde_kaynak": "kayit",
    "madde_adlari": [
     "kaynak_metin_ozet"
    ],
    "alinti_dogrulandi": true,
-   "kayda_yazildi": false
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
   },
   "smmm-w14-13-yfta-zor/kp-01": {
    "karar": "TEMIZ",
@@ -226,14 +228,18 @@
    "kayda_yazildi": false
   },
   "smmm-w9-4-fmuh-kolay/kp-02": {
-   "karar": "TEMIZ",
-   "kusur_alanlari": [],
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.C",
+    "adimlar"
+   ],
    "madde_kaynak": "kayit",
    "madde_adlari": [
     "kaynak_metin_ozet"
    ],
    "alinti_dogrulandi": true,
-   "kayda_yazildi": false
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
   },
   "smmm-4k-a-ydenetim-kolay-r5-2/kp-02": {
    "karar": "TEMIZ",
@@ -262,9 +268,10 @@
   "smmm-4k-a-ymeslek-cokzor-r3/kp-03": {
    "karar": "KUSURLU",
    "kusur_alanlari": [
-    "sade.siklar.C",
-    "adimlar",
-    "adimlar"
+    "adimlar[0]",
+    "adimlar[7]",
+    "adimlar[7].formul",
+    "sade.siklar.C"
    ],
    "madde_kaynak": "kayit",
    "madde_adlari": [
@@ -321,7 +328,7 @@
   "smmm-4k-a-ymeslek-zor-r6/kp-03": {
    "karar": "KUSURLU",
    "kusur_alanlari": [
-    "teshis.C.paragraf",
+    "teshis.C",
     "adimlar"
    ],
    "madde_kaynak": "kayit",
@@ -352,8 +359,10 @@
   }
  },
  "incelenecek": [
+  "smmm-4k-a-fmuh-kolay-r3-2/kp-02",
   "smmm-4k-a-yhukuk-cokzor-r3/kp-01",
-  "smmm-gm5-20-fmuh-zor/kp-09",
+  "smmm-w13-3-fmuh-zor/kp-02",
+  "smmm-w9-4-fmuh-kolay/kp-02",
   "smmm-4k-a-yhukuk-zor-r4/kp-14",
   "smmm-4k-a-ymeslek-cokzor-r3/kp-03",
   "smmm-4k-a-ymeslek-zor-r5/kp-14",
