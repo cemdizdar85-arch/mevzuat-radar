@@ -1,0 +1,182 @@
+{
+ "ad": "kalanah2",
+ "tarih": "2026-10-31T20:29:28.418Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41238849763",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.53,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 11,
+  "gonderilen": 10,
+  "temiz": 6,
+  "kusurlu": 4,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 1,
+  "yazilan": 10,
+  "kaynaksiz": 1,
+  "kaynaksiz_kusurlu": 1,
+  "usd": 0.239
+ },
+ "kararlar": {
+  "smmm-gm2-1-ymeslek-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[0].anlatim",
+    "sade.siklar.E",
+    "teshis.E.yanilgi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w12a-1-yhukuk-cokzor/kp-12": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "5510 s. SGK Kanunu m.6 [1/4]",
+    "5510 s. SGK Kanunu m.6 [2/4]",
+    "5510 s. SGK Kanunu m.6 [3/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w12a-3-ymeslek-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "aciklama.C"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "SMMM K. (3568 s.K.) m.4",
+    "SMMM K. (3568 s.K.) m.5",
+    "SMMM K. (3568 s.K.) m.6 [1/3]",
+    "Haksız Rekabet ve Reklam Yasağı Yön. m.13",
+    "Haksız Rekabet ve Reklam Yasağı Yön. m.14",
+    "Haksız Rekabet ve Reklam Yasağı Yön. m.15"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w2-ymeslek-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.C",
+    "adimlar[0]"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.24"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w2-ymeslek-zor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.dogru",
+    "teshis.C",
+    "adimlar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "SMMM K. (3568 s.K.) m.45 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-yvergi-kolay-r10/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.370 [3/3]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-kolay-r10/kp-12": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.374 - Ceza kesmede zamanaşımı"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w2-fmuh-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w3-fmuh-zor/kp-31": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w5-fmuh-zor-2/kp-13": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [
+  "smmm-gm2-1-ymeslek-cokzor/kp-01",
+  "smmm-w12a-3-ymeslek-zor/kp-04",
+  "smmm-w2-ymeslek-cokzor/kp-02",
+  "smmm-w2-ymeslek-zor/kp-03"
+ ],
+ "kaynaksiz": [
+  "smmm-gm2-1-ymeslek-cokzor/kp-01"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-gm2-1-ymeslek-cokzor/kp-01"
+ ],
+ "atlanan": {
+  "smmm-4k-a-yvergi-kolay-r2/kp-05": "parti bulutta koşuyor (bulut-uretim) — sonra"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
