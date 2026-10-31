@@ -1,0 +1,60 @@
+{
+ "ad": "kd1b2",
+ "tarih": "2026-10-31T16:54:41.956Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41221611710",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.15,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 2,
+  "temiz": 2,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 2,
+  "kaynaksiz": 2,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.029
+ },
+ "kararlar": {
+  "smmm-4k-a-yvergi-zor-r10/kp-13": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w8-2-yfta-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [
+  "smmm-4k-a-yvergi-zor-r10/kp-13",
+  "smmm-w8-2-yfta-cokzor/kp-01"
+ ],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
