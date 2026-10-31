@@ -566,7 +566,7 @@
 - **Dönem:** 21 (son 2026/2) · **Test:** 2026/1 S3, 2026/1 S15, 2026/2 S18, 2026/2 S19
 - **Kalıp:** M tanım↔terim / L sırasıyla çoklu değer / F hesap (kaç ₺/gün/oran) · **Beceri:** BILGI, UYGULAMA, ANALIZ · **Kök:** 468–780 kr · **Şık:** aynı aileden 5 terim/tanım / sıralı sayı grupları / sıralı sayı (~43 kr)
 - **Ne sorar:** FIFO ile miktar dengesi (dönem başı + başlanan = tamamlanan + dönem sonu + fire) · tamamlanıp devrolunan ile dönemde başlanıp tamamlanan miktar ayrımı · unsur bazında (DİMM / Dİ-GÜG) eşdeğer birim ve eşdeğer birim maliyeti · ters hesap: eşdeğer birimden dönem başı tamamlanma derecesini bulma; kavram olarak eşdeğer ürün tablosunun amacı
-- **Dayanak:** AMBARDA YOK: resmî mevzuat dayanağı yok (ders kitabı konusu); ambarda yalnız iç TEORI notu "Safha maliyet sisteminde maliyet dağıtım tablosu…"
+- **Dayanak:** HESAP (K1e): resmî metin yok, dayanak hesabın kendisidir (kökte yöntem açıkça yazılır; iki kör bağımsız aynı sonuç — BITIRME-SORU-STANDARDI K1e, Cem 31.10); ambarda yalnız iç TEORI notu "Safha maliyet sisteminde maliyet dağıtım tablosu…"
 - **Çeldirici:** FIFO'da dönem başı stokun kalan işi yerine kendi tamamlanma derecesini almak (1−x yerine x) · tamamlanıp devrolunan ile dönemde başlanıp tamamlanan miktarı karıştırmak · fireyi miktar dengesinden düşmemek · DİMM ile Dİ-GÜG tamamlanma derecelerini yer değiştirmek · ağırlıklı ortalama mantığıyla dönem başı stoku tamamen eşdeğere katmak
 - **Yazım notu:** Yalnız FIFO kullan (AO safha hesabı sınavda yok); tamamlanma dereceleri 5'in katı, sonuç tam sayı birim; çoklu çıktı şıkları ilk değere göre artan.
 
