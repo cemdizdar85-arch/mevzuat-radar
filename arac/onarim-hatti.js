@@ -64,7 +64,12 @@ function karar(eski, tam, bey) {
   if (izinsiz.length) return { durum: 'red', neden: 'izinsiz fark: ' + izinsiz.slice(0, 5).join(',') };
   const kritik = tam.soru !== eski.soru || tam.dogru !== eski.dogru || !esit(tam.siklar, eski.siklar) || !!(bey && bey.kok_degisti);
   const yeni = JSON.parse(JSON.stringify(tam));
-  if (kritik) { for (const m of MODEL) delete yeni[m]; return { durum: 'rehakem', yeni }; }
+  // 31.10 ÖLÇÜLDÜ (onarim-vy-ah17r, 17/17): kök değişince kaynak_metin_ozet de silindiği için hakem/AH'ye taslağın resmî alıntısı
+  //   gitmiyordu (AH "(yok)" aldı; dalga 1'de 17 KUSURLU'nun 4'ü yanlış alarm). Cem 31.10: "ilgili madde metnini ambardan hakeme ver".
+  //   Kural: beyan degisen_alanlar'da kaynak_metin_ozet'i açıkça sayıyorsa taslaktaki dolu değer KORUNUR (öteki model alanları eskisi gibi).
+  const ozetBeyanli = izin.includes('kaynak_metin_ozet') && typeof tam.kaynak_metin_ozet === 'string' && tam.kaynak_metin_ozet.trim() !== '';
+  const ozetKoy = y => { if (ozetBeyanli) y.kaynak_metin_ozet = tam.kaynak_metin_ozet; return y; };
+  if (kritik) { for (const m of MODEL) delete yeni[m]; return { durum: 'rehakem', yeni: ozetKoy(yeni) }; }
   // 07.10 (Cem "1.2.3", SGS oturumu ölçtü): aciklama_hakem silinince YENİ soru (kör/hakem2 ≥ 10-01) yayın şartını kaybedip SESSİZCE
   //   düşüyordu (06.10: sgs-c5-fmuh-zor-r1-2/kp-07, ücretsiz). Kural: yalnız açıklama onarıldıysa ve önceki karar TEMIZ ise karar KORUNUR,
   //   yanına onarim_sonrasi izi düşülür (onarım GM + resmî kaynakla yapıldı; hakemin geçirdiği soru iyileşti). KUSURLU/başka karar
@@ -73,7 +78,7 @@ function karar(eski, tam, bey) {
   if (MUT !== 'ah-hep-sil' && eski.aciklama_hakem && String(eski.aciklama_hakem.karar || '').toUpperCase() === 'TEMIZ') {
     for (const m of MODEL) { if (eski[m] !== undefined && !HER_ONARIMDA_SIL.includes(m)) yeni[m] = eski[m]; else delete yeni[m]; }
     yeni.aciklama_hakem = { ...eski.aciklama_hakem, onarim_sonrasi: { tarih: new Date().toISOString().slice(0, 10), not: 'karar onarımdan ÖNCEKİ metne ait; onarım yalnız açıklama katmanı' } };
-    return { durum: 'aciklama', yeni };
+    return { durum: 'aciklama', yeni: ozetKoy(yeni) };
   }
   // 06.10 (SGS oturumu uyardı, sınav oturumu ölçtü): YENİ soruda (kör/hakem2 ≥ 2026-10-01) aciklama_hakem YAYIN ŞARTI; silinirse soru
   //   sonraki kasa yayınında siteden düşer (06.10'da 1 SGS sorusu böyle düştü). Böyle bir kayda mekanik açıklama onarımı REDDEDİLİR;
@@ -81,7 +86,7 @@ function karar(eski, tam, bey) {
   if (eski.aciklama_hakem && yeniSoruMu(eski) && process.env.ONARIM_AH_SIL !== '1' && process.env.ONARIM_MUTASYON !== 'ah-koruma-yok')
     return { durum: 'red', neden: 'YENİ soru: aciklama_hakem silinirdi (yayın şartını kaybeder) — ONARIM_AH_SIL=1 ile bilerek geç, sonra AH yeniden' };
   for (const m of MODEL) { if (eski[m] !== undefined && !HER_ONARIMDA_SIL.includes(m)) yeni[m] = eski[m]; else delete yeni[m]; }
-  return { durum: 'aciklama', yeni };
+  return { durum: 'aciklama', yeni: ozetKoy(yeni) };
 }
 function yeniSoruMu(k) { const t = [k && k.kor_cozum && k.kor_cozum.tarih, k && k.hakem2 && k.hakem2.tarih].filter(Boolean).map(String).sort().pop(); return !!t && t >= '2026-10-01'; }
 
@@ -326,6 +331,10 @@ function sinav() {
     ['07.10: YENİ soru + AH TEMIZ → onarılır, karar KORUNUR (izli)', karar({ ...e, kor_cozum: { tarih: '2026-10-02' }, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-10-02' }, aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.aciklama_hakem && r.yeni.aciklama_hakem.onarim_sonrasi],
     ['eski soru (kör 09-20) + AH KUSURLU → onarım geçer, AH silinir', karar({ ...e, kor_cozum: { tarih: '2026-09-20' }, aciklama_hakem: { karar: 'KUSURLU' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-09-20' }, aciklama_hakem: { karar: 'KUSURLU' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && !r.yeni.aciklama_hakem],
     ['YENİ soru AH\'siz → onarım geçer (silinecek bir şey yok)', karar({ ...e, kor_cozum: { tarih: '2026-10-02' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-10-02' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama'],
+    ['31.10 kök değişti + beyanlı kaynak_metin_ozet → özet KORUNUR, hakem silinir', karar({ ...e, kaynak_metin_ozet: 'eski' }, { ...e, soru: 'Kök 2025', kaynak_metin_ozet: '[VUK m.116] metin' }, { degisen_alanlar: ['soru', 'kaynak_metin_ozet'] }), r => r.durum === 'rehakem' && r.yeni.kaynak_metin_ozet === '[VUK m.116] metin' && !r.yeni.hakem],
+    ['31.10 kök değişti + beyansız özet → özet SİLİNİR (eski davranış)', karar({ ...e, kaynak_metin_ozet: 'eski' }, { ...e, soru: 'Kök 2025', kaynak_metin_ozet: 'yeni' }, { degisen_alanlar: ['soru'] }), r => r.durum === 'rehakem' && r.yeni.kaynak_metin_ozet === undefined],
+    ['31.10 yalnız açıklama + beyanlı özet → taslaktaki özet yazılır', karar({ ...e, kaynak_metin_ozet: 'eski' }, { ...e, aciklama: { A: 'a2', B: 'b' }, kaynak_metin_ozet: 'yeni' }, { degisen_alanlar: ['aciklama.A', 'kaynak_metin_ozet'] }), r => r.durum === 'aciklama' && r.yeni.kaynak_metin_ozet === 'yeni'],
+    ['31.10 yalnız açıklama + beyansız → eski özet korunur', karar({ ...e, kaynak_metin_ozet: 'eski' }, { ...e, aciklama: { A: 'a2', B: 'b' }, kaynak_metin_ozet: 'yeni' }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.kaynak_metin_ozet === 'eski'],
     ['anahtar değişti → hakem silinir', karar(e, { ...e, dogru: 'A' }, { degisen_alanlar: ['dogru'] }), r => r.durum === 'rehakem' && !r.yeni.hakem],
     ['şık değişti → yeniden hakem', karar(e, { ...e, siklar: { A: '3', B: '2' } }, { degisen_alanlar: ['siklar.A'] }), r => r.durum === 'rehakem'],
     ['beyansız fark → red', karar(e, { ...e, aciklama: { A: 'a', B: 'b2' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /izinsiz/.test(r.neden)],

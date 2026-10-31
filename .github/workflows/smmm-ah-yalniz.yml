@@ -1,0 +1,112 @@
+# .github/workflows/smmm-ah-yalniz.yml — SMMM (BİTİRME) YALNIZ AÇIKLAMA DENETİMİ (31.10.2026, Cem "13 açıklamanın denetimi: (b)")
+#
+# Açıklaması onarılmış SMMM sorularını açıklama hakemine okutur (madde metni ambardan), kararı ambardaki kayda 'aciklama_hakem' olarak
+# yazar (yalnız o alan; koşullu yazım + geri okuma). Ayrıntı: arac/smmm-ah-yalniz.ps1 / arac/smmm-ah-yalniz.js. SGS'ye dokunmaz.
+# PARA HARCAR, ama YALNIZ calistir=evet ile ve butce_usd içinde (en kötü durum bütçeyi aşarsa BAŞLAMAZ). Varsayılan KURU (0 USD).
+# Toplu kuyruk 290 dk'da bitmezse (çıkış 75): kayda bir şey yazılmaz, partiler ambara yazılır, iş kendini yeniden tetikler (en çok 5);
+#   sonraki halka kuyruktaki partiye BAĞLANIR ya da bitmişse BEDAVA hasat eder — aynı istek ikinci kez ödenmez.
+# Günlükte soru metni yok (yalnız kimlik + sayı). Sonuç dosyası veri/sinav/smmm-ah-yalniz-sonuc-<ad>.json depoya (gerekçesiz).
+name: SMMM Aciklama Hakemi Yalniz (varsayilan KURU)
+on:
+  workflow_dispatch:
+    inputs:
+      girdi:
+        description: "Girdi dosyasi (depoda), or. veri/sinav/smmm-ah-yalniz-girdi-onarim-ah17.json"
+        required: true
+        type: string
+      butce_usd:
+        description: "Kosu butcesi USD (en kotu durum asarsa baslamaz)"
+        required: false
+        default: "0"
+        type: string
+      calistir:
+        description: "evet = PARALI kosu; baska her deger KURU (0 USD)"
+        required: false
+        default: "hayir"
+        type: string
+      zincir:
+        description: "Otomatik yeniden tetikleme sayaci (elle 0 birak). 5'e varinca durur."
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: smmm-ah-yalniz
+  cancel-in-progress: false
+
+jobs:
+  hakem:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Oz-sinav (0 USD, ag yok) - duserse kosu yok
+        shell: pwsh
+        run: ./arac/smmm-ah-yalniz-sinavi.ps1
+
+      - name: Bekleyen toplu partiler ambardan (bedava hasat icin)
+        if: inputs.calistir == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/bekleyen-senkron.ps1 -Indir
+
+      - name: Aciklama hakemi (KURU ya da PARALI)
+        id: kos
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GH_TOKEN: ${{ github.token }}   # bulut-kosan-etiketler: bulutta kosan partiler atlanir
+          GIRDI: ${{ inputs.girdi }}
+          BUTCE: ${{ inputs.butce_usd }}
+          CALISTIR: ${{ inputs.calistir }}
+        run: |
+          if ("$env:GIRDI" -notmatch '^veri/sinav/smmm-ah-yalniz-girdi-[a-z0-9-]+\.json$') { throw "girdi yolu veri/sinav/smmm-ah-yalniz-girdi-<ad>.json olmali: $env:GIRDI" }
+          $b = [double]::Parse(("$env:BUTCE" -replace ',', '.'), [Globalization.CultureInfo]::InvariantCulture)
+          if ("$env:CALISTIR" -eq 'evet') { ./arac/smmm-ah-yalniz.ps1 -Girdi "$env:GIRDI" -ButceUsd $b -Calistir -BeklemeDk 290 }
+          else { ./arac/smmm-ah-yalniz.ps1 -Girdi "$env:GIRDI" -ButceUsd $b }
+          $kod = $LASTEXITCODE
+          "kod=$kod" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding ascii
+          "cikis kodu: $kod (0 bitti · 3 yaris, yazilmadi · 4 butce yetmez, baslamadi · 75 toplu kuyruk bitmedi · 1 dustu)"
+          if ($kod -eq 75) { exit 0 }
+          exit $kod
+
+      - name: Bekleyen partiler ambara (KOSU DUSSE BILE)
+        if: always() && inputs.calistir == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/bekleyen-senkron.ps1 -Yukle
+
+      - name: Sonuc depoya
+        if: always() && inputs.calistir == 'evet'
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git checkout -- veri/bekleyen-partiler.json 2>/dev/null || true
+          for f in veri/sinav/smmm-ah-yalniz-sonuc-*.json; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet && { echo "degisen yok"; exit 0; }
+          git commit -m "SMMM yalniz aciklama hakemi sonucu [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
+            echo "push denemesi $i tutmadi"; sleep 7
+          done
+          echo "!! PUSH TUTMADI"; exit 1
+
+      - name: Toplu kuyruk bitmediyse yeniden tetikle (en cok 5 halka)
+        if: steps.kos.outputs.kod == '75'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          z="${{ inputs.zincir }}"; z="${z:-0}"
+          if [ "$z" -ge 5 ]; then echo "::error::5 halkada toplu kuyruk bitmedi - elle bak (partiler ambarda)"; exit 1; fi
+          gh workflow run smmm-ah-yalniz.yml --ref main -f girdi="${{ inputs.girdi }}" -f butce_usd="${{ inputs.butce_usd }}" -f calistir="${{ inputs.calistir }}" -f zincir="$((z+1))"
+          echo "yeniden tetiklendi: halka $((z+1))"
