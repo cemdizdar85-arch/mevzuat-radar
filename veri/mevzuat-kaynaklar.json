@@ -2,6 +2,37 @@
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
                      {
+                         "ad":  "Türkiye Serbest Muhasebeci Mali Müşavirler ve Yeminli Mali Müşavirler Odaları Birliği Yönetmeliği (RG 11.06.1990/20545; son değ. RG 14.01.2026/33137)",
+                         "pdfId":  "G7:4661",
+                         "slug":  "turmob-birlik-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: TURMOB organlari, gorevleri, gelirleri. mevzuat.gov.tr MevzuatNo 4661 Tur 7, GeneratePdf + pdftotext -enc UTF-8 (TR IP)."
+                     },
+                     {
+                         "ad":  "TÜRMOB Sürekli Mesleki Geliştirme Eğitimi Yönetmeliği (son değ. RG 14.01.2026/33137)",
+                         "pdfId":  "G7:24715",
+                         "slug":  "turmob-smge-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: SMGE kredi yukumlulukleri. mevzuat.gov.tr MevzuatNo 24715 Tur 7."
+                     },
+                     {
+                         "ad":  "SMMM ve YMM Odaları ile TÜRMOB Organlarının Denetimi Hakkında Yönetmelik (son değ. RG 05.01.2013)",
+                         "pdfId":  "G7:9610",
+                         "slug":  "turmob-organ-denetim-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: oda/Birlik organlarinin denetimi. mevzuat.gov.tr MevzuatNo 9610 Tur 7."
+                     },
+                     {
+                         "ad":  "Yeminli Mali Müşavirlerin Tasdik Edecekleri Belgeler, Tasdik Konuları, Tasdike İlişkin Usul ve Esaslar Hakkında Yönetmelik (son değ. RG 31.05.1995)",
+                         "pdfId":  "G7:7019",
+                         "slug":  "ymm-tasdik-yon",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. Meslek Hukuku: YMM tasdik konulari. mevzuat.gov.tr MevzuatNo 7019 Tur 7."
+                     },
+                     {
+                         "ad":  "KGK FİNANSAL RAPORLAMA STANDARTLARINA UYGUN HESAP PLANI (Kurul Kararı 29.07.2024; Duyuru 2024-51)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-frs-hesap-plani",
+                         "kaynakUrl":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Kurul%20Karar%C4%B1/Finansal%20Raporlama%20Standartlar%C4%B1na%20Uygun%20Hesap%20Plan%C4%B1%20_18.07.pdf",
+                         "not":  "Cem 30.10 bitirme temizligi: kart okumasinda dayanak AMBARDA YOK cikti. 2026/2 SMMM Yeterlilik FM S18-S19 bu planin YENI kodlarini kullandi (245 GUD YAG, 551 MDV yeniden degerleme artislari, 624 dagitilmayan sabit GUG, 647 YAG gelirleri); eski Tekduzen ambarda vardi bu plan yoktu. Zorunlu degil (TFRS/BOBI FRS uygulayanlar). KGK resmi PDF, pdftotext -enc UTF-8, 210 sayfa."
+                     },
+                     {
                          "ad":  "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390)",
                          "pdfId":  "G7:9611",
                          "slug":  "smmm-ucret-yon",
@@ -780,6 +811,12 @@
                          "slug":  "asgariucret2026",
                          "ad":  "ASGARİ ÜCRET TESPİT KOMİSYONU KARARI (2026 - RG 26.12.2025/33119)",
                          "pdfId":  "HAZIR"
+                     },
+                     {
+                         "slug":  "kidemtavani",
+                         "ad":  "KIDEM TAZMİNATI TAVANI - HMB MALİ VE SOSYAL HAKLAR GENELGELERİ (2025/1, 2025/5, 2026/1, 2026/5)",
+                         "pdfId":  "HAZIR",
+                         "kaynakUrl":  "https://www.alomaliye.com/kidem-tazminati-tavani/"
                      },
                      {
                          "slug":  "vukgt577ek",
@@ -4139,7 +4176,28 @@
                          "ad":  "BDDK Kredilerin Siniflandirilmasi ve Karsiliklar Yonetmeligi (2016)",
                          "pdfId":  "G7:22599",
                          "slug":  "bddk-karsilik-yon",
+                         "gorselTablolar":  [
+                                                {
+                                                    "isaret":  "Krediler Ek",
+                                                    "metin":  "(Tablo — dikkate alınma oranları) Birinci Grup Teminatlar – Yüzde yüz (%100); İkinci Grup Teminatlar – Yüzde seksen (%80); Üçüncü Grup Teminatlar – Yüzde altmış (%60); Dördüncü Grup Teminatlar – Yüzde kırk (%40); Beşinci Grup Teminatlar – Yüzde yirmi (%20).",
+                                                    "kaynak":  "m.15/1-a tablosu resim: RG 22.06.2016/29750 https://www.resmigazete.gov.tr/eskiler/2016/06/20160622-3_dosyalar/image002.gif ve mevzuat.gov.tr konsolide https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.22599_dosyalar/image001.png (22.10.2026 ikisi okundu, ayni)"
+                                                }
+                                            ],
                          "not":  "27.08.2026: KGK bankacilik cikmis sorusu \u0027yakin izleme\u0027 siniflandirmasina dayaniyor; ifade ambarda hic yoktu. RG 22.06.2016/29750, konsolide (son degisiklik RG 24.05.2022/31845). Mulga 2006 versiyonu DEGIL. Ad BDDK onekli: soru-uret-v2 bankacilik ek-alan onek listesi (\u0027BDDK\u0027) gorsun diye.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "BDDK Derecelendirme Kuruluslarinin Yetkilendirilmesi ve Faaliyetleri Yonetmeligi (2012)",
+                         "pdfId":  "G7:16071",
+                         "slug":  "bddk-derecelendirme-yon",
+                         "not":  "22.10.2026: KGK bankacilik (banka-g2 yazari) olctu, ambarda yoktu. Resmi ad: Derecelendirme Kuruluslarinin Yetkilendirilmesine ve Faaliyetlerine Iliskin Esaslar Hakkinda Yonetmelik, RG 17.04.2012/28267, konsolide (son degisiklik RG 01.09.2023/32296). Mulga 2006 (RG 01.11.2006/26333) versiyonu DEGIL. Ad BDDK onekli: soru-uret-v2 bankacilik ek-alan onek listesi gorsun diye.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "BDDK Sermaye Koruma ve Dongusel Sermaye Tamponlari Yonetmeligi (2013)",
+                         "pdfId":  "G7:18991",
+                         "slug":  "bddk-sermaye-tampon-yon",
+                         "not":  "22.10.2026: KGK bankacilik (banka-g2 yazari) olctu, ambarda yoktu. Resmi ad: Sermaye Koruma ve Dongusel Sermaye Tamponlarina Iliskin Yonetmelik (adinda Bankalarin yok), RG 05.11.2013/28812, yururluk 01.01.2014; konsolide metinde degisiklik serhi yok. Ad BDDK onekli: soru-uret-v2 bankacilik ek-alan onek listesi gorsun diye.",
                          "seyrek":  true
                      },
                      {
@@ -4202,14 +4260,48 @@
                          "ad":  "TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk)",
                          "pdfId":  "HAZIR",
                          "slug":  "kgk-tsrs-kapsam",
-                         "not":  "24.08.2026: KGK kurul karari, mevzuat.gov.tr fihristinde YOK (KurulKarari tur adi HTTP 600 veriyor, bos tur da reddediliyor) - kaynak kgk.gov.tr Kurul Kararlari PDF\u0027i, HAZIR yolu. DIKKAT: m.3/1\u0027deki esik degerler (500 Milyon/1 Milyar/250 kisi) 13/01/2026 tarihli Kurul Karariyla DEGISTI; guncel esikler kgk-tsrs-esik-2026 belgesindedir.",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2023/12/20231229M1-10.pdf",
+                         "not":  "24.08.2026: KGK kurul karari, mevzuat.gov.tr fihristinde YOK (KurulKarari tur adi HTTP 600 veriyor, bos tur da reddediliyor) - kaynak kgk.gov.tr Kurul Kararlari PDF\u0027i, HAZIR yolu. DIKKAT: m.3/1\u0027deki esik degerler (500 Milyon/1 Milyar/250 kisi) 13/01/2026 tarihli Kurul Karariyla DEGISTI; guncel esikler kgk-tsrs-esik-2026 belgesindedir. 22.10.2026: KONSOLIDE - RG 20231229M1-10.pdf (taranmis; tesseract tur + sayfa goruntusu) ile satir satir karsilastirildi; m.2 ve m.3/1 giris paragrafindaki sira bozuklugu duzeltildi; 16/12/2024 [01/28294] degisikligi (m.3/1 a(8), a(9), b) serhlerle islendi, esik serhi eklendi. Degisiklik ayri kayit: kgk-tsrs-kapsam-degisiklik-2024.",
                          "seyrek":  true
                      },
                      {
                          "ad":  "TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139)",
                          "pdfId":  "HAZIR",
                          "slug":  "kgk-tsrs-esik-2026",
-                         "not":  "24.08.2026: RG\u0027de yalniz TARANMIS PDF olarak var (20260116-3.pdf, metin katmani yok; pdftotext 128 bayt, tesseract kurulu degil) - metin RG sayfasindan BIRINCI ELDEN okunup yazildi. Guncel esikler: aktif toplami 1 Milyar TL, yillik net satis hasilati 2 Milyar TL, calisan sayisi 500 kisi; 1/1/2025 ve sonrasi hesap donemleri.",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2026/01/20260116-3.pdf",
+                         "not":  "24.08.2026: RG\u0027de yalniz TARANMIS PDF olarak var (20260116-3.pdf, metin katmani yok; pdftotext 128 bayt, tesseract kurulu degil) - metin RG sayfasindan BIRINCI ELDEN okunup yazildi. Guncel esikler: aktif toplami 1 Milyar TL, yillik net satis hasilati 2 Milyar TL, calisan sayisi 500 kisi; 1/1/2025 ve sonrasi hesap donemleri. 22.10.2026: resmi metinle yeniden karsilastirildi (tesseract tur + sayfa goruntusu): rakamlar/tarih/karar no AYNI; karar madde numarasi tasimadigi halde metne yazilmis MADDE 1 / MADDE 2 etiketleri kaldirildi, uyari AMBAR NOTU olarak ayrildi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Uygulama Kapsamina Iliskin Kurul Kararinda Degisiklik (RG 18.12.2024-32756)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-kapsam-degisiklik-2024",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2024/12/20241218-6.pdf",
+                         "not":  "22.10.2026: KGK Kurul Karari 16/12/2024 [01/28294], RG 18.12.2024/32756 (taranmis PDF; tesseract tur + sayfa goruntusuyle okundu). TSRS kapsam karari m.3/1 a(8) degisti (Borsa pazarlarinda islem goren ortakliklar; Yakin Izleme Pazari ve nitelikli yatirimciya GSP haric), a(9) zorunlu kapsamdan cikti, b) bendinde BIST disi + sube sayisi 1 veya calisan 250 kisiyi asmayanlara Kapsam 3 muafiyet donemlerinde ihtiyari raporlama. 01/01/2024 ve sonrasi hesap donemleri. Ad ^TSRS: KAPI-AILE izin listesi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Uygulama Kapsamina Iliskin Usul ve Esaslar (RG 16.07.2025-32957)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-kapsam-usul-esas-2025",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2025/07/20250716-3.pdf",
+                         "not":  "22.10.2026: KGK Kurul Karari 25/06/2025 [01/33130] ile yayimlanan Usul ve Esaslar, RG 16.07.2025/32957 (taranmis PDF, 13 sayfa; tesseract tur + her sayfa goruntusuyle okundu; 4 tablo satir satir metne yazildi). m.1-16 + gec. m.1. Ornek tablolardaki esikler ESKI (500 Milyon/1 Milyar/250) - metin sonunda AMBAR NOTU. Ad ^TSRS: KAPI-AILE izin listesi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Gecis Muafiyetlerinin Uzatilmasi Kurul Karari (RG 30.12.2025-33123)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-muafiyet-uzatma-2025",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-19.pdf",
+                         "not":  "22.10.2026: KGK Kurul Karari 25/12/2025 [01/38488], RG 30.12.2025/33123 (taranmis PDF; tesseract tur + sayfa goruntusuyle okundu). TSRS 1 E4, E5, E6(b) ilk yillik raporlama donemi gecis muafiyetleri, 2024 yilinda ilk kez TSRS uygulayanlar icin 2025 faaliyet donemine bir yil uzatildi. Ad ^TSRS: KAPI-AILE izin listesi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Kapsam Degisikligi - Portfoy Yonetim Sirketleri (KGK Karari 14.08.2025-34844, Duyuru 2025-53)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-pys-kapsam-2025",
+                         "kaynakUrl":  "https://kgk.gov.tr//Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/Duyuru/Duyuru%20-%2053.pdf",
+                         "not":  "22.10.2026: KGK 14.08.2025 tarihli 34844 sayili Kurul Karari - portfoy yonetim sirketleri (kapsam karari m.3/1 a(3)) TSRS zorunlu uygulama kapsamindan cikarildi. Karar RG de YOK (fihrist 14.08-14.11.2025 tarandi), ayri karar metni KGK sitesinde bulunamadi; kaynak KGK Duyurusu 2025-53 (26/08/2025, metin katmanli PDF, sayfa goruntusuyle dogrulandi). Duyuru yururluk donemi belirtmez. Ad ^TSRS: KAPI-AILE izin listesi.",
                          "seyrek":  true
                      },
                      {

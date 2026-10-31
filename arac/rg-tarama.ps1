@@ -203,11 +203,11 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine("<h1>Bugün Resmî Gazete'de ne var?</h1>")
 [void]$s.AppendLine("<div class='alt'>$Tarih tarihli sayının radar taraması — $($madde.Count) maddeden <b style='color:var(--ink)'>$ilgiliToplam</b> tanesi işletmeleri ilgilendiriyor.</div>")
 # tazelik rozeti (#62): robotun son nobeti kart-durum.json'dan canli okunur
-[void]$s.AppendLine('<div id="tazelik" style="display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin:4px 0 4px"><span style="width:7px;height:7px;border-radius:50%;background:#3ddc97;display:inline-block"></span><span id="tazelikM">Nöbet damgası yükleniyor…</span></div>')
+[void]$s.AppendLine('<div id="tazelik" style="display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin:4px 0 4px"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span><span id="tazelikM">Nöbet damgası yükleniyor…</span></div>')
 [void]$s.AppendLine('<script>fetch("veri/kart-durum.json?c="+Date.now()).then(function(r){return r.json()}).then(function(d){var e=document.getElementById("tazelikM");if(d&&d.sonTarama){e.textContent="Robotun son RG nöbeti: "+d.sonTarama;}else{e.textContent="Nöbet damgası okunamadı";}}).catch(function(){document.getElementById("tazelik").style.display="none";});</script>')
 [void]$s.AppendLine('<div class="uyari">Bu liste otomatik ön taramadır; başlıklar Resmî Gazete fihristinden alınır ve tıklandığında kaynağa gider. Bu maddelerin sade Türkçe özetleri için: <a href="kartlar.html">Günün Hap Kartları →</a></div>')
 if($ilgiliToplam -eq 0){
-  [void]$s.AppendLine('<div class="m" style="border-left-color:#3ddc97"><b>Bugün işletmeleri doğrudan ilgilendiren düzenleme tespit edilmedi.</b> Sakin bir gün — yarın yine buradayız.</div>')
+  [void]$s.AppendLine('<div class="m" style="border-left-color:var(--green)"><b>Bugün işletmeleri doğrudan ilgilendiren düzenleme tespit edilmedi.</b> Sakin bir gün — yarın yine buradayız.</div>')
 } else {
   foreach($k in $sonuc.Keys){
     $grup = $sonuc[$k]; if(-not $grup.Count){ continue }

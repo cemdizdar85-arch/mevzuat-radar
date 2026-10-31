@@ -1,8 +1,22 @@
 {
-  "tarih": "21.10.2026 04:32",
-  "rg_gun": "21-10-2026",
+  "tarih": "31.10.2026 12:49",
+  "rg_gun": "31-10-2026",
   "kart": 6,
-  "etkilenen_dosya": 0,
+  "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": []
+  "uyarilar": [
+    {
+      "dosya": "veri/gtip-durum.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
+      "hasat": "motor/tablo-hasat.ps1",
+      "eslesme_sayisi": 1,
+      "eslesmeler": [
+        {
+          "anahtar": "gozetim",
+          "kart_basligi": "Elektrik dağıtım tarifesi gözetim oranı yüzde 1,5'ten yüzde 2'ye yükseltildi"
+        }
+      ]
+    }
+  ]
 }

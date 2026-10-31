@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Tellal reklamı katmanı</title>
+<style>
+  /* Video katmanı (sitede yayınlanmaz): renkler YK duyurusunun kendi paletinden. */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 720px; height: 1280px; background: transparent; overflow: hidden; font-family: "Segoe UI", Arial, sans-serif; }
+  #sahne { position: absolute; inset: 0; }
+  .zemin { position: absolute; inset: 0; background: radial-gradient(circle at 50% 35%, #1b3656 0%, #0f2338 60%, #091626 100%); opacity: 0; }
+  /* sabit şerit */
+  #serit { position: absolute; top: 192px; left: 50%; transform: translateX(-50%); white-space: nowrap;
+           background: #f5b301; color: #0f2338; font-weight: 800; font-size: 21px; padding: 8px 18px; border-radius: 30px;
+           box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+  /* altyazı */
+  #alt { position: absolute; left: 50px; right: 50px; bottom: 455px; text-align: center; font-size: 33px; line-height: 1.22;
+         font-weight: 800; color: #ffffff; text-shadow: 0 2px 0 #000, 0 0 10px rgba(0,0,0,.9), 0 0 3px #000; }
+  #alt.aday { color: #ffe08a; }
+  /* YK eki */
+  #yk { position: absolute; inset: 0; opacity: 0; }
+  #kagit { position: absolute; left: 60px; top: 236px; width: 600px; height: 750px; transform-origin: 50% 50%; }
+  #kagit img { width: 600px; height: 750px; display: block; filter: url(#burus); border-radius: 4px; box-shadow: 0 18px 40px rgba(0,0,0,.55); }
+  #kirisik { position: absolute; inset: 0; mix-blend-mode: multiply; pointer-events: none; }
+  #ykbaslik { position: absolute; top: 250px; left: 52px; right: 52px; text-align: center; color: #fff; font-size: 23px; font-weight: 700; opacity: 0; }
+  #karar { position: absolute; left: 52px; right: 52px; top: 300px; background: #f6f2e7; border-left: 8px solid #c9a24a; border-radius: 6px;
+           padding: 22px 24px; color: #0f2338; font-size: 31px; font-weight: 700; line-height: 1.35; opacity: 0; box-shadow: 0 16px 36px rgba(0,0,0,.5); }
+  #karar mark { background: linear-gradient(transparent 58%, #f5b301 58%); background-size: 0% 100%; background-repeat: no-repeat; color: inherit; }
+  /* soru eki */
+  #soru { position: absolute; inset: 0; opacity: 0; }
+  #kart { position: absolute; left: 46px; right: 46px; top: 252px; background: #ffffff; border-radius: 16px; padding: 18px 20px 16px; color: #1b2430;
+          box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+  #kart .rozet { display: inline-block; background: #0f2338; color: #fff; font-size: 17px; font-weight: 700; padding: 5px 12px; border-radius: 20px; margin-bottom: 10px; }
+  #kart .kok { font-size: 16.5px; line-height: 1.38; color: #2b3542; margin-bottom: 10px; }
+  .sik { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 9px; margin-bottom: 6px; background: #f2f4f7; font-size: 21px; font-weight: 700; }
+  .sik .h { width: 30px; height: 30px; border-radius: 50%; background: #0f2338; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; flex: 0 0 30px; }
+  .sik .t { flex: 1 1 auto; font-size: 15.5px; font-weight: 700; color: #b3261e; opacity: 0; text-align: right; }
+  .sik.yanlis { background: #fdecea; }
+  .sik.dogru { background: #e3f5e8; }
+  .sik.dogru .h { background: #1e7d3a; }
+  .sik.dogru .t { color: #1e7d3a; }
+  #dayanak { margin-top: 8px; background: #fff6d6; border: 2px solid #f5b301; border-radius: 9px; padding: 8px 12px; font-size: 18px; font-weight: 700; color: #0f2338; opacity: 0; }
+  /* 6. replik çipleri */
+  #cipler { position: absolute; left: 60px; right: 60px; top: 262px; display: flex; justify-content: center; gap: 14px; opacity: 0; }
+  .cip { position: relative; background: rgba(15,35,56,.88); color: #fff; font-size: 27px; font-weight: 800; padding: 10px 18px; border-radius: 12px; }
+  .cip .cizgi { position: absolute; left: 10px; right: 10px; top: 50%; height: 5px; background: #ff4b3e; transform-origin: left center; transform: scaleX(0); }
+  .cip .x { position: absolute; right: -14px; top: -16px; width: 38px; height: 38px; border-radius: 50%; background: #ff4b3e; color: #fff;
+            font-size: 26px; display: flex; align-items: center; justify-content: center; transform: scale(0); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="burus" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence id="tb" type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="7" result="g"/>
+    <feDisplacementMap id="dm" in="SourceGraphic" in2="g" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="isik" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="7" result="g"/>
+    <feDiffuseLighting in="g" surfaceScale="6" lighting-color="#ffffff" result="l"><feDistantLight azimuth="235" elevation="38"/></feDiffuseLighting>
+  </filter>
+</svg>
+<div id="sahne">
+  <div class="zemin" id="zemin"></div>
+  <div id="yk">
+    <div id="kagit"><img id="ykimg" alt=""><svg id="kirisik" width="600" height="750"><rect width="600" height="750" filter="url(#isik)"/></svg></div>
+    <div id="ykbaslik" class="metin"></div>
+    <div id="karar" class="metin"></div>
+  </div>
+  <div id="soru">
+    <div id="kart" class="metin">
+      <div class="rozet" id="rozet"></div>
+      <div class="kok" id="kok"></div>
+      <div id="siklar"></div>
+      <div id="dayanak"></div>
+    </div>
+  </div>
+  <div id="cipler" class="metin">
+    <div class="cip" id="cip1"><span id="cip1t"></span><div class="cizgi"></div><div class="x">✕</div></div>
+    <div class="cip" id="cip2"><span id="cip2t"></span><div class="cizgi"></div><div class="x">✕</div></div>
+  </div>
+  <div id="serit" class="metin"></div>
+  <div id="alt" class="metin"></div>
+</div>
+<script>
+let V = null;
+const $ = id => document.getElementById(id);
+const kis = (a, b, t) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const yum = x => x * x * (3 - 2 * x);
+window.kur = v => {
+  V = v;
+  $('serit').textContent = v.serit;
+  $('ykimg').src = v.ykGorsel;
+  $('ykbaslik').textContent = v.ykBaslik;
+  $('karar').innerHTML = v.kararHtml;
+  $('rozet').textContent = v.soru.rozet;
+  $('kok').textContent = v.soru.kok;
+  $('siklar').innerHTML = v.soru.siklar.map(s =>
+    `<div class="sik" data-h="${s.h}"><div class="h">${s.h}</div><div>${s.deger}</div><div class="t">${s.etiket}</div></div>`).join('');
+  $('dayanak').textContent = v.soru.dayanak;
+  $('cip1t').textContent = v.cip[0]; $('cip2t').textContent = v.cip[1];
+};
+window.kare = t => {
+  const { zaman: Z } = V;
+  // altyazı (eklerde gizli)
+  const ekte = (t >= Z.i1[0] && t < Z.i1[1]) || (t >= Z.i2[0] && t < Z.i2[1]);
+  const r = V.altyazi.find(a => t >= a.bas && t < a.son + 0.15);
+  $('alt').textContent = (!ekte && r) ? r.metin : '';
+  $('alt').className = 'metin' + (r && r.kim === 'aday' ? ' aday' : '');
+  // zemin yalnız eklerde
+  $('zemin').style.opacity = ekte ? 1 : 0;
+  // YK eki
+  const y = t - Z.i1[0], ykV = t >= Z.i1[0] && t < Z.i1[1];
+  $('yk').style.opacity = ykV ? 1 : 0;
+  if (ykV) {
+    const ac = yum(kis(0.0, 1.0, y));                       // buruşuk -> açılır
+    $('dm').setAttribute('scale', String(70 * (1 - ac) + 4));
+    $('kirisik').style.opacity = String(0.85 - 0.6 * ac);
+    const s = 0.55 + 0.45 * ac, rot = -9 * (1 - ac);
+    const yak = yum(kis(1.9, 2.6, y));                      // tam yazıdan karar kutusuna
+    $('kagit').style.transform = `translateY(${-60 * yak}px) scale(${s * (1 - 0.15 * yak)}) rotate(${rot}deg)`;
+    $('kagit').style.opacity = String(1 - 0.9 * yak);
+    $('ykbaslik').style.opacity = String(yak);
+    $('karar').style.opacity = String(yak);
+    $('karar').style.transform = `translateY(${30 * (1 - yak)}px)`;
+    const isaret = $('karar').querySelectorAll('mark');
+    isaret.forEach((m, i) => { const p = kis(2.8 + i * 0.9, 3.5 + i * 0.9, y); m.style.backgroundSize = `${p * 100}% 100%`; });
+  }
+  // soru eki
+  const q = t - Z.i2[0], qV = t >= Z.i2[0] && t < Z.i2[1];
+  $('soru').style.opacity = qV ? 1 : 0;
+  if (qV) {
+    const gir = yum(kis(0, 0.35, q));
+    $('kart').style.transform = `translateY(${40 * (1 - gir)}px) scale(${0.96 + 0.04 * gir})`;
+    $('kart').style.opacity = String(gir);
+    document.querySelectorAll('.sik').forEach(el => {
+      const s = V.soru.siklar.find(x => x.h === el.dataset.h);
+      const p = kis(s.an, s.an + 0.25, q);
+      el.querySelector('.t').style.opacity = String(p);
+      el.classList.toggle(s.dogru ? 'dogru' : 'yanlis', p > 0.5);
+    });
+    $('dayanak').style.opacity = String(kis(V.soru.dayanakAn, V.soru.dayanakAn + 0.3, q));
+  }
+  // 6. replik çipleri
+  const c = V.cipZaman;
+  $('cipler').style.opacity = String(kis(c[0] - 0.2, c[0], t) * (1 - kis(c[3], c[3] + 0.2, t)));
+  [[$('cip1'), c[1]], [$('cip2'), c[2]]].forEach(([el, an]) => {
+    const p = yum(kis(an, an + 0.25, t));
+    el.querySelector('.cizgi').style.transform = `scaleX(${p})`;
+    el.querySelector('.x').style.transform = `scale(${kis(an + 0.15, an + 0.35, t)})`;
+  });
+};
+// güvenli alan: üst %14 (179 px), alt %35 (y > 832), yan %6 (43 px) yazısız
+window.alanDisi = () => {
+  const out = [];
+  document.querySelectorAll('.metin').forEach(el => {
+    let o = 1, p = el; while (p && p !== document.body) { o *= parseFloat(getComputedStyle(p).opacity); p = p.parentElement; }
+    if (o < 0.05 || !el.textContent.trim()) return;
+    const b = el.getBoundingClientRect();
+    if (b.top < 179 || b.bottom > 832 || b.left < 43 || b.right > 677) out.push(`${el.id} ${Math.round(b.left)},${Math.round(b.top)}-${Math.round(b.right)},${Math.round(b.bottom)}`);
+  });
+  return out;
+};
+</script>
+</body>
+</html>

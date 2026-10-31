@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Bir ay kaldı kartı</title>
+<!-- 21.10.2026 akış görseli 4:5 (1080×1350). Metin pazarlama/reklam/meta-bir-ay-kaldi.md "Görsel 4:5" bölümünden; kart.js basar.
+     Fiyat tablosu yok: tek cümle + üç madde + tek düğme (kalmanin-bedeli kartı 3 günde 79 ziyaret, 0 test). -->
+<style>
+:root{--zemin:#0f1b2d;--zemin2:#16263e;--ink:#fbfaf8;--soluk:#b7c2d3;--cizgi:#2a3b57;--amber:#f5a524;--amber2:#ffc24b;--yesil:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--zemin);font-family:"Segoe UI",system-ui,Arial,sans-serif;color:var(--ink)}
+.kart{width:1080px;height:1350px;position:relative;overflow:hidden;padding:84px 88px 0;display:flex;flex-direction:column;
+  background:radial-gradient(circle at 88% 8%,color-mix(in srgb,var(--amber) 15%,transparent),transparent 42%),var(--zemin)}
+.ust{display:flex;align-items:center;gap:22px;margin-bottom:70px}
+.sinav{font-size:27px;font-weight:800;letter-spacing:2px;color:var(--soluk);text-transform:uppercase;white-space:nowrap}
+.cubuk{flex:1;height:12px;border-radius:6px;background:var(--cizgi);overflow:hidden}.cubuk i{display:block;height:100%;width:22%;background:var(--amber)}
+h1{font-size:118px;line-height:1.0;font-weight:800;letter-spacing:-3.5px;margin-bottom:26px}
+h1 em{font-style:normal;color:var(--amber2);display:block}
+.alt{font-size:60px;font-weight:800;color:var(--yesil);letter-spacing:-1.5px;margin-bottom:60px}
+ul{list-style:none;display:grid;gap:22px;margin-bottom:auto}
+li{font-size:38px;line-height:1.25;padding-left:58px;position:relative}
+li::before{content:"✓";position:absolute;left:0;color:var(--yesil);font-weight:800}
+.cagri{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--amber),var(--amber2));color:var(--zemin);border-radius:28px;padding:30px 38px;margin-top:40px}
+.cagri p{font-size:40px;font-weight:800;line-height:1.15}.cagri p small{display:block;font-size:26px;font-weight:700;margin-top:8px;opacity:.85}
+.cagri .ok{font-size:64px;font-weight:800}
+.dip{padding:26px 0 46px;margin-top:30px;border-top:2px solid var(--cizgi);display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.kaynak{font-size:20px;line-height:1.45;color:var(--soluk);max-width:700px}
+.logo{height:62px;width:auto;flex:none}
+</style>
+</head>
+<body>
+<section class="kart">
+  <div class="ust"><div class="sinav" id="sinav"></div><div class="cubuk"><i></i></div></div>
+  <h1 id="baslik"></h1>
+  <p class="alt" id="alt"></p>
+  <ul id="maddeler"></ul>
+  <div class="cagri"><p id="dugme"></p><div class="ok">→</div></div>
+  <div class="dip"><div class="kaynak" id="dipsatir"></div><svg class="logo" viewBox="30 0 290 110" aria-label="Tetikte"><defs><linearGradient id="aA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5a524"/><stop offset="1" stop-color="#ffc24b"/></linearGradient><radialGradient id="hA" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#f5a524" stop-opacity=".26"/><stop offset="100%" stop-color="#f5a524" stop-opacity="0"/></radialGradient></defs><circle cx="62" cy="60" r="34" fill="url(#hA)"/><circle cx="62" cy="60" r="19" fill="url(#aA)"/><text x="112" y="78" font-family="Segoe UI,Arial,sans-serif" font-size="58" font-weight="800" letter-spacing="-1.4" textLength="181" lengthAdjust="spacingAndGlyphs" fill="#fbfaf8">tetıkte</text><circle cx="197" cy="30" r="7" fill="url(#aA)"/></svg></div>
+</section>
+<script>
+function kur(v){
+  document.getElementById('sinav').textContent = v.ust;
+  var b = v.baslik.split('. '); var h = document.getElementById('baslik');
+  h.textContent = b[0] + '.'; var em = document.createElement('em'); em.textContent = b.slice(1).join('. '); h.appendChild(em);
+  document.getElementById('alt').textContent = v.alt;
+  var ul = document.getElementById('maddeler'); ul.innerHTML = '';
+  v.maddeler.forEach(function(m){ var li = document.createElement('li'); li.textContent = m; ul.appendChild(li); });
+  var d = v.dugme.split(' · '); var p = document.getElementById('dugme'); p.textContent = d[0];
+  var sm = document.createElement('small'); sm.textContent = d.slice(1).join(' · '); p.appendChild(sm);
+  document.getElementById('dipsatir').textContent = v.dip;
+  var k = document.querySelector('.kart'); return k.scrollHeight <= k.clientHeight + 1;
+}
+window.kur = kur;
+</script>
+</body>
+</html>

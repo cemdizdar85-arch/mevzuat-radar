@@ -1,6 +1,6 @@
 {
-  "olcum": "2026-10-20T23:46:39.813Z",
-  "gun": "2026-10-21",
+  "olcum": "2026-10-31T00:40:51.466Z",
+  "gun": "2026-10-31",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
@@ -68,7 +68,7 @@
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -7,
+        "kalan_gun": -17,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 5,
+      "sira": 6,
       "toplam": 9,
-      "id": "smmm-4k-a-yspk-zor-r8/kp-01",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "sermaye piyasası kurumları",
-      "donem": 6,
+      "id": "smmm-w7-1-yhukuk-zor/kp-01",
+      "ders": "Hukuk",
+      "konu": "borcu sona erdiren sebepler",
+      "donem": 4,
       "teori": true,
       "rakamSik": false,
-      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun 35. maddesinde, bu Kanuna göre faaliyette bulunabilecek sermaye piyasası kurumları tek tek sayılmıştır. Buna göre, aşağıdakilerden hangisi 6362 sayılı Kanun'un 35. maddesinde sayılan sermaye piyasası kurumlarından biri değildir?",
+      "soru": "Mobilya üreticisi İşletme'nin, tedarikçisi Kişi'den 2019 yılında verdiği ödünç paraya ilişkin 60.000 ₺ alacağı vardır. Kişi'nin de İşletme'den 2023 yılında teslim ettiği malzeme bedeline ilişkin 60.000 ₺ alacağı bulunmaktadır. İşletme'nin alacağı, iki borcun birlikte var olduğu 2023 yılında zamanaşımına uğramamışken, 2026 yılında zamanaşımına uğramış ve İşletme takas beyanını bu tarihte yapmıştır. Buna göre, aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "Merkezî takas kuruluşları",
-        "B": "Konut finansmanı ve varlık finansmanı fonları",
-        "C": "Veri depolama kuruluşları",
-        "D": "Varlık kiralama şirketleri",
-        "E": "Faktoring şirketleri"
+        "A": "Takas beyanının zamanaşımı süresi dolduktan sonra yapılmış olması, İşletme'nin takas hakkını ortadan kaldırır.",
+        "B": "İşletme'nin alacağı, iki borcun birlikte var olduğu anda zamanaşımına uğramamış olduğundan, takas beyanı geçerli olarak ileri sürülebilir.",
+        "C": "Alacaklardan birinin ödünç bedeline, diğerinin malzeme bedeline dayanması, edimlerin özdeş sayılmasını engellediğinden takas mümkün değildir.",
+        "D": "Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uyarınca hiçbir koşulda takasa konu edilemeyeceğinden İşletme'nin beyanı sonuçsuzdur.",
+        "E": "Taraflar arasında alacaklı ve borçlu sıfatları aynı kişide birleştiğinden borç zaten sona ermiş olup takas beyanına gerek kalmamıştır."
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Yeni Kurum Yabancılaşması Tuzağı",
-          "metin": "Öğrenci veri depolama kuruluşlarını teknik-idari bir birim sanıp Kanun kapsamı dışında görür. Doğrusu: Veri depolama kuruluşları madde 35/1-h bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kapsam Tuzağı",
+          "metin": "Alacakların farklı hukuki kaynaklardan (ödünç, malzeme bedeli) doğmasının edim özdeşliğini bozduğunu düşünürsün. Doğrusu: TBK m.139/1 aynı cins ve nitelikte edimi esas alır, her iki alacak da para borcu olduğundan özdeş…"
         },
-        "A": {
-          "ad": "Kapsam Daraltma Tuzağı",
-          "metin": "Öğrenci takas kuruluşlarını borsa bünyesinde bir birim sanıp ayrı bir kurum türü olarak Kanun'da sayılmadığını düşünür. Doğrusu: Merkezî takas kuruluşları madde 35/1-g bendinde sermaye piyasası kurumu olarak açıkça sayı…"
+        "E": {
+          "ad": "Kurum Karıştırma Tuzağı",
+          "metin": "Alacaklı-borçlu sıfatlarının birleşmesini (m.135) takas ile aynı olaya uygularsın. Doğrusu: Birleşme, alacaklı ve borçlunun aynı kişide toplanmasını gerektirir; olayda İşletme ve Kişi ayrı kişiler olduğundan birleşme sö…"
         },
         "D": {
-          "ad": "Sukuk Aracı Karıştırma Tuzağı",
-          "metin": "Öğrenci varlık kiralama şirketlerini yalnız kira sertifikası çıkaran bir araç sanıp ayrı kurum sayılmadığını düşünür. Doğrusu: Varlık kiralama şirketleri madde 35/1-f bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kural Genelleme Tuzağı",
+          "metin": "Zamanaşımına uğramış her alacağın takasa konu olamayacağını genel kural sayarsın. Doğrusu: TBK m.139/3 bu genel kurala açık bir istisna getirir; takas edilebilir anda zamanaşımı dolmamışsa takas ileri sürülebilir."
         },
-        "B": {
-          "ad": "Fon-Kurum Karıştırma Tuzağı",
-          "metin": "Öğrenci tüzel kişiliği bulunmayan fonların kurum sayılmayacağını düşünür. Doğrusu: Konut finansmanı ve varlık finansmanı fonları madde 35/1-e bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        "A": {
+          "ad": "Zamanlama Tuzağı",
+          "metin": "Beyanın hangi tarihte yapıldığını belirleyici sanırsın. Doğrusu: TBK m.139/3'e göre önemli olan iki borcun birlikte var olduğu andaki durumdur, beyanın sonradan yapılması hakkı ortadan kaldırmaz."
         }
       },
-      "hap": "6362 sayılı Kanun m.35/1'de sayılan sermaye piyasası kurumları arasında faktoring şirketleri yoktur; bunlar 6361 sayılı Kanun'a tabidir. Bankalar ise m.3/1-v gereği yatırım kuruluşu olarak m.35/1-a kapsamındadır.",
+      "hap": "Zamanaşımına uğramış alacağın takası, borçların birlikte var olduğu (takas edilebilir hale geldiği) anda zamanaşımı henüz dolmamışsa geçerlidir.",
       "satirlar": [
         [
-          "A) Merkezî takas kuruluşları",
-          "m.35/1-g"
+          "A) Takas beyanının zamanaşımı süresi dolduktan sonra yapılm…",
+          "TBK m.139/3"
         ],
         [
-          "B) Konut finansmanı ve varlık finansmanı fonları",
-          "m.35/1-e"
+          "B) İşletme'nin alacağı, iki borcun birlikte var olduğu anda…",
+          "TBK m.139/3"
         ],
         [
-          "C) Veri depolama kuruluşları",
-          "m.35/1-h"
+          "C) Alacaklardan birinin ödünç bedeline, diğerinin malzeme b…",
+          "TBK m.139/1"
         ],
         [
-          "D) Varlık kiralama şirketleri",
-          "m.35/1-f"
+          "D) Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uya…",
+          "TBK m.139/3"
         ],
         [
-          "E) Faktoring şirketleri",
-          "m.35/1"
+          "E) Taraflar arasında alacaklı ve borçlu sıfatları aynı kişi…",
+          "TBK m.135"
         ]
       ],
-      "dayanak": "6362 sayılı Sermaye Piyasası Kanunu m.35/1 (a–ı bentleri), m.3/1-v (yatırım kuruluşu bankaları kapsar); 6361 sayılı Kanun m.1 (faktoring şirketleri)",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=5",
+      "dayanak": "TBK m.139/3",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=6",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -1,
+        "kalan_gun": -11,
         "durum": "DONGU",
         "mail_gunu": false
       },

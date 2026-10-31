@@ -216,6 +216,10 @@ foreach($r in $hep){
   if($gorulen.ContainsKey($anahtarSoru)){ continue }   # ayni soru iki secim dosyasindaysa bir kez
   $gorulen[$anahtarSoru]=$true
   if($elleRet.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-ELLE elle ret)"); continue }
+  # 27.10.2026 Cem (Son 20 Gun): sgs-s20-* sorulari YALNIZ Son 20 Gun denemelerine ayrildi; normal ders sayfalarina, ucretsiz orneklere
+  # ve vitrine GIRMEZ (olculdu 27.10: 523 s20 sorusu ders sayfalarindaydi, 101'i ucretsiz -> denemeler 1 Kasim'dan once aciga cikiyordu).
+  # Sorular ambarda (kalip_parti) durur; denemeler kendi sayfasindan okur. GORMEZ: s20 sorusunun baska etiketle yeniden basilmasi.
+  if("$($r.etiket)" -like 'sgs-s20-*'){ $dusen.Add("$anahtarSoru (KAPI-S20 Son 20 Gun denemesine ayrildi)"); continue }
   if($ikizDisi.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-IK ikiz)"); continue }
   $sebep = DusmeSebebi $r.etiket $r.id
   if(-not $sebep -and $script:RET.ContainsKey($anahtarSoru)){ $sebep = "ret kutugu: $($script:RET[$anahtarSoru])" }
@@ -278,6 +282,14 @@ $masterYol = [string](Join-Path $secimDir $masterAd)
 $masterJson = [string](ConvertTo-Json -InputObject @($cikti.ToArray()) -Depth 3)
 [IO.File]::WriteAllText($masterYol,$masterJson,[Text.UTF8Encoding]::new($false))
 Write-Host ("`nyazildi: veri/sinav/kaydir-secim/{0}" -f $masterAd)
+
+# 28.10.2026 (Cem "ders sayfalarinda ayni konudan sorular art arda gelmesin"): OLCULDU 28.10 - 15 SGS ders sayfasinin 15'inde ayni
+#   konu 3+ soru art arda (Yabanci Dil 28, Denetim 15); 7 derste ilk 10 sorunun 10'u tek konu. Kok: yukaridaki birlestirme secim
+#   dosyalarini (her biri tek konu) dosya sirasiyla diziyordu. motor/sgs-ders-sira.js dosyayi YERINDE dizer: ilk 10 farkli konu,
+#   sonrasi yumusak agirlikli + art arda ayni konu yok; KUME DEGISMEZ (degisirse cikis 2, dosya yazilmaz). Duserse eski sirayla
+#   basilir (uyari) - sayfa yayini durmaz. Kaldigin yer: yayin-bas.yml ayni iste smmm-konum-gocu.js --kod sgs ile cevirir.
+& node (Join-Path $depoKok 'motor\sgs-ders-sira.js') --secim $masterYol
+if($LASTEXITCODE){ Write-Host ("::warning::SGS SIRA uygulanamadi (cikis {0}) - eski (konu kumeli) sirayla basiliyor" -f $LASTEXITCODE) -ForegroundColor Yellow }
 
 # Eski uzun-adli sayfalar arsive (SILINMEZ - 30.08 kurali)
 $arsiv=Join-Path $depoKok 'kaydir\_arsiv'

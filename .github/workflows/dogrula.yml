@@ -225,6 +225,18 @@ jobs:
           # 6 vaka (3 dusur / 3 gecir: yayindaki eski soru, tarihsiz, yeni temiz) + bag + 4 mutasyon (30.09 olculdu). Node ister.
           - { ad: "KAPI-KALITE bitirme yayin sarti bagi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-kalite-bag-sinavi.ps1" }
+          # 22.10.2026 - ONAY YAYIN KAPISI siniflamasi: yayin sartindan dusen onayli soru, eski ret kutugu kaydi yuzunden
+          # "onaya ragmen ret" sayilmaz (21-22.10 bitirme kasa yayini 2 gun KIRMIZI: fmuh-zor-r7/kp-03). 7 vaka + 3 mutasyon.
+          - { ad: "ONAY YAYIN KAPISI siniflama OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/onay-yayin-durumu-sinavi.ps1" }
+          # 22.10.2026 - KAPI-YT yillik tutar / yil kurali (Y sinavi Y-1 yilini sorar). 18 vaka (banka olcumundeki yanlis alarmlar
+          # dahil: Yemekhane 300, 800.000 kar payi, iki yilli kok, tarihsiz eski kayit) + 13 mutasyon. Kutuk resmi metinden uretilir.
+          - { ad: "KAPI-YT yillik tutar OZ-SINAVI",
+              kabuk: bash, komut: "node arac/yillik-tutar-kapisi.js --sinav --mutasyon" }
+          # 23.10.2026 - YIL TEBLIGI EKI: hakem paketine sorunun yilinin resmi tutar duzenlemesi (kalip-parti-uret.ps1). 6 vaka (yil yok,
+          # kutukte olmayan yil, kelime yok yanlis alarmi dahil) + 4 mutasyon (yil algisi, kelime gruplari, belge, yil suzgeci).
+          - { ad: "YIL TEBLIGI EKI OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/yil-tebligi-eki.ps1 -Sinav" }
           # 08.10.2026 - bitirme onay listesi siniflamasi: kor X + kaynakli ikinci cozum dogru soru anlatim fazlari yokken de
           # Cem onay listesine duser (kilit: uretici anlatimi onaydan sonraya birakiyordu, liste "simulasyon yok" diye atiyordu). 17 vaka + 7 mutasyon.
           # 08.10 (kor-tavan): kor HICBIRI + kaynakli dogru -> BEKLEYEN, KK tek basina yayin acmaz, bayat KK gecmez. 22 vaka + 9 mutasyon.
@@ -252,6 +264,11 @@ jobs:
           # 7 mutasyon (R6 kapali, R7 istisna, ic alan, R8, R4 esigi, R8y hep/10 kuvveti) her birinde KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "SMMM risk taramasi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-risk-tarama.ps1 -Sinav" }
+
+          # 31.10.2026 - SMMM yalniz aciklama denetimi yolu (arac/smmm-ah-yalniz.ps1/.js): taslak tazeligi, yalniz aciklama_hakem alani
+          # kosullu yazim + geri okuma, KUSURLU = incelenecek, butce kapisi, madde metni sirasi, oku (incelenecek kapatma) + 2 mutasyon. Sahte ambar, ag yok.
+          - { ad: "SMMM yalniz aciklama denetimi OZ-SINAVI (node + PS uctan uca, sahte ambar)",
+              kabuk: pwsh, komut: "./arac/smmm-ah-yalniz-sinavi.ps1" }
 
           # 03.10.2026 - Sayfa basimindaki Turkce onarim (motor/kaydir-coz.ps1 TurkceOnar): sitede 'cocuk'tur -> 'cocuk'tur(u),
           # WHICH -> WHICH(I noktali), Esasi -> Esasi(ı) goruldu. Gercek bolge (# ---- turkce-onar) AYNEN yuklenir, sahte kucuk sozlukle
@@ -308,6 +325,11 @@ jobs:
               kabuk: bash, komut: "node arac/site-yayin.js --sinav --mutasyon" }
           - { ad: "Site beyaz liste DENETIMI (gercek depo - yasak/zorunlu/kopuk/tetik)",
               kabuk: bash, komut: "node arac/site-yayin.js --kur /tmp/_site --denetim --tetik" }
+          # 28.10.2026 - RPC YETKI KAPISI (arac/rpc-yetki-kapisi.js; canli kosu sql-uygula.yml + canli-sema.yml):
+          # anon/uye calistirabilen SECURITY DEFINER fonksiyon radar-app/acik-rpc.txt'te degilse KIRMIZI.
+          # Oz-sinav 10 vaka; mutasyon 5/5 KIRMIZI (anon/uye/bicim/cift/kor).
+          - { ad: "RPC yetki kapisi OZ-SINAVI (mutasyonlu)",
+              kabuk: bash, komut: "node arac/rpc-yetki-kapisi.js --sinav --mutasyon" }
 
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
@@ -560,6 +582,12 @@ jobs:
           # beslenen dosya eklenmesini engellemek.
           - { ad: "Otomasyon denetimi (yeni veri elle beslenmesin)",
               kabuk: pwsh, komut: "./arac/otomasyon-denetimi.ps1" }
+          # 21.10.2026 - kapiya Node motoru (writeFileSync j1/j2/j3), `node X.js`
+          # cagrisi ve tek satirda `= switch` coklu hedef detektorleri eklendi.
+          # Detektor eklemek kapiyi gevsetebilir: oz-sinav sentetik depoda
+          # yakalamali + yakalamamali vakalari ve 7 mutasyonu kosar.
+          - { ad: "Otomasyon denetimi OZ-SINAVI (Node/switch uretici + mutasyon)",
+              kabuk: pwsh, komut: "./arac/otomasyon-denetimi-sinavi.ps1" }
 
           # 01.09 - Cem: "SQL kapisini kur."
           # O gun depoya CALISTIRILAMAZ bir SQL girdi: "$" yerine tek "$"
@@ -682,13 +710,35 @@ jobs:
           # havuzla ayni (gercek eslemede 8 ders esdegerlik capasi). GORMEZ: sorunun gercek zorlugu, etiketsiz soru.
           - { ad: "Bitirme soru sirasi OZ-SINAVI (ilk 10 kolay, kume ayni, havuz sirasi)",
               kabuk: bash, komut: "node motor/smmm-ders-sira.js --sinav" }
-          - { ad: "Bitirme soru sirasi MUTASYON (3 kural bozulunca sinav duser mi)",
+          - { ad: "Bitirme soru sirasi MUTASYON (8 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node motor/smmm-ders-sira.js --mutasyon" }
+          # 30.10 soru cumlesi kalibi (motor/soru-kalibi.js): 17 kalip + sirketli vaka. Gercek 320 soruda elle etikete karsi
+          # 301/320 (kitapcik depoda yok). Sira 5. kurali (kalip uyumu) bunu kullanir. GORMEZ: anlam, ayiricinin %6 yanilgisi.
+          - { ad: "Soru cumlesi kalibi OZ-SINAVI (17 kalip, sirket adli vaka)",
+              kabuk: bash, komut: "node motor/soru-kalibi.js --sinav" }
+          # 30.10 sinava benzerlik olcusu (tek soru): kok/sik boyu gercek ders kalibina gore. GORMEZ: anlam, konu, dogruluk.
+          - { ad: "Sinava benzerlik olcusu OZ-SINAVI (kok/sik esikleri, sozel siklı derste ciplak rakam)",
+              kabuk: bash, komut: "node motor/sinav-benzerlik-olcu.js --sinav" }
           # 12.10 kaldigin yer gocu (eski sira -> kimlik -> yeni sira). GORMEZ: cihazdaki seviye dizilimi, esitlenmemis cihaz.
           - { ad: "Kaldigin yer gocu OZ-SINAVI (eski i -> kimlik -> yeni i, SGS'ye dokunmaz)",
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --sinav" }
           - { ad: "Kaldigin yer gocu MUTASYON (kimlik yolu kapatilinca sinav duser mi)",
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --mutasyon" }
+          # 28.10 hesap tablosu: yesil sonuc satiri = dogru sikla tutan satir; tutmuyorsa tablo cizilmez (kural kaydir-coz.ps1'den okunur).
+          - { ad: "Hesap tablosu KAPI-HT OZ-SINAVI (sonuc satiri dogru sikla tutar)",
+              kabuk: bash, komut: "node arac/hesap-tablosu-kapisi.js --sinav" }
+          - { ad: "Hesap tablosu KAPI-HT MUTASYON (son satir kurali geri gelirse sinav duser mi)",
+              kabuk: bash, komut: "node arac/hesap-tablosu-kapisi.js --mutasyon" }
+          # 28.10 SGS ders sayfasi soru sirasi (motor/sgs-ders-sira.js): ilk 10 farkli konu, art arda ayni konu yok, kume ayni;
+          # depodaki gercek secimde (4.926 soru) esdegerlik. GORMEZ: yazimi farkli ayni konu, zorluk serpistirme.
+          - { ad: "SGS soru sirasi OZ-SINAVI (ilk 10 farkli konu, art arda ayni konu yok, kume ayni)",
+              kabuk: bash, komut: "node motor/sgs-ders-sira.js --sinav" }
+          - { ad: "SGS soru sirasi MUTASYON (3 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node motor/sgs-ders-sira.js --mutasyon" }
+          - { ad: "SGS kaldigin yer gocu OZ-SINAVI (--kod sgs, bitirmeye dokunmaz)",
+              kabuk: bash, komut: "node arac/smmm-konum-gocu.js --kod sgs --sinav" }
+          - { ad: "SGS kaldigin yer gocu MUTASYON",
+              kabuk: bash, komut: "node arac/smmm-konum-gocu.js --kod sgs --mutasyon" }
           # 12.10 Nobetci notu (nobetci-notu.js): her 10 cevapta kart, 20'de davet, zayif konu, KANITLI RAKAM = okunmus
           # kaynaktan dogrudan sayim (271 konu). GORMEZ: kartin cizimi, uygulamadaki bag.
           - { ad: "Nobetci notu OZ-SINAVI (10'da bir, kanitli donem sayisi, zayif konu)",
@@ -754,6 +804,15 @@ jobs:
           # girdisinde DURDURUR; eski soruda NOT). 14 vaka; 7 mutasyon (hep eski, hep yeni, tarihsiz eski, dort bag tek tek) KIRMIZI. Ag yok.
           - { ad: "Soru kalite kapisi YENI2 bag OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/soru-kalite-kapisi.js --sinav --mutasyon" }
+          # 27.10: KAPI-KARNE sik karnesi (adim sik+karar) tek yesil ya da tek kirmizi = anahtar mi; harf cift / A-E disi.
+          # soru-kalite-kapisi.js uzerinden YENI2'de DURDURUR, eskide NOT (bag vakasi orada, 19 vaka / 9 mutasyon). 18 vaka
+          # (8 yanlis alarm + 10 yakalama); 7 mutasyon (esik x2, cift, harf, anahtar, olumsuz kok, olumlu kok) KIRMIZI (27.10). Ag yok.
+          - { ad: "Karne-anahtar kapisi OZ-SINAVI + MUTASYON (KAPI-KARNE)",
+              kabuk: bash, komut: "node arac/karne-kapisi.js --sinav --mutasyon" }
+          # 27.10: sik-kaydir.ps1 harf takasi korumasi (17.09 kosusu 17 sorunun adimini eski harfte birakmisti): harf anan desen
+          # harf duyarsiz, sik alanli adimli soru kaydirilmaz, takas karneyi bozarsa yazilmaz. 7 vaka; 3 mutasyon KIRMIZI. Ag yok.
+          - { ad: "Sik kaydirma korumasi OZ-SINAVI + MUTASYON",
+              kabuk: pwsh, komut: "./arac/sik-kaydir.ps1 -Sinav -Mutasyon" }
           # 30.09: KAPI-ADIM adim atfi kaymasi ("X (N. adimda bulduk)" X'in sonuc oldugu adimi gostermiyor) + mekanik onarim. 7 vaka;
           # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",
@@ -908,6 +967,11 @@ jobs:
               kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js" }
           - { ad: "Kaynak etiketi istemci MUTASYON (her bozma kirmizi)",
               kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js --mutasyon" }
+          #  28.10 Google Ads cevrimdisi donusum CSV'si (gclid -> odenen siparis): bicim, +03 saat, 90 gun, odenmemis/bozuk eleme
+          - { ad: "Google Ads cevrimdisi donusum CSV OZ-SINAVI",
+              kabuk: bash, komut: "node arac/gads-cevrimdisi-donusum.js --sinav" }
+          - { ad: "Google Ads cevrimdisi donusum CSV MUTASYON (her bozma kirmizi)",
+              kabuk: bash, komut: "node arac/gads-cevrimdisi-donusum.js --mutasyon" }
           - { ad: "Kaynak sayaci sunucu OZ-SINAVI + MUTASYON (Postgres)",
               kabuk: bash, komut: "bash arac/kaynak-sayac-sinavi.sh" }
 

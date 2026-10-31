@@ -259,7 +259,7 @@
         <a class="sv-btn ana" id="svKilitAc" href="ogrenci.html?sonra=seviye-testi.html%3Frapor%3D1#uye-ol" style="text-decoration:none">Ücretsiz hesap aç, raporu gör →</a>
         <a class="sv-btn" id="svKilitGiris" href="ogrenci.html?sonra=seviye-testi.html%3Frapor%3D1" style="text-decoration:none">Hesabım var, giriş yap</a>
       </div>
-      <p class="sv-not" style="margin:10px 0 0">Ücretsiz, kart istenmez. Google ile tek tıkla açılır; sonucun hesabına kaydedilir.</p>
+      <p class="sv-not" style="margin:10px 0 0">Ücretsiz, kart istenmez. Google hesabınla hemen açılır; sonucun hesabına kaydedilir.</p>
     </div>
     <div class="sv-gruplar" id="svGruplar"></div>
     <!-- YET: tezkiye notu ortalamaya ayrı ders gibi girer (m.16/b); verilmezse en düşük kabul notu 80 (m.9) -->
@@ -329,15 +329,15 @@
 
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js?v=20261012a"></script>
-<script src="fiyat-motoru.js?v=20261013b"></script>
+<script src="fiyat-motoru.js?v=20261028y5"></script>
 <script src="anlik-teklif.js?v=20261012c"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="uye-durumu.js?v=20261018b"></script>
+<script src="uye-durumu.js?v=20261028z"></script>
 <script>/* 13.10 KGK açılış hazırlığı: sonuç formundaki sınav seçeneği içerik açılınca görünür (uye-durumu.js SINAVLAR.kgk.icerik) */
 try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icerik){ var o=document.getElementById('svSinavKgk'); if(o){ o.hidden=false; o.disabled=false; } } }catch(e){}</script>
 <script src="kutu-esitle.js"></script>
-<script src="cizerek-coz.js?v=5"></script>
+<script src="cizerek-coz.js?v=8"></script>
 <script>
 (function(){
   'use strict';
@@ -1074,7 +1074,7 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
     $('svGiris').querySelectorAll('.sv-not')[0].textContent='Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.';
     /* 12.10 (Cem "4 yanlış 1 düşelim yeterlilikte"): Yeterlilik'te yanlış 0,25 doğruyu götürür (TÜRMOB E.233 eki viii) → düğme "Boş bırak" */
-    $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. Gerçek sınavdaki gibi her yanlış 0,25 doğruyu götürür: hiçbir şıkkı eleyemiyorsan "Boş bırak".';
+    $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. Sınav kuralına göre burada da her yanlış 0,25 doğruyu götürür: hiçbir şıkkı eleyemiyorsan "Boş bırak".';
     $('svBilmiyorum').textContent='Boş bırak';
     document.documentElement.classList.remove('sv-yet-bekle');   /* 07.10: metin Yeterlilik'e döndü, kutu görünür */
     /* 07.10: eski "örnek sorular" düğmesinin adres değişimi kalktı (düğme yok, yerinde yarının sorusu) */

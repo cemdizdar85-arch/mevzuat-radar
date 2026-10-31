@@ -1,0 +1,54 @@
+[
+  {
+    "ders": "Meslek Hukuku",
+    "dersAd": "Meslek Hukuku",
+    "etiket": "sgs-s20-meslek-k10-kolay",
+    "adet": 3,
+    "zorluk": "kolay",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-meslek-k10-kolay.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-meslek-k10-kolay.json"
+  },
+  {
+    "ders": "Meslek Hukuku",
+    "dersAd": "Meslek Hukuku",
+    "etiket": "sgs-s20-meslek-k10-zor",
+    "adet": 5,
+    "zorluk": "zor",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-meslek-k10-zor.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-meslek-k10-zor.json"
+  },
+  {
+    "ders": "Meslek Hukuku",
+    "dersAd": "Meslek Hukuku",
+    "etiket": "sgs-s20-meslek-k10-cokzor",
+    "adet": 4,
+    "zorluk": "çok zor",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-meslek-k10-cokzor.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-meslek-k10-cokzor.json"
+  },
+  {
+    "ders": "Vergi Hukuku",
+    "dersAd": "Vergi Hukuku",
+    "etiket": "sgs-s20-vergi-k10-zor",
+    "adet": 1,
+    "zorluk": "zor",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-vergi-k10-zor.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-vergi-k10-zor.json"
+  }
+]

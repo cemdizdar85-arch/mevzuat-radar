@@ -96,6 +96,15 @@ function dersleriDogrula(urunId, dersler) {
   if (temiz.length !== u.ders) return { tamam: false, hata: "ders-sayisi" };
   return { tamam: true, dersler: temiz };
 }
+// 30.10 (iPhone satışı açılırken): Apple SANDBOX ödemesi para çekmez (App Review + TestFlight). İzinli hesap (Apple
+// inceleme deneme hesabı, yöneticiler) normal hak alır; başkası yalnız paketi YOKKEN / bitmişken 1 günlük paket alır,
+// açık paketin üstüne yazamaz ("sandbox-acik-paket"). Üretim ödemesine dokunmaz.
+function sandboxKarari(karar, satir, izinli, simdiMs) {
+  if (izinli || karar.islem === "red") return karar;
+  const aktif = !!satir && (!satir.bitis || satir.bitis >= trGunu(simdiMs));
+  if (aktif) return { islem: "red", neden: "sandbox-acik-paket" };
+  return { islem: karar.islem, yeni: { ...karar.yeni, bitis: trGunu(simdiMs + 86400000) } };
+}
 // satir: paket_uyeler satırı ya da null. Döner: {islem:"ekle"|"guncelle"|"red", yeni?, neden?}
 function hakKarari(satir, urunId, dersler, simdiMs) {
   const u = URUNLER[urunId];
@@ -268,6 +277,14 @@ async function appleOku(islemNo: string): Promise<Record<string, unknown> | null
   return null;
 }
 
+// Sandbox'ta tam hak: Apple inceleme deneme hesabı (destek@tetikte.com) + yöneticiler
+const SANDBOX_DENEME_HESABI = "e1b074fd-ab35-49da-b481-7a031b2a1808";
+async function sandboxIzinli(userId: string): Promise<boolean> {
+  if (userId === SANDBOX_DENEME_HESABI) return true;
+  const r = await rest("yoneticiler?select=user_id&user_id=eq." + encodeURIComponent(userId));
+  return r.ok ? (await r.json()).length > 0 : false;
+}
+
 async function siparisYaz(alanlar: Record<string, unknown>, jeton: string): Promise<void> {
   await rest("magaza_siparis?jeton=eq." + encodeURIComponent(jeton), { method: "PATCH", body: JSON.stringify({ ...alanlar, guncelleme: new Date().toISOString() }) });
 }
@@ -306,7 +323,9 @@ async function dogrula(magaza: "google" | "apple", k: { id: string }, urunId: st
   // 3) Hak kararı. Google: tanımlanamıyorsa TÜKETİLMEZ → Google 3 günde iade eder.
   //    Apple: kendiliğinden iade YOK — bu yüzden uygulama ödemeden ÖNCE {islem:"kontrol"} sorar; buraya düşen
   //    red nadirdir (iki cihazdan eşzamanlı alım) ve magaza_siparis'te "red" olarak iade takibine kalır.
-  const karar = hakKarari(await paketSatiri(k.id), urunId, dersler, Date.now());
+  const satirSimdi = await paketSatiri(k.id), simdi = Date.now();
+  let karar = hakKarari(satirSimdi, urunId, dersler, simdi);
+  if (!google && (g as Record<string, unknown>)._ortam === "sandbox") karar = sandboxKarari(karar, satirSimdi, await sandboxIzinli(k.id), simdi);
   if (karar.islem === "red") {
     await siparisYaz({ durum: "red", neden: karar.neden, ham: g, siparis_no: siparisNo }, jeton);
     return yanit({ tamam: false, neden: karar.neden, iade: google ? "3 gün içinde otomatik" : "apple-iade-talebi" }, 409, origin);

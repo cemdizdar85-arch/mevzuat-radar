@@ -1,0 +1,3232 @@
+{
+  "no": 2,
+  "tarih": "2026-10-24 14:46",
+  "girdi": "veri/sinav/s20-kalibrasyon-cikmis3.json",
+  "cozucu": {
+    "model": "model-a",
+    "uretim_cozucusu": false,
+    "maxTok": 8000,
+    "kaynak": "yok (kör)",
+    "iz": "8be09451bf964879"
+  },
+  "ozet": {
+    "toplam": 348,
+    "cevaplanan": 348,
+    "dogru": 264,
+    "bozuk": 0,
+    "butce_yetmedi": 0,
+    "olculen_oran": 1.038,
+    "usd": 0.64,
+    "ders": {
+      "Turkce": {
+        "dogru": 10,
+        "toplam": 18,
+        "cevapsiz": 0
+      },
+      "Matematik": {
+        "dogru": 6,
+        "toplam": 6,
+        "cevapsiz": 0
+      },
+      "Ataturk Ilkeleri ve Inkilap Tarihi": {
+        "dogru": 10,
+        "toplam": 14,
+        "cevapsiz": 0
+      },
+      "Yabanci Dil": {
+        "dogru": 30,
+        "toplam": 30,
+        "cevapsiz": 0
+      },
+      "Finansal Muhasebe": {
+        "dogru": 49,
+        "toplam": 63,
+        "cevapsiz": 0
+      },
+      "Maliyet Muhasebesi": {
+        "dogru": 18,
+        "toplam": 22,
+        "cevapsiz": 0
+      },
+      "Mali Tablolar Analizi": {
+        "dogru": 20,
+        "toplam": 23,
+        "cevapsiz": 0
+      },
+      "Denetim": {
+        "dogru": 41,
+        "toplam": 48,
+        "cevapsiz": 0
+      },
+      "Ekonomi": {
+        "dogru": 17,
+        "toplam": 17,
+        "cevapsiz": 0
+      },
+      "Maliye": {
+        "dogru": 14,
+        "toplam": 18,
+        "cevapsiz": 0
+      },
+      "Meslek Hukuku": {
+        "dogru": 9,
+        "toplam": 18,
+        "cevapsiz": 0
+      },
+      "Is ve Sosyal Guvenlik Hukuku": {
+        "dogru": 10,
+        "toplam": 18,
+        "cevapsiz": 0
+      },
+      "Vergi Hukuku": {
+        "dogru": 9,
+        "toplam": 18,
+        "cevapsiz": 0
+      },
+      "Ticaret Hukuku": {
+        "dogru": 10,
+        "toplam": 17,
+        "cevapsiz": 0
+      },
+      "Borclar Hukuku": {
+        "dogru": 11,
+        "toplam": 18,
+        "cevapsiz": 0
+      }
+    }
+  },
+  "sorular": [
+    {
+      "id": "cikmis-2025-3-1",
+      "ders": "Turkce",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A'da zaman zarfı, B'de sıfat tamlaması, C'de belirtme+yer zarfı, D'de kaynak/yön zarfları, E'de tümleç ve yer zarfları bulunmaktadır."
+    },
+    {
+      "id": "cikmis-2025-3-2",
+      "ders": "Turkce",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I'de 'güzel' fiili (kokuyordu) nitelendiriyor = zarf. II-V'de isimleri nitelendiriyor = sıfat."
+    },
+    {
+      "id": "cikmis-2025-3-3",
+      "ders": "Turkce",
+      "cevap": "B",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Metin, nezaket sahibi insanları çeşitli betimsel ifadelerle anlatmaktadır: 'içinizdeki güzelliği çekip çıkarır', 'görkemini taşıyan', 'çiçek dirilticileri' gibi imgelerle. Alıntı sadece başlangıçtır, ana yöntem betimleme."
+    },
+    {
+      "id": "cikmis-2025-3-4",
+      "ders": "Turkce",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümleler I-II-III-V yazarın yazma motivasyonu ve yazının işlevini anlatır. IV. cümle çocukluk okumaları ve hayal dünyası geliştirmesinden söz ederek ana tema dışında yan konuya sapıyor."
+    },
+    {
+      "id": "cikmis-2025-3-5",
+      "ders": "Turkce",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A) olumsuz etkiledi ≠ aşırı etkiledi. B) çok geriyor ✓. C) kötü bildiler = olumsuz tanındı. D) ciddi/ağır yaralandı = aşırı ✓. E) olumsuz tuttu."
+    },
+    {
+      "id": "cikmis-2025-3-6",
+      "ders": "Turkce",
+      "cevap": "E",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "E şıkkındaki 'saldım' sözcüğü sal- kökünün çekimidir ve ünlü değişimi göstermez. Diğer şıklarda da belirgin ünlü değişimi yoktur. Soru metni ve seçenekler içinde klasik ünlü değişimi örneği net değildir; E en yakın adaydır."
+    },
+    {
+      "id": "cikmis-2025-3-13",
+      "ders": "Matematik",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Orta nokta formülü: N = ((xC+xD)/2, (yC+yD)/2). −1 = (3+xD)/2 → xD = −5. 4 = (−5+yD)/2 → yD = 13."
+    },
+    {
+      "id": "cikmis-2025-3-14",
+      "ders": "Matematik",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "İndirim tutarı: 840 = E × 0,15 → E = 5600. Satış fiyatı: 5600 - 840 = 4760. Maliyet: 4760 = M × 1,60 → M = 2975"
+    },
+    {
+      "id": "cikmis-2025-3-16",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Milliyetçilik → ayrılıkçılık; bunu ortadan kaldırmak için siyasi katılım ve temsil gerekir. Meşrutiyet (1876), farklı etnik grupları ortak siyasi çatı altında toplayarak ayrılıkçı talepleri meşru yollarla karşılamaya yönelir."
+    },
+    {
+      "id": "cikmis-2025-3-17",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Türk Kurtuluş Savaşı (1919-1923): Mondros (1918) savaştan önce. Sevr (1920) dayatılan, reddedilen antlaşma. Moskova (1921) Sovyetlerle. Mudanya (1922) İtilaf devletleriyle ateşkes = silahlı mücadelenin sonu. Lozan (1923) barış antlaşması, s…"
+    },
+    {
+      "id": "cikmis-2025-3-18",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Gençliğe Hitabesi, Mustafa Kemal Atatürk tarafından kaleme alınmış ve 1927'de Nutuk'un sonunda yer alan ünlü bir eserdir. Soru metninde verilen şıklar incelendiğinde: A) Vatandaş İçin Medeli Bilgiler - Nutuk değil, B) Cumali Ordugâhı - Nutu…"
+    },
+    {
+      "id": "cikmis-2025-3-19",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "E",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "1919 Heyet-i Temsiliye merkez seçimi: Samsun direniş başlangıcı, Amasya merkez olarak seçildi ve Amasya Genelgesi yayımlandı."
+    },
+    {
+      "id": "cikmis-2025-3-20",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "1930'larda Mussolini yönetiminde İtalya agresif dış politika izler. Arnavutluk'u tehdit eder (1939 işgal). Bu tehdit Balkan devletlerini 1934'te birleşmeye itmiştir. Romanya kurucudur ama 'dolaylı etki' kriteri değildir."
+    },
+    {
+      "id": "cikmis-2025-3-21",
+      "ders": "Yabanci Dil",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlede 'last year' zaman belirteci vardır (geçmiş). 'After new regulations ---- effect last year' yapısında boşluğa geçmiş basit zaman gerekir. 'took effect' = yürürlüğe girdi. B) have taken (present perfect) - 'last year' ile uyumlu değil…"
+    },
+    {
+      "id": "cikmis-2025-3-22",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "1. 'recommended for people' = insanlar için tavsiye edilir (doğru preposition). 2. 'to stop' = amaç ifadesi (infinitive). Diğer şıklar cümle yapısına uymaz."
+    },
+    {
+      "id": "cikmis-2025-3-23",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlenin anlamı: 'Halk sağlığını iyileştirmek için sağlık bakanlığı insanları her gün daha fazla egzersiz yapmaya ve daha sağlıklı yemek yemeye ____ ediyor.' Bağlam, bakanlığın insanları harekete geçirmeyi amaçladığını gösteriyor. A) notice…"
+    },
+    {
+      "id": "cikmis-2025-3-24",
+      "ders": "Yabanci Dil",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BUT bağlacı zıtlık gösterir. 'Zor değil ama ... yeterince [sıfat]'. Boşluk: öğrencileri düşünmeye zorlayan nitelik. E) challenging = zorlayıcı/meydan okuyan. Mantık: 'zorlayıcı kadar' öğrencileri düşünmeye zorlar."
+    },
+    {
+      "id": "cikmis-2025-3-25",
+      "ders": "Yabanci Dil",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Boş yerde singer ile voice arasında sahiplik ilişkisi kurulmalıdır. 'The singer whose voice' yapısı = 'sesi olan şarkıcı'. Whose, sahiplik gösteren ilişkili zamirdir. Diğer seçenekler (that, which=nesne; where=yer; what=soru sözcüğü) uygun …"
+    },
+    {
+      "id": "cikmis-2025-3-26",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle: 'If students do not learn how to use dictionaries ----, they may face many difficulties when reading academic texts in English.' Mantık: Sözlük kullanmayı öğrenmezlerse zorluk çekeceği söyleniyor. Boşluğa gelecek sözcük, sözlük kulla…"
+    },
+    {
+      "id": "cikmis-2025-3-27",
+      "ders": "Yabanci Dil",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle: 'Hükümet hava kirliliğini azaltmak için bir kampanya başlattı ve toplu taşıma bu ____ da çok önemli bir rol oynuyor.' Boş yere gelmesi gereken sözcük, hükümetin hava kirliliğini azaltmak için yürüttüğü çalışmayı nitelendirir. A) inte…"
+    },
+    {
+      "id": "cikmis-2025-3-28",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Although yapısında kontrastlık gerekir. Telefondan saat kontrol etmelerine RAĞMEN, saatler hâlâ telefonsuz hızlı zaman gösterme imkanı sunar. A şıkkı tek doğru kontrastlı seçenektir."
+    },
+    {
+      "id": "cikmis-2025-3-29",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Gelir-gider kaydı tutma → kâr hesaplanması → bütçe planlaması. B seçeneği doğal ve mantıklı sonuçtur."
+    },
+    {
+      "id": "cikmis-2025-3-30",
+      "ders": "Yabanci Dil",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Ana cümle turizmin faydalarını sunar. Boşluğu dolduracak bağlaç kontrastik bir nüans eklemelidir. 'However' karşıtlık kurar; faydalar yanında kötü yönetim riskleri vardır. Diğer şıklar ('also','therefore','in fact','for instance') bağlamsal…"
+    },
+    {
+      "id": "cikmis-2025-3-31",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Net defter değeri (160.000) - Satış fiyatı (150.000) = 10.000 ₺ zarar. Gider/zarar hesapları alacaklı tarafta kaydedilir. E şıkkında borçlu yazması hata."
+    },
+    {
+      "id": "cikmis-2025-3-32",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Otopark inşaatı devam etmekte, nihai hakediş henüz alınmamıştır. Tamamlanmamış yapı yatırımları 'Yapılmakta Olan Yatırımlar' hesabında muhasebeleştirilir. Tamamlandığında Binalar hesabına aktarılır."
+    },
+    {
+      "id": "cikmis-2025-3-33",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "150.000₺ nakit - 100.000₺ nominal = 50.000₺ prim. Seçenekler içinde standart muhasebe uygulaması açısından C en temel kaydı göstermektedir."
+    },
+    {
+      "id": "cikmis-2025-3-34",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Kullanılmayan kırtasiye 10.000 ₺ gelecek dönem gideri olarak ertelenir. Borç: Gelecek Aylara Ait Giderler, Alacak: Gider hesabı."
+    },
+    {
+      "id": "cikmis-2025-3-35",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Yıllık ikramiye 720.000÷12=60.000 ₺/ay. 31 Ocak'ta Ocak gideri tahakkuk ettirilir. Gider Tahakkukları hesabı bu kaydın karşı hesabı olarak alacaklandırılır."
+    },
+    {
+      "id": "cikmis-2025-3-36",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Satış sonrası iskonto gider muhasebeleştirilir. Satış İskontoları (borç/gider) ve Alıcılar (alacak/azalış) kayıtlanır. Seçenek A tam doğru."
+    },
+    {
+      "id": "cikmis-2025-3-37",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Gelir-gider hesapları kapatılırken dönem sonucu (kâr/zarar) birikmiş kârlar hesabına aktarılır. Varlık-yükümlülük-özkaynaklar gibi bilançoya kalan hesaplardır. A, B, D gelir tablosu kalem (kapatılır), E ise dönem sonucu anlamında C ile eşde…"
+    },
+    {
+      "id": "cikmis-2025-3-38",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sevk (26.12) ile fatura (31.12) arasında 5 gün geçmiş. İşletme satış işlemini sevk tarihinde değil, fatura düzenleme tarihinde muhasebeleştirmiştir. Bu, işlemlerin ilgili oldukları döneme kaydedilmesi anlamına gelen dönemsellik ilkesinin uy…"
+    },
+    {
+      "id": "cikmis-2025-3-39",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Defter değeri (500.000) - Fiili sayım (200.000) = 300.000 ₺ fark. Aralıklı envanter yönteminde dönem sonu açığı STMM hesabına borç yazılır."
+    },
+    {
+      "id": "cikmis-2025-3-40",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "49 yıllık işletme hakkı, maddi olmayan duran varlık olup Haklar hesabında muhasebeleştirilir. Banka ödemesi için Banka hesabı alacaklandırılır."
+    },
+    {
+      "id": "cikmis-2025-3-41",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "İşletme satıcıdır. Satış geliri 400.000 ₺ ile Yurtiçi Satışlar'a alacaklandırılır, KDV 4.000 ₺ ile Hesaplanan KDV'ye alacaklandırılır. Tesis, Makine hesabı bu işlemde yer almaz."
+    },
+    {
+      "id": "cikmis-2025-3-42",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Nominal değer 150.000 - Tasarruf değeri 120.000 = 30.000 ₺ indirim. Bu indirim Alacak Senetleri Reeskontu (contra-asset) hesabında alacak tarafına kaydedilerek net değer 120.000 ₺ olur."
+    },
+    {
+      "id": "cikmis-2025-3-43",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "2023: 1.200.000 × %40 × 6/12 = 240.000 ₺. 2024 başında kalan değer 960.000 ₺. 2024 eşit tutarlar yöntemi: 150.000 ₺. Toplam birikmiş amortisman: 240.000 + 150.000 = 390.000 ₺"
+    },
+    {
+      "id": "cikmis-2025-3-46",
+      "ders": "Finansal Muhasebe",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Yıllık amortisman = 100.000 ÷ 5 = 20.000 ₺. İkinci yıl sonunda kaydedilen miktar 20.000 ₺ olup, Amortismanlar Giderleri (Borç) ve Birikmiş Amortismanlar (Alacak) hesaplarını içerir. Hiçbir şık bu doğru yapıyı tam göstermez."
+    },
+    {
+      "id": "cikmis-2025-3-47",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Geçmiş yıllar kârları döneme ait olmayan, birikmiş kâr niteliğindeki kalemdir. 690 Dönem Kârı/Zararı hesabına devredilmez; doğrudan öz kaynaklar hesaplarına (Yedek Akçeler vb.) aktarılır. Diğer tüm şıklar dönemsel gelirleri temsil eder ve 6…"
+    },
+    {
+      "id": "cikmis-2025-3-48",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A-muafiyet yok, B-alacak değil borç, C-doğru (ana sözleşme→Statü Yedekleri), D-kanuni→Yasal Yedekler, E-genel kurul→Olağanüstü/Statü Yedekleri"
+    },
+    {
+      "id": "cikmis-2025-3-49",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Peşin ödenen vergilerin net artışı (140.000-80.000=60.000) ile net vergi yükümlülüğünün artışının toplamı: (175.000-120.000+65.000-50.000=70.000) ya da doğrudan nakit ödenen vergi: 100.000 ₺"
+    },
+    {
+      "id": "cikmis-2025-3-50",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TMS 36 Varlıklarda Değer Düşüklüğü standardı, belirli varlıkları kapsamı dışında bırakır. Stoklar TMS 2'ye tabi olup, TMS 36 kapsamında değer düşüklüğü testine tabi değildir. Diğer şıklar (yeniden değerleme sonrası MDV, maliyet yöntemindeki…"
+    },
+    {
+      "id": "cikmis-2025-3-52",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TFRS 3 satın alma yöntemi; edinen belirlenmesi, birleşme tarihi, varlık-borç-kontrol gücü olmayan pay ölçümü ve şerefiye muhasebeleştirilmesi gerektirir. Ancak konsolidasyon TFRS 10 kapsamı olup, satın alma yönteminin uygulanması aşamasında…"
+    },
+    {
+      "id": "cikmis-2025-3-53",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TMS 21'de geçerli para birimini belirleyen faktörler: satış fiyatları, maliyetler, finansman kaynakları ve tahsilatlar. İşletmenin bütçe hazırlama para birimi belirleyici faktör değildir."
+    },
+    {
+      "id": "cikmis-2025-3-54",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Toplam kâr/zarar: -9.000 ₺. Sayısal alt sınır: 9.000 × %10 = 900 ₺. Bölüm A (30.000), C (40.000), D (4.000) mutlak değerleri 900 ₺'yi aşar. Bölüm B (3.000) de sağlamasına rağmen A şıkkında bulunmuyor."
+    },
+    {
+      "id": "cikmis-2025-3-55",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Muhasebe bilgi sisteminde veri akışı: Kaynak dokümanlar (girdiler) → İşleme → Çıktılar. Bilanço, günlük defter, büyük defter, genel geçici mizan işlenmiş verilerden elde edilen ÇIKTILARDIR. Satıştan iade faturası ise olay/işlemi belgeleyen …"
+    },
+    {
+      "id": "cikmis-2025-3-56",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "IFAC bünyesindeki kuruluşlar: IESBA (etik standartları), IPSASB (kamu sektörü muhasebesi), IAASB (denetim standartları), IPAE (eğitim paneli) IFAC'ın birer parçasıdır. FASB ise ABD merkezli, bağımsız bir kuruluş olup IFAC bünyesinde yer alm…"
+    },
+    {
+      "id": "cikmis-2025-3-57",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Dönem sonu yarı mamul = 4.000 + 12.500 - 14.000 = 2.500 adet. Eşdeğer birim = Yarı mamul × Tamamlanma derecesi → 2.000 = 2.500 × x → x = 2.000/2.500 = 0,80 = %80"
+    },
+    {
+      "id": "cikmis-2025-3-59",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "MS dağılımı: K=100, L=200, M=200. Dağıtım oranı: 400.000/500=800 ₺/MS. K için: 100×800=80.000 ₺"
+    },
+    {
+      "id": "cikmis-2025-3-60",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "800.000=750.000+70.000-20.000. A,B,C,D,E sırası ile fiili kapatma, standart açma, net fark, olumsuz fark, olumlu fark kayıtları gösterir. Tamamı standart maliyete göre kapanış prosedürünü doğru ifade eder."
+    },
+    {
+      "id": "cikmis-2025-3-61",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Satışların Maliyeti Tablosu (SMM) yapısı: Dönem başı yarı mamul + Üretim maliyetleri (direkt hammadde satın alımları net, direkt işçilik, genel üretim giderleri) - Dönem sonu yarı mamul = İmalat maliyeti. SMM'de hammadde IADELERİ ayrı satır…"
+    },
+    {
+      "id": "cikmis-2025-3-62",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Miktar Sapması = (Fiili - Standart) × Fiyat → 10.000.000 = (20.000 - StdMiktar) × 4.000 → Standart Miktar = 17.500 kg → Üretim = 17.500 ÷ 10 = 1.750 adet"
+    },
+    {
+      "id": "cikmis-2025-3-63",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "D",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Direkt Giderler: 400.000+300.000+240.000=940.000 ₺. Sabit GÜG: 1.228.000-940.000=288.000 ₺. Toplam GÜG: 240.000+288.000=528.000 ₺"
+    },
+    {
+      "id": "cikmis-2025-3-65",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Gelir tablosu yapısı: Net Satışlar - Satışların Maliyeti = Brüt Satış Kârı. Brüt Satış Kârı - Faaliyet Giderleri (pazarlama, yönetim, dağıtım vb.) = Faaliyet Kârı. A seçeneği brüt kâra ulaşır. C ve D olağan/net kâr aşamalarıdır. B sadece in…"
+    },
+    {
+      "id": "cikmis-2025-3-66",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Satışların Maliyeti: (380.000-300.000)/300.000 = %26,67. Net Satışlar %20, Faaliyet Giderleri %10, diğerleri %10. En yüksek: Satışların Maliyeti."
+    },
+    {
+      "id": "cikmis-2025-3-67",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Stok Devir Hızı=SMM/Ortalama Stok → SMM=60.000. Brüt Kâr Oranı %40 → Net Satışlar=100.000, Brüt Kâr=40.000. Faaliyet Kârı=40.000-20.000=20.000 ₺ kâr."
+    },
+    {
+      "id": "cikmis-2025-3-68",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "SMM = 100.000 - 20.000 = 80.000 ₺. Ortalama Stokta Kalma Süresi = (20.000/80.000) × 365 = 91,25 gün"
+    },
+    {
+      "id": "cikmis-2025-3-69",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Aktif devir hızından 2023 toplam aktif=50.000; 2024 cari orandan dönen varlık=30.000; brüt çalışma sermayesi artışından 2023 dönen=20.000; duran varlık=50.000-20.000=30.000"
+    },
+    {
+      "id": "cikmis-2025-3-70",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Pay senedi getirisi = (Satış Fiyatı - Alış Fiyatı + Temettü) / Alış Fiyatı formülüyle hesaplanır. A) Fiyat değişimi getiriyi doğrudan etkiler. B) Temettü ödemeleri getirinin bileşenidir. C-E) Bedelli/bedelsiz sermaye artırımları hisse sayıs…"
+    },
+    {
+      "id": "cikmis-2025-3-71",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Net Satışlar=80.000÷0,25=320.000 ₺ → Brüt Kâr=320.000-200.000=120.000 ₺ → Faaliyet Kârı=120.000-80.000=40.000 ₺ → Dikey %=(40.000÷320.000)×100=12,5%"
+    },
+    {
+      "id": "cikmis-2025-3-72",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "2023 brüt kâr marjı: 120.000/400.000=%30. 2024 brüt kâr marjı: 132.000/440.000=%30. Diğer şıklar: Faaliyet kârı değişmedi (A yanlış), faaliyet marjı düştü (C yanlış), net satış artışı %10 < gider artışı %15 (D yanlış), satış maliyeti arttı …"
+    },
+    {
+      "id": "cikmis-2025-3-73",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Şık A: Bireysel yanlışlıklar toplamı + önemliliği aşma = toplulaştırma riski tanımı. Şık B: Genel denetim riski. Şık C: Denetim riski alt bileşeni değil. Şık D: Müşteri riski. Şık E: Yanlış model."
+    },
+    {
+      "id": "cikmis-2025-3-74",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Önemlilik kavramı, denetçinin hangi hataları önemli kabul edeceğini ve denetim kanıtlarını ne düzeyde toplayacağını belirler. Bu kavram: (B) Planlama aşamasında - önemlilik eşiği belirlenir, (C) Yürütüm aşamasında - bulunan hatalar değerlen…"
+    },
+    {
+      "id": "cikmis-2025-3-75",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A) Dinamik süreç - İç kontrol özelliğidir (değişen koşullara uyum). B) İnsanlardan etkilenir - Özellik (insan faktörü). C) Makul güvence verir - Özellik (tam güvence değil, makul seviyede). D) Örtüşen gruplarda hedeflerle ilgilenir - Özelli…"
+    },
+    {
+      "id": "cikmis-2025-3-76",
+      "ders": "Denetim",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Uygunluk testleri: belge ve işlem uyumu, sistem kontrolleri. Aritmetik doğruluk testi: substantif test (detaylı kontrol). B şıkkı aritmetik/sayısal doğrulama testine aittir, uygunluk testinin kapsamı dışındadır."
+    },
+    {
+      "id": "cikmis-2025-3-77",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Risk Odaklı (3R) denetim yaklaşımına göre süreç: 1) Planlama (Risk Değerlendirmesi) → 2) Yüksek Risk Alanlarına Odaklanma → 3) Raporlama. Risklerin değerlendirilmesi, denetim sürecinin ilk aşaması olan PLANLAMA aşamasında yapılır. Bu aşamad…"
+    },
+    {
+      "id": "cikmis-2025-3-78",
+      "ders": "Denetim",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Birikmiş amortismanlar hesabı muhasebe hesaplaması olup, dönem amortismanı = (Sabit kıymet maliyeti / Faydalı ömür) veya diğer yöntemlerle yeniden hesaplanarak bakiyesi doğrulanır. Analitik prosedürler de uygun olmakla birlikte, direktest p…"
+    },
+    {
+      "id": "cikmis-2025-3-79",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "BDS 700 denetim raporunun denetçi görüşü bölümü işletme tanımı, denetim kapsamı, yönetimin sorumluluğu ve tablolar listesini içerir. Ancak her tablonun ayrı tarihi/dönemi görüş bölümünde detaylı olarak yer almaz; bu bilgiler tabloların kend…"
+    },
+    {
+      "id": "cikmis-2025-3-80",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Denetim planı risk değerlendirmesinden önce hazırlanır. Dolayısıyla risk değerlendirmesi sonrasında uygulanacak prosedürler planlama aşamasında yer alamaz. Diğer tüm seçenekler denetim planının bileşenleridir."
+    },
+    {
+      "id": "cikmis-2025-3-81",
+      "ders": "Denetim",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 230'de mevcut yıl denetim prosedürlerinin (nitelik, zamanlama, kapsam) belgelendirilmesi istenir. A,C,D,E tümü standart gereklilikleridir. Ancak B şıkkında 'önceki yıllarda uyguladığı benzer tekniklerin tam dökümü' her yıl tekrarlanması…"
+    },
+    {
+      "id": "cikmis-2025-3-82",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sorgulama müdür kaynaklı kanıttır. Bağımsız dış kanıt olmadığı için ve yönetim beyanı düzeyinde önemli yanlışlıkları tek başına kanıtlamada yetersizdir. Diğer prosedürler (tetkik, gözlem, dış teyit, yeniden hesaplama) doğrudan kanıt sağlar."
+    },
+    {
+      "id": "cikmis-2025-3-83",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A yanlış (olumlu görüşte de KDK bildirilir), B doğru (risk kriteri), C doğru (iletişim sorumluluğu), D doğru (örnek konular), E doğru (istisna durumu)"
+    },
+    {
+      "id": "cikmis-2025-3-84",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "BDS 501'de fiziki stok sayımına katılım planlanması; risk, iç kontrol, güvenlik önlemleri, zamanlamayı içerir. Envanter sisteminin türü muhasebe yöntemi ile ilgili olup, fiziki sayıma katılım planlamasında doğrudan belirleyici değildir."
+    },
+    {
+      "id": "cikmis-2025-3-85",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Önemliliğin belirlenmesi finansal ve operasyonel faktörlere bağlıdır. A, B, C, D finansal tablolar, kullanıcı odağı, kıyaslama dalgalanması ve sektör özellikleri şeklinde doğru faktörlerdir. E'deki yönetim kurulu yapısı (bağımsız üyeler, ko…"
+    },
+    {
+      "id": "cikmis-2025-3-86",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Denetçinin anakitlede beklediği yanlışlık tutarı artarsa, tespit edilebilir yanlışlık riski artacağından daha geniş bir örneklem almak gerekir. Beklenen hata / kabul edilebilir hata oranı yükselse, örneklem büyüklüğü artar."
+    },
+    {
+      "id": "cikmis-2025-3-87",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Denetim 'makul güvence' sağlar, %100 hatasızlık garantisi vermez. Denetçi önemli yanlışlıkları bulup bulunmadığını değerlendirir; küçük hatalar kabul edilebilir. Diğer şıklar denetçilerin standart değerlendirmeleridir."
+    },
+    {
+      "id": "cikmis-2025-3-88",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sınırlı olumlu görüş=önemli ancak yaygın olmayan durumlar. I doğru (önemli, yaygın değil). II yanlış (önemli+yaygın=olumsuz görüş). III doğru (önemli ancak yaygın olmayabilir)."
+    },
+    {
+      "id": "cikmis-2025-3-89",
+      "ders": "Ekonomi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Qd'=-2, P=4 iken Qd=2. Ed=(-2)×(4/2)=-4. Mutlak değeri |Ed|=4"
+    },
+    {
+      "id": "cikmis-2025-3-90",
+      "ders": "Ekonomi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I-yanlış (ikameli ürün monopol değildir), II-doğru (giriş engelleri monopol özelliğidir), III-doğru (negatif talep eğrisi monopol özelliğidir). Sadece I monopol özelliği değildir."
+    },
+    {
+      "id": "cikmis-2025-3-91",
+      "ders": "Ekonomi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Manşet enflasyon tüm mal/hizmetleri içerir. I yanlış çünkü enerji dahildir (enerji hariç = çekirdek). II yanlış çünkü TÜFE'ye dayalıdır, ÜFE'ye değil. III doğru çünkü gıda dahildir."
+    },
+    {
+      "id": "cikmis-2025-3-92",
+      "ders": "Ekonomi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Parasal Model (I) uyarlanabilir beklentilere dayanır. Yeni Klasik Model (II) rasyonel beklentilerin temelini atar. Yeni Keynesyen Model (III) rasyonel beklentileri kabul ederek yapışkan fiyatlar ekler. Cevap: D (II ve III)"
+    },
+    {
+      "id": "cikmis-2025-3-93",
+      "ders": "Ekonomi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Yeni Klasik model: (1) Merkez Bankası para arzı artıracağını DUYURMUŞ ve uygulamıştır = rasyonel beklentiler. (2) Aktörler bu politikayı önceden bilerek beklentilerini ayarlar. (3) Nominal ücretler ve fiyatlar bu beklentiyle uyumlu şekilde …"
+    },
+    {
+      "id": "cikmis-2025-3-94",
+      "ders": "Ekonomi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Marshall-Lerner Koşulu: Devalüasyon sonrası net ihracat artışı için (Ex esnekliği + İt esnekliği) > 1 gereklidir. E şıkkı bu koşulu tam olarak ifade etmektedir."
+    },
+    {
+      "id": "cikmis-2025-3-95",
+      "ders": "Maliye",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cari harcamalar → o dönemde tüketime gider, fayda aynı dönemde. Yatırım harcamaları → fiziki varlık oluşturur, fayda uzun dönemde yayılır. Temel kriter: faydanın zamansal dağılımı."
+    },
+    {
+      "id": "cikmis-2025-3-96",
+      "ders": "Maliye",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Dolaylı vergiler: emtiaya bağlı, nesnesel ve objektif. Vergi mükellefi kişiye göre değişmez. Sübjektif vergiler (gelir, servet) dolaysız vergilerdir."
+    },
+    {
+      "id": "cikmis-2025-3-97",
+      "ders": "Maliye",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Stagflasyonda vergi temelli gelir politikaları, nominal ücretleri kontrol ederken reel geliri koruyarak ücret-fiyat spiralini kırar. A seçeneği bu mekanizmanın çekirdek amacını belirtir."
+    },
+    {
+      "id": "cikmis-2025-3-98",
+      "ders": "Maliye",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru, vergi oranı arttıkça belirli bir noktadan sonra devletin vergi gelirinin azalmasını açıklayan iktisatçıyı soruyor. Bu, ünlü 'Laffer Eğrisi' teorisidir. Laffer Eğrisine göre, vergi oranları arttıkça başlangıçta vergi gelirleri artar, a…"
+    },
+    {
+      "id": "cikmis-2025-3-99",
+      "ders": "Maliye",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Geliri yoksulluk sınırı (60.000 ₺) altında olan kişiye (Ayşe: 40.000 ₺) vergi almak yerine nakit transfer (20.000 ₺) yapma mekanizması = Negatif Gelir Vergisi. Bu politika Milton Friedman (Monetarist) tarafından savunulmuştur."
+    },
+    {
+      "id": "cikmis-2025-3-100",
+      "ders": "Maliye",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru mali disiplin politikalarının etkinliğini soruyor. Mali uyum kalitesi, bütçe açığını azaltma yöntemlerinin ekonomik-sosyal çıktılarını değerlendiren ve açığın kapanış şeklini tanımlayan kavramdır."
+    },
+    {
+      "id": "cikmis-2025-3-101",
+      "ders": "Meslek Hukuku",
+      "cevap": "E",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "A, B, C, D odaların hukuki ve mali yapılarında açık gelir kaynakları. E ise odaların yasal yükümlülüğü olan mesleki eğitim faaliyetini desteklemek için harcadığı (gelir değil) kalemdir."
+    },
+    {
+      "id": "cikmis-2025-3-102",
+      "ders": "Meslek Hukuku",
+      "cevap": "C",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Kınama cezası: ticari faaliyet yasağı ihlali (I), kanun aykırı işbirliği (IV), reklam yasağı ihlali (V). Madde II ve III daha ağır cezaları gerektirir."
+    },
+    {
+      "id": "cikmis-2025-3-103",
+      "ders": "Meslek Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Serbest muhasebeci ve yeminli mali müşavirler meslek ifa ederken Devlet (yasalara uyum, vergi düzeni) ve Toplum (hukuk devleti, finansal sistem güvenliği) karşı sosyal sorumluluk taşırlar. Meslektaş ilişkisi ve işletme sahibiyle olan münase…"
+    },
+    {
+      "id": "cikmis-2025-3-104",
+      "ders": "Meslek Hukuku",
+      "cevap": "E",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "A, B, C doğru veya makul. D zorunluluk iddiası tartışmalı. E: Yeni oda, başka odanın tarifesini uygulaması genel kurallara aykırı görünmektedir. Yeni kurulan odalar için geçici başvuru farklı olabilir ama kalıcı tarife hazırlanmalıdır."
+    },
+    {
+      "id": "cikmis-2025-3-105",
+      "ders": "Meslek Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Reklam yoluyla haksız rekabet = başkalarının itibarına saldırmak/yanıltıcı beyan. A,B,C,E muhasebe/etik ihlali. D = reklam/tanıtım yoluyla rakipleri hedef alan asılsız beyan."
+    },
+    {
+      "id": "cikmis-2025-3-106",
+      "ders": "Meslek Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A, B, C, D doğrudan kişisel çıkar tehdidi örnekleridir. E şıkkı ise 'açıkça önemsiz' koşulu ile tehdidi ÖNLEYEN bir istisna sunmakta, tehdit yaratmamaktadır."
+    },
+    {
+      "id": "cikmis-2025-3-107",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "4857 İş Kanunu'nun kapsamı dışında tutulan işçiler arasında ev hizmetlerinde çalışanlar vardır. A şıkkındaki 'konutta ev hizmetlerinde çalışan işçi' bu istisna kapsamındadır. Diğer şıklardaki işçiler (profesyonel futbol kulübü temizlik, par…"
+    },
+    {
+      "id": "cikmis-2025-3-108",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Geçici iş göremezlik ödeneği iş kazası/meslek hastalığı ve hastalık sigortasında sağlanır. A'da yaşlılık ve işsizlik yanlış; C'de analık, malûllük, yaşlılık yanlış; D'de malûllük ve ölüm yanlış; E'de işsizlik ve analık yanlış; B doğru."
+    },
+    {
+      "id": "cikmis-2025-3-109",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I doğru (belirsiz süre prensibi), II doğru (belirli süreli tanımı), III yanlış (objektif neden varsa zincirleme yapılabilir), IV doğru (ayrımcılık yasağı), V doğru (orantılı ödeme). C şıkkı I, II, V'yi içerir."
+    },
+    {
+      "id": "cikmis-2025-3-110",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "D",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "6356 Kanunu'na göre grev yasağı: I-Can/mal kurtarma (evet), II-Cenaze (hayır), III-Bankacılık (evet), IV-Noter (evet), V-Toplu taşıma (evet). Verilen seçeneklerde tam eşleşme D'dir."
+    },
+    {
+      "id": "cikmis-2025-3-111",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "5510 sayılı Kanun'da sigorta kolları iki grupta incelenir: KISA VADELİ: İş kazası-meslek hastalığı (I), Analık (IV). UZUN VADELİ: Malûllük (II), Yaşlılık (III), Ölüm (V). Uzun vadeli sigorta kolları II, III ve V'dir."
+    },
+    {
+      "id": "cikmis-2025-3-112",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "B",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "A doğru ancak koşulluydu. B kesin yaş şartı (18). C yanlış (disiplin kurulu). D yanlış (askıya alınır). E yanlış (münhasırlık)."
+    },
+    {
+      "id": "cikmis-2025-3-113",
+      "ders": "Vergi Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "ÖTV'nin konusu taşınır mallardır. Otomobil ithalatı ÖTV'ye tabidir. Diğer seçenekler: B-konut istisnası, C-finansal araçlar muaf, D-hizmetler dışında, E-ihracat istisnası."
+    },
+    {
+      "id": "cikmis-2025-3-114",
+      "ders": "Vergi Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A: Sadece sermaye ile sınırlılık kamu borçlarında tam doğru değil. B: Tamamen sorumsuzluk yanlış. C: Ayrıldıktan sonra geçmiş borçlardan sorumsuzluk yanlış. D: Müteselsil sorumluluk 6183 Kanun'a uygun. E: Kusurluluk şartı yanlış."
+    },
+    {
+      "id": "cikmis-2025-3-115",
+      "ders": "Vergi Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "A-DOĞRU (vergi sorumlusu tanımı), B-DOĞRU (ehliyet şart değil m.4), C-DOĞRU (yasak vergi doğurmaz m.3), D-DOĞRU (ölüm m.7), E-DOĞRU (süreler m.121)"
+    },
+    {
+      "id": "cikmis-2025-3-116",
+      "ders": "Vergi Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I) Adi şirket ortaklarının serbest meslek kazancı = serbest meslek kazancı. II) Tahkimci hakemlerin ücretleri = serbest meslek kazancı. III) İşverene tabi çalışan avukatın geliri = bağımlı gelir (maaş), serbest meslek kazancı değil."
+    },
+    {
+      "id": "cikmis-2025-3-117",
+      "ders": "Vergi Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "5520 sayılı KVK'nin 1. maddesine göre kurumlar vergisi mükellefleri: anonim şirketler, limited şirketler, kooperatifler, iş ortaklıkları, dernek ve vakıflar (bazı istisnalar hariç) ve iktisadi kamu kuruluşlarıdır. Ancak dernekler genellikle…"
+    },
+    {
+      "id": "cikmis-2025-3-118",
+      "ders": "Vergi Hukuku",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "KDV Kanunu'nda vergiyi doğuran olay 'malın teslimi veya hizmetin ifası'dır. B seçeneği bunu açık şekilde ifade eder. Diğer seçenekler eksik (üretim, depolama) veya vergilendirilmeyen işlemlerdir (ihraç, avans)."
+    },
+    {
+      "id": "cikmis-2025-3-119",
+      "ders": "Ticaret Hukuku",
+      "cevap": "A",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Kambiyo senetlerinin devir türleri analiz edildi: Bono, poliçe ve çek için yazılı olma şekilleri karşılaştırıldı. Bono tüm üç forma (nama, emre, hamiline) uygun; poliçe emre yazılı; çek hamile yazılı olup emre de yazılabilir ancak nama yazı…"
+    },
+    {
+      "id": "cikmis-2025-3-120",
+      "ders": "Ticaret Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Şirket içi kaynaklardan (yedek akçe, geçmiş yıllar kârı vb.) sermaye artırımı yapılırken pay sahiplerine bedel ödettirmeden verilen paydır."
+    },
+    {
+      "id": "cikmis-2025-3-121",
+      "ders": "Ticaret Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "I. Ticari sözleşme feshi resmi yöntemle yapılır (✓). II. Faturaya itiraz TTK'da bu yöntemlerle yapılması zorunlu değildir (✗). III. Temerrüt ihtarı mutlaka resmi yollarla yapılır (✓). Cevap: I ve III = D"
+    },
+    {
+      "id": "cikmis-2025-3-122",
+      "ders": "Ticaret Hukuku",
+      "cevap": "E",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "TTK m.374'te temsile ayrı düzenleme yoksa tüm YK üyeleri müştereken temsil yetkisine sahiptir. İç kısıtlamalar ticaret siciline tescil edilse bile dış ilişkilerde bağlayıcı değildir. Şube ile temsil yetkisini sınırlandırma, dış ilişkilerde …"
+    },
+    {
+      "id": "cikmis-2025-3-123",
+      "ders": "Ticaret Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A) Memur - İşletmeyi işleten kişidir, yükümlü. B) 14 yaş - Mirasçı olsa da reşit değil, vasi tarafından işletilir, yükümlü. C) Esnaf - TTK'da esnaf işletmeleri defter tutma yükümlülüğünden MUAF tutulmuştur. D) Gibi işlemler - Fiili ticari i…"
+    },
+    {
+      "id": "cikmis-2025-3-124",
+      "ders": "Ticaret Hukuku",
+      "cevap": "C",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Gidersiz kaydı = bonoyu hamilin ibraz etmek zorunda olmadığını gösteren kayıt. Bu kaydın amacı ibraz yükümlülüğünü kaldırmaktır."
+    },
+    {
+      "id": "cikmis-2025-3-125",
+      "ders": "Borclar Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m.47'ye göre yetkisiz temsilci tarafından yapılan işlem, temsil olunan tarafından onandığında hem temsilciyi hem de temsil olunanı bağlar. Şık E'de 'yalnızca işlemi yapan temsilciyi bağlar' denilmesi hatalıdır; onanması sonrası temsil o…"
+    },
+    {
+      "id": "cikmis-2025-3-126",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "6098 sayılı Türk Borçlar Kanunu'nun zamanaşımı hükümlerine göre, kira bedelleri, ana para faizleri ve ücret gibi dönemsel edimlerden doğan alacaklar için kısa zamanaşımı süresi uygulanır. TBK m. 146'ya göre bu tür alacaklar için zamanaşımı …"
+    },
+    {
+      "id": "cikmis-2025-3-127",
+      "ders": "Borclar Hukuku",
+      "cevap": "C",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Kesin hükümsüz sözleşmede sebepsiz zenginleşme istisnası uygulanır. Hükümsüz işlemden doğan iade talepleri sebepsiz zenginleşme değil, hükümsüzlük hükümlerine göre çözülür."
+    },
+    {
+      "id": "cikmis-2025-3-128",
+      "ders": "Borclar Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A) Doğru - Adam çalıştıranın sorumluluğu haksız fiil sorumluluğudur (TMK 104). B) Doğru - Kurtuluş kanıtı getirebilir (seçme, talimat, gözetim özeni). C) Doğru - Rücu hakkı ancak çalışanın sorumlu olduğu ölçüde (TMK 104/2). E) Doğru - İşlet…"
+    },
+    {
+      "id": "cikmis-2025-3-129",
+      "ders": "Borclar Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "E şıkkında tazminatın tamamen 'kaldırılabileceği' iddia edilmektedir. TBK md. 52'ye göre hâkim yoksulluk halinde tazminatı indirebilir fakat tamamen ortadan kaldıramaz. Bu nedenle E yanlıştır."
+    },
+    {
+      "id": "cikmis-2025-3-130",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK 6098 md. 20-22 kapsamında, düzenleyenin önceden hazırlayıp çok sayıda sözleşmede kullanmak üzere karşı tarafa sunduğu hükümler 'genel işlem şartı' olarak tanımlanır. Diğer şıklar sözleşme şartları (kurucu/bozucu) veya farklı müesseseler…"
+    },
+    {
+      "id": "cikmis-2026-1-1",
+      "ders": "Turkce",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sermayeyi kediye yükledi = riskli/yanlış yatırım sonucu zarara uğramak anlamı. A-D uygun bağlamda kullanılmıştır. E'de başarılı satış ve kazanç söylenip, kaybı anlatmak için deyim kullanılmıştır. Bağlam-anlam uyumsuzluğu."
+    },
+    {
+      "id": "cikmis-2026-1-3",
+      "ders": "Turkce",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "D dizesinde ne işaret sıfatı ne de niteleme sıfatı vardır. Dizenin söz dizimi: Seni+çağırıyorum+parmaklarımdan+süt+içmeğe. Hiçbir sıfat türü mevcut değildir."
+    },
+    {
+      "id": "cikmis-2026-1-4",
+      "ders": "Turkce",
+      "cevap": "D",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Beni (Nesne) + ağlamayan bilgelikten, gülmeyen felsefeden... (Zarf Tümleci) + tutun (Yüklem). Cümlenin temel öge dizilişi N-ZT-Y'dir."
+    },
+    {
+      "id": "cikmis-2026-1-5",
+      "ders": "Turkce",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Metin: 'seni sınırlandıramazlar' (çünkü seni bilmediklerinde), 'kendini sakladığında, başkalarının gözünden bağımsız bir yaşam kurarsın', 'Bilinmezlik özgürlüktür'. C şıkkı bu ana fikri doğrudan ifade eder."
+    },
+    {
+      "id": "cikmis-2026-1-6",
+      "ders": "Turkce",
+      "cevap": "E",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "Cümlede yaptı eylemi vardır. Fakat 'oynadığı 35 maçta' belirleme grubu ile 'yaptı' eyleminin bağlantısı zayıftır. 'Bu sezon oynadığı 35 maçta 21 gol, 4 asist atılmıştır' veya benzer yapı gerekir. Eksiklik yardımcı eylemde (atılmıştır) görül…"
+    },
+    {
+      "id": "cikmis-2026-1-7",
+      "ders": "Turkce",
+      "cevap": "B",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Belirteç açıklayıcısı: aynı belirteci başka kelimelerle tekrarlayan yapı. B'de 'İki saat' belirteci 'iki koca saat' ile açıklanmış. Diğer şıklarda bu yapı yoktur."
+    },
+    {
+      "id": "cikmis-2026-1-8",
+      "ders": "Matematik",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "log₃(4x+1)=2 → 4x+1=3² → 4x+1=9 → 4x=8 → x=2"
+    },
+    {
+      "id": "cikmis-2026-1-11",
+      "ders": "Matematik",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Onlar basamağında A olan çift sayılar: A0, A2, A4, A6, A8. Toplamı: 50A + 20 = 370 → 50A = 350 → A = 7. Doğrulama: 70+72+74+76+78=370"
+    },
+    {
+      "id": "cikmis-2026-1-13",
+      "ders": "Matematik",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "B+Y+K=70, Y=K+4, B+3=3(K+3) → B=3K+6 → 5K+10=70 → K=12, B=42. Küçük doğduğunda: 42-12=30"
+    },
+    {
+      "id": "cikmis-2026-1-16",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Hukuk-ı Aile Kararnamesi (Aile Hukuku Kararnamesi) Osmanlı İmparatorluğu'nda aile hukuku alanında yapılan ilk modernleştirme hamlesiydi. Bu kararnamenin çıkarılış tarihi 1917'dir ve bu dönemde padişah V. Mehmet Reşat'tır (1909-1918 arası sa…"
+    },
+    {
+      "id": "cikmis-2026-1-17",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru: Atatürk döneminde iç düzeni sağlamak amacıyla hükümete geniş yetkiler sağlayan hukuki düzenleme. A) Takrir-i Sükûn Kanunu (1925) - hükümete olağanüstü yetkiler vererek iç düzeni sağlamayı amaçlayan kanun. B) Milli Korunma Kanunu - eko…"
+    },
+    {
+      "id": "cikmis-2026-1-18",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "D",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A doğru (Mustafa Kemal çağrısı), B doğru (bölgesel), C doğru (Temsil Heyeti seçimi), D yanlış (tarih hatalı: 23 Temmuz değil 10 Ağustos başlangıç), E doğru (manda/himaye reddi)"
+    },
+    {
+      "id": "cikmis-2026-1-19",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru metninde Milletler Cemiyeti 1920'de kurulduğu belirtiliyor ancak Türkiye'nin üye olma yılı hakkında hiçbir veri sağlanmamıştır."
+    },
+    {
+      "id": "cikmis-2026-1-20",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "11 Temmuz 1933 kuruluş tarihi + Birinci Beş Yıllık Sanayi Planı yürütücüsü + Karabük Demir ve Çelik İşletmeleri + SEKA kurucusu = Sümerbank tüm kriteri karşılıyor."
+    },
+    {
+      "id": "cikmis-2026-1-21",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlede 'In recent years' (son yıllarda) ifadesi Present Perfect zamanını işaret eder. 'so they now understand' (şimdi anladıkları için) da mevcut sonuç gösterir. Present Perfect (have + past participle) geçmişte başlayıp günümüze kadar dev…"
+    },
+    {
+      "id": "cikmis-2026-1-22",
+      "ders": "Yabanci Dil",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Boş bırakılan yere pasif ses gereken durum analizi: (1) Yeni bir ilaç klinik denemelerden GEÇER/TEST EDİLİR (konu ilaç, eylem ona uygulanır=pasif). (2) 'Before' ile başlayan zaman ifadesi, eylem gerçekleşmeden önceki rutin/zorunlu durumu gö…"
+    },
+    {
+      "id": "cikmis-2026-1-23",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Provide something FOR someone = birinin için sağlamak. IN hot weather = sıcak havalarda (zaman ifadesi). A şıkkı her iki boşluğa da gramer ve anlam açısından uygundur."
+    },
+    {
+      "id": "cikmis-2026-1-24",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümleyi analiz: 'Horror film şiddetli değildi, ama ---- yeterince [bir şey] izleyicilerin gözlerini kapatmasına neden oldu.' Boş yere gelmesi gereken sözcük, izleyicilerin gözlerini kapatmasına neden olan nitelik olmalı. Horror filminde bu,…"
+    },
+    {
+      "id": "cikmis-2026-1-25",
+      "ders": "Yabanci Dil",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Relative clause için gönderge 'website' (mekan). 'Where' mekan belirtir ve cümle anlamını tamamlar: öğrencilerin internet güvenliğini öğrendikleri yer. Diğer seçenekler (when, why, who, whom) yapı veya anlam açısından uymuyor."
+    },
+    {
+      "id": "cikmis-2026-1-26",
+      "ders": "Yabanci Dil",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlede 'recover ---- from daily stress after long working hours' yapısı vardır. Anlam: insanlar uzun çalışma saatlerinden sonra günlük stresden ... iyileşiyorlar. A) secretly (gizlice) - mantıksız. B) hardly (güçlükle) - olumsuz, mantık dı…"
+    },
+    {
+      "id": "cikmis-2026-1-27",
+      "ders": "Yabanci Dil",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlede 'sleep well before an exam' (sınavdan önce iyi uyku) → 'improve ____' (geliştirmek). Yeterli uyku neyi geliştirir? Adventure (macera), description (açıklama), friendship (arkadaşlık), equipment (ekipman) mantıksız. Concentration (ko…"
+    },
+    {
+      "id": "cikmis-2026-1-28",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Since + geçmiş zaman (built...last year) = Present Perfect ile uyum. A şıkkı: 'have found' (Present Perfect) ✓ zamansal uyum sağlar ve mantıksal bağlantı (hastane yapıldı → hastalar erişim kolaylaştı) tutarlı. B: 'is becoming' (Present Cont…"
+    },
+    {
+      "id": "cikmis-2026-1-29",
+      "ders": "Yabanci Dil",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle mantıksal bir sonuç gerektiriyor. 'When you send or read a text message on your cell phone while driving' - bu eylem sırasında ne olur? A) Yanlış - tepki süresi yavaşlar. B) Yanlış - kaza riski artar. C) Yanlış - alakasız. D) Yanlış -…"
+    },
+    {
+      "id": "cikmis-2026-1-30",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "While bağlacı çelişki kurar: Sanat 'sadece eğlence' görülse de, aslında 'ruh halini iyileştirir, stresi azaltır' anlamına gelir. B şıkkı bu karşıtlığı doğru tamamlar."
+    },
+    {
+      "id": "cikmis-2026-1-32",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Klima bedeli (100.000) + Montajı (10.000) = 110.000. Bakım periyodik gider olup taşıta aktifleştirilmez. KDV hariç tutarlar kaydedilir."
+    },
+    {
+      "id": "cikmis-2026-1-34",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "İşletme müşteriden avans aldı (alınan). Sipariş için alındı (sipariş avansı). Ürün henüz teslim edilmedi. Dönem sonunda hasılat muhasebesi için 440 hesabı borçlandırılır (gelir olarak tasnif edilir)."
+    },
+    {
+      "id": "cikmis-2026-1-35",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Akreditif açtırma, mala karşılık verilen avans niteliğindedir. İşletme banka aracılığıyla satıcıya ödeme garantisi vermiş olur. Muhasebe kaydında Verilen Avanslar (Aktif) borçlandırılır."
+    },
+    {
+      "id": "cikmis-2026-1-36",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Geçmiş yıllar kârı dağıtımında 590 Dönem Net Kârı (cari dönem kârı) değil, 570 Geçmiş Yıllar Kârları hesabı borçlu yapılmalıdır. 590 hesabı sadece cari dönem kârının dağıtımında kullanılır."
+    },
+    {
+      "id": "cikmis-2026-1-37",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Reeskontu hesabı: pasif tarafında yer alır, borç senetlerini düzenleyen kontra hesaptır, kesin mizanda borç kalanı gösterir ve çıkarılarak net değer elde edilir."
+    },
+    {
+      "id": "cikmis-2026-1-38",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Kâr payı genel kurul kararıyla tahakkuk eder. Henüz tahsil edilmemiş kâr payı alacak hesabına kaydedilir. Kayıt: Ortaklardan Alacaklar (Dr.) / İştiraklerden Temettü Gelirleri (Cr.)"
+    },
+    {
+      "id": "cikmis-2026-1-39",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Bonolar iskontlatıldığında satılmış sayılır. Bankalar 95.000 ₺ alır, Reeskont Faiz Giderleri 5.000 ₺ kaydedilir, Özel Kesim Tahvil, Senet ve Bonoları 100.000 ₺ alacaklandırılır. Muhasebe kaydının ana işlemi bonolardır."
+    },
+    {
+      "id": "cikmis-2026-1-41",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Dönem net kârının %5'i: 240.000 × 0,05 = 12.000 ₺. Birikmiş tutar (150.000 ₺) + 2025 yedek akçesi (12.000 ₺) = 162.000 ₺ > 160.000 ₺ sınırına yakın ama hesaplama tabanı kârın %5'idir."
+    },
+    {
+      "id": "cikmis-2026-1-42",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Net defter değeri = 20.000 - 12.000 = 8.000 ₺. Satış karı = 10.000 - 8.000 = 2.000 ₺. Diğer Olağandışı Gelir ve Kârlar hesabı 2.000 ₺ alacaklandırılır."
+    },
+    {
+      "id": "cikmis-2026-1-43",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Bilanço, belirli bir tarihte işletmenin finansal durumunu gösteren statik bir tablodur. Bilanço unsurları varlık, yükümlülük ve özkaynaktan oluşur. Gelecek yıllara ait gelirler gelecek dönemlere tahsis edilecek gelirler olup bilanço tarihi …"
+    },
+    {
+      "id": "cikmis-2026-1-45",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Peşin ödenen gider gelecek dönemlere ait olduğundan, dönemsellik ilkesi gereği aktifleştirilir. Her dönemin kendi giderini göstermek için, o döneme ait kısmı gider, kalan kısmı aktif yapılır."
+    },
+    {
+      "id": "cikmis-2026-1-46",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Makine net değeri (62.500) > Daire bedeli (60.000) = 2.500 zarar. Kaydda: Binalar, Birikmiş Amortismanlar, Tesis-Makine-Cihazlar ve Olağandışı Gider ve Zararlar kullanılır. Olağan Gelir hesabı gereksizdir."
+    },
+    {
+      "id": "cikmis-2026-1-47",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Brüt kar = Net satış - STMM → STMM = 1.150.000 - 300.000 = 850.000 ₺. STMM = Başlangıç + Alışlar - Bitiş → 850.000 = 400.000 + 950.000 - Bitiş → Bitiş = 500.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-48",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Hatalı işlemler dipnot/açıklamayla düzeltilmez, düzeltme kaydıyla çözülür. Muhasebe politikaları başka konudur. Diğer şıklar muhasebe sisteminin geçerli ilkeleridir."
+    },
+    {
+      "id": "cikmis-2026-1-49",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TMS 34'e göre ara dönem finansal tabloları en son tam yıllık finansal tablolarla karşılaştırmalı sunulur. 30 Eylül 2025 ara dönem raporu, 31 Aralık 2024 tam yıllık finansal durum tablosu ile karşılaştırılmalıdır."
+    },
+    {
+      "id": "cikmis-2026-1-50",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Faiz oranı: 1.000.000/10.000.000 = %10. Aktifleştirme süresi: 6 ay (1 Temmuz-31 Aralık). Aktifleştirilecek faiz = 6.000.000 × %10 × (6/12) = 300.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-51",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Arsa amortismana tabi değil. Fabrika: 20M÷20×(3/12)=250.000₺. Asansör: (5M-600.000)÷10×(3/12)=110.000₺. Toplam: 360.000₺"
+    },
+    {
+      "id": "cikmis-2026-1-52",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TFRS 5 madde 15-18'e göre satış amaçlı varlıklar min(defter değeri, gerçeğe uygun değer-satış maliyeti) ile ölçülür. İlk sınıflandırmada değer düşüklüğü kaydedilir, sonraki dönemlerde bu ölçüm yöntemi devam eder."
+    },
+    {
+      "id": "cikmis-2026-1-53",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Şık B maliyet modelden değerleme modeline geçişi anlatır. Bu muhasebe POLİTİKASI DEĞİŞİKLİĞİ olup, muhasebe tahmini değildir. A, C, D, E belirsiz tutarların tahminini içerir."
+    },
+    {
+      "id": "cikmis-2026-1-54",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru, TFRS/UFRS Kavramsal Çerçeve'deki tanımı soruyor. 'Geçmişteki olayların bir sonucu olarak bir ekonomik kaynağı devretme konusundaki mevcut mükellefiyeti' tam olarak Yükümlülük tanımıdır. Varlık (B) ekonomik kaynağın kendisidir, Gelir-G…"
+    },
+    {
+      "id": "cikmis-2026-1-55",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru, sistem işletme döneminde hataları düzeltme ve ortam değişikliklerine uyum amacıyla yapılan küçük değişimleri sorgulamaktadır. Bu, bakım (maintenance) işleminin tanımıdır. Bakım proaktif ve reaktif olabilir, sistem yaşam döngüsünün işl…"
+    },
+    {
+      "id": "cikmis-2026-1-56",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru etik standartları belirleyen uluslararası örgütü sormuştur. E seçeneği isminde açıkça 'Etik Standartları' barındırır ve muhasebe/denetim meslek mensuplarının etik davranışlarını düzenler."
+    },
+    {
+      "id": "cikmis-2026-1-57",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Şekillendirme giderleri: 490.000 + 735.000 = 1.225.000 ₺. Denklik birim: 48.000 + (2.000 × 0,50) = 49.000. Birim maliyeti: 1.225.000 ÷ 49.000 = 25 ₺. Yarı mamul şekillendirme: 2.000 × 0,50 × 25 = 25.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-58",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Şubat: Dönem başı YM=30.000, Toplam ÜM=365.000. Mart: Toplam ÜM=445.000+40.000-80.000=405.000. SMM=35.000+405.000-45.000=395.000"
+    },
+    {
+      "id": "cikmis-2026-1-59",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Y=28.426,14; Z=34.263,92; Toplam=62.690,06₺. 55.000×0,25=13.750₺. 62.690,06≠13.750"
+    },
+    {
+      "id": "cikmis-2026-1-60",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Toplam DİS = 2.500 + 1.000 + 1.500 = 5.000 DİS. Yükleme Oranı = 750.000 ₺ ÷ 5.000 DİS = 150 ₺/DİS"
+    },
+    {
+      "id": "cikmis-2026-1-61",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Toplam katsayı: 20×2 + 10×3 + 2×5 = 80. Birim katsayı maliyeti: 500.000÷80 = 6.250 ₺. Bağırsak düğümlenmesi payı: 10×6.250 = 62.500 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-62",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "720 = 721 Yansıtma - Ücret Farkı + Süre Farkı = 850.000 - 30.000 + 75.000 = 895.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-63",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Normal maliyet yöntemi: 1.200.000 = 600.000 + 425.000 + 125.000 + (Değişken GÜG × 8.000/10.000). Sonuç: Değişken GÜG = 62.500 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-64",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Genel Üretim Giderleri = Endirekt malzeme (60.000) + Endirekt işçilik (200.000) + Fabrika kirası (100.000) + Elektrik/su/gaz (40.000) + Amortisman (200.000) + Sigorta (30.000) = 630.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-65",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "ROE = Net Kâr Marjı × Aktif Devir Hızı × Sermaye Çarpanı = 0,40 × 0,5 × 4 = 0,80 = %80"
+    },
+    {
+      "id": "cikmis-2026-1-66",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "2024: SMM oranı %60 (Brüt kâr %40). 2025: SMM oranı %70 (Brüt kâr %30). Artış: 70-60=%10"
+    },
+    {
+      "id": "cikmis-2026-1-67",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "210.000 + 40.000 - 30.000 = 220.000. Net kâra amortisman eklenir (nakitsiz gider), alacak artışı düşülür (nakit çıkış)"
+    },
+    {
+      "id": "cikmis-2026-1-68",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Nakit oranı 0,50 = 20.000/KVY → KVY=40.000. NÇS=10.000=DV-40.000 → DV=50.000 ₺. Şıkların en düşüğü 90.000'dir."
+    },
+    {
+      "id": "cikmis-2026-1-69",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Cari oran 1,5 = Dönen Varlıklar/20.000 → Dönen Varlıklar = 30.000. Devamlı Sermaye = 30.000 - 20.000 = 10.000. Duran Varlıklar/Devamlı Sermaye = 0,80 → 0,80 × 10.000 = 8.000."
+    },
+    {
+      "id": "cikmis-2026-1-70",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Satışlar = 70.000 ÷ 0,70 = 100.000 ₺. Brüt kâr = 100.000 - 70.000 = 30.000 ₺. Faaliyet kârı = 0,20 × 100.000 = 20.000 ₺. Faaliyet giderleri = 30.000 - 20.000 = 10.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-1-71",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Nakit akış tablosu muhasebe standartlarında BRÜT YÖNTEMİ esas alır. Hem nakit girişleri hem de çıkışları, işletme/yatırım/finansman faaliyetlerine göre ayrı ayrı gösterilir. Netleştirme prensip değildir."
+    },
+    {
+      "id": "cikmis-2026-1-72",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "2024: Varlıklar = 10.000/2 = 5.000₺. 2025: Varlıklar = 12.000/1,5 = 8.000₺. Değişim = (8.000-5.000)/5.000 × 100 = %60 artış"
+    },
+    {
+      "id": "cikmis-2026-1-73",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Yapısal risk değerlendirmesinde risk faktörleri (sektör özellikleri, olağandışı işlemler, ilişkili taraflar, işletme yapısı) değerlendirilir. İç kontrolün güçlü yanları risk faktörü değil, aksine risk azaltan kontrol mekanizmasıdır."
+    },
+    {
+      "id": "cikmis-2026-1-74",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 520'ye göre analitik prosedürler: Risk değerlendirme (hata riskini belirleme), riske karşılık verme (substantif testler), raporlama (final analitik testler) aşamalarının tümünde kullanılır."
+    },
+    {
+      "id": "cikmis-2026-1-75",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru metnindeki tanım: 'işletme içinden veya dışından elde edilen, basılı veya elektronik ortamda ya da başka bir depolama ortamında bulunan kayıt veya belgelerin incelenmesi ya da varlıkların fiziki olarak incelenmesi'. Bu tanım TETKİK pro…"
+    },
+    {
+      "id": "cikmis-2026-1-76",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I-doğru (risk altında test), II-doğru (zamanlamayı değiştir), III-doğru (yeri değiştir/haber verme), IV-yanlış (aynı yöntemi sürekli kullanmak öngörülebilir olur)"
+    },
+    {
+      "id": "cikmis-2026-1-77",
+      "ders": "Denetim",
+      "cevap": "B",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Olumsuz teyit tanımı: Yanıt yalnızca ayrılık/fark varsa verilir. B şıkkı 'mutabık olmama' demiş, bu hatalıdır. Diğer tüm şıklar BDS 505'e uygun doğru ifadelerdir."
+    },
+    {
+      "id": "cikmis-2026-1-78",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A, B, C, D - BDS 300'ün denetim planlaması bileşenleri. E - İşletmenin stratejik yatırım planlarını hazırlamak ve değerlendirmek denetçinin görevi değil; bu yönetimin sorumluluğudur. Denetçi sadece sunum ve açıklamaları doğruluk açısından k…"
+    },
+    {
+      "id": "cikmis-2026-1-79",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 210'a göre sözleşmede denetimin genel şartları yer alır. Detaylı prosedür, test ve örnekleme yöntemi denetim planında planlanır, sözleşmede değil."
+    },
+    {
+      "id": "cikmis-2026-1-80",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sınırlı olumlu görüş verilmiş durumda: II-sınırlı seviyede görüş verilebilir, III-olumsuz bulgular varsa olumsuz görüş, IV-yeterli bilgi/çelişki durumda görüş vermekten kaçınma. I-tam olumlu görüş assurance seviyesiyle uyuşmaz."
+    },
+    {
+      "id": "cikmis-2026-1-81",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A: Denetçilerin farklı çerçeveler kullanamaması BDS 315'te yoktur, yanlıştır. B, C, D, E doğru. Soru YANLIŞ ifadeyi sorduğu için A seçilir."
+    },
+    {
+      "id": "cikmis-2026-1-82",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Örneklem büyüklüğü istatistiki ve istatistiki olmayan yaklaşımlar arasındaki ayırıcı kriter değildir. Temel fark değerlendirme yöntemi ve risk analizi şeklidir. A, B, D, E seçenekleri BDS 530 ilkeleriyle uyumlu ve doğrudur."
+    },
+    {
+      "id": "cikmis-2026-1-83",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Kontrol çevresi unsurları: yönetim felsefesi, organizasyon yapısı, insan kaynakları politikaları, etik kurallar. Bilgi işlem kontrolleri genel/sistem kontrolleri kategorisindedir, kontrol çevresinin unsuru değildir."
+    },
+    {
+      "id": "cikmis-2026-1-84",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "D şıkkında 'mutlak güvence' ibaresi hatalıdır. Denetim standartlarına göre denetçi 'makul güvence' sağlar, mutlak değil. Bu BDS 700'ün temel prensibidir."
+    },
+    {
+      "id": "cikmis-2026-1-85",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Yönetimin sürekliliği esasını kullanması uygunsuz → finansal tabloların gerçeğe uygunluğu ciddi şekilde etkilenmiş → ciddi uyumsuzluk → olumsuz görüş"
+    },
+    {
+      "id": "cikmis-2026-1-86",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Farklı tarihte yapılan fiziki sayım, finansal tablolara taşınmadan önce arası dönemin stok hareketlerinin doğru muhasebeleştirildiğinin doğrulanması gerekir. Bu sadece yazılı açıklama veya yeniden sayımla değil, ek prosedürlerle (depo kayıt…"
+    },
+    {
+      "id": "cikmis-2026-1-87",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Yeni pazarlama stratejileri normal işletme faaliyetidir. Mesleki şüphecilik: kanıt çelişkileri (A), kanıt güvenilirliği (B), hile riski (C), ek prosedür ihtiyacı (E) ile ilgilidir. D maddesi denetçi açısından şüphe uyandıran bir durum değil…"
+    },
+    {
+      "id": "cikmis-2026-1-88",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Standart denetim riski modeli: DR, finansal tabloların önemli yanlışlık içermesine rağmen (ÖYR) denetçinin bunu tespit edememe (TER) riskinden oluşur. E şıkkı bu iki temel bileşeni doğru belirtir."
+    },
+    {
+      "id": "cikmis-2026-1-89",
+      "ders": "Ekonomi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "P=8 olduğunda Q=6. Üretici fazlası = (1/2)×6×(8-2) = (1/2)×6×6 = 18"
+    },
+    {
+      "id": "cikmis-2026-1-90",
+      "ders": "Ekonomi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Tekelci rekabet özellikleri: A) Doğru - homojen olmayan ürünler (diferansiyasyon). B) Doğru - serbest giriş/çıkış. C) Doğru - kısa dönemde çeşitli kar seviyeleri mümkün. D) Doğru - uzun dönemde serbest giriş/çıkış sıfır ekonomik kâra sebep …"
+    },
+    {
+      "id": "cikmis-2026-1-91",
+      "ders": "Ekonomi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Yaşam boyu gelir = 100 + 200 = 300. Tüketim düzleştirmesi = her dönem eşit tüketim. C₁ = C₂ = C. C + C = 300 → C = 150."
+    },
+    {
+      "id": "cikmis-2026-1-92",
+      "ders": "Ekonomi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru, önceden açıklanan (anticipated/expected) parasal genişlemenin hasılayı etkilemeyeceğini söyleyen önermeden bahsediyor. Bu, politika etkinsizliği teorisidir. Klasik model: tüm fiyatlar esnek, para etkisiz. Parasal model: parasal değişk…"
+    },
+    {
+      "id": "cikmis-2026-1-93",
+      "ders": "Ekonomi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I (tahvil satın alma) = para arzı artar = genişletici ✓. II (faiz düşürme) = borçlanma ucuzlaşır = genişletici ✓. III (zorunlu karşılık artırma) = piyasadaki para azalır = daraltıcı ✗"
+    },
+    {
+      "id": "cikmis-2026-1-94",
+      "ders": "Ekonomi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I) Yatırım geliri - cari hesapta. II) Tek taraflı transfer - cari hesapta. III) Hizmet ihracatı (turizm) - cari hesapta. Tümü cari işlemler hesabının bileşenleridir."
+    },
+    {
+      "id": "cikmis-2026-1-95",
+      "ders": "Maliye",
+      "cevap": "B",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Parafiskal gelir = kamu kurumlarının hizmet/kullanım karşılığı aldığı gelir. Rıhtım resmi bu tanıma uyar. Üniversite harcı (ticari), meslek odası aidatı (özel kuruluş), şerefiye (muhasebe), senyoraj (genel bütçe) parafiskal değildir."
+    },
+    {
+      "id": "cikmis-2026-1-96",
+      "ders": "Maliye",
+      "cevap": "A",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Operasyonel açık, devletin reel borçlanma durumunu nominal fiyatlarla gösterir. Nominal faiz ödemeleri eklenerek enflasyonun etkisi hesaplamaya dahil edilir. A şıkkı bu standart tanımı verir."
+    },
+    {
+      "id": "cikmis-2026-1-97",
+      "ders": "Maliye",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sabit vergi oranı matrahla değişmez (yatay doğru). Vergi tutarı = Matrah × sabit oran formülüyle doğrusal artar (pozitif eğimli doğru)."
+    },
+    {
+      "id": "cikmis-2026-1-98",
+      "ders": "Maliye",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Tanımda 'karşılıksız' kelimesi transfer harcamasını ifade ediyor. Transfer harcamaları ekonomik sınıflandırmaya ait olup, devletin karşılık almadan gelirini aktardığı ödemelerdir."
+    },
+    {
+      "id": "cikmis-2026-1-99",
+      "ders": "Maliye",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Baumol'un Hastalığı: Kamu sektöründe özel sektöre göre emek verimliliği düşüktür. Verimlilik artmasa da ücretler yükseldikçe kamu harcamaları artış eğilimi gösterir."
+    },
+    {
+      "id": "cikmis-2026-1-100",
+      "ders": "Maliye",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Belediyeler yerel yönetim kuruluşlarıdır ve kendi özerk bütçelerine sahiptir. Genel bütçeye (merkezi yönetim) değil, kendi bütçelerine tabi olurlar. D şıkkında belediye yanlış olarak genel bütçeyle eşleştirilmiştir."
+    },
+    {
+      "id": "cikmis-2026-1-101",
+      "ders": "Meslek Hukuku",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soruda 'yasa ve yönetmeliklere uyması' ve 'mesleğin itibarını zedeleyecek davranıştan kaçınması' vurgulanmaktadır. Bu iki unsur birlikte Meslekî Davranış ilkesini oluşturur. A seçeneği yeterlilik/özenle ilgili, C gizlilikle, D dürüstlükle, …"
+    },
+    {
+      "id": "cikmis-2026-1-102",
+      "ders": "Meslek Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "I-DOĞRU(tabela/uyarma), II-YANLIŞ(çıkar çatışması/kınama değil), III-DOĞRU(reklam/uyarma), IV-YANLIŞ(rüşvet/geçici alıkoyma değil), V-DOĞRU(vergi zıyaı/meslekten çıkarma)"
+    },
+    {
+      "id": "cikmis-2026-1-103",
+      "ders": "Meslek Hukuku",
+      "cevap": "B",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Tarifenin hazırlanması önceki yılda başlar (A şüpheli), Kasım ayının 30'u mantıklı bir ilan tarihi (yıldan 1 ay öncesi), çifte ilan yapılır (C yanlış), ayrı tarifeler genellikle vardır (D kesin değil), tahkim gibi işlerde ayrı ücretler veya…"
+    },
+    {
+      "id": "cikmis-2026-1-104",
+      "ders": "Meslek Hukuku",
+      "cevap": "D",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A, B, C, E şıkları yönetmelikle uyumlu ve doğru. D şıkkında boşanmış eş hakkında kısıtlama öngörülmüştür fakat A ve B şıklarında 'boşanmış dahi olsa' istisnası bulunmaktadır. Boşanmış eş artık yasal eş değildir, kısıtlama uygulanmaz."
+    },
+    {
+      "id": "cikmis-2026-1-105",
+      "ders": "Meslek Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A, B, C, E doğrudan reklam/tanıtım yoluyla haksız rekabet hallerine örnektir. D seçeneği, müşteri/iş sahibi bilgilerinin kötüye kullanılması olup, reklam yasağından ziyade mesleki etik/ticari sır ihlalidir."
+    },
+    {
+      "id": "cikmis-2026-1-106",
+      "ders": "Meslek Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A, B, C, D seçenekleri 3568 sayılı Kanun'da serbest muhasebeci mali müşavir olma şartlarıdır. E seçeneğindeki 'memuriyetten çıkarılmış olmamak' şartı SMMM Kanunu'nda yer almayan, sadece kamu görevlilerine ilişkin bir koşuldur."
+    },
+    {
+      "id": "cikmis-2026-1-107",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "C",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "İş Kanunu m.25/II: İşyerinde 30+ işçi istihdam edilmesi ve işçinin en az 1 yıllık kıdem bulunması halinde haklı sebep şartı aranır. Yer altı işlerinde kıdem şartı aranmaz."
+    },
+    {
+      "id": "cikmis-2026-1-108",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "D",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Ücretsiz aile üyeleri (I), ev içi aile işleri (II), MEB usta öğretici istisnası (III) kanunun belirli istisnaları. IV ve V de istisna olsa da, D şıkkı en kapsayıcı doğru seçenektir."
+    },
+    {
+      "id": "cikmis-2026-1-109",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A) Çağrı üzerine çalışmada işçi çağrı yapılmadığında ücret almaz (DOĞRU değil - kanun çağrı üzerine çalışanları korur, minimum ücret garantisi vardır). B) Otuz iş günü süreksiz/fazlası sürekli (DOĞRU). C) Belirli süreli sözleşme tanımı (DOĞ…"
+    },
+    {
+      "id": "cikmis-2026-1-110",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "C",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "C şıkkında 'işletmenin bütününü yönetenleri' denilerek tanım daraltılmıştır. Kanuna göre işveren vekili, işveren adına işletmeyi yönetenleri (kısmen de olabilir) ifade eder, bütünü değil."
+    },
+    {
+      "id": "cikmis-2026-1-111",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "5510 Kanunu Madde 60'a göre, 4/1-a kapsamındaki sigortalıların yaşlılık aylığına hak kazanması için en az 7.200 gün sigortalılık (prim bildirim) süresi gerekmektedir."
+    },
+    {
+      "id": "cikmis-2026-1-112",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "B",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A) Yanlış - 1 yılı aşan işsizlik üyeliği sona erdirir. B) Doğru - 6356 sayılı Kanun md.13'te 18 yaş şartı belirtilir. C) Yanlış - Üyelikten çıkarılma kararı disiplin kurulu/genel kurul tarafından verilir. D) Yanlış - Askeri ödev süresi üyel…"
+    },
+    {
+      "id": "cikmis-2026-1-113",
+      "ders": "Vergi Hukuku",
+      "cevap": "B",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "193 sayılı GVK'da kamu görevlileri arasında TBMM üyelerine yapılan ödemeler (maaş, huzur hakkı) ücret geliri muafiyeti kapsamındadır. D ve E de muafi olmakla birlikte, soru metninde 'hangisi' (tekil) soruşturması B'yi en temiz cevap kılmakt…"
+    },
+    {
+      "id": "cikmis-2026-1-114",
+      "ders": "Vergi Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "6183 Kanunu'nda ödeme emrine karşı itiraz sebepleri: borç olmadığı, kısmen ödendi, zamanaşım. Hukuka aykırılık ve tarhiyat hatası ödeme emri aşamasında değil, dava aşamasında ileri sürülür."
+    },
+    {
+      "id": "cikmis-2026-1-115",
+      "ders": "Vergi Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "A, B, C, D, E seçeneklerinin tümü KDV Kanunu'nun istisna hükümleri içerisinde yer almaktadır. İstisna olmayan (vergiye tabi) şık tanımlanamamıştır."
+    },
+    {
+      "id": "cikmis-2026-1-116",
+      "ders": "Vergi Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "Soru metninde hangi verginin VUK'a tabi olmadığını belirtecek hiçbir bilgi yoktur. Sadece 5 vergi adı listelenmişdir. Cevap bulmak için teori bilgisi gereklidir."
+    },
+    {
+      "id": "cikmis-2026-1-117",
+      "ders": "Vergi Hukuku",
+      "cevap": "E",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "KVK mükellefleri arasında; kooperatif, kollektif şirket, kamu kuruluşları, derneğin iktisadi işletmeleri vergiye tabidir. Vakıf ve vakfa ait işletmeler vergi muafiyeti kapsamındadır."
+    },
+    {
+      "id": "cikmis-2026-1-118",
+      "ders": "Vergi Hukuku",
+      "cevap": "B",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "488 DMV Kanunu'nda sözleşme süresi uzatılması halinde damga vergisi indirimli oran uygulanır. Uzatma için asıl verginin %50'si (yarısı) alınır."
+    },
+    {
+      "id": "cikmis-2026-1-119",
+      "ders": "Ticaret Hukuku",
+      "cevap": "E",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A-B-C-D ticari işlemlerdir. E şıkkı: kişiye yönelik iftira → medeni hukuk → ticari davaya vücut vermez."
+    },
+    {
+      "id": "cikmis-2026-1-120",
+      "ders": "Ticaret Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I-kurucu (tüzel kişilik tescille doğar), II-kurucu (birleşme/bölünme/tür değiştirme tescille geçerli olur), III-deklaratif (tacir sıfatı tescilden önce ticari faaliyetle kazanılır), IV-kurucu (esas sözleşme değişiklikleri tescille hüküm ifa…"
+    },
+    {
+      "id": "cikmis-2026-1-121",
+      "ders": "Ticaret Hukuku",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A) Doğru - Anonim şirketin kurulması için en az bir kurucu gereklidir. B) Yanlış - Soruda belirtilmemiş ancak Türk Ticaret Kanunu'nda esas sermaye sistemi için asgari sermaye 50.000 ₺'den fazladır (güncel tutarlar daha yüksek olabilir). C) …"
+    },
+    {
+      "id": "cikmis-2026-1-122",
+      "ders": "Ticaret Hukuku",
+      "cevap": "E",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A,B,C,D doğru hukuki kuralları ifade eder. E, ciro yapılan kişinin gösterilmesi ZORUNLU olduğu için yanlıştır."
+    },
+    {
+      "id": "cikmis-2026-1-124",
+      "ders": "Ticaret Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I-Yanlış: Muhatap banka asıl borçlu olamaz, imza aval verir. II-Yanlış: Muhatap bankanın aval vermesi kanuni değildir. III-Doğru: TTK m.688/2'ye göre kısmi karşılıkta ödemek zorunludur."
+    },
+    {
+      "id": "cikmis-2026-1-125",
+      "ders": "Borclar Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "A-B-C-D-E tüm şıklar TBK 20-22 maddeleriyle tutarlıdır. Soruda yanlış olan şık bulunmamaktadır."
+    },
+    {
+      "id": "cikmis-2026-1-126",
+      "ders": "Borclar Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "düşük",
+      "hesap_kisa": "I: hakkaniyet sorumluluğu ayrı konsept. II: yapı maliki sorumluluğu ayrı bölüm. III: adam çalıştıranın sorumluluğu özen sorumluluğu içinde. IV: tehlike sorumluluğu ayrı başlık. Cevap Yalnız III olmalıdır."
+    },
+    {
+      "id": "cikmis-2026-1-127",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK 57'de sayılan hukuka uygunluk sebepleri: zarar görenin rızası, haklı savunma, zorunluluk hâli, kanuni yetkinin kullanılması. Aşırı yararlanma bu listede yer almayan ve hukuka uygun fiillerin sınırlarını aşan durumlardır."
+    },
+    {
+      "id": "cikmis-2026-1-128",
+      "ders": "Borclar Hukuku",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "B şıkkı: Kötüniyetli zenginleşen zorunlu giderlerin tamamını isteyemez, yalnız yararlı giderlerinin bir kısmını isteyebilir. TBK m. 81/2 uyarınca bu ifade eksik ve yanıltıcıdır."
+    },
+    {
+      "id": "cikmis-2026-1-129",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m.30/1'de dört esaslı yanılma hâli sayılmıştır (B,C,D,E). TBK m.30/2 açıkça 'Basit hesap yanlışlığı esaslı yanılma sayılmaz' hükmünü içerir."
+    },
+    {
+      "id": "cikmis-2026-1-130",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m. 109 borçlu temerrüdünde: aynen ifa talep (B✓), sözleşmeden dönme (C✓), tazminat talep (D✓, E✓). Mahkeme aracılığıyla satış talep etme (A) standart imkânlar arasında değildir."
+    },
+    {
+      "id": "cikmis-2026-2-1",
+      "ders": "Turkce",
+      "cevap": "C",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A,B,D,E insana olumlu değerler (sabır, esneklik, denge, cesaret) kazandırır. C şıkkında ise 'güzel şeylerin her zaman açılmadığı' mesajı insana eksiklik/sınırlamayı öğretir; bu olumlu bir yaşam değeri değildir."
+    },
+    {
+      "id": "cikmis-2026-2-2",
+      "ders": "Turkce",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "İsim (horoz, gün), Sıfat (öten, vakitsiz), Zarf (ortasında, ansızın, gibi), Edat (gibi) bulunur. Zamir türü (ben, sen, o vb.) dizelerinde geçmemektedir."
+    },
+    {
+      "id": "cikmis-2026-2-3",
+      "ders": "Turkce",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Metin: Haseti uyandırıp → yapay ihtiyaç → 'Sende yok mu?' → eksiklik duygusu → tüketime yönlendirme. B şıkkı tam metin içeriğini yansıtır."
+    },
+    {
+      "id": "cikmis-2026-2-5",
+      "ders": "Turkce",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Yapı: sıfat(budalası) + belirtisiz ad tamlaması(televizyon budalası) + ad(adam). Abartma: Televizyon izlemekten çok aptal. Bileşik sıfat işlevi: adamı niteliyor. Kural tam uyum."
+    },
+    {
+      "id": "cikmis-2026-2-6",
+      "ders": "Turkce",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Metin, 'bizde anılar yazılmaz' vs 'Batılılara özgü gelenek' karşılaştırması; tarihimizdeki 'sisli zamanlar' vs anı kitaplarından öğrenebilmek isteği üzerine kuruludur. Karşılaştırma ağırlıklı düşünce geliştirme yoludur."
+    },
+    {
+      "id": "cikmis-2026-2-7",
+      "ders": "Turkce",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "III. cümlede zaman uyumsuzluğu vardır. 'Masanın solunda küçük bir sac mangal...yanar' (Şimdiki zaman), 'üstünde çivit rengi bir çaydanlıkta su kaynardı' (Geçmiş zaman). Aynı zaman diliminde yazılmalıdır."
+    },
+    {
+      "id": "cikmis-2026-2-11",
+      "ders": "Matematik",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Toplam oran: 2+4+5=11. En fazla: (5/11)×297=135. En az: (2/11)×297=54. Fark: 135-54=81"
+    },
+    {
+      "id": "cikmis-2026-2-16",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Metinde 'Türkiye Cumhuriyeti halkını ayrı ayrı sınıflardan mürekkep değil' ifadesi sınıf ayrımına karşılık gelir. 'Ferdi ve sosyal hayat için işbölümü itibarıyla muhtelif mesai erbabına ayrılmış' ifadesi ise işlevsel farklılaşmayı (sosyal k…"
+    },
+    {
+      "id": "cikmis-2026-2-17",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "düşük",
+      "hesap_kisa": "Soru metninde kaynak ülke belirtilmemiştir. Tarihsel bilgi: Türk Medeni Kanunu 1907 İsviçre Medeni Kanunu esas alınarak hazırlanmıştır. Soru metnine dayanmayan cevap."
+    },
+    {
+      "id": "cikmis-2026-2-18",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "D",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "1924 Haliç Konferansı Lozan sonrası Osmanlı borçlarının tasfiyesi için toplanmıştır. Musul Sorunu sonradan ortaya çıkmış, diğer sorunlar Lozan'da çözülmüş ya da farklı dönemlere aittir."
+    },
+    {
+      "id": "cikmis-2026-2-19",
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A/B/C/E doğru ifadeler. D yanlış: SCF'nin kapatılması Takrir-i Sükûn'a (1925) değil, 1931 sıkıyönetim kararına dayanır. Soru yanlış olanı istediği için D doğru cevaptır."
+    },
+    {
+      "id": "cikmis-2026-2-21",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle analizi: 'In recent years' (son yıllarda) = Present Perfect için tipik zaman göstergesi. Present Perfect, geçmişte başlayan ve bugüne kadar devam eden/tamamlanan eylemler için kullanılır. A) have found - Present Perfect ✓ (uygun). B) …"
+    },
+    {
+      "id": "cikmis-2026-2-22",
+      "ders": "Yabanci Dil",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle: 'Scientists use underwater robots to ---- the deepest parts of the ocean and learn more about unknown sea life.' Boşluğa gelecek fiilin anlamı: bilim insanları derin okyanus kısımlarında ne yaparlar? A) freeze (dondurmak) - mantıksız…"
+    },
+    {
+      "id": "cikmis-2026-2-23",
+      "ders": "Yabanci Dil",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlede 'The museum' (müze) ana isimdir. Boş bırakılan yere bir bağlantı sözcüğü gelmelidir. 'visitors can see the 1903 Wright Flyer' yapısı incelendiğinde, bu bir sıfat cümlesidir (relative clause). Müzede ziyaretçiler uçağı görebilirler -…"
+    },
+    {
+      "id": "cikmis-2026-2-24",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Kasırgaların (hurricanes) gelişim şekli sorgulanıyor. 'Develop' fiilini niteleyecek bir zarf gerekli. A) politely (nazikçe) - mantıksız, B) rapidly (hızlı bir şekilde) - kasırgalar sıcak okyanuslar üzerinde hızlı gelişir, doğru. C) legally …"
+    },
+    {
+      "id": "cikmis-2026-2-25",
+      "ders": "Yabanci Dil",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle pasif ses talep eder (form kontrol edilir). Ana cümlede Present Simple olduğu için (submitted), boşlukta da Present Simple Pasif olmalıdır. E) 'is checked' tek pasif ve zaman uyumlu şık."
+    },
+    {
+      "id": "cikmis-2026-2-26",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Birinci boş: 'provide support FOR students' (birine destek sağlamak). İkinci boş: 'during their first academic year' (belirli bir dönem içinde). B şıkkı her iki preposisyonu da doğru sağlar."
+    },
+    {
+      "id": "cikmis-2026-2-27",
+      "ders": "Yabanci Dil",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle mantığı: 'Workshop sadece iki saat sürdü, fakat [--------] yeterli oldu katılımcıların sunum becerilerini geliştirmesine yardımcı olmak için.' Mantıksal bağlaç 'but' (fakat) kısa süreye rağmen pozitif bir sonuç geldiğini gösterir. Boş…"
+    },
+    {
+      "id": "cikmis-2026-2-28",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sebep (telefon kullanımı) → Sonuç (uyku kalitesi düşüşü). B şıkkı tek mantıklı nedensel sonuçtur."
+    },
+    {
+      "id": "cikmis-2026-2-29",
+      "ders": "Yabanci Dil",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümle 'Although regular physical activity is often associated with sports, ----' şeklinde. 'Although' (her ne kadar) bağlacı bir karşıtlık kurar. Birinci kısım: fiziksel aktivite sporla ilişkilendirilir. İkinci kısım buna karşı bir açılım s…"
+    },
+    {
+      "id": "cikmis-2026-2-30",
+      "ders": "Yabanci Dil",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Cümlenin mantıksal yapısı: vizesiz geçişin ŞARTINI soruyor. 'As long as' (şartıyla) vizesiz geçişin koşulunu (pasaport geçerliliği) doğru ifade eder. Diğer seçenekler ya mantıksal ilişkisi olmayan ya da uygunsuz bağlaçlar içerir."
+    },
+    {
+      "id": "cikmis-2026-2-31",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Uzun vadeli yatırım amaçlı paylar 240 Bağlı Menkul Kıymetler hesabında muhasebeleştirilir. 110 Hisse Senetleri hesabı kısa vadeli yatırımlar için kullanılır. Bu işlemlerde 240 borçlandırılacak, 102 ve 101 alacaklandırılacaktır."
+    },
+    {
+      "id": "cikmis-2026-2-32",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Peşin ödenen gider (770'de) dönem sonunda ayarlanırken, cari döneme ait olmayan kısım gider hesabından alınıp (alacaklandırılıp) gelecek dönemlere ait gidirler hesabına (180) aktarılır."
+    },
+    {
+      "id": "cikmis-2026-2-34",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Ticari Mallar = Satın alma fiyatı (150.000) + Nakliye ücreti (4.000) + Nakliye sigorta (1.000) = 155.000 ₺. Deposine girdikten sonra yapılan işyeri sigorta (3.000 ₺) alım maliyetine dahil değildir."
+    },
+    {
+      "id": "cikmis-2026-2-35",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Dönemler arası karşılaştırılabilirlik → muhasebe uygulamalarının değiştirilmemesi → Tutarlılık ilkesi. Dönemsellik dönemlere ayırma, İhtiyatlılık varlık az gösterme, Maliyet esası kayıt değeri, Önemlilik etki kapasitesiyle ilgilidir."
+    },
+    {
+      "id": "cikmis-2026-2-37",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Vade tarihinde kredi ödemesi yapıldığında, banka hesabından nakit çıkışı olur. Bu işlem 102 Bankalar hesabını borçlandırır. 303 hesabı (kısa vadeli) alacaklandırılır."
+    },
+    {
+      "id": "cikmis-2026-2-39",
+      "ders": "Finansal Muhasebe",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Nominal değer: 16.000 × 50 = 800.000 ₺. Ödenen tutar: 900.000 ₺. Agio: 900.000 - 800.000 = 100.000 ₺. Bu agio Hisse Senedi İptal Kârları hesabına alacak kaydedilir."
+    },
+    {
+      "id": "cikmis-2026-2-40",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Gelecek Aylara Ait Giderlerden çıkarılan kırtasiye, yönetim ofisinde tüketildiğinden Genel Yönetim Giderleri hesabına (gider hesabına) borçlandırılmalıdır. Muhasebe kaydı: Dr. Genel Yönetim Giderleri / Cr. Gelecek Aylara Ait Giderler"
+    },
+    {
+      "id": "cikmis-2026-2-41",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Net kâr 400.000 ₺, toplam yedekler 130.000 ₺ (60+50+20), ortaklara dağıtılacak 270.000 ₺. Kâr dağıtım kaydında Geçmiş Yıllar Kârları borçla kapatılır, yedekler ve ortaklara borçlar alacakla açılır."
+    },
+    {
+      "id": "cikmis-2026-2-44",
+      "ders": "Finansal Muhasebe",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Verilen Avanslar sabit kıymet avansı (maddi duran varlık) ve maddi olmayan duran varlık avansı olarak her iki hesap grubunda yer alabilir. Diğer şıklar ya dönen varlık ya da sadece bir grupta yer almaktadır."
+    },
+    {
+      "id": "cikmis-2026-2-46",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Sermaye artırımında yedekler kaynaktan çıkarılır (borçlanır). 50.000 ₺ yasal yedek sermayeye aktarılacak. Diğer şıklar: B-statü yedekleri değil, C-olağanüstü değil, D-alacaklı değil borçlu, E-dönem kârı değil geçmiş yıllar kârı."
+    },
+    {
+      "id": "cikmis-2026-2-47",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "692 hesabının borç kalanı net zararı gösterir. Zarar dönem sonunda 591 Dönem Net Zararı hesabına devredilerek kapatılır. 590 kâr için, 570-580 geçmiş dönemler için kullanılır."
+    },
+    {
+      "id": "cikmis-2026-2-50",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TFRS 15'te gayri nakdî bedel içeren sözleşmelerde işlem bedeli, gayri nakdî bedelin gerçeğe uygun değeri üzerinden ölçülür. Standart para olmayan bedellerin finansal ölçümü için gerçeğe uygun değer prensibi uygulanır."
+    },
+    {
+      "id": "cikmis-2026-2-51",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TFRS 3 İşletme Birleşmeleri Standard'ına göre: Pazarlıklı satın alımdan kaynaklanan negatif şerefiye (satın alınan tanımlanabilir net varlıkların adil değeri, satın alım bedelini aştığında), ilk muhasebeleştirmede yeniden değerlendirilir. Y…"
+    },
+    {
+      "id": "cikmis-2026-2-52",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Gerçeğe uygun değer (22.000) - Satış maliyetleri (1.000) = 21.000 ₺. TMS 41'de tarımsal varlıklar ilk muhasebeleştirmede gerçeğe uygun değer eksi satış maliyetleri üzerinden kaydedilir."
+    },
+    {
+      "id": "cikmis-2026-2-53",
+      "ders": "Finansal Muhasebe",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Toplam defter değeri 2.700.000 ₺, geri kazanılabilir tutar 2.250.000 ₺. Değer düşüklüğü 450.000 ₺. Şerefiye 200.000 ₺ yazılır, kalan 250.000 ₺ binalar (60%) ve demirbaşlara (40%) dağıtılır. Binalar: 1.500.000-150.000=1.350.000; Demirbaşlar:…"
+    },
+    {
+      "id": "cikmis-2026-2-54",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I (Muhasebe politikası değişikliği) geriye doğru uygulanır - YANLIŞ. II (Tahmin değişikliği) ileriye doğru - DOĞRU. III (Geçmiş dönem hatası) geriye doğru - DOĞRU. Düzeltilmesi gereken: Yalnız I"
+    },
+    {
+      "id": "cikmis-2026-2-55",
+      "ders": "Finansal Muhasebe",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "TSRS-1 ve TSRS-2 (Türkiye Sürdürülebilirlik Raporlama Standartları), muhasebe ve raporlama standartlarını belirleyen kurum tarafından yayınlanmıştır. Bu standartlar finansal raporlama alanında olup, KGK bu alanda yetkili ve görevli kurumdur…"
+    },
+    {
+      "id": "cikmis-2026-2-56",
+      "ders": "Finansal Muhasebe",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Soru, muhasebe bilgi sisteminde verilerin zarar görmesini, değiştirilmesini, silinmesini veya görüntülenmesini ÖNLEMEK amacıyla oluşturulan kontrolleri soruyor. Bu tanım, kimlerin hangi verilere ulaşabileceğini belirleyen ve yetkisiz erişim…"
+    },
+    {
+      "id": "cikmis-2026-2-57",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Toplam maliyet: 80.860 - 18.660 = 62.200 ₺. EÜGY I: 32.600 ₺. EÜGY II: 62.200 - 32.600 = 29.600 ₺. EÜGY II GÜG: 29.600 - 2.600 - 15.000 = 12.000 ₺. Oran: (12.000/15.000)×100 = 80%"
+    },
+    {
+      "id": "cikmis-2026-2-58",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "düşük",
+      "hesap_kisa": "Toplam üretim maliyeti 650.000 ₺ ÷ 31 ₺ = 20.968 adet. Kapasite kullanım oranı = 21.000/25.000 = %84. Şıklarda yer almamaktadır."
+    },
+    {
+      "id": "cikmis-2026-2-59",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Ağırlıklı miktarlar: A=400, B=300, C=100. Toplam=800. C'nin payı=(100/800)×1.000.000=125.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-2-60",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Sapma dağıtımı: 152 Mamuller oranı = 100.000/500.000 = %20. Sapma payı = 60.000 × 0,20 = 12.000 ₺ (olumsuz sapma borç tarafına yansır)"
+    },
+    {
+      "id": "cikmis-2026-2-61",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Tüketilen malzeme: 800 adet × 1.000 ₺ = 800.000 ₺. Endirekt nitelik: 800.000 × %30 = 240.000 ₺. Toplam GÜG: 300.000 + 240.000 = 540.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-2-62",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "7/A seçeneğinde direkt malzeme yansıtma hesabı (711) kullanılır. 150.000 ₺ direkt hammadde 711'den alacaklandırılarak 151'e borçlanır. 10.000 ₺ işletme malzemesi ise 731'den alacaklandırılır."
+    },
+    {
+      "id": "cikmis-2026-2-63",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "B şıkkı 1.300.000 gösteriyor ancak doğru hesap: DİMMG(600k) + DİG(400k) + GÜG(180k) = 1.180.000 ₺. Diğer şıklar kontrol edildi, hepsi doğru."
+    },
+    {
+      "id": "cikmis-2026-2-64",
+      "ders": "Maliyet Muhasebesi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Tamamlanan: 800 eş.birim. Yarı mamul: 200×%75=150 eş.birim. Toplam: 950 eş.birim. Maliyet: 950×1.000=950.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-2-65",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A- muhasebe politikaları ve tahakkuk esasının etkisi gerçek sınırlama ✓; B- tam tersi tahmin içerir ✗; C- dönemin sonuçlarını gösterir ✗; D- geniş kullanıcı grubu vardır ✗; E- giderleri içerir ✗"
+    },
+    {
+      "id": "cikmis-2026-2-66",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Toplam varlıklar: 40.000/0,40 = 100.000₺. Yabancı kaynaklar: 100.000×0,60 = 60.000₺. Dönen varlıklar: 100.000-40.000 = 60.000₺. Kısa vadeli yabancı kaynaklar: 60.000/1,5 = 40.000₺. Uzun vadeli yabancı kaynaklar: 60.000-40.000 = 20.000₺"
+    },
+    {
+      "id": "cikmis-2026-2-67",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "1) Net Çalışma Sermayesi (NÇS) = Dönen Varlıklar - Kısa Vadeli Yükümlülükler = 4.800.000 - 2.400.000 = 2.400.000 ₺ 2) NÇS Devir Hızı = Net Satışlar / NÇS 3) 5 = Net Satışlar / 2.400.000 4) Net Satışlar = 5 × 2.400.000 = 12.000.000 ₺"
+    },
+    {
+      "id": "cikmis-2026-2-68",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "FK=%10×50.000=5.000; SMM=4FG; FK=BSK-FG; 5.000=50.000-5FG; FG=9.000; SMM=36.000; BSK=14.000; Dikey%=(14.000/50.000)×100=28"
+    },
+    {
+      "id": "cikmis-2026-2-70",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "HİÇBİRİ",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "KVY=60.000, DA=120.000. Nakit Oranı = (6.000+12.000)/60.000 = 18.000/60.000 = 0,30"
+    },
+    {
+      "id": "cikmis-2026-2-71",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "CO=1,2 → DV=120 (KVYK=100 normalize). ATO=0,7 → DV-Stok=70. Stok=50. NİS=DV-KVYK=120-100=20>0"
+    },
+    {
+      "id": "cikmis-2026-2-72",
+      "ders": "Mali Tablolar Analizi",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "2024 Brüt Kâr: 360.000-210.000=150.000₺. 2025 Brüt Kâr: 425.000-245.000=180.000₺. Değişim: 180.000-150.000=30.000₺ artış. Yüzde: 30.000/150.000=0,20=%20 artış."
+    },
+    {
+      "id": "cikmis-2026-2-73",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 500 ilkeleri: Dış kaynaklar güvenilir (A✓), belgeler sözlüden güvenilir (B✓), doğrudan kanıt dolaylıdan güvenilir (C✓), fotokopilar asıldan az güvenilir (D✗), etkin kontroller içi kanıtı güvenilir hale getirir (E✓). Yanlış olan: D."
+    },
+    {
+      "id": "cikmis-2026-2-74",
+      "ders": "Denetim",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 265'te önemli eksiklik değerlendirmesinde; hilenin önlenmesi, muhasebe politikaları, ilişkili taraflar ve olağan dışı işlemler göz önünde bulundurulur. Sayısal olarak belirtilmek zorunda olmayan etkilerin önemlilik değerlendirmesine dah…"
+    },
+    {
+      "id": "cikmis-2026-2-75",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 706'da Dikkat Çekilen Hususlar, finansal tablolarda uygun şekilde sunulan/açıklanan ve kullanıcılar açısından temel öneme sahip hususlara atıfta bulunulan paragraftır. Soru metnindeki tüm koşullar bu tanımla eşleşmektedir."
+    },
+    {
+      "id": "cikmis-2026-2-76",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 510'da açılış bakiyelerine ilişkin kapsam sınırlaması söz konusu olduğunda, denetçi kanıtın yetersizliğinin önemine bağlı olarak olumsuz görüş veya görüş vermekten kaçınma verebilir. Olumlu veya sınırlı olumlu görüş mümkün değildir."
+    },
+    {
+      "id": "cikmis-2026-2-77",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A-D şıkları hasılat hilesi denetimine uygun prosedürlerdir. E şıkkı stok/maliyet denetimi işlemidir; hasılat hilesi denetimiyle ilgisiz."
+    },
+    {
+      "id": "cikmis-2026-2-78",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Nitel yapısal risk faktörleri: karmaşık, subjektif, değişken, belirsiz olabilir. Tarafsızlık ise nitel faktörlerin subjektif ve yoruma açık doğasıyla çelişir. Nitel = subjektif ≠ tarafsız."
+    },
+    {
+      "id": "cikmis-2026-2-79",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A, B, D, E belgelendirilmesi standart kapsamında beklenir. C seçeneği, işletmede istihdam edilmediğinin belgelendirilmesini içerir; bu standart kapsamında esas beklenen husus bağımsızlık kontrolüdür ve ayrıca belgelendirme gereksizdir."
+    },
+    {
+      "id": "cikmis-2026-2-80",
+      "ders": "Denetim",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A, B, C, E doğru. D'de risk azaldıkça örneklem büyüklüğünün azalacağı söyleniyor. Bu ters yönlüdür. Riski kontrol altına almak için daha büyük örneklem gerekir."
+    },
+    {
+      "id": "cikmis-2026-2-81",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 240'ın temel amacı hile risklerini değerlendirmek ve tespit edilen hilelere karşı uygun işlemler yapmaktır. B, C, D, E seçenekleri iletişim ve genel denetim sorumluluklarıdır, BDS 240'ın spesifik amacı değildir."
+    },
+    {
+      "id": "cikmis-2026-2-82",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "I doğru (işletme belirtilir), II yanlış (başlıklar giriş bölümünde), III yanlış (bağımsızlık ayrı bölümde)"
+    },
+    {
+      "id": "cikmis-2026-2-83",
+      "ders": "Denetim",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "İç kontrol bileşenleri: (1) Kontrol Çevresi, (2) Risk Değerlendirmesi, (3) Kontrol Faaliyetleri, (4) Bilgi ve İletişim, (5) İzleme. Kontrol çevresi unsurları: dürüstlük/etik (A), yönetim felsefesi (B), üst yönetim katılımı (C), insan kaynak…"
+    },
+    {
+      "id": "cikmis-2026-2-84",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 220 kalite yönetimi standardının temel gerekliliği, denetim raporunun finalize edilmesinden önce etik kurallar (özellikle bağımsızlık) doğrulanmalıdır. Diğer seçenekler ya gelecek tahmini, mükemmellik standardı ya da gerçekçi olmayan ko…"
+    },
+    {
+      "id": "cikmis-2026-2-85",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 330'e göre denetçi yeterli denetim kanıtı elde edemezse: (1) Önce alternatif prosedürler uygulayarak ek kanıt elde etmeye çalışır, (2) Bu başarısız olursa görüş sınırlandırması yapılır - şartlı görüş (sınırlı olumlu) veya görüş vermekte…"
+    },
+    {
+      "id": "cikmis-2026-2-86",
+      "ders": "Denetim",
+      "cevap": "A",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 320'de planlama önemliliği, toplulaştırma riskini uygun düşük seviyeye indirmek amacıyla finansal tablolar önemliliğinden daha düşük belirlenen tutardır. Diğer seçenekler ya başka kavramları ya da tutarla ilgisiz faktörleri tanımlar."
+    },
+    {
+      "id": "cikmis-2026-2-87",
+      "ders": "Denetim",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 300 standardı, 'Genel Denetim Stratejisi'nin denetimin kapsamını, zamanlamasını ve yönünü belirleyen ve denetim planının geliştirilmesine rehberlik eden ana çalışma olduğunu tanımlar."
+    },
+    {
+      "id": "cikmis-2026-2-88",
+      "ders": "Denetim",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "BDS 230 standardına göre çalışma kâğıtları denetimin kanıtlarıdır. A) İşletmenin gelecekteki kârlılığını garantileyemez. B) Vergi uyumluluğunun tam kanıtı değildir. C) Doğru - denetim bulgularının, varılan sonuçların ve standart uygunluğun …"
+    },
+    {
+      "id": "cikmis-2026-2-89",
+      "ders": "Ekonomi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Kesinlikle dışbükey tercihlerde, kayıtsız iki sepetin konveks kombinasyonu her iki sepete kesinlikle tercih edilir. A ~ B ve C = αA + (1-α)B (0<α<1) ise C ≻ A ve C ≻ B olur."
+    },
+    {
+      "id": "cikmis-2026-2-91",
+      "ders": "Ekonomi",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Para çarpanı = (1+0.20)/(0.10+0.20) = 1.20/0.30 = 4. Para arzı artışı = 4 × 200 = 800 milyon ₺"
+    },
+    {
+      "id": "cikmis-2026-2-92",
+      "ders": "Ekonomi",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Hisse satın alma = doğrudan yatırım = finans hesabı. Kâr payı = yatırım geliri = cari işlemler hesabının birincil gelir kısmı. Farklı hesaplara kaydedilir."
+    },
+    {
+      "id": "cikmis-2026-2-93",
+      "ders": "Ekonomi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "MÖE=0,80, Çarpan=5, ΔY=120×5=600, Yeni gelir=1000+600=1600"
+    },
+    {
+      "id": "cikmis-2026-2-94",
+      "ders": "Ekonomi",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "İkinci el ürünler (I) ve pazar dışı hizmetler (II) GSYİH'ye dahil edilmez. Yeni konut satışı (III) ise yeni üretim olduğu için dahil edilir. Dikkate alınmayanlar: I ve II."
+    },
+    {
+      "id": "cikmis-2026-2-95",
+      "ders": "Maliye",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "5018 sayılı Kanun'da bütçe türleri: 1) Merkezi yönetim bütçesi (bakanlıklar, merkezi kurumlar), 2) Sosyal güvenlik kurumları bütçesi, 3) Mahalli idareler bütçesi. A) Adalet Bakanlığı - merkezi yönetim. B) ODTÜ - merkezi yönetim (yüksek öğre…"
+    },
+    {
+      "id": "cikmis-2026-2-96",
+      "ders": "Maliye",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Muafiyet/istisna = kişisel özellikler dikkate alınması (SUBJEKTIF). Bunların kaldırılması = tüm mükelleflere eşit/genel uygulanma (OBJEKTİF). Vergi tabanı genişler, farklılaştırma ortadan kalkar."
+    },
+    {
+      "id": "cikmis-2026-2-97",
+      "ders": "Maliye",
+      "cevap": "HİÇBİRİ",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Egemenlik gücüne dayanan gelirler: bedelli askerlik (devlet egemenliği), parafiskal gelirler (kamu hizmeti egemenliği), senyoraj (para basma egemenliği). II. Özelleştirme geliri mülkiyet hakkı kullanımıdır, egemenlik gücüne dayanmaz."
+    },
+    {
+      "id": "cikmis-2026-2-98",
+      "ders": "Maliye",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Borç dinamiği: Δb/b = (r-g) + pf. r=g verildiğinde (r-g)=0 olur. Δb/b=0 için pf=0 gerekir. Bu faiz dışı bütçenin dengede olmasını ifade eder."
+    },
+    {
+      "id": "cikmis-2026-2-99",
+      "ders": "Maliye",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Orijinal: Wagner, Musgrave, Wiseman, Pigou, Niskanen, Baumol, Keynes = 7. Marshall ve Keynes çıkarılırsa = 5. Diğer seçeneklerde her iki isim de kamu harcama teorisi açısından yanlış/sınırlıdır, cevap değişmez."
+    },
+    {
+      "id": "cikmis-2026-2-100",
+      "ders": "Maliye",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Vergi indiriminin tasarruf+yatırımı özendirmesi → ekonomik büyüme → vergi geliri artışı → bütçe açığı azalması. Bu mekanizma Laffer Eğrisi ile arz yanlı iktisat okulunun temel argümanıdır."
+    },
+    {
+      "id": "cikmis-2026-2-101",
+      "ders": "Meslek Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "I-doğru(Disiplin Kurulu karar alır), II-doğru(sonradan tespit edilen eksiklikler), III-doğru(Birliğe başvuru hakkı), IV-yanlış(idari yargıya başvuru hakkı vardır)."
+    },
+    {
+      "id": "cikmis-2026-2-102",
+      "ders": "Meslek Hukuku",
+      "cevap": "HİÇBİRİ",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "A,B,C,D,E tümü 3568 sayılı Kanun'a uygun doğru ifadelerdir. Soru 'yanlış olanı' sorarken tüm şıklar doğru olduğu için cevaplanabilir nitelikte değildir."
+    },
+    {
+      "id": "cikmis-2026-2-103",
+      "ders": "Meslek Hukuku",
+      "cevap": "D",
+      "dogru": "D",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Meslek mensupları kazandıkları SMMM/YMM unvanlarını mutlaka kullanabilmeli ve gösterebilmelidir. 'Hiçbir koşulda' kısıtlaması aşırı ve mantıksız. Diğer şıklar makul düzenlemeleri ifade ediyor."
+    },
+    {
+      "id": "cikmis-2026-2-104",
+      "ders": "Meslek Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Etik Kurulu inceleme yapar ama sonuçlarını Yönetim Kurulu'na sunar, disiplin işlemlerine karışmaz. C'de doğrudan Disiplin Kurulu aracılığıyla bildirme yetkilendirilmesi yanlıştır."
+    },
+    {
+      "id": "cikmis-2026-2-105",
+      "ders": "Meslek Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "Oda yönetim kurulu kararına itiraz süresi=30 gün. İtiraz mercii=Birlik Disiplin Kurulu (disiplin kararlarında ilk itiraz merci). Kovuşturmaya yer olmadığı kararı hukuki işlem olup, itiraz yolu açık kalır."
+    },
+    {
+      "id": "cikmis-2026-2-106",
+      "ders": "Meslek Hukuku",
+      "cevap": "D",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "A-doğru (nesnel açıklama yapılabilir), B-doğru (basılı evrak reklam olamaz), C-doğru (mesleki alan marka değildir), D-YANLIŞ (büro açılışını basına haber vermek reklam yasağına aykırı değil, müstakil reklam kampanyası yasaklıdır), E-doğru (…"
+    },
+    {
+      "id": "cikmis-2026-2-107",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I(✅ otomatik geçiş), II(✅ 2 yıl müşterek sorumluluk), III(❌ rıza şartı yok), IV(❌ haklı neden değil), V(✅ eski işverenden kıdem sayılır). Doğru: I+II+V"
+    },
+    {
+      "id": "cikmis-2026-2-108",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "I. YANLIŞ - Sendikalar Kanunu'nda aynı işkolunda birden çok sendikaya üyelik kısıtlıdır. II. DOĞRU - Üyelik başvurusu e-Devlet üzerinden yapılır ve sendika yönetim organının kabulüyle kazanılır. III. DOĞRU - Yardımcı işlerde çalışan işçiler…"
+    },
+    {
+      "id": "cikmis-2026-2-109",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "B",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "B şıkkında 'kusuru bulunan hak sahiplerine rücu edilmez' denilmiş ancak 5510 Kanunu m.22 uyarınca rücu hakkı kusuru bulunan hak sahiplerine karşı da kullanılabilir. Diğer şıklar kanuni hükümleri doğru yansıtmaktadır."
+    },
+    {
+      "id": "cikmis-2026-2-110",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Madencilik tehlikeli iş kategorisinde geçici işçi yasağı vardır. B, C, D, E şıkları kanunda izin verilen durumlardır. A şıkkı yasak alandır."
+    },
+    {
+      "id": "cikmis-2026-2-111",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "B",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "A-Yanlış (işveren sendikası değil işveren ile yapılır), B-DOĞRU (m.29), C-Yanlış (otomatik sona ermez), D-Yanlış (onay aranmaz), E-Doğru ama B daha genel"
+    },
+    {
+      "id": "cikmis-2026-2-112",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "5510 Kanunu'nda iş kazası tanımı: sigortalının işveren tarafından yürütülmekte olan işin yapılması nedeniyle, işyerinde veya işin yürütüldüğü yerde bulunduğu sırada meydana gelen, ani bir olayın neden olduğu vücut bütünlüğünün veya sağlığın…"
+    },
+    {
+      "id": "cikmis-2026-2-113",
+      "ders": "Vergi Hukuku",
+      "cevap": "C",
+      "dogru": "C",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "KDV Kanunu'nda vergiye tabi işlemler: mal ve hizmetlerin ücretli temini. A) Kâr payı dağıtması - vergiden muaf (sermaye işlemi). B) Faiz geliri - KDV dışında, ÖTV kapsamı. C) Taşıt kiralama - HİZMET satışı, vergiye tabi. D) Sigorta tazminat…"
+    },
+    {
+      "id": "cikmis-2026-2-114",
+      "ders": "Vergi Hukuku",
+      "cevap": "B",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "6183 sayılı Kanun'da teminat gösterilmiş amme alacağının vadesinde ödenmemesi halinde borçluya verilecek ödeme süresi sorulmaktadır. Soru metninde 'borcun ödenmesi...borçluya bildirilir' ifadesi ve verilen şıklar incelendiğinde, kamu mali h…"
+    },
+    {
+      "id": "cikmis-2026-2-115",
+      "ders": "Vergi Hukuku",
+      "cevap": "E",
+      "dogru": "D",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Soru metninde süre açıkça belirtilmemiştir. Emlak Vergisi Kanunu uygulamasında bu kural inşaların sona erdiği yılı takip eden 5 yıl boyunca uygulanır."
+    },
+    {
+      "id": "cikmis-2026-2-116",
+      "ders": "Vergi Hukuku",
+      "cevap": "C",
+      "dogru": "E",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "193 sayılı GVK'ya göre Türkiye'de yerleşmiş sayılan gerçek kişiler, belirtilen şartlar altında (son 3 takvim yılında Türkiye'de ikametgâh ve gayrimenkul/menkul sermaye iradı dışında vergi mükellefiyet bulunmamak) Türkiye dışında elde ettikl…"
+    },
+    {
+      "id": "cikmis-2026-2-117",
+      "ders": "Vergi Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Kollektif şirket ortağı - şirket kârından aldığı pay = Ticari kazanç. Şirketin faaliyet konusu (zirai/ticari) ortağın pay gelirinin sınıflandırılmasını değiştirmez."
+    },
+    {
+      "id": "cikmis-2026-2-118",
+      "ders": "Vergi Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "A,B,C,D maddeler VUK'un ilgili hükümlerine uygun ve doğrudur. E şıkkı yanlıştır; tahsil ve tahakkuk farklı kavramlardır."
+    },
+    {
+      "id": "cikmis-2026-2-119",
+      "ders": "Ticaret Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "Nama yazılı payın devri için: ciro edilmesi (I) ve pay defterine kaydı (II) zorunludur. Genel kurul onayı (III) ve ticaret sicili tescili (IV) bu tür paylar için gerekli değildir."
+    },
+    {
+      "id": "cikmis-2026-2-120",
+      "ders": "Ticaret Hukuku",
+      "cevap": "A",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "orta",
+      "hesap_kisa": "Tacir sıfatı: Ticari işletme işleten kişi/kuruluştur. A) Dernek (kamu yararına çalışmayan) = tacir değil. B) Vakıf (gelirin yarısı+ kamu görevi) = tacir değil ANCAK kamu yararı var, istisna durumu. C) Kooperatif = tacir (ticari işletme). D)…"
+    },
+    {
+      "id": "cikmis-2026-2-121",
+      "ders": "Ticaret Hukuku",
+      "cevap": "B",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "Ayni sermaye: parasal olmayan, maddi veya maddi olmayan varlıklar. A) Ticari itibar - maddi olmayan ancak sermaye olarak getirilmez. B) İpotekli taşınmaz - maddi varlık, değeri belirli, getirilebilir. C) Vadesi gelmiş alacak - borcun cebriy…"
+    },
+    {
+      "id": "cikmis-2026-2-122",
+      "ders": "Ticaret Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "orta",
+      "hesap_kisa": "A, B, C, D çeke konulabilen standart kayıtlardır (menfi emre, aynen ödeme, provizyon, teyit). E şıkkındaki kapital faizi oranı çekle ilgili bir kayıt türü değildir; bu muhasebe/mali işleme aittir."
+    },
+    {
+      "id": "cikmis-2026-2-123",
+      "ders": "Ticaret Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I-Esnaflar da mesleki hizmetler karşılığında ücret talep hakkına sahiptir. II-Ticaret sicili tescili tacirlere özgü; esnaflar esnaf siciline tescil edilir. III-Fahiş şartların indirilmesi tacirlerin hakkıdır (ifade yanlış); esnaflar için fa…"
+    },
+    {
+      "id": "cikmis-2026-2-124",
+      "ders": "Ticaret Hukuku",
+      "cevap": "B",
+      "dogru": "B",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "I-doğru (beyaz ciroyu doldurma hakkı vardır), II-doğru (emre yazılı senedler zilyetlikle devredilir, imza şartı yoktur), III-yanlış (imza zorunlu değil), IV-yanlış (temliki şartı yok)"
+    },
+    {
+      "id": "cikmis-2026-2-125",
+      "ders": "Borclar Hukuku",
+      "cevap": "E",
+      "dogru": "A",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m.128 gereği takas hakkı borçlu lehine koruyucu niteliktedir. Borç muaccel olmadan önceki feragat geçersizdir. A-D doğru, E yanlış."
+    },
+    {
+      "id": "cikmis-2026-2-126",
+      "ders": "Borclar Hukuku",
+      "cevap": "D",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "A) Doğru - TBK m.12 şekil serbestliği ilkesi. B) Doğru - TBK m.13 şekil ispat aracı olarak tanımlanır. C) Doğru - TBK m.14 sözleşmenin değiştirilmesinde aynı şekil gerekmesi. E) Doğru - TBK m.15 el yazısı imza prensibi. D) YANLIŞ - Yazılı ş…"
+    },
+    {
+      "id": "cikmis-2026-2-127",
+      "ders": "Borclar Hukuku",
+      "cevap": "E",
+      "dogru": "B",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m. 640 yapı malikinin sorumluluğunu kusursuz/kesin sorumluluk olarak düzenler. 'Özen sorumluluğu' değildir. A, B, C doğru; D de yapım bozukluğu söylemesi açısından doğru; E kusur koşuluna ilişkin yanlış terimidir."
+    },
+    {
+      "id": "cikmis-2026-2-128",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "A",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK 51. madde haksız fiilde tazminatın indirilmesi sebeplerini düzenler. Madde metnine göre indirilme sebepleri: zarar görenin razılığı (B), zararın doğmasında etkili olması (C), zararın artmasında etkili olması (D), tazminat yükümlüsünün d…"
+    },
+    {
+      "id": "cikmis-2026-2-129",
+      "ders": "Borclar Hukuku",
+      "cevap": "A",
+      "dogru": "C",
+      "dogru_mu": false,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m.82: Sebepsiz zenginleşme isteminin zamanaşımı (1) öğrenme tarihinden 1 yıl, (2) zenginleşme tarihinden 10 yıl. İki koşuldan biri gerçekleşirse hak zamanaşımına uğrar."
+    },
+    {
+      "id": "cikmis-2026-2-130",
+      "ders": "Borclar Hukuku",
+      "cevap": "E",
+      "dogru": "E",
+      "dogru_mu": true,
+      "guven": "yüksek",
+      "hesap_kisa": "TBK m.7'de mal sergilenmesi ve fiyat listeleri 'aksi açıkça ve kolaylıkla anlaşılmadıkça' değil; doğru ifade 'aksi açıkça belirtilmedikçe' öneriye davettir. Soru yanlış (daha zayıf) ifade kullanmıştır."
+    }
+  ]
+}

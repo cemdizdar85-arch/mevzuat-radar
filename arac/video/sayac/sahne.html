@@ -74,9 +74,13 @@ function kur(veri){
   Array.prototype.forEach.call(document.querySelectorAll('.etiketP'), function(e){ e.textContent = veri.etiket; });
   $('acilis').querySelector('p').textContent = veri.acilis;
   $('soru').textContent = veri.soru;
+  if (veri.Z) for (var z in veri.Z) Z[z] = veri.Z[z];   /* 21.10 meydan okuma: açılış 2 sn, çizelge 1 sn kayar */
   $('siklar').innerHTML = '';
+  /* 21.10 meydan okuma: uzun şıklar tek sütun (yalnız veri.tekSutun verilince; sayaç reklamı aynı kalır) */
+  if (veri.tekSutun) { $('siklar').style.gridTemplateColumns = '1fr'; $('siklar').style.gap = '4px'; }
   veri.siklar.forEach(function(s){
     var d = document.createElement('div'); d.className = 'sik'; d.dataset.h = s.h; d.textContent = s.h + ') ' + s.m;
+    if (veri.tekSutun) { d.style.fontSize = '11.5px'; d.style.padding = '3px 9px'; d.style.gridColumn = 'auto'; }
     $('siklar').appendChild(d);
   });
   $('tuzak').querySelector('b').textContent = veri.tuzakAd;
@@ -93,7 +97,7 @@ function arada(t, a, b){ return Math.max(0, Math.min(1, (t - a) / (b - a))); }
 function yumusak(x){ return x * x * (3 - 2 * x); }
 
 function kare(t){
-  var ac = 1 - yumusak(arada(t, 0.85, Z.acilisSon));
+  var ac = 1 - yumusak(arada(t, Z.acilisSon - 0.15, Z.acilisSon));   /* sayaç reklamında 0,85–1,0 (aynı) */
   $('acilis').style.opacity = ac; $('acilis').style.display = ac > 0 ? 'block' : 'none';
 
   var kalan = Math.max(0, Z.sayacSon - Math.max(t, Z.sayacBas));
@@ -106,11 +110,16 @@ function kare(t){
   Array.prototype.forEach.call(document.querySelectorAll('.sik'), function(el){
     el.classList.toggle('yanlis', t >= Z.yanlis && el.dataset.h === V.fisiltiHarf);
     el.classList.toggle('dogru', t >= Z.dogru && el.dataset.h === V.dogruHarf);
+    /* tek sütunda kutular açılınca yalnız yanlış + doğru şık kalır (yer açılsın) */
+    if (V.tekSutun) el.style.display = (t >= Z.kutuBas && el.dataset.h !== V.fisiltiHarf && el.dataset.h !== V.dogruHarf) ? 'none' : '';
   });
   /* titreşim yalnız SAĞA (sol sütun güvenli alan kenarında) */
   var tit = t >= Z.yanlis && t < Z.yanlis + 0.35 ? Math.abs(Math.sin((t - Z.yanlis) * 60)) * 4 * (1 - (t - Z.yanlis) / 0.35) : 0;
   var yanlisEl = document.querySelector('.sik[data-h="' + V.fisiltiHarf + '"]');
-  if (yanlisEl) yanlisEl.style.transform = 'translateX(' + tit.toFixed(2) + 'px)';
+  /* sağ sütundaki şık SOLA titrer (sağ kenar güvenli alan sınırında; 21.10 meydan okuma D şıkkı) */
+  /* tam genişlikteki şık (tek sütun) yatay titreyemez → dikey titrer */
+  if (yanlisEl) yanlisEl.style.transform = yanlisEl.offsetWidth > 250 ? 'translateY(' + (tit * 0.5).toFixed(2) + 'px)'
+    : 'translateX(' + (yanlisEl.offsetLeft > 100 ? -tit : tit).toFixed(2) + 'px)';
 
   /* 9 sn: soru metni kapanır (yüksekliği söner), yerine tuzak + doğrusu kutuları gelir — şıklar yerinde kalır */
   /* SIRALI: önce soru kapanır (0–0,3 sn), sonra kutular girer (0,3–0,6) — üst üste binerse #orta kırpılır (29.09 tam basımda ölçüldü) */

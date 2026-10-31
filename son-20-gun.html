@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<script src="tema-bas.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Son 20 Gün · 7 Deneme | Tetikte</title>
+<link rel="canonical" href="https://tetikte.com/son-20-gun.html">
+<meta name="description" content="SMMM Staja Giriş Son 20 Gün: 7 deneme, ders ders testler, deneme karnesi ve söz sayacı. 21 Kasım 2026 sınavına.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1b1a18">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<!-- 28.10.2026 Cem: "Son 20 Gün deneme sayfası planını onaylıyorum: s20 deneme kaydı + kasa erişimi (7 Deneme, Tam Paket, kurucu) +
+     son-20-gun.html ders ders test + karne + söz sayacı. 1 Kasım'da D5–D7, D1–D4 kalite onayımla. Çizim, yeniden çöz, konu karnesi
+     ikinci dalga."
+     Veri YALNIZ RPC'den (2026-10-28-s20-deneme.sql): s20_liste · s20_test_getir (soru doğrusuz gelir) · s20_test_bitir (puanı sunucu
+     hesaplar, İLK çözüm sayılır, açıklama ancak bitince gelir). Soru listesi depoya/siteye YAZILMAZ (site deponun tamamını yayınlıyor).
+     Deneme doğru oranı (Cem 28.10: ad 'doğru oranı', söz ölçütü ham %60) = denemenin bütün ders testleri bitince toplam doğru / toplam soru × 100 (Cem 24.10). Söz: 7 deneme bitir + en az
+     5'inde 60 (ilk çözüm) + çalışma görevleri (ikinci dalga; kampanya-son-20-gun.html §2).
+     Süre bilgi amaçlıdır: ders testi süresi = soru × 165 dk / 130; bitince test kendiliğinden teslim edilir, puanı etkilemez.
+     ✕ kuralı: sayfada katman/bildirim yok (onay penceresi tarayıcının kendi confirm'i). -->
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55}
+a{color:var(--accent2)}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 80px}
+.ust{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;font-size:14px}
+.ust a{color:var(--muted);text-decoration:none;font-weight:650;display:inline-flex;align-items:center;min-height:40px;padding:0 4px}
+h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6px 0 6px}
+.alt{color:var(--muted);margin:0 0 18px;font-size:15.5px}
+.kart{background:var(--kagit,var(--panel));border:1px solid var(--line2,var(--line));border-radius:16px;padding:16px 18px;margin:0 0 14px}
+.soz{border:2px solid var(--amber-dolgu,#f5a524)}
+.soz h2{margin:0 0 10px;font-size:17px}
+.soz-s{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.soz-s div{background:color-mix(in srgb,var(--amber-dolgu,#f5a524) 12%,transparent);border-radius:12px;padding:10px 12px}
+.soz-s b{display:block;font-size:24px;line-height:1.1}
+.soz-s span{font-size:13px;color:var(--muted)}
+.soz p{margin:10px 0 0;font-size:13.5px;color:var(--muted)}
+.kapi h2{margin:0 0 6px;font-size:18px}.kapi p{margin:0 0 12px;color:var(--muted)}
+.dg{display:inline-block;padding:12px 16px;border-radius:12px;background:var(--amber-dolgu,#f5a524);color:#111a2e!important;font-weight:850;text-decoration:none;border:0;font-size:15.5px;cursor:pointer}
+.dg.iki{background:transparent;border:2px solid var(--ink);color:var(--ink)!important}
+.dg[disabled]{opacity:.45;cursor:not-allowed}
+.dg-sira{display:flex;flex-wrap:wrap;gap:10px}
+.dn h2{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0 0 4px;font-size:19px}
+.dn h2 small{font-size:14px;font-weight:650;color:var(--muted)}
+.puan{font-weight:850}.puan.ok{color:var(--green)}.puan.no{color:var(--red)}
+.dn .not{margin:0;color:var(--muted);font-size:14.5px}
+.dersler{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.dersler li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--line2,var(--line));border-radius:12px}
+.dersler .ad{font-weight:700}.dersler .ad small{display:block;font-weight:500;color:var(--muted);font-size:13px}
+.dersler button{padding:9px 14px;font-size:14.5px;white-space:nowrap}
+.sonuc-rozet{font-size:13.5px;font-weight:750;color:var(--muted);white-space:nowrap}
+#test,#sonuc,#gorev{display:none}
+.uyari-serit{position:sticky;top:8px;z-index:5;display:flex;gap:10px;align-items:flex-start;justify-content:space-between;background:var(--kagit,var(--panel));border:2px solid var(--red);border-radius:12px;padding:10px 12px;margin:0 0 12px;font-size:14.5px;font-weight:650}
+.uyari-serit[hidden]{display:none}
+.sik.secili.yanlis{border-color:var(--red);background:color-mix(in srgb,var(--red) 10%,transparent)}
+.sik.secili.yanlis b{background:var(--red);border-color:var(--red);color:#fff}
+.uyari-serit button{border:0;background:transparent;color:var(--ink);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px}
+.gorev{border:2px solid var(--red)}
+.gorev h2{margin:0 0 6px;font-size:18px}
+.gorev .not{margin:0 0 4px;color:var(--muted);font-size:14.5px}
+.sik.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,transparent)}
+.sik.yanlis{border-color:var(--red);background:color-mix(in srgb,var(--red) 10%,transparent)}
+.sik[disabled]{cursor:default;opacity:1}
+.t-ust{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:14.5px;color:var(--muted)}
+.t-ust b{color:var(--ink)}
+.sayac{font-variant-numeric:tabular-nums;font-weight:850;color:var(--ink)}.sayac.az{color:var(--red)}
+.soru{white-space:pre-wrap;font-size:17px;line-height:1.6;margin:6px 0 14px}
+.siklar{display:grid;gap:8px}
+.sik{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line2,var(--line));background:transparent;color:var(--ink);font:inherit;font-size:15.5px;cursor:pointer}
+.sik b{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--muted);font-size:13.5px}
+.sik.secili{border-color:var(--amber-dolgu,#f5a524);background:color-mix(in srgb,var(--amber-dolgu,#f5a524) 14%,transparent)}
+.sik.secili b{background:var(--amber-dolgu,#f5a524);border-color:var(--amber-dolgu,#f5a524);color:#111a2e}
+.t-alt{display:flex;justify-content:space-between;gap:10px;margin:14px 0}
+.harita{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.harita button{width:36px;height:36px;border-radius:9px;border:1px solid var(--line2,var(--line));background:transparent;color:var(--ink);font-weight:700;cursor:pointer}
+.harita button.dolu{background:color-mix(in srgb,var(--amber-dolgu,#f5a524) 30%,transparent)}
+.harita button.su{outline:2px solid var(--ink)}
+.skor{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:10px 0 14px}
+.skor div{border:1px solid var(--line2,var(--line));border-radius:12px;padding:10px;text-align:center}
+.skor b{display:block;font-size:24px}.skor span{font-size:13px;color:var(--muted)}
+.inc{border-top:1px solid var(--line);padding:14px 0}
+.inc h3{margin:0 0 6px;font-size:15px}
+.inc .s{white-space:pre-wrap;margin:0 0 8px;font-size:15px}
+.inc .c{font-size:14.5px;margin:0 0 6px}
+.dog{color:var(--green);font-weight:850}.yan{color:var(--red);font-weight:850}
+.inc .a{font-size:14.5px;color:var(--muted);margin:4px 0 0;white-space:pre-wrap}
+.uyari{color:var(--red);font-weight:650}
+.kart.acilis{border:2px solid var(--amber-dolgu,#f3a52a);background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 9%,var(--kagit,#fff))}
+.kart.acilis h2{margin:0 0 4px}.kart.acilis p{margin:0}.kart.acilis .gun{color:var(--amber,#9a6400);font-weight:800}
+.dip{font-size:12.5px;color:var(--dim);margin-top:26px}
+.akis h2{margin:0 0 10px}.akis .not{margin:10px 0 0}
+.takvim h2{margin:0 0 4px}.takvim .tk-ust{margin:0 0 10px}.takvim ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.takvim li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--cizgi,#e6dccb);border-radius:10px}
+.takvim li b{white-space:nowrap}.takvim li span{color:var(--muted);font-size:14px;text-align:right}
+.takvim li.bugun{border:2px solid var(--amber-dolgu,#f3a52a);background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 9%,var(--kagit,#fff))}
+.takvim li.gun-gun{display:block;border:0;padding:0 0 4px 14px}
+.takvim li.gun-gun ul{gap:4px;border-left:3px solid var(--amber-dolgu,#f3a52a);padding-left:10px}
+.takvim li.gun-gun li{padding:6px 10px;font-size:14px;align-items:flex-start}.takvim li.gun-gun li span{color:var(--ink,#1a1a1a);text-align:left;flex:1}
+.takvim li.gun-gun li b{min-width:70px}.takvim li.gun-gun small{display:block;color:var(--muted);margin:6px 0 0 13px;font-size:13px}
+@media(max-width:640px){ .takvim li.gun-gun li{flex-direction:column;gap:2px} }
+.takvim li.bitti span{color:var(--green,#1e7a3c);font-weight:700}.takvim li.geri span{color:var(--red,#b42318);font-weight:700}
+.akis-s{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:a}
+.akis-s li{position:relative;display:flex;gap:10px;align-items:flex-start}
+.akis-s li>b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;font-weight:800}
+.akis-s li>span{font-weight:700;line-height:1.3}.akis-s small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:3px}
+.akis-s li:not(:last-child)::after{content:"→";position:absolute;right:-18px;top:4px;color:var(--amber,#9a6400);font-weight:800}
+@media(max-width:640px){ .akis-s{grid-template-columns:1fr;gap:16px} .akis-s li:not(:last-child)::after{content:"↓";right:auto;left:9px;top:auto;bottom:-17px} }
+@media(max-width:640px){ .soz-s{grid-template-columns:1fr 1fr 1fr;gap:6px} .soz-s b{font-size:20px} .skor{grid-template-columns:1fr 1fr}
+  .dersler li{flex-wrap:wrap} .soru{font-size:16px} }
+</style>
+<link rel="stylesheet" href="stil-acik.css">
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<main class="wrap" id="icerik">
+  <div class="ust"><a href="index.html">← tetikte</a><a href="kampanya-son-20-gun.html">Koşullar</a></div>
+  <div class="uyari-serit" id="uyari" role="alert" hidden><span id="uyariMetin"></span><button type="button" id="uyariX" aria-label="Uyarıyı kapat">✕</button></div>
+
+  <section id="liste" aria-labelledby="s20Bas">
+    <h1 id="s20Bas">Son 20 Gün · 7 deneme</h1>
+    <p class="alt" id="s20Alt">SMMM Staja Giriş · 21 Kasım 2026. Her deneme ders ders testlerden oluşur; bir dersin testini bitirdiğinde sonucun ve açıklamalar açılır.</p>
+    <!-- 28.10 Cem ("giremiyorsun deme, 1 Kasım açılacak orası"): açılıştan önce sayfa ne zaman açılacağını söyler, "hazırlanıyor" demez -->
+    <div class="kart acilis" id="acilisKart" hidden></div>
+    <!-- 31.10 Cem ("anlatımı çizimle anlatabiliyor muyuz"): deneme → sonuç → görev → sonraki deneme akışı, yanlış anlaşılmasın -->
+    <div class="kart akis" id="akis">
+      <h2>Nasıl ilerler?</h2>
+      <ol class="akis-s">
+        <li><b>1</b><span>Denemeyi çöz<small>Ders ders testler; sınavdaki soru sayısı kadar (130 soru)</small></span></li>
+        <li><b>2</b><span>Sonucunu gör<small>Her testin sonunda doğrular ve her sorunun açıklaması</small></span></li>
+        <li><b>3</b><span>Eksiğini kapat<small>Yanlış yaptığın konulardan 4'er yeni soru; 3'ü doğru olunca konu tamam</small></span></li>
+        <li><b>4</b><span>Sonraki deneme açılır<small>Deneme bitmeden ve görevler tamamlanmadan sonraki açılmaz</small></span></li>
+      </ol>
+      <p class="not">7 deneme boyunca aynı sıra: çöz → gör → öğren → sonrakine geç.</p>
+    </div>
+    <div class="kart soz" id="soz" aria-live="polite">
+      <h2>Söz sayacın</h2>
+      <div class="soz-s">
+        <div><b id="sozBiten">0/7</b><span>biten deneme</span></div>
+        <div><b id="soz60">0/5</b><span>%60 ve üstü</span></div>
+        <div><b id="sozGorev">—</b><span>çalışma görevleri</span></div>
+      </div>
+      <p id="sozNot">Şart: 7 denemeyi bitir, en az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla. Görevler denemelerden sonra açılır. <a href="kampanya-son-20-gun.html">Koşullar</a></p>
+    </div>
+    <!-- 31.10 Cem ("Evet, ekle"; Becker Study Planner / Kaplan Study Calendar: "her gün ne yapacağını bil"): 3 günde 1 deneme takvimi -->
+    <div class="kart takvim" id="takvim" hidden></div>
+    <div class="kart kapi" id="kapi" hidden></div>
+    <div class="kart gorev" id="gorevKart" hidden></div>
+    <div id="denemeler"><p class="alt">Denemeler yükleniyor…</p></div>
+  </section>
+
+  <section id="test" aria-labelledby="tBas">
+    <div class="t-ust"><span><b id="tBas"></b> · <span id="tSira"></span></span><span class="sayac" id="tSayac" aria-live="off"></span></div>
+    <p class="soru" id="tSoru"></p>
+    <div class="siklar" id="tSiklar" role="radiogroup" aria-label="Seçenekler"></div>
+    <div class="t-alt"><button type="button" class="dg iki" id="tGeri">← Önceki</button><button type="button" class="dg iki" id="tIleri">Sonraki →</button></div>
+    <div class="harita" id="tHarita" aria-label="Soru haritası"></div>
+    <div class="dg-sira"><button type="button" class="dg" id="tBitir">Testi bitir</button><button type="button" class="dg iki" id="tCik">Sonra devam et</button></div>
+    <p class="dip">Cevapların bu cihazda saklanır; "Sonra devam et" ile çıkıp kaldığın yerden sürdürebilirsin. Puanın testi bitirdiğinde sunucuda hesaplanır.</p>
+  </section>
+
+  <!-- 28.10 Cem: çalışma görevi — konu başına 4 soru, her cevaptan hemen sonra doğru + açıklama; 3 doğru = konu tamam -->
+  <section id="gorev" aria-labelledby="gBas">
+    <div class="t-ust"><span><b id="gBas"></b></span><span id="gSira"></span></div>
+    <p class="alt" id="gNot" style="margin:0 0 10px"></p>
+    <p class="soru" id="gSoru"></p>
+    <div class="siklar" id="gSiklar" role="radiogroup" aria-label="Seçenekler"></div>
+    <div id="gGeri" aria-live="polite"></div>
+    <div class="dg-sira" style="margin-top:14px"><button type="button" class="dg" id="gIleri" hidden>Sonraki soru →</button><button type="button" class="dg iki" id="gCik">Görevlere dön</button></div>
+  </section>
+
+  <section id="sonuc" aria-labelledby="rBas">
+    <h1 id="rBas"></h1>
+    <p class="alt" id="rNot"></p>
+    <div class="skor" id="rSkor"></div>
+    <div class="dg-sira"><button type="button" class="dg" id="rDon">Denemeye dön</button></div>
+    <div id="rListe" style="margin-top:16px"></div>
+  </section>
+  <p class="dip">Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · <a href="kampanya-son-20-gun.html">Son 20 Gün koşulları</a> · <a href="iletisim.html">İletişim</a></p>
+</main>
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  var SB_URL='https://bjrleanjpyujtajmazxn.supabase.co', SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  var sb=window.__pkSb||(window.__pkSb=supabase.createClient(SB_URL,SB_KEY));
+  var DENEME_SAYI=7, LISTE=null, T=null, saat=null;
+  function $(i){ return document.getElementById(i); }
+  /* 28.10 Cem ("1 Kasım açılacak orası; hem staja giriş hem bitirmede"): açılış öncesi kartı. Yeterlilik (?sinav=yeterlilik) 8 Kasım. */
+  var YET=/[?&]sinav=(yeterlilik|smmm)\b/.test(location.search), ACILIS=Date.parse(YET?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00');
+  function kalanGun(){ return Math.max(0, Math.ceil((ACILIS-Date.now())/864e5)); }
+  function acilisCiz(){
+    var k=$('acilisKart'); if(!k) return; if(Date.now()>=ACILIS){ k.hidden=true; return; }
+    var g=kalanGun();
+    k.innerHTML='<h2>Denemeler '+(YET?'8':'1')+' Kasım 2026\'da açılıyor</h2><p><span class="gun">'+(g>1?g+' gün kaldı':'Yarın açılıyor')+'</span> · '
+      +(YET?'Sınava 20 gün kala. ':'')+'Paketini şimdi al; denemeler o gün bu sayfada hesabında açılır.</p>';
+    k.hidden=false;
+  }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function uyar(m){ $('uyariMetin').textContent=m; $('uyari').hidden=false; window.scrollTo(0,0); }
+  $('uyariX').addEventListener('click',function(){ $('uyari').hidden=true; });
+  function goster(v){ $('uyari').hidden=true; ['liste','test','gorev','sonuc'].forEach(function(k){ $(k).style.display=(k===v?'block':'none'); }); window.scrollTo(0,0); }
+  function tarih(t){ try{ return new Date(t).toLocaleString('tr-TR',{timeZone:'Europe/Istanbul',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } }
+  function hata(e){ var m=String((e&&e.message)||e||'');
+    if(/S20_OTURUM/.test(m)) return 'Denemeyi çözmek için giriş yapmalısın.';
+    if(/S20_PAKET/.test(m)) return 'Bu deneme Sadece 7 Deneme ya da Staja Giriş Tam Paket üyelerine açık.';
+    if(/S20_KAPALI/.test(m)) return 'Bu deneme henüz açılmadı.';
+    if(/S20_GOREV/.test(m) && !/S20_GOREV_/.test(m)) return 'Önce çalışma görevlerini bitir; görevler tamamlanınca sonraki denemeye başlayabilirsin.';
+    if(/S20_ONCEKI/.test(m)) return 'Önce bir önceki denemenin bütün ders testlerini bitir; sonra bu denemeye başlayabilirsin.';
+    if(/KASA_TAVAN/.test(m)) return 'Kısa sürede çok soru açıldı; biraz sonra yeniden dene.';
+    return 'Bağlantı kurulamadı, sayfayı yenileyip yeniden dene.'; }
+  function puan(d){ var top=0,dog=0,bitti=d.dersler.length>0; d.dersler.forEach(function(x){ if(!x.sonuc) bitti=false; else { dog+=x.sonuc.dogru; top+=x.sonuc.toplam; } });
+    return { bitti:bitti, puan: bitti&&top? Math.round(dog*1000/top)/10 : null }; }
+
+  /* 31.10 tempo takvimi: 1–20 Kasım'a 7 deneme, 3 günde 1 (21 Kasım sınav günü). Gün İstanbul saatiyle. Üyede deneme başına biten ders. */
+  var TAKVIM=[[1,3],[4,6],[7,9],[10,12],[13,15],[16,18],[19,20]];
+  function istGun(){ try{ var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Istanbul',day:'numeric',month:'numeric',year:'numeric'}).formatToParts(new Date()), o={};
+      p.forEach(function(x){ o[x.type]=+x.value; }); return o; }catch(e){ var d=new Date(); return {day:d.getDate(),month:d.getMonth()+1,year:d.getFullYear()}; } }
+  /* 31.10 Cem ("buna gün gün verelim mi"): denemenin dersleri sınavdaki sırayla, soru sayısına göre günlere eşit yakın bölünür
+     (3 günlük denemede ≈43 soru/gün; Deneme 7 iki gün). Üyede biten ders ✓. */
+  function gunBol(d, t, uye){
+    var gunSay=t[1]-t[0]+1, top=d.dersler.reduce(function(s,x){ return s+x.adet; },0), hedefS=top/gunSay, parca=[[]], say=0;
+    d.dersler.forEach(function(x){ if(parca.length<gunSay && say>=hedefS*parca.length-x.adet/2 && parca[parca.length-1].length) parca.push([]);
+      parca[parca.length-1].push(x); say+=x.adet; });
+    return '<li class="gun-gun"><ul>'+parca.map(function(p,j){
+      var s=p.reduce(function(a,x){ return a+x.adet; },0), hepsi=uye&&p.every(function(x){ return !!x.sonuc; });
+      return '<li'+(hepsi?' class="bitti"':'')+'><b>'+(t[0]+j)+' Kasım</b><span>'+p.map(function(x){ return esc(x.ders)+(uye&&x.sonuc?' ✓':''); }).join(' · ')+' · '+s+' soru</span></li>'; }).join('')
+      +'</ul><small>Deneme bitince çalışma görevin açılır; onu da aynı gün bitir, sonraki deneme açılsın.</small></li>';
+  }
+  function takvimCiz(L, byNo){
+    var k=$('takvim'); if(!k||YET) return;
+    var g=istGun(), kasim=g.year===2026&&g.month===11, gun=kasim?g.day:(g.year===2026&&g.month===10?0:99);
+    if(gun>21){ k.hidden=true; return; }
+    var hedef=-1; TAKVIM.forEach(function(t,i){ if(gun>=t[0]&&gun<=t[1]) hedef=i; });
+    var odak=hedef>=0?hedef:(gun<1?0:-1);   /* gün gün dökümü: bugünün denemesi (açılıştan önce Deneme 1) */
+    var uye=!!(L&&L.oturum&&L.erisim), satir=TAKVIM.map(function(t,i){
+      var no=i+1, d=byNo&&byNo[no], top=d?d.dersler.length:0, bit=d?d.dersler.filter(function(x){ return !!x.sonuc; }).length:0, tam=top>0&&bit===top;
+      var cls=tam?'bitti':(i===hedef?'bugun':(uye&&gun>t[1]&&!tam?'geri':'')), sag;
+      if(uye&&tam) sag='Bitti ✓';
+      else if(uye&&gun>t[1]) sag='Geride · '+bit+'/'+top+' ders';
+      else if(i===hedef) sag='Bugünün hedefi'+(uye&&top?' · '+bit+'/'+top+' ders':'');
+      else sag=uye&&bit?bit+'/'+top+' ders':'';
+      var gunluk=(i===odak&&d&&!tam)? gunBol(d, t, uye) : '';
+      return '<li class="'+cls+'"><b>Deneme '+no+' · '+t[0]+(t[1]!==t[0]?'–'+t[1]:'')+' Kasım</b><span>'+sag+'</span></li>'+gunluk; }).join('');
+    var ust;
+    if(gun<1) ust='Önerilen tempo: 3 günde 1 deneme. 1 Kasım\'da Deneme 1 ile başla; 20 Kasım\'da 7\'si biter, 21 Kasım sınav günü.';
+    else if(gun===21) ust='Bugün sınav günü. Başarılar!';
+    else { var t=TAKVIM[hedef]; ust='Bugün '+gun+' Kasım · hedefin <b>Deneme '+(hedef+1)+'</b> (son gün '+t[1]+' Kasım).'; }
+    k.innerHTML='<h2>Takvimin</h2><p class="tk-ust">'+ust+'</p><ul>'+satir+'</ul>';
+    k.hidden=false;
+  }
+
+  function listeCiz(){
+    var L=LISTE||{denemeler:[]}, byNo={}; L.denemeler.forEach(function(d){ byNo[d.no]=d; });
+    var biten=0, alt=0;
+    L.denemeler.forEach(function(d){ var p=puan(d); if(p.bitti){ biten++; if(p.puan>=60) alt++; } });
+    $('sozBiten').textContent=biten+'/7'; $('soz60').textContent=Math.min(alt,5)+'/5';
+    takvimCiz(L, byNo);
+    /* 28.10 çalışma görevleri: her deneme bitince yanlış konulardan kurulur (31.10 Cem "herkese"; sunucu); açık görev varken çözülmemiş test başlatılmaz */
+    var G=L.gorevler||[], gAcik=G.filter(function(g){ return !g.tamam; });
+    $('sozGorev').textContent=G.length? (G.length-gAcik.length)+'/'+G.length : (biten?'yok':'—');
+    var gk=$('gorevKart');
+    if(gAcik.length){ gk.hidden=false;
+      gk.innerHTML='<h2>Çalışma görevlerin</h2><p class="not">Deneme '+gAcik[0].deneme+' bitti; yanlış yaptığın konuları pekiştirme zamanı. Her konuda 4 yeni soru gelir; 3\'ünü doğru yapınca konu tamamlanır. Görevler bitince sonraki denemeye başlayabilirsin.</p>'
+        +'<ul class="dersler">'+G.filter(function(g){ return g.deneme===gAcik[0].deneme; }).map(function(g){
+          return '<li><span class="ad">'+esc(g.konu)+'<small>'+esc(g.ders)+(g.tamam?'':' · tur '+g.tur+' · '+g.cevaplanan+'/4 cevap · '+g.dogru+' doğru')+'</small></span><span>'
+            +(g.tamam?'<span class="sonuc-rozet" style="color:var(--green)">Tamam ✓</span>':'<button type="button" class="dg" data-gd="'+g.deneme+'" data-gders="'+esc(g.ders)+'" data-gkonu="'+esc(g.konu)+'">'+(g.cevaplanan?'Devam et':'Çöz')+'</button>')+'</span></li>'; }).join('')+'</ul>';
+      [].forEach.call(gk.querySelectorAll('button[data-gkonu]'),function(b){ b.addEventListener('click',function(){ gorevAc(+b.getAttribute('data-gd'), b.getAttribute('data-gders'), b.getAttribute('data-gkonu')); }); });
+    } else gk.hidden=true;
+    var k=$('kapi');
+    if(!L.oturum){ k.hidden=false; k.innerHTML='<h2>Giriş yap, denemelerine başla</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a></div>'; }
+    else if(!L.erisim){ k.hidden=false; k.innerHTML='<h2>Denemeler paketinde yok</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a></div>'; }
+    else k.hidden=true;
+    var h='', eksik=null;   /* 31.10 önceki deneme kilidi (sunucu _s20_gorev_kapi ile aynı): açılmış bir önceki denemede bitmemiş ders varsa */
+    for(var no=1; no<=DENEME_SAYI; no++){
+      var d=byNo[no], onceki=eksik;
+      if(d&&d.acik&&!eksik){ var kal=d.dersler.filter(function(x){ return !x.sonuc; }).map(function(x){ return x.ders; }); if(kal.length) eksik={no:no, kal:kal}; }
+      h+='<article class="kart dn" id="d'+no+'"><h2>Deneme '+no;
+      if(!d){ h+='</h2><p class="not">'+(Date.now()<ACILIS?'1 Kasım 2026\'da açılır.':'Bugün içinde açılır.')+'</p></article>'; continue; }
+      var p=puan(d);
+      if(p.bitti) h+=' <span class="puan '+(p.puan>=60?'ok':'no')+'">'+'%'+p.puan.toLocaleString('tr-TR')+' doğru'+(p.puan>=60?' ✓':'')+'</span>';
+      h+=' <small>'+d.toplam+' soru</small></h2>';
+      if(!d.acik){ h+='<p class="not">'+(d.acilis&&new Date(d.acilis)>new Date()? esc(tarih(d.acilis))+'\'da açılır.' : Date.now()<ACILIS? '1 Kasım 2026\'da açılır.' : 'Bugün içinde açılır.')+'</p></article>'; continue; }
+      if(onceki&&L.oturum) h+='<p class="not"><b>Deneme '+onceki.no+' bitince açılır.</b> Deneme '+onceki.no+'\'de kalan '+onceki.kal.length+' ders: '+onceki.kal.map(esc).join(', ')+'.</p>';
+      else if(!p.bitti) h+='<p class="not">Doğru oranı, bütün ders testleri bitince çıkar: toplam doğru / '+d.toplam+'.</p>';
+      h+='<ul class="dersler">'+d.dersler.map(function(x){
+        var s=x.sonuc, sag=s? '<span class="sonuc-rozet">'+s.dogru+'/'+s.toplam+' doğru</span><button type="button" class="dg iki" data-no="'+no+'" data-ders="'+esc(x.ders)+'">Yeniden çöz</button>'
+                            : gAcik.length? '<span class="sonuc-rozet">Önce görevler</span>'
+                            : (onceki&&L.oturum)? '<span class="sonuc-rozet">Önce Deneme '+onceki.no+'</span>'
+                            : '<button type="button" class="dg" data-no="'+no+'" data-ders="'+esc(x.ders)+'"'+(L.erisim?'':' disabled')+'>'+(kayit(no,x.ders)?'Devam et':'Başla')+'</button>';
+        return '<li><span class="ad">'+esc(x.ders)+'<small>'+x.adet+' soru · '+Math.round(x.adet*d.sure_dk/(d.toplam||130))+' dk</small></span><span>'+sag+'</span></li>'; }).join('')+'</ul>';
+      h+='</article>';
+    }
+    $('denemeler').innerHTML=h;
+    [].forEach.call(document.querySelectorAll('#denemeler button[data-ders]'),function(b){ b.addEventListener('click',function(){ testAc(+b.getAttribute('data-no'), b.getAttribute('data-ders')); }); });
+  }
+  function yukle(){
+    return sb.rpc('s20_liste').then(function(r){ if(r.error) throw r.error; LISTE=r.data; listeCiz(); })
+      .catch(function(e){ $('denemeler').innerHTML='<p class="uyari">'+esc(hata(e))+'</p>'; });
+  }
+
+  /* ---- ders testi ---- */
+  function anahtar(no,ders){ return 's20d_'+no+'_'+ders; }
+  function kayit(no,ders){ try{ return JSON.parse(localStorage.getItem(anahtar(no,ders))||'null'); }catch(e){ return null; } }
+  function sakla(){ if(!T) return; try{ localStorage.setItem(anahtar(T.no,T.ders), JSON.stringify({cevap:T.cevap,i:T.i,kalan:T.kalan,ids:T.sorular.map(function(q){return q.id;})})); }catch(e){} }
+  function testAc(no,ders){
+    $('denemeler').setAttribute('aria-busy','true');
+    sb.rpc('s20_test_getir',{p_deneme:no,p_ders:ders}).then(function(r){
+      if(r.error) throw r.error; var v=r.data, k=kayit(no,ders), ids=v.sorular.map(function(q){return q.id;});
+      if(k&&(!k.ids||k.ids.join()!==ids.join())) k=null;   // sorular değiştiyse eski kayıt kullanılmaz
+      var sure=Math.round(v.sorular.length*v.sure_dk*60/(v.adet_deneme||130));
+      T={no:no, ders:ders, sorular:v.sorular, cevap:(k&&k.cevap)||{}, i:(k&&k.i)||0, kalan:(k&&k.kalan!=null)?k.kalan:sure, sure:sure, onceki:v.onceki};
+      $('tBas').textContent='Deneme '+no+' · '+ders; testCiz(); goster('test'); saatBaslat();
+    }).catch(function(e){ uyar(hata(e)); if(/S20_OTURUM|S20_PAKET/.test(String(e&&e.message))) yukle(); })
+      .then(function(){ $('denemeler').removeAttribute('aria-busy'); });
+  }
+  function sureYaz(sn){ sn=Math.max(0,sn|0); return Math.floor(sn/60)+':'+('0'+(sn%60)).slice(-2); }
+  function saatBaslat(){ clearInterval(saat); var say=0; saat=setInterval(function(){ if(!T||document.hidden) return; T.kalan--; say++;
+      var s=$('tSayac'); s.textContent=sureYaz(T.kalan); s.classList.toggle('az',T.kalan<=120);
+      if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }
+  function testCiz(){
+    var q=T.sorular[T.i], n=T.sorular.length;
+    $('tSira').textContent=(T.i+1)+' / '+n; $('tSoru').textContent=q.soru;
+    $('tSiklar').innerHTML=Object.keys(q.siklar||{}).sort().map(function(h){ var s=T.cevap[q.id]===h;
+      return '<button type="button" class="sik'+(s?' secili':'')+'" role="radio" aria-checked="'+s+'" data-h="'+h+'"><b>'+h+'</b><span>'+esc(q.siklar[h])+'</span></button>'; }).join('');
+    [].forEach.call($('tSiklar').querySelectorAll('.sik'),function(b){ b.addEventListener('click',function(){ var h=b.getAttribute('data-h');
+      if(T.cevap[q.id]===h) delete T.cevap[q.id]; else T.cevap[q.id]=h; sakla(); testCiz(); }); });
+    $('tGeri').disabled=T.i===0; $('tIleri').disabled=T.i===n-1;
+    $('tHarita').innerHTML=T.sorular.map(function(x,k){ return '<button type="button" class="'+(T.cevap[x.id]?'dolu':'')+(k===T.i?' su':'')+'" data-k="'+k+'" aria-label="Soru '+(k+1)+'">'+(k+1)+'</button>'; }).join('');
+    [].forEach.call($('tHarita').querySelectorAll('button'),function(b){ b.addEventListener('click',function(){ T.i=+b.getAttribute('data-k'); sakla(); testCiz(); }); });
+  }
+  $('tGeri').addEventListener('click',function(){ if(T.i>0){ T.i--; sakla(); testCiz(); } });
+  $('tIleri').addEventListener('click',function(){ if(T.i<T.sorular.length-1){ T.i++; sakla(); testCiz(); } });
+  $('tCik').addEventListener('click',function(){ sakla(); clearInterval(saat); T=null; goster('liste'); listeCiz(); });
+  $('tBitir').addEventListener('click',function(){ bitir(false); });
+  document.addEventListener('keydown',function(e){ if(!T||$('test').style.display!=='block') return;
+    var k=e.key.toUpperCase(); if(/^[A-E]$/.test(k)){ var q=T.sorular[T.i]; if(q.siklar&&q.siklar[k]!=null){ T.cevap[q.id]=k; sakla(); testCiz(); } }
+    else if(e.key==='ArrowRight') $('tIleri').click(); else if(e.key==='ArrowLeft') $('tGeri').click(); });
+  function bitir(sureBitti){
+    var bos=T.sorular.filter(function(q){ return !T.cevap[q.id]; }).length;
+    if(!sureBitti && !confirm(bos? bos+' soru boş. Testi bitirip sonucunu görmek istiyor musun?' : 'Testi bitirip sonucunu görmek istiyor musun?')) return;
+    clearInterval(saat); var t=T;
+    sb.rpc('s20_test_bitir',{p_deneme:t.no,p_ders:t.ders,p_cevap:t.cevap,p_sure_sn:Math.max(0,t.sure-t.kalan)}).then(function(r){
+      if(r.error) throw r.error; try{ localStorage.removeItem(anahtar(t.no,t.ders)); }catch(e){}
+      T=null; sonucCiz(t, r.data); goster('sonuc'); yukle();
+    }).catch(function(e){ uyar(hata(e)+' Cevapların bu cihazda duruyor.'); saatBaslat(); });
+  }
+  /* ---- sonuç + inceleme ---- */
+  function metin(a){ if(a==null) return ''; if(typeof a==='string') return a; if(typeof a==='object') return Object.keys(a).map(function(k){ return metin(a[k]); }).filter(Boolean).join(' '); return String(a); }
+  function aciklamaHtml(v, c){
+    var d=v.dogru, ac=v.aciklama||{};
+    return (metin(ac[d])? '<p class="a"><b>Neden '+esc(d)+':</b> '+esc(metin(ac[d]))+'</p>':'')
+      +(c&&c!==d&&metin(ac[c])? '<p class="a"><b>Neden '+esc(c)+' değil:</b> '+esc(metin(ac[c]))+'</p>':'')
+      +(v.kural? '<p class="a"><b>Kural:</b> '+esc(metin(v.kural))+'</p>':'')
+      +(v.dayanak? '<p class="a"><b>Dayanak:</b> '+esc(metin(v.dayanak))+'</p>':''); }
+  function sonucCiz(t, r){
+    $('rBas').textContent='Deneme '+t.no+' · '+t.ders;
+    $('rNot').innerHTML= (r.ilk? 'İlk çözümün kaydedildi; söz sayacında bu sonuç sayılır.' :
+      'Bu bir yeniden çözüm. Söz sayacında ilk çözümün sayılır: <b>'+r.kayitli.dogru+'/'+r.kayitli.toplam+' doğru</b>.')
+      +(r.gorev>0? '<br><b>Yanlış yaptığın konulardan '+r.gorev+' konuluk çalışma görevin hazır.</b> Görevler bitince sonraki denemeye başlayabilirsin.' : '');
+    $('rSkor').innerHTML='<div><b>'+r.dogru+'</b><span>doğru / '+r.toplam+'</span></div><div><b>'+r.yanlis+'</b><span>yanlış</span></div><div><b>'+r.bos+'</b><span>boş</span></div><div><b>%'+Math.round(100*r.dogru/r.toplam)+'</b><span>başarı</span></div>';
+    $('rListe').innerHTML='<h2 style="font-size:17px;margin:0 0 4px">Sorular ve açıklamalar</h2>'+(r.sorular||[]).map(function(s,k){
+      var v=s.veri||{}, c=t.cevap[s.id], d=v.dogru, ac=v.aciklama||{};
+      return '<div class="inc"><h3>Soru '+(k+1)+(s.konu?' · <span style="font-weight:500;color:var(--muted)">'+esc(s.konu)+'</span>':'')+'</h3>'
+        +'<p class="s">'+esc(v.soru)+'</p>'
+        +'<p class="c">'+(c? 'Senin cevabın <span class="'+(c===d?'dog':'yan')+'">'+esc(c)+') '+esc((v.siklar||{})[c])+'</span>' : 'Boş bıraktın')
+        +' · Doğrusu <span class="dog">'+esc(d)+') '+esc((v.siklar||{})[d])+'</span></p>'
+        +aciklamaHtml(v, c)+'</div>'; }).join('');
+  }
+  $('rDon').addEventListener('click',function(){ goster('liste'); listeCiz(); var e=document.getElementById('d'+((LISTE&&LISTE.son)||'')); if(e) e.scrollIntoView(); });
+
+  /* ---- çalışma görevi: tek tek soru, her cevaptan hemen sonra doğru + açıklama (s20_gorev_getir / s20_gorev_cevap) ---- */
+  var G=null;
+  function gorevAc(deneme, ders, konu){
+    sb.rpc('s20_gorev_getir',{p_deneme:deneme,p_ders:ders,p_konu:konu}).then(function(r){
+      if(r.error) throw r.error; var v=r.data;
+      if(v.tamam){ yukle(); return; }
+      G={deneme:deneme, ders:ders, konu:konu, tur:v.tur, sorular:v.sorular, i:0, dogru:v.dogru};
+      var k=0; while(k<G.sorular.length && G.sorular[k].cevap) k++;   // kaldığı yerden
+      G.i=Math.min(k, G.sorular.length-1);
+      $('gBas').textContent=konu; gorevCiz(); goster('gorev');
+    }).catch(function(e){ uyar(hata(e)); });
+  }
+  function gorevCiz(geri){
+    var q=G.sorular[G.i], cevapli=!!q.cevap;
+    $('gSira').textContent='Tur '+G.tur+' · soru '+(G.i+1)+' / '+G.sorular.length;
+    $('gNot').textContent=G.ders+' · bu turda '+G.dogru+' doğru (3 doğru konuyu tamamlar)';
+    $('gSoru').textContent=q.soru;
+    $('gSiklar').innerHTML=Object.keys(q.siklar||{}).sort().map(function(h){
+      var cls='sik'+(q.cevap===h?' secili':'')+(cevapli&&q.veri&&h===q.veri.dogru?' dogru':'')+(cevapli&&q.cevap===h&&q.veri&&h!==q.veri.dogru?' yanlis':'');
+      return '<button type="button" class="'+cls+'" role="radio" aria-checked="'+(q.cevap===h)+'" data-h="'+h+'"'+(cevapli?' disabled':'')+'><b>'+h+'</b><span>'+esc(q.siklar[h])+'</span></button>'; }).join('');
+    [].forEach.call($('gSiklar').querySelectorAll('.sik:not([disabled])'),function(b){ b.addEventListener('click',function(){ gorevCevap(b.getAttribute('data-h')); }); });
+    $('gGeri').innerHTML=cevapli&&q.veri? '<div class="inc"><p class="c">'+(q.cevap===q.veri.dogru?'<span class="dog">Doğru ✓</span>':'<span class="yan">Yanlış</span> · Doğrusu <span class="dog">'+esc(q.veri.dogru)+') '+esc((q.veri.siklar||{})[q.veri.dogru])+'</span>')+'</p>'+aciklamaHtml(q.veri, q.cevap)+'</div>' : (geri||'');
+    var ileri=$('gIleri'); ileri.hidden=!cevapli; ileri.textContent=G.i<G.sorular.length-1?'Sonraki soru →':'Turu bitir';
+  }
+  function gorevCevap(h){
+    var q=G.sorular[G.i];
+    [].forEach.call($('gSiklar').querySelectorAll('.sik'),function(b){ b.disabled=true; });
+    sb.rpc('s20_gorev_cevap',{p_deneme:G.deneme,p_ders:G.ders,p_konu:G.konu,p_id:q.id,p_secim:h}).then(function(r){
+      if(r.error) throw r.error; var v=r.data;
+      q.cevap=h; q.veri=v.veri; G.dogru=v.tur_kapandi? G.dogru+(v.dogru_mu?1:0) : v.tur_dogru;
+      G.son=v; gorevCiz();
+    }).catch(function(e){ uyar(hata(e)); gorevCiz(); });
+  }
+  $('gIleri').addEventListener('click',function(){
+    if(G.bitti==='yeni'){ gorevAc(G.deneme, G.ders, G.konu); return; }
+    if(G.bitti==='tamam'){ G=null; goster('liste'); yukle(); return; }
+    if(G.i<G.sorular.length-1){ G.i++; gorevCiz(); window.scrollTo(0,0); return; }
+    var v=G.son||{}, b=$('gIleri');
+    if(v.tamam){ G.bitti='tamam'; b.textContent='Görevlere dön';
+      $('gGeri').innerHTML='<div class="kart" style="border-color:var(--green)"><b style="color:var(--green)">Konu tamamlandı ✓</b><p class="not" style="margin:4px 0 0">'+esc(G.konu)+' · bu turda '+G.dogru+' / 4 doğru.'+(v.acik_gorev?'':' Bütün görevlerin bitti; sonraki denemeye başlayabilirsin.')+'</p></div>'; }
+    else if(v.tur_kapandi){ G.bitti='yeni'; b.textContent='Yeni tura başla';
+      $('gGeri').innerHTML='<div class="kart"><b>Bu turda '+G.dogru+' / 4 doğru</b><p class="not" style="margin:4px 0 0">Konuyu tamamlamak için 3 doğru gerekiyor. Aynı konudan yeni 4 soru hazır.</p></div>'; }
+    else { G=null; goster('liste'); yukle(); }
+    window.scrollTo(0, $('gGeri').offsetTop-80);
+  });
+  $('gCik').addEventListener('click',function(){ G=null; goster('liste'); yukle(); });
+  /* 28.10 Yeterlilik görünümü (8 Kasım öncesi): sunucu kaydı henüz yok → ders kartları + açılış günü + şart; giriş yapmamışa kapı.
+     Denemeler yüklendiğinde bu görünüm s20 Yeterlilik kaydına bağlanacak (plan A+B). */
+  var YET_DERSLER=['Finansal Muhasebe','Finansal Tablolar ve Analizi','Maliyet Muhasebesi','Muhasebe Denetimi',
+    'Vergi Mevzuatı ve Uygulaması','Hukuk','Meslek Hukuku','Sermaye Piyasası Mevzuatı'];
+  function yetCiz(){
+    document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';
+    $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true; $('takvim').hidden=true;
+    $('s20Alt').textContent='SMMM Yeterlilik · 28 Kasım 2026. Her dersin 5 denemesi var (20 soru, 45 dakika); bir denemeyi bitirdiğinde sonucun ve açıklamalar açılır.';
+    var ko=document.querySelector('.ust a[href="kampanya-son-20-gun.html"]'); if(ko) ko.href='kampanya-son-20-gun.html#yeterlilik';
+    $('soz').querySelector('.soz-s').innerHTML='<div><b>0/8</b><span>şartı tamam ders</span></div><div><b>5</b><span>deneme her derste</span></div><div><b>3/5</b><span>%60 ve üstü gerekir</span></div>';
+    $('sozNot').innerHTML='Şart, her ders için ayrı: o dersin 5 denemesini bitir, en az 3\'ünde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla; hepsi 28 Kasım\'dan önce. <a href="kampanya-son-20-gun.html#yeterlilik">Koşullar</a>';
+    $('denemeler').innerHTML=YET_DERSLER.map(function(ders){
+      return '<article class="kart dn"><h2>'+esc(ders)+' <small>5 deneme</small></h2><ul class="dersler">'+[1,2,3,4,5].map(function(n){
+        return '<li><span class="ad">Deneme '+n+'<small>20 soru · 45 dk</small></span><span><span class="sonuc-rozet">'+(Date.now()<ACILIS?'8 Kasım\'da açılır':'Bugün içinde açılır')+'</span></span></li>'; }).join('')+'</ul></article>'; }).join('');
+    sb.auth.getSession().then(function(r){ var k=$('kapi');
+      if(!(r&&r.data&&r.data.session)){ k.hidden=false; k.innerHTML='<h2>Giriş yap ya da paketini al</h2><p>Son 20 Gün denemeleri <b>Sadece Denemeler</b>, <b>Tüm dersler</b> ve <b>ders ders</b> paket üyelerine açık (ders ders pakette seçtiğin dersler).</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a></div>'; } }).catch(function(){});
+  }
+  acilisCiz();
+  if(YET) yetCiz(); else yukle();
+})();
+</script>
+</body>
+</html>

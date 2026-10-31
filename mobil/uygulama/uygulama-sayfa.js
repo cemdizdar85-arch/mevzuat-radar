@@ -60,7 +60,7 @@
   /* 3. iPhone'da satış çağrısı yok (Apple 08.10 reddi: "How do users unlock exams?" — açılamayan/satışa çağıran hiçbir şey çizilmez).
      (a) #paketler bağı ve data-tt-satis işaretli öğe kaldırılır; (b) görünür metinde "paket" geçen CÜMLE silinir
      (ör. seviye testinin haftalık kutusu "O zamana kadar paketle her gün soru çöz…", Yanlışlarım "Paketli hesabınla…"). */
-  var IOS = !!(TT && TT.yalnizUcretsiz && TT.yalnizUcretsiz());
+  var IOS = !!(TT && (TT.satisGizli ? TT.satisGizli() : TT.yalnizUcretsiz && TT.yalnizUcretsiz()));   /* 30.10: paketli iPhone üyesinde de satış sökülür */
   var PAKET_CUMLE = /[^.!?\n]*\bpaket\w*[^.!?\n]*[.!?]?\s*/gi;
   function metinTemizle(kok) {
     try {

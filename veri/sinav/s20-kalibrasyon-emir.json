@@ -1,0 +1,41 @@
+{
+  "aciklama": "SGS Son 20 Gün KÖR KALİBRASYON emir kapısı (arac/s20-kor-kalibrasyon.ps1 + .github/workflows/s20-kalibrasyon.yml). onay:true + uygulandi boş olan emir PARALI koşar (toplu, tavan_usd emir başına), bitince damgalanır. Cem onayı: toplam tavan 13 USD.",
+  "emirler": [
+    {
+      "no": 1,
+      "onay": true,
+      "tavan_usd": 4,
+      "girdi": "veri/sinav/s20-kalibrasyon-cikmis3.json",
+      "aciklama": "SGS çıkmış 3 dönem (2025/3, 2026/1, 2026/2; A kitapçığı, TESMER anahtarı) kullanılabilir 348 soru — kaynaksız, açıklamasız kör çözüm, bulut kör kapısının aynı çözücüsü",
+      "onay_notu": "Cem 24.10: kalibrasyon ONAYLI toplam tavan 13 USD; bu emir 4 USD (tahmin 2,86)",
+      "uygulandi": "24.10.2026 14:28",
+      "gercek_usd": 1.95,
+      "sonuc": "veri/sinav/s20-kalibrasyon-sonuc-1.json"
+    },
+    {
+      "no": 2,
+      "onay": true,
+      "tavan_usd": 1,
+      "girdi": "veri/sinav/s20-kalibrasyon-cikmis3.json",
+      "cozucu_model": "claude-haiku-4-5",
+      "aciklama": "aynı 348 çıkmış soru, AYNI kör istem + ayrıştırıcı, daha zayıf çözücü (emir #1'de üretim kör modeli 337/348 = tavan etkisi; ders zorluğunu ayırt etmek için)",
+      "onay_notu": "Cem 24.10 kalibrasyon onayı (toplam 13 USD) içinde; #1 tavan etkisi (%96,8) → daha zayıf ikinci çözücü",
+      "uygulandi": "24.10.2026 14:46",
+      "gercek_usd": 0.64,
+      "sonuc": "veri/sinav/s20-kalibrasyon-sonuc-2.json"
+    },
+    {
+      "no": 3,
+      "onay": true,
+      "tavan_usd": 2,
+      "girdi_kimlik": "veri/sinav/s20-kalibrasyon-kimlik-3.json",
+      "cozucu_model": "claude-haiku-4-5",
+      "aciklama": "s20 soruları (dalga 1 yayında 74 + dalga 2/3 ambarda, bulut öncesi 346) — kalibrasyon çözücüsüyle ders×zorluk doğru oranı; metin ambardan, depoya yalnız doğru/yanlış",
+      "onay_notu": "Cem 24.10 kalibrasyon onayı (13 USD) içinde",
+      "not": "1. koşu 40104721805 eşdeğerlik adımında SUPABASE_SERVICE_KEY yoktu (0 USD) — iş akışı düzeltildi",
+      "uygulandi": "24.10.2026 15:30",
+      "gercek_usd": 0.85,
+      "sonuc": "veri/sinav/s20-kalibrasyon-sonuc-3.json"
+    }
+  ]
+}

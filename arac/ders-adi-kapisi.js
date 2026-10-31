@@ -153,6 +153,8 @@ function gercekGirdi() {
       { ad: 'fiyat-motoru.js DERSLER.yeterlilik', dersler: fiyatDersleri(oku('fiyat-motoru.js')) },
       { ad: 'radar-app/edge/magaza-dogrula.ts DERSLER.yeterlilik', dersler: tsDizi(oku('radar-app/edge/magaza-dogrula.ts'), /const DERSLER\s*=\s*\{\s*yeterlilik:\s*\[([^\]]*)\]/) },
       { ad: 'radar-app/edge/karne-gonder.ts DERS_ADLARI_YET', dersler: tsDizi(oku('radar-app/edge/karne-gonder.ts'), /DERS_ADLARI_YET\s*=\s*\[([^\]]*)\]/) },
+      /* 23.10 ders ders hediye: sunucu yalnız bu adları kabul eder (yonetim_ders_hediye) */
+      { ad: 'radar-app/sql/2026-10-23-ders-hediye.sql tum_dersler', dersler: tsDizi(oku('radar-app/sql/2026-10-23-ders-hediye.sql'), /tum_dersler constant text\[\] := array\[([^\]]*)\]/) },
     ],
   };
 }

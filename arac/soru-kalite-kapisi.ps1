@@ -18,7 +18,8 @@ function SoruKaliteKapisi($nesne) {
     # NOT-* durdurmaz (30.09 ölçümü: AS1 alarmlarının %54–76'sı yanlış). HK 30.09 eklendi (SMMM oturumu bildirdi: tek-soru yolu süzüyordu).
     # 03.10 YENİ2: KAPI-YY / KAPI-ADIM / KAPI-TR (+ KAPI-BOS BOS-KALIP) yalnız YENİ2 soruda (kör/hakem2 ≥ 2026-10-04 ya da tarihsiz üretim
     # girdisi) KAPI- satırı olarak gelir; YENİ2 kararını Node verir (arac/soru-kalite-kapisi.js yeni2Mi), burada yalnız süzülür.
-    return @($cikti | Where-Object { "$_" -match '^KAPI-(AS2|EK|HK|BP|BOS|YY|ADIM|TR):' })
+    # 22.10 KAPI-YT (yıllık tutar/yıl kuralı, arac/yillik-tutar-kapisi.js) - kendi "yeni" eşiği (≥2026-10-23) Node tarafında.
+    return @($cikti | Where-Object { "$_" -match '^KAPI-(AS2|EK|HK|BP|BOS|YY|ADIM|TR|YT):' })
   } catch {
     $script:SORU_KALITE_KOR = "çağrılamadı: $($_.Exception.Message)"
     return @()

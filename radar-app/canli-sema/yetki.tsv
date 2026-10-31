@@ -1,0 +1,165 @@
+ad	argumanlar	tur	anon	uye	donus	tanim
+_anlik_teklif_secenekler	p_sinav text	SD	f	f	jsonb	depoda
+_kaynak_artir	p_gun date, p_etiket text, p_olay text	SD	f	f	boolean	depoda
+_kaynak_hesap_etiketi	p_meta jsonb	inv	f	f	text	depoda
+_ozel_kod_gecerli	p_kod text, p_paket text	SD	f	f	integer	depoda
+_paket_kapsar	p_var text, p_var_ders text[], p_yeni text, p_yeni_ders text[]	inv	t	t	boolean	depoda
+_paket_sinavi	p text	inv	t	t	text	depoda
+_s20_acik	p_no integer	SD	f	f	boolean	depoda
+_s20_gorev_acik	p_uid uuid	SD	f	f	boolean	depoda
+_s20_gorev_aday	p_uid uuid, p_ders text, p_konu text, p_haric text[], p_adet integer	SD	f	f	text[]	depoda
+_s20_gorev_kapi	p_deneme integer, p_ders text	SD	f	f	void	depoda
+_s20_gorev_kur	p_uid uuid, p_deneme integer	SD	f	f	integer	depoda
+_s20_gorevler	p_uid uuid	SD	f	f	jsonb	depoda
+_s20_kapi	p_no integer	SD	f	f	void	depoda
+_siparis_isle	p_sid bigint, p_uid uuid, p_yol text	SD	f	f	text	depoda
+alacak_abone_mi		SD	f	f	boolean	depoda
+alacak_ara	p_sorgu text	SD	t	t	record	depoda
+alacak_borclu_maskele	p jsonb	inv	t	t	jsonb	depoda
+alacak_sayi		SD	t	t	jsonb	depoda
+alacak_toplu	p_liste text[]	SD	t	t	jsonb	depoda
+alacak_vitrin	p_durum text, p_tur text	SD	t	t	jsonb	depoda
+alacak_yaz	p_kayitlar jsonb	SD	f	f	integer	depoda
+anlik_teklif_al	p_sonuc text, p_kaynak text, p_ders text	SD	f	t	jsonb	depoda
+anlik_teklif_kontrol	p_belirtec text	SD	f	t	jsonb	depoda
+bedel_kaydi_damga		inv	t	t	trigger	DEPODA-YOK
+cevap_kaydet	p_token uuid, p_soru_id uuid, p_cevap text, p_dosya text	SD	f	f	boolean	depoda
+cihaz_cikar	p_hedef text	SD	f	t	jsonb	depoda
+cihaz_kontrol	p_cihaz text, p_etiket text, p_devral boolean	SD	f	t	jsonb	depoda
+cihazlarim	p_cihaz text	SD	f	t	jsonb	depoda
+cizim_ses_erisim	p_id text	SD	f	t	boolean	depoda
+davet_kodu_ata		inv	t	t	trigger	depoda
+davet_kodu_uret		inv	t	t	text	depoda
+davet_uygula	p_alan_id uuid, p_kod text	SD	f	f	text	depoda
+destek_takip_iptal	p_token uuid	SD	t	t	text	depoda
+ekibe_cevap_goruldu		SD	f	t	integer	depoda
+ekibe_soru_eposta_yaz		SD	f	f	trigger	depoda
+elci_bagla	p_kod text	SD	f	t	text	depoda
+elci_erisim_ver		SD	f	f	trigger	depoda
+elci_google_bagla		SD	f	t	text	depoda
+elci_kodu_kontrol	p_kod text, p_paket text	SD	t	t	integer	depoda
+elci_komisyon	n integer, bk smallint	inv	t	t	integer	depoda
+elci_panelim		SD	f	t	jsonb	depoda
+elci_sozlesme_onayla	p_surum text	SD	f	t	boolean	depoda
+hatirlatma_ret	p_jeton text	SD	t	t	boolean	depoda
+hesabimi_sil		SD	f	t	json	depoda
+ihale_dokum	p_offset integer, p_limit integer	SD	f	f	ihale_sonuc_v	depoda
+ihale_eksik_gun	p_bas date, p_bit date, p_turler text[]	SD	f	f	record	depoda
+ihale_kutuk_denetim		SD	f	f	record	depoda
+ihale_kutuk_yaz	p_gun date, p_tur text, p_bulten_sayi integer, p_kayit integer, p_beklenen integer, p_bulunan integer, p_eksik_ikn text[], p_bos_sebep text	SD	f	f	void	depoda
+ihale_sayi		SD	f	f	record	depoda
+ihale_yaz	p_kayitlar jsonb	SD	f	f	integer	depoda
+istek_getir	p_token uuid	SD	f	f	json	depoda
+kalip_parti_damga		inv	t	t	trigger	DEPODA-YOK
+kart_siparis_odendi	p_no text, p_payment_id text	SD	f	f	jsonb	depoda
+kasa_cekim_izin2	p_sayfa text, p_bas integer, p_adet integer, p_ids text[]	SD	f	f	text	depoda
+kasa_cevap_yaz	p_sayfa text, p_id text, p_secim text	SD	f	t	void	depoda
+kasa_ders_fihrist	p_sayfa text	SD	f	t	record	depoda
+kasa_dizin	p_sinav text	SD	t	t	record	depoda
+kasa_soru_getir	p_sayfa text, p_bas integer, p_adet integer	SD	f	t	record	depoda
+kasa_soru_idler	p_ids text[]	SD	f	t	record	depoda
+kasa_soru_parca	p_sayfa text, p_ids text[]	SD	f	t	record	depoda
+kasa_tavan_bildir	p_sayfa text, p_pencere text	SD	f	t	void	depoda
+kasa_uye_olcum	p_saat integer	SD	f	f	record	depoda
+kaynak_say	p_etiket text, p_olay text	SD	t	t	boolean	depoda
+kaynak_uye	p_etiket text	SD	f	t	boolean	depoda
+kurucu_sayac		SD	t	t	record	depoda
+madde_ara	sorgu text, adet integer	inv	t	t	dokumanlar	depoda
+madde_ara_deneme	sorgu text, adet integer	inv	t	t	dokumanlar	depoda
+madde_ara_deneme_puan	sorgu text, adet integer, ayar jsonb	inv	t	t	record	depoda
+marka_ayna_durum		SD	f	f	record	depoda
+marka_ayna_sahip	p_unvan text, p_tavan integer	SD	f	f	record	depoda
+marka_bulten_durum		SD	t	t	record	depoda
+marka_bulten_itiraz	p_ad text, p_sinif integer[], p_gun integer, p_esik real, p_tavan integer, p_yalniz_acik boolean	SD	t	t	record	depoda
+marka_bulten_mutabakat		SD	f	f	record	depoda
+marka_bulten_sahip	p_unvan text, p_tavan integer	SD	t	t	record	depoda
+marka_kademe_hesap	p_marka text, p_aday text	inv	f	f	text	depoda
+marka_kademe_sinav		SD	f	f	record	depoda
+marka_norm	p text	inv	t	t	text	depoda
+marka_norm_bosluklu	p text	inv	t	t	text	depoda
+marka_norm_sozcuk	p text	inv	t	t	text	depoda
+marka_takip_ac	p_ad text, p_sinif integer[], p_eposta text	SD	f	f	record	depoda
+marka_takip_ac2	p_ad text, p_sinif integer[], p_eposta text	SD	f	f	jsonb	depoda
+marka_takip_bekleyen	p_tavan integer	SD	f	f	record	depoda
+marka_takip_gor	p_jeton text	SD	t	t	record	depoda
+marka_takip_isaretle	p_takip_id uuid, p_kayitlar jsonb	SD	f	f	integer	depoda
+marka_takip_kapat	p_jeton text	SD	t	t	boolean	depoda
+marka_takip_onayla	p_onay text	SD	t	t	jsonb	depoda
+marka_takip_sayac		SD	t	t	record	depoda
+marka_talep_ac	p_unvan text, p_email text, p_kaynak text	SD	t	t	text	depoda
+marka_talep_ip_temizle		SD	f	f	integer	depoda
+marka_talep_sonuc	p_jeton text	SD	t	t	jsonb	depoda
+mukellef_pano	p_token uuid	SD	f	f	json	depoda
+nobetci_durum	p_uid uuid	SD	f	f	jsonb	depoda
+olay_say	p_olay text, p_platform text	SD	t	t	void	depoda
+ozel_kod_kontrol	p_kod text, p_paket text	SD	t	t	integer	depoda
+paket_erisim_var	p_sinav text, p_ders text	SD	t	t	boolean	depoda
+paket_secim_sayac		SD	t	t	record	depoda
+paketimi_bagla	p_no text, p_eposta text	SD	f	t	jsonb	depoda
+prova_cizim	p_oturum text, p_idler jsonb	SD	t	t	jsonb	depoda
+prova_cizim_acik	p_oturum text, p_an timestamp with time zone	inv	f	f	boolean	depoda
+rate_limit_check	p_ip text, p_limit integer, p_pencere_sn integer	SD	f	f	boolean	depoda
+rls_auto_enable		SD	t	t	event_trigger	DEPODA-YOK
+s20_deneme_yukle	p jsonb	SD	f	f	jsonb	depoda
+s20_erisim		SD	f	t	boolean	depoda
+s20_gorev_cevap	p_deneme integer, p_ders text, p_konu text, p_id text, p_secim text	SD	f	t	jsonb	depoda
+s20_gorev_getir	p_deneme integer, p_ders text, p_konu text	SD	f	t	jsonb	depoda
+s20_liste		SD	t	t	jsonb	depoda
+s20_test_bitir	p_deneme integer, p_ders text, p_cevap jsonb, p_sure_sn integer	SD	f	t	jsonb	depoda
+s20_test_getir	p_deneme integer, p_ders text	SD	f	t	jsonb	depoda
+seviye_aciklama	p_cevaplar jsonb	SD	t	t	jsonb	depoda
+seviye_cizim	p_idler jsonb	SD	t	t	jsonb	depoda
+seviye_kiyas	p_sinav text, p_dogru integer	SD	t	t	jsonb	depoda
+seviye_kontrol	p_id text, p_secim text	SD	t	t	jsonb	depoda
+sik_yuzdesi	p_soru_id text	SD	t	t	record	depoda
+siparis_cift_kapi		SD	t	t	trigger	depoda
+siparis_cift_sebep	p_eposta text, p_uid uuid, p_paket text, p_dersler text[], p_haric_no text	SD	f	f	text	depoda
+siparis_elci_damga		SD	t	t	trigger	depoda
+siparis_gads_tiklama_suz		inv	f	f	trigger	depoda
+siparis_odeme_kontrol	p_no text	SD	f	f	text	depoda
+siparis_odendi_damga		inv	t	t	trigger	depoda
+siparis_otomatik_iptal	p_nolar text[]	SD	f	f	integer	depoda
+siparis_paket_bagla	p_uid uuid, p_eposta text	SD	f	f	text	depoda
+siparis_teklif_damga		SD	t	t	trigger	depoda
+tr_fold	t text	inv	t	t	text	depoda
+uyari_teyit	p_token uuid	SD	t	t	jsonb	depoda
+uyari_teyit_durum	p_token uuid	SD	t	t	jsonb	depoda
+uye_calisma_ozetim		SD	f	t	jsonb	depoda
+uye_cozdugum_sorular		SD	f	t	jsonb	depoda
+uye_sayim		SD	f	f	jsonb	depoda
+yeni_uye_paket_bagla		SD	t	t	trigger	depoda
+yonetici_mi		SD	f	t	boolean	depoda
+yonetim_bagsiz_siparisler		SD	f	t	jsonb	depoda
+yonetim_ders_hediye	p_eposta text, p_dersler text[], p_bitis date, p_neden text, p_elci text, p_zorla boolean	SD	f	t	jsonb	depoda
+yonetim_ekip_cevapla	p_id bigint, p_cevap text	SD	f	t	jsonb	depoda
+yonetim_ekip_hakli	p_id bigint, p_hakli boolean, p_not text	SD	f	t	jsonb	depoda
+yonetim_ekip_sorulari		SD	f	t	jsonb	depoda
+yonetim_elci_bagi_coz	p_kod text	SD	f	t	jsonb	depoda
+yonetim_elci_durum	p_kod text, p_aktif boolean	SD	f	t	jsonb	depoda
+yonetim_elci_ekle	p_kod text, p_ad text, p_eposta text, p_instagram text, p_not text	SD	f	t	jsonb	depoda
+yonetim_elci_eposta_yaz	p_kod text, p_eposta text	SD	f	t	jsonb	depoda
+yonetim_elci_hesaba_bagla	p_kod text, p_eposta text	SD	f	t	jsonb	depoda
+yonetim_elci_hesap_bul	p_eposta text	SD	f	t	jsonb	depoda
+yonetim_elci_hesaplar		SD	f	t	jsonb	depoda
+yonetim_engelliler		SD	f	t	jsonb	depoda
+yonetim_eposta_onayla	p_eposta text	SD	f	t	jsonb	depoda
+yonetim_hesap_bul	p_eposta text	SD	f	t	jsonb	depoda
+yonetim_islem_kaydi	p_gun integer	SD	f	t	jsonb	depoda
+yonetim_kaynak	p_gun integer	SD	f	t	jsonb	depoda
+yonetim_kullanim		SD	f	t	jsonb	depoda
+yonetim_nobetci_ozet		SD	f	t	jsonb	depoda
+yonetim_ozel_kod_iptal	p_kod text	SD	f	t	jsonb	depoda
+yonetim_ozel_kod_uret	p_kime text, p_gun integer, p_indirim integer	SD	f	f	jsonb	depoda
+yonetim_ozel_kod_uret2	p_kime text, p_gun integer, p_indirim jsonb, p_aciklama text	SD	f	t	jsonb	depoda
+yonetim_ozel_kodlar		SD	f	t	jsonb	depoda
+yonetim_ozet		SD	f	t	jsonb	depoda
+yonetim_paket_kapat	p_eposta text, p_neden text, p_zorla boolean	SD	f	t	jsonb	depoda
+yonetim_paket_ver	p_eposta text, p_paket text, p_bitis date, p_neden text, p_elci text, p_zorla boolean	SD	f	t	jsonb	depoda
+yonetim_siparis_hesaba_bagla	p_no text, p_eposta text	SD	f	t	jsonb	depoda
+yonetim_siparis_iade	p_no text, p_neden text	SD	f	t	jsonb	depoda
+yonetim_siparis_iptal	p_no text, p_neden text	SD	f	t	jsonb	depoda
+yonetim_siparis_onayla	p_no text, p_bitis date	SD	f	t	jsonb	depoda
+yonetim_soru_getir	p_id text	SD	f	t	jsonb	depoda
+yonetim_uye_ayrinti	p_eposta text	SD	f	t	jsonb	depoda
+yonetim_uye_engel_kaldir	p_eposta text, p_neden text	SD	f	t	jsonb	depoda
+yonetim_uyelik_iptal	p_eposta text, p_neden text, p_engelle boolean, p_iade boolean	SD	f	t	jsonb	depoda

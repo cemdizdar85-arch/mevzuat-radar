@@ -28,7 +28,7 @@
   var KONULAR = [
     ['SMMM sınavları', [
       ['Soru çöz', 'sorular.html', 'soru coz banka sgs staja giris yeterlilik bitirme ders'],
-      ['Geçme ihtimalini ölç', 'seviye-testi.html', 'seviye test olcum puan ucretsiz'],
+      ['5 örnek soru çöz', 'kaydir/vitrin/ornek-sgs.html', 'ornek soru ucretsiz seviye test olcum'],   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
       ['Deneme sınavı', 'deneme.html', 'deneme soru test cozum ogrenci stajyer sinav'],
       /* 08.10 Cem "canlı deneme kaldır": arama satırı çıktı (sayfa GİZLİ) */
       /* 02.10 gizli: ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'], */
@@ -133,6 +133,8 @@
                  'aria-controls="kp-liste" aria-autocomplete="list" autocomplete="off" ' +
                  'spellcheck="false" placeholder="Ara: ders, konu, sayfa… (ör. amortisman)">' +
           '<kbd class="kp-esc">esc</kbd>' +
+          /* 31.10 telefon taraması: telefonda "esc" gizli, ✕ yoktu (kural: her katman ✕ ile kapanır) */
+          '<button type="button" class="kp-x" aria-label="Aramayı kapat">✕</button>' +
         '</div>' +
         '<ul class="kp-liste" id="kp-liste" role="listbox" aria-label="Sonuçlar"></ul>' +
         '<div class="kp-alt">' +
@@ -148,6 +150,7 @@
 
     girdi.addEventListener('input', function () { ciz(girdi.value); });
     kok.addEventListener('mousedown', function (e) { if (e.target.dataset.kapat) kapat(); });
+    kok.querySelector('.kp-x').addEventListener('click', function (e) { e.preventDefault(); kapat(); });
     liste.addEventListener('click', function (e) {
       var li = e.target.closest('li[data-yol]');
       if (li) git(li.dataset.yol);

@@ -69,11 +69,22 @@ try {
     return 'light';  /* 04.10 Cem (V2 madde 21, 'kırık beyaz'): seçim yoksa AÇIK. 24.09'daki 'koyu' kararının yerine geçti; koyu seçen cihaz koyu kalır (kc_tema). */
   }
   function acikBaglar(){ return [].slice.call(document.querySelectorAll('link[rel="stylesheet"]')).filter(function(l){ return /stil-acik\.css/.test(l.getAttribute('href')||''); }); }
+  /* 21.10 YARIŞ (kontrast kapısı, canlıda ölçüldü sorular.html koyu): <head>'deki stil-acik 'baş kopyası' (07.10) yüklenmeden önce
+     disabled=true alıyor; Chrome yükleme bitince sayfayı yine UYGULUYOR (link.disabled=true, link.sheet.disabled=false). Koyu temada açık
+     jetonlar karışıyordu: Meta bandı beyaz zemin + açık yazı (1,1), logo yazısı koyu zeminde koyu (1,12). media='not all' yükleme
+     zamanından bağımsız kapatır; disabled da kalır (menu.js ve eski okuyucular onu okur). Açığa dönüşte özgün media geri gelir. */
+  function kapat(l, koyu){
+    if (!l.hasAttribute('data-tt-media')) l.setAttribute('data-tt-media', l.getAttribute('media') || '');
+    l.disabled = koyu;
+    if (koyu) l.setAttribute('media', 'not all');
+    else { var m = l.getAttribute('data-tt-media'); if (m) l.setAttribute('media', m); else l.removeAttribute('media'); }
+    try { if (l.sheet) l.sheet.disabled = koyu; } catch(e){}
+  }
   var gozcu = null;
   function uygula(t){
     var koyu = t === 'dark';
     if (koyu) d.setAttribute('data-theme', 'dark'); else d.removeAttribute('data-theme');
-    acikBaglar().forEach(function(l){ l.disabled = koyu; });
+    acikBaglar().forEach(function(l){ kapat(l, koyu); });
     var cs = document.querySelector('meta[name="color-scheme"]'); if (cs) cs.setAttribute('content', koyu ? 'dark' : 'light');
     /* 05.10 SİYAH PARLAMA (Cem: "beyaz ekrandayız, bir yere basınca siyah ekran görünüyor"): stil.css koyu TABANLA başlıyor
        (--bg #06090f), açık tema stil-acik.css sayfa SONUNDA bağlı → tarayıcı sona varmadan ilk kareyi koyu boyuyordu.
@@ -84,7 +95,7 @@ try {
     if (!koyu && !erken && document.readyState !== 'complete') {
       erken = document.createElement('style'); erken.id = 'tt-erken-acik';
       /* TEMA-ERKEN-BASLA (stil-acik.css :root degerleri; esitligi arac/tema-erken-esitlik.js denetler) */
-      erken.textContent = 'html:not([data-theme="dark"]){--marka-lamba-1:#f5a524;--marka-lamba-2:#ffc24b;--bg:#fbfaf8;--bg2:#f4f2ee;--panel:#ffffff;--panel2:#f7f5f1;--line:#e6e2da;--line2:#d5d0c6;--ink:#0f1b2d;--muted:#3d4b63;--dim:#5f6875;--accent:#8a6224;--accent2:#92400e;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#b91c1c;--amber:#8a6224;--amber-dolgu:#f5a524;--amber-uzeri:var(--ink);--green:#146f35;--link:#1d4ed8;--taban:#fbfaf8;--yuzey:#f4f2ee;--kagit:#ffffff;--kart:#ffffff;--slate:#5b6672;--slate-bg:#eef0f3;--red-bg:#fdecea;--amber-bg:#fff6e0;--green-bg:#e8f6ec;--shadow:0 1px 2px rgba(20,25,30,.05),0 8px 24px -16px rgba(20,25,30,.18);background:#fbfaf8;color-scheme:light}html:not([data-theme="dark"]) body{background:#fbfaf8;color:#0f1b2d}';
+      erken.textContent = 'html:not([data-theme="dark"]){--marka-lamba-1:#f5a524;--marka-lamba-2:#ffc24b;--bg:#fbfaf8;--bg2:#f4f2ee;--panel:#ffffff;--panel2:#f7f5f1;--line:#e6e2da;--line2:#d5d0c6;--ink:#0f1b2d;--muted:#3d4b63;--dim:#5f6875;--accent:#8a6224;--accent2:#92400e;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#b91c1c;--amber:#8a6224;--amber-dolgu:#f5a524;--amber-uzeri:var(--ink);--green:#146f35;--link:#1d4ed8;--taban:#fbfaf8;--yuzey:#f4f2ee;--kagit:#ffffff;--kart:#ffffff;--slate:#5b6672;--slate-bg:#eef0f3;--red-bg:#fdecea;--amber-bg:#fff6e0;--green-bg:#e8f6ec;--shadow:0 1px 2px rgba(20,25,30,.05),0 8px 24px -16px rgba(20,25,30,.18);background:var(--bg);color-scheme:light}html:not([data-theme="dark"]) body{background:var(--bg);color:var(--ink)}';
       /* TEMA-ERKEN-BITIR */
       (document.head || d).appendChild(erken);
       window.addEventListener('load', function(){ var e = document.getElementById('tt-erken-acik'); if (e) e.remove(); });
@@ -93,7 +104,7 @@ try {
     if (koyu && !gozcu && window.MutationObserver && document.readyState === 'loading') {
       gozcu = new MutationObserver(function(ks){
         ks.forEach(function(k){ [].forEach.call(k.addedNodes, function(n){
-          if (n.tagName === 'LINK' && /stil-acik\.css/.test(n.getAttribute('href')||'') && d.getAttribute('data-theme') === 'dark') n.disabled = true;
+          if (n.tagName === 'LINK' && /stil-acik\.css/.test(n.getAttribute('href')||'') && d.getAttribute('data-theme') === 'dark') kapat(n, true);
           if (n.tagName === 'META' && n.getAttribute('name') === 'color-scheme' && d.getAttribute('data-theme') === 'dark') n.setAttribute('content', 'dark');
         }); });
       });

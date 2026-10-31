@@ -15,6 +15,17 @@
  "uye_onaylayan": "Cem Dizdar (sohbette \"Mail metinlerini onaylıyorum, üye dizisini aç.\")",
  "uye_onay_tarihi": "2026-10-16",
  "_havale_not": "19.10: motor/havale-hatirlatma.mjs (ödeme bekleyen havale siparişine 3 saat sonra bir kez) AYRI anahtar: havale_acik=true VE havale_onayli_imza = node motor/havale-hatirlatma.mjs --imza. Yalnız Cem metni onaylayınca yazılır.",
- "havale_acik": false,
- "havale_onayli_imza": ""
+ "havale_acik": true,
+ "havale_onayli_imza": "ef09dbd9a8e07893",
+ "havale_onaylayan": "Cem Dizdar (sohbette \"Havale hatırlatma metnini onaylıyorum, aç (imza ef09dbd9a8e07893).\")",
+ "havale_onay_tarihi": "2026-10-28",
+ "_kart_takildi_not": "29.10: motor/kart-takildi.mjs (iyzico'da takılan siparişe son denemeden 30 dk sonra bir kez) AYRI anahtar: kart_takildi_acik=true VE kart_takildi_onayli_imza = node motor/kart-takildi.mjs --imza. Yalnız Cem metni onaylayınca yazılır.",
+ "kart_takildi_acik": true,
+ "kart_takildi_onayli_imza": "933d610df0420cfd",
+ "kart_takildi_onaylayan": "Cem Dizdar (sohbette \"Onaylıyorum, aç\" - metin önizlemesiyle, imza 933d610df0420cfd)",
+ "kart_takildi_onay_tarihi": "2026-10-29",
+ "_son_hatirlatma_not": "29.10: motor/siparis-son-hatirlatma.mjs (24 saatte ödenmeyen havale siparişine bir kez son hatırlatma, 72 saat + 24 saat sonra otomatik iptal) AYRI anahtar: son_hatirlatma_acik=true VE son_hatirlatma_onayli_imza = node motor/siparis-son-hatirlatma.mjs --imza; iptal ayrıca otomatik_iptal_acik=true. Yalnız Cem metni onaylayınca yazılır.",
+ "son_hatirlatma_acik": false,
+ "son_hatirlatma_onayli_imza": "",
+ "otomatik_iptal_acik": false
 }

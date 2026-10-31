@@ -16,11 +16,6 @@
             "kaynak": "had tutarı taraması (arac/had-tutar-tarama.ps1) + GM okuması, 23.09.2026",
             "tarih": "2026-09-23"
         },
-        "smmm-4k-a-yvergi-kolay-r4/kp-13": {
-            "gerekce": "binek kira: anahtar (D 49.800) sınır içi kiraya ayrıca %70 kısıtı uyguluyor. 311 Seri No.lu GVGT m.13 kiralamada yalnız aylık tavanı uygular (örnekte kiraya %70 yok); m.14/3 %70'i 'tamir, bakım, yakıt, sigorta ve benzeri cari giderler' ile sınırlar. Doğru KKEG yalnız tavanı aşan 30.000 (B). Ayrıca varsayılan tavan 5.500 (2020 tutarı).",
-            "kaynak": "onay kuyruğu hakemi (p07) kalıp taraması + GM ambar okuması (311 GVGT m.13 [2/7] 885bc786, m.14 [1/4] b264d9d1), 23.09.2026",
-            "tarih": "2026-09-23"
-        },
         "smmm-4k-a-yhukuk-kolay-r5/kp-06": {
             "gerekce": "kollektif/emek ortağı: anahtar D \"aksi kararlaştırılmadıkça zarara katılmaz\". TBK m.623: hüküm yoksa kazanç ve zarar EŞİT; emek ortağının zarardan muafiyeti ancak ANLAŞMAYLA. Doğru şık C.",
             "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
@@ -511,11 +506,6 @@
             "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
             "tarih": "2026-10-01"
         },
-        "smmm-w1-yvergi-zor/kp-13": {
-            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — KVK m.19/3-c (ambarda) nakit sınırını 'verilecek iştirak hisselerinin itibari değerinin %10'u' olarak koyar; kök F'nin vereceği hisselerin itibari değerini vermiyor, 900.000 (B) ancak itibari=emsal bedel varsayımıyla çıkıyor. G'nin itiba… (doğru: YOK: kökte F hisselerinin itibari değeri yok)",
-            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
-            "tarih": "2026-10-01"
-        },
         "smmm-w3-ymeslek-cokzor/kp-09": {
             "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — 3568 m.48 [2/2] beş yılda iki alıkoymadan sonra meslekten çıkarma der, ancak hemen ardından 'Disiplin kurulları bir derece ağır veya bir derece hafif disiplin cezasının uygulanmasına karar verebilirler' hükmünü istisnasız koyar; SMMM içi… (doğru: İKİ: D/B)",
             "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
@@ -950,6 +940,1101 @@
             "gerekce": "onarim kanun-1010-smmm: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
             "tarih": "2026-10-10",
             "kaynak": "onarim-rehakem"
+        },
+        "smmm-dog1-vergi/kp-52": {
+            "gerekce": "DERS-KONU-MADDE UYUMSUZ + KAYIT EKSIK: kok 'KVK'ya gore muhasebe kaydi' soruyor; KVK m.10 kaydi duzenlemez. Dogru sik 152'yi 172.500 ile kapatiyor; 158 Stok Deger Dusuklugu Karsiligi (12.500) kayda girmemis, 152 maliyetle (185.000) alacaklanmali. Ayrica 'imalatcisi oldugu urun' ile 'alis maliyeti' celisiyor.",
+            "tarih": "2026-10-22",
+            "kaynak": "elle okuma 22.10 (KVK m.10; THP 152/158/689) - Bitirme sinavi eksiklikleri oturumu, Cem onayi 22.10"
+        },
+        "smmm-olc2-a-vergi/kp-49": {
+            "gerekce": "YANLIS BILGI: kok 'yayinevinin kesmesi gereken TOPLAM stopaj'i soruyor; atolye ucreti (GVK m.94/1) ve tanitim bedeli (m.94/2-b) de tevkifata tabi. Cevap yalniz telif stopajini sayiyor; aciklama/sade 'stopaja tabi degildir' diyor - kanunla celisir.",
+            "tarih": "2026-10-22",
+            "kaynak": "elle okuma 22.10 (GVK m.94/1, m.94/2-a, m.94/2-b) - Bitirme sinavi eksiklikleri oturumu, Cem onayi 22.10"
+        },
+        "smmm-dog1-vergi/kp-15": {
+            "gerekce": "ONCUL KANUNLA CELISIR: 'kanuni mirascilari es 1/2, cocuk A 1/8, cocuk B 3/8' - TMK m.499/1 altsoyla birlikte es 1/4 alir, TMK m.495 cocuklar esit mirasci. Hesap verilen paylarla tutarli ama ogrenciye yanlis miras payi ogretiyor.",
+            "tarih": "2026-10-22",
+            "kaynak": "elle okuma 22.10 (TMK m.495, m.499; VUK m.12) - Bitirme sinavi eksiklikleri oturumu, Cem onayi 22.10"
+        },
+        "smmm-w14-4-yhukuk-zor/kp-01": {
+            "gerekce": "onarim onarim-yt11-2210: anahtar/kok degisti, yeniden hakeme kadar yayin disi | HAKEM HAYIR (yeniden onarim gerekir)",
+            "tarih": "2026-10-22",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w9-2-fmuh-cokzor/kp-08": {
+            "gerekce": "kok kusurlu: \"protesto edilip\" diyor, olayda protesto yok yalniz yazili talep var; VUK m.323 \"protestoya VEYA yazi ile bir defadan fazla istenilmesine ragmen\" - koku harfiyen okuyan aday A (0) secebilir (anahtar D 22.600 dogru). Ayrica 2. adim kaydi 128/654 yanlis (654 B / 129 A). Kok + adim onarilana kadar yayin disi (28.10 KAPI-HT tablosuz 73 okumasi)",
+            "tarih": "2026-10-28",
+            "kaynak": "ht73-okuma"
+        },
+        "smmm-4k-a-yvergi-zor-r5/kp-05": {
+            "gerekce": "iki şık yanlış: C (ilk madde ve malzeme maliyet bedeliyle, VUK m.274) ve E (hisse senedi alış bedeliyle, VUK m.279 ambar metni); tek doğru cevap yok",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r3-2/kp-02": {
+            "gerekce": "hesap kodu eski: 398 SAYIM VE TESELLÜM FAZLALARI, MSUGT Sıra No:2 ile 397 olarak düzeltildi (ambar MSUGT 2 bölüm 8)",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yhukuk-kolay-r8/kp-15": {
+            "gerekce": "kökte yanlış madde: TTK m.580 limited şirket sermayesi; AŞ kayıtlı sermaye asgarisi m.332 + 7887 s. CBK. Cevap (500.000) doğru, atıf yanlış öğretiyor",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yhukuk-zor-r3/kp-08": {
+            "gerekce": "doğru şıkta (B) 2577 s.K. metninde olmayan ek: \"ancak nihai karara ilişkin temyiz aşamasında itiraz edilebilir\" — kanun yalnız \"itiraz edilemez\" der",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-ab2-b-maliyet/kp-38": {
+            "gerekce": "terim hatası: DİMM sapmasına \"fiyat (ücret) sapması\" denmiş; \"ücret\" direkt işçilik farkıdır (THP 7/A 711/721 ayrımı)",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-gm5-14-yspk-zor/kp-01": {
+            "gerekce": "kaynak uyuşmuyor: kök \"6362 sayılı Kanun'a göre\" diyor; SPKn m.16/2 talep aramadan karar alınır der, E'deki pay alım teklifi zorunluluğu Kanun metninde yok (Tebliğ II-16.1)",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-gm5-7-fmuh-zor/kp-08": {
+            "gerekce": "tartışmalı kayıt: şirket kredi kartı borcu 329 olarak öğretiliyor; uygulamada mali borç (300/309) görüşü güçlü, şıklarda yok — kök/şık yeniden kurulmalı",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-fmuh-cokzor/kp-20": {
+            "gerekce": "kök ile şıklar çelişkili: \"doğru yapılmış olsaydı nasıl etkilerdi\" soruluyor, şıklar \"gösterilmiştir\" diyor; A ve B iki okumada savunulur",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-yfta-zor/kp-06": {
+            "gerekce": "muğlak: \"satışa hazırlama maliyeti\" TMS 41 terimi değil; hasat kazancının faaliyet kârına girip girmediği kökte belirsiz, birden çok oran savunulur",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yfta-zor-r1/kp-20": {
+            "gerekce": "muğlak: özkaynak kârlılığında ortalama/dönem sonu/dönem başı belirtilmemiş (C 19,21 dönem sonu, E 21,77 dönem başı da çıkar); vergi verilmemiş",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-zor-r1/kp-16": {
+            "gerekce": "anahtar şüpheli: GVK m.7/5 \"gayrimenkulün Türkiye'de bulunması VE mal ve hakların Türkiye'de kullanılması veya değerlendirilmesi\" — gayrimenkulde bulunması yeterli okuması güçlü; A (\"birlikte aranır\") tartışmalı",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r6/kp-07": {
+            "gerekce": "muğlak: \"olumlu/olumsuz sapma\" yönü tanımsız; fazla indirim 40.000 için A ve B iki okumada savunulur",
+            "kaynak": "Cem 30.10 \"doğrula indir\" — ilk 40 temizliği: iki kör çözücü + resmî metin elle doğrulama (C:\\TETIKTE-CALISMA\\kalip-olcum\\temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-ydenetim-cokzor/kp-14": {
+            "gerekce": "Kök 'her zaman doğrudur' diyor, açıklama 'daima daha güvenilirdir' öğretiyor; standart bu genellemelerin önemli istisnalara tabi olduğunu açıkça söylüyor. Yanlış hüküm öğretiyor, A da mutlak doğru değil.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-fmuh-zor/kp-20": {
+            "gerekce": "Anahtar E doğru ve 'açık işletme' çelişkisi yok (THP metni aynen böyle). Ama açıklama 'nakliye bedeli ve KDV'si ayrı ayrı hazırlık giderlerine kaydedilip' diyerek KDV'yi 272'ye yazdırıyor — çeldirici A'yı öğreten yanlış hüküm.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-fmuh-kolay/kp-14": {
+            "gerekce": "'Defter (net) değeri' amortisman ayrıldığını söylüyor; 254 maliyet bedeliyle izlenir, doğru kayıt 100+257 borç / 254 maliyetle alacak. B (254'e net değerle alacak) yanlış kayıt öğretiyor; bilen öğrenci B'yi yanlış görür.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w10-4-fmuh-cokzor/kp-01": {
+            "gerekce": "Gider 730'a (üretim maliyeti) yazılmış; fazla 14.400'ün kâra etkisi mamullerin satılıp satılmadığına bağlı, kök söylemiyor — A da savunulabilir. Kök iki okumaya açık (770 ya da 'üretilenlerin tamamı satılmıştır' gerekir).",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yhukuk-zor-r4/kp-16": {
+            "gerekce": "m.6/4'e göre ilk tebligata uyulmazsa bildirim bir kez daha tekrarlanır; kökte tek tebligat sonrası doğrudan 'açılmamış sayılma' anahtarlanmış, açıklama da tek bildirim kuralını öğretiyor. Kökteki durumda doğru sonuç (ikinci bildirim) hiçbir şıkta yok.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yhukuk-zor-r3/kp-17": {
+            "gerekce": "kökte/açıklamada yanlış hüküm (düzeltilene kadar yayın dışı): Anahtar C doğru; E şıkkı m.4 son fıkra (f) ifadesini yansıtıyor, kapsam içi. Açıklamadaki 'Zeynep korunmadan çalışmaktadır' cümlesi silinmeli/düzeltilmeli: İş K. dışında kalmak korumasızlık değil (genel hizmet sözleşmesi hükümleri).",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ymeslek-kolay-r1-2/kp-11": {
+            "gerekce": "Oda değiştirmek büronun oda bölgesi dışına nakli demektir; bu m.35/b ile çalışanlar listesinden silinmeye, o da m.63/a ile kütükten silinmeye bağlanıyor, m.33'te eski oda da kaydı siliyor. D anahtarı savunulamaz; ayrıca m.63/e 'diğer sebepler' var. Açıklama yönetmeliği 'kanun' diye anıyor.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ymeslek-kolay-r5/kp-01": {
+            "gerekce": "kökte/açıklamada yanlış hüküm (düzeltilene kadar yayın dışı): Anahtar B metinle örtüşüyor. Kökte 'dört temel ilke' yanlış: Ek m.1/1'de beş ilke var (a, b, c, ç, d). 'dört' yerine 'beş' yazılmalı.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ymeslek-kolay-r3/kp-07": {
+            "gerekce": "m.45 hizmet akdini, ticari faaliyeti ve meslekle bağdaşmayan işleri üç ayrı yasak olarak sayıyor. Anahtar A ise hizmet akdini 'meslekle ve meslek onuru ile bağdaşmayan hal' diye nitelendiriyor, yani doğru şıkta da yanlış hüküm var. Metni bilen öğrenci A'yı yanlış bulur. Açıklamanın son cümlesi bozuk.",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-yhukuk-zor/kp-10": {
+            "gerekce": "Kök iki okumaya açık. A (m.8/1) tacir sıfatına değil ticari işe bağlı. D (m.2/3) tacir olmayanlara ilişkin. C ise donatma iştirakine tacir hükümlerini uygulatıyor. 'Doğrudan sonuç değildir' ölçütüyle A, C ve D'nin üçü de savunulabilir; iki çözücü ayrıştı (A/C).",
+            "kaynak": "Cem 30.10 ilk 80 temizliği tur2: iki kör çözücü + resmî metinle doğrulayıcı kararı (C:\\TETIKTE-CALISMA\\kalip-olcum)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-gm5-20-fmuh-zor/kp-09": {
+            "gerekce": "İştirak ediniminde ödenen aracı kurum komisyonunun maliyete eklenip eklenmeyeceği kökte belirsiz; ambardaki TEORI komisyonu 653 gider sayıyor, anahtar maliyete ekliyor — iki şık savunulabilir, anahtar ambarla çelişiyor.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w14-6-fmuh-zor/kp-01": {
+            "gerekce": "Senet reeskontunun iç mi dış mı iskontoyla hesaplanacağı kökte yok; iki yöntemin sonucu da şıklarda — iki çözücü ayrıştı (B/C), kök iki okumaya açık.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w14-13-yfta-zor/kp-01": {
+            "gerekce": "\"Çalışma sermayesi devir hızı\" brüt (dönen varlık) mı net mi belirtilmemiş; iki tanımın sonucu da şıklarda (A/C). KGK 2026 sınavı terimi \"Brüt Çalışma Sermayesi Devir Hızı\" diye ayırıyor.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-gm12-1-yvergi-zor/kp-01": {
+            "gerekce": "Tevkifatlı işyeri kirasının beyana girip girmediği GVK m.86/1-c okumasına bağlı; iki okumanın sonucu da şıklarda (iki çözücü A/C ayrıştı). Ayrıca 2026 geliri 2026 tarifesiyle (D7).",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-dog1-vergi/kp-01": {
+            "gerekce": "Soru 2026 yılını soruyor; 2026 tarifesinde ikinci dilim 400.000 TL ve vergiye tabi kâr payı bu sınırın altında → m.86/1-c ile beyan dışı okuma (A) da doğru; anahtar 2025 eşiğine göre kurulmuş. Kendi yılında anahtar kuşkulu.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-olc2-a-vergi/kp-12": {
+            "gerekce": "Tevkifatlı kâr payının vergiye tabi yarısı ikinci gelir diliminin altında; m.86/1-c gereği beyannameye girmez → B doğru, anahtar E beyana dahil ediyor. Yanlış anahtar.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12a-5-yhukuk-zor/kp-01": {
+            "gerekce": "ÖSYM sınav sonucu davasında dava açma süresi 10 gün (İYUK m.20/B); doğru son gün şıklarda yok, anahtar 60 günlük genel süreye göre kurulmuş. İki çözücü \"YOK\".",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-cokzor-r3/kp-01": {
+            "gerekce": "Edinme nakliyesinin verilen maliyete dahil olup olmadığı kökte belirsiz; iki okumanın sonucu da şıklarda (C/E). Dayanak olarak gösterilen TMS 36 stokları kapsam dışı tutar (doğrusu TMS 2) — açıklama yanlış kaynak öğretiyor.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-ab2-a-maliyet/kp-39": {
+            "gerekce": "Safha sonunda çıkan normal firenin eşdeğer birime katılıp katılmayacağı yönteme bağlı; iki yaklaşımın sonucu da şıklarda (A/C). İki çözücü aynı belirsizliği yazdı.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-zor-r4/kp-17": {
+            "gerekce": "Normal fire oranının girdiye mi çıktıya mı uygulanacağı kökte belirsiz; iki okumanın sonucu da şıklarda (C/E). İki çözücü aynı belirsizliği yazdı.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-cokzor-r3/kp-01": {
+            "gerekce": "Kök verisi iç çelişkili: verilen direkt ilk madde FIFO eşdeğer birimi bir dönem başı miktarı, verilen dönüşüm eşdeğer birimi başka bir dönem başı miktarı gerektiriyor. Hesap tutmuyor (iki çözücü).",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r2/kp-08": {
+            "gerekce": "Kurgu olanaksız: 2025 yıllık gelir vergisi beyannamesinin verilme süresi Ocak 2026 başında henüz gelmemiş; \"hiç verilmemiş beyanname\" ile pişmanlık kurgusu kurulamaz (iki çözücü).",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r4/kp-17": {
+            "gerekce": "Kök 6183 m.10/3 (Hazinece ihraç edilen DİBS, indirimsiz) ile m.10/4 (Hükümetçe belli edilecek milli esham, %15 noksan) bentlerini karıştırıyor; iki bendin sonucu da şıklarda (C/D).",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-zor-r8/kp-05": {
+            "gerekce": "Tecil sınırı kökte \"diğer işlemlerin ödenecek KDV'si\" diye kurulmuş; tebliğe göre sınır, ihraç kayıtlı teslim KDV'si ile beyannamede ödenmesi gereken vergidir. Kök ve açıklama yanlış kural öğretiyor; iki okuma (A/D).",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12a-5-yhukuk-zor/kp-14": {
+            "gerekce": "Vergi davasında ilanen tebliğde özel kanun (VUK m.106: ilandan bir ay sonra tebliğ yapılmış sayılır) aksine hüküm koyar; İYUK m.7/3'teki 15 gün kuralı yalnız aksine hüküm yoksa işler → anahtarın toplam gün sayısı kuşkulu; kökteki \"davalı idarenin muhatabı\" ifadesi de bozuk.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-yhukuk-zor/kp-18": {
+            "gerekce": "Kök geçici m.4'ün süresini \"yürürlüğe girmesinden itibaren\" sayıyor, kanun \"yayımı tarihinden itibaren\" der — kökte yanlış hüküm; ayrıca süresi 2013'te dolmuş geçiş hükmü (iki çözücü aynı notu düştü).",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12a-4-ymeslek-cokzor/kp-06": {
+            "gerekce": "Doğru sayılan şık siteyi \"tanıtım amaçlı\" kurulabilir diyor; Yönetmelik m.22 site amacını mesleki faaliyet, bilgilendirme ve yayınla sınırlar, aramada \"tanıtım amaçlı herhangi bir ibare\"yi yasaklar. Anahtar şık ve açıklama yanlış kural öğretiyor.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yspk-kolay-r1-2/kp-14": {
+            "gerekce": "\"Yanlıştır\" sorusunda iki yanlış şık: anahtar C'ye ek olarak D de yanlış — elektronik genel kurul zorunluluğu TTK m.1527/5'e göre yalnız payları borsaya kote şirketlerdedir, tüm halka açık ortaklıklarda değil; ayrıca Tebliğ hükmü değil.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-olc2-a-vergi/kp-04": {
+            "gerekce": "YIL KURALI ihlali (2026 geliri, 2026 istisna haddi) ve 2025'e çevrilemez: kurgunun dayandığı GVK mük. m.20/D 21.5.2026'da eklendi, 2025 gelirine uygulanamaz.",
+            "kaynak": "Cem 30.10 ilk 120 temizliği tur3: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ymeslek-kolay-r1/kp-06": {
+            "gerekce": "onarim onarim-kd1: anahtar/kok degisti, yeniden hakeme kadar yayin disi | HAKEM HAYIR (yeniden onarim gerekir)",
+            "tarih": "2026-10-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yspk-cokzor-r1/kp-01": {
+            "gerekce": "onarim onarim-kd1: anahtar/kok degisti, yeniden hakeme kadar yayin disi | HAKEM HAYIR (yeniden onarim gerekir)",
+            "tarih": "2026-10-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm3-3-yhukuk-kolay/kp-02": {
+            "gerekce": "onarim onarim-kd1: anahtar/kok degisti, yeniden hakeme kadar yayin disi | HAKEM HAYIR (yeniden onarim gerekir)",
+            "tarih": "2026-10-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-zor-r10/kp-09": {
+            "gerekce": "vy1 önerisi doğrulandı: binek otomobilin motorlu taşıtlar vergisi %70 gider sınırına sokulmuş; MTV K. m.14 gereği (kiralama işletmeleri hariç) MTV tamamı gider yazılamaz, GVGT 311 m.14 örneğinde de MTV tamamen KKEG — anahtar yanlış; kökte ayrıca 2026 yılı tutarları (D7). vy1 onarımı iki kör turda geçmedi (onarilamadi).",
+            "kaynak": "Cem 30.10 Vergi yıl kuralı oturumu (vy1) önerisi; Ajan 1 resmî metinle doğruladı (MTV K. m.14, GVGT 311 m.14)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r7/kp-01": {
+            "gerekce": "Hurda değer verilip çerçeve (VUK/TMS 16) belirtilmemiş; VUK okumasıyla anahtar, TMS 16 okumasıyla başka şık doğru — iki çözücü ayrıştı, kök iki okumaya açık.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r3-2/kp-21": {
+            "gerekce": "THP'de maddi olmayan duran varlıkların itfası 268 Birikmiş Amortismanlar hesabıyla yapılır; anahtar 263'ü doğrudan alacaklandırıyor ve 268'li doğru kayıt şıklarda yok — öğrenciye yanlış kayıt öğretiyor.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-d1-yfta-kolay-r2/kp-05": {
+            "gerekce": "Şüpheli ticari alacak (128) bakiyesi verilmeden karşılığı (129) alıcılardan düşülüyor; kök verisi tutarsız ve iki okumanın sonucu da şıklarda (C/D).",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-zor-r1/kp-10": {
+            "gerekce": "Normal firenin tamamlanma derecesi ve eşdeğer birime katılıp katılmayacağı kökte yok; iki okumanın sonucu da şıklarda (B/C). tur3'teki aynı kusurlu fire soruları da indi.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-zor-r3/kp-20": {
+            "gerekce": "Safha sonu normal firenin FIFO eşdeğer birime katılması yönteme bağlı; katılmayan okumanın sonucu da şıklarda (A/C). tur3'te aynı kurgulu soru (ab2-a-maliyet/kp-39) indi — tutarlılık için iner.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r4/kp-03": {
+            "gerekce": "Açıklama yanlış kural öğretiyor: devamlılık İKK sayılmanın şartıdır, kurumun tek seferlik kazancını vergi dışı bırakmaz; kökte arsanın kime ait olduğu ve \"olumlu/olumsuz düzeltme\" terimi tanımsız (iki çözücü muğlak notu).",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-cokzor-r7/kp-01": {
+            "gerekce": "Kurgu kavramı karıştırıyor: \"imalatçı aleyhine matrah değişikliği\" imalatçı–ihracatçı arasındaki bedel/kur farkıdır (ihracatçı faturasıyla); fiili ihracat bedelinin düşük gerçekleşmesi kendiliğinden imalatçı matrahını değiştirmez.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r10/kp-20": {
+            "gerekce": "Yurt dışında verilen hizmetten Türkiye'de faydalanılıp faydalanılmadığı kökte yok; KDVK m.6/b'ye göre faydalanılıyorsa konu içine girer — iki okumanın sonucu da şıklarda (C/D), iki çözücü aynı belirsizliği yazdı.",
+            "kaynak": "Cem 30.10 ilk 160 temizliği tur4: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1, veri/fabrika/temizlik)",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w4-fmuh-zor/kp-22": {
+            "gerekce": "kd3 önerisi doğrulandı: alacak senedi reeskontunun dönem başı iptali THP'de 647 Reeskont Faiz Gelirleri'ne yazılır; anahtar 642'ye yazıyor, kök THP'de bulunmayan 652 koduyla gider veriyor (reeskont gideri 657). Yanlış hesap kodu öğretiyor.",
+            "kaynak": "Cem 30.10 oturum önerileri (kd3, kd4, vy2); Ajan 1 resmî metinle / ikiz ölçüsüyle doğruladı",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-zor-r2/kp-13": {
+            "gerekce": "kd4 önerisi doğrulandı — K7 ikiz: bankadaki smmm-4k-a-yvergi-kolay-r10/kp-17 ile aynı DVK m.14 hükümleri, aynı olumsuz kök kalıbı ve aynı cevap önermesi (ikiz-olcusu.ps1: doğru şık benzerliği 1,0; kök 0,28 — kök anlatım kipinde). Öğrencinin önce gördüğü (sıra 19) kalır, bu (sıra 121) iner.",
+            "kaynak": "Cem 30.10 oturum önerileri (kd3, kd4, vy2); Ajan 1 resmî metinle / ikiz ölçüsüyle doğruladı",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12b-2-yvergi-zor/kp-02": {
+            "gerekce": "vy2 önerisi: sitedeki hâl 2026 yılı (D7) ve vy2 onarımı iki kör turda geçmedi (onarilamadi) → İŞ EMRİ: iki turda geçmeyen soru elle rete iner.",
+            "kaynak": "Cem 30.10 oturum önerileri (kd3, kd4, vy2); Ajan 1 resmî metinle / ikiz ölçüsüyle doğruladı",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w11-3-fmuh-cokzor/kp-02": {
+            "gerekce": "Tahakkuk eden net ücret THP'de 335 Personele Borçlar'da izlenir; soru 381 Gider Tahakkukları'na yazdırıyor — yanlış hesap öğretiyor (iki çözücü). Hesap düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-fmuh-zor/kp-43": {
+            "gerekce": "Hesap tutmuyor: dört eşit taksitin %10 ile bugünkü değeri kökteki 120.000 etmez (çözücü A; tur9 w4/kp-30 ile aynı). Veri düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w9-1-fmuh-zor/kp-08": {
+            "gerekce": "Net ücret THP'de 335'te izlenir; soru 381'e yazdırıyor (kp-02 ile aynı hesap hatası). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w4-fmuh-kolay/kp-43": {
+            "gerekce": "Kök 2. partinin nakliyesini 'dönem gideri olarak izlenmiştir' diyor; VUK m.262'ye göre nakliye maliyete girer — yanlış kural öğretiyor, tutar da verilmemiş (çözücü A). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w1-fmuh-kolay/kp-08": {
+            "gerekce": "Kök çelişkili: karşılık 'cari dönemde' ayrılmışken aşan zarar 681 (önceki dönem) hesabına yazdırılıyor (çözücü B). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w4-fmuh-zor-2/kp-37": {
+            "gerekce": "Kökteki 2026 özel usulsüzlük tutarı (4.400 ₺) ne VUK GT 588 ne GT 577 listesinde var — uydurma tutar; ayrıca FM sayfasında Vergi (VUK mük.355) konusu.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-fmuh-kolay/kp-23": {
+            "gerekce": "Kök taşıt birikmiş amortismanını 299 ile veriyor; taşıt (25 grubu) amortismanı 257'de izlenir — yanlış hesap kodu öğretiyor. Cevap değişmez; 299→257 düzeltmesiyle geri döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-fmuh-cokzor/kp-12": {
+            "gerekce": "Açıklama kendisiyle çelişiyor (ara toplam 428.450 bulup \"değil 441.100\" diyor; şüpheli alacak için yanlış formül yazıyor) ve 120 bakiyesinin aktarım öncesi/sonrası olduğu kökte belirsiz — iki çözücü aynı belirsizliği yazdı.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r1/kp-03": {
+            "gerekce": "Kâr dağıtımında II. tertip genel kanuni yedek akçe (TTK m.519/2-c) yok sayılmış; \"kalanın tamamı dağıtılır\" kurgusu kanunla çelişiyor, anahtar yanlış kural öğretiyor.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yhukuk-kolay-r3/kp-14": {
+            "gerekce": "Şık biçimi iki doğru önerme üretiyor: anahtar (150.000 sorumludur) yanında \"50.000 sorumlu değildir\" de kanuna göre doğru. Şıklar tek tutar biçiminde yeniden yazılarak döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yhukuk-zor-r5/kp-03": {
+            "gerekce": "Anahtar, malı elden çıkarıp hiçbir şey geri vermeyen zenginleşene yararlı giderin tamamını isteme hakkı tanıyor; TBK m.80 gider istemini geri vermeye bağlar — kurgu kanunla uyumsuz.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ymeslek-zor-r9/kp-08": {
+            "gerekce": "Beş şıkkın beşi de Yönetmelikte haksız rekabet hali: anahtar şık (asgari ücret altı/ücretsiz hizmet) m.7/a'da haksız rekabet olarak sayılı. \"Değildir\" sorusunda doğru şık yok; öğrenciye yanlış bilgi.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w14-2-yspk-kolay/kp-01": {
+            "gerekce": "Öncül tebliğe aykırı: GSYO başlangıç sermayesi 20.000.000 TL'den az olamaz; kökteki tutarla kuruluş izni verilemez, anahtar bu imkânsız kurguya dayanıyor.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ymeslek-kolay-r8/kp-02": {
+            "gerekce": "3568 m.45 hizmet akdini \"meslekle bağdaşmayan işler\"den AYRI bir yasak olarak sayar; anahtar onu bağdaşmayan iş diye niteliyor — tur2'de aynı gerekçeyle inen sorunun ikizi kusur. KİT görevleri de kökte verilmeyen şarta bağlı.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yspk-zor-r6/kp-15": {
+            "gerekce": "\"Yanlıştır\" sorusunda iki yanlış şık: anahtar E'nin yanında D de yanlış — m.91/3'te giderme istemi \"değişiklik yapılmamış olması\" şartına bağlı; \"bağımsız olarak\" ibaresi ihtiyati tedbire ait.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-kolay-r9/kp-03": {
+            "gerekce": "Kök \"Temmuz ayı vergilendirme dönemi\" diyor; (I) sayılı liste mallarında dönem ayın ilk 15 günü ve kalan günleridir — kökte yanlış hüküm (iki çözücü). Dönem düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-yvergi-zor/kp-12": {
+            "gerekce": "Kurgu geç. m.32 istisnasını özel işletmenin belediyeye teslimine uyguluyor; istisna yalnız Bakanlık, belediyeler ve bağlı kuruluşları ARASINDAKİ devir ve teslimler içindir — yanlış hüküm.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yfta-zor-r4/kp-17": {
+            "gerekce": "Kök \"verileri aşağıdadır\" diyor ama tablo yok — soru çözülemez (iki çözücü YOK). Tablo köke metin olarak yazılınca döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r5/kp-20": {
+            "gerekce": "Şıklar kısa vadeli ticari alacak için 220 (uzun vadeli Alıcılar) kodunu kullanıyor — yanlış hesap kodu öğretiyor; doğrusu 120. Kod düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w8-1-fmuh-zor/kp-08": {
+            "gerekce": "Kredi faizi THP'de 780 Finansman Giderleri'ne yazılır; kök 770 Genel Yönetim Giderleri diyor — yanlış hesap öğretiyor (iki çözücü aynı notu yazdı). 780 ile düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-ydenetim-zor-r6/kp-15": {
+            "gerekce": "Anahtar \"kaçınmalıdır\" diyor; BDS 570 p.A35 şartlı görüş VEYA kaçınma der — kesin hüküm standarda aykırı, yanlış kural öğretiyor. \"kaçınabilir\" diye düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12a-3-yhukuk-cokzor/kp-12": {
+            "gerekce": "Kök \"TTK'da öngörülen beş yıllık ticari zamanaşımı\" diyor; beş yıl TBK m.147'dedir — kökte yanlış hüküm (iki çözücü). Cevap (TTK m.6) doğru; kök düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w12a-2-yhukuk-zor/kp-06": {
+            "gerekce": "Anahtar, iade talebinde zamanaşımı def'inin dikkate alınmayacağını söylüyor; iade istemi sebepsiz zenginleşme zamanaşımına (TBK m.82) tabidir — yanlış hüküm öğretiyor.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w7-1-yhukuk-zor/kp-01": {
+            "gerekce": "Kök 2019 ödünç alacağının 2026'da zamanaşımına uğradığını söylüyor; TBK m.146 genel süre on yıldır — kökte yanlış hüküm (iki çözücü). Cevap (m.139) doğru; yıl/olgu düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-yvergi-kolay/kp-15": {
+            "gerekce": "Kurgu, ihraç bedelinin imalatçı satış bedelinden düşük olmasını kendiliğinden iadeyi azaltan 'imalatçı aleyhine matrah değişikliği' gibi işliyor; GUT 8.9'da bu değişiklik imalatçı–ihracatçı arası bedel/kur farkıdır (ihracatçı faturasıyla). tur6'daki aynı kavram hatalı soru da indi; iki çözücü başka şıkkı seçti.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-olc2-b-vergi/kp-08": {
+            "gerekce": "Kök ÖTV (II) sayılı listenin otomobil (87.03) matrah dilimlerini motosiklete uyguluyor; motosikletler 87.11 satırında silindir hacmine göre oranlanır — kökte yanlış olgu (iki çözücü). Doğru satırla yazılınca döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yfta-kolay-r8/kp-21": {
+            "gerekce": "İki doğru şık: 4,000 (yüzde) ve 0,040 (oran) aynı değer — iki çözücü 'İKİ'. Birim netleştirilip şık değiştirilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w13-4-fmuh-zor/kp-08": {
+            "gerekce": "Kök ticari mal maliyetini 620 (Satılan Mamuller Maliyeti) koduyla veriyor (doğrusu 621) ve 7/B (632) ile 7/A (780) hesaplarını karıştırıyor — yanlış hesap kodu öğretiyor. Kodlar düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w8-3-fmuh-zor/kp-01": {
+            "gerekce": "Kök verisi tutarsız: 01.04.2024'te alınan 3 yıllık kredi 01.04.2027'de biter, kalan anaparanın tamamı kısa vadeli olmalı; anahtar yalnız bir taksiti alıyor. 492→392 aktarımı da muğlak (çözücü A: hesap tutmuyor).",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-maliyet-kolay-r1/kp-29": {
+            "gerekce": "Kavram hatası: birim dönüştürme maliyeti yalnız dönem sonu yarı mamulün eşdeğeriyle bölünüyor; toplam eşdeğer birim gerekir — iki çözücü aynı notu yazdı, yanlış yöntem öğretiyor.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-maliyet-zor/kp-27": {
+            "gerekce": "Mamul satışında maliyet 620'ye yazılır, kök 621 diyor; ayrıca K'nin nihai satış değeri 150.000 iken satış 250.000 — kök tutarsız (iki çözücü). Kod ve veri düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w2-yhukuk-cokzor/kp-03": {
+            "gerekce": "'HER ZAMAN doğrudur' sorusunda anahtar da her zaman doğru değil: TBK m.79/2'ye göre iyiniyetli olsa da geri vermek zorunda kalabileceğini hesaba katması gerekiyorsa tamamından sorumludur.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-yhukuk-zor/kp-14": {
+            "gerekce": "Şık biçimi birden çok doğru önerme üretiyor ('45.000 üzerinden istenebilir' de doğru); tur5 HUK kp-14 ile aynı kusur. Şıklar tek tutar biçiminde yazılınca döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w7-2-fmuh-kolay/kp-03": {
+            "gerekce": "Kök verisi eksik: özkaynak/sermaye verilmeden açılış bilançosundaki 153 tutarı bulunamaz; anahtar ancak özkaynak sıfır varsayımıyla çıkıyor (iki çözücü 'YOK').",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w13-3-fmuh-cokzor/kp-15": {
+            "gerekce": "Kök temizlik hizmetinde tevkifat oranını 7/10 veriyor; KDV GUT'ta temizlik, çevre ve bahçe bakım hizmetlerinde oran 9/10 — yanlış oran öğretiyor. Oran düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-zor-r5/kp-09": {
+            "gerekce": "Kurgu çelişkili: işten ayrılmış işçinin kıdem tazminatı ödenecek borçtur, karşılığın 472'de (uzun vadeli) bakiyesi kalmaz — yanlış muhasebe öğretiyor. Kurgu düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-zor-r1/kp-21": {
+            "gerekce": "Şıklar kısa vadeli ticari alacak için 220 (uzun vadeli) kodunu kullanıyor — tur7 kp-20 ile aynı kod hatası. 120 ile düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w5-fmuh-zor/kp-35": {
+            "gerekce": "Kurgu VUK'a aykırı: hesap döneminde aktife giren iktisadi kıymet o dönem sonunda mük. 298/Ç ile yeniden değerlenemez; iki çözücü bu nedenle başka şıkkı seçti (ANAHTAR-SUPHE).",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-fmuh-kolay-r2/kp-24": {
+            "gerekce": "Şıklar kısa vadeli alacak için 220 kodunu kullanıyor (doğrusu 120) — aynı kod hatası. Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w13-4-fmuh-zor/kp-13": {
+            "gerekce": "Kök çelişkili: 'tamamı için karşılık ayrılmış' deyip karşılığı alacaktan az veriyor (iki çözücü). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w4-fmuh-zor/kp-30": {
+            "gerekce": "Hesap tutmuyor: dört taksitin %20 (dönemsel %10) ile bugünkü değeri kökteki 183.600 etmez (çözücü B). Veri düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w14-14-fmuh-zor/kp-03": {
+            "gerekce": "Kök gelir vergisini brüt ücret üzerinden hesaplatıyor; GV matrahı SGK işçi payı düşülerek bulunur — yanlış bordro kuralı öğretiyor (iki çözücü). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w9-2-fmuh-zor/kp-08": {
+            "gerekce": "Kurgu bankacılık hizmeti komisyonuna KDV uyguluyor; banka işlemleri BSMV kapsamındadır ve KDV'den istisnadır (KDVK m.17/4-e) — yanlış hüküm (iki çözücü). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-w3-maliyet-zor/kp-03": {
+            "gerekce": "Kavram hatası: yan mamul tutarı üretim maliyetine ekleniyor; yan ürün geliri/değeri ortak maliyetten düşülür — yanlış yöntem öğretiyor (iki çözücü). Düzeltilince döner.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-dog1-vergi/kp-24": {
+            "gerekce": "vy6: KVK m.33/4 son cümle — sitedeki anahtar lafza aykırı (devreden indirim hakkı cari yıl sınırına katılmış); doğrusu taslakta (onarim-vy6) hazır.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-gm-p1-yvergi/kp-01": {
+            "gerekce": "vy7: alkollü içki reklam giderinin %50si KKEG sayılmış; GVK m.41/7 oranı (0), Danıştay iptali — yürürlükteki metne göre anahtar yanlış; doğrusu taslakta (onarim-vy7) hazır.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-30"
+        },
+        "smmm-4k-a-yvergi-zor-r7/kp-02": {
+            "gerekce": "Aynı kusur: I. tertipten sonra kalanın tamamı dağıtılıyor, II. tertip (TTK m.519/2-c) ve %5 birinci kâr payı sırası yok sayılmış; anahtar kanunla çelişiyor.",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: iki kör çözücü + resmî metinle doğrulayıcı kararı (Ajan 1); aynı kimlikte düzeltilip geri gelecek",
+            "tarih": "2026-10-31"
+        },
+        "smmm-4k-a-yvergi-kolay-r10/kp-06": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-kolay-r10/kp-12": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-kolay-r2/kp-11": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-kolay-r2/kp-23": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-kolay-r3/kp-15": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-kolay-r3/kp-24": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-kolay-r7/kp-24": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-zor-r2/kp-17": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-zor-r3/kp-10": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-zor-r6/kp-08": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-zor-r6/kp-09": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-zor-r7/kp-06": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-d1-yvergi-kolay-r2/kp-01": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-dog1-vergi/kp-37": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-dog1-vergi/kp-58": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm14-1-yvergi-zor/kp-01": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm3-4-yvergi-kolay/kp-01": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm3-4-yvergi-zor/kp-01": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm4-8-yvergi-kolay/kp-01": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm5-6-yvergi-zor/kp-02": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm8-1-yvergi-cokzor/kp-04": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm9-1-yvergi-cokzor/kp-04": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm9-1-yvergi-kolay/kp-02": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm9-1-yvergi-kolay/kp-03": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm9-1-yvergi-zor/kp-10": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-a-vergi/kp-06": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-a-vergi/kp-23": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-a-vergi/kp-26": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-a-vergi/kp-58": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-b-vergi/kp-05": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-b-vergi/kp-22": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-olc2-b-vergi/kp-55": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w1-yvergi-cokzor/kp-08": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w14-1-yvergi-zor/kp-03": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-yvergi-cokzor/kp-15": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-yvergi-kolay/kp-14": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-yvergi-kolay/kp-17": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-yvergi-zor/kp-08": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w4-yvergi-kolay/kp-03": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w4-yvergi-zor/kp-03": {
+            "gerekce": "onarim ts6b-c-vergi: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-fmuh-kolay-r3/kp-26": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-fmuh-kolay-r6/kp-15": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-fmuh-zor-r6/kp-09": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-maliyet-zor-r2/kp-18": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-maliyet-zor-r4/kp-23": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-maliyet-zor-r6/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-maliyet-zor-r8/kp-05": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-kolay-r2/kp-05": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-kolay-r6/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-kolay-r6/kp-20": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-kolay-r8/kp-07": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-kolay-r9/kp-14": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-kolay-r9/kp-17": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ydenetim-zor-r2/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yfta-kolay-r4/kp-09": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yhukuk-cokzor-r3/kp-01": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yhukuk-cokzor-r8/kp-01": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yhukuk-kolay-r4/kp-07": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yhukuk-kolay-r8/kp-01": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yhukuk-zor-r7/kp-11": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-ymeslek-kolay-r10/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yspk-kolay-r3/kp-23": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-ab2-b-maliyet/kp-32": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-ab2-b-maliyet/kp-39": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm5-23-fmuh-zor/kp-10": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-gm5-29-yfta-zor/kp-01": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w1-maliyet-zor/kp-02": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w1-maliyet-zor/kp-06": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w1-ydenetim-kolay/kp-06": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w10-1-fmuh-cokzor/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w10-3-fmuh-zor/kp-08": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w11-1-fmuh-cokzor/kp-06": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w11-1-fmuh-zor/kp-12": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w11-3-fmuh-kolay/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w12a-1-ymeslek-cokzor/kp-02": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w12a-4-yhukuk-zor/kp-13": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w13-2-fmuh-zor/kp-08": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w13-3-fmuh-zor/kp-02": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w14-1-fmuh-zor/kp-06": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w14-11-fmuh-zor/kp-03": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w14-7-fmuh-cokzor/kp-01": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w2-fmuh-kolay/kp-02": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w2-yfta-zor/kp-07": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-fmuh-kolay/kp-01": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-fmuh-zor/kp-11": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-maliyet-cokzor/kp-03": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-ydenetim-cokzor/kp-17": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-ydenetim-zor/kp-24": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w3-yspk-cokzor/kp-18": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w4-fmuh-cokzor/kp-09": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w6-fmuh-zor/kp-22": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w6-fmuh-zor/kp-27": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w8-4-fmuh-cokzor/kp-04": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w9-4-fmuh-kolay/kp-02": {
+            "gerekce": "onarim ts6b-d1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-10-31",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w9-2-fmuh-cokzor/kp-02": {
+            "gerekce": "D7: 2026 VUK 323 had (2026: 25.000) kullanılmış; 2025 tutarıyla doğru cevap karşılık ayrılamaz (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-w5-fmuh-zor/kp-15": {
+            "gerekce": "D7: 2026 VUK 323 had (2026: 25.000) kullanılmış; 2025 tutarıyla doğru cevap A (59.750) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm8-1-yvergi-zor/kp-02": {
+            "gerekce": "D7: 2026 GVK 21 mesken istisnası + GVK 86/1-c beyan sınırı + GVK 103 tarife kullanılmış; 2025 tutarıyla doğru cevap 5.070 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm8-1-yvergi-kolay/kp-04": {
+            "gerekce": "D7: 2026 GVK 23/8 yemek + 23/10 ulaşım istisnası kullanılmış; 2025 tutarıyla doğru cevap 4.116 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-4k-a-yvergi-zor-r6/kp-07": {
+            "gerekce": "D7: 2026 GVK 68/5 binek kira sınırı (2026: 46.000) kullanılmış; 2025 tutarıyla doğru cevap 839.000 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm8-1-yvergi-zor/kp-04": {
+            "gerekce": "D7: 2026 GVK 86/1-b ücret beyan sınırı (tarife 2. ve 4. dilim) kullanılmış; 2025 tutarıyla doğru cevap 0, beyan zorunlu (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm9-1-yvergi-zor/kp-07": {
+            "gerekce": "D7: 2026 GVK 103 tarife kullanılmış; 2025 tutarıyla doğru cevap 368.085 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm12-1-yvergi-cokzor/kp-01": {
+            "gerekce": "D7: 2026 GVK 103 tarife kullanılmış; 2025 tutarıyla doğru cevap 227.000 (şıkta yok; zarar yılları da 1 yıl kayarsa 258.500) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm8-1-yvergi-kolay/kp-01": {
+            "gerekce": "D7: 2026 GVK 103 tarife kullanılmış; 2025 tutarıyla doğru cevap 80.672 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm9-1-yvergi-cokzor/kp-09": {
+            "gerekce": "D7: 2026 GVK 103 tarife kullanılmış; 2025 tutarıyla doğru cevap 334.520 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-w14-6-yvergi-zor/kp-03": {
+            "gerekce": "D7: 2026 GVK 68/5 binek kira sınırı (2026: 46.000) kullanılmış; 2025 tutarıyla doğru cevap 683.050 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm12-1-yvergi-zor/kp-02": {
+            "gerekce": "D7: 2026 GVK 21 mesken istisnası (2026: 58.000) kullanılmış; 2025 tutarıyla doğru cevap 278.205 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-gm12-1-yvergi-cokzor/kp-02": {
+            "gerekce": "D7: 2026 GVK 86/1-c beyan sınırı + GVK 103 tarife kullanılmış; 2025 tutarıyla doğru cevap 88.340 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-4k-a-yvergi-cokzor-r7/kp-02": {
+            "gerekce": "D7: 2026 GVK 40/1 binek kira sınırı (2026: 46.000) kullanılmış; 2025 tutarıyla doğru cevap 366.000 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-w3-yvergi-zor/kp-03": {
+            "gerekce": "D7: 2026 GVK 68/5 binek kira sınırı (2026: 46.000) kullanılmış; 2025 tutarıyla doğru cevap 1.085.950 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-dog1-vergi/kp-48": {
+            "gerekce": "D7: 2026 GVK 40/1 binek kira sınırı (2026: 46.000) kullanılmış; 2025 tutarıyla doğru cevap 345.300 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
+        },
+        "smmm-4k-a-yvergi-zor-r3/kp-16": {
+            "gerekce": "D7: 2026 GVK 40/7 binek amortisman sınırı (2026: 2.600.000) kullanılmış; 2025 tutarıyla doğru cevap 250.400 (şıkta yok) — sitede yanlış öğretiyor",
+            "kaynak": "Cem 01.11 (a) yanlış-kesin: D7 yıl taraması 31.10 (Ajan 9) — kök 2026 yıllık tutarını kullanıyor, 2025 tutarıyla cevap değişiyor; 2025 taslağı hakemden geçince aynı kimlikle döner",
+            "tarih": "2026-10-31"
         }
     }
 }

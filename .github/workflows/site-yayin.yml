@@ -41,6 +41,7 @@ on:
       - "Batch Listele (0 USD)"   # batch-listele.yml
       - "Bildirim Nobeti (0 USD)"   # bildirim-nobeti.yml
       - "Bosluk Dogrulama (0 USD)"   # bosluk-dogrulama.yml
+      - "Canli sema dokumu + RPC yetki kapisi"   # canli-sema.yml
       - "Yayindan Cekme"   # cekme.yml
       - "CI Kirmizi Nobetcisi"   # ci-kirmizi-nobeti.yml
       - "Damping Kiyas Nobeti"   # damping-kiyas.yml
@@ -53,6 +54,7 @@ on:
       - "Dogrulama Kapisi"   # dogrula.yml
       - "Dogrusu Ekle (once olcum, 0 USD)"   # dogrusu-ekle.yml
       - "Duyuru Nobetcisi (0 USD)"   # duyuru-nobetcisi.yml
+      - "Ekibe Sor Nobeti"   # ekibe-sor-nobeti.yml
       - "Emir Sayimi (0 USD)"   # emir-sayim.yml
       - "Ders Etiketi Duzeltici"   # etiket-duzelt.yml
       - "Formul Eksik Taramasi (0 USD)"   # formul-eksik-tarama.yml
@@ -120,6 +122,8 @@ on:
       - "Ithalat Rejimi Nobeti"   # rejim.yml
       - "RG Nobeti"   # rg-nobeti.yml
       - "Root jeton taramasi (haftalik uyari)"   # root-jeton-tarama.yml
+      - "S20 Aciklama Hakemi Banka (emir kapili, varsayilan KURU)"   # s20-ah-banka.yml
+      - "S20 Kor Kalibrasyon (emir kapili, varsayilan KURU)"   # s20-kalibrasyon.yml
       - "Sabah Raporu (0 USD)"   # sabah-raporu.yml
       - "SGS Onarim Hakem Isleme"   # sgs-onarim-hakem.yml
       - "SGS Soru Tipi Olcumu (0 USD)"   # sgs-tip-olcum.yml

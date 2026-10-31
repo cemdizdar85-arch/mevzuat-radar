@@ -36,7 +36,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $KOK      = Split-Path $PSScriptRoot -Parent
 $KILIT    = Join-Path $KOK 'veri\OTURUM-KILIDI.json'
-$KOLLAR   = @('alacak','marka','destek','ihale','sinav','sgs','kgk','site','pazarlama','altyapi')   # 29.09 Cem: SGS ayri kol (sinav kolunu SMMM ile paylasinca SGS isi 2 gun bekledi; sinav artik SMMM) · 27.09 Cem: KGK (bagimsiz denetcilik) ayri kol - sinav kolunu SGS/SMMM ile paylasinca KGK isi bekliyordu
+$KOLLAR   = @('alacak','marka','destek','ihale','sinav','sgs','kgk','spk','site','pazarlama','altyapi')   # 29.10 Cem: SPK lisanslama sinavlari (SPL Duzey 1..) ayri kol · 29.09 Cem: SGS ayri kol (sinav kolunu SMMM ile paylasinca SGS isi 2 gun bekledi; sinav artik SMMM) · 27.09 Cem: KGK (bagimsiz denetcilik) ayri kol - sinav kolunu SGS/SMMM ile paylasinca KGK isi bekliyordu
 $BAYAT_SA = 4     # bu kadar saatten eski kilit "bayat" sayılır
 
 function Yaz($m, $renk='Gray'){ Write-Host $m -ForegroundColor $renk }

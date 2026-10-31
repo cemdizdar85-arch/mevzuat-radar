@@ -1,5 +1,10 @@
 # GM HAZIR SORU YAZIM TALİMATI — Yeterlilik (bitirme) · kalıcı şablon
 
+> ⛔⭐ **30.10.2026 (Cem): BİTİRME SORUSU ÖNCE `BITIRME-SORU-STANDARDI.md` İLE YAZILIR.** Yazar ajana İLK o sayfa ve
+> `BITIRME-KONU-KARTLARI.md`'deki ilgili kart verilir; soru kartın kalıbı/beceri/kök hedefi/şık türü dışına çıkamaz,
+> dört doğruluk kapısından (güncel madde · kanıt cümlesi · iki kör çözücü · Cem okuması) geçmeden yayına girmez.
+> Bu dosyanın aşağısı (hata listeleri, adım/sade biçimi, dalga düzeni) standardın ALTINDA geçerlidir; çelişkide standart kazanır.
+
 > 05.10.2026, Cem "1.2.3" (GM2). Her GM turunda yazar ajana BU dosya verilir; tura özgü konu/zorluk ayrıca söylenir.
 > Neden kalıcı: GM talimatları oturum scratchpad'inde duruyordu ve oturumla kayboldu (gm3 TALIMAT.md bulunamadı).
 > Soru metni bu dosyaya ve depoya GİRMEZ; yazar yalnız kendisine verilen yerel dosyaya yazar (`veri/fabrika/hazir-*.json` gitignore'da).
@@ -15,6 +20,22 @@
 1. `SORU-URETIM-SOZLESMESI.md` — Bölüm A (A1: çıkmış soru KOPYALANMAZ) ve Bölüm B'nin TAMAMI; **B24 S1–S8** ve **B25** aynen geçerli.
 2. `STANDART-CEVAP-KALIBI.md` — açıklama kalıbı kilitli (doğru şık: "Ne soruluyor: … Kural: … Bu olayda/Hesap: … Doğrusu: …").
 3. Biçim örneği (yalnız BİÇİM): yayında olan bir partinin `kalip-parti-smmm-*.json` kaydı — `adimlar`, `verilen`, `sade` alanlarının yapısı.
+
+## ⛔⭐ SINAV PROFİLİ HEDEFTİR, TAVAN DEĞİL (27.10.2026, Cem: "sorular sınava benzemiyor … elli kere konuştuk")
+**Ölçüldü (27.10, aynı kurallarla, gerçek = `veri/sinav-anatomisi-sgs.json` son 12 SGS kitapçığı):** konu doğruydu (s20 sorularının %74'ü ≥3
+dönem çıkmış konudan) ama BİÇİM yanlıştı — kök medyanı Vergi 329↔146, Borçlar 462↔164, İş-SGK 367↔147, Denetim 265↔168 · "hangisi
+yanlıştır/değildir" kökü Meslek %5↔45, Borçlar 12↔42, Denetim 3↔41, Vergi 3↔33 · FM'de kayıt sorusu %2↔40 (hesap 66↔29) · kökte
+madde/paragraf atfı Ticaret 99↔43, Denetim 78↔39, FM 40↔9. Sitedeki banka aynı yönde ama daha yakın. Kök nedenler: aşağıdaki "olumlu kök
+tercih" alışkanlığı · uzunluk TAVANI (p90) verilip hedef verilmemesi · K15 şartının köke hikâye olarak yığılması · FM'de vakanın öne çıkması.
+**Kural (bütün sınavlar; SMMM/KGK için kendi anatomi dosyası):**
+1. Yazarın brifine dersin gerçek profili **HEDEF** olarak verilir: kök medyanı, şık medyanı, olumsuz kök %, öncüllü %, tip dağılımı
+   (kayıt/hesap/teori), kökte madde atfı %. Uzunluk tavanı ayrıca durur ama hedef değildir.
+2. **"Olumlu kök tercih edilir" kuralı kalktı:** olumsuz kök oranı dersin gerçek oranına yakın tutulur (dalga planında sayıyla).
+3. Kökte madde/paragraf numarası yazılmaz (gerçek sınav durumu sorar); kanun adı gerçek orandaysa olur. Numara dayanak + açıklamada kalır.
+4. K15 şartı köke kısa yan cümleyle girer; hikâye kurulmaz.
+5. Ölçüm: `C:\TETIKTE-CALISMA\sgs-s20-arac\profil-kapi.js <hazir.json> --ders <ders> [--hedef olumsuz|kayit]` (soru başı PROFIL-UZUN /
+   PROFIL-ATIF / PROFIL-SIK + dosya özeti) · bütün havuz: `sinav-benzerlik.js` (+`--banka`). Deneme/test kurulurken her ders testi profili
+   gerçekle yan yana raporlanır. 🚫 GÖRMEZ: anlam benzerliği, dilin doğallığı. "Benziyor" demeden önce ölçülür.
 
 ## Kaynak — hafızadan rakam YAZILMAZ
 Rakam, oran, had yalnız AMBARDAN (`dokumanlar.kaynak_ad`). Kullanılan her kaydın adı `kaynak_adlar`'a birebir yazılır (ön denetim ambarda arar).
@@ -70,6 +91,9 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
    Kısaltılmaz; iki toplam aynı soruda geçiyorsa karışır.
 4. **Varsayım yerine kaynak:** ambarda olan parametre (2026 asgari ücret: ASGARİ ÜCRET TESPİT KOMİSYONU KARARI, RG 26.12.2025/33119) kökte
    "kabul edilecektir" diye uydurulmaz. Kaynakta yoksa senaryo o parametreye çarpmaz (B11).
+   **(22.10, sözleşme B27)** Yıl adıyla verilen yıllık tutar ("2025 yılı için … olduğu varsayılmıştır") `veri/sinav/yillik-tutarlar.json`'daki
+   o yılın resmî tutarıdır; "varsayılmıştır" uydurma rakamı meşrulaştırmaz. Resmî tutar senaryoyu bozuyorsa senaryo değişir (22.10'da 4
+   soru: telif haddi 1.100.000, genç girişimci 230.000, mesken sınırı 1.900.000 uydurmaydı).
 5. **Yürürlük:** "Bu madde hükümleri … tarihine kadar uygulanır" diyen geçici maddeye (ör. GVK geç. m.67 → 31.12.2025) uzatması ambarda
    yoksa dayanılmaz.
 6. **Kural cümlesi kanun alıntısı gibi yazılmaz** ("GVK m.86/1-c: …" önekiyle kanunda olmayan cümle yok); uygulama yolu "m.X gereği …" diye
@@ -192,4 +216,5 @@ yeniden koşar. Kapıların GÖRMEDİĞİ sınıflar (madde/fıkra atfı, uydurm
 
 ## Teslimden önce (zorunlu)
 `powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya <dosya> -IkizEtiket smmm-<etiket>`
-Çıktıda KAPI-Y / KAPI-K DUSER / KAPI-KALITE / ADIM YOK / SADE YOK kalmaz. (KAPI-S'in bir türünü ön denetim görmeyebilir — gm7'de 1 vaka.)
+Çıktıda KAPI-Y / KAPI-K DUSER / KAPI-KALITE / ADIM YOK / SADE YOK / KAPI-A1 kalmaz. KAPI-A1 (29.10): çıkmış sorudan ≥15 kelime
+aynı dizi ya da sorunun %60'ı tek çıkmış belgede → soruyu kendi cümlenle yeniden kur (kanun/standart lafzı, hesap adı, kök kalıbı muaf). (KAPI-S'in bir türünü ön denetim görmeyebilir — gm7'de 1 vaka.)

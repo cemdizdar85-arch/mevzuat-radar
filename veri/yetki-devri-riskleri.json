@@ -1,20 +1,27 @@
 {
-  "tarih": "20.10.2026 21:08",
+  "tarih": "31.10.2026 14:49",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
-  "ambar_dosya": 888,
+  "ambar_dosya": 900,
   "riskli_madde": 1315,
-  "sayfa": 77,
-  "atifli_iddia": 300,
-  "dayanaksiz_iddia": 402,
-  "kirmizi_aday": 29,
-  "yeni_aday": 1,
+  "sayfa": 82,
+  "atifli_iddia": 315,
+  "dayanaksiz_iddia": 551,
+  "kirmizi_aday": 30,
+  "yeni_aday": 2,
   "yeni": [
     {
       "sayfa": "elci.html",
-      "satir": 249,
+      "satir": 258,
       "iddia": "2.588 TL",
       "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 30,
+      "iddia": "20 Gün",
+      "kanun": "400",
+      "metin": "<!-- 27.10.2026 Cem: \"Son 20 Gün\" kampanyası (7 deneme · devam sözü · erken kayıt 400 TL · bitirme bonusu %50)."
     }
   ],
   "kirmizi": [
@@ -57,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -188,7 +195,7 @@
     },
     {
       "sayfa": "elci.html",
-      "satir": 249,
+      "satir": 258,
       "iddia": "2.588 TL",
       "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
@@ -199,6 +206,13 @@
       "iddia": "%15",
       "kanun": "476",
       "metin": "else if(g==='reklam'){ stopaj=\"%15\"; sRate=15; sMetin=\"İnternet reklam hizmeti, 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 30,
+      "iddia": "20 Gün",
+      "kanun": "400",
+      "metin": "<!-- 27.10.2026 Cem: \"Son 20 Gün\" kampanyası (7 deneme · devam sözü · erken kayıt 400 TL · bitirme bonusu %50)."
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -843,31 +857,31 @@
     },
     {
       "sayfa": "durum.html",
-      "satir": 82,
+      "satir": 83,
       "iddia": "24 saat",
       "metin": "İş akışları — son 24 saat"
     },
     {
       "sayfa": "durum.html",
-      "satir": 131,
+      "satir": 132,
       "iddia": "24 saat",
       "metin": "çekiliyor, \"son 24 saat\" penceresi ise Date.now() ile kuruluyordu"
     },
     {
       "sayfa": "durum.html",
-      "satir": 132,
+      "satir": 133,
       "iddia": "24 saat",
       "metin": "(sinir = Date.now() - 24 saat). Açık kalan bir sekmede pencere kayar"
     },
     {
       "sayfa": "durum.html",
-      "satir": 185,
+      "satir": 186,
       "iddia": "24 saat",
       "metin": "}).join('') : ' son 24 saatte koşu yok ';"
     },
     {
       "sayfa": "durum.html",
-      "satir": 212,
+      "satir": 213,
       "iddia": "24 saat",
       "metin": "else { snf='yesil'; bas='HER ŞEY YOLUNDA'; ack='Tüm nöbetçiler temiz, son 24 saatte kırmızı iş akışı yok.'; }"
     },
@@ -897,97 +911,97 @@
     },
     {
       "sayfa": "elci.html",
-      "satir": 145,
+      "satir": 154,
       "iddia": "7 gün",
       "metin": "0 kesinleşen satış (ödendi + 7 gün geçti)"
     },
     {
       "sayfa": "elci.html",
-      "satir": 146,
+      "satir": 155,
       "iddia": "7 gün",
       "metin": "0 ödendi, 7 günlük süre dolmadı"
     },
     {
       "sayfa": "elci.html",
-      "satir": 156,
+      "satir": 165,
       "iddia": "%15",
       "metin": "Tutarlar brüttür: ödemede yasal vergi kesintisi (%15) yapılır; 20/B hesabına ödemede kesintiyi banka yapar (sözleşme 6.6)."
     },
     {
       "sayfa": "elci.html",
-      "satir": 173,
+      "satir": 182,
       "iddia": "%15",
       "metin": "Paket Takipçiye indirim Komisyon (brüt) Net (%15 kesintiyle)"
     },
     {
       "sayfa": "elci.html",
-      "satir": 192,
+      "satir": 201,
       "iddia": "1.000 TL",
       "metin": "Tutarlar brüt. Yalnız eşik üstü: 10. satıştan itibaren 1.000 TL, öncekiler 750 TL kalır. Ulaştığın kademe sonraki sınav dönemine taşınır, geri inmez."
     },
     {
       "sayfa": "elci.html",
-      "satir": 229,
+      "satir": 238,
       "iddia": "7 gün",
       "metin": "Kesinleşme: Satış bedelinin ödenmesinden itibaren 7 günün, satış iade edilmeden ya da ödeme geri alınmadan geçmesi."
     },
     {
       "sayfa": "elci.html",
-      "satir": 250,
+      "satir": 259,
       "iddia": "3.068 TL",
       "metin": "SMMM Yeterlilik — tüm sınav dersleri (8 sınav dersi) 400 TL 3.468 → 3.068 TL"
     },
     {
       "sayfa": "elci.html",
-      "satir": 251,
+      "satir": 260,
       "iddia": "1.138 TL",
       "metin": "SMMM Yeterlilik — 1 sınav dersi 50 TL 1.188 → 1.138 TL"
     },
     {
       "sayfa": "elci.html",
-      "satir": 252,
+      "satir": 261,
       "iddia": "1.808 TL",
       "metin": "SMMM Yeterlilik — 2 sınav dersi 100 TL 1.908 → 1.808 TL"
     },
     {
       "sayfa": "elci.html",
-      "satir": 253,
+      "satir": 262,
       "iddia": "2.358 TL",
       "metin": "SMMM Yeterlilik — 3 sınav dersi 150 TL 2.508 → 2.358 TL"
     },
     {
       "sayfa": "elci.html",
-      "satir": 260,
+      "satir": 269,
       "iddia": "1.250 TL",
       "metin": "50 – 99. satış 1.250 TL 100. satıştan sonra taraflar ayrıca görüşür"
     },
     {
       "sayfa": "elci.html",
-      "satir": 261,
+      "satir": 270,
       "iddia": "1.000 TL",
       "metin": "6.2. Kademe yalnız eşik üstüne uygulanır, geriye dönük değildir (10. satıştan itibaren 1.000 TL; önceki 9 satış 750 TL kalır). Bir dönemde ulaşılan kademe sonraki döneme taşınır ve"
     },
     {
       "sayfa": "elci.html",
-      "satir": 270,
+      "satir": 279,
       "iddia": "%15",
       "metin": "Komisyon (brüt) %15 kesinti (vergi dairesine) Elçinin hesabına geçen (net)"
     },
     {
       "sayfa": "elci.html",
-      "satir": 272,
+      "satir": 281,
       "iddia": "1.000 TL",
       "metin": "1.000 TL 150,00 TL 850,00 TL"
     },
     {
       "sayfa": "elci.html",
-      "satir": 273,
+      "satir": 282,
       "iddia": "1.250 TL",
       "metin": "1.250 TL 187,50 TL 1.062,50 TL"
     },
     {
       "sayfa": "en-cok-cikan-sorular.html",
-      "satir": 68,
+      "satir": 39,
       "iddia": "10 yıl",
       "metin": "Son 10 yılın çıkmış sorularını tek tek okuduk; her dersin en çok sorulan konularını bulduk. Sorular ders ders, o konulardan."
     },
@@ -1011,127 +1025,151 @@
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 157,
+      "satir": 168,
       "iddia": "8.500 TL",
       "metin": "(\"harcin iki kati\"). Manset capasi CANLI KURS tabanina alindi: 8.500 TL KDV dahil,"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 259,
+      "satir": 204,
+      "iddia": "20 Gün",
+      "metin": "Geçene Kadar Tetikte · Son 20 Gün · 7 Deneme · SGS 21 Kasım"
+    },
+    {
+      "sayfa": "fiyat.html",
+      "satir": 211,
+      "iddia": "20 Gün",
+      "metin": "✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar"
+    },
+    {
+      "sayfa": "fiyat.html",
+      "satir": 216,
+      "iddia": "2.388 TL",
+      "metin": "Tam Paket 2.388 TL 2.988 TL yerine 1.990 TL + KDV"
+    },
+    {
+      "sayfa": "fiyat.html",
+      "satir": 310,
       "iddia": "en az 3",
       "metin": "Sınavına kadar · en az 3 ay"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 296,
+      "satir": 347,
       "iddia": "en az 3",
       "metin": "sınava az kala alsan da en az 3 ay çalışırsın. Sınav ertelenirse süren de uzar."
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 304,
+      "satir": 355,
       "iddia": "10.500 TL",
       "metin": "Staj dosya ve başvuru bedeli 10.500 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 305,
+      "satir": 356,
       "iddia": "1.635 TL",
       "metin": "Staja Giriş Sınavı başvuru bedeli 1.635 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 306,
+      "satir": 357,
       "iddia": "3 yıl",
       "metin": "Stajyer zorunlu eğitim (3 yıl) 7.890 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 307,
+      "satir": 358,
       "iddia": "1.540 TL",
       "metin": "Stajyer kimlik kartı 1.540 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 308,
+      "satir": 359,
       "iddia": "10.080 TL",
       "metin": "SMMM Yeterlilik ilk başvuru (8 ders) 10.080 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 309,
+      "satir": 360,
       "iddia": "1.260 TL",
       "metin": "Yeterlilik: kaldığın her ders için 1.260 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 317,
+      "satir": 368,
       "iddia": "5 kati",
       "metin": "fiyatlari harcin 3-5 kati. Rakamlar fiyat-motoru.js'teki HARC'tan gelir. -->"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 324,
+      "satir": 375,
       "iddia": "1.260 TL",
       "metin": "1.260 TL , ilk başvuruda sekiz ders 10.080 TL ."
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 328,
+      "satir": 379,
       "iddia": "3.800 TL",
       "metin": "4x950 = 3.800 TL; bizim tum moduller 3.990 TL, yani harctan UCUZ DEGIL."
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 332,
+      "satir": 383,
       "iddia": "5.250 TL",
       "metin": "KGK: bir modülün kursu 5.250 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 335,
+      "satir": 386,
       "iddia": "5.250 TL",
       "metin": "Tek modül kursu (Standartlar / Denetim / KY-FY) 5.250 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 336,
+      "satir": 387,
       "iddia": "2.500 TL",
       "metin": "Ek alan modülü kursu (SPK / Bankacılık / Sigortacılık) 2.500 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 337,
+      "satir": 388,
       "iddia": "15.120 TL",
       "metin": "Tam paket kursu 13.500 – 15.120 TL"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 374,
+      "satir": 425,
       "iddia": "3 saat",
       "metin": "burada yazar; \"son 3 saat\" sayacı, üstü çizili uydurma fiyat ya da kampanya tiyatrosu yok. Ödeyeceğin KDV dahil toplam her fiyatın yanında yazar."
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 386,
+      "satir": 437,
       "iddia": "208 saat",
       "metin": "soruyu çözerek öğrenirsin ; her sorunun altında dayandığı madde yazıyor."
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 390,
+      "satir": 441,
       "iddia": "15 Gün",
       "metin": "Son 15 Gün'dü; o kalkınca kalan \"tek başına\" fiyatlar ayrı satılmayan uydurma değer olurdu (29.08 dersi 6, 6502). -->"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 405,
+      "satir": 456,
       "iddia": "1 ay",
       "metin": "· \"+1 ay\"ı ekleyen davet_uygula() fonksiyonunu hiçbir şey çağırmıyor (yalnız service_role; robot/edge/panel yok)"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 635,
+      "satir": 528,
+      "iddia": "2.388 TL",
+      "metin": "2.388 TL (KDV dahil; satın almada kodsuz uygulanan indirimle aynı). \"İlk 1.000 üyeden sonra\" satırı bu sürede yazılmaz;"
+    },
+    {
+      "sayfa": "fiyat.html",
+      "satir": 719,
       "iddia": "1.635 TL",
       "metin": "/* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */"
     },
@@ -1224,6 +1262,12 @@
       "satir": 57,
       "iddia": "72 saat",
       "metin": "Veri ihlali: kişisel verilerin yetkisiz kişilerce ele geçirildiğini öğrendiğimizde, mevzuata uygun olarak en geç 72 saat içinde Kişisel Verileri Koruma Kurulu'na, etkilenen kişiler"
+    },
+    {
+      "sayfa": "gizlilik-politikasi.html",
+      "satir": 70,
+      "iddia": "90 gün",
+      "metin": "Google reklamına tıklayarak geldiyseniz reklam tıklama numarası (en çok 90 gün; yukarıda)."
     },
     {
       "sayfa": "gtip.html",
@@ -1359,75 +1403,393 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 88,
+      "satir": 89,
       "iddia": "en az 44",
       "metin": "/* 18.10 Cem (\"telefonda çarpıya basamadığı yer olmasın\"): şerit ✕'i 30x28 ölçüldü -> en az 44x44 dokunma alanı */"
     },
     {
       "sayfa": "index.html",
-      "satir": 179,
+      "satir": 200,
       "iddia": "% 34",
       "metin": ".maskot img{object-position:50% 34%}"
     },
     {
       "sayfa": "index.html",
-      "satir": 247,
+      "satir": 231,
       "iddia": "% 36",
       "metin": ".nobetci-kim img{flex:none;width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 36%;background:var(--bg2);border:2px solid var(--amber-dolgu)}"
     },
     {
       "sayfa": "index.html",
-      "satir": 443,
+      "satir": 421,
+      "iddia": "20 Gün",
+      "metin": "/* 31.10 Cem (\"biraz yukarı taşı, alttaki görünmüyor\"): Son 20 Gün kartı kahramanla büyük düğmeler arasına girdi → iki basamak daha */"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 468,
       "iddia": "10 yıl",
       "metin": "🎯 YENİ · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · Hemen gör → 🎯 YENİ · Sınav"
     },
     {
       "sayfa": "index.html",
-      "satir": 452,
+      "satir": 477,
       "iddia": "%34",
       "metin": "Instagram'dan gelen 2 saniyede neyin sitesinde olduğunu anlamıyordu (ig 11-13.10: 5.841 ziyaret → 41 örnek, Google %34 teste)."
     },
     {
       "sayfa": "index.html",
-      "satir": 560,
+      "satir": 500,
+      "iddia": "20 Gün",
+      "metin": "kazanana kadar tetikte yapsak, daha fazla dikkat çeksin\"): söz yalnız SGS Son 20 Gün kampanyasında (kampanya-son-20-gun.html §2)"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 529,
+      "iddia": "20 gün",
+      "metin": "<!-- 31.10 Cem (\"ana sayfamıza 20 günlük sgs sınav testi ve üyelerin gördüğü yere koyalım, insanlar kolay görsün\"): kahramanın hemen"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 530,
+      "iddia": "20 Gün",
+      "metin": "altında Son 20 Gün bölümü. Seçili sınava göre (SGS 1 Kasım · Yeterlilik 8 Kasım; KGK'da gizli). Üyede son20-kart.js'in kişisel"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 553,
+      "iddia": "20 Gün",
+      "metin": "SMMM Staja Giriş · Son 20 Gün"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 555,
+      "iddia": "3 gün",
+      "metin": "130'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım."
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 574,
+      "iddia": "20 Gün",
+      "metin": "$('s20bEt').textContent=(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün';"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 578,
+      "iddia": "3 gün",
+      "metin": ": '130\\'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.';"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 652,
       "iddia": "%97",
       "metin": "vitrin 5 örnek sorunun 5'inde. Panel cevaptan sonra açılır (\"📌 Konu\", \"🎬 Nöbetçi anlatsın\"). \"Her soruda\" denmez (SGS %97)."
     },
     {
       "sayfa": "index.html",
-      "satir": 595,
+      "satir": 687,
       "iddia": "10 yıl",
       "metin": "Son 10 yılın çıkmış sorularını tek tek okuduk; her dersin en çok sorulan konularından ders ders sorular. Bitince hangi konuda eksiğin olduğunu konu konu görürsün."
     },
     {
       "sayfa": "index.html",
-      "satir": 611,
+      "satir": 703,
       "iddia": "7 gün",
       "metin": "yanlış kutusu 2 / 7 gün · deneme (sinav-gibi 130 soru 165 dk 10 set; Yeterlilik Birebir Prova) · sınav provası yüzdelik (SQL + sayfa)."
     },
     {
       "sayfa": "index.html",
-      "satir": 612,
+      "satir": 704,
       "iddia": "10 yıl",
       "metin": "\"Sık çıkan konuya ağırlık\" 07.10 akşamı SGS için de ölçüldü (veri/sinav/SGS-KAPSAMA.md: hedef = son 10 yılda çıkan soru × 1)."
     },
     {
       "sayfa": "index.html",
-      "satir": 710,
+      "satir": 805,
       "iddia": "30 gün",
       "metin": "/* 13.10: Instagram/Facebook'tan gelen mi? menu.js'in kaynak etiketi (?k=, 30 gün cihazda) ya da yönlendiren adres. */"
     },
     {
       "sayfa": "index.html",
-      "satir": 869,
+      "satir": 885,
+      "iddia": "20 Gün",
+      "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, 8 Kasım\\'da açılır':'')+' '; }"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 897,
+      "iddia": "20 Gün",
+      "metin": "else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){ /* 28.10: Yeterlilik Son 20 Gün ön kaydı */"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 942,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek\"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 945,
+      "iddia": "20 Gün",
+      "metin": "$('uyeHosMetin').innerHTML='👋 Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'. '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\\'da açılır.':'Denemelerin seni bek"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 954,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Cem (GM önerisi 2 \"yap\"): Son 20 Gün denemeleri AÇIKKEN paketli üyenin karşılama şeridi Son 20 Gün olur (Hesabım ve Soru çöz"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 1029,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 934,
+      "satir": 1094,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 8,
+      "iddia": "20 Gün",
+      "metin": "Geçene Kadar Tetikte · Son 20 Gün | Tetikte"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 76,
+      "iddia": "20 Gün",
+      "metin": "Geçene Kadar Tetikte · Son 20 Gün · 7 Deneme · SGS 21 Kasım"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 79,
+      "iddia": "20 Gün",
+      "metin": "Geçene Kadar Tetikte · Son 20 Gün"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 89,
+      "iddia": "20 gün",
+      "metin": "Fiyat/koşul YAZILMAZ (karar verilmedi); yalnız geliyor + gün (28 Kasım sınavından 20 gün önce). -->"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 96,
+      "iddia": "20 Gün",
+      "metin": "✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 101,
+      "iddia": "2.388 TL",
+      "metin": "Tam Paket 2.388 TL 2.988 TL yerine 1.990 TL + KDV"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 108,
+      "iddia": "en az 5",
+      "metin": "1 Kasım 23:59'a kadar alana şart yok (yönetim kurulu kararı) · Sonra alanlarda şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 119,
+      "iddia": "En az 5",
+      "metin": "7 denemeyi bitir En az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), her denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 120,
+      "iddia": "30 gün",
+      "metin": "Kalırsan sonuç belgeni gönder Sonuçlar açıklandıktan sonra 30 gün içinde. Hakkın her dönem yenilenir, sınavı geçene kadar sürer."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 124,
+      "iddia": "20 Gün",
+      "metin": "Sadece 7 Deneme Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 126,
+      "iddia": "2026 saat",
+      "metin": "Erken kayıt: 1 Kasım 2026 saat 23:59'a kadar Tam Paket 2.988 TL yerine 2.388 TL . Kod gerekmez, indirim satın almada kendiliğinden uygulanır."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 128,
+      "iddia": "en az 2",
+      "metin": "<!-- 28.10 Cem onayı: \"Yeterlilik sözünü önerdiğin şartlarla yaz: her ders için 3 denemenin en az 2'sinde %60 doğru, görevler tamam,"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 135,
+      "iddia": "20 Gün",
+      "metin": "Paketini al Tüm dersler, seçtiğin dersler ya da Sadece Denemeler. Son 20 Gün denemeleri 8 Kasım 2026'dan itibaren hesabında açılır."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 136,
+      "iddia": "en az 3",
+      "metin": "Her dersin 5 denemesini bitir Girdiğin her derste 5 denemenin en az 3'ünde %60 ve üstü doğru yap (ilk çözüm sayılır), çıkan çalışma görevlerini tamamla. Hepsi 28 Kasım'dan önce."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 137,
+      "iddia": "30 gün",
+      "metin": "Kalırsan sonuç belgeni gönder Sonuçlar açıklandıktan sonra 30 gün içinde. Hak, şartını sağladığın ve kaldığın derslerde geçerlidir; ders geçilene kadar sürer."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 142,
+      "iddia": "20 Gün",
+      "metin": "Sadece Denemeler Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 144,
+      "iddia": "2026 saat",
+      "metin": "Erken kayıt: 7 Kasım 2026 saat 23:59'a kadar tüm dersler 3.468 TL yerine 2.868 TL ; ders ders paketlerde ders başına 120 TL indirim. Kod gerekmez."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 154,
+      "iddia": "2026 saat",
+      "metin": "Kasım 2026 sınavına girmeyecek, 2027 sınavlarına hazırlanacak adaylar da 1 Kasım 2026 saat 23:59'a kadar paket satın almaları hâlinde bu haktan yararlanır; üyelikleri, satın aldıkl"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 158,
+      "iddia": "2026 saat",
+      "metin": "Kampanya, 1 Kasım 2026 saat 23:59'da sona erer. 31 Ekim 2026 güncellemesi: ilk metindeki 2.000 üyelik kontenjan sınırı kaldırıldı; bu saate kadar paket alan herkes yararlanır. Fiya"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 161,
+      "iddia": "20 Gün",
+      "metin": "1. Son 20 Gün nedir? Hangi pakette ne var?"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 164,
+      "iddia": "2.988 TL",
+      "metin": "Tam Paket (Tetikte SGS paketi, KDV dahil 2.988 TL): Son 20 Gün'ün 7 denemesi ve konu görevleri, ayrıca sitedeki bütün SGS soruları, provalar ve çalışma araçları. Son 20 Gün bu pake"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 165,
+      "iddia": "20 Gün",
+      "metin": "Sadece 7 Deneme (KDV dahil 999 TL): yalnız Son 20 Gün'ün 7 denemesi ve konu görevleri. Sitedeki diğer SGS soruları bu pakette yoktur . Erişim 21 Kasım 2026 sınavına kadardır. Erken"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 180,
+      "iddia": "20 Gün",
+      "metin": "Sadece 7 Deneme üyesine sonraki dönemin Son 20 Gün paketi ücretsiz verilir."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 184,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün'ün 7 denemesinin hepsini bitirmiş olmak;"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 185,
+      "iddia": "en az 5",
+      "metin": "7 denemenin en az 5'inde %60 ve üstü doğru oranına ulaşmış olmak (en fazla 2 denemede %60'ın altında kalma hakkı vardır);"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 191,
+      "iddia": "20 Gün",
+      "metin": "Uzatma: Tam Paket üyeliği bir sonraki Staja Giriş Sınavı dönemine kadar uzatılır; Sadece 7 Deneme üyesine bir sonraki dönemin Son 20 Gün paketi açılır. Bu dönemde de kalan üye, ayn"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 196,
+      "iddia": "2026 saat",
+      "metin": "Süre: 600 TL indirim 28 Ekim 2026 saat 00:00 – 1 Kasım 2026 saat 23:59 (Türkiye saati); 27 Ekim 2026'da indirim 400 TL'ydi. Süre bitince indirim kendiliğinden kalkar."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 197,
+      "iddia": "2.988 TL",
+      "metin": "Tutar: SGS Tam Paketin satın alma sayfasındaki fiyatından 600 TL (KDV dahil) indirim: 2.988 TL yerine 2.388 TL. Kod gerekmez ; indirim satın alma ekranında kendiliğinden uygulanır "
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 199,
+      "iddia": "20 Gün",
+      "metin": "Bir siparişte tek indirim uygulanır; indirimler birleştirilmez. Erken kayıtla Tam Pakete üye olan, üyeliği hemen başlar ve bütün sisteme hemen erişir; Son 20 Gün denemeleri 1 Kasım"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 203,
+      "iddia": "2026 gün",
+      "metin": "31 Ekim 2026 güncellemesi: Tam Paketle geçene Yeterlilik paketinde %50 indirim bonusu, bu tarihten sonraki satın almalarda verilmez. 31 Ekim 2026 (bu gün dahil) ve öncesinde SGS Ta"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 204,
+      "iddia": "20 Gün",
+      "metin": "Korunan hak: 21 Kasım 2026 Staja Giriş Sınavı'nı, sınav döneminde Tetikte Tam Paket üyesiyken ve o dönemin Son 20 Gün denemelerini bitirmiş olarak geçen üyeye, staj sonunda girdiği"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 206,
+      "iddia": "20 Gün",
+      "metin": "5. SMMM Yeterlilik: Son 20 Gün ve ders ders devam sözü"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 207,
+      "iddia": "20 Gün",
+      "metin": "SMMM Yeterlilik Sınavı 28 Kasım 2026 dönemine hazırlananlar için Son 20 Gün denemeleri 8 Kasım 2026'dan itibaren üyelerin hesabında açılır; denemeler hazır oldukça ders ders açılır"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 211,
+      "iddia": "%60",
+      "metin": "Doğru oranı: Bir denemedeki doğru sayısının denemedeki soru sayısına (20) oranıdır; örneğin 12 doğru %60'tır. Bu oran gerçek sınavın puanı değildir: Yeterlilik Sınavı'nda ders puan"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 212,
+      "iddia": "%60",
+      "metin": "Çalışma görevi: Bir denemede %60'ın altında kalan üyeye, o dersin yanlış yapılan konularından görev verilir; her konuda 4 yeni soru gelir, 3'ü doğru yapılınca konu tamamlanır (Staj"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 217,
+      "iddia": "20 Gün",
+      "metin": "Sadece Denemeler paketinde: sonraki dönemin Son 20 Gün paketi ücretsiz verilir."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 221,
+      "iddia": "20 Gün",
+      "metin": "O dersin Son 20 Gün'deki 5 denemesinin hepsini bitirmiş olmak;"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 222,
+      "iddia": "en az 3",
+      "metin": "5 denemenin en az 3'ünde %60 ve üstü doğru oranına ulaşmış olmak;"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 226,
+      "iddia": "en az 2",
+      "metin": "Önceki şart korunur: 28 Ekim 2026'da yayımlanan ilk metinde bir dersteki şart \"3 denemenin hepsini bitirip en az 2'sinde %60\" idi. Bu güncellemeden (28 Ekim 2026) önce Yeterlilik p"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 227,
+      "iddia": "30 gün",
+      "metin": "Şartı sağlanmayan derste söz geçerli değildir; şartı sağlanan öteki derslerde geçerliliğini korur. Yalnız ilk çözüm sayılır; yeniden çözümler hesaba girmez. Başvuru, uzatma, kişiye"
     },
     {
       "sayfa": "karne.html",
@@ -1473,33 +1835,39 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 57,
-      "iddia": "60 gün",
-      "metin": "Ne yapmalısın: Bağlantı anlaşması revizyon talebi 60 gün içinde dağıtım şirketine gönderilmeli. Acil durum talimatlarına uyum prosedürleri, faturalandırma yöntemleri ve dengeleme p"
+      "satir": 71,
+      "iddia": "7.000 TL",
+      "metin": "Ne oldu: Türk Mühendis ve Mimar Odaları Birliği'nin bilirkişilik, eksperlik, hakemlik ve teknik müşavirlik yönetmeliğinde değişikliğe gidildi. Şehir planlama mesleği, mühendislik v"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 150,
-      "iddia": "2015 yıl",
-      "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, 2015 yılından beri yürürlükte olan Demiryolu Araçları Tescil ve Sicil Yönetmeliği'nde teknik düzeltmeler yaptı. Yönetmeliğin 2. maddesindek"
+      "satir": 87,
+      "iddia": "7.000 TL",
+      "metin": "Ne yapmalısın: TMMOB'ye başvuru yapacaksanız dilekçenin yeni koşullarını (şehir planlama dahil) ve 7.000 TL'lik başvuru ücretini kontrol edin. Şehir planlama alanında hakem veya bi"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 158,
-      "iddia": "451.127 TL",
-      "metin": "Ne yapmalısın: Mevcut demiryolu araçlarının tescili veya sicil güncelleme işlemlerinde Ulaştırma Hizmetleri Düzenleme Genel Müdürlüğü'ne başvuruyorsanız, yeni harç tutarlarını (451"
+      "satir": 102,
+      "iddia": "20 dekar",
+      "metin": "BBMD desteğinde minimum alan koşulu (8. madde g bendi) 20 dekar → 20 dekar (2026), 2027 yılında en az 10 dekar"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 166,
-      "iddia": "2023 yıl",
-      "metin": "Ne oldu: Ulaştırma Bakanlığı, 2023 yılında yayımlanan Demiryolu Altyapı Erişim ve Kapasite Tahsis Yönetmeliği'nde değişikliğe gitti. Yönetmeliğin hukuki dayanağına ilişkin atıflar "
+      "satir": 114,
+      "iddia": "2027 yıl",
+      "metin": "Ne yapmalısın: Mevcut destekleme başvurularında kontrol tutanağı gerekliliklerini (Ek-40/41) gözden geçirin. 2027 yılı için geçerli olacak minimum alan koşullarını güncelleyin. Biy"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 237,
-      "iddia": "2024 yıl",
-      "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, 2024 yılında yayımlanan Demiryolu İşletmeciliği Yetkilendirme Yönetmeliği'nde değişikliğe gitti. Kanun atıfları genişletildi ve ceza tutarl"
+      "satir": 122,
+      "iddia": "2020 yıl",
+      "metin": "Ne oldu: Enerji Piyasası Düzenleme Kurumu, elektrik dağıtım tarifesine ilişkin tebliğde yer alan gözetim oranını artırmıştır. 2020 yılında yayımlanan ana tebliğin 9. maddesinde yer"
+    },
+    {
+      "sayfa": "kartlar.html",
+      "satir": 227,
+      "iddia": "30 gün",
+      "metin": "Ne yapmalısın: Konut turizm kiralama izniniz varsa belge dosyanızdaki evrakları kontrol edin; Bakanlıktan eksiklik bildirimi almanız halinde 30 gün içinde tamamlayın."
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -1683,7 +2051,13 @@
     },
     {
       "sayfa": "kvkk.html",
-      "satir": 214,
+      "satir": 154,
+      "iddia": "90 gün",
+      "metin": "bir Google reklamına tıklayarak geldiyseniz reklam tıklama numarası ve tıklama zamanı (en çok 90 gün; yeni bir"
+    },
+    {
+      "sayfa": "kvkk.html",
+      "satir": 218,
       "iddia": "30 gün",
       "metin": "adresiniz ve talebinizin konusu yer almalıdır. Başvurunuz en geç 30 gün içinde ücretsiz sonuçlandırılır;"
     },
@@ -1725,9 +2099,39 @@
     },
     {
       "sayfa": "marka-itiraz.html",
-      "satir": 394,
+      "satir": 385,
+      "iddia": "48 saat",
+      "metin": "tıklanınca (48 saat, tek kullanım) başlar. Onaylanmayan nöbete robot mail ATMAZ. Yönetim jetonu sayfaya yalnız"
+    },
+    {
+      "sayfa": "marka-itiraz.html",
+      "satir": 393,
+      "iddia": "en az 2",
+      "metin": "AD_GECERSIZ:'Markanın adını yaz (en az 2 harf).',"
+    },
+    {
+      "sayfa": "marka-itiraz.html",
+      "satir": 402,
       "iddia": "en az 2",
       "metin": "if(ad.length<2){ nbDurum('Markanın adını yaz (en az 2 harf).'); return; }"
+    },
+    {
+      "sayfa": "marka-itiraz.html",
+      "satir": 417,
+      "iddia": "48 saat",
+      "metin": "+' '+esc(k.ad||ad)+' için nöbet başlar. Bağlantı 48 saat geçerli. '"
+    },
+    {
+      "sayfa": "marka-itiraz.html",
+      "satir": 426,
+      "iddia": "48 saat",
+      "metin": "/* E-postadaki onay bağlantısı buraya düşer: ?nobet=onay&j= (tek kullanım, 48 saat). */"
+    },
+    {
+      "sayfa": "marka-itiraz.html",
+      "satir": 448,
+      "iddia": "48 saat",
+      "metin": "nbDurum('Bu onay bağlantısının süresi dolmuş (48 saat). Nöbeti yeniden kurarsan yeni bağlantı göndeririz.');"
     },
     {
       "sayfa": "marka-izleme.html",
@@ -1887,127 +2291,205 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 266,
+      "satir": 54,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 sade üst: karşılama artık \"Bugün\" kartında ince satır; Son 20 Gün satırı kartın başında; plan katı */"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 60,
+      "iddia": "20 Gün",
+      "metin": "/* 31.10 Cem (\"bu sınav çok önemli, adamın hemen gözüne çarpsın\"): Son 20 Gün satırı sarı çerçeveli vurgulu kutu, büyük başlık,"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 303,
       "iddia": "2 gün",
       "metin": "Yanlışların unutulmaz Yanlış yaptığın soru 2 gün sonra yeniden karşına çıkar."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 302,
+      "satir": 339,
       "iddia": "En az 8",
       "metin": "En az 8 karakter."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 337,
+      "satir": 374,
       "iddia": "1 saat",
       "metin": "Bağlantı tek kullanımlıktır, 1 saat geçerlidir."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 351,
+      "satir": 388,
       "iddia": "En az 8",
       "metin": "En az 8 karakter."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 525,
+      "satir": 420,
+      "iddia": "20 Gün",
+      "metin": "yazmaya devam eder, ana sayfa aynı hedefleri kullanır); evre + günlük tempo \"Planım\" katında. Son 20 Gün döneminde kartın başında"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 421,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün satırı (son20-kart.js) ve açıkken ana düğme o olur. Kimlikler aynen. -->"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 438,
+      "iddia": "20 Gün",
+      "metin": "altında sabit kısa yollar: Soru çöz · Yanlışlarım · Son 20 Gün · Deneme. Telefonda 2×2. Son 20 Gün seçili sınava göre. -->"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 603,
       "iddia": "En az 8",
       "metin": "En az 8 karakter."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 550,
+      "satir": 628,
       "iddia": "%20",
       "metin": "window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\\+?link|email%20link/i.test(h));"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 696,
+      "satir": 720,
+      "iddia": "20 Gün",
+      "metin": "if(!sinavlar.length && d.son20 && d.son20.durum==='aktif' && d.son20.tur==='yet'){ /* 28.10 Yeterlilik Son 20 Gün ön satış */"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 721,
+      "iddia": "20 Gün",
+      "metin": "kap.innerHTML=' SMMM Yeterlilik · Son 20 Gün Sadece Denemeler '"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 722,
+      "iddia": "20 gün",
+      "metin": "+' '+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. Denemelerin 8 Kasım 2026\\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır.':'Denemelerin Son 20 "
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 731,
+      "iddia": "20 Gün",
+      "metin": "kap.innerHTML=' Staja Giriş · Son 20 Gün Sadece 7 Deneme '"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 732,
+      "iddia": "20 Gün",
+      "metin": "+' '+(s20bas?'Denemelerin Son 20 Gün sayfasında. Her deneme ders ders testlerden oluşur; puanın ve açıklamalar test bitince açılır.':'Ön siparişin alındı. Denemelerin 1 Kasım 2026\\"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 785,
+      "iddia": "10 GÜN",
+      "metin": "/* 27.10 GÜNLÜK HEDEF (uygulamadaki tempo seçimi, aynı kayıt): TTIlerleme (mobil/uygulama/ilerleme.js) yüklenip hesapla eşitlenince"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 819,
       "iddia": "10 GÜN",
       "metin": "/* 04.10 GÜNLÜK GÖREV (Cem \"beş maddeyi yapalım\", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 698,
+      "satir": 821,
       "iddia": "15 gün",
       "metin": "07.10 Nöbetçi planı: tavan ve yeni soru evreye göre (yay 20+10 · pekiştir 30+20 · son 15 gün 40+30 · son 3 gün tüm tekrar +"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 707,
+      "satir": 836,
       "iddia": "10 gün",
       "metin": "/* 11.10 günlük seri (calisma-ozet.js gunSerisi): kartta \"Serini korudun\" yazıyordu ama seri hiç gösterilmiyordu */"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 782,
+      "satir": 945,
       "iddia": "en az 8",
       "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 789,
+      "satir": 952,
       "iddia": "2 saat",
       "metin": "/* 11.10 (ölçüldü: son 2 saatte 4 onay maili, tavan 200/sa): aynı adrese kısa aralıkla ikinci istek de"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 871,
+      "satir": 1034,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 899,
+      "satir": 1062,
       "iddia": "24 saat",
       "metin": ": ' Ekibimiz inceliyor; cevap 24 saat içinde burada ve e-postanda olacak. ')"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 936,
+      "satir": 1102,
       "iddia": "24 saat",
       "metin": "/* 10.10 Cem (\"yanlış sorular siteye gelsin\"): ekibe gelen bekleyen soru sayısı düğmede; 24 saati geçen varsa kırmızı. Mail beklemeden görülür. */"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 940,
+      "satir": 1106,
       "iddia": "24 saat",
       "metin": "if(d.ekip_gec){ a.style.borderColor='var(--red)'; a.style.color='var(--red)'; a.title=d.ekip_gec+' soru 24 saati geçti'; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 1045,
-      "iddia": "7 gün",
-      "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
-    },
-    {
-      "sayfa": "ogrenci.html",
-      "satir": 1120,
+      "satir": 1299,
       "iddia": "en az 20",
       "metin": "Durum eşikleri (en az 20 cevapta): Güçlü ≥ %70 · Orta %55–69 · Zayıf < %55 - taslakla aynı, Cem onaylı (18.10). */"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 1248,
+      "satir": 1328,
+      "iddia": "20 GÜN",
+      "metin": "/* 28.10 SON 20 GÜN SATIRI (Cem \"Hesabım'da da aynı Son 20 Gün satırı olsun; tek ana eylem\"): seçili sınav SGS ise s20_liste"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 1329,
+      "iddia": "20 Gün",
+      "metin": "erişimi (Tam Paket dahil), Yeterlilik ise paket ya da son20-yet. Denemeler açıkken kartın ana düğmesi Son 20 Gün olur, öneri"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 1339,
+      "iddia": "20 Gün",
+      "metin": "if(btn) btn.classList.remove('ana'); /* 31.10: Son 20 Gün döneminde ana (sarı) düğme her zaman Son 20 Gün */"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 1465,
       "iddia": "50 puan",
       "metin": ":yet?' Bu ders sınavda ayrı oturumda sınanır; geçmek için 50 puan gerekir. ':'')"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 1274,
+      "satir": 1491,
       "iddia": "en az 5",
       "metin": "+' Konu durumu en az 5 cevapta hesaplanır; altı \"az veri\". Zayıflar en üstte. '+dkHtml;"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 1293,
+      "satir": 1510,
       "iddia": "%70",
       "metin": ":'Ders adına dokun: o dersin konu konu başarısı açılır. Güçlü: doğru ≥ %70 · Orta: %55–69 · Zayıf: %55 altı (derste en az 20, konuda en az 5 cevapta). Sayılar hesabındaki cevaplard"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 1295,
+      "satir": 1512,
       "iddia": "en az 5",
       "metin": "/* artılar / eksiler: en az 5 cevaplı konular (18.10: sunucu artık 1 cevaplı konuyu da döndürüyor; eşik burada) */"
     },
@@ -2163,15 +2645,99 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 827,
+      "satir": 109,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10: sabit sıra (tıklayınca satır kaymasın) — SGS: Tam Paket · 7 Deneme (PAKETLER sırası) · Yeterlilik: tüm dersler · ders ders · Son 20 Gün */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 358,
+      "iddia": "20 Gün",
+      "metin": "<!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 500,
+      "iddia": "20 Gün",
+      "metin": "(paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 503,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 görüntü turu: erken kayıt ve Son 20 Gün kartında \"açılış fiyatı · ilk 1.000 üye\" / \"sabit fiyat\" notu kalabalık yapıyordu */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 887,
+      "iddia": "20 Gün",
+      "metin": "tüm dersler ↔ Son 20 Gün. Öteki paketler yine \"Başka paket seç\" ile açılır. */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 889,
+      "iddia": "20 Gün",
+      "metin": "1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 920,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1148,
+      "satir": 1158,
+      "iddia": "2 saat",
+      "metin": "2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1160,
+      "iddia": "7 gün",
+      "metin": "gönderiyoruz … üye olduğunda göndereceksek göndermesek de olur\"): son 7 günde kartla 30 kişi ödedi, havaleyle 2; havalede 13"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1163,
+      "iddia": "3 saat",
+      "metin": "(özet + sözleşme ekleri; siparis-bildirim.ts tekMail - kartla ödeyenle aynı). 3 saatlik havale hatırlatması ve"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1178,
+      "iddia": "3 saat",
+      "metin": "kişinin elinde 3 saatlik hatırlatmaya kadar hiçbir şey yoktu, sayfa tek satır kırmızı yazı gösteriyordu (\"yeniden dene\" düğmesi bile yoktu)."
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1180,
+      "iddia": "2 saat",
+      "metin": "aynı: ödeme bekleyen, 2 saatten yeni, siparişte bir kez) + spam notu yalnız mail gerçekten kabul edildiyse. SMS hattımız YOK. */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1340,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1342,
+      "iddia": "90 gün",
+      "metin": "/* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1401,
+      "iddia": "24 saat",
+      "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1452,
+      "iddia": "24 saat",
+      "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
     },
     {
       "sayfa": "senaryo-raporu.html",
@@ -2384,6 +2950,120 @@
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
     {
+      "sayfa": "smmm-staja-giris-sorulari.html",
+      "satir": 10,
+      "iddia": "10 Yıl",
+      "metin": "SMMM Staja Giriş (SGS) Soruları — Son 10 Yılın En Çok Çıkan 20 Konusu | Tetikte"
+    },
+    {
+      "sayfa": "smmm-staja-giris-sorulari.html",
+      "satir": 35,
+      "iddia": "10 yıl",
+      "metin": "SMMM Staja Giriş (SGS) Soruları — son 10 yılın en çok çıkan 20 konusu"
+    },
+    {
+      "sayfa": "smmm-staja-giris-sorulari.html",
+      "satir": 49,
+      "iddia": "20 Gün",
+      "metin": "✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar"
+    },
+    {
+      "sayfa": "smmm-staja-giris-sorulari.html",
+      "satir": 54,
+      "iddia": "2.388 TL",
+      "metin": "Tam Paket 2.388 TL 2.988 TL yerine 1.990 TL + KDV"
+    },
+    {
+      "sayfa": "smmm-yeterlilik-sorulari.html",
+      "satir": 10,
+      "iddia": "10 Yıl",
+      "metin": "SMMM Yeterlilik Soruları — 8 Ders, Son 10 Yılın En Çok Çıkan Konuları | Tetikte"
+    },
+    {
+      "sayfa": "smmm-yeterlilik-sorulari.html",
+      "satir": 34,
+      "iddia": "10 yıl",
+      "metin": "SMMM Yeterlilik Soruları — 8 ders, son 10 yılın en çok çıkan konuları"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 7,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün · 7 Deneme | Tetikte"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 14,
+      "iddia": "20 Gün",
+      "metin": "<!-- 28.10.2026 Cem: \"Son 20 Gün deneme sayfası planını onaylıyorum: s20 deneme kaydı + kasa erişimi (7 Deneme, Tam Paket, kurucu) +"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 19,
+      "iddia": "%60",
+      "metin": "Deneme doğru oranı (Cem 28.10: ad 'doğru oranı', söz ölçütü ham %60) = denemenin bütün ders testleri bitince toplam doğru / toplam soru × 100 (Cem 24.10). Söz: 7 deneme bitir + en "
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 122,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün · 7 deneme"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 141,
+      "iddia": "%60",
+      "metin": "0/5 %60 ve üstü"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 196,
+      "iddia": "20 gün",
+      "metin": "+(YET?'Sınava 20 gün kala. ':'')+'Paketini şimdi al; denemeler o gün bu sayfada hesabında açılır. ';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 215,
+      "iddia": "3 gün",
+      "metin": "/* 31.10 tempo takvimi: 1–20 Kasım'a 7 deneme, 3 günde 1 (21 Kasım sınav günü). Gün İstanbul saatiyle. Üyede deneme başına biten ders. */"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 220,
+      "iddia": "3 gün",
+      "metin": "(3 günlük denemede ≈43 soru/gün; Deneme 7 iki gün). Üyede biten ders ✓. */"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 246,
+      "iddia": "3 gün",
+      "metin": "if(gun<1) ust='Önerilen tempo: 3 günde 1 deneme. 1 Kasım\\'da Deneme 1 ile başla; 20 Kasım\\'da 7\\'si biter, 21 Kasım sınav günü.';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 320,
+      "iddia": "%5",
+      "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 423,
+      "iddia": "20 Gün",
+      "metin": "document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 424,
+      "iddia": "20 Gün",
+      "metin": "$('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true; $('takvim').hidden=true;"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 427,
+      "iddia": "%60",
+      "metin": "$('soz').querySelector('.soz-s').innerHTML=' 0/8 şartı tamam ders 5 deneme her derste 3/5 %60 ve üstü gerekir ';"
+    },
+    {
       "sayfa": "songun.html",
       "satir": 8,
       "iddia": "5 Saat",
@@ -2415,15 +3095,87 @@
     },
     {
       "sayfa": "sorular.html",
-      "satir": 359,
+      "satir": 168,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Son 20 Gün dönemi: büyük kart tek (Son 20 Gün); devam ve sık konu ince satır */"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 232,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek, sitede başka şeye ulaşamayacak\"): yalnız Son 20 Gün paketi olan üye ({tur:'sgs'|'yet'})"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 243,
+      "iddia": "20 Gün",
+      "metin": "+' '+(k?esc(k.dugme):(yet?'Hesabıma git →':'Son 20 Gün sayfam →'))+' '"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 246,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Cem (\"Soru çöz sayfası sadeleşsin, Son 20 Gün kartı eklensin\"): 1–21 Kasım SGS paketi olan HERKES (Tam Paket dahil), 8–28 Kasım"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 247,
+      "iddia": "20 Gün",
+      "metin": "Yeterlilik paketi olan herkes en üstte Son 20 Gün kartını görür; açılıştan önce \"açılıyor\" der. Veri son20-kart.js (s20_liste)."
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 249,
+      "iddia": "20 Gün",
+      "metin": "açılıştan önce tersi: Son 20 Gün ince bilgi satırı, günlük çalışma büyük kart (Hesabım'la aynı kural). */"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 265,
+      "iddia": "20 Gün",
+      "metin": "/* Deneme bölümünün başı: Son 20 Gün'ün 7 denemesi (SGS'de durumlu çip; Yeterlilik'te tek bağlantı) */"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 271,
+      "iddia": "20 Gün",
+      "metin": "return ' Son 20 Gün · söze sayılır '+(k.tur==='yet'?'Yeterlilik denemeleri':'7 deneme')+' '"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 331,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10: Son 20 Gün kartı varken ikinci büyük turuncu kart olmaz; aynı hedef ince satır */"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 421,
       "iddia": "10 yıl",
       "metin": "+' Sınavda en çok çıkan konulardan sorular Son 10 yılın çıkmış sorularını tek tek okuduk; '+(sikSinav==='sgs'?'en sık 20 konudan':'her dersin en sık 5 konusundan')+' ders ders 20 s"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 372,
+      "satir": 424,
+      "iddia": "20 Gün",
+      "metin": "kart yalnız devam (ya da Son 20 Gün) olur. Ziyaretçide büyük kalır (paketin içini gösteren kanca). */"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 438,
       "iddia": "2 gün",
       "metin": "?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 499,
+      "iddia": "20 Gün",
+      "metin": "+(S20D.sgs?' Alıştırma denemesi, Son 20 Gün sözüne sayılmaz. ':'')+son"
+    },
+    {
+      "sayfa": "sorular.html",
+      "satir": 523,
+      "iddia": "20 Gün",
+      "metin": "+(S20D.yet?' Alıştırma denemesi, Son 20 Gün sözüne sayılmaz. ':'')+son2"
     },
     {
       "sayfa": "teslimat-iade.html",
@@ -2433,25 +3185,25 @@
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 77,
+      "satir": 79,
       "iddia": "en az 3",
       "metin": "Sınav Paketi, girilecek sınavın tarihine kadar (her durumda en az 3 ay) erişim veren, tek seferlik ödemeli bir pakettir; süre sonunda kendiliğinden yenilenmez , yeniden ücret alınm"
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 79,
+      "satir": 81,
       "iddia": "1 ay",
       "metin": "Radar aboneliği aylık ya da yıllık dönemle satılır. Dönem, ödemenin hesabımızda görüldüğü gün başlar: aylık planda 1 ay, yıllık planda 12 ay."
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 80,
+      "satir": 82,
       "iddia": "en az 7",
       "metin": "Abonelik kendiliğinden tahsilatla yenilenmez . Dönem bitmeden önce (aylıkta en az 7 gün, yıllıkta en az 30 gün önce)"
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 83,
+      "satir": 85,
       "iddia": "14 gün",
       "metin": "yıllık planda kalan süreye karşılık gelen kısım 14 gün içinde ödemenin yapıldığı yönteme iade edilir."
     },
@@ -2552,6 +3304,60 @@
       "metin": "return {r:20,t:'%20'};"
     },
     {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 159,
+      "iddia": "20 Gün",
+      "metin": "/* 28.10 Cem (\"Yeterlilik'e Son 20 Gün geliyor; üye olmak isteyenlere erken üyelik verelim, kaçırmayalım\"): ?onkayit=yet-s20 →"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 160,
+      "iddia": "20 gün",
+      "metin": "içeriği açık Yeterlilik'te de ön kayıt formu (8 Kasım 2026 = 28 Kasım − 20 gün). Kayıt aynı uçtan, konusu ayrı. */"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 164,
+      "iddia": "20 Gün",
+      "metin": "document.title='Ön kayıt · SMMM Yeterlilik Son 20 Gün | Tetikte';"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 165,
+      "iddia": "20 Gün",
+      "metin": "$('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · SMMM Yeterlilik · Son 20 Gün';"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 166,
+      "iddia": "20 Gün",
+      "metin": "$('ucBas').querySelector('h1').textContent='Son 20 Gün 8 Kasım\\'da açılıyor.';"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 167,
+      "iddia": "20 gün",
+      "metin": "$('ucBas').querySelector('p:not(.uc-goz)').textContent='28 Kasım Yeterlilik sınavına son 20 gün: sınava özel yeni sorular, son 10 yılın en sık çıkan konularından. Fiyat ve paket 8 "
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 172,
+      "iddia": "20 Gün",
+      "metin": "$('okMetin').textContent='E-postanı bırak; Son 20 Gün açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 174,
+      "iddia": "20 Gün",
+      "metin": "$('okTamam').textContent='✓ Ön kaydın alındı. Son 20 Gün açıldığı gün e-postana yazacağız.';"
+    },
+    {
+      "sayfa": "ucretsiz-dene.html",
+      "satir": 195,
+      "iddia": "20 Gün",
+      "metin": "body:JSON.stringify({email:ep,subject:'Ön kayıt: '+k+(s20?' Son 20 Gün':''),from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})"
+    },
+    {
       "sayfa": "uyelik-sozlesmesi.html",
       "satir": 94,
       "iddia": "30 gün",
@@ -2571,67 +3377,169 @@
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 73,
+      "satir": 85,
+      "iddia": "30 gün",
+      "metin": "/* 30.10 kullanım + üye kartı: 30 günlük çubuk + kart bölümleri */"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 128,
       "iddia": "7 gün",
       "metin": "0 son 7 günde yeni üye"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 84,
+      "satir": 146,
+      "iddia": "24 saat",
+      "metin": "– son 24 saatte çözen üye"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 147,
+      "iddia": "7 gün",
+      "metin": "– son 7 günde çözen üye"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 148,
+      "iddia": "7 gün",
+      "metin": "– son 7 günde çözülen soru"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 149,
+      "iddia": "7 gün",
+      "metin": "– paketi açık ama 7 gündür çözmeyen"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 153,
+      "iddia": "30 gün",
+      "metin": "Son 30 gün: günlük çözülen soru"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 160,
+      "iddia": "7 gün",
+      "metin": "En çok çözen üyeler (son 7 gün)"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 170,
+      "iddia": "7 gün",
+      "metin": "Son 7 gün Son 30 gün Son 90 gün"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 180,
       "iddia": "60 gün",
       "metin": "Gruplara atılan linkler: tetikte.com/seviye-testi.html?k=grup-whatsapp gibi. Etiket küçük harf, rakam, - ve _ (en çok 32). Ziyaret: oturumda etiket başına 1 · Test: seviye testine "
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 312,
+      "satir": 230,
+      "iddia": "7 gün",
+      "metin": "Tüm hesaplar Paketi açık Paketi açık, 7 gündür çözmüyor Son 7 günde çözen Girişi engelli"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 270,
+      "iddia": "3 gün",
+      "metin": "Bunlar satış DEĞİLDİR: sipariş formu doldurulmuş, para gelmemiş. Ödenmeyen havale 3 gün sonra kendiliğinden iptal olur. Para sonradan hesaba geçerse buradan \"Ödendi, paketi aç\"."
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 560,
+      "iddia": "30 gün",
+      "metin": "$('kNot2').innerHTML='Paketi açık '+(o.paketli||0)+' üyeden '+(o.paketli_hic||0)+' kişi hiç soru çözmedi. Son 30 günde çözen üye: '+(o.kisi30||0)+'.'"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 561,
+      "iddia": "7 gün",
+      "metin": "+' Üye olmadan / paketsiz çözülen (örnek sorular, ücretsiz sayfalar) son 7 gün: '+(o.anonim7||0).toLocaleString('tr-TR')+' cevap, '+(o.anonim_oturum7||0)+' ayrı oturum — bunlar kiş"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 566,
+      "iddia": "7 gün",
+      "metin": "$('tDers').innerHTML=' Ders Son 7 gün soru Son 7 gün kişi Toplam soru Toplam kişi Doğru '"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 570,
+      "iddia": "7 gün",
+      "metin": "$('tCozen').innerHTML=' Ad E-posta Son 7 gün Toplam Doğru En çok çözdüğü ders Son çözüm '"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 588,
+      "iddia": "7 gün",
+      "metin": "+' '+(c.cevap7||0)+' son 7 günde '"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 596,
+      "iddia": "30 gün",
+      "metin": "x+=' Son 30 gün '; }"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 606,
+      "iddia": "20 Gün",
+      "metin": "if(S2.length) x+=' Son 20 Gün denemeleri Deneme Ders Doğru Yanlış Boş Tarih '"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 669,
       "iddia": "90 gün",
       "metin": "KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üret"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 409,
+      "satir": 772,
       "iddia": "90 gün",
       "metin": "tutar tavanı (5.000) ve süre (1-90 gün) sunucuda da sınanır */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 412,
+      "satir": 775,
       "iddia": "90 gün",
       "metin": "if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 473,
+      "satir": 883,
       "iddia": "%99",
       "metin": "else if(tur==='oran' && deger>99) hata='Oran en çok %99 olabilir (ücretsiz vermek için \"Ücretsiz paket ver\" kutusunu kullan).';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 478,
+      "satir": 888,
       "iddia": "5.000 TL",
       "metin": "if(!hata && !(ind>=1 && ind<p.fiyat && ind<=5000)) hata=p.ad+': indirim ('+tl(ind)+') fiyattan ('+tl(p.fiyat)+') küçük ve en çok 5.000 TL olmalı.';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 537,
+      "satir": 948,
       "iddia": "24 saat",
       "metin": "/* 10.10 (Cem \"1.2.3\"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 538,
+      "satir": 950,
       "iddia": "30 gün",
       "metin": "$('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 539,
+      "satir": 951,
       "iddia": "24 saat",
       "metin": "+(d.ekip_gec?' · 24 saati geçen: '+d.ekip_gec+' ':'')"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 555,
+      "satir": 967,
       "iddia": "24 saat",
       "metin": "+(gec?' · ⏰ '+saat+' saattir bekliyor (söz: 24 saat) ':'')"
     }
@@ -3115,7 +4023,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.11 [7/7]",
-      "kesit": "... usûl ve esaslar Bakanlıkça çıkarılacak yönetmelikle belirlenir. Denetim, bilgi verme ve bildirim yükümlülüğü:16..."
+      "kesit": "... usûl ve esaslar Bakanlıkça çıkarılacak yönetmelikle belirlenir...."
     },
     {
       "dosya": "cevre",
@@ -3134,8 +4042,13 @@
     },
     {
       "dosya": "cevre",
+      "kaynak_ad": "Çevre K. (2872 s.K.) m.18 [2/2]",
+      "kesit": "...Cumhurbaşkanı (a) ve (b) bentlerinde yer alan oranları ayrı ayrı veya topluca sıfıra kadar indirmeye veya kanunî oranına kadar yükseltmeye yetkilidir.26 Atıksu arıtımı, atık bertarafı ve katı atık ger..."
+    },
+    {
+      "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.19 - Bakanlıkça çıkarılacak yönetmelikle belirlenir.27 Fonun kullanılması",
-      "kesit": "...Bakanlıkça çıkarılacak yönetmelikle belirlenir.27 Fonun kullanılması: Madde 19 – (Mülga: 21/2/2001 - 4629/6 md.) BEŞİNCİ BÖLÜM Cezai hükümler İdari nitelikteki cezalar:28..."
+      "kesit": "...n görüşü üzerine Bakanlıkça çıkarılacak yönetmelikle belirlenir.27 Fonun kullanılması: Madde 19 – (Mülga: 21/2/2001 - 4629/6 md.) BEŞİNCİ BÖLÜM Cezai hükümler..."
     },
     {
       "dosya": "cevre",
@@ -3160,7 +4073,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.20 [16/16]",
-      "kesit": "... maddede öngörülen ceza miktarlarını on katına kadar artırmaya Cumhurbaşkanı yetkilidir.39 29/11/2018 tarihli ve 30621 sayılı Resmi Gazete’de yayımlanan 7153 sayılı Kanunun 5 inci maddesiyle bu fıkray..."
+      "kesit": "... maddede öngörülen ceza miktarlarını on katına kadar artırmaya Cumhurbaşkanı yetkilidir.39 Bu maddenin uygulamasında Türk Ceza Kanunu ile diğer kanunların, fiilin suç oluşturması haline ilişkin hüküml..."
     },
     {
       "dosya": "cevre",
@@ -3170,7 +4083,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) m.25",
-      "kesit": "... görüşü alınarak Bakanlıkça çıkarılacak yönetmelikle belirlenir. Adlî nitelikteki cezalar:42..."
+      "kesit": "... görüşü alınarak Bakanlıkça çıkarılacak yönetmelikle belirlenir...."
     },
     {
       "dosya": "cevre",
@@ -3214,13 +4127,8 @@
     },
     {
       "dosya": "cevre",
-      "kaynak_ad": "Çevre K. (2872 s.K.) ek m.11 - Geri kazanım katılım payı [1/3]",
+      "kaynak_ad": "Çevre K. (2872 s.K.) ek m.11 - Geri kazanım katılım payı [1/2]",
       "kesit": "...ükümleri uyarınca tespit ve ilan edilen yeniden değerleme oranında artırılarak uygulanır. Bu şekilde hesaplanan tutarların %5’ini aşmayan kesirler dikkate alınmaz. Cumhurbaşkanı, bu listede yer alan v..."
-    },
-    {
-      "dosya": "cevre",
-      "kaynak_ad": "Çevre K. (2872 s.K.) ek m.11 - Geri kazanım katılım payı [2/3]",
-      "kesit": "...nmak suretiyle belirlenen tutarları iki katına kadar artırmaya veya yarısına kadar” şeklinde değiştirilmiştir...."
     },
     {
       "dosya": "cevre",
@@ -3230,7 +4138,7 @@
     {
       "dosya": "cevre",
       "kaynak_ad": "Çevre K. (2872 s.K.) ek m.13 - Poşet ücreti",
-      "kesit": "...ak komisyon aracılığı ile belirlenir ve her yıl için güncellenir. Bu maddedeki düzenlemelere ilişkin usul ve esaslar..."
+      "kesit": "...ak komisyon aracılığı ile belirlenir ve her yıl için güncellenir...."
     },
     {
       "dosya": "cmk",
@@ -6255,12 +7163,12 @@
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.851",
-      "kesit": "...abancı paralar üzerinden kurulabileceği Cumhurbaşkanınca belirlenir.41..."
+      "kesit": "...abancı paralar üzerinden kurulabileceği Cumhurbaşkanınca belirlenir...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.913",
-      "kesit": "...borç senedi ve irat senedinin şekilleri Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.42..."
+      "kesit": "...borç senedi ve irat senedinin şekilleri Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "medeni",
@@ -6270,32 +7178,32 @@
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.997",
-      "kesit": "..., nasıl tutulacağı ve yardımcı siciller Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.44 2. Taşınmazların kaydedilmesi a. Kaydedilecek taşınmazlar..."
+      "kesit": "..., nasıl tutulacağı ve yardımcı siciller Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.998",
-      "kesit": "...dedilmesi için gerekli koşullar ve usul Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir. Süreklilik koşulunun gerçekleşmesi için hakkın süresiz veya en az otuz yıl süreli olması gerekir.45 Kat mülk..."
+      "kesit": "...dedilmesi için gerekli koşullar ve usul Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir. Süreklilik [45] koşulunun gerçekleşmesi için hakkın süresiz veya en az otuz yıl süreli olması gerekir. Kat m..."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1000",
-      "kesit": "...n birleştirilmesi hâlinde uyulacak usul Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.46 Kütüğün her sayfasındaki özel sütunlara şunlar tescil edilir: 1. Mülkiyet, 2. Taşınmaz üzerinde kurulmuş o..."
+      "kesit": "...n birleştirilmesi hâlinde uyulacak usul Cumhurbaşkanınca çıkarılan yönetmelikle [46] belirlenir. Kütüğün her sayfasındaki özel sütunlara şunlar tescil edilir: 1. Mülkiyet, 2. Taşınmaz üzerinde kurulmu..."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1003",
-      "kesit": "...s alınır. Plânların nasıl hazırlanacağı Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.47..."
+      "kesit": "...nır. [47] Plânların nasıl hazırlanacağı Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1012",
-      "kesit": "... bu sütuna yazılabilecek diğer hususlar Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.48 Özel kanun hükümleri saklıdır...."
+      "kesit": "...ütuna yazılabilecek diğer hususlar [48] Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir. Özel kanun hükümleri saklıdır...."
     },
     {
       "dosya": "medeni",
       "kaynak_ad": "TMK (4721 s.K.) m.1017",
-      "kesit": "...e terkin ile verilecek örneklerin şekli Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir.49..."
+      "kesit": "...e terkin ile verilecek örneklerin şekli Cumhurbaşkanınca çıkarılan yönetmelikle belirlenir...."
     },
     {
       "dosya": "meslekiegitim",

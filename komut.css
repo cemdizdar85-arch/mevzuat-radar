@@ -24,6 +24,10 @@ html.kp-kilit{overflow:hidden}
   border-radius:0}
 .kp-girdi::placeholder{color:var(--dim)}
 .kp-esc{flex:none}
+/* 31.10: telefonda da kapatılabilsin diye her ekranda ✕ (44 px dokunma alanı) */
+.kp-x{flex:none;width:44px;height:44px;margin-right:-8px;border:0;border-radius:10px;background:none;color:var(--muted);
+  font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.kp-x:hover,.kp-x:focus-visible{background:var(--line);color:var(--ink)}
 
 /* --- sonuc listesi --- */
 .kp-liste{list-style:none;margin:0;padding:6px;overflow-y:auto;flex:1;

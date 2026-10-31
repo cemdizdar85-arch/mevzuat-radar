@@ -1,4 +1,6 @@
 {
  "yeni_sira": true,
- "not": "12.10.2026 bitirme ders sayfası soru sırası anahtarı. false = arac/smmm-kasa-yayin.ps1 eski (etiket, id) sırasıyla basar. true = motor/smmm-ders-sira.js sırası (ilk 10 en sık konulardan, farklı konu, çok zor yok). Açmak Cem kararı; açmadan önce uygulama/site kaldığın yer korunmalı (arac/smmm-konum-gocu.js, smmm-kasa-yayin.yml)."
+ "sinava_benzer_once": true,
+ "kalip_uyumu": true,
+ "not": "12.10.2026 bitirme ders sayfası soru sırası anahtarı. false = arac/smmm-kasa-yayin.ps1 eski (etiket, id) sırasıyla basar. true = motor/smmm-ders-sira.js sırası (ilk 10 en sık konulardan, farklı konu, çok zor yok). Açmak Cem kararı; açmadan önce uygulama/site kaldığın yer korunmalı (arac/smmm-konum-gocu.js, smmm-kasa-yayin.yml). 30.10.2026 sinava_benzer_once (Cem 'ilk önce bunu yapalım, düzgün sorularımızı görsünler'): true = sınava biçimce benzeyen sorular (motor/sinav-benzerlik-olcu.js) her ders sayfasında önce; false = 30.10 öncesi sıra (eşdeğerlik 3.859/3.859 ölçüldü). 30.10.2026 kalip_uyumu (Cem \"1.2.3 üçünü de yap\"): true = motor/smmm-ders-sira.js 5. kural — gerçek sınavda payı 0 olan soru cümlesi kalıbı benzer kümesine girmez, ilk 40 gerçek kalıp oranına yakın (veri/sinav/smmm-soru-kalibi.json), Hukuk hesap ve Denetim şirket adlı vaka sona; false = 4. kural sırası."
 }

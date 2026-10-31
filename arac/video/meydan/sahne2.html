@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Meydan okuma sahnesi v3</title>
+<!-- 21.10.2026 v3 (Cem "video yanlış, bakmadın mı"): v2'de açılış/kapanış yarı saydamdı (pencere arkadan silik görünüyordu),
+     yazı küçüktü ve ekranın alt yarısı boştu, 11–21 sn arası görüntü donuktu, tarama çizgisi metni üstü çizili gösteriyordu.
+     v3: perdeler tam opak · pencere organik Reels güvenli alanının tamamını kullanır, yazı büyük · doğru cevap kutusu ses "Doğru cevap"
+     dediğinde gelir · ses kanunu söylerken VUK m.283 ve m.287'nin kendi cümlesi sarı vurguyla gelir · tarama yumuşak ışık bandı.
+     GÜVENLİ ALAN (organik Reels, ses-kimligi-secimi kaplaması 1080×1920: üst 220 · alt 420 · sağ 150×500 y1000) → 360×640'ta
+     x 22–310, y 74–496 (sağ şerit y 333–500'de ikonlar; alan genişliği tümden 288'e çekildi). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+  :root{ --zemin:#0b1626; --zemin2:#12223a; --kart:#16273f; --cizgi:#2a3b57; --ink:#f4f6fa; --soluk:#9fb0c8;
+         --amber:#f5a524; --amber2:#ffc24b; --kirmizi:#f87171; --yesil:#4ade80; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ width:360px; height:640px; overflow:hidden; color:var(--ink); font-family:Inter,"Segoe UI",system-ui,sans-serif; }
+  body, .perde{ background:
+      radial-gradient(circle at 80% 8%, color-mix(in srgb,var(--amber) 16%,transparent), transparent 42%),
+      radial-gradient(circle at 10% 90%, color-mix(in srgb,#3b82f6 14%,transparent), transparent 45%),
+      repeating-linear-gradient(0deg, color-mix(in srgb,var(--soluk) 6%,transparent) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(90deg, color-mix(in srgb,var(--soluk) 6%,transparent) 0 1px, transparent 1px 24px),
+      var(--zemin); }
+  #alan{ position:absolute; left:22px; top:76px; width:288px; height:418px; }
+  #pencere{ position:absolute; inset:0; border-radius:14px; background:var(--kart);
+    border:1px solid color-mix(in srgb,var(--amber) 35%,var(--cizgi));
+    box-shadow:0 18px 40px color-mix(in srgb,#000 55%,transparent), 0 0 30px color-mix(in srgb,var(--amber) 12%,transparent);
+    overflow:hidden; display:flex; flex-direction:column; }
+  #cubuk{ flex:none; height:34px; display:flex; align-items:center; gap:6px; padding:0 10px; border-bottom:1px solid var(--cizgi); background:var(--zemin2); }
+  #logo{ width:9px; height:9px; border-radius:50%; background:var(--amber); box-shadow:0 0 8px var(--amber); }
+  #marka{ font-weight:800; font-size:13px; letter-spacing:-.3px; }
+  #ders{ font-size:9.5px; font-weight:600; color:var(--soluk); margin-left:3px; white-space:nowrap; }
+  #sure{ margin-left:auto; width:24px; height:24px; border-radius:50%; border:2px solid var(--amber); color:var(--amber);
+    font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  #ilerle{ position:absolute; left:0; top:34px; height:2px; background:var(--amber); }
+  #icerik{ position:relative; flex:1; padding:10px 11px 10px; display:flex; flex-direction:column; min-height:0; }
+  #soru{ font-size:12.2px; line-height:1.45; font-weight:500; overflow:hidden; position:relative; }
+  #tarama{ position:absolute; left:-11px; right:-11px; height:26px; pointer-events:none;
+    background:linear-gradient(180deg, transparent, color-mix(in srgb,var(--amber) 14%,transparent) 50%, transparent); }
+  #kutular{ display:flex; flex-direction:column; gap:6px; }
+  .kutu{ border-radius:9px; padding:7px 10px; overflow:hidden; }
+  #hata{ align-self:flex-start; font-size:10px; font-weight:800; letter-spacing:1.3px; text-transform:uppercase; color:#fff;
+    background:var(--kirmizi); border-radius:6px; padding:3px 8px; }
+  #tuzak{ background:color-mix(in srgb,var(--kirmizi) 14%,transparent); border:1px solid var(--kirmizi); }
+  #tuzak b{ display:block; color:var(--kirmizi); font-size:14px; font-weight:800; margin-bottom:3px; }
+  #tuzak span{ font-size:12px; line-height:1.38; color:#ffe1e1; }
+  #dogrusu{ background:color-mix(in srgb,var(--yesil) 12%,transparent); border:1px solid var(--yesil); }
+  #dogrusu i, .kaynak i{ display:block; font-style:normal; font-size:9px; font-weight:800; letter-spacing:1.3px; text-transform:uppercase; opacity:.9; }
+  #dogrusu i{ color:var(--yesil); }
+  #dogrusu b{ display:block; color:var(--yesil); font-size:14px; font-weight:800; margin:2px 0 3px; }
+  #dogrusu span{ font-size:12px; line-height:1.38; color:#dcffe9; }
+  .kaynak{ background:color-mix(in srgb,var(--amber) 9%,transparent); border:1px solid color-mix(in srgb,var(--amber) 55%,transparent); }
+  .kaynak i{ color:var(--amber2); margin-bottom:3px; }
+  .kaynak p{ font-size:11.4px; line-height:1.42; color:var(--ink); }
+  .kaynak mark{ background:color-mix(in srgb,var(--amber) 38%,transparent); color:#fff; border-radius:3px; padding:0 2px; }
+  #siklar{ margin-top:auto; display:flex; flex-direction:column; gap:5px; padding-top:8px; }
+  .sik{ border:1px solid var(--cizgi); background:var(--zemin); border-radius:8px; padding:6px 10px; font-size:12.4px; font-weight:700; }
+  .sik.yanlis{ background:color-mix(in srgb,var(--kirmizi) 22%,var(--zemin)); border-color:var(--kirmizi); color:#ffd6d6; }
+  .sik.dogru{ background:color-mix(in srgb,var(--yesil) 18%,var(--zemin)); border-color:var(--yesil); color:#d4ffe4; }
+  .perde{ position:absolute; inset:0; z-index:5; }
+  .perde .ic{ position:absolute; left:22px; top:76px; width:288px; height:418px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; gap:16px; }
+  #acilis p{ font-size:33px; line-height:1.12; font-weight:900; letter-spacing:-1.2px; }
+  #acilis p em{ font-style:normal; color:var(--kirmizi); }
+  #kapanis p{ font-size:26px; font-weight:800; line-height:1.2; letter-spacing:-.6px; }
+  #kapanis .adres{ font-size:23px; color:var(--amber2); letter-spacing:0; }
+  #lamba{ width:22px; height:22px; border-radius:50%; background:var(--amber); }
+  .etiketP{ font-size:10px; font-weight:600; color:color-mix(in srgb,var(--ink) 70%,transparent); position:absolute; top:0; left:0; }
+</style>
+</head>
+<body>
+<div id="alan">
+  <div id="pencere">
+    <div id="cubuk"><span id="logo"></span><span id="marka"></span><span id="ders"></span><span id="sure">7</span></div>
+    <div id="ilerle"></div>
+    <div id="icerik">
+      <div id="soru"><span id="soruMetin"></span><div id="tarama"></div></div>
+      <div id="kutular">
+        <div id="hata"></div>
+        <div class="kutu" id="tuzak"><b></b><span></span></div>
+        <div class="kutu" id="dogrusu"><i></i><b></b><span></span></div>
+        <div class="kutu kaynak" id="k1"><i></i><p></p></div>
+        <div class="kutu kaynak" id="k2"><i></i><p></p></div>
+      </div>
+      <div id="siklar"></div>
+    </div>
+  </div>
+</div>
+<div class="perde" id="acilis"><div class="ic"><span class="etiketP"></span><p></p></div></div>
+<div class="perde" id="kapanis"><div class="ic"><span class="etiketP"></span><div id="lamba"></div><p id="kapanisCumle"></p><p class="adres" id="adres"></p></div></div>
+<script>
+/* Zaman (sn), seslendirmeyle eş: v1 0,2–5,9 · v2 9,1–13,7 · v3 13,9–21,0 ("iki yüz seksen üçüncü" ≈15,9 · "iki yüz seksen yedinci" ≈18,3) */
+var Z = { acilisSon:2.0, sayacBas:2.0, sayacSon:9.0, yanlis:9.0, dogru:10.0, kutuBas:10.0, dogruKutu:13.9, kaynak1:15.7, kaynak2:18.2, kapanisBas:21.2, son:23.0 };
+var $ = function(id){ return document.getElementById(id); };
+var V = null, SORU_H = 0, KH = {};
+function e(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function vurgu(t){ return e(t).replace(/\[([^\]]+)\]/g, '<mark>$1</mark>'); }
+function kur(v){
+  V = v; if (v.Z) for (var z in v.Z) Z[z] = v.Z[z];
+  Array.prototype.forEach.call(document.querySelectorAll('.etiketP'), function(x){ x.textContent = v.etiket; });
+  $('acilis').querySelector('p').innerHTML = e(v.acilis).replace(/(\d+['’]?\S* yanlış yaptı)/, '<em>$1</em>');
+  $('marka').textContent = v.arayuz[0]; $('ders').textContent = v.arayuz[1]; $('hata').textContent = v.arayuz[2];
+  $('dogrusu').querySelector('i').textContent = v.arayuz[3];
+  $('k1').querySelector('i').textContent = v.arayuz[4]; $('k1').querySelector('p').innerHTML = vurgu(v.arayuz[5]);
+  $('k2').querySelector('i').textContent = v.arayuz[6]; $('k2').querySelector('p').innerHTML = vurgu(v.arayuz[7]);
+  $('soruMetin').textContent = v.soru;
+  $('siklar').innerHTML = '';
+  v.siklar.forEach(function(s){ var d = document.createElement('div'); d.className = 'sik'; d.dataset.h = s.h; d.textContent = s.h + ') ' + s.m; $('siklar').appendChild(d); });
+  $('tuzak').querySelector('b').textContent = v.tuzakAd; $('tuzak').querySelector('span').textContent = v.tuzakNeden;
+  $('dogrusu').querySelector('b').textContent = v.dogrusu; $('dogrusu').querySelector('span').textContent = v.kural;
+  $('kapanisCumle').textContent = v.kapanis; $('adres').textContent = v.adres;
+  SORU_H = $('soru').scrollHeight;
+  ['tuzak','dogrusu','k1','k2'].forEach(function(id){ KH[id] = $(id).scrollHeight; });
+  return true;
+}
+function arada(t, a, b){ return Math.max(0, Math.min(1, (t - a) / (b - a))); }
+function yum(x){ return x * x * (3 - 2 * x); }
+/* kutu yüksekliği açılıp kapanarak gelir; görünmezken yer kaplamaz */
+function kutu(id, gir, cik, t){
+  var g = yum(arada(t, gir, gir + 0.35)) * (cik ? 1 - yum(arada(t, cik, cik + 0.3)) : 1), el = $(id);
+  el.style.display = g > 0.001 ? 'block' : 'none'; el.style.opacity = g;
+  el.style.height = (KH[id] * g).toFixed(1) + 'px'; el.style.paddingTop = el.style.paddingBottom = (7 * g).toFixed(2) + 'px';
+  el.style.borderWidth = g > 0.001 ? '1px' : '0';
+}
+function kare(t){
+  $('acilis').style.display = t < Z.acilisSon ? 'block' : 'none';   /* tam opak, kesme geçiş */
+  var pg = yum(arada(t, Z.acilisSon, Z.acilisSon + 0.3));
+  $('pencere').style.transform = 'scale(' + (0.95 + 0.05 * pg).toFixed(4) + ')'; $('pencere').style.opacity = (0.3 + 0.7 * pg).toFixed(3);
+  var kalan = Math.max(0, Z.sayacSon - Math.max(t, Z.sayacBas)), kirmizi = kalan <= 3 && t < Z.sayacSon;
+  $('sure').textContent = t < Z.sayacSon ? String(Math.ceil(kalan - 1e-9)) : '0';
+  $('sure').style.opacity = t >= Z.sayacSon ? 0.4 : 1;
+  $('sure').style.borderColor = $('sure').style.color = kirmizi ? 'var(--kirmizi)' : 'var(--amber)';
+  $('ilerle').style.width = (100 * (1 - kalan / (Z.sayacSon - Z.sayacBas))).toFixed(2) + '%';
+  var tg = arada(t, Z.sayacBas + 0.2, Z.sayacBas + 2.6);
+  $('tarama').style.display = (tg > 0 && tg < 1) ? 'block' : 'none';
+  $('tarama').style.top = (-13 + tg * (SORU_H)).toFixed(1) + 'px';
+  Array.prototype.forEach.call(document.querySelectorAll('.sik'), function(el){
+    el.classList.toggle('yanlis', t >= Z.yanlis && el.dataset.h === V.fisiltiHarf);
+    el.classList.toggle('dogru', t >= Z.dogruKutu && el.dataset.h === V.dogruHarf);
+    el.style.display = (t >= Z.kutuBas && el.dataset.h !== V.fisiltiHarf && el.dataset.h !== V.dogruHarf) ? 'none' : '';
+  });
+  var yEl = document.querySelector('.sik[data-h="' + V.fisiltiHarf + '"]');
+  var tit = t >= Z.yanlis && t < Z.yanlis + 0.35 ? Math.abs(Math.sin((t - Z.yanlis) * 60)) * 2 * (1 - (t - Z.yanlis) / 0.35) : 0;
+  if (yEl) yEl.style.transform = 'translateY(' + tit.toFixed(2) + 'px)';
+  var kapan = yum(arada(t, Z.kutuBas, Z.kutuBas + 0.3));
+  $('soru').style.display = kapan >= 1 ? 'none' : 'block';
+  $('soru').style.opacity = 1 - kapan; $('soru').style.height = (SORU_H * (1 - kapan)).toFixed(1) + 'px';
+  $('kutular').style.display = t >= Z.kutuBas + 0.3 ? 'flex' : 'none';
+  var hg = yum(arada(t, Z.kutuBas + 0.3, Z.kutuBas + 0.5)); $('hata').style.opacity = hg;
+  var gl = t >= Z.kutuBas + 0.3 && t < Z.kutuBas + 0.7 ? (Math.sin((t - Z.kutuBas) * 90) > 0 ? 1 : -1) * (1 - (t - Z.kutuBas - 0.3) / 0.4) : 0;
+  $('hata').style.transform = 'translateX(' + (gl * 2).toFixed(2) + 'px)';
+  $('hata').style.textShadow = gl ? (gl * 1.5).toFixed(1) + 'px 0 #22d3ee, ' + (-gl * 1.5).toFixed(1) + 'px 0 #facc15' : 'none';
+  kutu('tuzak', Z.kutuBas + 0.4, Z.kaynak1 - 0.3, t);
+  kutu('dogrusu', Z.dogruKutu, 0, t);
+  kutu('k1', Z.kaynak1, Z.kaynak2 - 0.3, t);   /* m.287 gelince m.283 kapanır (ikisi birden sığmıyor, ölçüldü 434>382) */
+  kutu('k2', Z.kaynak2, 0, t);
+  $('kapanis').style.display = t >= Z.kapanisBas ? 'block' : 'none';   /* tam opak */
+  var nabiz = 0.5 + 0.5 * Math.cos((t - Z.kapanisBas) * Math.PI / 1.1);
+  $('lamba').style.boxShadow = '0 0 0 ' + (6 + 4 * nabiz).toFixed(1) + 'px color-mix(in srgb,var(--amber) 18%,transparent), 0 0 ' + (20 + 14 * nabiz).toFixed(0) + 'px color-mix(in srgb,var(--amber) 65%,transparent)';
+}
+/* Güvenli alan (organik Reels): görünür yazılar x 22–310, y 74–496; içerik kutusu taşmamalı */
+function alanDisi(){
+  var hata = [];
+  var secici = '#cubuk,#soru,#kutular .kutu,#hata,.sik,#acilis p,#kapanis p,.etiketP,#lamba';
+  Array.prototype.forEach.call(document.querySelectorAll(secici), function(el){
+    var ata = el.closest('.perde'); if (ata && ata.style.display === 'none') return;
+    if (!ata && ($('acilis').style.display === 'block' || $('kapanis').style.display === 'block')) return;   /* perde örtüyor */
+    if (el.closest('#kutular') && $('kutular').style.display === 'none') return;
+    if (el.style.display === 'none' || parseFloat(getComputedStyle(el).opacity) === 0 || el.offsetHeight < 1) return;
+    var r = el.getBoundingClientRect();
+    if (r.left < 21.5 || r.right > 310.5 || r.top < 73.5 || r.bottom > 496.5) hata.push((el.id || el.className || el.tagName) + ' ' + [r.left, r.top, r.right, r.bottom].map(function(x){ return x.toFixed(0); }).join(','));
+  });
+  var ic = $('icerik'), perdeVar = $('acilis').style.display === 'block' || $('kapanis').style.display === 'block';
+  if (!perdeVar && ic.scrollHeight > ic.clientHeight + 1) hata.push('#icerik kırpılıyor ' + ic.scrollHeight + '>' + ic.clientHeight);
+  return hata;
+}
+window.kur = kur; window.kare = kare; window.alanDisi = alanDisi; window.Z = Z;
+</script>
+</body>
+</html>

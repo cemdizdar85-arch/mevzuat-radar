@@ -65,7 +65,17 @@ const SITE_SAYFALARI = [
   { yol: 'en-cok-cikan-konular-yeterlilik.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut'] },
   { yol: 'sinav-gibi.html', sok: ['sayac', 'menu', 'komutcss', 'komut'], paket: true },
   /* 18.10 Cem ("Play Store aynen bunun gibi"): en çok çıkan konulardan sorular - ders ders giriş (sinav-gibi.html'deki kart buraya bağlar). Paket bilgisi uygulama-sayfa.js TetikteUye'den; satış kartı iPhone'da gizli. */
-  { yol: 'en-cok-cikan-sorular.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut', 'uye'], iosGizle: ['ecSatis'] }
+  { yol: 'en-cok-cikan-sorular.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut', 'uye'], iosGizle: ['ecSatis'] },
+  /* 31.10 1.9.1 (Cem "play store onaya gönder"): Son 20 Gün 7 deneme (s20_* RPC'leri; istemci __pkSb = uygulama oturumu).
+     degis: [desen, yeni, adet] — sayfaya özgü satış/giriş bağı; her desen TAM adet kez bulunmalı (yoksa KAPI-SAYFA).
+     Site ürünleri (son20-sgs/son20-yet) mağazada yok → düğmeler uygulamanın Paketler bölümüne; "Paketleri gör" sitenin satış
+     sayfasına gidiyordu. Giriş bağı ?sonra='+encodeURIComponent(...)+' biçiminde: genel ogrenci.html çevirisi "#giris" ekini bozar. */
+  { yol: 'son-20-gun.html', sok: ['canonical'], degis: [
+    [/<a class="dg iki" href="smmm-staja-giris-sorulari\.html#gktPaket">Paketleri gör<\/a>/g, '<a class="dg iki" href="index.html#paketler">Paketler</a>', 1],
+    [/<a class="dg" href="satin-al\.html\?paket=son20-sgs">[^<]*<\/a><a class="dg iki" href="satin-al\.html\?paket=sgs">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    [/<a class="dg" href="satin-al\.html\?paket=son20-yet">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    [/ogrenci\.html\?sonra='\+encodeURIComponent\('[^']*'\)\+'/g, 'index.html#giris', 2]
+  ] }
 ];
 const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js',
   'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js',
@@ -200,6 +210,11 @@ for (const sy of SITE_SAYFALARI) {
     kapi('KAPI-SAYFA', n === 1, yol + ': "' + ad + '" işareti tam 1 kez olmalı (bulunan ' + n + ') — sayfa değişmiş, hazirla.js güncellenmeli');
     html = html.replace(new RegExp(desen.source, 'g'), '');
   }
+  for (const [desen, yeni, adet] of sy.degis || []) {
+    const n = say(html, desen);
+    kapi('KAPI-SAYFA', n === adet, yol + ': değişim deseni ' + desen.source.slice(0, 50) + '… tam ' + adet + ' kez olmalı (bulunan ' + n + ') — sayfa değişmiş, hazirla.js güncellenmeli');
+    html = html.replace(desen, yeni);
+  }
   if (sy.paket) {
     const n = say(html, KOK_KAPI);
     kapi('KAPI-SAYFA', n === 1, yol + ': paket-kapisi.js etiketi tam 1 kez olmalı (bulunan ' + n + ')');
@@ -301,6 +316,16 @@ kopyala('icerik-koruma.js');   /* 09.10 kopya/yazdırma kilidi + telif şeridi; 
 /* bot koruması (Turnstile): sitedekiyle AYNI dosya ve aynı anahtar — sitede açılınca uygulamada da açık olur (26.09) */
 kopyala('captcha.js');
 kopyala(kutuphane);
+/* 27.10 (Cem "önerilerini yap"): Nöbetçi çizerek/sesli çözsün uygulamada da. Ders ve örnek sayfaları ../../cizerek-coz.js ister;
+   kopyalanmayınca betik 404 olur, düğme hiç çıkmazdı. Kalem yazısı + herkese açık sesler (ses/cizim, ~2,7 MB) pakete girer.
+   Kasa sesleri (KGK, imzalı adres) uygulamada yok: KGK uygulamaya alınmıyor (yukarıda 27.09 notu). */
+kopyala('cizerek-coz.js');
+for (const f of ['caveat-600-latin.woff2', 'caveat-600-latin-ext.woff2']) kopyala('kutuphane/' + f);
+let sesSay = 0;
+if (var_('ses/cizim')) for (const d of fs.readdirSync(path.join(KOK, 'ses', 'cizim'))) {
+  for (const f of fs.readdirSync(path.join(KOK, 'ses', 'cizim', d))) { if (/\.mp3$/.test(f)) { kopyala(path.join('ses', 'cizim', d, f)); sesSay++; } }
+}
+kapi('KAPI-CIZIM', sesSay > 0, 'ses/cizim altında mp3 yok — sesli çizim uygulamada sessiz kalır');
 for (const ad of fs.readdirSync(path.join(MOBIL, 'uygulama'))) kopyala(path.join('mobil', 'uygulama', ad), ad);
 
 const paket = JSON.parse(fs.readFileSync(path.join(MOBIL, 'package.json'), 'utf8'));

@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Ücretsiz dene · Staja Giriş sınavı | Tetikte</title>
 <link rel="canonical" href="https://tetikte.com/ucretsiz-dene.html">
-<meta name="description" content="Üye olmadan dene: 30 soruda geçme ihtimalini ölç, 15 dersin tamamından örnek soruları çözümleriyle çöz.">
+<meta name="description" content="Üye olmadan dene: 5 örnek soruyu çöz, her cevabından sonra doğrusu ve dayandığı madde açılır.">
 <link rel="stylesheet" href="stil.css">
 <!--
   ÜCRETSİZ DENE (14.09.2026)
@@ -47,6 +47,7 @@
   .uc-paket p b{color:var(--ink)}
   .uc-paket a{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);text-decoration:none;white-space:nowrap}
   .uc-paket a.uc-ikinci{color:var(--muted);font-weight:600;margin-left:16px}
+.uc-paket>span{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}.uc-paket>span a.uc-ikinci{margin-left:0}   /* 21.10 mobil tasma: 320px telefonda iki bag 362px tek satirda kaliyordu */
   @media(max-width:760px){ .uc-kartlar{grid-template-columns:1fr} .uc-bas h1{font-size:32px} }
   /* 15.09 ÜÇ SINAV: sekme + hazırlanan sınavda ön kayıt kutusu */
   .uc-ic [hidden]{display:none !important}   /* .uc-kartlar{display:grid} hidden özniteliğini eziyordu */
@@ -94,7 +95,7 @@
     <div class="uc-bas" id="ucBas">
       <p class="uc-goz">Ücretsiz dene · üyelik gerekmez</p>
       <h1>Önce kendin dene.</h1>
-      <p>Staja Giriş sınavında nerede olduğunu gör: 30 soru, yaklaşık 30 dakika. Kart istemiyoruz, üyelik istemiyoruz; sonucunu göndermek için yalnız e-posta adresini alıyoruz.</p>
+      <p>Staja Giriş'ten 5 örnek soru. Kart istemiyoruz, üyelik istemiyoruz; her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</p>
     </div>
     <section class="uc-onkayit" id="onkayit" hidden>
       <h2 id="okBaslik">Ön kayıt</h2>
@@ -112,11 +113,12 @@
     <!-- 16.09 Cem: "burada iki deneme vermeye gerek yok" -> TEK eylem (seviye testi).
          Örnek sorular silinmedi, kartın altında bağlantı oldu: ürünü görmek isteyen oraya gider. -->
     <div class="uc-kartlar uc-tek" id="ucKartlar">
-      <a class="uc-kart" href="seviye-testi.html">
-        <span class="uc-et">Seviye testi · ücretsiz</span>
-        <b>30 soruda geçme ihtimalini ölç</b>
-        <span class="uc-alt">Uyarlamalı test: bildikçe zorlaşır, bilemedikçe kolaylaşır. Bitince geçme ihtimalin, 130 soruluk sınavda tahmini doğru sayın ve en zayıf alanın çıkar; ayrıntılı rapor ücretsiz hesabınla açılır.</span>
-        <span class="uc-git">Teste başla →</span>
+      <!-- 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir"): kart 30 soruluk test yerine 5 örnek soruya -->
+      <a class="uc-kart" href="kaydir/vitrin/ornek-sgs.html">
+        <span class="uc-et">5 örnek soru · ücretsiz</span>
+        <b>5 örnek soruyla başla</b>
+        <span class="uc-alt">Üye olmadan. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</span>
+        <span class="uc-git">5 örnek soru çöz →</span>
       </a>
     </div>
     <p class="uc-ornek">Önce ürünü görmek istersen: <a href="index.html?sinav=sgs#ekran">günün sorusunu Nöbetçi'yle çöz →</a></p>   <!-- 07.10: 10 soruluk sabit sayfa yerine her gün yeni soru -->
@@ -135,7 +137,7 @@
   }).catch(function(){});
 })();
 </script>
-<script src="uye-durumu.js?v=20261018b"></script>
+<script src="uye-durumu.js?v=20261028z"></script>
 <script>
 /* 15.09 ÜÇ SINAV: seçili sınava göre sayfa. Ön kayıt formu sitenin tek form kapısına gider
    (radar-app/edge/form-al.ts, canlı adı quick-task): Frankfurt kasası + bize mail; köken listesi, bal küpü, hız sınırı sunucuda. */
@@ -152,9 +154,26 @@
   });
   /* Staja Giriş: sayfa olduğu gibi. 24.09: bu sayfanın kartları SGS'nindir; içeriği açılan başka sınav
      (Yeterlilik) kendi açık vitrinine gider - "Yeterlilik giriyorum Staja Giriş çıkıyor" (23.09) tekrarlanmasın. */
-  /* 07.10 Cem ("ücretsiz soru çöz yine 10 soru çıkıyor"): içeriği açık başka sınav kendi 30 soruluk seviye testine gider (10 soruluk vitrine değil) */
+  /* 07.10 Cem ("ücretsiz soru çöz yine 10 soru çıkıyor"): içeriği açık başka sınav kendi 30 soruluk seviye testine gider (10 soruluk vitrine değil); 27.10: s.olc artık 5 örnek soru (uye-durumu.js) */
   /* 13.10 KGK: seviye testi yok -> ders listesi (SINAVLAR.kgk.gir) */
-  if(s.icerik){ if(k!=='sgs'&&(s.olc||s.gir)) location.replace(s.olc||s.gir); return; }
+  /* 28.10 Cem ("Yeterlilik'e Son 20 Gün geliyor; üye olmak isteyenlere erken üyelik verelim, kaçırmayalım"): ?onkayit=yet-s20 →
+     içeriği açık Yeterlilik'te de ön kayıt formu (8 Kasım 2026 = 28 Kasım − 20 gün). Kayıt aynı uçtan, konusu ayrı. */
+  var s20=(k==='yeterlilik' && new URLSearchParams(location.search).get('onkayit')==='yet-s20');
+  if(s.icerik && !s20){ if(k!=='sgs'&&(s.olc||s.gir)) location.replace(s.olc||s.gir); return; }
+  if(s20){
+    document.title='Ön kayıt · SMMM Yeterlilik Son 20 Gün | Tetikte';
+    $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · SMMM Yeterlilik · Son 20 Gün';
+    $('ucBas').querySelector('h1').textContent='Son 20 Gün 8 Kasım\'da açılıyor.';
+    $('ucBas').querySelector('p:not(.uc-goz)').textContent='28 Kasım Yeterlilik sınavına son 20 gün: sınava özel yeni sorular, son 10 yılın en sık çıkan konularından. Fiyat ve paket 8 Kasım\'da açıklanır.';
+    $('ucKartlar').hidden=true; $('ucPaket').hidden=true;
+    var orn=document.querySelector('.uc-ornek'); if(orn) orn.hidden=true;
+    $('onkayit').hidden=false;
+    $('okBaslik').textContent='Açıldığı gün ilk sen öğren';
+    $('okMetin').textContent='E-postanı bırak; Son 20 Gün açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';
+    var rz=document.querySelector('#okForm .uc-riza span'); if(rz) rz.firstChild.textContent='E-postamın, SMMM Yeterlilik Son 20 Gün açıldığında bilgilendirilmem için işlenmesine izin veriyorum. İstediğimde çıkabilirim. ';
+    $('okTamam').textContent='✓ Ön kaydın alındı. Son 20 Gün açıldığı gün e-postana yazacağız.';
+  }
+  else {
   document.title='Ön kayıt · '+s.uzun+' | Tetikte';
   $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';
@@ -164,6 +183,7 @@
   $('onkayit').hidden=false;
   $('okBaslik').textContent=s.ad+' açıldığında ilk sen öğren';
   $('okMetin').textContent='E-postanı bırak; ücretsiz deneme ve paket açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';
+  }
   $('okForm').addEventListener('submit',function(e){
     e.preventDefault();
     var ep=$('okEposta').value.trim(), h=$('okHata'); h.textContent='';
@@ -172,7 +192,7 @@
     var dugme=this.querySelector('button'); dugme.disabled=true;
     fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',
       headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},
-      body:JSON.stringify({email:ep,subject:'Ön kayıt: '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
+      body:JSON.stringify({email:ep,subject:'Ön kayıt: '+k+(s20?' Son 20 Gün':''),from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
     }).then(function(y){ return y.ok?y.json():Promise.reject(y.status); }).then(function(){
       $('okForm').hidden=true; $('okTamam').hidden=false;
     }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da destek@tetikte.com adresine yaz.'; });

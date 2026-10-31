@@ -11,6 +11,7 @@
      Bayat anahtarda Hesabım giriş formunu gösterir (ogrenci.html ana sayfaya geri atmaz - döngü yok, 17.10 okundu). -->
 <script>try{ if(!/[?&](ana|sinav)=/.test(location.search) && !/^#ekran/.test(location.hash) && Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; })) location.replace('ogrenci.html'); }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-itunes-app" content="app-id=6816072026">   <!-- 28.10: iPhone Safari akıllı bandı (App Store, Apple çizer) -->
 <meta name="color-scheme" content="light">
 <title>Tetikte — SMMM Staja Giriş ve Yeterlilik sınavı: yanlışını sebebiyle birlikte öğren</title>
 <link rel="canonical" href="https://tetikte.com/">
@@ -89,8 +90,11 @@ html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 18.10 Cem ("üst şeritleri sadeleştir"): telefonda tek şerit - kayan duyuru görünürken Android indirme ve prova şeritleri çıkmaz (✕ ile duyuru kapanınca geri gelir) */
 body:has(#kayanSerit:not([hidden])) #uygSerit,body:has(#kayanSerit:not([hidden])) #provaSerit{display:none!important}
 .uyg-serit [data-kapat]{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-.uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
-html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
+.uyg-indir{margin:12px 0 0;font-size:14.5px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px}
+html body .uyg-indir a{display:block;line-height:0}
+.uyg-indir a[hidden]{display:none}
+.uyg-indir img.uyg-as{height:40px;width:auto}
+.uyg-indir img.uyg-gp{height:58px;width:auto;margin:-9px;max-width:none}   /* Google rozeti iç boşluklu: görünen boy Apple'la eşit */
 .uyg-serit{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink)}
 .uyg-serit>span{flex:1 1 auto;min-width:0}
 html body .uyg-serit a{color:var(--ink)!important;font-weight:700;white-space:nowrap}
@@ -130,13 +134,13 @@ html[data-theme="dark"] .maskot{-webkit-mask-image:none;mask-image:none;border-r
 .ulas{background:var(--ink);color:var(--bg);font-size:14px;line-height:1.3}
 /* 18.10 üye karşılama şeridi */
 /* 18.10 kayan duyuru şeridi */
-.kayan{position:relative;display:flex;align-items:center;background:var(--amber-dolgu);color:var(--ink);overflow:hidden;height:40px}
+.kayan{position:relative;display:flex;align-items:center;background:var(--amber-dolgu);color:var(--amber-uzeri);overflow:hidden;height:40px}   /* 21.10 kontrast: amber dolgu ustu yazi jetonu (koyu temada --ink acik renkti, 1.43) */
 .kayan[hidden]{display:none}
-.kayan-a{flex:1;min-width:0;overflow:hidden;text-decoration:none!important;color:var(--ink)!important;height:100%;display:flex;align-items:center}
+.kayan-a{flex:1;min-width:0;overflow:hidden;text-decoration:none!important;color:var(--amber-uzeri)!important;height:100%;display:flex;align-items:center}
 .kayan-iz{display:inline-flex;white-space:nowrap;animation:kayanAk 32s linear infinite;font-size:14.5px;font-weight:600}
 .kayan-iz>span{padding-right:60px}.kayan-iz b{font-weight:900;letter-spacing:.06em}.kayan-iz u{font-weight:800}
 .kayan:hover .kayan-iz,.kayan-a:focus .kayan-iz{animation-play-state:paused}
-.kayan-x{flex:none;width:40px;height:40px;border:0;border-radius:0;background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink);font-size:16px;cursor:pointer}
+.kayan-x{flex:none;width:40px;height:40px;border:0;border-radius:0;background:color-mix(in srgb,var(--amber-uzeri) 10%,transparent);color:var(--amber-uzeri);font-size:16px;cursor:pointer}
 @keyframes kayanAk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){ .kayan{height:auto;min-height:40px} .kayan-iz{animation:none;white-space:normal;padding:8px 12px} .kayan-iz>span+span{display:none} }
 .uye-hos{background:color-mix(in srgb,var(--amber-dolgu) 14%,var(--bg));border-bottom:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent)}
@@ -149,6 +153,7 @@ html[data-theme="dark"] .maskot{-webkit-mask-image:none;mask-image:none;border-r
 html body .ulas a{color:var(--bg)!important;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:6px;min-height:36px}
 html body .ulas a:hover{text-decoration:underline}
 html body .ulas a.ulas-wp{color:var(--amber-dolgu)!important}
+html[data-theme="dark"] body .ulas a.ulas-wp{color:var(--bg)!important}   /* 21.10 kontrast: koyuda bant zemini acik (--ink), amber yazi 1.43 okunmuyordu; amber nokta kalir */
 .ulas-wp::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber-dolgu)}
 @media(max-width:620px){ html body .ulas .ulas-not,html body .ulas a.ulas-ep{display:none} .ulas .ic{justify-content:center} }
 .kah-yazi{max-width:520px;min-width:0}
@@ -165,6 +170,22 @@ html body .kah-alt .dg-iki:hover{border-color:var(--ink)}
 /* 14.10: üst satır (seçili sınav · gün · kalan gün); 17.10: iki yazı bağlantısı büyük düğmelerin altında */
 .kah-ust{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 12px;font-size:15.5px;font-weight:750;color:var(--ink)}
 .kah-ust b{color:var(--amber)}
+/* 28.10 Cem ("ilk sayfada göreyim bari dersleri"): sınav sekmeleri açılış ekranının içinde, üst satırın üstünde — küçük haplar,
+   tarih üst satırda yazdığı için sekmede gizli; "Sınavı değiştir" bağlantısı gereksiz. */
+.kah-secim{margin:0 0 14px}
+.kah-secim-bas{margin:0 0 6px;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+html body .kah-secim .secim{display:flex;flex-wrap:wrap;gap:8px}
+html body .kah-secim .sinav{display:inline-flex;flex-direction:row;width:auto;min-height:0;padding:7px 12px;font-size:14px;white-space:nowrap;border-radius:999px;border-width:2px;line-height:1.2;text-align:center}
+html body .kah-secim .sinav small{display:none}
+html body .kah-secim .sinav.kapali small{display:inline;font-weight:600;margin-left:4px;font-size:inherit}
+html body .kah-secim .sinav.kapali small::before{content:"· "}
+html body .kah-secim .sinav[hidden]{display:none}
+#kahUstDegis{display:none}
+@media(max-width:900px){ html body .kah-secim .secim{justify-content:center;gap:6px} html body .kah-secim .sinav{padding:7px 11px;font-size:13.5px;min-height:40px;align-items:center} .kah-secim-bas{text-align:center} }   /* 28.10 görüntü turu: telefonda 34 px'ti, parmakla basılacak boy 40 */
+.kah-soz{margin:0 0 12px;font-size:15px;font-weight:650;color:var(--ink)}
+#kahAlt{margin:14px 0 4px;font-size:16px}
+.kah-kutu{background:#111a2e;color:#f5a524;padding:0 .18em;border-radius:.16em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+html body .kah-soz a{font-size:14px;font-weight:600;color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px;margin-left:4px}
 .kah-ust b:empty{display:none}
 html body .kah-ust a{font-size:14px;font-weight:600;color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px}
 .kah-linkler{display:flex;flex-wrap:wrap;gap:0 16px;margin:8px 0 0;max-width:400px}
@@ -177,6 +198,8 @@ html body .kah-linkler .kah-link{display:inline-flex;align-items:center;min-heig
   /* telefonda düğme ilk ekranda kalsın (14.10 ölçüm hedefi): maskot yüzü, 128 px kare; açıklamanın ikinci cümlesi gizli */
   .maskot{max-width:132px;min-width:0;aspect-ratio:1/1}
   .maskot img{object-position:50% 34%}
+  /* 28.10 Cem ("ücretleri yukarı taşı, aynı sayfada görelim"): telefonda maskot küçük, fiyat + düğmeler ilk ekranda */
+  @media(max-width:600px){ .maskot{max-width:76px} html body .kah{padding-top:10px} html body .kah h1{font-size:30px;margin-bottom:10px} .kah-secim-bas{display:none} }
   .alt .alt-ek{display:none}
   .kah-ust{justify-content:center}
   .kah-yazi{margin:0 auto}
@@ -186,47 +209,8 @@ html body .kah-linkler .kah-link{display:inline-flex;align-items:center;min-heig
   .alt{margin:0 auto 20px;font-size:16.5px}
 }
 
-/* sınav hapları (Becker): seçilen sınav dolu lacivert; seçim üstteki satırı, düğmeyi, kısayolları ve günün sorusunu değiştirir */
-.secim-bolum{padding:4px 0 36px}
-.secim-bas{font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 14px}
-.secim{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-html body .sinav{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:96px;padding:12px 22px;background:var(--kagit);border:2px solid var(--line2);border-radius:999px;text-decoration:none;font-weight:800;font-size:20px;line-height:1.2;color:var(--ink);font-family:inherit;cursor:pointer;text-align:center;width:100%}
-html body .sinav:hover{border-color:var(--ink)}
-.sinav small{display:block;font-weight:650;color:var(--muted);font-size:14px}
-html body .sinav[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.sinav[aria-pressed="true"] small{color:color-mix(in srgb,var(--bg) 82%,transparent)}
-html body .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
-@media(max-width:900px){
-  .secim{grid-template-columns:1fr;gap:10px}
-  html body .sinav{min-height:68px;border-radius:20px;align-items:flex-start;text-align:left;font-size:18px;padding:10px 22px}
-  .sinav small{font-size:13.5px}
-}
-
-/* paket kartları (17.10): üç kart yan yana, eşit boy; ortadaki değil sağdaki (tüm dersler) ince amber üst çizgili */
-.paketler{padding:8px 0 40px}
-#paketler{scroll-margin-top:72px}
-.paket-bas{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-html body .paket-bas a{font-size:14.5px;font-weight:700;color:var(--ink)!important;text-underline-offset:3px}
-.pk-kartlar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.pk-kart{display:flex;flex-direction:column;background:var(--kagit);border:1px solid var(--line2);border-radius:16px;padding:20px 20px 16px}
-.pk-kart.pk-one{border-top:4px solid var(--amber-dolgu);padding-top:17px}
-.pk-sinav{margin:0;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-html body .pk-kart h3{margin:2px 0 10px;font-size:21px;font-weight:800;color:var(--ink)}
-.pk-ders{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 12px}
-html body .pk-ders button{min-height:40px;padding:0 4px;border:1.5px solid var(--line2);border-radius:10px;background:var(--kagit);color:var(--ink);font:inherit;font-size:14px;font-weight:750;cursor:pointer}
-html body .pk-ders button:hover{border-color:var(--ink)}
-html body .pk-ders button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.pk-fiyat{margin:0;font-size:28px;font-weight:800;letter-spacing:-.5px;color:var(--ink);line-height:1.1}
-.pk-fiyat small{font-size:15px;font-weight:700;color:var(--muted)}
-.pk-alt{margin:4px 0 0;min-height:20px;font-size:13px;color:var(--muted)}
-.pk-kart ul{list-style:none;margin:12px 0 16px;padding:0;display:grid;gap:6px;flex:1}
-.pk-kart li{position:relative;padding-left:20px;font-size:14.5px;line-height:1.45;color:var(--ink)}
-.pk-kart li::before{content:"✓";position:absolute;left:0;top:0;font-weight:800;color:var(--green)}
-html body .pk-al{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;background:var(--ink);color:var(--bg)!important;font-weight:800;font-size:15.5px;text-decoration:none}
-html body .pk-al:hover{opacity:.92}
-html body .pk-one .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
-.pk-sonra{margin:8px 0 0;min-height:18px;font-size:12.5px;color:var(--dim);text-align:center}
-@media(max-width:900px){ .pk-kartlar{grid-template-columns:1fr;gap:12px} .paketler{padding-bottom:28px} }
+</style><link rel="stylesheet" href="paket-kartlari.css?v=1"><style>
+/* 28.10: sınav seçici + paket kartları ortak dosyada (fiyat.html de kullanır) */
 
 /* kısayollar: fiyat · ders · konu · deneme · seviye · duyuru (Cem: "fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım") */
 .kisayol{padding:36px 0;border-top:1px solid var(--line)}
@@ -378,7 +362,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   .alt{margin-bottom:16px}
   .durum{margin-top:2px}
   .kah-linkler{margin-top:4px}
-  .secim-bolum{padding-bottom:28px}
+  .secim-bolum{padding-bottom:20px}
   .secim-bas{margin-bottom:10px}
   .maskot{max-width:min(340px,calc((100vh - 280px)*688/930))}
 }
@@ -386,7 +370,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   .kah{padding:20px 0 20px}
   html body .kah h1{font-size:clamp(30px,3.2vw,42px)}
   .alt{font-size:17px;margin-bottom:18px}
-  html body .sinav{min-height:76px}
+  html body .sinav{min-height:64px}
   html body .kah-alt .dg{min-height:50px}
   .btn{min-height:44px}
   .hukum p{font-size:14px}
@@ -406,8 +390,49 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   .dayanak p{display:inline}
   .ekran-dip .btn{min-height:42px}
 }
+/* 28.10 Cem ("o büyük yazılar ilk sayfanın en altında tümden görünsün, en üstte eski yerinde küçüğü de olsun"): bilgisayarda
+   kahraman alçak → hemen altındaki büyük sınav düğmeleri ilk ekranın içinde biter. "Zaten hesabım var" üst menüde ("Giriş yap"),
+   "Ücretsiz, üye olmadan" düğmenin altındaki cümlede var → bilgisayarda bu iki tekrar satırı gizli (telefonda duruyor). */
+@media(min-width:901px){
+  html body .kah .kah-linkler, html body .kah #durum{display:none}
+  html body .kah{padding-bottom:6px}
+  html body .kah .kah-secim{margin-bottom:10px}
+  html body .kah #kahAlt{margin-bottom:0}
+  html body .kah .kah-alt{grid-template-columns:1fr 1fr;max-width:520px}   /* iki düğme her bilgisayar ekranında yan yana */
+  html body .secim-bolum{padding-top:4px}
+  html body .secim-bolum .secim-bas{margin-bottom:8px}
+}
+/* 28.10 Cem ("tam sığmıyor, sığdır ve kontrol et"): ekran boyuna göre sabit kural yetmedi (ölçeklenmiş ekranlar). sigdir() açılışta,
+   sınav değişince ve pencere değişince büyük düğmelerin altını ölçer; ekran dışındaysa sıkıştırma basamağını artırır (sig1..sig4). */
+@media(min-width:901px){
+  html.sig1 body .kah h1{font-size:clamp(30px,2.8vw,40px);margin-bottom:8px}
+  html.sig1 body .kah{padding-top:12px}
+  html.sig1 body .secim-bolum .sinav{min-height:64px}
+  html.sig2 body .kah .maskot{max-width:280px}
+  html.sig2 body .kah h1{font-size:34px}
+  html.sig2 body .kah .kah-secim{margin-bottom:6px}
+  html.sig2 body .kah .kah-ust{margin-bottom:4px}
+  html.sig3 body .kah #kahAlt{display:none}
+  html.sig3 body .kah h1{font-size:30px}
+  html.sig3 body .kah .kah-secim-bas{display:none}
+  html.sig4 body .kah .maskot{max-width:200px}
+  html.sig4 body .secim-bolum .sinav{min-height:52px}
+  html.sig4 body .secim-bolum .secim-bas{display:none}
+  /* 31.10 Cem ("biraz yukarı taşı, alttaki görünmüyor"): Son 20 Gün kartı kahramanla büyük düğmeler arasına girdi → iki basamak daha */
+  html.sig5 body .kah .maskot{max-width:150px}
+  html.sig5 body .kah h1{font-size:28px;margin-bottom:6px}
+  html.sig5 body .s20b{margin-top:-6px;padding-bottom:10px}
+  html.sig5 body .s20b .kutu{padding:10px 16px}
+  html.sig5 body .s20b h2{font-size:19px;margin:2px 0}
+  html.sig5 body .s20b .dgs a{min-height:40px;padding:6px 16px}
+  html.sig6 body .s20b .dgs{flex-direction:row}
+  html.sig6 body .s20b .uye{display:none}
+  html.sig6 body .kah .kah-alt .dg{min-height:44px}
+  html.sig6 body .secim-bolum .sinav{min-height:46px}
+}
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
+<link rel="stylesheet" href="gkt.css?v=2">
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -444,7 +469,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
 <section class="kah">
-  <div class="ic">
+    <div class="ic">
     <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
     <figure class="maskot"><img src="gorsel/maskot-giris.jpg" width="560" height="840" alt="Nöbetçi, Tetikte'nin maskotu: üstünde cevap şıkları olan kâğıttan bir baykuş" fetchpriority="high" decoding="async"></figure>
     <div class="kah-yazi">
@@ -455,14 +480,36 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor" → "önerini yapalım"): başlık "soru çözerek hazırlan" konuyu yok sayıyordu.
            Konu özeti cevaptan sonra açılır (ölçüm 16.10: SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134) -> sıra
            gerçeğe uygun: önce soru, sonra konu. "Ders / konu anlatımı" yazılmaz (5580). -->
+      
+      <!-- 28.10 Cem ("ilk sayfada göreyim bari dersleri" + "hem burada kalsın hem dediğim yere de koy" + "en üstte eski yerinde
+           bunların küçüğü de olsun"): küçük sekmeler açılış ekranında; BÜYÜK hâli kahramanın hemen altında, ilk ekranın en altında
+           tamamen görünür (kahraman o yüzden alçak). İkisi aynı seçimi yapar (bütün .sinav[data-sinav] dinlenir). -->
+      <div class="kah-secim"><p class="kah-secim-bas" id="secimBas">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas">
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <span class="sinav kapali" id="kgkKapali" aria-disabled="true" title="KGK Bağımsız Denetçilik · hazırlanıyor">KGK <small>hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+      </div>
+      </div>
       <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
-      <h1>SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
-      <p class="alt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.<span class="alt-ek"> Çıkmış sınavlarda en sık sorulan konulardan.</span></p>
+      <h1 id="kahBas">SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
+      <!-- 28.10 Cem ("ücretleri biraz daha yukarı taşı, aşağıda kalıyor, aynı sayfada görelim"): sıra başlık → şart → fiyat → düğmeler;
+           açıklama cümlesi (kahAlt) düğmelerin altına indi. -->
+      <!-- 28.10 Cem ("açıklama olarak kazanamazsan bir sonraki sınav bizde, Geçene kadar Tetikte yazsak" → "üst yazıyı kazanamazsan
+           kazanana kadar tetikte yapsak, daha fazla dikkat çeksin"): söz yalnız SGS Son 20 Gün kampanyasında (kampanya-son-20-gun.html §2)
+           → yalnız SGS seçiliyken ve 21 Kasım sınavından önce başlık sözü söyler, açıklama "soruyu çöz, konuyu öğren"le başlar, altında
+           şart satırı (dugmeCiz). Statik HTML'deki başlık (arama motoru, betiksiz) eskisi gibi. "Garanti" yazılmaz. -->
+      <p class="kah-soz" id="kahSoz" hidden>Şart: Son 20 Gün'ün 7 denemesinin en az 5'inde %60 ve üstü doğru yap. <a href="kampanya-son-20-gun.html">Şartlar</a></p>
+      <!-- 28.10 Cem ("burada dersi seç, başka bir yerden onun fiyatını gör, çok kullanışsız" → UWorld/Becker: seçim, fiyat, satın al aynı
+           yerde): seçili sınavın fiyatı düğmelerin üstünde, birinci düğme "Satın al" (dugmeCiz kahFiyatCiz). Rakam fiyat-motoru.js'ten. -->
+      <p class="kah-fiyat" id="kahFiyat" hidden></p>
       <div class="kah-alt">
         <a class="dg dg-ana" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
         <!-- 17.10 Cem ("paketleri gör büyük olsun"): ikinci büyük düğme paket kartlarına iner; pakette olana "Kaldığın yerden devam" (dugmeCiz) -->
         <a class="dg dg-iki" id="cta2" href="#paketler">Paketleri gör</a>
       </div>
+      <p class="alt" id="kahAlt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.<span class="alt-ek"> Çıkmış sınavlarda en sık sorulan konulardan.</span></p>
       <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
            11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu bağlantı 30 soruluk ölçüm (dugmeCiz)
            14.10: tek büyük düğme; öteki iki yol yazı bağlantısı -->
@@ -470,23 +517,95 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <!-- 17.10 Duolingo "Zaten hesabım var" küçük bağlantı; oturumu açık olana gizli (dugmeCiz) -->
       <p class="kah-linkler"><a class="kah-link" id="kahGiris" href="ogrenci.html">Zaten hesabım var · Giriş yap</a></p>
       <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
-      <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
+      <!-- 28.10 Cem: telefonda kahramanın altında cihazın mağaza rozeti (iPhone → App Store, Android → Google Play; resmî rozetler,
+           uygulama-indir.js [data-uyg]); bilgisayarda bu satır gizli, rozetler sayfa dibindeki bantta. -->
+      <p class="uyg-indir"><span>Uygulamamız telefonda:</span>
+        <a data-uyg="ios" href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener"><img class="uyg-as" src="gorsel/magaza/app-store-tr.svg" width="151" height="40" alt="App Store'dan indirin"></a>
+        <a data-uyg="android" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener"><img class="uyg-gp" src="gorsel/magaza/google-play-tr.png" width="150" height="58" alt="Google Play'den alın"></a></p>
     </div>
   </div>
 </section>
 
-<!-- 17.10 Cem (Becker ekranı: "aşağıda sınavları koysak"): sınav hapları. Seçim düğmesidir (kahUstCiz ilk metin düğümünü + data-tarih'i okur). -->
-<section class="secim-bolum" aria-labelledby="secimBas">
+<!-- 31.10 Cem ("ana sayfamıza 20 günlük sgs sınav testi ve üyelerin gördüğü yere koyalım, insanlar kolay görsün"): kahramanın hemen
+     altında Son 20 Gün bölümü. Seçili sınava göre (SGS 1 Kasım · Yeterlilik 8 Kasım; KGK'da gizli). Üyede son20-kart.js'in kişisel
+     satırı + "Denemelerime git". Fiyat yazılmaz (fiyat tek yerden: paket kartları). Akış son-20-gun.html "Nasıl ilerler?" ile aynı. -->
+<style>
+/* 31.10 Cem ("biraz daha yukarı kaldır, denemeler 1 Kasım açılır görünsün"): bilgisayarda kart ilk ekrana sığsın diye sıkı:
+   solda başlık + tek satır özet + üye satırı, sağda düğmeler, altta tek satır adım şeridi (ayrıntı son-20-gun.html'de). */
+.s20b{padding:0 0 18px;margin-top:-18px}.s20b .kutu{border:2px solid var(--amber-dolgu,#f3a52a);border-radius:16px;padding:14px 18px;
+  background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 8%,var(--kagit,#fff));display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center}
+.s20b .et{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--amber,#9a6400);margin:0}
+.s20b h2{margin:2px 0 4px;font-size:22px;line-height:1.2}.s20b .ozet{margin:0;color:var(--muted);font-size:15px}
+.s20b .uye{margin:4px 0 0;font-weight:700}
+.s20b ol{grid-column:1/-1;list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.s20b li{display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px}
+.s20b li:not(:last-child)::after{content:"→";color:var(--amber,#9a6400);margin-left:4px}
+.s20b li b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;font-size:12.5px}
+.s20b .dgs{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.s20b .dgs a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border-radius:12px;font-weight:800;text-decoration:none;border:2px solid var(--cizgi,#d8ccb8);background:var(--kagit,#fff);color:var(--ink,#1a1a1a)}
+.s20b .dgs a.dg-ana{background:var(--amber-dolgu,#f3a52a);border-color:var(--amber-dolgu,#f3a52a);color:#1a1a1a}
+.s20b .dgs a[hidden]{display:none}
+@media(max-width:760px){ .s20b{margin-top:0} .s20b .kutu{grid-template-columns:1fr;padding:14px} .s20b h2{font-size:20px} .s20b .dgs{justify-content:stretch} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
+</style>
+<section class="s20b" id="s20Bolum" aria-labelledby="s20bBas">
+  <div class="ic"><div class="kutu">
+    <div>
+      <p class="et" id="s20bEt">SMMM Staja Giriş · Son 20 Gün</p>
+      <h2 id="s20bBas">7 deneme, 1 Kasım'da açılıyor</h2>
+      <p class="ozet" id="s20bOzet">130'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.</p>
+      <p class="uye" id="s20bUye" hidden></p>
+    </div>
+    <div class="dgs"><a class="dg dg-ana" id="s20bDg1" href="son-20-gun.html">Denemeleri gör →</a><a class="dg dg-iki" id="s20bDg2" href="#paketler">Paketleri gör</a></div>
+    <!-- 31.10 Cem ("kurumsal firmalar ne yapıyor onu yapalım"): adım şeridi karttan çıktı; UWorld/Becker ana sayfada ürünü tek
+         kısa kartla tanıtır, "nasıl işler" ayrıntısı ürün sayfasında (son-20-gun.html "Nasıl ilerler?" + takvim). -->
+  </div></div>
+</section>
+<script>
+(function(){
+  function $(i){ return document.getElementById(i); }
+  var B=$('s20Bolum'); if(!B) return;
+  function secili(){ var b=document.querySelector('.sinav[data-sinav][aria-pressed="true"]'); return b?b.getAttribute('data-sinav'):'sgs'; }
+  function ciz(){
+    var s=secili(), yet=s==='yeterlilik';
+    if(s!=='sgs'&&!yet){ B.hidden=true; return; }
+    var acT=Date.parse(yet?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00'), sonT=Date.parse(yet?'2026-11-29T00:00:00+03:00':'2026-11-22T00:00:00+03:00');
+    if(Date.now()>=sonT){ B.hidden=true; return; }
+    B.hidden=false; var once=Date.now()<acT;
+    $('s20bEt').textContent=(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün';
+    $('s20bBas').textContent=yet? (once?'Ders ders denemeler, 8 Kasım\'da açılıyor':'Ders ders denemeler açık')
+                                : (once?'7 deneme, 1 Kasım\'da açılıyor':'7 deneme açık');
+    $('s20bOzet').textContent=yet? 'Her dersin 5 denemesi (20 soru, 45 dakika). Her denemeden sonra eksik konularını kapatırsın.'
+                                 : '130\'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.';
+    var adres=yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
+    $('s20bDg1').href=adres; $('s20bDg1').textContent='Denemeleri gör →'; $('s20bDg2').hidden=false; $('s20bDg2').textContent='Paketleri gör'; $('s20bDg2').href='#paketler'; $('s20bUye').hidden=true;
+    if(!yet&&window.ttSon20) ttSon20.durum('sgs',true).then(function(k){
+      if(!k||secili()!=='sgs') return;            /* üye değil ya da erişimi yok: genel hâl kalır */
+      $('s20bUye').textContent=k.metin; $('s20bUye').hidden=false;
+      $('s20bDg1').textContent=k.once?'Denemelerimi gör →':(k.dugme||'Denemelerime git →');
+      $('s20bDg2').textContent='Paketlerimi gör'; $('s20bDg2').href='ogrenci.html#ogPaketler';   /* 31.10 Cem: "altına paketlerimi gör" */
+      if(window.ttSigdir) ttSigdir();   /* üye satırı kartı uzattı: ilk ekran sığdırması yeniden */
+    },function(){});
+  }
+  /* 31.10 telefon taraması: alttaki büyük sınav düğmeleri bu betikten SONRA geliyordu, dinleyici almıyordu → belge düzeyinde dinle */
+  document.addEventListener('click',function(e){ if(e.target.closest&&e.target.closest('.sinav[data-sinav]')) setTimeout(ciz,0); });
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ciz); else ciz();
+  window.addEventListener('load',ciz);
+})();
+</script>
+
+<!-- 28.10 Cem ("bunu eski ekranda büyük şekilde SMMM giriş paketi üstüne koyuyordun, hem burada kalsın hem dediğim yere de koy"):
+     büyük sınav düğmeleri paketlerin hemen üstünde (açılış ekranındaki küçük sekmelerle aynı seçim). -->
+<section class="secim-bolum" aria-labelledby="secimBas2">
   <div class="ic">
-      <p class="secim-bas" id="secimBas">Sınavını seç</p>
-      <div class="secim" role="group" aria-labelledby="secimBas">
+      <p class="secim-bas" id="secimBas2">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas2">
         <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
         <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
         <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
              (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
              edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
-        <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
-        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+        <span class="sinav kapali" id="kgkKapali2" aria-disabled="true" >KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik2" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
       </div>
   </div>
 </section>
@@ -498,35 +617,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <section class="paketler" id="paketler" aria-labelledby="paketBas">
   <div class="ic">
     <div class="paket-bas"><p class="secim-bas" id="paketBas">Paketler</p><a href="fiyat.html">Bütün paketler ve ayrıntılar →</a></div>
-    <div class="pk-kartlar">
-      <article class="pk-kart" data-paket="sgs">
-        <p class="pk-sinav">SMMM Staja Giriş</p>
-        <h3>Tüm paket</h3>
-        <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
-        <ul><li>Sınırsız soru: bankanın tamamı</li><li>Birebir Prova: 130 soru, resmî ders dağılımı</li><li>Her sorunun dayandığı madde altında yazar</li></ul>
-        <a class="pk-al" href="satin-al.html?paket=sgs">Satın al</a>
-        <p class="pk-sonra" data-sonra></p>
-      </article>
-      <!-- 18.10 Cem ("buraya tek ders diye giriyoruz, iki ders üç ders diye almam lazım, niye alamıyorum"): kart ders sayısı seçicili;
-           düğme data-paket'i yeterlilik-N yapar, kart yeniden çizilir (fiyat motoru paketBul) -->
-      <article class="pk-kart" data-paket="yeterlilik-1">
-        <p class="pk-sinav">SMMM Yeterlilik</p>
-        <h3>Seçtiğin dersler</h3>
-        <div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>
-        <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
-        <ul><li>Yalnız kaldığın sınav dersleri</li><li>Ders bazlı prova: 100 üzerinden, baraj 50</li><li>Dersleri ödeme adımında seçersin</li></ul>
-        <a class="pk-al" href="satin-al.html?paket=yeterlilik-1">Satın al</a>
-        <p class="pk-sonra" data-sonra></p>
-      </article>
-      <article class="pk-kart pk-one" data-paket="yeterlilik-tum">
-        <p class="pk-sinav">SMMM Yeterlilik</p>
-        <h3>Tüm dersler</h3>
-        <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
-        <ul><li>Sınırsız soru: sekiz dersin tamamı</li><li>Ders bazlı prova: 100 üzerinden, baraj 50</li><li>Her sorunun dayandığı madde altında yazar</li></ul>
-        <a class="pk-al" href="satin-al.html?paket=yeterlilik-tum">Satın al</a>
-        <p class="pk-sonra" data-sonra></p>
-      </article>
-    </div>
+    <!-- 28.10 Cem ("tüm fiyatlar ilk sayfadaki gibi olsun"): kartlar paket-kartlari.js'ten (fiyat.html ile ortak; içerik ve rakam tek yerde) -->
+    <div class="pk-kartlar" data-pk-kartlar></div>
   </div>
 </section>
 
@@ -629,7 +721,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <div class="ic dene">
     <div>
       <h2>5 örnek soruyla başla</h2>
-      <p>Ücretsiz, üye olmadan. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</p>
+      <p>Ücretsiz, üye olmadan. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır. <b>🔊 5 sorunun her birinde Nöbetçi kalemle çizip sesli anlatarak çözer.</b></p>
     </div>
     <a class="btn btn-ana" id="dene5" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
   </div>
@@ -673,9 +765,12 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261013b"></script>
-<script src="uye-durumu.js?v=20261018b"></script>
-<script src="uygulama-indir.js?v=20261009a"></script>
+<script src="fiyat-motoru.js?v=20261028y5"></script>
+<script src="paket-kartlari.js?v=3"></script>
+<script src="gkt.js?v=1"></script>
+<script src="uye-durumu.js?v=20261028z"></script>
+<script src="son20-kart.js?v=20261028b"></script>
+<script src="uygulama-indir.js?v=20261028m"></script>
 <script>
 (function(){
   'use strict';
@@ -686,7 +781,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   /* 13.10 KGK açılış hazırlığı: tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk (+ uye-durumu.js SINAVLAR.kgk.icerik aynı commit).
      Kapalıyken "Hazırlanıyor" çipi (03.10 Cem), açıkken sekme düğmesi. uye-durumu.js seciliSinav kapalıyken KGK döndürmez. */
   var KGK_ACIK=!!(typeof ICERIK_HAZIR!=='undefined'&&ICERIK_HAZIR.kgk&&U&&U.SINAVLAR.kgk&&U.SINAVLAR.kgk.icerik);
-  if(KGK_ACIK){ $('kgkKapali').hidden=true; $('kgkAcik').hidden=false; }
+  if(KGK_ACIK){ ['kgkKapali','kgkKapali2'].forEach(function(i){ if($(i)) $(i).hidden=true; }); ['kgkAcik','kgkAcik2'].forEach(function(i){ if($(i)) $(i).hidden=false; }); }   /* 28.10: iki seçici (sekme + büyük) */
   var secili=(U&&U.seciliSinav)?U.seciliSinav():'sgs';
   var OZET=null, acik=false, TARANAN=0;
   var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm',kgk:'kgk'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik',kgk:'KGK Bağımsız Denetçilik'};
@@ -772,9 +867,41 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     try{ var bg=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}), k=Math.round((Date.parse(t+'T00:00:00Z')-Date.parse(bg+'T00:00:00Z'))/864e5);
       if(k>0) gun.textContent=k+' gün kaldı'; else if(k===0) gun.textContent='Sınav bugün'; }catch(e){}
   }
+  /* 28.10 Cem ("dersi seç, başka yerden fiyatını gör, çok kullanışsız"; UWorld/Becker düzeni): seçili sınavın fiyatı açılış
+     ekranında, paket kartları yalnız o sınavın, kayan şerit o sınavın kampanyası. Rakamlar fiyat-motoru.js'ten. */
+  function sgsTam(){ var p=paketBul('sgs'); return p? p.fiyat-((typeof erkenKayitAcik==='function'&&erkenKayitAcik())?ERKEN_KAYIT.indirim:0) : 0; }
+  function kahFiyatCiz(sec, aktif){
+    var e=$('kahFiyat'); if(!e) return; var h='';
+    try{
+      if(sec==='sgs'){ var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), y=paketBul('son20-sgs');
+        /* 28.10 Cem ("7 deneme 1 Kasım'da gelecek, onu belli edelim; 1 Kasım sonraki fiyatları da yazsak"): sonraki fiyat + açılış günü */
+        h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · erken kayıt 1 Kasım 23:59\'a kadar, sonra Tam Paket '+tl(paketBul('sgs').fiyat)+' TL':'')+' · 7 deneme 1 Kasım\'da açılıyor</small>'; }
+      else if(sec==='yeterlilik'){ var a0=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0,
+          a={fiyat:(typeof erkenNet==='function'&&erkenNet(a0))||a0.fiyat};   /* 28.10: ders merdiveni de erken kayıtta ders başı 120 TL */
+        /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda.
+           28.10 Cem: tüm derslerde 7 Kasım 23:59'a kadar erken kayıt (fiyat-motoru.js ERKEN_YET), sonraki fiyat yazılır. */
+        h='1 ders <b>'+fiyatAna('yeterlilik-1',a.fiyat)+'</b>\'den · tüm dersler <b>'+fiyatAna('yeterlilik-tum',tn||t.fiyat)+'</b><small>KDV dahil '+tl(a.fiyat)+' TL / '+tl(tn||t.fiyat)+' TL'
+          +(tn?' · erken kayıt 7 Kasım 23:59\'a kadar, sonra tüm dersler '+tl(t.fiyat)+' TL':' · ders sayısını satın alırken seçersin')
+          +(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, 8 Kasım\'da açılır':'')+'</small>'; }
+    }catch(x){ h=''; }
+    e.innerHTML=h; e.hidden=!h||aktif;
+  }
+  function pkSuz(sec){ if(window.PaketKartlari) PaketKartlari.suz(sec); }   /* 28.10: kartlar + süzgeç paket-kartlari.js */
+  function kayanCiz(sec){
+    var iz=document.querySelector('#kayanSerit .kayan-iz'), a=$('kayanA'); if(!iz||!a) return;
+    var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), m, href;
+    if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
+    else if(sec==='yeterlilik'&&typeof erkenYetAcik==='function'&&erkenYetAcik()){   /* 28.10: Yeterlilik erken kayıt (7 Kasım 23:59) */
+      var yt=paketBul('yeterlilik-tum'), yn=erkenNet(yt);
+      m='🎯 <b>SMMM YETERLİLİK ERKEN KAYIT</b> · 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL ('+tl(yt.fiyat)+' TL yerine) · Son 20 Gün 8 Kasım\'da · <u>Hemen al →</u>'; href='satin-al.html?paket=yeterlilik-tum'; a.setAttribute('aria-label','Yeterlilik erken kayıt: 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL. Satın al.'); }
+    else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){   /* 28.10: Yeterlilik Son 20 Gün ön kaydı */
+      m='🎯 <b>SMMM YETERLİLİK · SON 20 GÜN</b> · 28 Kasım sınavına son 20 gün, denemeler 8 Kasım\'da açılıyor · Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL · <u>Satın al →</u>'; href='satin-al.html?paket=son20-yet'; a.setAttribute('aria-label','SMMM Yeterlilik Son 20 Gün: denemeler 8 Kasım\'da açılıyor. Satın al.'); }
+    else { m='🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · '+(sec==='yeterlilik'?'SMMM Yeterlilik':'Staja Giriş')+' · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u>'; href='en-cok-cikan-sorular.html?sinav='+(sec==='yeterlilik'?'yeterlilik':'sgs'); a.setAttribute('aria-label','Yeni: Sınavda en çok çıkan konulardan sorular, ders ders. Aç.'); }
+    iz.innerHTML='<span>'+m+'</span><span>'+m+'</span>'; a.href=href;
+  }
   function dugmeCiz(){
     provaSerit(); kahUstCiz();
-    var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
+    var S=U?U.SINAVLAR[secili]:{olc:'kaydir/vitrin/ornek-sgs.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
     var c1=$('cta1'), c2=$('cta2'), du=$('durum');
@@ -783,6 +910,21 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     /* 13.10 KGK: ücretsiz katman (30 soruluk ölçüm, 5 örnek soru, sık konu denemesi, deneme seti) KGK'da YOK (13.10 ölçüldü) ->
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
+    /* 28.10 söz başlığı: yalnız SGS, 21 Kasım sınavından önce; öteki sınavda statik başlık ve açıklama geri gelir */
+    /* 28.10 Cem ("kazanana kadar değil geçene kadar Tetikte; bitirme aynı şekilde"): kampanya adıyla aynı fiil (sınav "geçilir").
+       SGS: "Geçemezsen, geçene kadar Tetikte." + şart satırı (söz kampanya-son-20-gun.html'de yazılı). Yeterlilik: aynı aile, SÖZSÜZ
+       "Geçene kadar Tetikte." — Yeterlilik'in söz şartları yazılmadı; "Geçemezsen" + şart satırı söz kararı verilince eklenir. */
+    /* 28.10 Cem şart onayı ("Yeterlilik sözünü önerdiğin şartlarla yaz"): Yeterlilik'te de "Geçemezsen" + kendi şart satırı (ders ders;
+       kampanya-son-20-gun.html#yeterlilik, 5. madde). */
+    try{ var soz=(secili==='sgs'&&Date.now()<Date.UTC(2026,10,21,21,0,0)), yetB=(secili==='yeterlilik'&&Date.now()<Date.UTC(2026,10,28,21,0,0)), hb=$('kahBas'), ha=$('kahAlt'), hs=$('kahSoz');
+      if(!hb.getAttribute('data-ilk')){ hb.setAttribute('data-ilk',hb.innerHTML); ha.setAttribute('data-ilk',ha.innerHTML); hs.setAttribute('data-ilk',hs.innerHTML); }
+      hb.innerHTML=(soz||yetB)?'Geçemezsen,<br>geçene kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
+      ha.innerHTML=(soz||yetB)?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
+      /* 29.10 Cem yönetim kurulu kararı: 1 Kasım 23:59 TR'ye (20:59 UTC) kadar şart satırı yerine karar; sonra eski şart satırı kendiliğinden döner */
+      var ykK=Date.now()<Date.UTC(2026,10,1,20,59,59);
+      hs.innerHTML=ykK?'<b>Yönetim kurulu kararı:</b> 1 Kasım 23:59\'a kadar paket alana deneme barajı, görev şartı yok. <a href="kampanya-son-20-gun.html#karar">Ayrıntı</a>':(yetB?'Şart: Son 20 Gün\'de girdiğin her dersin 5 denemesinin en az 3\'ünde %60 ve üstü doğru yap. <a href="kampanya-son-20-gun.html#yeterlilik">Şartlar</a>':hs.getAttribute('data-ilk'));
+      hs.hidden=!(soz||yetB); }catch(e){}
+    try{ kahFiyatCiz(secili, d.durum==='aktif'); pkSuz(secili); }catch(e){}
     ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
     try{ $('dene30').hidden=kgkSec||d.durum==='aktif'; $('dene5').href=ornek; }catch(e){}
     /* 17.10 kısayollar seçili sınavın sayfalarına; "Zaten hesabım var" oturumu açık olana gösterilmez */
@@ -793,15 +935,31 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
     /* 18.10 kayan duyuru: seçili sınavın sekmesine götürür; ✕ bu oturumda kapatır */
     try{ var ks=$('kayanSerit'), kk=false; try{ kk=sessionStorage.getItem('kayan_kapat')==='1'; }catch(e){}
-      if(ks){ if(kk||kgkSec) ks.hidden=true; else { ks.hidden=false; $('kayanA').href='en-cok-cikan-sorular.html?sinav='+(secili==='yeterlilik'?'yeterlilik':'sgs');
+      if(ks){ if(kk||kgkSec) ks.hidden=true; else { ks.hidden=false; kayanCiz(secili);   /* 28.10: seçili sınavın kampanyası */
         $('kayanX').onclick=function(){ ks.hidden=true; try{ sessionStorage.setItem('kayan_kapat','1'); }catch(e){} }; } } }catch(e){}
     /* 18.10 üye karşılama şeridi */
     try{ var hz=$('uyeHos'), oz=null, kapali=false; try{ oz=JSON.parse(localStorage.getItem('sc_son_ozet_'+OZET_ANAHTAR[secili])||'null'); kapali=sessionStorage.getItem('uye_hos_kapat')==='1'; }catch(e){}
+      /* 28.10 Cem ("7 deneme alan sadece onu görecek"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */
+      var s20=UYE&&UYE.son20&&UYE.son20.durum==='aktif'&&!Object.keys(UYE.sinavlar||{}).some(function(k){ return UYE.sinavlar[k]&&UYE.sinavlar[k].durum==='aktif'; })?UYE.son20:null;
+      if(hz&&s20&&!kapali){ var y20=s20.tur==='yet', once20=Date.now()<Date.parse(y20?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00');
+        $('uyeHosMetin').innerHTML='👋 <b>Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'.</b> '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\'da açılır.':'Denemelerin seni bekliyor.');
+        $('uyeHosBtn').textContent='Son 20 Gün sayfam →'; $('uyeHosBtn').href=y20?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html'; hz.hidden=false;
+        $('uyeHosX').onclick=function(){ hz.hidden=true; try{ sessionStorage.setItem('uye_hos_kapat','1'); }catch(e){} };
+      } else
       if(hz&&d.durum==='aktif'&&oz&&oz.ad&&/^[a-z0-9\/._-]+\.html$/i.test(oz.sayfa||'')&&!kapali){
         $('uyeHosMetin').innerHTML='👋 <b>Tekrar hoş geldin.</b> En son <b>'+esc(oz.ad)+'</b>'+(oz.set&&oz.oran!=null?' · Set '+(+oz.set)+' <b>%'+(+oz.oran)+'</b>':'')+'. Kaldığın dersten devam et.';
-        $('uyeHosBtn').href=oz.sayfa; hz.hidden=false;
+        $('uyeHosBtn').textContent='Devam et →'; $('uyeHosBtn').href=oz.sayfa; hz.hidden=false;
         $('uyeHosX').onclick=function(){ hz.hidden=true; try{ sessionStorage.setItem('uye_hos_kapat','1'); }catch(e){} };
-      } else if(hz) hz.hidden=true; }catch(e){}
+      } else if(hz) hz.hidden=true;
+      /* 28.10 Cem (GM önerisi 2 "yap"): Son 20 Gün denemeleri AÇIKKEN paketli üyenin karşılama şeridi Son 20 Gün olur (Hesabım ve Soru çöz
+         ile aynı kart, son20-kart.js). Açılıştan önce şerit olduğu gibi kalır (ana eylem günlük çalışma). */
+      if(hz&&!kapali&&window.ttSon20&&(secili==='sgs'||secili==='yeterlilik')&&(d.durum==='aktif'||s20)){
+        var t20=secili==='sgs'?'sgs':'yet', uy20=t20==='sgs'||d.durum==='aktif'||!!(s20&&s20.tur==='yet'), sec20=secili;
+        ttSon20.durum(t20,uy20).then(function(k){ if(!k||!k.acik||secili!==sec20) return;
+          $('uyeHosMetin').innerHTML='🎯 <b>'+esc(k.baslik)+'</b> · '+esc(k.metin);
+          $('uyeHosBtn').textContent=k.dugme; $('uyeHosBtn').href=k.adres; hz.hidden=false;
+          $('uyeHosX').onclick=function(){ hz.hidden=true; try{ sessionStorage.setItem('uye_hos_kapat','1'); }catch(e){} };
+        },function(){}); } }catch(e){}
     if(kgkSec){
       if(d.durum==='aktif'){ c1.textContent='Soru çöz'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=(window.TetikteUye&&TetikteUye.devamAdres)?TetikteUye.devamAdres(secili):S.devam; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); }
       else if(d.durum==='bitmis'){ c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Dersleri gör →'; c2.href=S.gir; du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.'; }
@@ -828,7 +986,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       c1.textContent='5 örnek soru çöz'; c1.href=ornek;
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
-      c2.textContent='Paketleri gör'; c2.href='#paketler';   /* 17.10: büyük düğme ana sayfadaki paket kartlarına */
+      /* 28.10 Cem ("yap bakalım": seçim + fiyat + satın al aynı yerde) — 05.10 "ilk ekranda fiyat yazılmaz" kararının yerine geçti;
+         ücretsiz kapı (5 örnek soru) birinci düğme olarak kalır, ikinci düğme seçili sınavın satın alma sayfası. */
+      c2.textContent='Satın al'; c2.href=S.al||'satin-al.html';
       /* 05.10 Cem ('30 soru çöz altında sınavdaki seviyeni gör desem'): alt satır testin SONUCUNU söyler (ekranda gerçekten çıkan iki şey).
          Süre seviye-testi.html'de yazar; ana sayfada süre işi zahmetli gösteriyordu. */
       du.innerHTML='Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.';
@@ -838,7 +998,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
        seviye ölçümü = Yeterlilik seti. Metin deneme.html'deki Birebir Prova açıklamasıyla aynı. */
     setTimeout(function(){ var z=document.getElementById('ozDeneme'); if(z) z.classList.remove('oz-bekle'); },3000);   /* 07.10 yedek */
     try{ var yetSec=(secili==='yeterlilik');
-      $('ozDenemeP').textContent = yetSec ? 'Gerçek 2026 düzeninde ders ders prova: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50.'
+      $('ozDenemeP').textContent = yetSec ? 'Sınavdaki soru sayısı ve süreyle ders ders deneme: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50.'
                                           : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.';
       $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
       $('ozDeneme').classList.remove('oz-bekle');   /* 07.10: seçili sınavın metni yazıldı */
@@ -851,11 +1011,11 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       secili=b.getAttribute('data-sinav'); if(U&&U.sinavSec) U.sinavSec(secili);
       say('anasayfa/sinav/'+secili,'Ana sayfa: sınav seçti');
       dugmeCiz(); ekranCiz();
-      /* 17.10: haplar kahramanın altında - telefonda değişen düğme ekran dışındaysa kahramana kaydır */
-      try{ var r=$('cta1').getBoundingClientRect(); if(r.top<64||r.bottom>window.innerHeight) document.querySelector('.kah').scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+      /* 28.10 Cem ("ilk sayfada göreyim bari dersleri"): sekmeler açılış ekranının içinde → kaydırma YOK; başlık, söz ve fiyat
+         aynı ekranda değişir. */
     });
   });
-  if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
+  if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); if(window.ttSigdir) setTimeout(ttSigdir,0);var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
     if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Üye ol'; c.href=ok?'sorular.html':'ogrenci.html#uye-ol'; } });   /* 17.10 Cem: ziyaretçiye "Üye ol" (5 soru kahramanda) */
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
@@ -935,24 +1095,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     else kanca('Doğru.','Yarın yeni soru gelir — sınava kadar her gün bir tane.','');
   });
 
-  /* ---- 2b) PAKET KARTLARI (17.10): rakam fiyat-motoru.js'ten, biçim fiyat.html kart() ile aynı ---- */
-  function pkKartCiz(k){
-    var p=paketBul(k.getAttribute('data-paket')); if(!p){ k.hidden=true; return; }
-    var hr=KDV_HARIC_GOSTER[p.id], a=k.querySelector('.pk-al');
-    k.querySelector('[data-fiyat]').innerHTML=hr?tl(Math.round(p.fiyat/(1+KDV_ORAN)))+' <small>TL + KDV</small>':tl(p.fiyat)+' <small>TL</small>';
-    k.querySelector('[data-dahil]').textContent=(hr?fiyatDahilNot(p.id,p.fiyat):'')+(p.kota&&p.liste>p.fiyat?(hr?' · ':'')+'açılış fiyatı · ilk '+tl(p.kota)+' üye':'');
-    k.querySelector('[data-sonra]').innerHTML=p.liste>p.fiyat?(p.kota?'İlk '+tl(p.kota)+' üyeden sonra ':'Sonra ')+fiyatAnaHtml(p.id,p.liste)+fiyatDahilHtml(p.id,p.liste):'';
-    if(!p.acik){ a.textContent='Yakında'; a.removeAttribute('href'); a.setAttribute('aria-disabled','true'); }
-    else { a.textContent='Satın al'; a.setAttribute('href','satin-al.html?paket='+p.id); a.removeAttribute('aria-disabled'); }
-  }
-  try{ [].forEach.call(document.querySelectorAll('.pk-kart[data-paket]'),pkKartCiz);
-    /* 18.10: ders sayısı seçici (1-4 ders) */
-    [].forEach.call(document.querySelectorAll('.pk-ders button'),function(b){ b.addEventListener('click',function(){
-      var k=b.closest('.pk-kart'); k.setAttribute('data-paket','yeterlilik-'+b.getAttribute('data-n'));
-      [].forEach.call(k.querySelectorAll('.pk-ders button'),function(x){ x.setAttribute('aria-pressed',x===b?'true':'false'); });
-      pkKartCiz(k);
-    }); });
-  }catch(e){}
+  /* ---- 2b) PAKET KARTLARI: 28.10 paket-kartlari.js'e taşındı (fiyat.html ile ortak) ---- */
 
   /* ---- 3) YANLIŞ KUTUSU: vadesi gelen soru varsa söyle (kc_kutu, bu tarayıcı) ---- */
   try{
@@ -972,6 +1115,29 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+/* 28.10 Cem ("tam sığmıyor, sığdır ve kontrol et"): bilgisayarda büyük sınav düğmeleri ilk ekranın içinde bitsin. Ölçer, sığmazsa
+   sıkıştırma basamağını (sig1..sig4, stil yukarıda) birer birer artırır. Telefonda (<901 px) dokunmaz. */
+(function(){
+  var h=document.documentElement, SINIF=['sig1','sig2','sig3','sig4','sig5','sig6'];
+  function sigdir(){
+    try{
+      SINIF.forEach(function(c){ h.classList.remove(c); });
+      var b=document.querySelector('.secim-bolum .secim'); if(!b||innerWidth<901) return;
+      for(var i=0;i<=SINIF.length;i++){
+        if(i) h.classList.add(SINIF[i-1]);
+        if(b.getBoundingClientRect().bottom+scrollY<=innerHeight-10) return;
+      }
+    }catch(e){}
+  }
+  var z; function sonra(){ clearTimeout(z); z=setTimeout(sigdir,60); }
+  sigdir(); addEventListener('load',sigdir); addEventListener('resize',sonra);
+  try{ document.fonts.ready.then(sigdir); }catch(e){}
+  /* sınav değişince başlık/şart satırı değişir; şerit ✕ ile kapanınca yer açılır */
+  document.addEventListener('click',function(e){ if(e.target.closest&&e.target.closest('.sinav,#kayanX,#uyeHosX')) sonra(); });
+  window.ttSigdir=sigdir;
+})();
+</script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

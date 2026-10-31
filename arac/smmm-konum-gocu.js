@@ -19,12 +19,15 @@
 //  node arac/smmm-konum-gocu.js --yedekle <dosya>                 eski sırayı yaz
 //  node arac/smmm-konum-gocu.js --goc <eski> [--yeni <dosya>] [--yaz]   KURU (varsayılan) / yaz; --yeni: kasa yerine dosya (prova)
 //  node arac/smmm-konum-gocu.js --sinav | --mutasyon
+//  28.10 (Cem "SGS'de aynı konu art arda gelmesin" → motor/sgs-ders-sira.js): --kod sgs ile AYNI göç kaydir/sgs/* için
+//    (paket_soru.sinav=sgs). Varsayılan smmm (eski çağrılar aynen). Bir koşu tek sınavın sayfalarına dokunur.
 // ============================================================================
 'use strict';
 const fs = require('fs');
 const SB = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/';
 const MUT = process.env.GOC_MUTASYON || '';
-const SAYFA = /^kaydir\/smmm\/[a-z0-9-]+\.html$/;
+const KOD = (() => { const a = process.argv, i = a.indexOf('--kod'); const k = i >= 0 ? a[i + 1] : 'smmm'; if (!/^(smmm|sgs)$/.test(k)) throw new Error('--kod smmm|sgs'); return k; })();
+const SAYFA = new RegExp('^kaydir/' + KOD + '/[a-z0-9-]+\\.html$');
 
 function basliklar() {
   const K = process.env.SUPABASE_SERVICE_KEY; if (!K) throw new Error('SUPABASE_SERVICE_KEY yok');
@@ -33,7 +36,7 @@ function basliklar() {
 async function siraOku() {
   const h = basliklar(), s = {};
   for (let i = 0; ; i += 1000) {
-    const r = await fetch(SB + 'paket_soru?select=id,sayfa,sira&sinav=eq.smmm&order=sayfa.asc,sira.asc,id.asc&limit=1000&offset=' + i, { headers: h });
+    const r = await fetch(SB + 'paket_soru?select=id,sayfa,sira&sinav=eq.' + KOD + '&order=sayfa.asc,sira.asc,id.asc&limit=1000&offset=' + i, { headers: h });
     if (!r.ok) throw new Error('paket_soru HTTP ' + r.status);
     const p = await r.json(); p.forEach(x => { (s[x.sayfa] = s[x.sayfa] || []).push(x.id); }); if (p.length < 1000) break;
   }
@@ -89,14 +92,15 @@ async function goc(eskiDosya, yeniDosya, yaz) {
     }
     if (p.length < 500) break;
   }
-  console.log(`KONUM GÖÇÜ · ${yaz ? 'YAZ' : 'KURU'} · sırası değişen sayfa ${sayfaFark}/${Object.keys(yeni).length} · ilerleme satırı ${T.satir} · bitirme konumlu hesap ${T.hesap}`);
-  console.log(`  bitirme konum kaydı ${T.kayit} · çevrilen ${T.cevrilen} · sırası aynı ${T.ayni} · kimliği bulunamayan ${T.kayip} · zaten kimlikli ${T.kimlikli}` + (yaz ? ` · yazılan hesap ${T.yazilan} · arada değiştiği için atlanan ${T.atlanan}` : ''));
+  console.log(`KONUM GÖÇÜ (${KOD}) · ${yaz ? 'YAZ' : 'KURU'} · sırası değişen sayfa ${sayfaFark}/${Object.keys(yeni).length} · ilerleme satırı ${T.satir} · ${KOD} konumlu hesap ${T.hesap}`);
+  console.log(`  ${KOD} konum kaydı ${T.kayit} · çevrilen ${T.cevrilen} · sırası aynı ${T.ayni} · kimliği bulunamayan ${T.kayip} · zaten kimlikli ${T.kimlikli}` + (yaz ? ` · yazılan hesap ${T.yazilan} · arada değiştiği için atlanan ${T.atlanan}` : ''));
   return T;
 }
 
 function sinav() {
   let hata = 0; const t = (ad, k) => { console.log((k ? '  geçti: ' : '  DÜŞTÜ: ') + ad); if (!k) hata++; };
   const Y = 'kaydir/smmm/vergi.html', eski = { [Y]: ['a', 'b', 'c', 'd', 'e'] }, yeni = { [Y]: ['d', 'e', 'a', 'b', 'c'] };
+  if (KOD === 'smmm') {
   const v = { surum: 1, konum: { [Y]: { i: 3, t: 5 }, 'kaydir/sgs/turkce.html': { i: 2, t: 5 } }, son: { yol: Y, i: 3, t: 5 }, cevap: { x: { s: 'ok' } } };
   const c = cevir(v, eski, yeni, 99);
   t('eski i=3 (d) → yeni i=0, kimlik yazılır', c.veri.konum[Y].i === 0 && c.veri.konum[Y].q === 'd' && c.veri.konum[Y].t === 99);
@@ -111,6 +115,18 @@ function sinav() {
   const k2 = cevir({ konum: { [Y]: { i: 1, t: 1 } } }, eski, { [Y]: ['a', 'c'] }, 9);
   t('kasadan çıkan soru: kayıt kalır, kayıp sayılır', k2.degisen === false && k2.kayip === 1);
   t('konumsuz eski hesap bozulmaz', cevir({ surum: 1 }, eski, yeni, 9).degisen === false);
+  }
+  // 28.10 --kod sgs: SGS koşusu SGS konumunu çevirir, bitirmeye dokunmaz (aynı saf işlev, desen KOD'dan)
+  if (KOD === 'sgs') {
+    const S = 'kaydir/sgs/turkce.html', es = { [S]: ['a', 'b', 'c'] }, ys = { [S]: ['c', 'a', 'b'] };
+    const cs = cevir({ konum: { [S]: { i: 2, t: 1 }, [Y]: { i: 3, t: 1 } } }, es, ys, 7);
+    t('--kod sgs: SGS konumu çevrilir (c: 2 → 0)', cs.veri.konum[S].i === 0 && cs.veri.konum[S].q === 'c');
+    t('--kod sgs: bitirme konumuna dokunulmaz', cs.veri.konum[Y].i === 3 && cs.veri.konum[Y].t === 1);
+    const ck = cevir({ konum: { [S]: { i: 0, q: 'b', t: 1 } } }, es, ys, 7);
+    t('--kod sgs: kimlikli kayıt kimlikten çevrilir (b → 2)', ck.veri.konum[S].i === 2);
+    const cm = MUT === 'kimlik-yok' ? cevir({ konum: { [S]: { i: 2, t: 1 } } }, es, ys, 7) : cs;
+    t('--kod sgs: eski i kimliğe çözülür', cm.veri.konum[S].i === 0);
+  }
   console.log(hata ? `ÖZ-SINAV DÜŞTÜ (${hata})` : 'ÖZ-SINAV GEÇTİ'); return hata;
 }
 
@@ -119,7 +135,7 @@ if (require.main === module) {
   (async () => {
     if (a.includes('--mutasyon')) {
       const { spawnSync } = require('child_process');
-      const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { GOC_MUTASYON: 'kimlik-yok' }), encoding: 'utf8' });
+      const r = spawnSync(process.execPath, [__filename, '--sinav', '--kod', KOD], { env: Object.assign({}, process.env, { GOC_MUTASYON: 'kimlik-yok' }), encoding: 'utf8' });
       console.log(`  mutasyon kimlik-yok  ${r.status ? 'KIRMIZI (doğru)' : 'YEŞİL — SINAV KÖR'}\nMUTASYON: ${r.status ? 1 : 0}/1 → KIRMIZI`); process.exitCode = r.status ? 0 : 1;
     } else if (a.includes('--sinav')) process.exitCode = sinav() ? 1 : 0;
     else if (a.includes('--yedekle')) {

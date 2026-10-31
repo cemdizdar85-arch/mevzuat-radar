@@ -205,6 +205,15 @@ jobs:
       - name: Kanun degisikligi nobeti (yeni degisiklik notu var mi)
         continue-on-error: true
         run: node arac/degisiklik-nobetcisi.js --tara
+      # 22.10.2026 YILLIK TUTAR NOBETI (Cem "1.2.3" + "zamani gelince hemen degistirecek sistem"): yeni yilin GVK hadleri,
+      # damga azami tutari, kidem tavani genelgesi ambara dusunce kutuk (veri/sinav/yillik-tutarlar.json) resmi metinden
+      # yeniden uretilir ve commit'e girer; sinav yilinin tutari kutukte yoksa "BEKLEYEN" basar. Kirmizi VERMEZ (yayini
+      # durdurmaz, kapi kurali 7); sorular KAPI-YT ile basim/yayinda yakalanir. Bedel 0.
+      - name: Yillik tutar nobeti (kutuk tazele + bekleyen)
+        continue-on-error: true
+        run: |
+          node arac/yillik-tutar-kutugu.js --yaz | tail -3
+          node arac/yillik-tutar-kapisi.js --nobet
       # ZINCIRIN SON HALKASI (29.07). Madde damgasi degisen maddeye dayanan
       # SORULARI yayindan cekiyor - ama SAYFALAR icin oyle bir bag yoktu.
       # Bedeli goruldu: KVKK sayfasi 11.07'de sablondan yazildi, kanun ambara
@@ -237,6 +246,7 @@ jobs:
           if [ -f veri/teblig-damga-log.txt ]; then git add veri/teblig-damga-log.txt || true; fi
           git add veri/yeniden-dogrula.json 2>/dev/null || true
           git add veri/sinav/degisiklik-kutugu.json veri/sinav/DEGISIKLIK-NOBETI.md 2>/dev/null || true
+          git add veri/sinav/yillik-tutarlar.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
           else

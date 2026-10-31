@@ -6,7 +6,9 @@
 //  kaybediyordu. Ödeme onaylanınca da müşteriye haber gitmiyordu.
 //
 //  İKİ MAİL:
-//    tur:'alindi'  -> satin-al.html sipariş kaydından hemen sonra çağırır: sipariş no, tutar, IBAN, açıklama notu.
+//    tur:'alindi'  -> satin-al.html alıcı "Havale/EFT ile ödeyeceğim" deyince çağırır (21.10'dan önce: sipariş kaydından
+//                     hemen sonra, kartla ödeyene de giderdi): sipariş no, tutar, IBAN, açıklama notu, sözleşme ekleri.
+//    Kartla ödeyende 'alindi' hiç gitmez; 'acildi' TEK mail olur (özet + sözleşme ekleri).
 //    tur:'acildi'  -> yonetim.html "Ödendi, paketi aç" başarılı olunca çağırır: paketin açıldı / üye ol.
 //
 //  SPAM / İSTİSMAR KAPISI OLMASIN DİYE:
@@ -25,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "d53c57c11cc66424";
+const KOD_IMZA = "0f00f2fd49084aef";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -71,6 +73,11 @@ export function b64(metin: string): string {
   return btoa(s);
 }
 
+// 28.10 Cem "1 ve 2 yap": iPhone uygulaması siteden alınan paketi AÇMAZ (mobil/uygulama/ortak.js IOS_SATIS=false, Apple 3.1.1).
+// SGS alıcısı uygulamada paketini göremedi, hesabını silip paketini kaybetti → her sipariş mailinde doğru yol yazar.
+// mobil/magaza-urunleri.json "ios_satis" true olup yeni iOS sürümü yayına girince bu satır KALDIRILIR.
+export const IPHONE_SATIR = "iPhone kullanıyorsan paketini Tetikte uygulamasında değil, tetikte.com'da Safari ile aç: uygulama şimdilik yalnız örnek sorularla çalışıyor. İstersen Safari'de Paylaş → Ana Ekrana Ekle ile siteyi uygulama gibi kullanabilirsin.";
+
 export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; tutar: number }) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   const konu = `Siparişin alındı: ${s.siparis_no} · ${tl(s.tutar)}`;
@@ -83,6 +90,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     `Açıklama: ${s.siparis_no}  (havale açıklamasına yalnız sipariş numaranı yaz)`, "",
     "Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.",
     "Siparişi verdiğin e-postayla tetikte.com'da ücretsiz hesap açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.", "",
+    IPHONE_SATIR, "",
     "Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi'nin bu siparişe ait kopyası bu e-postanın ekindedir:",
     "https://tetikte.com/on-bilgilendirme.html", "https://tetikte.com/mesafeli-satis.html", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir.",
@@ -99,28 +107,70 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 </table>
 <p>Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.</p>
 <p>Siparişi verdiğin e-postayla <a href="https://tetikte.com/ogrenci.html#uye-ol">tetikte.com'da ücretsiz hesap</a> açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.</p>
+<p><b>${kacis(IPHONE_SATIR)}</b></p>
 <p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz.</p>
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };
 }
 
-export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; paket_bitis: string | null }, hesapVar: boolean) {
+// 21.10 (Cem "iki kere mail gitmesin, günde binlerce sipariş alanlar ne yapıyorsa onu yap"): kartla ödeyene 'alindi' (IBAN)
+// maili GİTMEZ; tek mail budur → tekMail=true iken sipariş özeti (no, paket, tutar, ödeme) + sözleşme ekleri de burada.
+// Havale seçene 'alindi' (ödeme bilgisi) gitmiştir; bu mail o zaman yalnız "ödemen geldi, paketin açıldı" der.
+export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; paket_bitis: string | null; tutar?: number; odeme?: string | null }, hesapVar: boolean, tekMail = false, yeniHesap = false) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
-  const konu = `Ödemen onaylandı, paketin açıldı: ${s.paket_ad || s.paket}`;
+  // 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme ön satış — "paketin açıldı, hemen başla" YAZILMAZ; denemeler 1 Kasım'da
+  // son-20-gun.html'de açılır. Öteki paketlerin maili birebir aynı.
+  // 28.10: Yeterlilik Son 20 Gün (son20-yet) de ön satış — denemeler 8 Kasım'da; sayfası henüz yok → adres Hesabım.
+  const onYet = s.paket === "son20-yet";
+  const onSiparis = s.paket === "son20-sgs" || onYet;
+  const acilisG = onYet ? "8 Kasım 2026" : "1 Kasım 2026";
+  const durumAd = onSiparis ? "ön siparişin kayda geçti" : "paketin açıldı";
+  const konu = tekMail ? `Siparişin onaylandı: ${s.siparis_no} · ${durumAd}` : `Ödemen onaylandı, ${durumAd}: ${s.paket_ad || s.paket}`;
+  const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
   const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
-  const giris = hesapVar
+  const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : onSiparis ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
+  // 31.10: hesabı ödeme anında biz açtıysak (yeniHesap) alıcı "üye ol" demez; Google ya da şifre belirleyerek girer.
+  const yeniGiris = `Hesabın bu e-postayla açıldı, ayrıca üye olman gerekmiyor. tetikte.com → Giriş → "Google ile gir" deyip bu e-postanın Google hesabını seç; Google kullanmıyorsan bu e-postayı yazıp "Şifremi unuttum" ile kendine şifre belirle.`;
+  const giris = yeniHesap
+    ? (onSiparis ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. ${yeniGiris}` : `Paketin hesabında hazır. ${yeniGiris}`)
+    : onSiparis
+    ? (hesapVar
+      ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından başla.`
+      : `Son 20 Gün denemelerin ${acilisG}'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.`)
+    : hesapVar
     ? "tetikte.com'a bu e-postayla giriş yap; Hesabım'da paketin görünür, soru çözmeye hemen başlayabilirsin."
     : "Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.";
+  // 28.10 Cem onayı (ön satış cayma): açılışa kadar tam iade — sözleşmelerdeki "Ön satış paketleri" maddesiyle aynı.
+  const cayma = onSiparis ? `Denemeler açılana kadar (${acilisG} 00:00) bu e-postayı yanıtlayarak cayabilirsin; ödediğin tutarın tamamı iade edilir.` : "";
   // 12.10: alıcı Google ile BAŞKA adresten girdi, paketi göremedi → kendi başına çözebileceği yol mailde yazar
   const baska = `Siteye başka bir e-postayla (ör. Google hesabınla) girdiysen paket orada görünmez: Hesabım → "Ödedim ama paketim görünmüyor"a bas, sipariş numarasını (${s.siparis_no}) ve bu e-postayı yaz; paket o hesaba bağlanır.`;
-  const satirlar = [`Merhaba ${ad},`, "", `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`,
-    `Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`, "", giris, "", baska, "", "https://tetikte.com/ogrenci.html", "",
+  const ekCumle = "Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi'nin bu siparişe ait kopyası bu e-postanın ekindedir; saklamanı öneririz. E-arşiv faturan da bu adrese gönderilir.";
+  const ozet = tekMail
+    ? [`Sipariş no: ${s.siparis_no}`, `Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`,
+       `Ödenen tutar (KDV dahil): ${tl(Number(s.tutar))}`, ...(odemeAd ? [`Ödeme: ${odemeAd}`] : [])]
+    : [`Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`];
+  const satirlar = [`Merhaba ${ad},`, "", tekMail ? `Siparişin onaylandı, ödemen alındı ve ${durumAd}.` : `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`, "",
+    ...ozet, "", giris, "", IPHONE_SATIR, "", ...(cayma ? [cayma, ""] : []), baska, "", adres, "",
+    ...(tekMail ? [ekCumle, "https://tetikte.com/on-bilgilendirme.html", "https://tetikte.com/mesafeli-satis.html", ""] : []),
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir."];
-  const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p><b>${kacis(s.siparis_no)}</b> numaralı siparişinin ödemesi hesabımıza geçti.</p>
-<p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>
+  const satir = (k: string, v: string) => `<tr><td style="padding:4px 14px 4px 0;color:#3d4b63">${k}</td><td>${v}</td></tr>`;
+  const ust = tekMail
+    ? `<p>Siparişin onaylandı, ödemen alındı ve <b>${durumAd}</b>.</p>
+<table style="border-collapse:collapse;margin:10px 0">
+${satir("Sipariş no", "<b>" + kacis(s.siparis_no) + "</b>")}
+${satir("Paket", kacis(s.paket_ad || s.paket) + (bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""))}
+${satir("Ödenen (KDV dahil)", "<b>" + kacis(tl(Number(s.tutar))) + "</b>")}
+${odemeAd ? satir("Ödeme", kacis(odemeAd)) : ""}
+</table>`
+    : `<p><b>${kacis(s.siparis_no)}</b> numaralı siparişinin ödemesi hesabımıza geçti.</p>
+<p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>`;
+  const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p>${ust}
 <p>${kacis(giris)}</p>
+<p><b>${kacis(IPHONE_SATIR)}</b></p>
+${cayma ? `<p>${kacis(cayma)}</p>` : ""}
 <p style="color:#3d4b63">${kacis(baska)}</p>
-<p><a href="https://tetikte.com/ogrenci.html" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
+<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
+${tekMail ? `<p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz. E-arşiv faturan da bu adrese gönderilir.</p>` : ""}
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };
 }
@@ -150,12 +200,14 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
 
   const sb = (yol: string, sec?: RequestInit) => fetch(`${SB_URL}/rest/v1/${yol}`, Object.assign({
     headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" } }, sec || {}));
-  const r = await sb(`siparisler?select=id,siparis_no,ad_soyad,email,paket,paket_ad,tutar,durum,olusturma,paket_bitis,alindi_mail,acildi_mail&siparis_no=eq.${encodeURIComponent(no)}&limit=1`);
+  const r = await sb(`siparisler?select=id,siparis_no,ad_soyad,email,paket,paket_ad,tutar,odeme,durum,olusturma,paket_bitis,alindi_mail,acildi_mail,bagli_kullanici&siparis_no=eq.${encodeURIComponent(no)}&limit=1`);
   if (!r.ok) return cevap(502, { hata: "siparis okunamadi" });
   const s = (await r.json())[0];
   if (!s) return cevap(404, { hata: "siparis yok" });
 
   let m: { konu: string; metin: string; html: string }; let damga: string;
+  // 21.10 tek mail: 'alindi' hiç gitmemişse (kartla ödeyen) 'acildi' siparişin TEK maili olur → özet + sözleşme ekleri onda
+  const tekMail = tur === "acildi" && !s.alindi_mail;
   if (tur === "alindi") {
     if (s.alindi_mail) return cevap(200, { success: true, zaten: true });
     if (s.durum !== "odeme_bekliyor" || Date.now() - new Date(s.olusturma).getTime() > 2 * 3600 * 1000) return cevap(409, { hata: "uygun degil" });
@@ -188,8 +240,24 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     try {
       const u = await fetch(`${SB_URL}/auth/v1/admin/users?page=1&per_page=1000`, { headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` } });
       const j = await u.json(); hesapVar = (j.users || []).some((x: { email?: string }) => String(x.email || "").toLowerCase() === String(s.email).toLowerCase());
-    } catch { /* bilinmiyorsa "hesap aç" metni gider - zararsız */ }
-    m = acildiMail(s, hesapVar); damga = "acildi_mail";
+    } catch { /* bilinmiyorsa aşağıdaki açma denemesi söyler */ }
+    // 31.10 (Cem "google girene girdiği mail adresi ile üyelik açalım"): aynı gün iki alıcı (44CF, X5XF) kartla ödedi ama siteye
+    // hiç üye olmadı → paket "hiçbir hesapta açılmadı" listesinde bekledi. Ödenmiş siparişin e-postasıyla hesap yoksa hesabı
+    // BURADA açarız (onaylı e-posta, şifresiz): yeni üye tetikleyicisi (yeni_uye_paket_bagla) paketi o an bağlar. Alıcı Google'la
+    // aynı adresten girince Supabase onaylı e-postayı aynı hesaba bağlar; e-postayla girecekse "Şifremi unuttum" ile şifre koyar.
+    // Yalnız ödenmiş + başka hesaba bağlanmamış siparişte; hesap zaten varsa (liste 1000'i aşmış olabilir) Supabase 422 döner → hesapVar.
+    // 🚫 GÖRMEZ: alıcı forma yanlış/yabancı adres yazdıysa hesap o adrese açılır (paket orada; panelden yeniden bağlanır).
+    let yeniHesap = false;
+    if (!hesapVar && !s.bagli_kullanici) {
+      try {
+        const h = await fetch(`${SB_URL}/auth/v1/admin/users`, { method: "POST",
+          headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ email: String(s.email).trim().toLowerCase(), email_confirm: true, user_metadata: { full_name: s.ad_soyad || "", kaynak: "siparis" } }) });
+        if (h.ok) yeniHesap = true; else if (h.status === 422) hesapVar = true;
+        console.log(`siparis-bildirim ${no} hesap ${h.ok ? "acildi" : "acilmadi " + h.status}`);
+      } catch { /* açılamazsa eski "hesap aç" metni gider */ }
+    }
+    m = acildiMail(s, hesapVar || yeniHesap, tekMail, yeniHesap); damga = "acildi_mail";
   }
 
   // önce damga (iki eşzamanlı istekte iki mail gitmesin): yalnız damga boşsa yazılır
@@ -199,8 +267,9 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
   if (!dj.length) return cevap(200, { success: true, zaten: true });
 
   // 08.10: 'alindi' mailine sözleşme ekleri (o anki metin). Okunamazsa ek yok, mail yine gider.
+  // 21.10: kartla ödeyende ekler tek maile ('acildi') gider.
   const ekler: { filename: string; content: string }[] = [];
-  if (tur === "alindi") {
+  if (tur === "alindi" || tekMail) {
     const an = new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" });
     for (const [yol, baslik, ad] of [["on-bilgilendirme.html", "Ön Bilgilendirme Formu", "On-Bilgilendirme-Formu"], ["mesafeli-satis.html", "Mesafeli Satış Sözleşmesi", "Mesafeli-Satis-Sozlesmesi"]]) {
       try {
@@ -209,7 +278,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
         if (t.length > 1000) ekler.push({ filename: `${ad}-${s.siparis_no}.html`, content: b64(ekHtml(t, baslik, s, an)) });
       } catch { /* ek yok, mail yine gider */ }
     }
-    if (ekler.length < 2) console.log(`siparis-bildirim ${no} alindi ek eksik (${ekler.length}/2)`);
+    if (ekler.length < 2) console.log(`siparis-bildirim ${no} ${tur} ek eksik (${ekler.length}/2)`);
   }
   const gonder = await fetch("https://api.resend.com/emails", { method: "POST",
     headers: { Authorization: `Bearer ${RESEND_KEY}`, "content-type": "application/json" },
@@ -220,6 +289,6 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     console.log(`siparis-bildirim ${no} ${tur} RESEND ${gonder.status}`);
     return cevap(502, { hata: "mail gonderilemedi" });
   }
-  console.log(`siparis-bildirim ${no} ${tur} gonderildi${tur === "alindi" ? " ek " + ekler.length : ""}`);
+  console.log(`siparis-bildirim ${no} ${tur}${tekMail ? " tek-mail" : ""} gonderildi${tur === "alindi" || tekMail ? " ek " + ekler.length : ""}`);
   return cevap(200, { success: true, gonderildi: true });
 });

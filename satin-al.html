@@ -105,7 +105,12 @@
   /* --- paket secimi --- */
   .grup{ font-size:12.5px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
   /* 17.10: ?paket= ile seçilerek gelinince yalnız o paket (öteki paketler "Başka paket seç" ile) */
-  #paketler.odak .pk:not(.sec), #paketler.odak .grup, #paketler.odak > p{ display:none; }
+  #paketler.odak .pk:not(.sec):not(.kardes), #paketler.odak .grup, #paketler.odak > p{ display:none; }
+  /* 28.10: sabit sıra (tıklayınca satır kaymasın) — SGS: Tam Paket · 7 Deneme (PAKETLER sırası) · Yeterlilik: tüm dersler · ders ders · Son 20 Gün */
+  #paketler.odak{ display:flex; flex-direction:column; }
+  #paketler.odak .pk[data-id="yeterlilik-tum"]{ order:1; } #paketler.odak .pk[data-id^="yeterlilik-"]:not([data-id="yeterlilik-tum"]){ order:2; }
+  #paketler.odak .pk[data-id="son20-yet"]{ order:3; }
+  #paketler.odak > :not(.pk){ order:2; }   /* ders seçim kutusu ders satırının hemen altında kalsın (DOM'da ona eklenir) */
   #paketler.odak .pk.sec{ margin-top:14px; }
   /* 18.10: ders sayısı seçicisi (ders kutusunun başında) */
   .ders-sayi{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
@@ -134,9 +139,13 @@
     .pk{ flex-wrap:wrap; }
     .pk .fy{ flex-basis:100%; max-width:none; margin-left:0; text-align:left; padding-left:29px; }
   }
-  .pk .fy span{ display:block; font-size:11px; color:var(--dim); }
+  .pk .fy span{ display:block; font-size:12.5px; color:var(--dim); }   /* 28.10 görüntü turu: 11 px telefonda okunmuyordu */
+  /* 28.10 Cem ("1 ders görünüyor, basınca diğerleri çıkıyor, basmayabilir; ders sayısı yukarıda olsun"): ders sayısı satırın içinde */
+  .pk-ds{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:8px 0 2px; max-width:340px; }
+  .pk-ds button{ min-height:40px; padding:0 4px; white-space:nowrap; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-size:14px; font-weight:750; cursor:pointer; }
+  .pk-ds button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
   .pk .fy s{ display:block; font-size:12px; color:var(--dim); }
-  .pk .harc{ display:block; font-size:11.5px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
+  .pk .harc{ display:block; font-size:12.5px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
   .dersListe{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:7px; }
   .dersListe label{ display:flex; align-items:center; gap:9px; background:color-mix(in srgb,var(--ink) 5%,var(--kart));
        border:1px solid transparent; border-radius:10px; padding:9px 12px; font-size:13.5px; cursor:pointer; }
@@ -346,6 +355,12 @@
        kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
        Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
   <div class="alan" style="margin:12px 0 14px">
+    <!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar
+         elçi altyapısında, süre bitince .github/workflows/erken-kayit-kapat.yml kapatır. Koşullar: kampanya-son-20-gun.html -->
+    <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Geçene Kadar Tetikte erken kayıt:</b> 1 Kasım 23:59'a kadar SGS Tam Pakette <b>600 TL indirim</b> (2.988 TL yerine 2.388 TL). <b>Kod gerekmez</b>, indirim kendiliğinden uygulanır. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. İndirim "Sadece 7 Deneme" paketine uygulanmaz. <b>Yönetim kurulu kararı:</b> 1 Kasım 23:59'a kadar paket alan herkes, sınavı kazanana kadar ek üyelik ücreti ödemez; deneme barajı ve görev şartı yok. <a href="kampanya-son-20-gun.html#karar">Kampanya koşulları</a></p>
+    <script>/* 28.10: SGS kutusu yalnız SGS paketi seçiliyken (Yeterlilik seçene SGS kampanyası yazılmaz); ozetCiz her seçimde yeniden çağırır */
+      function erkenKutuCiz(id){ try { document.getElementById('erkenKayit').hidden = !(Date.now() < Date.UTC(2026,10,1,20,59,59) && (!id || id === 'sgs' || id === 'son20-sgs')); } catch(e){} }
+      erkenKutuCiz(new URLSearchParams(location.search).get('paket'));</script>
     <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
     <div id="kodKutu" hidden>
       <label class="et" for="kod">Elçi / indirim kodu</label>
@@ -368,8 +383,10 @@
     <span><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
     <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
     <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını onaylıyorum.</span></label>
+  <!-- 28.10 Cem onayı: ön satış paketlerinde (fiyat-motoru acilis alanı) cayma açılış gününe kadar sürer; metin ifaYaziCiz ile değişir.
+       Aynı madde on-bilgilendirme / mesafeli-satis / teslimat-iade "Ön satış paketleri" paragrafında. -->
   <label class="onay"><input type="checkbox" id="onIfa">
-    <span>Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
+    <span id="onIfaYazi">Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
     yasal cayma hakkı olmadığını biliyorum.</span></label>
   <label class="onay"><input type="checkbox" id="onKvkk">
     <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
@@ -404,11 +421,16 @@
       <p class="kucuk" style="margin:6px 0 10px">Siparişteki e-postayla (<b id="hesapEp"></b>) ücretsiz hesap aç; ödemen onaylanınca paket kendiliğinden bu hesaba bağlanır. Google ile açacaksan <b>aynı e-postalı</b> Google hesabını seç. Başka adresle girersen paket görünmez; o zaman Hesabım → "Ödedim ama paketim görünmüyor" (sipariş no + bu e-posta).</p>
       <a class="btn" href="ogrenci.html#uye-ol" id="hesapAc" style="text-decoration:none">Hesabımı aç (1 dakika) →</a>
     </div>
-    <p style="margin:0 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
-    hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
     <div class="kv"><b>Sipariş no</b><span id="tmNo" style="font-weight:800;color:var(--amber)"></span></div>
     <div class="kv"><b>Paket</b><span id="tmPaket"></span></div>
     <div class="kv"><b>Tutar</b><span id="tmTutar" style="font-weight:800"></span></div>
+    <!-- 29.10 (Cem "ilk önce kredi kartı" → "havale gizli olmasın, görünsün"): kart üstte büyük, havale altında açık ikinci yol.
+         "havale yaparken niye mail gönderiyoruz … üye olduğunda göndereceksek": sayfadan IBAN maili gitmez (havaleKur). -->
+    <button type="button" id="havaleSec" class="btn" hidden style="width:100%;margin:14px 0 0;background:transparent;color:var(--ink);border:1px solid var(--line2);font-weight:700">🏦 Havale/EFT ile ödeyeceğim</button>
+    <div id="havaleBlok">
+    <p style="margin:16px 0 8px;font-size:15px" id="havaleOrta"><b>Ya da havale/EFT ile öde</b></p>
+    <p style="margin:0 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
+    hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
     <div class="kv"><b>Alıcı unvan</b><span id="tmUnvan"></span></div>
     <div class="kv"><b>Banka</b><span id="tmBanka"></span></div>
     <div class="kv" style="border:none;display:block"><b style="display:block;margin-bottom:4px">IBAN</b>
@@ -417,7 +439,10 @@
     Eşleştirmeyi bununla yapıyoruz; yazmazsan hesabının açılması gecikir.</p>
     <p style="margin:10px 0 0;font-size:14px"><b>Durum: ödemen kontrol ediliyor.</b> Siparişini bu cihazda
     <a href="ogrenci.html">Hesabım</a> sayfasında görürsün; paketin açılınca orada "Açık" yazar.</p>
-    <p class="kucuk" style="margin:10px 0 0">Sipariş özeti e-posta adresine de gönderildi.
+    <p class="kucuk" style="margin:10px 0 0">📸 Bu ekranın görüntüsünü al ya da IBAN'ı kopyala; havale bilgisi için ayrıca e-posta gelmez.
+    Ödemen görülüp paketin açılınca sipariş özetin ve sözleşme kopyan e-posta adresine tek seferde gelir.</p>
+    </div>
+    <p class="kucuk" id="mailNot" style="margin:10px 0 0">Kartla ödersen sipariş onayın, sözleşme kopyanla birlikte ödemeden hemen sonra tek e-postayla gelir.
     Bir sorun olursa <a href="iletisim.html">iletişim</a> sayfasından bize yaz.</p>
   </div>
 </div>
@@ -430,7 +455,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261019b"></script>
+<script src="fiyat-motoru.js?v=20261028y5"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -471,6 +496,26 @@ var ELCI_GRUPLAR = (function(){
 })();
 if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GRUP || p.grup === 'Ek'; }); }
 else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPLAR[p.grup] || p.grup === 'Ek'; }); }
+/* 28.10 Cem (ekran görüntüsü: kartta 2.490 + KDV / 2.988, özette 2.388): paket kartı ana sayfa kartıyla AYNI rakamı yazar
+   (paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta
+   "ilk 1.000 üyeden sonra" satırı yazılmaz. Ödenen tutar yine özetteki hesap (sunucu doğrular). */
+function pkFiyatHtml(p){
+  /* 28.10 görüntü turu: erken kayıt ve Son 20 Gün kartında "açılış fiyatı · ilk 1.000 üye" / "sabit fiyat" notu kalabalık yapıyordu */
+  var net = (typeof erkenNet === 'function') ? erkenNet(p) : 0, ayr = (net || /^son20-/.test(p.id)) ? '</span>' : '<span>' + p.not + '</span></span>';
+  if(p.id === 'son20-sgs' || p.id === 'son20-yet')
+    return '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b><span style="color:var(--ink);font-weight:700">KDV dahil · ' + kdvHaric(p.fiyat) + ' TL + KDV</span>'
+      + '<span>denemeler ' + (p.id === 'son20-yet' ? '8' : '1') + ' Kasım\'da açılır</span>' + ayr;
+  if(net && p.id === 'sgs')
+    return '<span class="fy"><b>' + tl(net) + ' TL</b><span style="color:var(--ink);font-weight:700">KDV dahil · ' + tl(p.fiyat) + ' TL yerine</span>'
+      + '<span>erken kayıt · ' + erkenBitisYazi(p.id) + '</span>' + ayr;
+  if(net)
+    return '<span class="fy"><b>' + kdvHaric(net) + ' TL + KDV</b><span style="color:var(--ink);font-weight:700">KDV dahil ' + tl(net) + ' TL · ' + tl(p.fiyat) + ' TL yerine</span>'
+      + '<span>erken kayıt · ' + erkenBitisYazi(p.id) + '</span>' + ayr;
+  return '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
+    + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
+    + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
+    + ayr;
+}
 (function(){
   var kap = document.getElementById('paketler'), grup = '', h = '';
   PAKETLER.forEach(function(p){
@@ -482,12 +527,11 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
        + '<span class="er">' + p.erisim + '</span>'
        + '<span class="harc">' + p.harcYazi + '</span>'
        + (p.id === 'yeterlilik-tum' ? ayriKiyas() : '')
+       + (/^yeterlilik-[1-4]$/.test(p.id) ? '<span class="pk-ds" role="group" aria-label="Kaç ders?">' + [1,2,3,4].map(function(n){
+           return '<button type="button" data-pkds="yeterlilik-' + n + '" aria-pressed="' + (p.id === 'yeterlilik-' + n) + '">' + n + ' ders</button>'; }).join('') + '</span>' : '')
        + '<span class="enCok" data-pk="' + p.id + '" style="display:none;color:var(--amber);font-weight:700;font-size:12px;margin-top:3px">En çok seçilen</span>'
        + '</span>'
-       + '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
-       + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
-       + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
-       + '<span>' + p.not + '</span></span></label>';
+       + pkFiyatHtml(p) + '</label>';
   });
   if(ODAK_GRUP || ELCI_GRUPLAR){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
   kap.innerHTML = h;
@@ -497,6 +541,13 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
       if(!id) return;
       var el = kap.querySelector('.enCok[data-pk="' + id + '"]'); if(el) el.style.display = 'block';
     });
+  });
+  /* 28.10: satır içi ders sayısı düğmesi → o ders paketinin radyosu (etiket tıklaması kendi satırını seçmesin) */
+  kap.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('button[data-pkds]'); if(!b) return;
+    e.preventDefault(); e.stopPropagation();
+    var r = kap.querySelector('input[name=paket][value="' + b.getAttribute('data-pkds') + '"]'); if(!r) return;
+    r.checked = true; r.dispatchEvent(new Event('change', { bubbles:true }));
   });
   kap.addEventListener('change', function(e){
     if(e.target.name !== 'paket') return;
@@ -545,7 +596,7 @@ function dersCiz(){
   (function(){
     var on = kgk ? 'kgk-' : 'yeterlilik-', aile = PAKETLER.filter(function(p){ return p.id.indexOf(on) === 0 && /\d$/.test(p.id); });
     var yer = document.getElementById('dersSayi');
-    if(aile.length < 2){ yer.innerHTML = ''; yer.hidden = true; return; }
+    if(aile.length < 2 || !kgk){ yer.innerHTML = ''; yer.hidden = true; return; }   /* 28.10: Yeterlilik'te ders sayısı paket satırının içinde (.pk-ds) */
     yer.hidden = false;
     yer.innerHTML = '<span>Kaç ' + (kgk ? 'modül' : 'ders çalışacaksın') + '?</span>' + aile.map(function(p){
       var m = +p.id.replace(on, '');
@@ -603,7 +654,22 @@ document.getElementById('dersSayi').addEventListener('click', function(e){
 /* 12.10: anlık teklif tek derste dersin seçili olmasına bağlı → ders değişince tutar yeniden hesaplanır */
 document.getElementById('dersListe').addEventListener('change', function(){ if(TEKLIF) ozetCiz(); });
 
+var IFA_YAZI_ESKI = null;
+function acilisYazi(p){ if(!p || !p.acilis) return ''; var d = new Date(p.acilis + 'T00:00:00+03:00');
+  return Date.now() < d.getTime() ? d.toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric', timeZone:'Europe/Istanbul' }) : ''; }
+function ifaYaziCiz(){
+  var e = document.getElementById('onIfaYazi'); if(!e) return; if(IFA_YAZI_ESKI === null) IFA_YAZI_ESKI = e.innerHTML;
+  var a = acilisYazi(secili), yeni = a
+    ? 'Denemelerin <b>' + a + '\'da</b> hesabımda açılmasını istiyorum. O güne kadar destek@tetikte.com\'a yazarak cayabileceğimi ve ödediğim tutarın tamamının iade edileceğini, denemeler hesabımda açıldığı anda cayma hakkımın sona ereceğini biliyorum.'
+    : IFA_YAZI_ESKI;
+  if(e.innerHTML !== yeni){ e.innerHTML = yeni; document.getElementById('onIfa').checked = false; }   /* metin değişince eski onay geçmez */
+  var o = document.getElementById('odemeNot');   /* ön satışta "paketin hemen açılır" yazılmaz */
+  if(o && kartAcik()) o.textContent = 'Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. '
+    + (a ? 'Ön siparişin ödemeyle kayda geçer; denemeler ' + a + '\'da hesabında açılır.' : 'Kartla ödeyince paketin hemen açılır.');
+}
 function ozetCiz(){
+  if(typeof erkenKutuCiz === 'function') erkenKutuCiz(secili ? secili.id : '');
+  ifaYaziCiz();
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
   document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Bir paket seç.';
@@ -612,7 +678,7 @@ function ozetCiz(){
   var tk = secili ? teklifIndirim() : 0;
   var ind = (secili && !tk) ? elciIndirim : 0;
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
-  document.getElementById('ozIndAd').textContent = kodTur === 'ozel' ? 'Özel indirim kodu' : 'Elçi kodu indirimi';   /* 19.10 */
+  document.getElementById('ozIndAd').textContent = kodTur === 'ozel' ? 'Özel indirim kodu' : otoKod ? 'Erken kayıt indirimi' : 'Elçi kodu indirimi';   /* 19.10 · 28.10 */
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
   document.getElementById('ozTeklifSatir').style.display = tk > 0 ? '' : 'none';
   document.getElementById('ozTeklif').textContent = tk > 0 ? '− ' + tl(tk) + ' TL' : '—';
@@ -621,10 +687,13 @@ function ozetCiz(){
   var oran = (typeof KDV_ORAN === 'number') ? KDV_ORAN : 0.2, iki = function(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}); };
   var kdvGoster = !!(secili && typeof KDV_HARIC_GOSTER !== 'undefined' && KDV_HARIC_GOSTER[secili.id]);
   document.getElementById('ozKdvSatir').style.display = kdvGoster ? '' : 'none';
-  if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran)); document.getElementById('ozKdv').textContent = '= ' + tl(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + tl(secili.fiyat - net) + ' TL) · fiyat sayfasındaki tutar'; }
+  /* 31.10 denetim: Math.round 999'u "833 + 166" yazıyordu (fiyat-motoru.js kdvHaric: 832,50 + 166,50); kuruşlu döküm + etiket "liste fiyatı"
+     (erken kayıtta fiyat sayfası indirimli tutarı gösterdiği için "fiyat sayfasındaki tutar" yanlıştı) */
+  if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran) * 100) / 100, kd = Math.round((secili.fiyat - net) * 100) / 100, yaz = function(n){ return n % 1 ? iki(n) : tl(n); };
+    document.getElementById('ozKdv').textContent = '= ' + yaz(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + yaz(kd) + ' TL) · liste fiyatı'; }
   document.getElementById('ozFatSatir').style.display = (secili && (ind > 0 || tk > 0)) ? '' : 'none';
   if(secili && (ind > 0 || tk > 0)){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
-    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind)) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
+    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : (otoKod ? 'Normalde ' + tl(secili.fiyat) + ' TL; erken kayıtla ' + tl(ind) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind))) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
   dersCiz();
   if(typeof teklifCiz === 'function') teklifCiz();
   if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
@@ -640,6 +709,10 @@ var elciIndirim = 0, elciSira = 0;   /* 01.10: tek ders paketlerinde de ders ba�
    aynı #elci alanı; kodTur 'ozel' iken indirim elciIndirim'de durur (tek indirim kuralı aynı), siparişe ozel_kod olarak gider.
    Sorulan tek şey ozel_kod_kontrol; asıl damga sunucuda (siparis_teklif_damga), tutmazsa OZEL_KOD_GECERSIZ. */
 var kodTur = '';
+/* 28.10 Cem ("kod gerek yok, direkt girsin ve o fiyatı alsın"): erken kayıt döneminde SGS Tam Paket seçilip kod kutusu boşsa
+   indirim KENDİLİĞİNDEN uygulanır; ekranda kod adı görünmez, siparişe sunucunun doğrulayacağı ERKEN_KAYIT.kod gider (otoKod).
+   Eskiden kod yalnız ?paket=sgs adresiyle gelene yazılıyordu: paketi sayfada kendisi seçen 2.988 ödüyordu. */
+var otoKod = '';
 function ozelKodMu(s){ return typeof OZEL_KOD !== 'undefined' && OZEL_KOD.bicim.test(s); }
 function elciAcik(){ return typeof ELCI !== 'undefined' && ELCI.acik === true; }
 function elciTemizle(s){
@@ -731,11 +804,15 @@ function elciDurumYaz(m, renk){ var d = document.getElementById('elciDurum'); d.
 function elciDenetle(){
   if(!elciAcik()) return;
   var ham = document.getElementById('elci').value, kod = elciTemizle(ham), sira = ++elciSira;
-  elciIndirim = 0; kodTur = '';
-  if(!ham.trim()){ elciDurumYaz(''); ozetCiz(); return; }
+  elciIndirim = 0; kodTur = ''; otoKod = '';
+  if(!ham.trim()){
+    var ek = (secili && typeof erkenKod === 'function') ? erkenKod(secili.id) : '';   /* 28.10: SGS Tam Paket + Yeterlilik tüm dersler */
+    if(ek){ kod = otoKod = ek; }
+    else { elciDurumYaz(''); ozetCiz(); return; }
+  }
   if(!kod){ elciDurumYaz('Kod biçimi geçersiz (3–12 harf/rakam).', 'var(--red)'); ozetCiz(); return; }
   if(ozelKodMu(kod)){ ozelKodDenetle(kod, sira); return; }
-  try{ localStorage.setItem('tt_elci', kod); }catch(e){}
+  if(!otoKod){ try{ localStorage.setItem('tt_elci', kod); }catch(e){} }
   if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
   if(!(ELCI.indirim[secili.id] > 0)){
     var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); })
@@ -749,7 +826,8 @@ function elciDenetle(){
     if(sira !== elciSira) return;
     var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
     elciIndirim = v > 0 ? v : 0;
-    if(elciIndirim > 0){ elciDurumYaz('✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
+    if(elciIndirim > 0){ elciDurumYaz(otoKod ? '✓ Erken kayıt indirimi uygulandı: ' + tl(elciIndirim) + ' TL. Kod gerekmez.' : '✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
+    else if(otoKod){ otoKod = ''; elciDurumYaz(''); }
     else {
       /* 03.10 (Cem "2 yap"): geçersiz kod formda durmaz — alan ve tt_elci boşalır, yalnız uyarı kalır */
       document.getElementById('elci').value = '';
@@ -783,11 +861,13 @@ function ozelKodDenetle(kod, sira){
   document.getElementById('elciSatir').style.display = '';
   var q = elciTemizle(new URLSearchParams(location.search).get('e'));
   if(!q){ try{ q = elciTemizle(localStorage.getItem('tt_elci')); }catch(e){} }
+  /* 28.10: erken kayıt kodu artık alana YAZILMAZ — elciDenetle boş alanda SGS için kendiliğinden uygular (otoKod).
+     Adresteki ya da bu cihazda saklı elçi kodu varsa o kullanılır (elçinin satışı elçide kalır; elçi kodu da 600 verir). */
   if(q){ document.getElementById('elci').value = q; }
   var t = null;
   document.getElementById('elci').addEventListener('input', function(){ clearTimeout(t); t = setTimeout(elciDenetle, 450); });
-  /* supabase kütüphanesi sayfanın sonunda yüklenir; ilk denetim onu bekler */
-  window.addEventListener('load', function(){ if(q) elciDenetle(); });
+  /* supabase kütüphanesi sayfanın sonunda yüklenir; ilk denetim onu bekler (boş alanda da: erken kayıt kendiliğinden) */
+  window.addEventListener('load', function(){ elciDenetle(); });
 })();
 ozetCiz();
 
@@ -802,6 +882,19 @@ ozetCiz();
      paket TEK başına görünür; öteki paketler "Başka paket seç" ile açılır. Ders seçimi (ders bazlı pakette zorunlu) hemen altında. */
   if(r){
     var kap = document.getElementById('paketler'); kap.classList.add('odak');
+    /* 28.10 Cem ("satın al bastığımda paketlerde bu çıkıyor, iki tane çıkması lazım, 7 test koyduk artık"): odakta seçilenin yanında
+       o sınavın öteki ana seçeneği de görünür — Staja Giriş: Tam Paket ↔ Sadece 7 Deneme · Yeterlilik: seçilen ders paketi /
+       tüm dersler ↔ Son 20 Gün. Öteki paketler yine "Başka paket seç" ile açılır. */
+    /* 28.10 Cem ("burda tek dersleri koyalım"): Yeterlilik'te üç seçenek birlikte — tüm dersler · ders ders (seçili ders sayısı ya da
+       1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */
+    function kardesKur(){
+      var id = secili ? secili.id : q, liste;
+      if(id === 'sgs') liste = ['son20-sgs']; else if(id === 'son20-sgs') liste = ['sgs'];
+      else if(/^yeterlilik-|^son20-yet$/.test(id)) liste = ['yeterlilik-tum', /^yeterlilik-\d$/.test(id) ? id : 'yeterlilik-1', 'son20-yet'];
+      else liste = [];
+      Array.prototype.forEach.call(kap.querySelectorAll('.pk'), function(el){ el.classList.toggle('kardes', liste.indexOf(el.getAttribute('data-id')) > -1); });
+    }
+    kardesKur(); kap.addEventListener('change', kardesKur);
     var b = document.createElement('button'); b.type = 'button'; b.id = 'pkTumu'; b.className = 'pk-tumu';
     b.textContent = 'Başka paket seç';
     b.addEventListener('click', function(){ kap.classList.remove('odak'); b.remove(); });
@@ -1000,7 +1093,9 @@ function davetKodOku(){
     var k = document.querySelector('input[name=ftip]:checked');
     if(k && k.value === 'kurumsal'){ k.dispatchEvent(new Event('change')); }
     akdOzetCiz();
-    if(adim1Hata()){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
+    /* 28.10 Cem ("iki tane çıkması lazım"): seçilen paketin kardeşi varsa (Tam Paket ↔ 7 Deneme) paket adımı AÇIK başlar,
+       iki seçenek görünür; kişi seçip "Devam"a basar. Kardeşsiz pakette eski akış (bilgiler adımı açılır). */
+    if(adim1Hata() || document.querySelector('#paketler.odak .pk.kardes')){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
     barGuncelle();
     /* 07.10 (titreme): sipariş alanı adımlar kurulunca görünür. Sayfa betiğinin sonunda açılıyordu; canlı telefonda baslat ~1,9 sn'de
        1. adımı kapatıp 2.'yi açınca alan zıplıyordu (kayma 0,26). 5 sn yedek head'de. */
@@ -1032,7 +1127,6 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
 function kartHazirla(no){
   var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
   k.hidden = false;
-  var hb = document.getElementById('havaleBaslik'); if(hb) hb.textContent = 'Ya da havale/EFT ile öde: ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün hesabın açılır ve e-arşiv faturan e-posta adresine gelir.';
   var b = document.getElementById('kartOde'), h = document.getElementById('kartHata');
   b.onclick = async function(){
     adimSay('kart');
@@ -1040,14 +1134,111 @@ function kartHazirla(no){
     try{
       var r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=baslat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ siparis_no:no }) });
       var j = await r.json().catch(function(){ return {}; });
-      if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
-      h.textContent = j.hata === 'tutar guncel fiyatla uyusmuyor' ? 'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
-    }catch(e){ h.textContent = 'Bağlantı hatası. Havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
+      if(j.odemeSayfasi){ KART_GITTI = true; location.href = j.odemeSayfasi; return; }
+      h.textContent = j.hata === 'paket zaten acik' ? 'Bu paket hesabında zaten açık; ikinci kez ödeme almıyoruz. Hesabım sayfasından devam et.'
+        : j.hata === 'tutar guncel fiyatla uyusmuyor' ?'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Aşağıdaki hesaba havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
+    }catch(e){ h.textContent = 'Bağlantı hatası. Aşağıdaki hesaba havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
     b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın';
   };
 }
-/* iyzico'dan başarısız dönüş: ?odeme=hata&no=... */
-(function(){ try{ var q = new URLSearchParams(location.search); if(q.get('odeme') === 'hata'){ var d = document.createElement('div'); d.className = 'kutu'; d.style.borderColor = 'var(--red)'; d.innerHTML = '<b style="color:var(--red)">Kart ödemesi tamamlanmadı.</b> Kartından para çekilmediyse siparişin ödeme bekliyor durumunda; havale ile ödeyebilir ya da yeniden deneyebilirsin. Sipariş no: <b>' + String(q.get('no') || '—').replace(/[^A-Z0-9-]/g, '') + '</b>'; document.addEventListener('DOMContentLoaded', function(){ var m = document.querySelector('main') || document.body; m.insertBefore(d, m.firstChild); }); } }catch(e){} })();
+/* 21.10 (Cem "iki kere mail gitmesin; günde binlerce sipariş alanlar ne yapıyorsa"): ödeme yolu seçilmeden mail gitmez.
+   Kart → tek mail (ödeme onayı + sözleşme ekleri, sunucuda). Havale → "Havale/EFT ile ödeyeceğim" basılınca IBAN + ödeme
+   bilgisi maili ('alindi'; yalnız sipariş no gider, içerik sunucuda okunur - radar-app/edge/siparis-bildirim.ts), para gelince
+   "paketin açıldı". Kart kapalıysa (kartAcik false) tek yol havale: bilgi açık, mail hemen. */
+function alindiGonder(no){
+  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
+    headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
+    body: JSON.stringify({ tur:'alindi', no:no }), keepalive:true }).catch(function(){}); }catch(e){}
+}
+/* 28.10 (Cem "direkt bizim IBAN'ı görsünler"): 21.10'dan beri IBAN "Havale/EFT ile ödeyeceğim" basılınca açılıyordu;
+   22–28.10 arası 4 alıcı (NXR7, 36X7, K9AN, YKYZ) iki düğmeye de basmadan çıktı, IBAN'ı da maili de hiç görmedi.
+   Artık IBAN kart düğmesinin altında baştan açık. Mail kuralı aynı ("iki kere mail gitmesin"): kartla ödeyene 'alindi' gitmez;
+   kart düğmesine basmadan sayfadan ayrılana (sekme gizlendi / bankacılık uygulamasına geçti / sayfa kapandı) bir kez gider.
+   Kart denemesi iyzico'ya gidemezse bayrak kalkar, sonra ayrılınca yine gider. Sunucu kapısı aynı: yalnız ödeme bekleyen,
+   2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */
+/* 29.10 (Cem "büyük firmalar ne yapıyorsa"; "ilk önce kredi kartı"; "havale gizli olmasın, görünsün"; "havale yaparken niye mail
+   gönderiyoruz … üye olduğunda göndereceksek göndermesek de olur"): son 7 günde kartla 30 kişi ödedi, havaleyle 2; havalede 13
+   sipariş bekliyordu ve "mail gelmedi" şikâyeti IBAN mailini bekleyenlerden. Artık: kart üstte büyük, IBAN altında açık;
+   sayfadan IBAN maili GİTMEZ (bilgi ekranda, "ekran görüntüsü al"). Para görülünce 'acildi' siparişin tek maili olur
+   (özet + sözleşme ekleri; siparis-bildirim.ts tekMail - kartla ödeyenle aynı). 3 saatlik havale hatırlatması ve
+   "kart takıldı" robotları ayrı, onlar değişmedi. alindiGonder artık yalnız tanım olarak durur. */
+var KART_GITTI = false;
+function havaleKur(no){
+  var blok = document.getElementById('havaleBlok'), sec = document.getElementById('havaleSec'), nt = document.getElementById('mailNot');
+  if(!blok) return;
+  /* .btn display verdiği için yalnız hidden yetmez */
+  var gor = function(el, acik){ if(el){ el.hidden = !acik; el.style.display = acik ? '' : 'none'; } };
+  gor(blok, true); gor(sec, false); gor(nt, kartAcik());
+  var orta = document.getElementById('havaleOrta'); if(orta && !kartAcik()) gor(orta, false);
+}
+/* iyzico'dan başarısız dönüş: ?odeme=hata&no=...
+   29.10 (Cem "ödemede sorun yaşayanlar oluyor, mail gidiyor görüyorlar mı, oraya açıklama koy" → "hata verince mail ya da telefona
+   bilgi gitmiyor mu"): ölçüldü (kart_odemeleri) 15 siparişte kart hiç geçmedi (11 iyzico sayfasında kaldı, 4 dönüşte hata: limit/bakiye,
+   doğrulanamadı); 8'i sonra ödedi. 28.10'dan beri kart düğmesine basana 'alindi' (IBAN) maili gitmiyordu (KART_GITTI) → hata ile dönen
+   kişinin elinde 3 saatlik hatırlatmaya kadar hiçbir şey yoktu, sayfa tek satır kırmızı yazı gösteriyordu ("yeniden dene" düğmesi bile yoktu).
+   Şimdi: sık sebepler + "Kartla yeniden dene" (?kartla= akışı) + IBAN/açıklama burada + 'alindi' maili BURADA bir kez (sunucu kapısı
+   aynı: ödeme bekleyen, 2 saatten yeni, siparişte bir kez) + spam notu yalnız mail gerçekten kabul edildiyse. SMS hattımız YOK. */
+(function(){ try{ var q = new URLSearchParams(location.search); if(q.get('odeme') !== 'hata') return;
+  var no = String(q.get('no') || ''); if(!/^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(no)) no = '';
+  var d = document.createElement('div'); d.className = 'kutu'; d.id = 'kartHataKutu'; d.style.borderColor = 'var(--red)';
+  var tutar = ''; try{ (JSON.parse(localStorage.getItem('tt_siparisler') || '[]') || []).forEach(function(x){ if(x && x.no === no && x.tutar) tutar = tl(x.tutar) + ' TL'; }); }catch(e){}
+  var kv = function(k, v){ return '<div class="kv"><b>' + k + '</b><span>' + v + '</span></div>'; };
+  d.innerHTML = '<h2 style="color:var(--red);margin:0 0 6px">Kart ödemesi tamamlanmadı</h2>'
+    + '<p style="margin:0 0 10px;font-size:14px">Ödeme onaylanmadığı için kartından para çekilmedi. ' + (no ? 'Siparişin <b>' + no + '</b> numarasıyla duruyor; yeniden sipariş vermene gerek yok.' : 'Siparişin duruyor; yeniden sipariş vermene gerek yok.') + '</p>'
+    + '<p style="margin:0 0 4px;font-size:14px"><b>En sık sebepler:</b></p>'
+    + '<ul style="margin:0 0 12px;padding-left:20px;font-size:14px;line-height:1.55">'
+    + '<li>Kartın <b>internetten alışverişe kapalı</b>: banka uygulamasından "internet alışverişi"ni açıp yeniden dene.</li>'
+    + '<li>Bankanın gönderdiği <b>SMS şifresi</b> gelmedi, yanlış girildi ya da süresi doldu.</li>'
+    + '<li>Kartın <b>limiti ya da bakiyesi</b> yetmedi.</li>'
+    + '<li>Banka güvenlik nedeniyle onaylamadı: başka bir kartla dene ya da bankanı ara.</li></ul>'
+    + (no && kartAcik() ? '<a class="btn" id="kartTekrar" href="satin-al.html?kartla=' + no + '" style="display:block;text-align:center;text-decoration:none;font-weight:800;margin:0 0 14px">💳 Kartla yeniden dene</a>' : '')
+    + '<p style="margin:0 0 6px;font-size:14px"><b>Ya da havale/EFT ile öde</b> — havaleyi gördüğümüz gün paketin açılır:</p>'
+    + kv('Alıcı', 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.') + kv('Banka', BANKA.ad)
+    + (tutar ? kv('Tutar', '<b>' + tutar + '</b>') : '')
+    + '<div class="kv" style="display:block"><b style="display:block;margin-bottom:4px">IBAN</b><span class="iban">' + BANKA.iban + '</span></div>'
+    + (no ? '<p style="margin:10px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına yalnız sipariş numaranı yaz: ' + no + '</b></p>' : '')
+    + '<p class="kucuk" style="margin:10px 0 0">📸 Bu ekranın görüntüsünü al ya da IBAN\'ı kopyala; havale bilgisi için ayrıca e-posta gelmez. Paketin açılınca sipariş özetin e-postana gelir.</p>'
+    + '<p class="kucuk" style="margin:8px 0 0">Takıldığın yerde bize yaz, birlikte çözelim: <a href="https://wa.me/905323448058">WhatsApp 0532 344 80 58</a> · <a href="mailto:destek@tetikte.com">destek@tetikte.com</a>' + (no ? ' (sipariş no: <b>' + no + '</b>)' : '') + '.</p>';
+  document.addEventListener('DOMContentLoaded', function(){
+    var h1 = document.querySelector('h1');   /* sayfada <main> yok: kutu başlığın altına */
+    if(h1) h1.parentNode.insertBefore(d, h1.nextSibling); else document.body.insertBefore(d, document.body.firstChild);
+    /* alttaki "Ödenecek · Devam" çubuğu yeni sipariş açtırıyordu; sipariş zaten var */
+    var st = document.createElement('style'); st.textContent = '#mbar{display:none!important}'; document.head.appendChild(st);
+    try{ adimSay('kart-hata'); }catch(e){}
+    try{ var kt = document.getElementById('kartTekrar'); if(kt) kt.onclick = function(){ adimSay('kart-hata-tekrar'); }; }catch(e){}
+    /* 29.10 akşam (Cem "havale yaparken niye mail gönderiyoruz"): buradaki IBAN maili kalktı; bilgi bu kutuda */
+  });
+}catch(e){} })();
+/* 29.10 gece (Cem "ya da siteye yönlendirelim tekrar"): bekleyen siparişe WhatsApp/mail ile tek bağlantı → ?ode=<no>[&t=<tutar>].
+   Büyük sitelerin "siparişini öde" sayfası: kart düğmesi üstte (?kartla= akışı, tutar SUNUCUDA hesaplanır), havale bilgisi altında açık.
+   Sipariş tablosu tarayıcıdan okunamaz (kişi verisi); tutar yalnız bağlantıdaki t'den gösterilir, yoksa satırı çıkmaz.
+   Yeni sipariş açılmasın diye sipariş formu ve alttaki çubuk gizlenir. Mail gitmez. */
+(function(){ try{ var q = new URLSearchParams(location.search), no = String(q.get('ode') || '');
+  if(!/^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(no)) return;
+  var t = String(q.get('t') || ''); t = /^[0-9]{3,5}$/.test(t) ? tl(+t) + ' TL' : '';
+  var kv = function(k, v){ return '<div class="kv"><b>' + k + '</b><span>' + v + '</span></div>'; };
+  var d = document.createElement('div'); d.className = 'kutu'; d.id = 'odeKutu';
+  d.innerHTML = '<h2 style="margin:0 0 6px">Siparişini tamamla</h2>'
+    + '<p style="margin:0 0 12px;font-size:14px"><b>' + no + '</b> numaralı siparişin ödeme bekliyor. Yeniden sipariş vermene gerek yok.</p>'
+    + (kartAcik() ? '<a class="btn" id="odeKart" href="satin-al.html?kartla=' + no + '" style="display:block;text-align:center;text-decoration:none;font-weight:800;margin:0 0 6px">💳 Kartla öde — paketin hemen açılsın</a>'
+      + '<p class="kucuk" style="margin:0 0 14px">Ödeme iyzico\'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. Taksit yok.</p>' : '')
+    + '<p style="margin:0 0 6px;font-size:15px"><b>' + (kartAcik() ? 'Ya da havale/EFT ile öde' : 'Havale/EFT ile öde') + '</b></p>'
+    + '<p style="margin:0 0 10px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün paketin açılır.</p>'
+    + kv('Alıcı', 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.') + kv('Banka', BANKA.ad)
+    + (t ? kv('Tutar', '<b>' + t + '</b>') : '')
+    + '<div class="kv" style="display:block"><b style="display:block;margin-bottom:4px">IBAN</b><span class="iban">' + BANKA.iban + '</span></div>'
+    + '<p style="margin:10px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına yalnız sipariş numaranı yaz: ' + no + '</b></p>'
+    + '<p class="kucuk" style="margin:10px 0 0">📸 Bu ekranın görüntüsünü al ya da IBAN\'ı kopyala. Paketin açılınca sipariş özetin ve sözleşme kopyan e-postana gelir.</p>'
+    + '<p class="kucuk" style="margin:8px 0 0">Takıldığın yerde bize yaz: <a href="https://wa.me/905323448058">WhatsApp 0532 344 80 58</a> · <a href="mailto:destek@tetikte.com">destek@tetikte.com</a> (sipariş no: <b>' + no + '</b>).'
+    + ' Başka bir paket almak istersen <a href="satin-al.html">yeni sipariş ver</a>.</p>';
+  document.addEventListener('DOMContentLoaded', function(){
+    var h1 = document.querySelector('h1');   /* sayfada <main> yok: kutu başlığın altına */
+    if(h1) h1.parentNode.insertBefore(d, h1.nextSibling); else document.body.insertBefore(d, document.body.firstChild);
+    var st = document.createElement('style'); st.textContent = '#mbar,#duzen,header.bas .alt{display:none!important}'; document.head.appendChild(st);
+    try{ adimSay('ode-sayfa'); }catch(e){}
+    try{ var k = document.getElementById('odeKart'); if(k) k.onclick = function(){ adimSay('ode-kart'); }; }catch(e){}
+  });
+}catch(e){} })();
 /* 19.10 havale hatırlatması (motor/havale-hatirlatma.mjs): maildeki "Kartla öde" → ?kartla=<sipariş no>. Kartla ödeme kutusundaki
    akışın aynısı: yalnız sipariş no gider, tutarı iyzico-odeme ?islem=baslat SUNUCUDA hesaplar (ödenmiş/iptal siparişte başlamaz). */
 (function(){ try{ var q = new URLSearchParams(location.search), no = String(q.get('kartla') || '');
@@ -1063,6 +1254,7 @@ function kartHazirla(no){
       j = await r.json().catch(function(){ return {}; }); }catch(e){}
     if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
     d.style.borderColor = 'var(--red)';
+    if(j.hata === 'paket zaten acik'){ d.innerHTML = '<b>Bu paket hesabında zaten açık.</b> İkinci kez ödeme almıyoruz; <a href="ogrenci.html">Hesabım</a> sayfasından devam et. Paketini göremiyorsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com (sipariş no: <b>' + no + '</b>).'; return; }
     d.innerHTML = '<b style="color:var(--red)">Kart ödemesi başlatılamadı.</b> Sipariş ödenmiş ya da güncel değil olabilir. Bize WhatsApp\'tan (0532 344 80 58) ya da destek@tetikte.com\'a sipariş numaranla yaz: <b>' + no + '</b>. İstersen aşağıdan yeniden sipariş verebilirsin.';
   });
 }catch(e){} })();
@@ -1105,7 +1297,7 @@ btn.addEventListener('click', function(){
     if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ hata('T.C. kimlik no 11 hane olmalı.', 2); return; }
   }
   if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
-  if(!document.getElementById('onIfa').checked){ goster('Hizmetin hemen başlatılması onayını işaretle.', false); return; }
+  if(!document.getElementById('onIfa').checked){ goster(acilisYazi(secili) ? 'Denemelerin açılış günü ve cayma onayını işaretle.' : 'Hizmetin hemen başlatılması onayını işaretle.', false); return; }
   if(!document.getElementById('onKvkk').checked){ goster('Aydınlatma metnini okuduğunu işaretle.', false); return; }
 
   /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
@@ -1121,7 +1313,7 @@ btn.addEventListener('click', function(){
   var no = siparisNo();
   var tutar = odenecekTutar();
   var tkInd = teklifIndirim();   /* 12.10 anlık teklif: varsa elçi kodu gönderilmez (üst üste binmez) */
-  var elciKod = (elciIndirim > 0 && !tkInd) ? elciTemizle(deger('elci')) : '';
+  var elciKod = (elciIndirim > 0 && !tkInd) ? (elciTemizle(deger('elci')) || otoKod) : '';   /* 28.10: boş alanda erken kayıt kendiliğinden */
   /* 19.10: özel indirim kodu elçi kodu olarak GİTMEZ (ayrı kolon ozel_kod; tutarı sunucu damgalar) */
   var ozelKod = (elciKod && kodTur === 'ozel' && ozelKodMu(elciKod)) ? elciKod : '';
   if(ozelKod){ elciKod = ''; }
@@ -1147,11 +1339,17 @@ btn.addEventListener('click', function(){
   if(ozelKod){ kayit.ozel_kod = ozelKod; }
   /* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */
   try{ var ke = window.ttKaynak && window.ttKaynak.etiket(); if(ke) kayit.kaynak_etiket = ke; }catch(e){}
+  /* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js
+     Google'a bildirir; ad/e-posta/telefon GİTMEZ. Biçimi sunucu da süzer (radar-app/sql/2026-10-28-gads-tiklama.sql) */
+  try{ var gt = window.ttKaynak && window.ttKaynak.tiklama && window.ttKaynak.tiklama(); if(gt){ kayit.gads_tiklama = gt.deger; kayit.gads_tiklama_zaman = gt.zaman; } }catch(e){}
 
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
 
-  function bitir(){
+  function bitir(eskiSiparis){
     kartHazirla(no);
+    havaleKur(no);
+    /* 21.10 çift ödeme kapısı: aynı paketin bekleyen siparişi yeniden gösterilir (yeni kayıt, yeni mail yok) */
+    if(eskiSiparis){ var h2 = document.querySelector('#tamam h2'); if(h2) h2.textContent = 'Bu paket için siparişin zaten var — aynı siparişi öde'; }
     adimSay('siparis-bitti');
     try{ document.getElementById('hesapAc').onclick = function(){ adimSay('hesap-ac'); }; }catch(e){}
     /* 05.10: giriş yapmamış alıcıya aynı ekranda hesap açtır (paket aynı e-postaya bağlanır) */
@@ -1164,7 +1362,7 @@ btn.addEventListener('click', function(){
     document.getElementById('tmIban').textContent  = BANKA.iban;
     /* 03.10 V2 madde 18: Hesabım bu cihazda "Ödemen kontrol ediliyor" göstersin (paket açılınca kendiliğinden silinir).
        Yalnız sipariş no + paket + tutar + tarih; ad, adres, telefon cihaza yazılmaz. */
-    try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) ts = [];
+    if(!eskiSiparis) try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) ts = [];
       ts.push({ no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar, tarih:new Date().toISOString() });
       localStorage.setItem('tt_siparisler', JSON.stringify(ts.slice(-5))); }catch(e){}
     document.getElementById('tamam').style.display = 'block';
@@ -1191,15 +1389,36 @@ btn.addEventListener('click', function(){
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
         'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
-        'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · anında ifa onayı · aydınlatma okundu · ' + new Date().toISOString() })});
+        'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · ' + (acilisYazi(secili) ? 'ön satış cayma onayı · açılış ' + secili.acilis : 'anında ifa onayı') + ' · aydınlatma okundu · ' + new Date().toISOString() })});
   }
   function yedekYol(){ postala().then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
   function kendiKodu(err){ return !!err && /ELCI_KENDI_KODU/.test(String(err.message || '') + ' ' + String(err.details || '')); }
   function teklifHatasi(err){ return !!err && /TEKLIF_GECERSIZ/.test(String(err.message || '') + ' ' + String(err.details || '')); }
   function ozelKodHatasi(err){ return !!err && /OZEL_KOD_GECERSIZ/.test(String(err.message || '') + ' ' + String(err.details || '')); }
+  /* 21.10 çift ödeme kapısı (radar-app/sql/2026-10-21-cift-odeme-kapisi.sql): sunucu siparişi YAZMAZ → e-posta yedeğine DÜŞMEZ */
+  function kapiHatasi(err, kod){ return !!err && String(err.message || '').indexOf(kod) >= 0; }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+  /* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */
+  function bekleyenBul(){
+    try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) return null;
+      for(var i = ts.length - 1; i >= 0; i--){ var x = ts[i];
+        if(x && x.paket === secili.id && Number(x.tutar) === Number(tutar) && Date.now() - new Date(x.tarih).getTime() < 864e5) return x; }
+    }catch(e){}
+    return null;
+  }
 
   if(!window.sb){ yedekYol(); return; }
-  window.sb.from('siparisler').insert(kayit)
+  /* 28.10: göç basılmadan sayfa yayına çıkarsa "sütun yok" (PGRST204) hatası siparişi e-posta yedeğine düşürmesin:
+     tıklama kimliği alanları atılıp bir kez yeniden yazılır */
+  function ekle(){
+    return window.sb.from('siparisler').insert(kayit).then(function(r){
+      if(r && r.error && 'gads_tiklama' in kayit && /gads_tiklama/.test(String(r.error.message || ''))){
+        delete kayit.gads_tiklama; delete kayit.gads_tiklama_zaman; return window.sb.from('siparisler').insert(kayit);
+      }
+      return r;
+    });
+  }
+  ekle()
     .then(function(r){
       if(r && r.error){
         /* 12.10: teklif sunucuda tutmadı (kullanılmış / başka hesap / süresi geçmiş) → indirimsiz e-posta yedeğine DÜŞMEZ;
@@ -1219,6 +1438,21 @@ btn.addEventListener('click', function(){
           goster('Sipariş verilmedi: indirim kodu geçerli değil. Özetteki tutarı kontrol edip yeniden gönderebilirsin.', false);
           return;
         }
+        if(kapiHatasi(r.error, 'PAKET_ZATEN_ACIK')){
+          btn.disabled = false; adimSay('cift-acik');
+          goster('Sipariş verilmedi: <b>bu paket hesabında zaten açık</b>, ikinci kez ödeme almıyoruz. <a href="ogrenci.html">Hesabıma git</a> ' +
+            '(siparişte yazdığın <b>' + esc(mail) + '</b> adresiyle giriş yap). Paketini göremiyorsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com.', false);
+          return;
+        }
+        if(kapiHatasi(r.error, 'BEKLEYEN_SIPARIS')){
+          adimSay('cift-bekleyen');
+          var eski = bekleyenBul();
+          if(eski){ no = eski.no; bitir(true); return; }
+          btn.disabled = false;
+          goster('Sipariş verilmedi: bu e-postayla son 24 saatte <b>aynı paket için ödeme bekleyen bir siparişin var</b>; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +
+            '"Siparişin alındı" e-postandaki bilgilerle ödeyebilir ya da WhatsApp 0532 344 80 58 / destek@tetikte.com\'a yazabilirsin.', false);
+          return;
+        }
         if(kendiKodu(r.error)){
           btn.disabled = false;
           elciDurumYaz('Kendi elçi kodunla alım yapamazsın. Kodu sil, sipariş kodsuz fiyattan verilir.', 'var(--red)');
@@ -1232,11 +1466,8 @@ btn.addEventListener('click', function(){
         try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/siparis/' + secili.id, title:'Sipariş verildi · ' + secili.ad, event:true }); }catch(err){}
         postala().then(function(){}, function(){}); bitir();
         if(tkInd){ try{ sessionStorage.removeItem(TEKLIF_ANAH); }catch(err){} }   /* 12.10: teklif kullanıldı */
-        /* 04.10 (Cem "Amazon/Trendyol gibi otomatik"): müşteriye "siparişin alındı" maili - no + tutar + IBAN.
-           Yalnız sipariş no gider; alıcı adresi ve içerik sunucuda siparişten okunur (radar-app/edge/siparis-bildirim.ts). */
-        try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
-          headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
-          body: JSON.stringify({ tur:'alindi', no:no }), keepalive:true }).catch(function(){}); }catch(err){}
+        /* 21.10: "siparişin alındı + IBAN" maili artık burada GİTMEZ - 28.10'dan beri kart düğmesine basmadan sayfadan ayrılınca (havaleKur). Kartla ödeyene
+           tek mail: ödeme onayı (iyzico-odeme → siparis-bildirim 'acildi', sözleşme ekleriyle). */
       }
     }, yedekYol);
 });
@@ -1273,8 +1504,8 @@ if(!KURULUM_TAMAM){
   }).catch(function(){}); }catch(e){}
 })();
 </script>
-<script data-goatcounter="mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script src="menu.js" defer></script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="menu.js?v=20261028m" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>

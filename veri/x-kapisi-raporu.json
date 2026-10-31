@@ -1,12 +1,12 @@
 {
-  "tarih": "2026-10-20 21:28:40",
-  "durum": "KIRMIZI",
+  "tarih": "2026-10-30 23:26:28",
+  "durum": "YESIL",
   "ci": true,
   "ekranlar": [
     "telefon 390x844",
     "bilgisayar 1366x860"
   ],
-  "olcum_toplam": 166,
+  "olcum_toplam": 176,
   "KOR": 0,
   "senaryolar": [
     "ders-sgs",
@@ -16,32 +16,17 @@
     "ekip",
     "duvar"
   ],
-  "katman_sayisi": 27,
-  "kusurlu": 2,
+  "katman_sayisi": 22,
+  "kusurlu": 0,
   "kapanan_katman_cesidi": {
-    "div#ttReklamBant": 5,
     "div#pkPerde": 2,
     "div#ttTelif": 4,
     "div.setOzet": 4,
     "div#ttNn.acik": 4,
     "div#ckPerde": 4,
+    "div#ttEkipBildirim": 2,
     "div#ttDuvar": 2
   },
-  "kusurlar": [
-    {
-      "yer": "telefon [ekip] index.html",
-      "oge": "div#ttEkipBildirim",
-      "yazi": "",
-      "kusur": "K",
-      "neden": "\"Ekibe sorduğun sorunun cevabı geldi\" bildirimi çıkmadı — senaryo ölçülemedi (kapı kör kaldı)"
-    },
-    {
-      "yer": "bilgisayar [ekip] index.html",
-      "oge": "div#ttEkipBildirim",
-      "yazi": "",
-      "kusur": "K",
-      "neden": "\"Ekibe sorduğun sorunun cevabı geldi\" bildirimi çıkmadı — senaryo ölçülemedi (kapı kör kaldı)"
-    }
-  ],
+  "kusurlar": [],
   "olculemeyenler": []
 }

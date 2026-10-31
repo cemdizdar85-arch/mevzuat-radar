@@ -182,20 +182,21 @@ const X = '.tuKapat,[aria-label="Kapat"],.ttSeritX,.pk-x,#kutuKapat,.oyunX,.kagi
    "1 → 1 kapanmadı" yanlış alarmı verdi (koşu 38858109381, görüntüde ✕ yok). Görünürlük + opaklık da denetlenir. */
 const gorunurX = `[].slice.call(document.querySelectorAll(${JSON.stringify(X)})).filter(function(e){var r=e.getBoundingClientRect();var s=getComputedStyle(e);
   return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&s.visibility!=='hidden'&&+s.opacity>0.05;}).length`;
-/* bütün görünür ✕'ler: örtülü mü, gerçek dokunuşla kapanıyor mu */
-async function xler(ad) {
-  const say = await js(gorunurX);
-  if (!say) { console.log('BILGI ' + ad + ': açık ✕ yok'); return; }
-  for (let i = 0; i < say; i++) {
-    const o = await bul(X); if (!o) break;
-    if (!o.ustte) { sonuc(ad + ': ✕ dokunulabilir', false, 'üstünde ' + o.ortu); return; }
-    await dokun(o); await bekle(1200);
-  }
-  const kalan = await js(gorunurX);
-  sonuc(ad + ': ' + say + ' ✕ dokunulabilir ve kapandı', kalan < say, say + ' → ' + kalan);
-}
+/* bütün görünür ✕'ler + çıkışsız katmanlar (28.10: ortak katman-tarama.js, Android ile aynı ölçüm; Cem "çarpı geldi basamadık
+   ilerleyemedik olmasın, tek tek Apple ve Play Store incele") */
+const KT = require('./katman-tarama');
+const A = { js: (e) => js(e), bul: (s, m) => bul(s, m), dokun: (o) => dokun(o), bekle: (ms) => bekle(ms), sonuc: (a, t, n) => sonuc(a, t, n) };
+async function xler(ad) { return KT.katmanTara(A, ad); }
 /* iPhone kuralı: görünür düğme/bağlantıda satış çağrısı yok (Apple 3.1.1; 08.10 reddi "kilitli yollar") */
+/* 30.10: katalog iosSatis true iken App Store satın alması SERBEST (3.1.1 uyumlu); yasak kalan = uygulamadan siteye satış bağlantısı */
+let IOS_SATIS_ACIK = false;
 async function satisYok(ad) {
+  if (IOS_SATIS_ACIK) {
+    const d = await js(`[].slice.call(document.querySelectorAll('a[href]')).filter(function(e){var r=e.getBoundingClientRect();
+      return r.width>0&&r.height>0&&/satin-al|fiyat\\.html|#paketler/i.test(e.getAttribute('href')||'')&&/^https?:/i.test(e.getAttribute('href')||'');}).map(function(e){return e.getAttribute('href').slice(0,40);})`);
+    sonuc(ad + ': iPhone\'da siteye satış bağlantısı yok (App Store satışı açık)', !d.length, d.length ? d.slice(0, 3).join(' | ') : '');
+    return;
+  }
   const l = await js(`[].slice.call(document.querySelectorAll('button,a,[role=button]')).filter(function(e){var r=e.getBoundingClientRect();
     return r.width>0&&r.height>0&&/satın al|paket seç|paketi al|paketinde yok|tam paket|₺/i.test(e.innerText||'');}).map(function(e){return (e.id?'#'+e.id:e.tagName)+':'+(e.innerText||'').trim().slice(0,30);})`);
   sonuc(ad + ': iPhone\'da satış düğmesi yok', !l.length, l.length ? l.slice(0, 3).join(' | ') : '');
@@ -211,15 +212,22 @@ async function sekme(ad) {
    hizasında görünüyordu (koşu 38838202866 görüntü 10). Ölçülen: ilk görünümde güvenli alana (home indicator) taşıyor mu,
    kaydırınca tamamı güvenli alanın üstüne geliyor ve en üstteki öğe kendisi mi, "Sonraki"ye gerçek dokunuş soruyu ilerletiyor mu. */
 async function altDugmeler(ad) {
+  /* 28.10: akışta birden çok kart var; ilk eşleşen ekran dışındaki ESKİ kartın düğmesiydi ("Daha fazla" alt -3574) → ekranda
+     görünen (yoksa ekrana en yakın) düğme ölçülür. */
   const olc = (desen) => js(`(function(){var pr=document.createElement('div');pr.style.cssText='position:fixed;bottom:0;height:env(safe-area-inset-bottom);width:1px;pointer-events:none';
     document.body.appendChild(pr);var g=pr.offsetHeight;pr.remove();var sinir=innerHeight-g;
-    var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
+    var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})
+      .sort(function(p,q){var a=p.getBoundingClientRect(),c=q.getBoundingClientRect();var u=function(r){return r.bottom<0?-r.bottom:r.top>innerHeight?r.top-innerHeight:0;};return u(a)-u(c);})[0];
     if(!b) return null; var r=b.getBoundingClientRect(); var x=r.left+r.width/2,y=Math.min(r.top+r.height/2,innerHeight-1);var u=document.elementFromPoint(x,y);
     return {alt:Math.round(r.bottom),ust:Math.round(r.top),sinir:Math.round(sinir),guvenli:g,ic:innerHeight,tasma:Math.max(0,Math.round(r.bottom-sinir)),x:x,y:r.top+r.height/2,ustte:!!u&&(u===b||b.contains(u))};})()`);
   /* kullanıcı gibi: düğmeyi taşıyan her kaydırılabilir ata SONUNA kadar kaydırılır (scrollIntoView 'end' kabın
      padding-bottom'unu atlayıp düğmeyi ekranın dibine yapıştırıyordu → 16.10 ilk ölçüm yanlış DÜŞTÜ verdi) */
   const kaydir = (desen) => js(`(function(){var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
-    if(!b) return null; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){e.scrollTop=e.scrollHeight;
+    if(!b) return null; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){
+      /* 28.10: 27.10 "sade cevap sırası"ndan sonra cevap paneli ayrı kaymıyor, en yakın kap bütün akış (#akis); onu sonuna kaydırmak
+         düğmeyi ekrandan atıyordu (alt -3463). Akışta düğme ekranın dibine gelecek kadar kaydırılır (kullanıcının parmağı gibi). */
+      if(e.id==='akis'){ var br=b.getBoundingClientRect(); if(br.bottom>innerHeight-60) e.scrollTop+=br.bottom-(innerHeight-60); return '#akis (düğmeye kadar) pb='+getComputedStyle(e).paddingBottom; }
+      e.scrollTop=e.scrollHeight;
       return (e.id?'#'+e.id:'')+(typeof e.className==='string'&&e.className?'.'+e.className.split(' ')[0]:'')+' pb='+getComputedStyle(e).paddingBottom;}}
     return 'kaydırılabilir ata yok';})()`);
   /* 16.10 ikinci ölçüm: TÜM atalar kaydırılınca soru akışı (#akis) da sonuna gitti → düğme ekrandan çıktı (alt -3506). Artık
@@ -278,7 +286,9 @@ async function kartDugmesi(desen, dugme) {
   console.log('BILGI bağlandı (sayfa köprüsü) · ekran ' + pen.width + 'x' + pen.height + ' · sayfa ' + ic.w + 'x' + ic.h + ' · adres ' + (await adres()));
   sonuc('WebView tam ekran (dokunuş koordinatı doğru)', Math.abs(olcek - 1) < 0.02 && Math.abs(pen.height - ic.h * olcek) < 2, 'ölçek ' + olcek.toFixed(3));
   await js(hataToplayici);
-  sonuc('uygulama iOS kipinde (yalnız ücretsiz)', !!(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
+  IOS_SATIS_ACIK = !!(await js('!!(window.TT_KATALOG&&TT_KATALOG.iosSatis===true)'));
+  if (IOS_SATIS_ACIK) sonuc('uygulama iOS kipinde, App Store satışı açık (yalnız-ücretsiz kip kapalı)', !(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')) && !!(await js('!!(window.TT&&TT.satisGizli&&!TT.satisGizli())')));
+  else sonuc('uygulama iOS kipinde (yalnız ücretsiz)', !!(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
 
   // 1) tanıtım
   if (await bas('tanıtım Başla', '.kAlt .ana', /^Başla$/, 30)) {
@@ -300,6 +310,8 @@ async function kartDugmesi(desen, dugme) {
     await sekme(s2); await goruntu('sekme-' + s2.normalize('NFD').replace(/[^\w]/g, '')); await satisYok('sekme ' + s2);
   }
   await xler('ana ekran');
+  /* 28.10: sürüm şeridi gerçek telefonda eski sürümde çıkar, provada hiç görünmüyordu → eski sürüm taklidiyle zorla aç + ✕ */
+  await anaSayfa(); await KT.surumSeridi(A);
 
   // 3) örnek sorular → şık seç
   await sekme('Sınavlar');
@@ -338,7 +350,8 @@ async function kartDugmesi(desen, dugme) {
   // 4) seviye testi (girişsiz ilk sorular)
   await anaSayfa(); await sekme('Sınavlar');
   const sv = await kartDugmesi('/seviyeni ölç/i', '/^Başla/');
-  if (!sv) sonuc('seviye testi kartı bulundu', false);
+  /* 28.10: 30 soruluk seviye testi kartı 27.10'da bilerek kapandı (246eeb30; Cem 17.10 "5 örnek soru") → yokluğu beklenen durum */
+  if (!sv) sonuc('30 soruluk seviye testi kartı yok (17.10 kararı; giriş 5 örnek soru)', true);
   else if (!sv.ustte) sonuc('seviye testi düğmesi dokunulabilir', false);
   else {
     await dokun(sv); await bekle(4000);
@@ -374,6 +387,43 @@ async function kartDugmesi(desen, dugme) {
       }
     }
   } else console.log('BILGI iPhone\'da "Ders ders çöz" görünmüyor (yalnız ücretsiz kip)');
+
+  // 5b) 30.10 (Cem "benim iPhone yok, sen şimdiden ölç"): PAKETLİ GİRİŞ — yalnız PROVA_OTURUM_DOSYA verilince
+  //     (mobil/prova-oturum.js üretir; şifresiz, e-postasız). Siteden alınan paket iPhone'da açılıyor mu, ders sorusu kasadan geliyor mu.
+  //     GÖRMEZ: giriş formu / Google-Apple girişi (oturum doğrudan kurulur), App Store satın alma (simülatör ödeme yapamaz).
+  const OTURUM_DOSYA = process.env.PROVA_OTURUM_DOSYA;
+  if (OTURUM_DOSYA && fs.existsSync(OTURUM_DOSYA)) {
+    const oturum = fs.readFileSync(OTURUM_DOSYA, 'utf8'); try { fs.unlinkSync(OTURUM_DOSYA); } catch (e) { }
+    await js(`(localStorage.setItem('sb-'+new URL(TT.SB_URL).host.split('.')[0]+'-auth-token', ${JSON.stringify(oturum)}),1)`);
+    await anaSayfa();
+    let durum = null;
+    for (let i = 0; i < 30; i++) {
+      durum = await js('window.TT_DURUM?{girisli:!!TT_DURUM.girisli,acik:TT_DURUM.acik}:null');
+      if (durum && durum.girisli && durum.acik !== undefined) break;
+      await bekle(1000);
+    }
+    const acik = durum && Array.isArray(durum.acik) ? durum.acik : [];
+    sonuc('paketli giriş: oturum kuruldu', !!(durum && durum.girisli));
+    sonuc('paketli giriş: iPhone\'da paket AÇIK ("Paket yok" değil)', acik.length > 0, 'açık ders ' + acik.length);
+    sonuc('paketli giriş: yalnız-ücretsiz kip kapalı', !(await js('!!(TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
+    await sekme('Hesap'); await bekle(1500); await goruntu('paketli-hesap');
+    const profil = await js(`(document.querySelector('#profilKart small')||{}).innerText||''`);
+    sonuc('paketli giriş: Hesap kartı ders sayısını gösteriyor', /ders açık/.test(profil) && !/Paket yok/.test(profil), profil);
+    await sekme('Sınavlar'); await bekle(1500); await goruntu('paketli-sinavlar');
+    const kart = await bekleBul('#liste a.ders', null, 10);
+    if (!kart) sonuc('paketli giriş: ders kartı listede', false);
+    else {
+      await dokun(kart);
+      const sik = await bekleBul('.sik', null, 45);
+      await goruntu('paketli-ders');
+      sonuc('paketli ders: soru kasadan 45 sn içinde geldi', !!sik, 'adres ' + (await adres()));
+      if (sik) { await donma('paketli ders sayfası'); await satisYok('paketli ders sayfası'); await xler('paketli ders sayfası'); }
+    }
+    // temizlik: yalnız BU cihazın oturumu kapanır (scope local); hesabın başka cihazlardaki oturumları kalır
+    await anaSayfa();
+    await js(`(async function(){try{await TT.istemci().auth.signOut({scope:'local'})}catch(e){}try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(/^sb-.*-auth-token$/.test(k))localStorage.removeItem(k)}}catch(e){}})(),1`);
+    await bekle(2000);
+  } else console.log('BILGI paketli giriş aşaması atlandı (PROVA_OTURUM_DOSYA yok)');
 
   // 6) çökme / JS hataları
   const st = await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] });

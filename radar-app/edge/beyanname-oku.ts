@@ -19,15 +19,16 @@ const ISO_GRUP: Record<string, string> = { CN:"du", JP:"du", IN:"du", RU:"du", T
 
 // RATE LIMIT: vision pahalı — Postgres merkezi sayaç, IP başına 60 sn'de 6 istek.
 const SB_URL_RL = "https://bjrleanjpyujtajmazxn.supabase.co";
-const SB_ANON_RL = Deno.env.get("SB_PUBLISHABLE") ?? "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
+// 28.10: sayaç SERVİS anahtarıyla çağrılır (rate_limit_check anon/üyeye KAPALI: biri başkasının IP sayacını doldurup formunu kilitleyemesin).
+const SB_SERVIS_RL = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 async function rlAsti(ip: string): Promise<boolean> {
   // 03.10 V2 madde 28: ÜCRETLİ uç - arızada KAPALI. IP okunamazsa ya da sayaç cevap vermezse istek geçmez
   // (eskiden geçiyordu: sayaç bozulunca sınırsız ücretli çağrı). Bedeli: sayaç arızasında bu uç da durur.
-  if (!ip || ip === "anon") return true;
+  if (!ip || ip === "anon" || !SB_SERVIS_RL) return true;
   try {
     const r = await fetch(`${SB_URL_RL}/rest/v1/rpc/rate_limit_check`, {
       method: "POST",
-      headers: { "content-type": "application/json", apikey: SB_ANON_RL, Authorization: `Bearer ${SB_ANON_RL}` },
+      headers: { "content-type": "application/json", apikey: SB_SERVIS_RL, Authorization: `Bearer ${SB_SERVIS_RL}` },
       body: JSON.stringify({ p_ip: ip, p_limit: 6, p_pencere_sn: 60 }),
     });
     if (!r.ok) return true;
@@ -36,10 +37,14 @@ async function rlAsti(ip: string): Promise<boolean> {
 }
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "6c21935d8c1db068";
+const KOD_IMZA = "ef6c10f77306a90e";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  if (new URL(req.url).searchParams.get("tani") === "hiz") {   // 28.10 sayaç ölçümü (ücretsiz)
+    const rs = await fetch(`${SB_URL_RL}/rest/v1/rpc/rate_limit_check`, { method: "POST", headers: { "content-type": "application/json", apikey: SB_SERVIS_RL, Authorization: `Bearer ${SB_SERVIS_RL}` }, body: JSON.stringify({ p_ip: "tani:" + crypto.randomUUID(), p_limit: 1000, p_pencere_sn: 60 }) }).catch(() => null);
+    return json({ hiz: rs ? rs.status : 0 });
+  }
   // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
   if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
   const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";

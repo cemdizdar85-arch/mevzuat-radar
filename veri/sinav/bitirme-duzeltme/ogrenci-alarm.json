@@ -1,0 +1,138 @@
+{
+ "aciklama": "30.10 ogrenci verisi (cevap_kayit, en az 10 cozum): yanlis bir sik dogrudan cok secilen sorular. ALARM = anahtar yanlis demek DEGIL (ornek: smmm-ab2-a-maliyet/kp-03 elle dogrulandi, anahtar A dogru, ogrenci yanilgisi). Kontrol edilmemisler Oturum 1 tarafindan ONCE kontrol edilir.",
+ "olcum": {
+  "site_soru": 3838,
+  "en_az_1_cozum": 545,
+  "cozum": 2134,
+  "en_az_10": 31,
+  "en_az_30": 6
+ },
+ "alarm": [
+  {
+   "id": "smmm-4k-a-fmuh-zor-r3/kp-02",
+   "ders": "Finansal Muhasebe",
+   "sira": 832,
+   "n": 179,
+   "anahtar": "E",
+   "alarm": "A %31 > doğru %23",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-yvergi-cokzor-r2/kp-02",
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "sira": 155,
+   "n": 95,
+   "anahtar": "C",
+   "alarm": "D %38 > doğru %35",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-ab2-a-maliyet/kp-03",
+   "ders": "Maliyet Muhasebesi",
+   "sira": 74,
+   "n": 93,
+   "anahtar": "A",
+   "alarm": "E %66 > doğru %13",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-fmuh-kolay-r4/kp-01",
+   "ders": "Finansal Muhasebe",
+   "sira": 561,
+   "n": 22,
+   "anahtar": "C",
+   "alarm": "D %45 > doğru %23",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-fmuh-zor-r5/kp-03",
+   "ders": "Finansal Muhasebe",
+   "sira": 2,
+   "n": 18,
+   "anahtar": "D",
+   "alarm": "C %33 > doğru %11",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-w8-3-maliyet-kolay/kp-01",
+   "ders": "Maliyet Muhasebesi",
+   "sira": 335,
+   "n": 17,
+   "anahtar": "A",
+   "alarm": "B %41 > doğru %24",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-olc2-b-vergi/kp-03",
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "sira": 377,
+   "n": 15,
+   "anahtar": "D",
+   "alarm": "B %40 > doğru %20",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-maliyet-cokzor-r5/kp-01",
+   "ders": "Maliyet Muhasebesi",
+   "sira": 148,
+   "n": 13,
+   "anahtar": "C",
+   "alarm": "A %31 > doğru %15",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-yvergi-cokzor-r8/kp-01",
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "sira": 352,
+   "n": 13,
+   "anahtar": "B",
+   "alarm": "A %38 > doğru %23",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-fmuh-cokzor-r4/kp-01",
+   "ders": "Finansal Muhasebe",
+   "sira": 736,
+   "n": 12,
+   "anahtar": "B",
+   "alarm": "D %42 > doğru %0",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-w14-6-yvergi-cokzor/kp-02",
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "sira": 113,
+   "n": 12,
+   "anahtar": "B",
+   "alarm": "A %42 > doğru %25",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-w3-yspk-zor/kp-03",
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "sira": 21,
+   "n": 11,
+   "anahtar": "C",
+   "alarm": "B %36 > doğru %27",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-4k-a-ymeslek-kolay-r10/kp-07",
+   "ders": "Meslek Hukuku",
+   "sira": 305,
+   "n": 10,
+   "anahtar": "E",
+   "alarm": "C %40 > doğru %30",
+   "kontrol_edildi": true
+  },
+  {
+   "id": "smmm-w1-fmuh-cokzor/kp-04",
+   "ders": "Finansal Muhasebe",
+   "sira": 686,
+   "n": 10,
+   "anahtar": "B",
+   "alarm": "D %30 > doğru %20",
+   "kontrol_edildi": true
+  }
+ ]
+}

@@ -248,7 +248,7 @@ ${nb ? `<p style="margin:0 0 10px">${kacis(nb)}</p>` : ""}
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "f91e72334f9b5cd6";
+const KOD_IMZA = "68ddce4aae644092";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
@@ -266,10 +266,10 @@ if (Deno && Deno.serve) {
   const cevap = (d: number, g: unknown, o: string | null) => new Response(JSON.stringify(g), { status: d, headers: cors(o) });
 
   async function hizAsti(ip: string): Promise<boolean> {
-    if (!ip || ip === "anon" || !SB_ANON) return false;
+    if (!ip || ip === "anon" || !SB_SERVICE) return false;   // 28.10: sayaç SERVİS anahtarıyla çağrılır (rate_limit_check anon/üyeye KAPALI: biri başkasının IP sayacını doldurup formunu kilitleyemesin).
     try {
       const r = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, { method: "POST",
-        headers: { "content-type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
+        headers: { "content-type": "application/json", apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` },
         body: JSON.stringify({ p_ip: ip, p_limit: 5, p_pencere_sn: 600 }) });
       if (!r.ok) return false; return (await r.json()) === false;
     } catch { return false; }
@@ -296,7 +296,11 @@ if (Deno && Deno.serve) {
   Deno.serve(async (req: Request) => {
     const origin = req.headers.get("origin");
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
-    // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
+    if (new URL(req.url).searchParams.get("tani") === "hiz") {   // 28.10 sayaç ölçümü (ücretsiz)
+      const rs = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, { method: "POST", headers: { "content-type": "application/json", apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` }, body: JSON.stringify({ p_ip: "tani:" + crypto.randomUUID(), p_limit: 1000, p_pencere_sn: 60 }) }).catch(() => null);
+      return ((o: unknown) => cevap(200, o, origin))({ hiz: rs ? rs.status : 0 });
+    }
+      // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
     if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
     if (new URL(req.url).searchParams.get("tani") === "1") {
       return cevap(200, { tani: true, secret_tanimli: { RESEND_KEY: !!RESEND_KEY, RESEND_FROM: !!Deno.env.get("RESEND_FROM"), SERVICE_ROLE: !!SB_SERVICE, ANON: !!SB_ANON } }, origin);

@@ -650,8 +650,24 @@ foreach($law in $manifest.kanunlar){
   #   - once cikarilsaydi uzun maddelerin parca sayisi degisir, kaynak_ad [k/n] kayardi (08.10 kuru kosu: 1.811 ad degisimi).
   $dipnotSonuc = YutmaHami $raw
   $flat = AralikliMaddeDuzelt $flat
+  # 22.10.2026 GORSEL TABLO (KGK bankacilik, Karsiliklar Yon. m.15/1-a): bazi tablolar mevzuat.gov.tr'de ve RG'de
+  # RESIM olarak durur; PDF'te yalniz resmin alt metni kalir ("Krediler Ek"), tablo ambara HIC girmiyordu.
+  # Manifestteki 'gorselTablolar' [{isaret, metin, kaynak}] isaret metnini resmi kaynaktan elle okunmus tablo
+  # satirlariyla degistirir. Hash YUKARIDA alindi -> bu ekleme kaynagi "degisti" saydirmaz. Isaret bulunamazsa
+  # (kaynak degisti/tablo kalkti) yutma DURMAZ ama BAGIRIR: tablo yeniden okunmali.
+  if($law.PSObject.Properties['gorselTablolar']){
+    foreach($gt in @($law.gorselTablolar)){
+      $gi = $flat.IndexOf("$($gt.isaret)")
+      if($gi -lt 0){ Write-Host ("  GORSEL TABLO ISARETI YOK [{0}]: '{1}' - tablo yeniden okunmali ({2})" -f $law.slug,$gt.isaret,$gt.kaynak); continue }
+      $flat = $flat.Substring(0,$gi) + "$($gt.metin)" + $flat.Substring($gi + "$($gt.isaret)".Length)
+      Write-Host ("  gorsel tablo metne islendi [{0}]: '{1}'" -f $law.slug,$gt.isaret)
+    }
+  }
 
-  $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
+  # 22.10.2026: HAZIR (elle hazirlanan RG metni) kaynaklarda url "mevzuatmetin/HAZIR.pdf" gibi anlamsiz cikiyordu;
+  # manifestte 'kaynakUrl' varsa (resmi RG/KGK adresi) o yazilir. Hash'e girmez -> kaynagi "degisti" saydirmaz.
+  $url = if($law.PSObject.Properties['kaynakUrl'] -and "$($law.kaynakUrl)".Trim()){ "$($law.kaynakUrl)".Trim() }
+         elseif("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
   # 01.09: kilavuz-bolum yapili kaynak (manifest isareti) ozel parcalayiciyla bolunur
   $docs = if($law.PSObject.Properties['parcalayici'] -and "$($law.parcalayici)" -eq 'kilavuz-bolum'){ ParcalaKilavuz $flat "$($law.ad)" $url } else { Parcala $flat "$($law.ad)" $url (BaslikSatirlari $raw) }

@@ -37,6 +37,23 @@ if(window.MRMenu) return;
     }catch(e){ return Promise.resolve(null); }
   }
   var q=null; try{ q=new URLSearchParams(location.search); }catch(e){}
+  /* 28.10 GOOGLE ADS ÇEVRİMDIŞI DÖNÜŞÜM (Cem 27.10 "satışı Google'a bildirelim"): reklam tıklama kimliği bu CİHAZDA
+     saklanır (tt_gclid = {tur, deger, t}, 90 gün, yeni tıklama eskiyi ezer); satin-al.html siparişe ttKaynak.tiklama()
+     ile yazar, arac/gads-cevrimdisi-donusum.js ödenen siparişten Google'a yüklenecek CSV'yi üretir. Değer kaynak_say'a
+     GİTMEZ (orada yalnız 'gads' etiketi). Biçim süzgeci SQL ile aynı (radar-app/sql/2026-10-28-gads-tiklama.sql).
+     🚫 GÖRMEZ: tıklayıp başka cihazdan alan · depolaması kapalı tarayıcı · gbraid/wbraid saklanır ama siparişe gitmez
+     (ilk sürüm yalnız gclid; iOS uygulama-içi tıklamalar CSV'ye girmez). */
+  var TK='tt_gclid', TK_OMUR=90*86400000, TK_DESEN=/^[A-Za-z0-9_-]{10,200}$/;
+  if(q) ['gclid','gbraid','wbraid'].some(function(tur){
+    var d=q.get(tur); if(!d||!TK_DESEN.test(d)) return false;
+    try{ localStorage.setItem(TK,JSON.stringify({tur:tur,deger:d,t:Date.now()})); }catch(e){}
+    return true;
+  });
+  function tiklama(){
+    try{ var x=JSON.parse(localStorage.getItem(TK)||'null');
+      if(x&&x.tur==='gclid'&&TK_DESEN.test(x.deger)&&x.t<=Date.now()&&Date.now()-x.t<TK_OMUR) return {deger:x.deger,zaman:new Date(x.t).toISOString()}; }catch(e){}
+    return null;
+  }
   var gelen=q?(suz(q.get('k'))||suz(q.get('utm_source'))):null;
   /* 16.10 (Cem "üye çekemiyoruz"; ölçüldü: 13–16.10 açılan 23 hesabın 7'si etiketsiz bağlantıdan, ör. Instagram profil
      linki): ?k= yoksa reklam tıklama kimliği ya da yönlendiren site OTOMATİK etiket olur. Yalnız etiket adı gider
@@ -70,6 +87,7 @@ if(window.MRMenu) return;
   var uyeYolda=false;
   window.ttKaynak={
     etiket:oku,
+    tiklama:tiklama,
     olay:function(tur){ var k=oku(); if(!k||tur!=='test'||sayildi(tur+':'+k)) return; gonder('kaynak_say',{p_etiket:k,p_olay:tur}); },
     uye:function(){
       var k=oku(); if(!k||uyeYolda) return;
@@ -141,7 +159,7 @@ try {
 try {
   /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
   if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261018a'; dn.async = true;
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261021a'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
@@ -162,13 +180,23 @@ function ttOdemeBandi(yer) {
       /* 08.10 Cem ("yanlışın sebebiyle öğren güzel görünmüyor telefonda"): dar ekranda logo ile slogan yan yana sıkışıyordu
          (logo iri, slogan kalın) -> slogan logonun altında kendi satırında, sade */
       '@media(max-width:560px){#ttOdemeBandi .ob-soz{flex-basis:100%;margin-top:-6px;font-size:13.5px;font-weight:600;color:var(--dim)}}' +
-      '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}';
+      '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}' +
+      /* 28.10 Cem: App Store + Google Play resmî rozetleri. Google rozeti kendi iç boşluğunu taşır → görünen boyu Apple'la eşit olsun diye
+         daha büyük çizilip boşluk kadar kırpılır (Google rozet kuralı: öteki mağaza rozetiyle aynı boyda). */
+      '#ttOdemeBandi .ob-mag{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px}' +
+      '#ttOdemeBandi .ob-mag span{font-size:13px;font-weight:650;color:var(--muted)}' +
+      '#ttOdemeBandi .ob-mag a{display:block;line-height:0}#ttOdemeBandi .ob-mag img.ob-as{height:40px;width:auto}' +
+      '#ttOdemeBandi .ob-mag img.ob-gp{height:58px;width:auto;margin:-9px -9px -9px -9px;max-width:none}';
     (document.head || document.documentElement).appendChild(st);
   }
   var b = document.createElement('div'); b.id = 'ttOdemeBandi';
   /* 04.10 Cem "Tetikte ismimiz sadece yukarıda görünüyor, aşağıda olmaz mı": her sayfanın dibinde logo + ana cümle */
   b.innerHTML = '<a class="marka ob-marka" href="/index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:20px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>' +
     '<span class="ob-soz">Yanlışını, sebebiyle birlikte öğren.</span><span class="ob-ara" aria-hidden="true"></span>' +
+    '<span class="ob-mag"><span>Telefonda da çalış:</span>' +
+    '<a href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener"><img class="ob-as" src="/gorsel/magaza/app-store-tr.svg" width="151" height="40" alt="App Store\'dan indirin" loading="lazy"></a>' +
+    '<a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener"><img class="ob-gp" src="/gorsel/magaza/google-play-tr.png" width="150" height="58" alt="Google Play\'den alın" loading="lazy"></a></span>' +
+    '<span class="ob-ara" aria-hidden="true"></span>' +
     '<img class="ob-acik" src="/gorsel/odeme/iyzico-logo-bandi.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
     '<img class="ob-koyu" src="/gorsel/odeme/iyzico-logo-bandi-beyaz.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
     '<span>🔒 Bu sitedeki bütün bağlantılar SSL (HTTPS) ile şifrelenir.</span>';
@@ -218,7 +246,7 @@ var GRUPLAR_GIZLI=[
 var GRUPLAR=[
  {ad:"🎓 SMMM sınavları", araclar:[
   ["sorular.html","📚","Soru Çöz","Staja Giriş ve Yeterlilik — sınavını seç, ders ders çöz"],
-  ["seviye-testi.html","📏","Geçme İhtimalini Ölç","30 soru, yaklaşık 30 dakika, ücretsiz"],
+  ["kaydir/vitrin/ornek-sgs.html","🎯","5 Örnek Soru","Ücretsiz, üye olmadan; her cevabın nedeni açılır"],   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
   /* 08.10 Cem "canlı deneme kaldır": canli-deneme satırı çıktı (sayfa GİZLİ, GIZLI regex aynen) */
   /* 02.10 gizli (sayfa boş). Geri almak: bu satırı aç + GIZLI regex + komut.js + sitemap: ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"], */
@@ -502,14 +530,18 @@ function ustSeritKur(){
     '#ttUlas .ulas-not{margin-right:auto;opacity:.85}'+
     'html body #ttUlas a{color:var(--bg)!important;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:6px;min-height:36px}'+
     'html body #ttUlas a:hover{text-decoration:underline}html body #ttUlas a.ulas-wp{color:var(--amber-dolgu)!important}'+
+    /* 21.10 kontrast kapisi: koyu temada bant zemini var(--ink) = acik renk; amber yazi 1.43-1.85 kaliyordu. Koyuda yazi bant yazisi rengi, amber nokta kalir. */
+    'html[data-theme="dark"] body #ttUlas a.ulas-wp{color:var(--bg)!important}'+
     '#ttUlas .ulas-wp::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber-dolgu)}'+
-    '@media(max-width:620px){#ttUlas .ulas-not,#ttUlas .ulas-ep{display:none}#ttUlas .ic{justify-content:center}}';
+    '@media(max-width:620px){#ttUlas .ulas-not,#ttUlas .ulas-ep{display:none}#ttUlas .ic{justify-content:center}}'+
+    /* 31.10 Cem ("yanlışlarım sekmesini bulmak çok zor"): üyede bilgisayar menüsünde Yanlışlarım; telefonda alt menüde zaten var */
+    '@media(max-width:759px){#ttUst .nl-yan{display:none}}';
   document.head.appendChild(st);
   var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
   function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
   /* 17.10 Cem: logo üyede Hesabım'a (ana sayfa da üyeyi oraya yönlendirir; burada ara yükleme olmasın) */
   n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+(uye?'index.html?ana=1':'index.html')+'" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
-    bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
+    bag('sorular.html','Sınavlar')+(uye?bag('yanlislarim.html','Yanlışlarım').replace('class="nl"','class="nl nl-yan"'):'')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
     /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ziyaretçinin "Ücretsiz başla"sı 5 örnek soruya */
     /* 17.10 Cem ("ücretsiz başla kısmına üye ol desek, oraya basınca soru geçiyor"): ziyaretçinin düğmesi "Üye ol" → üyelik formu */
@@ -522,9 +554,27 @@ function ustSeritKur(){
   return true;
 }
 
+/* 28.10 Cem ("bunu en yukarıya koymayalım mı, küçük şeklini"): üstteki "Bize hemen ulaş" bandında uygulama bağlantıları, YAZI hâlinde
+   (resmî rozet 40 px'ten küçük gösterilemez — Apple kuralı; rozetler sayfa dibinde). Bant iki yerden gelir: menu.js #ttUlas ve
+   index.html kendi #ulasBant'ı → ikisine de buradan eklenir. Telefonda (≤620 px) gizli: orada ana sayfa rozeti + iPhone akıllı bandı var. */
+function ttUlasUygulama(){
+  var ic = document.querySelector('#ttUlas .ic, #ulasBant .ic'); if(!ic || ic.querySelector('.ulas-uyg')) return;
+  if(!document.getElementById('ttUlasUygStil')){
+    var s=document.createElement('style'); s.id='ttUlasUygStil';
+    s.textContent='.ulas-uyg{display:inline-flex;align-items:center;gap:8px;opacity:.95}.ulas-uyg .uu-ad{opacity:.75;font-weight:500}'+
+      '@media(max-width:620px){.ulas-uyg{display:none!important}}';
+    document.head.appendChild(s);
+  }
+  var sp=document.createElement('span'); sp.className='ulas-uyg';
+  sp.innerHTML='<span class="uu-ad">Uygulama:</span><a href="https://apps.apple.com/tr/app/tetikte/id6816072026" target="_blank" rel="noopener">App Store</a>'+
+    '<span aria-hidden="true">·</span><a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play</a>';
+  var wp=ic.querySelector('.ulas-wp'); ic.insertBefore(sp, wp || null);
+}
+
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   var ortakSerit=false; try{ ortakSerit=ustSeritKur(); }catch(e){}
+  try{ ttUlasUygulama(); }catch(e){}
   /* 07.10: tema-bas.js eski .top iz satırını bu ana dek gizliyordu (görünüp kaybolmasın) - şerit kuruldu ya da kurulmayacak, aç */
   document.documentElement.classList.remove('tt-ust-bekle');
   if(!ortakSerit){ try{ geriKur(); }catch(e){} }
@@ -603,7 +653,7 @@ function kur(){
     var T=window.TetikteTema||{
       oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='koyu'?'dark':'light'; }catch(e){ return 'light'; } },   /* 04.10: varsayılan açık (tema-bas.js ile aynı) */
       yaz:function(t){ try{ localStorage.setItem('kc_tema',t); localStorage.removeItem('tt_tema'); }catch(e){} this.uygula(t); try{ document.dispatchEvent(new CustomEvent('tt-tema',{detail:t})); }catch(e){} },
-      uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); }); if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
+      uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); if(t==='dark') l.setAttribute('media','not all'); else l.removeAttribute('media'); });   /* 21.10: media da (tema-bas.js kapat() ile ayni yaris) */ if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
     };
     var dugme=document.createElement('button');
     dugme.id='mrxTema'; dugme.type='button';
@@ -805,7 +855,12 @@ function ttSorguHakki(anahtar){
      eski cihazlardaki mrOnizleme işareti de silinir; gizli sayfa artık herkese kapalı. */
   try {
     localStorage.removeItem('mrOnizleme');
-    if (GIZLI.test(location.pathname)) { location.replace('/index.html'); return; }
+    /* 28.10 marka nöbeti (marka kolu ba4ad5f7): sayfa gizli kalır, ama maildeki iki bağlantı açılır — "onayla"
+       (?nobet=onay&j=, radar-app/edge/marka-nobet.ts) ve "nöbeti kapat" (?nobet=kapat&jeton=, motor/marka-uyari.js). Kapat
+       bağlantısı ana sayfaya düşüyordu → abone maildeki bağlantıyla çıkamıyordu (KVKK). Başka sorgu muaf değil. */
+    var mailBag = /(^|\/)marka-itiraz\.html$/.test(location.pathname)
+      && /^\?nobet=(onay&j=[A-Za-z0-9]+|kapat&jeton=[A-Za-z0-9_-]+)$/.test(location.search);
+    if (GIZLI.test(location.pathname) && !mailBag) { location.replace('/index.html'); return; }
   } catch (e) {}
   function suz() {
     var kendi = location.pathname;

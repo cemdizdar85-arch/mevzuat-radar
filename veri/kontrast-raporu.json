@@ -2,195 +2,104 @@
   "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 238,
-  "koyu_gecis": 78,
+  "sayfa": 247,
+  "koyu_gecis": 83,
   "koyu_bekleyen": [],
-  "temiz_sayfa": 234,
-  "denetlenen_metin": 24423,
-  "toplam_kirik": 15,
-  "denetlenen_sinir": 7041,
-  "toplam_gorunmez_sinir": 2,
-  "olculemeyen": 1,
+  "temiz_sayfa": 245,
+  "denetlenen_metin": 24587,
+  "toplam_kirik": 10,
+  "denetlenen_sinir": 6863,
+  "toplam_gorunmez_sinir": 0,
+  "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
     "buyuk": 3,
     "sinir": 1.12
   },
-  "gorunmez_sinir_sayfalar": [
-    {
-      "sayfa": "elci.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "img.og-marka-maskot",
-          "kimlik": " < .og-sol",
-          "iz": "<img class=\"og-marka-maskot\" src=\"gorsel/maskot-giris.jpg\" alt=\"\" width=\"160\" height=\"160\" loading=\"lazy\">",
-          "yan": "ust",
-          "oran": 1.119,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,1)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(253,241,220)"
-        }
-      ]
-    },
-    {
-      "sayfa": "ogrenci.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "img.og-marka-maskot",
-          "kimlik": " < .og-sol",
-          "iz": "<img class=\"og-marka-maskot\" src=\"gorsel/maskot-giris.jpg\" alt=\"\" width=\"160\" height=\"160\" loading=\"lazy\">",
-          "yan": "ust",
-          "oran": 1.119,
-          "esik": 1.12,
-          "cerceve": "rgba(255,255,255,1)",
-          "gorunen": "rgb(255,255,255)",
-          "zemin": "rgb(253,241,220)"
-        }
-      ]
-    }
-  ],
-  "olculemeyenler": [
-    {
-      "sayfa": "google87733a2d2d0cc2ab.html",
-      "sebep": "bilinmiyor"
-    }
-  ],
+  "gorunmez_sinir_sayfalar": [],
+  "olculemeyenler": [],
   "kirik_sayfalar": [
     {
-      "sayfa": "sorular.html",
-      "adet": 1,
+      "sayfa": "kampanya-son-20-gun.html [koyu]",
+      "adet": 8,
       "ornekler": [
         {
-          "oge": "span.sc-deneme-et",
-          "yazi": "Sınav gibi deneme",
-          "oran": 4.21,
+          "oge": "p.yk-ust",
+          "yazi": "Yönetim Kurulu Kararı · 29 Ekim 2026 · S",
+          "oran": 1.49,
           "esik": 4.5,
-          "renk": "rgb(138, 98, 36)",
-          "zemin": "rgb(231,225,217)",
-          "iz": "<span class=\"sc-deneme-et\">Sınav gibi deneme</span>"
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p class=\"yk-ust\">Yönetim Kurulu Kararı · 29 Ekim 2026 · Son gün 1 Kasım 23:59</p>"
+        },
+        {
+          "oge": "p.yk-bas",
+          "yazi": "1 Kasım 23:59'a kadar paket alana şart y",
+          "oran": 1.04,
+          "esik": 3,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p class=\"yk-bas\">1 Kasım 23:59'a kadar paket alana şart yok.</p>"
+        },
+        {
+          "oge": "p",
+          "yazi": "1 Kasım 2026 saat 23:59'a kadar paket al",
+          "oran": 2.43,
+          "esik": 4.5,
+          "renk": "rgb(147, 161, 179)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p>1 Kasım 2026 saat 23:59'a kadar paket alan <b>herkes</b>, satın aldığı paketin kapsamındaki sınavı kazanana"
+        },
+        {
+          "oge": "b",
+          "yazi": "herkes",
+          "oran": 1.04,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<b>herkes</b>"
+        },
+        {
+          "oge": "b",
+          "yazi": "Deneme barajı, görev şartı, süre sınırı ",
+          "oran": 1.04,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<b>Deneme barajı, görev şartı, süre sınırı yok;</b>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Kararın ayrıntısı →",
+          "oran": 1.49,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<a href=\"#karar\">Kararın ayrıntısı →</a>"
         }
       ]
     },
     {
-      "sayfa": "sorular.html [koyu]",
-      "adet": 7,
+      "sayfa": "sgs-sifirdan-hazirlik.html [koyu]",
+      "adet": 2,
       "ornekler": [
         {
-          "oge": "a.ulas-wp",
-          "yazi": "WhatsApp",
-          "oran": 1.85,
+          "oge": "a.ana",
+          "yazi": "5 örnek soru çöz",
+          "oran": 1.43,
           "esik": 4.5,
-          "renk": "rgb(245, 165, 36)",
-          "zemin": "rgb(242,244,248)",
-          "iz": "<a class=\"ulas-wp\" href=\"https://wa.me/905323448058?text=Merhaba%2C%20Tetikte%20hakk%C4%B1nda%20bilgi%20almak%"
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<a class=\"ana\" href=\"kaydir/vitrin/ornek-sgs.html?k=sifirdan\">5 örnek soru çöz</a>"
         },
         {
-          "oge": "b.marka-ad",
-          "yazi": "tetkte",
-          "oran": 1.12,
-          "esik": 3,
-          "renk": "rgb(22, 25, 29)",
-          "zemin": "rgb(10,11,14)",
-          "iz": "<b class=\"marka-ad\">tet<span class=\"i\">ı</span>kte</b>"
-        },
-        {
-          "oge": "p",
-          "yazi": "Instagram/Facebook reklamlarımızı ölçmek",
-          "oran": 1.1,
+          "oge": "a.ana",
+          "yazi": "5 örnek soru çöz",
+          "oran": 1.43,
           "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<p style=\"margin:0;flex:1;min-width:0\">Instagram/Facebook reklamlarımızı ölçmek için <b>Meta çerezi</b> kullan"
-        },
-        {
-          "oge": "b",
-          "yazi": "Meta çerezi",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<b>Meta çerezi</b>"
-        },
-        {
-          "oge": "a",
-          "yazi": "Ayrıntı",
-          "oran": 1.84,
-          "esik": 4.5,
-          "renk": "rgb(227, 184, 119)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<a href=\"/gizlilik-politikasi.html#cerez\" style=\"color:var(--amber);font-weight:700\">Ayrıntı</a>"
-        },
-        {
-          "oge": "button",
-          "yazi": "Reddet",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
-        }
-      ]
-    },
-    {
-      "sayfa": "ucretsiz-dene.html [koyu]",
-      "adet": 7,
-      "ornekler": [
-        {
-          "oge": "a.ulas-wp",
-          "yazi": "WhatsApp",
-          "oran": 1.85,
-          "esik": 4.5,
-          "renk": "rgb(245, 165, 36)",
-          "zemin": "rgb(242,244,248)",
-          "iz": "<a class=\"ulas-wp\" href=\"https://wa.me/905323448058?text=Merhaba%2C%20Tetikte%20hakk%C4%B1nda%20bilgi%20almak%"
-        },
-        {
-          "oge": "b.marka-ad",
-          "yazi": "tetkte",
-          "oran": 1.12,
-          "esik": 3,
-          "renk": "rgb(22, 25, 29)",
-          "zemin": "rgb(10,11,14)",
-          "iz": "<b class=\"marka-ad\">tet<span class=\"i\">ı</span>kte</b>"
-        },
-        {
-          "oge": "p",
-          "yazi": "Instagram/Facebook reklamlarımızı ölçmek",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<p style=\"margin:0;flex:1;min-width:0\">Instagram/Facebook reklamlarımızı ölçmek için <b>Meta çerezi</b> kullan"
-        },
-        {
-          "oge": "b",
-          "yazi": "Meta çerezi",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<b>Meta çerezi</b>"
-        },
-        {
-          "oge": "a",
-          "yazi": "Ayrıntı",
-          "oran": 1.84,
-          "esik": 4.5,
-          "renk": "rgb(227, 184, 119)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<a href=\"/gizlilik-politikasi.html#cerez\" style=\"color:var(--amber);font-weight:700\">Ayrıntı</a>"
-        },
-        {
-          "oge": "button",
-          "yazi": "Reddet",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<a class=\"ana\" href=\"kaydir/vitrin/ornek-sgs.html?k=sifirdan\">5 örnek soru çöz</a>"
         }
       ]
     }

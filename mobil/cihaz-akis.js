@@ -112,19 +112,11 @@ async function bas(ad, secici, metin, sn) {
 }
 async function adres() { return js('location.pathname.replace(/^.*\\/(www\\/)?/,"/")+location.search'); }
 
-/* bütün görünür ✕'ler: örtülü mü, dokununca kapanıyor mu */
-async function xler(ad) {
-  const X = '.tuKapat,[aria-label="Kapat"],.ttSeritX,.pk-x,#kutuKapat,.oyunX,.kagitKapat';
-  const say = await js(`[...document.querySelectorAll(${JSON.stringify(X)})].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0;}).length`);
-  if (!say) { console.log('BILGI ' + ad + ': açık ✕ yok'); return; }
-  for (let i = 0; i < say; i++) {
-    const o = await bul(X); if (!o) break;
-    if (!o.ustte) { sonuc(ad + ': ✕ dokunulabilir', false, 'üstünde ' + o.ortu); return; }
-    await dokun(o); await bekle(1200);
-  }
-  const kalan = await js(`[...document.querySelectorAll(${JSON.stringify(X)})].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0;}).length`);
-  sonuc(ad + ': ' + say + ' ✕ dokunulabilir ve kapandı', kalan < say, say + ' → ' + kalan);
-}
+/* bütün görünür ✕'ler + çıkışsız katmanlar (28.10: ortak katman-tarama.js; eski 7 sınıflık liste ✕'i metinden tanımıyordu,
+   ✕'siz kaplayan katmanı hiç aramıyordu — Cem "çarpı geldi basamadık ilerleyemedik olmasın") */
+const KT = require('./katman-tarama');
+const A = { js: (e) => js(e), bul: (s, m) => bul(s, m), dokun: (o) => dokun(o), bekle: (ms) => bekle(ms), sonuc: (a, t, n) => sonuc(a, t, n) };
+async function xler(ad) { return KT.katmanTara(A, ad); }
 async function anaSayfa() {
   await js('location.href=location.origin+"/index.html"'); await bekle(4000);
 }
@@ -162,6 +154,8 @@ async function sekme(ad) {
   // 2) sekmeler
   for (const s of ['Sınavlar', 'Karnem', 'Hesap', 'Bugün']) { await sekme(s); goruntu('sekme-' + s.normalize('NFD').replace(/[^\w]/g, '')); }
   await xler('ana ekran');
+  /* 28.10: sürüm şeridi gerçek telefonda eski sürümde çıkar, provada hiç görünmüyordu → eski sürüm taklidiyle zorla aç + ✕ */
+  await anaSayfa(); await KT.surumSeridi(A);
 
   // 3) örnek sorular → şık seç
   await sekme('Sınavlar');
@@ -195,7 +189,9 @@ async function sekme(ad) {
   const sv = await js(`(()=>{const k=[...document.querySelectorAll('button,a')].find(e=>/seviyeni ölç/i.test(e.innerText)&&e.getBoundingClientRect().height>0); if(!k) return null;
       const kap=k.closest('.kart,.satir,li,section,div')||k; const b=[...kap.querySelectorAll('button,a')].find(e=>/^Başla/.test(e.innerText.trim()))||k;
       const r=b.getBoundingClientRect(); const x=r.left+r.width/2,y=r.top+r.height/2; const u=document.elementFromPoint(x,y); return {x,y,ustte:u===b||b.contains(u)};})()`);
-  if (!sv) sonuc('seviye testi kartı bulundu', false);
+  /* 28.10: 30 soruluk seviye testi kartı 27.10'da bilerek kapandı (246eeb30, uygulama-sinavlar.js `if (false && …)`; Cem 17.10 "30 soru
+     çözdürmeyelim, 5 örnek soru"). Kartın YOKLUĞU artık beklenen durum; geri gelirse aşağıdaki akış yine sınar. */
+  if (!sv) sonuc('30 soruluk seviye testi kartı yok (17.10 kararı; giriş 5 örnek soru)', true);
   else if (!sv.ustte) sonuc('seviye testi düğmesi dokunulabilir', false);
   else {
     await dokun(sv); await bekle(4000);
@@ -220,6 +216,21 @@ async function sekme(ad) {
     sonuc('seviye testinde sayaç 3 soru ilerledi', son - ilk === 3, ilk + ' → ' + son + ' · adres ' + (await adres()));
     await donma('seviye testi');
     await xler('seviye testi');
+  }
+
+  // 4b) 31.10 1.9.1 (Ders ders çöz’den ÖNCE: o adım Sınavlar sekmesini ders listesinde bırakıyor, ilk koşu 41214243165 satırı bulamadı): Son 20 Gün (Sınavlar → "Son 20 Gün denemeleri" → son-20-gun.html; denemeler sunucudan s20_liste)
+  await anaSayfa(); await sekme('Sınavlar');
+  if (!(await bekleBul('a', /Son 20 Gün denemeleri/, 10))) console.log('BILGI Son 20 Gün yok · sınavlar ekranı: ' + String(await js('(document.getElementById("sinavUst")||{}).innerText||""')).replace(/\s+/g, ' ').slice(0, 300));
+  if (await bas('Son 20 Gün satırı', 'a', /Son 20 Gün denemeleri/, 10)) {
+    const dn = await bekleBul('#denemeler .dn', null, 30);
+    await bekle(1500); goruntu('son-20-gun');
+    const d = await js(`({a:location.pathname.replace(/^.*\\//,''), dn:document.querySelectorAll('#denemeler .dn').length,
+      satis:[...document.querySelectorAll('a')].filter(a=>/satin-al|fiyat\\.html|gktPaket/.test(a.getAttribute('href')||'')).length,
+      paket:[...document.querySelectorAll('#kapi a')].map(a=>a.getAttribute('href')).join(',')})`);
+    sonuc('Son 20 Gün sayfası açıldı, 7 deneme sunucudan geldi', d.a === 'son-20-gun.html' && d.dn === 7 && !!dn, JSON.stringify(d));
+    sonuc('Son 20 Gün: site satış bağı yok, giriş/paket uygulama içinde', d.satis === 0 && /index\.html#giris/.test(d.paket) && /index\.html#paketler/.test(d.paket), d.paket);
+    await donma('Son 20 Gün');
+    await xler('Son 20 Gün');
   }
 
   // 5) Ders ders çöz → Denetim (girişsiz)

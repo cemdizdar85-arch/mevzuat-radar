@@ -33,6 +33,7 @@ param([switch]$Yaz, [switch]$IndirmeYok, [double]$IkizEsik = 0.60, [double]$Ikiz
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $PSScriptRoot 'smmm-yayin-sarti.ps1')
+. (Join-Path $PSScriptRoot 'onay-yayin-durumu.ps1')   # 22.10 ONAY YAYIN KAPISI sınıflaması
 
 if (-not $IndirmeYok) {
   & powershell -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Yaz -OnEk 'smmm-' | Select-Object -Last 3
@@ -73,6 +74,7 @@ function Benzerlik($ax, $bx) { return (IkizBenzerlik $ax $bx) }
 
 $aday = New-Object System.Collections.Generic.List[object]
 $dusen = @{}
+$sartDisi = @{}   # 22.10: yayın şartından düşenler - ONAY YAYIN KAPISI bunları ret kütüğünden ayırır (arac/onay-yayin-durumu.ps1)
 foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
   $et = $f.BaseName -replace '^kalip-parti-', ''
   if ($et -match '(^|-)pilot\d*(-|$)') { continue }
@@ -81,7 +83,7 @@ foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
     $v = $p.Value; if (-not $v -or -not $v.PSObject.Properties['soru'] -or -not $v.soru) { continue }
     $anah = "$et|$($p.Name)"
     $sart = SmmmYayinSarti "$et/$($p.Name)" $v $onay
-    if (-not $sart.gecer) { $dusen['yayın şartı'] = 1 + [int]$dusen['yayın şartı']; continue }
+    if (-not $sart.gecer) { $dusen['yayın şartı'] = 1 + [int]$dusen['yayın şartı']; $sartDisi[$anah] = 1; continue }
     # 24.09 (Cem onay kuyruğu): onaylanan 55 sorunun 55'i ret kütüğünde YALNIZ KAPI-KOR (kör çözüm anahtardan farklı) ile
     #   kayıtlıydı ve bu satır onları onaydan bağımsız eliyordu (yayında 0/55). Cem ONAYI tam bu durumun istisnasıdır:
     #   ret nedeni KAPI-KOR ve yayın şartı Cem onayıyla geçtiyse ret kütüğü durdurmaz. ELLE RET ve öteki nedenler aynen durdurur.
@@ -142,9 +144,11 @@ $onayDurum = @{}; $script:onayKirmizi = New-Object System.Collections.Generic.Li
 foreach ($ok in @($onay.Keys)) {
   if ("$($onay[$ok].karar)" -ne 'ONAY') { continue }
   $k = "$ok" -replace '/', '|'
-  $durum = $(if ($secimAn.ContainsKey($k)) { 'yayında' } elseif ($ikizDisi.ContainsKey($k)) { 'ikiz' } elseif ("$($ret[$k])" -like 'ELLE*') { 'elle ret' } elseif ($ret.ContainsKey($k)) { 'ONAYA RAĞMEN RET KÜTÜĞÜ' } elseif (-not $adayAn.ContainsKey($k)) { 'yayın şartı' } else { 'BİLİNMİYOR' })
+  # 22.10: sınıflama arac/onay-yayin-durumu.ps1'e taşındı - yayın şartı ret kütüğünden ÖNCE sorulur (21-22.10'da
+  #   meşru "mevzuat değişti" düşüşü eski KAPI-KOR kaydı yüzünden "onaya rağmen ret" sayılıp yayını iki gün kırmızı bitirdi).
+  $durum = OnayYayinDurumu $k $secimAn $ikizDisi $sartDisi $ret $adayAn
   $onayDurum[$durum] = 1 + [int]$onayDurum[$durum]
-  if ($durum -in 'ONAYA RAĞMEN RET KÜTÜĞÜ', 'BİLİNMİYOR') { $script:onayKirmizi.Add("$ok ($durum)") }
+  if (OnayYayinKirmiziMi $durum) { $script:onayKirmizi.Add("$ok ($durum)") }
 }
 "ONAY YAYIN KAPISI: " + $(if ($onayDurum.Count) { ($onayDurum.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ' · ' } else { 'onay kaydı yok' })
 if ($script:onayKirmizi.Count) { Write-Host ("⛔ ONAY YAYIN KAPISI KIRMIZI: {0} onaylı soru beklenmedik biçimde yayında değil: {1}" -f $script:onayKirmizi.Count, (@($script:onayKirmizi | Select-Object -First 5) -join ', ')) -ForegroundColor Red }if (-not $secim.Count) { 'seçilen soru yok — kasaya yazılacak bir şey yok'; exit 0 }

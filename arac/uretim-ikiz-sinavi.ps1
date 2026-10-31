@@ -24,7 +24,7 @@ foreach ($f in $fonk) { . ([scriptblock]::Create($f.Extent.Text)) }
 $gecti = 0; $dustu = New-Object System.Collections.Generic.List[string]
 function T([string]$ad, [bool]$k) { if ($k) { $script:gecti++; if (-not $Sessiz) { Write-Host "  geçti $ad" } } else { $script:dustu.Add($ad) } }
 function Q([string]$konu, [string]$soru, [string]$dogru, $kaynak) { $o = [pscustomobject]@{ konu = $konu; soru = $soru; dogru = 'A'; siklar = [pscustomobject]@{ A = $dogru; B = 'b'; C = 'c'; D = 'd'; E = 'e' } }; if ($null -ne $kaynak) { $o | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($kaynak) }; return $o }
-function HavuzKaydi($et, $id, $q) { [pscustomobject]@{ etiket = $et; id = $id; konu = "$($q.konu)"; kume = (KelimeKume "$($q.soru)"); sikKume = (SikKume $q); madde = (KokMaddeNo "$($q.soru)"); ders = (SmmmDersAdi $et $q); soruMetin = "$($q.soru)"; dogruMetin = (IkizDogruMetin $q); parmak = $null; kaynak = @($q.kaynak_adlar); ai = $null } }
+function HavuzKaydi($et, $id, $q) { [pscustomobject]@{ etiket = $et; id = $id; konu = "$($q.konu)"; kume = (KelimeKume "$($q.soru)"); sikKume = (SikKume $q); madde = (KokMaddeNo "$($q.soru)"); ders = (SmmmDersAdi $et $q); soruMetin = "$($q.soru)"; dogruMetin = (IkizDogruMetin $q); parmak = $null; kaynak = @($q.kaynak_adlar); ai = $null; si = $null } }
 # betik kapsamı değişkenleri (üretimdeki adlarla)
 $Sinav = 'SMMM'; $Etiket = 'smmm-w11-1-yhukuk-zor'; $CAPA = @{}; $script:GK_DERS = $false
 $kay = 'TBK (6098 s.K.) m.49'

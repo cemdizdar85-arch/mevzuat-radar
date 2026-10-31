@@ -15,6 +15,8 @@
 elci-sozlesmesi*.pdf
 CNAME
 robots.txt
+llms.txt                  # 31.10 yapay zeka tarayicilarina site tanimi (llmstxt.org); kokteki .txt kalipla yayina cikmaz
+a207c53416bf9ed8.txt      # 28.10 IndexNow anahtar dosyası (c5b48cfc, 09.10; Bing/Yandex kökte arar) — kökteki .txt kalıpla yayına çıkmaz
 sitemap.xml
 
 # --- site klasörleri ---
@@ -23,6 +25,10 @@ kutuphane/*.js
 kutuphane/*.woff2
 gorsel/**/*.png
 gorsel/**/*.svg
+gorsel/**/*.jpg           # 17.10 ana sayfa maskotu (gorsel/maskot-giris.jpg)
+gorsel/**/*.webp
+ses/cizim/**/*.mp3        # 22.10 "Nöbetçi çizerek çözsün" maskot sesi (cizerek-coz.js SES tablosu; cümle başına bir dosya)
+mobil/uygulama/ilerleme.js  # 28.10 TEK KAYNAK ilerleme kaydı (uygulama + site ortak): ilerleme-web.js (kaldığın yer, hesapla eşitleme) ve ogrenci.html (günlük hedef) dinamik yükler. Beyaz liste yayınına geçişte düştü → canlıda 404 (28.10 kilit sınavında bulundu). mobil/ YASAK'tan yalnız bu dosya muaf (site-yayin.js).
 sayfalar/*.html
 arsiv/*.html              # kartlar.html -> arsiv/index.html -> günlük kart arşivi
 arsiv/degisim/*.html
@@ -74,6 +80,7 @@ veri/siklik-kunyesi.json
 veri/siklik-kunyesi-kgk.json
 veri/siklik-kunyesi-smmm.json
 veri/sinav-takvimi.json
+veri/uygulama-surum.json   # 28.10 mobil uygulama sürüm şeridi (mobil/uygulama/surum-uyari.js); beyaz listeye geçişten beri 404'tü, iOS/Android provası kırmızıydı
 veri/sinav/smmm-banka-esleme.json
 veri/sinav/smmm-konu-okuma.json
 veri/smmm-analiz.json

@@ -1,7 +1,7 @@
 /* cizerek-coz.js — "✍️ Nöbetçi çizerek çözsün" PİLOTU (14.10.2026, Cem: "sitedeki sorular da böyle cevaplansın")
  *
- * Kaydır-Çöz soru kartında, cevaptan sonra açılan panele bir düğme ekler. Düğme yalnız PILOT listesindeki
- * sorularda ve yalnız KAPI geçerse çıkar. Tıklanınca soru, şıklar ve bir karalama alanı açılır; Nöbetçi
+ * Kaydır-Çöz soru kartında, cevaptan sonra açılan panele bir düğme ekler. Düğme SGS/Yeterlilik'te yalnız PILOT listesindeki,
+ * KGK'da (22.10.2026) "kgk-" önekli her soruda (KGK_DIS hariç; bkz. dugmeAday) ve yalnız KAPI geçerse çıkar. Tıklanınca soru, şıklar ve bir karalama alanı açılır; Nöbetçi
  * kalemle ADIM ADIM çözer ("Sonraki adım" / "Tümünü oynat"): soruda verilenlerin altını çizer, her çözüm
  * adımını el yazısıyla karalamaya yazar, doğru şıkkı yuvarlar, yanlış şıkları çeldirici nedeniyle karalar.
  * Ses yok (sessiz: kalem + alt yazı). Dosya/video yok: çizim tarayıcıda, sorunun kendi verisinden.
@@ -48,7 +48,10 @@
     'sgs-d2-fmuh-kolay-r2/kp-04', 'sgs-c2-fmuh-zor-r3/kp-02', 'sgs-c2-denetim-kolay-r2/kp-05', 'sgs-c2-mta-kolay-r1/kp-01',
     'sgs-k5-fmuh-zor/kp-17', 'sgs-p-ekonomi-kolay-r1-a/kp-04', 'sgs-t1-mta-zor/kp-01', 'sgs-t1-maliyet-kolay/kp-07',
     // 20.10.2026 (Cem "1.2.3"): ücretsiz 5+5 örnek sorunun iki sözel sorusu — SÖZEL şablon (aşağıda sozelSenaryo)
-    'sgs-k5-ekonomi-zor/kp-01', 'smmm-w3-yspk-cokzor/kp-18'
+    'sgs-k5-ekonomi-zor/kp-01', 'smmm-w3-yspk-cokzor/kp-18',
+    // 27.10.2026: örnek setin yeni ilk soruları (arac/ornek5-liste.json 27.10). sgs-k10 sözel şablonla geçer; son adımı 27.10'da
+    // onarıldı (önce "Çıktı = bilanço, gelir tablosu" B şıkkını taşımıyordu → SZ-DOGRU).
+    'smmm-4k-a-yfta-kolay-r6/kp-01', 'sgs-k10-fmuh-kolay/kp-04'
   ];
   /* PROVA SONUCU (15.10.2026): oturum -> kimlikler. YET-2410 paketinin 80 sorusundan KAPI-CZ'yi geçen 43'ün gözle kontrolde kalan
      39'u. Çizim verisi rpc/prova_cizim'den yalnız oturum kapandıktan sonra gelir (radar-app/sql/2026-10-15-prova-cizim.sql, aynı liste).
@@ -65,6 +68,54 @@
     'smmm-4k-a-maliyet-zor-r7/kp-17', 'smmm-4k-a-maliyet-zor-r2/kp-01', 'smmm-w6-yhukuk-kolay/kp-01', 'smmm-4k-a-yhukuk-zor-r7/kp-05',
     'smmm-gm4-6-yspk-zor/kp-01', 'smmm-w14-11-yspk-cokzor/kp-01', 'smmm-w14-13-yspk-cokzor/kp-01'
   ] };
+  /* SESLİ ÇİZİM (22.10.2026, Cem "uygun ses"): ücretsiz 10 örnek soru, maskot sesi (Instagram çizim videolarındaki kilitli ses).
+     d = ses/cizim/<d>/r<n>.mp3 · b[i] = i. cümle çalarken çizilen SON sahne sırası (cümle i, önceki cümlenin bitişinden b[i]'ye kadar)
+     · s[i] = cümle süresi (sn). Metin: kasa instagram-seviye/metin-site-ornek10.json (sorunun kendi çözüm adımlarından; sıklık rakamı yok).
+     Senaryo değişirse (kapı/şablon) b[] kayabilir -> arac/cizerek-coz-kapisi.js --sinav "SES" vakası sahne sayısını tabloyla kıyaslar. */
+  var SES = {
+    'sgs-k11-ticaret-zor/kp-01':        { d: 'sgs-k11-ticaret-zor-kp-01',        n: 9,  b: [1, 2, 4, 8],       s: [10.84, 6.33, 7.3, 4.61] },
+    'sgs-k5-ekonomi-zor/kp-01':         { d: 'sgs-k5-ekonomi-zor-kp-01',         n: 10, b: [0, 1, 2, 3, 9],    s: [4.31, 6.53, 8.51, 7.72, 3.42] },
+    'sgs-d3-mta-cokzor-r3/kp-01':       { d: 'sgs-d3-mta-cokzor-r3-kp-01',       n: 11, b: [0, 2, 3, 6, 10],   s: [3.97, 7.66, 6.04, 4.29, 4.13] },
+    'sgs-d5-vergi-cokzor-r2/kp-02':     { d: 'sgs-d5-vergi-cokzor-r2-kp-02',     n: 11, b: [0, 1, 3, 6, 10],   s: [5.09, 5.97, 5.77, 4.43, 4.13] },
+    'smmm-4k-a-fmuh-zor-r3/kp-02':      { d: 'smmm-4k-a-fmuh-zor-r3-kp-02',      n: 11, b: [0, 2, 4, 6, 10],   s: [3.95, 8.72, 8.47, 8.68, 3.76] },
+    /* 27.10: sgs-d3-maliyet-cokzor-r1/kp-02 ve smmm-4k-a-yfta-zor-r1/kp-01 örnek setten çıktı (arac/ornek5-liste.json; ilk soru kısa/kolay) -
+       satırları kaldırıldı, ses dosyaları ses/cizim/ altında duruyor (yeniden girerse satır geri yazılır). */
+    'smmm-4k-a-yvergi-cokzor-r2/kp-02': { d: 'smmm-4k-a-yvergi-cokzor-r2-kp-02', n: 11, b: [0, 2, 3, 6, 10],   s: [4.1, 8.01, 4.64, 5.63, 4.96] },
+    'smmm-w3-maliyet-cokzor/kp-10':     { d: 'smmm-w3-maliyet-cokzor-kp-10',     n: 10, b: [0, 1, 2, 5, 9],    s: [4.1, 6.33, 6.75, 7.17, 5.21] },
+    'smmm-w3-yspk-cokzor/kp-18':        { d: 'smmm-w3-yspk-cokzor-kp-18',        n: 7,  b: [0, 1, 3, 6],       s: [4.66, 7.8, 6.87, 4.8] },
+    // 27.10.2026: aynı reçete (Mustafa Silici, eleven_v3, stability 0,3, atempo 1,14, 64k mono); r4 ham sesin sonuna kadar kesildi
+    'smmm-4k-a-yfta-kolay-r6/kp-01':    { d: 'smmm-4k-a-yfta-kolay-r6-kp-01',    n: 9,  b: [0, 1, 4, 8],       s: [4.1, 4.65, 3.8, 7.2] },
+    'sgs-k10-fmuh-kolay/kp-04':         { d: 'sgs-k10-fmuh-kolay-kp-04',         n: 7,  b: [0, 1, 2, 6],       s: [7.4, 7.73, 4.92, 6.09] }
+  };
+  if (MUT === 'sestablo') SES['sgs-k5-ekonomi-zor/kp-01'].n = 11;   /* öz-sınav bozması: tablo senaryodan kaydı */
+  /* KGK SESLİ ÇİZİM (22.10.2026, Cem "çizime bağla, ses paket kapısı arkasında kalsın"): ses SİTEDE DEĞİL, kapalı depolama
+     kovası 'cizim-ses-paket'te (radar-app/sql/2026-10-22-cizim-ses-paket-kasasi.sql: yalnız paketi olan üye okur, kural
+     kasa_soru_getir ile aynı). d = kova klasörü (<id, / yerine __>), dosya d/r<n>.mp3. Her sahne bir cümle (b = 0..n-1).
+     Ses reçetesi örnek sorularla AYNI (maskot Mustafa Silici, text-to-dialogue, stability 0,3, atempo 1,14). Tarayıcı pencere
+     açılınca üyenin oturumuyla (window.__pkSb) 30 dk'lık imzalı adres ister; alamazsa (paket yok / oturum yok) çizim sessiz sürer.
+     Senaryo kayarsa ses kapanır (aynı n kuralı); kasa verisi depoda olmadığı için kıyas: cizerek-coz-kapisi.js --kgk <paket.json>. */
+  var KOVA = 'cizim-ses-paket';
+  var SES_KASA = {
+    'kgk-t2-ky-g4-cokzor/kp-03':    { d: 'kgk-t2-ky-g4-cokzor__kp-03', n: 11, b: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], s: [3.29, 5.25, 9.15, 6.2, 6.9, 3.9, 7.34, 6.81, 7.02, 7.12, 8.31] },
+    'kgk-t4-tds-g2-cokzor/kp-04':   { d: 'kgk-t4-tds-g2-cokzor__kp-04', n: 11, b: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], s: [3, 1.65, 14.54, 14.87, 10.21, 4, 9.22, 13.37, 17.57, 3.41, 13.95] },
+    'kgk-d1b-tds-zor-2/kp-23':      { d: 'kgk-d1b-tds-zor-2__kp-23', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [4.18, 6.27, 4.92, 12.25, 9.53, 9.3, 9.63] },
+    'kgk-t2-spk-g3-cokzor/kp-06':   { d: 'kgk-t2-spk-g3-cokzor__kp-06', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [3.18, 9.44, 1.18, 5.02, 4.71, 4.05, 5.03] },
+    'kgk-t5-tsrs-g1-kolay/kp-01':   { d: 'kgk-t5-tsrs-g1-kolay__kp-01', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [3.44, 8.8, 5.97, 5.92, 16.47, 2.91, 10.92] },
+    'kgk-d1b-tds-kolay-2/kp-07':    { d: 'kgk-d1b-tds-kolay-2__kp-07', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [4.11, 8.29, 1.26, 3.91, 3.57, 3.25, 4.31] },
+    'kgk-t7-tms-g2-kolay/kp-04':    { d: 'kgk-t7-tms-g2-kolay__kp-04', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [4.27, 8.5, 1.3, 13.76, 15.49, 11.85, 12.74] },
+    'kgk-t4-tms-g2-kolay/kp-03':    { d: 'kgk-t4-tms-g2-kolay__kp-03', n: 9, b: [0, 1, 2, 3, 4, 5, 6, 7, 8], s: [2, 7.3, 9.03, 3.64, 1.22, 2.96, 3.41, 2.83, 3.6] },
+    'kgk-t5-fy-g3-kolay/kp-04':     { d: 'kgk-t5-fy-g3-kolay__kp-04', n: 9, b: [0, 1, 2, 3, 4, 5, 6, 7, 8], s: [2.14, 4.08, 3.72, 6.51, 1.11, 3.58, 2.64, 2.25, 2.81] },
+    'kgk-t4-banka-g1-kolay/kp-01':  { d: 'kgk-t4-banka-g1-kolay__kp-01', n: 8, b: [0, 1, 2, 3, 4, 5, 6, 7], s: [2.29, 6.91, 9.28, 1.32, 3.78, 3.44, 3.89, 3.61] }
+  };
+  Object.keys(SES_KASA).forEach(function (id) { SES_KASA[id].kasa = MUT !== 'seskasaacik'; });
+  function sesKaydi(id) { return SES[id] || SES_KASA[id] || null; }
+  /* g. cümlenin (0'dan) ses adresi. Kasa kaydı: YALNIZ imzalı adres (u[g]); yoksa null = sessiz. Herkese açık yola ASLA düşmez. */
+  function sesKaynak(e, g, kok) {
+    if (!e) return null;
+    if (e.kasa) return (e.u && e.u[g]) || null;
+    return (kok || '') + 'ses/cizim/' + e.d + '/r' + (g + 1) + '.mp3';
+  }
+  function kasaYollari(e) { return e.b.map(function (x, i) { return e.d + '/r' + (i + 1) + '.mp3'; }); }
 
   // ---------------- saf işlevler (node'da sınanır) ----------------
   var SAYI = /%?\d+(?:[.,]\d+)*%?/g;
@@ -264,11 +315,29 @@
        SZ-RAKAM  karalama/not/alt yazıda soru ve şıklarda olmayan bir sayı var
        SZ-NEDEN  bir yanlış şıkkın yazılı nedeni (tuzak.metin / teshis.yanilgi) yok
        SZ-ALT    altı çizilecek ifade kökte aynen bulunamadı
-       SZ-YOK    iki biçime de uymuyor
+       SZ-YOK    hiçbir biçime uymuyor
      🚫 GÖRMEZ: hap ya da tuzak metninin HUKUKEN doğru olup olmadığı (sorunun açıklama katmanından aynen gelir; açıklama hakemi ayrı)
        · öncül anlatımının sorulan sıfatı tesadüfen taşıması (kapı yalnız ✓ kümesinin doğru şıkla tutmasına bakar) · DUZ'da hapın
        doğru şıkkı başka bir bağlamda anması · uzun hapın telefonda kaç satır tuttuğu. Sayılı soru bu şablonla KURTARILMAZ
-       (cizimKapi sözel şablonu yalnız sayısal kapı SOZEL nedeniyle döndüyse dener). */
+       (cizimKapi sözel şablonu yalnız sayısal kapı SOZEL nedeniyle döndüyse dener).
+
+     KGK EKİ (22.10.2026, KGK'da düğme): KGK sözel sorusu SGS biçimine uymuyor — öncül hükmü "I: …" satırında değil, "Bu olayda: I doğru
+     · IV yanlış" satırında ya da tuzak/teşhis metninde ("III de doğrudur") yazılı; öncülsüz soruda doğru şık uzun bir cümle, hapta aynen
+     geçemez. İki biçim daha (biçimler sırayla denenir, ilk geçen çizilir):
+       HUKUM — öncüllü soru, "I:" satırı yok. Her öncülün hükmü (doğru/yanlış) adimlar.formul/anlatim + tuzak.metin + teshis.gercek
+               cümlelerinden okunur ("I, II ve III doğru", "IV yanlış", "III de doğrudur", "doğru değildir" = yanlış; "doğru sandın",
+               "doğru şık/cevap" hüküm SAYILMAZ). Kök olumsuzsa (yanlış/değildir/söylenemez…) ✓ = yanlış öncüller, değilse doğru öncüller.
+               Karalama: her öncül "I → doğru ✓" + gerekçe cümlesi (alt yazı), sonra "Sonuç = <öncül kararlarından kurulan küme>".
+       SIK   — öncülsüz, kökü "hangisi doğrudur/yanlıştır/söylenemez…" (ifade sorusu). Karalamaya kural (hap, yoksa doğru şıkkın
+               teshis.gercek'i), doğru şık yuvarlanır, öteki şıklar tuzak adı + nedeniyle karalanır. Hangi şıkkın doğru olduğunu
+               s.dogru söyler (sitedeki "Beş şık, beş cümle" paneliyle AYNI kaynak); kapı yalnız çelişkiyi arar.
+       DUZ'a ek: kural cümlesi yalnız haptan değil, doğru şıkkı aynen anan ilk cümleden (hap · kural · adimlar · teshis[doğru].gercek).
+     Ek kodlar:
+       SZ-HUKUM    HUKUM: kökteki bir öncülün hükmü alanlarda yok ya da aynı öncüle hem doğru hem yanlış deniyor
+       SZ-CELISKI  SIK: bir şıkkın tuzak adı/metni ("Doğru ifade", "bu ifade yanlıştır") s.dogru'dan çıkan durumla çelişiyor
+       SZ-RAKAM kaynağı: soru + şıklar + dayanak (resmî metin alıntısı). Açıklama katmanındaki "İlke 1.3.8" dayanakta yoksa o cümle yazılmaz.
+     🚫 GÖRMEZ (KGK eki): SIK'ta kuralın doğru şıkkı gerçekten açıklayıp açıklamadığı (anlam) · HUKUM'da cümledeki hükmün başka bir
+       öncül listesine ait olması ("I ve II doğru olsa da…" gibi şartlı cümle) · Romen rakamı dışında öncül numarası (a, b, 1., 2.). */
   var ROMA = /^(I{1,3}|IV|V|VI{0,3})$/;
   function trKucuk(t) { return String(t || '').toLocaleLowerCase('tr').replace(/\s+/g, ' ').trim(); }
   function oncullerSik(t) {   // "Yalnız I" / "I ve III" / "I, II ve III" -> ['I','III']; öncül şıkkı değilse null
@@ -291,14 +360,128 @@
     var t = (s.tuzak || {})[h], th = (s.teshis || {})[h];
     return ilkCumle((t && t.metin) || (th && th.yanilgi) || '', 160);
   }
-  function sozelSenaryo(s) {
-    var soru = String(s.soru || ''), satir = soru.split('\n'), kok = satir[satir.length - 1], sahne = [];
+  /* kökün soru cümlesi: "?" ile biten son satır (KGK'da öncüller sorunun ALTINDA), yoksa son satır */
+  function kokCumle(soru) {
+    var L = String(soru || '').split('\n').filter(function (x) { return x.trim(); });
+    var q = MUT === 'szkok' ? [] : L.filter(function (x) { return /\?\s*$/.test(x); });
+    return q.length ? q[q.length - 1] : (L[L.length - 1] || '');
+  }
+  function kokOnculleri(soru) { return (String(soru || '').match(/(^|\n)\s*(IV|V|I{1,3})\.\s/g) || []).map(function (x) { return x.replace(/[\s.\n]/g, ''); }); }
+  /* kelime sonu şartı: "yanlışlık riski", "aykırılık göstergesi", "doğrulama prosedürü" kutup/ifade sözcüğü DEĞİL */
+  /* 27.10: JS /i büyük İ'yi i saymaz → "DEĞİLDİR" (gerçek kitapçık biçimi) olumlu okunuyordu; çağıranlar İ→i yapar */
+  var OLUMSUZ = /(yanlış(tır)?|yanlış olan|değildir|söylenemez|olamaz|aykırıdır|uygun değildir)(?![a-zçğıöşü])/i, IFADE = /(doğru(dur)?|yanlış(tır)?|söylenebilir|söylenemez|ifade[a-zçğıöşü]*)(?![a-zçğıöşü])/i;
+  var HARF = 'A-Za-zÇĞİÖŞÜçğıöşü\'’', ROM = '(?:IV|V|I{1,3})';
+  /* "I, II ve III doğru" · "IV yanlış" · "III de doğrudur" · "II. öncül yanlıştır" · "IV. ifade yanlıştır" · "I doğru değildir" (= yanlış).
+     "doğru sandın/sanılır", "yanlış saydın", "doğru şık/cevap/olan" hüküm değildir. m[2] öncül listesi, m[3] hüküm, m[5] "değil". */
+  var HUKUM = new RegExp('(^|[^' + HARF + '])(' + ROM + '(?:\\s*(?:,|\\bve\\b|\\bile\\b)\\s*' + ROM + ')*)(?![' + HARF + '])(?:\\.?\\s*(?:öncül|ifade)[a-zçğıöşü]*)?(?:\\s+(?:de|da|ise))?\\s*(?:[:→=\\-–—]+\\s*)?(doğru|yanlış|DOĞRU|YANLIŞ)([a-zçğıöşü]*)' + (MUT === 'szsan' ? '' : '(?!\\s+(?:san|say|kabul|zan|şık|cevap|seçenek|küme|olan))') + '(\\s+değil)?', 'g');
+  function cumleler(t) { return String(t || '').replace(/\s+/g, ' ').trim().split(/(?<=[.!?])\s+(?=[A-ZÇĞİÖŞÜ(“"])/).filter(Boolean); }
+  /* öncül -> { dogru:1 | yanlis:1 } ve gerekçe cümleleri. Kaynak sırası gerekçe önceliğidir: tuzak · teşhis · adımlar */
+  function hukumTopla(s) {
+    var kay = [], tz = s.tuzak || {}, th = s.teshis || {}, hk = {}, ger = {};
+    Object.keys(tz).sort().forEach(function (h) { kay.push(tz[h] && tz[h].metin); });
+    Object.keys(th).sort().forEach(function (h) { kay.push(th[h] && th[h].gercek); });
+    /* "Yanlış yol: … IV de doğru sayılır → (HATALI)" hata yolunu anlatır, hüküm değildir */
+    (s.adimlar || []).forEach(function (a) { if (a && !a.verilenAdim && (MUT === 'szyol' || !ATLA.test(a.formul || '') && !/HATALI/.test(a.formul || ''))) kay.push(a.formul, a.anlatim); });
+    kay.forEach(function (t) {
+      var cs = cumleler(t);
+      cs.forEach(function (c, i) {
+        HUKUM.lastIndex = 0; var m, ms = [];
+        while ((m = HUKUM.exec(c))) ms.push(m);
+        ms.forEach(function (m) {
+          var v = /^d/i.test(m[3]) ? 'dogru' : 'yanlis'; if (m[5] && MUT !== 'szdegil') v = v === 'dogru' ? 'yanlis' : 'dogru';
+          /* gerekçe yalnız TEK öncülü hükümleyen cümleden ("Bu olayda: I doğru; II yanlış…" her öncülde tekrar olmasın);
+             "I de doğrudur." gibi çıplak hükümde nedeni taşıyan bir sonraki cümle eklenir */
+          var g = '';
+          if (ms.length === 1 && m[2].indexOf(' ') < 0) {
+            var cip = c.replace(HUKUM, ' ').replace(/[\s.;:,]+/g, ' ').trim();
+            if (cip.length >= 25) g = c; else if (cs[i + 1] && !new RegExp(HUKUM.source).test(cs[i + 1]) && !/^Doğru(su| cevap)/i.test(cs[i + 1])) g = c + ' ' + cs[i + 1];
+          }
+          m[2].split(/\s*(?:,|\bve\b|\bile\b)\s*/).forEach(function (o) { o = o.trim(); if (!o) return; (hk[o] = hk[o] || {})[v] = 1; if (g) (ger[o] = ger[o] || []).push(g); });
+        });
+      });
+    });
+    return { hk: hk, ger: ger };
+  }
+  function kisalt(t, tavan) {   /* ilkCumle'nin kısaltması, ilk cümlede kesmeden (iki cümlelik gerekçe için) */
+    t = String(t || '').replace(/\s+/g, ' ').trim(); if (t.length <= tavan) return t;
+    var k = t.lastIndexOf(',', tavan - 10); if (k < 60) k = t.lastIndexOf(' ', tavan - 10); return t.slice(0, k) + '…';
+  }
+  /* şık metni karalamada geçiyor mu: sayı şıkkı ("%20", "10,10") sayı sınırıyla (%20 ≠ %200), öteki şık 4+ harfle, büyük/küçük harf duyarsız */
+  function sikGecer(sik, metin) {
+    var t = String(sik || '').trim(), n = sayilar(t);
+    if (n.length === 1 && n[0].replace(/%/g, '') === t.replace(/[%\s₺]|TL/g, '')) return kaynaktaVar(n[0], String(metin || '')) && (!/%/.test(t) || String(metin).indexOf('%' + n[0].replace(/%/g, '')) >= 0);
+    return trKucuk(t).length > 3 && trKucuk(metin).indexOf(trKucuk(t)) >= 0;
+  }
+  function kaySozel(s) { return [s.soru || ''].concat(Object.keys(s.siklar || {}).map(function (h) { return s.siklar[h]; }), [s.dayanak || '']).join(' \n '); }
+  function kumeYaz(L, ornek) { return L.length === 1 ? (/^\s*Yalnız/i.test(ornek) ? 'Yalnız ' : '') + L[0] : L.slice(0, -1).join(', ') + ' ve ' + L[L.length - 1]; }
+  /* altı çizilecek öbek YALNIZ soru cümlesinden ("…'a göre aşağıdakilerden hangisi doğrudur?"): senaryodaki "yanlışlık riski",
+     "KAYİK değildir" çizilmez. "hangisi doğrudur" / "hangileri yanlıştır" / yalnız "hangisidir" ise önündeki konu kelimesiyle. */
+  /* kökün SON cümlesi (senaryodaki "… halka açık değildir." kökü olumsuz yapmasın) */
+  function soruCumlesi(kok) { var q = String(kok || '').replace(/\?\s*$/, ''), p = q.split(/[.;:!]\s+/); return MUT === 'szkok' ? String(kok || '') : p[p.length - 1]; }
+  function sorulanIfade(kok) {
+    var q = soruCumlesi(kok);
+    var m = q.match(/hangi[a-zçğıöşü]*((?:\s+[^\s?,]+){0,4})\s*$/i);
+    if (!m) {
+      var o = q.match(/hangi[a-zçğıöşü]*(?:\s+[^\s?,]+){0,2}/i); if (o) return o[0].trim();   /* "hangisi, … örnektir?" */
+      var son = q.match(/(?:[A-Za-zÇĞİÖŞÜçğıöşü'’]+\s+){0,2}[A-Za-zÇĞİÖŞÜçğıöşü'’]+\s*$/);   /* "denetçi ne yapar?" / "nasıl ifade edilir?" */
+      return son ? son[0].trim() : '';
+    }
+    if (m[1].trim()) return m[0].trim();
+    var w = q.slice(0, m.index).trim().split(/\s+/), on = [];
+    while (on.length < 2 && w.length && /^[A-Za-zÇĞİÖŞÜçğıöşü'’]+$/.test(w[w.length - 1])) on.unshift(w.pop());   /* bitişik kelimeler: çizgi kopmasın */
+    return (on.length ? on.join(' ') + ' ' : '') + m[0].trim();
+  }
+  /* verilen adaylardan ilki: sayıları kaynakta olan, boş olmayan */
+  function ilkGuvenli(L, kay, tavan) { for (var i = 0; i < L.length; i++) { var t = guvenliAlt(ilkCumle(L[i], tavan || 160), kay); if (t) return t; } return ''; }
+  function sozelBicimler(s) {
+    var dn = String((s.siklar || {})[s.dogru] || ''), adim = (s.adimlar || []).filter(function (a) { return a && a.formul; }), B = [];
+    var oncul = oncullerSik(dn), kok = kokCumle(s.soru);
+    if (oncul && adim.filter(function (a) { return /^\s*[IVX]+\s*:/.test(a.formul); }).length >= 2 && adim.some(function (a) { return /^\s*Sonuç\s*=/.test(a.formul); })) B.push('ONCUL');
+    if (oncul && kokOnculleri(s.soru).length >= 2) B.push('HUKUM');
+    if (!oncul && !OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i'))) B.push('DUZ');   /* olumsuz kökte doğru şık YANLIŞ bir ifade: onu "kural" diye yazmak ters olur */
+    if (!oncul && (IFADE.test(soruCumlesi(kok)) || OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i')) || dn.length >= 40)) B.push('SIK');   /* uzun cümle şık hiçbir kural cümlesinde AYNEN geçemez · olumsuz kısa şıklı kök ("… hangisi … DEĞİLDİR?") DUZ alamaz, SIK ile çizilir (27.10) */
+    return B;
+  }
+  function sozelSenaryo(s, bicim) {
+    var soru = String(s.soru || ''), kok = kokCumle(soru), sahne = [];
     var dn = String((s.siklar || {})[s.dogru] || ''), adim = (s.adimlar || []).filter(function (a) { return a && a.formul; });
     var oncul = adim.filter(function (a) { return /^\s*[IVX]+\s*:/.test(a.formul); });
     var sonuc = adim.filter(function (a) { return /^\s*Sonuç\s*=/.test(a.formul); })[0];
-    var bicim = oncullerSik(dn) && oncul.length >= 2 && sonuc ? 'ONCUL' : (s.hap ? 'DUZ' : '');
-    if (!bicim) return null;
-    var kalip = s.taktik ? guvenliAlt(ilkCumle(s.taktik), kaynakMetni(s)) : '';
+    bicim = bicim || sozelBicimler(s)[0];
+    if (!bicim || sozelBicimler(s).indexOf(bicim) < 0) return null;
+    var kalip = s.taktik ? guvenliAlt(ilkCumle(s.taktik), kaynakMetni(s)) : '', kay = kaySozel(s), th = s.teshis || {};
+    var yanlislar = function () {
+      Object.keys(s.siklar || {}).sort().forEach(function (h) {
+        if (h === s.dogru) return; var t = (s.tuzak || {})[h], ne = bicim === 'ONCUL' ? yanlisNeden(s, h) : ilkGuvenli([t && t.metin, th[h] && th[h].gercek, th[h] && th[h].yanilgi].filter(Boolean), kay);
+        sahne.push({ tur: 'karala', harf: h, not: (t && t.ad) || '', alt: ne ? h + ': ' + ne : '' });
+      });
+    };
+    if (bicim === 'HUKUM') {
+      var neg = OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i')), hb = hukumTopla(s), ko = kokOnculleri(soru), sec = [], eksik = [];
+      var sor = sorulanIfade(kok);
+      sahne.push({ tur: 'alti', hedef: sor && soru.indexOf(sor) >= 0 ? [sor] : [], alt: kalip, etiket: 'Soruda sorulan' });
+      ko.forEach(function (o) {
+        var h = hb.hk[o] || {}, v = h.dogru && h.yanlis ? '' : h.dogru ? 'dogru' : h.yanlis ? 'yanlis' : '';
+        if (!v && MUT !== 'szhukum') { eksik.push(o + (h.dogru ? ' çelişkili hüküm' : ' hükmü yok')); return; }
+        v = v || 'dogru';
+        var evet = v === (neg ? 'yanlis' : 'dogru'); if (evet) sec.push(o);
+        var G = (hb.ger[o] || []).map(function (g) { return guvenliAlt(kisalt(g, 190), kay); }).filter(Boolean);
+        sahne.push({ tur: 'yaz', satirlar: [o + ' → ' + (v === 'dogru' ? 'doğru' : 'yanlış') + (evet ? ' ✓' : ' ✗')], alt: G[0] || '', son: false, oncul: o, evet: evet, etiket: o + '. öncül' });
+      });
+      sahne.push({ tur: 'yaz', satirlar: ['Sonuç = ' + (sec.length ? kumeYaz(sec, dn) : '—')], alt: '', son: true, etiket: 'Sonuç', kume: sec.slice() });
+      sahne.push({ tur: 'daire', harf: s.dogru, alt: ilkGuvenli([s.hap || ''], kay, 170) });
+      yanlislar();
+      return { sahne: sahne, cozumSay: sahne.filter(function (a) { return a.tur === 'yaz'; }).length, bicim: bicim, eksik: eksik };
+    }
+    if (bicim === 'SIK') {
+      var sor2 = sorulanIfade(kok);
+      sahne.push({ tur: 'alti', hedef: sor2 && soru.indexOf(sor2) >= 0 ? [sor2] : [], alt: kalip, etiket: 'Soruda sorulan' });
+      var kural = ilkGuvenli([s.hap || '', th[s.dogru] && th[s.dogru].gercek || ''].filter(Boolean), kay, 240);
+      sahne.push({ tur: 'yaz', satirlar: [kural], alt: '', son: true, etiket: 'Kural' });
+      sahne.push({ tur: 'daire', harf: s.dogru, alt: ilkGuvenli([th[s.dogru] && th[s.dogru].gercek || ''], kay, 170) });
+      yanlislar();
+      return { sahne: sahne, cozumSay: 1, bicim: bicim, olumsuz: OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i')) };
+    }
     if (bicim === 'ONCUL') {
       var sor = (kok.match(SORULAN) || [])[0] || '';
       var hedef = [sor].filter(function (x) { return x && soru.indexOf(x) >= 0; });
@@ -311,10 +494,21 @@
       sahne.push({ tur: 'yaz', satirlar: [sonuc.formul.replace(/\s+/g, ' ').trim()], alt: ilkCumle(sonuc.anlatim), son: true, etiket: 'Sonuç' });
       sahne.push({ tur: 'daire', harf: s.dogru, alt: ilkCumle(s.hap || '') });
     } else {
-      var hap = ilkCumle(s.hap, 240);
-      sahne.push({ tur: 'alti', hedef: ortakIfade(kok, s.hap), alt: kalip, etiket: 'Soruda sorulan' });
+      /* kural cümlesi: önce hapın ilk cümlesi (20.10 davranışı); doğru şıkkı anmıyorsa doğru şıkkı AYNEN anan, başka şıkkı anmayan,
+         sayıları kaynakta olan ilk cümle (hap · kural · adımlar · teshis[doğru].gercek) — KGK eki 22.10 */
+      var hap = ilkCumle(s.hap, 240), anar = function (c) { return sikGecer(dn, c) && !Object.keys(s.siklar).some(function (h) { return h !== s.dogru && sikGecer(s.siklar[h], c); }); };
+      if (!anar(hap) && MUT !== 'szkural') {
+        var aday = [].concat(cumleler(s.hap), cumleler(s.kural), [].concat.apply([], adim.filter(function (a) { return !a.verilenAdim; }).map(function (a) { return cumleler(a.formul).concat(cumleler(a.anlatim)); })), cumleler(th[s.dogru] && th[s.dogru].gercek));
+        /* "Doğru şık: X" / "Doğru cevap: X" / "Sonuç = X" kuralı değil, cevabı tekrar eder: aday değil */
+        /* "En sık hata: … (HATALI)" / "Yanlış yol: …" hata yolunu anlatır, kural değildir */
+        for (var ai = 0; ai < aday.length; ai++) { var c = ilkCumle(aday[ai], 240); if (c && !/^\s*(Doğru (şık|cevap|seçenek)|Sonuç|Cevap)\b/i.test(c) && (MUT === 'szyol' || !ATLA.test(c) && !/HATALI/.test(c)) && anar(c) && guvenliAlt(c, kay)) { hap = c; break; } }
+      }
+      var oi = ortakIfade(kok, hap === ilkCumle(s.hap, 240) ? s.hap : hap), si = sorulanIfade(kok);
+      sahne.push({ tur: 'alti', hedef: oi.length ? oi : (si && soru.indexOf(si) >= 0 ? [si] : []), alt: kalip, etiket: 'Soruda sorulan' });
       sahne.push({ tur: 'yaz', satirlar: [hap], alt: '', son: true, etiket: 'Kural' });
       sahne.push({ tur: 'daire', harf: s.dogru, alt: '' });
+      yanlislar();
+      return { sahne: sahne, cozumSay: 1, bicim: bicim };
     }
     Object.keys(s.siklar || {}).sort().forEach(function (h) {
       if (h === s.dogru) return; var t = (s.tuzak || {})[h], ne = yanlisNeden(s, h);
@@ -322,12 +516,36 @@
     });
     return { sahne: sahne, cozumSay: sahne.filter(function (a) { return a.tur === 'yaz'; }).length, bicim: bicim };
   }
+  /* biçimler sırayla denenir; ilk geçen döner. Hiçbiri geçmezse denenen her biçimin nedenleri (tekrarsız) */
   function sozelKapi(s, sen) {
     if (!s || !s.siklar || !s.dogru || !s.siklar[s.dogru]) return { gecer: false, neden: ['SZ-YOK: şık / doğru alanı eksik'] };
-    sen = sen || sozelSenaryo(s); if (!sen) return { gecer: false, neden: ['SZ-YOK: öncül ya da hap biçimine uymuyor'] };
-    var neden = [], dn = s.siklar[s.dogru], kay = [s.soru || ''].concat(Object.keys(s.siklar).map(function (h) { return s.siklar[h]; })).join(' \n ');
+    if (sen) return sozelDenetle(s, sen);
+    var B = sozelBicimler(s), ne = [];
+    for (var i = 0; i < B.length; i++) { var se = sozelSenaryo(s, B[i]); if (!se) continue; var r = sozelDenetle(s, se); if (r.gecer) return r; r.neden.forEach(function (n) { if (ne.indexOf(n) < 0) ne.push(n); }); }
+    return { gecer: false, neden: ne.length ? ne : ['SZ-YOK: öncül, hap ya da ifade biçimine uymuyor'] };
+  }
+  function sozelDenetle(s, sen) {
+    var neden = [], dn = s.siklar[s.dogru], kay = kaySozel(s);
     var yaz = sen.sahne.filter(function (a) { return a.tur === 'yaz'; }), karalama = yaz.map(function (a) { return a.satirlar.join(' '); }).join(' \n ');
-    if (sen.bicim === 'ONCUL') {
+    if (sen.bicim === 'HUKUM') {
+      (sen.eksik || []).forEach(function (e) { neden.push('SZ-HUKUM: ' + e); });
+      var bek2 = (oncullerSik(dn) || []).slice().sort().join(','), son2 = yaz.filter(function (a) { return a.son; })[0];
+      var kum = son2 ? (oncullerSik(son2.satirlar[0].split('=').pop().trim()) || []).slice().sort().join(',') : '';
+      if (MUT !== 'szsonuc' && kum !== bek2) neden.push('SZ-SONUC: öncül kararlarından kurulan küme [' + kum + '] ≠ doğru şık [' + bek2 + ']');
+      var isaret2 = yaz.filter(function (a) { return a.oncul && a.evet; }).map(function (a) { return a.oncul; }).sort().join(',');
+      if (MUT !== 'szoncul' && isaret2 !== bek2) neden.push('SZ-ONCUL: ✓ konan [' + isaret2 + '] ≠ doğru şık [' + bek2 + ']');
+      kokOnculleri(s.soru).forEach(function (o) { if (MUT !== 'szoncul' && !(sen.eksik || []).some(function (e) { return e.split(' ')[0] === o; }) && !yaz.some(function (a) { return a.oncul === o; })) neden.push('SZ-ONCUL: kökteki ' + o + '. öncülün satırı yok'); });
+    } else if (sen.bicim === 'SIK') {
+      if (!trKucuk(karalama)) neden.push('SZ-YOK: kural cümlesi yok (hap / teşhis boş ya da sayısı kaynakta yok)');
+      Object.keys(s.siklar).forEach(function (h) { if (h !== s.dogru && MUT !== 'szcift' && sikGecer(s.siklar[h], karalama)) neden.push('SZ-CIFT: ' + h + ' şıkkı da karalamada geçiyor'); });
+      /* çelişki: şıkkın kendi açıklaması "bu ifade doğrudur/yanlıştır" ya da tuzak adı "Doğru ifade/Yanlış ifade" diyorsa, s.dogru'dan
+         çıkan durumla aynı olmalı (olumlu kökte doğru şık = doğru ifade, öteki = yanlış ifade; olumsuzda tersi) */
+      Object.keys(s.siklar).forEach(function (h) {
+        var t = (s.tuzak || {})[h] || {}, bek = (h === s.dogru) !== !!sen.olumsuz ? 'doğru' : 'yanlış';
+        var m = String(t.ad || '').match(/^\s*(Doğru|Yanlış) ifade\s*$/i) || String(t.metin || '').match(/bu ifade (doğru|yanlış)/i);
+        if (m && MUT !== 'szceliski' && trKucuk(m[1]) !== bek) neden.push('SZ-CELISKI: ' + h + ' şıkkı açıklaması "' + trKucuk(m[1]) + ' ifade" diyor, beklenen ' + bek);
+      });
+    } else if (sen.bicim === 'ONCUL') {
       var son = yaz.filter(function (a) { return a.son; })[0], sv = son ? son.satirlar[0].split('=').pop().trim() : '';
       if (MUT !== 'szsonuc' && trKucuk(sv) !== trKucuk(dn)) neden.push('SZ-SONUC: "' + sv + '" ≠ ' + s.dogru + ') "' + dn + '"');
       var isaret = yaz.filter(function (a) { return a.oncul && a.evet; }).map(function (a) { return a.oncul; }).sort().join(',');
@@ -336,12 +554,12 @@
       var kokOncul = (String(s.soru || '').match(/(^|\n)\s*([IVX]+)\./g) || []).map(function (x) { return x.replace(/[\s.\n]/g, ''); });
       kokOncul.forEach(function (o) { if (MUT !== 'szoncul' && !yaz.some(function (a) { return a.oncul === o; })) neden.push('SZ-ONCUL: kökteki ' + o + '. öncülün satırı yok'); });
     } else {
-      if (MUT !== 'szdogru' && trKucuk(karalama).indexOf(trKucuk(dn)) < 0) neden.push('SZ-DOGRU: doğru şık ' + s.dogru + ' karalamada geçmiyor');
-      Object.keys(s.siklar).forEach(function (h) { if (h !== s.dogru && MUT !== 'szcift' && trKucuk(s.siklar[h]).length > 3 && trKucuk(karalama).indexOf(trKucuk(s.siklar[h])) >= 0) neden.push('SZ-CIFT: ' + h + ' şıkkı da karalamada geçiyor'); });
+      if (MUT !== 'szdogru' && !sikGecer(dn, karalama)) neden.push('SZ-DOGRU: doğru şık ' + s.dogru + ' karalamada geçmiyor');
+      Object.keys(s.siklar).forEach(function (h) { if (h !== s.dogru && MUT !== 'szcift' && sikGecer(s.siklar[h], karalama)) neden.push('SZ-CIFT: ' + h + ' şıkkı da karalamada geçiyor'); });
     }
-    yazilanlar(sen).forEach(function (y) { sayilar(y[1]).forEach(function (n) { if (MUT !== 'szrakam' && !kaynaktaVar(n, kay)) neden.push('SZ-RAKAM: ' + y[0] + ' "' + n + '" soruda/şıklarda yok'); }); });
+    yazilanlar(sen).forEach(function (y) { sayilar(y[1]).forEach(function (n) { if (MUT !== 'szrakam' && !kaynaktaVar(n, kay)) neden.push('SZ-RAKAM: ' + y[0] + ' "' + n + '" soruda/şıklarda/dayanakta yok'); }); });
     sen.sahne.forEach(function (a) { if (a.tur === 'karala' && !a.alt && MUT !== 'szneden') neden.push('SZ-NEDEN: ' + a.harf + ' şıkkının nedeni yok'); });
-    var alti = sen.sahne[0]; if (!alti.hedef.length || alti.hedef.some(function (x) { return String(s.soru || '').indexOf(x) < 0; })) neden.push('SZ-ALT: altı çizilecek ifade kökte yok');
+    var alti = sen.sahne[0]; if (MUT !== 'szalt' && (!alti.hedef.length || alti.hedef.some(function (x) { return String(s.soru || '').indexOf(x) < 0; }))) neden.push('SZ-ALT: altı çizilecek ifade kökte yok');
     return { gecer: neden.length === 0, neden: neden, senaryo: sen };
   }
   /* sitedeki düğmenin kapısı: önce sayısal şablon; yalnız SOZEL nedeniyle dönerse sözel şablon */
@@ -353,13 +571,20 @@
     return r;
   }
 
-  var api = { PILOT: PILOT, PROVA: PROVA, senaryo: senaryo, cizerekKapi: cizerekKapi, sozelSenaryo: sozelSenaryo, sozelKapi: sozelKapi, cizimKapi: cizimKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
+  /* DÜĞME ADAYI (22.10.2026): SGS + Yeterlilik yalnız PILOT listesinde (her çizimi elle bakıldı). KGK'da LİSTE YOK, KURAL var:
+     "kgk-" öneki + cizimKapi geçti → düğme. Gerekçe: KGK bankası basılmaya devam ediyor (t7 bulutta, t8 yazımda); liste her basımda
+     elle tazelenmek zorunda kalırdı ve yeni soru düğmesiz yayına çıkardı ("sonra tekrar basmayalım"). Kapı her kartta tarayıcıda koşar.
+     Gözle kontrolde kusurlu bulunan KGK sorusu KGK_DIS'e yazılır (kimlik; soru metni yok). */
+  var KGK_DIS = [];
+  function dugmeAday(id, pset) { id = String(id || ''); if ((pset || PSET)[id]) return true; return MUT !== 'kgkonek' && /^kgk-/.test(id) && KGK_DIS.indexOf(id) < 0; }
+  var PSET = {}; PILOT.forEach(function (x) { PSET[x] = 1; });
+
+  var api = { PILOT: PILOT, PROVA: PROVA, SES: SES, SES_KASA: SES_KASA, KOVA: KOVA, sesKaydi: sesKaydi, sesKaynak: sesKaynak, kasaYollari: kasaYollari, KGK_DIS: KGK_DIS, dugmeAday: dugmeAday, senaryo: senaryo, cizerekKapi: cizerekKapi, sozelSenaryo: sozelSenaryo, sozelKapi: sozelKapi, cizimKapi: cizimKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
   if (typeof document === 'undefined') return api;
 
   // ---------------- tarayıcı ----------------
   var BETIK = document.currentScript && document.currentScript.src;
   var KOK = BETIK ? BETIK.replace(/cizerek-coz\.js.*$/, '') : '../../';
-  var PSET = {}; PILOT.forEach(function (x) { PSET[x] = 1; });
   var NS = 'http://www.w3.org/2000/svg';
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   /* 20.10 (GM3) sayaç: ciz/<sgs|yeterlilik|kgk>/<ac|son>. Ders sayfası şablonunun gcOlay'ı varsa onu kullanır (sayacı tembel yükler);
@@ -424,6 +649,19 @@
     var sahneEl = kat.querySelector('.czSahne'), svg = kat.querySelector('.czSvg'), kalem = kat.querySelector('.czKalem'), altEl = kat.querySelector('.czAlt');
     kalem.style.color = 'var(--cz-yazi)';
     var N = sen.sahne.length, adim = -1, q = 1, oynat = false, raf = 0, bekle = 0, P = [], sonOlay = 0;
+    /* sesli: tablodaki sahne sayısı bu senaryoyla aynıysa (şablon değişip kaydıysa ses KAPANIR, çizim sessiz kalır) */
+    var SE = sesKaydi(s.id), SK = SE && SE.n === N && SE.b[SE.b.length - 1] === N - 1 ? SE : null, sesEl = null, imzaS = null;
+    /* KGK: pencere açılır açılmaz imzalı adresler istenir (iOS'ta ilk "Sesli oynat" dokunuşu beklemeden çalabilsin) */
+    function imzaAl() {
+      if (!SK || !SK.kasa) return Promise.resolve();
+      if (SK.u && SK.uZaman && Date.now() - SK.uZaman < 25 * 60 * 1000) return Promise.resolve();
+      var sb = window.__pkSb; if (!sb || !sb.storage) return Promise.resolve();
+      return imzaS || (imzaS = sb.storage.from(KOVA).createSignedUrls(kasaYollari(SK), 1800).then(function (r) {
+        var d = (r && !r.error && r.data) || []; SK.u = SK.b.map(function (x, i) { return d[i] && d[i].signedUrl ? d[i].signedUrl : null; }); SK.uZaman = Date.now();
+      }, function () { }).then(function () { imzaS = null; }));
+    }
+    imzaAl();
+    function sesDur() { if (sesEl) { sesEl.onended = sesEl.onerror = null; try { sesEl.pause(); } catch (e) { } } }
     var tohum = 7; function r() { tohum = (tohum * 16807) % 2147483647; return tohum / 2147483647; } function j(a) { return (r() - 0.5) * a; }
     function kutu(el) { var b = el.getBoundingClientRect(), k = sahneEl.getBoundingClientRect(); return { x: b.left - k.left, y: b.top - k.top, w: b.width, h: b.height }; }
     function yol(d, renk, kal, ad, t0, t1) { var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('fill', 'none'); p.style.stroke = renk; p.setAttribute('stroke-width', kal); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round'); p.setAttribute('opacity', '.9'); svg.appendChild(p); var L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; P.push({ tur: 'yol', p: p, L: L, ad: ad, t0: t0, t1: t1 }); }
@@ -464,12 +702,12 @@
       var a = sen.sahne[adim];
       if (adim >= N - 1 && q >= 1 && !sonOlay) { sonOlay = 1; olay(s, 'son'); }
       var ust = adim < 0 ? '' : a.etiket ? a.etiket : (a.tur === 'alti' ? 'Soruda verilenler' : a.tur === 'yaz' ? ('Çözüm adımı ' + (sen.sahne.slice(0, adim + 1).filter(function (x) { return x.tur === 'yaz'; }).length) + ' / ' + sen.cozumSay) : a.tur === 'daire' ? ('Doğru cevap: ' + a.harf) : ('Yanlış şık ' + a.harf));
-      altEl.innerHTML = adim < 0 ? '<small>Hazır</small>Kalem soruyu adım adım çözecek. <b>Sonraki adım</b> ya da <b>Tümünü oynat</b>.' : '<small>' + esc(ust) + '</small>' + esc(a.alt || '');
+      altEl.innerHTML = adim < 0 ? '<small>Hazır</small>Kalem soruyu adım adım çözecek. <b>Sonraki adım</b> ya da ' + (SK ? '<b>🔊 Sesli oynat</b> (sesi aç)' : '<b>Tümünü oynat</b>') + '.' : '<small>' + esc(ust) + '</small>' + esc(a.alt || '');
       kat.querySelector('.czSay').textContent = (adim + 1) + ' / ' + N;
       kat.querySelector('.czGeri').disabled = adim < 0;
       var dar = window.innerWidth < 480;   /* telefonda düğme yazısı tek satır kalsın, alt yazının üstüne binmesin */
       var ileri = kat.querySelector('.czIleri'); ileri.disabled = adim >= N - 1 && q >= 1; ileri.textContent = adim >= N - 1 && q >= 1 ? 'Bitti ✓' : (dar ? 'Sonraki ▶' : 'Sonraki adım ▶');
-      kat.querySelector('.czOyna').textContent = oynat ? (dar ? '⏸ Dur' : '⏸ Durdur') : (adim >= N - 1 && q >= 1 ? '↺ Baştan' : (dar ? '▶ Oynat' : '▶ Tümünü oynat'));
+      kat.querySelector('.czOyna').textContent = oynat ? (dar ? '⏸ Dur' : '⏸ Durdur') : (adim >= N - 1 && q >= 1 ? '↺ Baştan' : SK ? (dar ? '🔊 Dinle' : '🔊 Sesli oynat') : (dar ? '▶ Oynat' : '▶ Tümünü oynat'));
       if (uc && a && a.tur !== 'alti') gorunurYap(uc);
     }
     function gorunurYap(uc) { var g = kat.querySelector('.czGovde'), gb = g.getBoundingClientRect(), kb = sahneEl.getBoundingClientRect(); var y = kb.top + uc.y - gb.top; if (y > g.clientHeight - 40 || y < 30) g.scrollTop += y - g.clientHeight * 0.55; }
@@ -481,14 +719,44 @@
       (function adimla(t) { q = Math.min(1, (t - t0) / T); ciz(); if (q < 1) raf = requestAnimationFrame(adimla); else if (oynat) { if (adim < N - 1) bekle = setTimeout(function () { oyna(adim + 1); }, 900); else { oynat = false; ciz(); } } })(t0);
     }
     function bitir() { cancelAnimationFrame(raf); clearTimeout(bekle); q = 1; ciz(); }
-    kat.querySelector('.czIleri').addEventListener('click', function () { oynat = false; if (q < 1) { bitir(); return; } if (adim < N - 1) oyna(adim + 1); });
-    kat.querySelector('.czGeri').addEventListener('click', function () { oynat = false; cancelAnimationFrame(raf); clearTimeout(bekle); adim = Math.max(-1, adim - (q < 1 ? 0 : 1)); if (adim >= 0) { q = 1; } ciz(); if (adim < 0) kat.querySelector('.czGovde').scrollTop = 0; });
+    /* SESLİ OYNATMA: cümle g çalarken önceki cümlenin bitişinden b[g]'ye kadar sahneler, cümle süresine bölünerek çizilir;
+       ses ve çizim ikisi de bitince sonraki cümle. Tek <audio> öğesi (iOS: ilk çalış dokunuşla, sonra aynı öğe kaynak değiştirir). */
+    function zincir(k, son, T, bitti) {
+      cancelAnimationFrame(raf); adim = k; q = 0; var t0 = performance.now();
+      if (sen.sahne[k].tur !== 'alti' && sen.sahne[k].tur !== 'yaz') { var sk = kat.querySelector('.czSik[data-h="' + sen.sahne[k].harf + '"]'); if (sk) sk.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+      else if (sen.sahne[k].tur === 'alti') kat.querySelector('.czGovde').scrollTop = 0;
+      (function adimla(t) { if (!oynat) return; q = Math.min(1, (t - t0) / T); ciz(); if (q < 1) raf = requestAnimationFrame(adimla); else if (k < son) bekle = setTimeout(function () { zincir(k + 1, son, T, bitti); }, 120); else bitti(); })(t0);
+    }
+    function sesliGrup(g) {
+      if (!oynat) return;
+      if (g >= SK.b.length || adim >= N - 1) { oynat = false; sesDur(); ciz(); return; }
+      var ilk = adim + 1, son = Math.max(ilk, SK.b[g]), sesB = false, cizB = false;
+      var devam = function () { if (sesB && cizB && oynat) bekle = setTimeout(function () { sesliGrup(g + 1); }, 300); };
+      sesDur(); var kaynak = sesKaynak(SK, g, KOK);
+      if (!kaynak) sesB = true;   /* KGK: imzalı adres yok (paket/oturum yok) -> bu cümle sessiz, çizim sürer */
+      else {
+        sesEl.src = kaynak;
+        sesEl.onended = sesEl.onerror = function () { sesB = true; devam(); };
+        var p = sesEl.play(); if (p && p.catch) p.catch(function () { sesB = true; devam(); });   /* ses çalmazsa çizim sessiz sürer */
+      }
+      var T = Math.max(600, Math.min(5200, (SK.s[g] * 1000 - 300) / (son - ilk + 1)));
+      zincir(ilk, son, T, function () { cizB = true; devam(); });
+    }
+    kat.querySelector('.czIleri').addEventListener('click', function () { oynat = false; sesDur(); if (q < 1) { bitir(); return; } if (adim < N - 1) oyna(adim + 1); });
+    kat.querySelector('.czGeri').addEventListener('click', function () { oynat = false; sesDur(); cancelAnimationFrame(raf); clearTimeout(bekle); adim = Math.max(-1, adim - (q < 1 ? 0 : 1)); if (adim >= 0) { q = 1; } ciz(); if (adim < 0) kat.querySelector('.czGovde').scrollTop = 0; });
     kat.querySelector('.czOyna').addEventListener('click', function () {
-      if (oynat) { oynat = false; bitir(); return; }
+      if (oynat) { oynat = false; sesDur(); bitir(); return; }
+      if (SK) {   /* sesli: her zaman baştan (cümle ile sahne eşleşmesi baştan sayılır) */
+        oynat = true; cancelAnimationFrame(raf); clearTimeout(bekle); adim = -1; q = 1; ciz(); kat.querySelector('.czGovde').scrollTop = 0;
+        if (!sesEl) { sesEl = new Audio(); sesEl.preload = 'auto'; }
+        olay(s, 'ses');
+        if (SK.kasa && !SK.u) { imzaAl().then(function () { sesliGrup(0); }); return; }   /* imza henüz gelmediyse bekle (gelmezse sessiz) */
+        sesliGrup(0); return;
+      }
       oynat = true; if (adim >= N - 1 && q >= 1) { adim = -1; ciz(); kat.querySelector('.czGovde').scrollTop = 0; }
       if (q < 1) { q = 1; } oyna(adim + 1);
     });
-    function kapat() { cancelAnimationFrame(raf); clearTimeout(bekle); window.removeEventListener('resize', yenile); document.removeEventListener('keydown', tus); kat.remove(); }
+    function kapat() { oynat = false; sesDur(); cancelAnimationFrame(raf); clearTimeout(bekle); window.removeEventListener('resize', yenile); document.removeEventListener('keydown', tus); kat.remove(); }
     function tus(e) { if (e.key === 'Escape') kapat(); else if (e.key === 'ArrowRight') kat.querySelector('.czIleri').click(); else if (e.key === 'ArrowLeft') kat.querySelector('.czGeri').click(); }
     var ry = 0; function yenile() { clearTimeout(ry); ry = setTimeout(function () { kur(); ciz(); }, 120); }
     kat.querySelector('.czKapat').addEventListener('click', kapat);
@@ -510,14 +778,16 @@
   var KAPI_ON = {};
   function kartIsle(k) {
     if (!k || k.__cz) return; var na = k.querySelector('.notumAlan'); var cip = k.querySelector('.panel .cipler'); if (!na || !cip) return;
-    k.__cz = 1; var id = na.getAttribute('data-id'); if (!PSET[id]) return;
+    k.__cz = 1; var id = na.getAttribute('data-id'); if (!dugmeAday(id)) return;
     var s = soruBul(id); if (!s) { k.__cz = 0; return; }
     var kp = KAPI_ON[id] || (KAPI_ON[id] = cizimKapi(s));
     if (!kp.gecer) { if (window.console) console.info('[cizerek-coz] kapı döndü', id, kp.neden); return; }
     /* 20.10 (Cem "1.2.3" GM2): cevaptan ÖNCE de görünsün ama cevabı ele vermesin -> düğme değil, kökün altında tek satır haber */
     var ps = k.querySelector('.govde .soru');
-    if (ps && !k.querySelector('.czIpucu')) { var ip = document.createElement('p'); ip.className = 'czIpucu'; ip.textContent = '✍️ Cevaplayınca Nöbetçi bu soruyu kalemle adım adım çözer.'; ps.parentNode.insertBefore(ip, ps.nextSibling); }
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'cip2 bCiz'; b.textContent = '✍️ Nöbetçi çizerek çözsün';
+    var sk0 = sesKaydi(id);   /* KGK kasa sesi yalnız oturum istemcisi olan (paketli) sayfada "sesli" sayılır */
+    var sesli = !!(sk0 && kp.senaryo && sk0.n === kp.senaryo.sahne.length && (!sk0.kasa || window.__pkSb));   /* 22.10 Cem "1 yap": sesli soruda ibare */
+    if (ps && !k.querySelector('.czIpucu')) { var ip = document.createElement('p'); ip.className = 'czIpucu'; ip.textContent = sesli ? '✍️🔊 Cevaplayınca Nöbetçi bu soruyu kalemle çizip sesli anlatarak çözer.' : '✍️ Cevaplayınca Nöbetçi bu soruyu kalemle adım adım çözer.'; ps.parentNode.insertBefore(ip, ps.nextSibling); }
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'cip2 bCiz'; b.textContent = sesli ? '✍️🔊 Nöbetçi sesli çözsün' : '✍️ Nöbetçi çizerek çözsün';
     b.addEventListener('click', function (e) { e.stopPropagation(); olay(s, 'ac'); ac(s, kp.senaryo); });
     var once = cip.querySelector('.bDaha') || cip.querySelector('.bSonraki'); cip.insertBefore(b, once || null);
     stilEkle();

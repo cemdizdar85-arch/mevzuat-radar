@@ -14,7 +14,7 @@ Kod ya da veri dosyasına dokunmadan **ÖNCE** şunu koş:
 powershell -NoProfile -File motor/oturum.ps1 -Ac -Kol "<iş kolu>" -Is "<kısa iş>" -Ad "<ListAgents'teki adın>"
 ```
 
-İş kolu adları: `alacak` · `marka` · `destek` · `ihale` · `sinav` (SMMM) · `sgs` · `kgk` · `site` · `pazarlama` · `altyapi`
+İş kolu adları: `alacak` · `marka` · `destek` · `ihale` · `sinav` (SMMM) · `sgs` · `kgk` · `spk` (SPK lisanslama) · `site` · `pazarlama` · `altyapi`
 
 **Adını öğren, başlığını koy (15.09.2026, Cem "oturum adına iş kolu yazalım"):**
 `ListAgents` çıktısının ilk satırı bu oturumun mesaj adını söyler ("This session is mevzuat-i-i-cc") → `-Ad`e o yazılır.
@@ -172,6 +172,7 @@ Küçülme her zaman kayıp değildir: akış tazelenmesi (eski duyuru düşer),
 | Robot betiği | `motor/` | 330 betik var; 172'si Actions'tan çağrılıyor |
 | Zamanlanmış iş | `.github/workflows/` | 128 akış, 20'si cron'lu |
 | SQL göçü | `radar-app/sql/` + **`UYGULANDI.md`'ye satır** | "Hangi SQL basılı?" sorusunun TEK cevabı |
+| Yeni `security definer` fonksiyon | göçte `revoke execute … from public, anon, authenticated` + gereken role `grant`; sayfa çağırıyorsa **`radar-app/acik-rpc.txt`'e satır** (A = anon, U = yalnız üye) | Supabase yeni fonksiyona anon+üye yetkisi verir, "from public" kapatmaz (28.10: s20_deneme_yukle, kasa_cekim_izin2). Listede olmayan açık fonksiyon göç sonrası **KIRMIZI + mail** (`arac/rpc-yetki-kapisi.js`). Canlı tanımlar: `radar-app/canli-sema/` (robot) |
 | Ham kaynak (PDF) | `_kaynak/` | Git'e **girmez** |
 
 **Yeni bir araç eklerken beş yere birden konur:** `index.html` · `menu.js` ·
@@ -453,6 +454,23 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
      `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js` · bitirme `arac/smmm-risk-tarama.ps1` (R1–R9, 30.09). Bulgu **çekilmez, onarım kuyruğuna gider**
      (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
+     ⛔ **Onarım teslimi YALNIZ DEĞİŞEN SORUYU yazar (Cem 31.10 "DUR"):** `teslim` önce yerel partiyi ambarla kayıt kayıt karşılaştırır; tek kayıt farklıysa
+     (yerel bayat) HİÇBİR ŞEY yazmadan durur. Ambara giden içerik = ambardaki parti + yalnız taslağın kayıtları; yazmadan önce damga yeniden okunur (yarış).
+     Teslimden önce `teslim <klasör> --kuru` (yalnız okuma). Ölçülen neden: 30.10 kd1 teslimi 19 partiyi bütünüyle yükledi; aynı gün kd2–kd6 etiketlerinin 12'sinde yerel ≠ ambar.
+     Öz-sınav `node arac/onarim-hatti.js --sinav` (sahte ambar 6 senaryo dahil).
+     ⛔ **Yeniden hakem Cem/kontrol elle ret kaydını SİLMEZ (31.10, ddbeecc2):** `hakem` kaydı listeden yalnız kaynak alanı Cem/kontrol değilse çıkarır
+     (`onarim-rehakem` ve tarama kaynakları eskisi gibi). Kaynakta "Cem" / "kontrol" / "yanlış-kesin" geçen kayıt ELLE KİLİT: robot ne siler ne gerekçeye yazar,
+     günlükte listeler; düzeltme dönünce kontrol okuyup elle çıkarır. Ölçülen neden: eski planın (o0610l) bayat hakem EVET'i (a) kaydını 40 dk'da sildi, kusurlu soru siteye döndü.
+     ⛔ **SMMM'de hakem EVET tek başına listeden çıkarmaz (31.10, Cem "evet yap"):** çıkış = hakem EVET + hakem2 EVET + kör doğru + simülasyon
+     yanlış değil + açıklama hakemi TEMIZ (`gecmeNedeni`); biri yoksa kayıt kalır, sonraki turda yeniden bakılır. SGS/KGK eskisi gibi.
+     Ölçülen neden: 8269da0e robot 53 kaydı çıkardı, 21'i kör yanlış / AH KUSURLU'ydu (yayın şartı tuttu, sitede 0).
+     ⛔ **Onarılan açıklama AH'den YALNIZ `arac/smmm-ah-yalniz.ps1` ile geçer (31.10, Cem "(b)"; SGS aracı s20-ah-banka KULLANILMAZ):** girdi
+     `node arac/smmm-ah-yalniz.js girdi <onarım klasörü> --ad <ad>` (kimlik + taslak parmak izi; ambar ≠ taslak → kayıt atlanır), madde metni ambardan
+     (özet beyan alıntısını içermiyorsa beyan dayanağı okunur — 31.10 ölçüldü: 13 kaydın 10'unda özet ilgili maddeyi taşımıyordu), karar yalnız o kaydın
+     `aciklama_hakem` alanına koşullu yazımla; KUSURLU = `kaynak_okundu:false` + sonuçta `incelenecek` (resmî metinle okunmadan kesinleşmez). Bulut
+     `smmm-ah-yalniz.yml` (varsayılan KURU). **KUSURLU kapatma:** resmî metinle okuyan `node arac/smmm-ah-yalniz.js oku <etiket>/<kp> --karar TEMIZ|KUSURLU
+     --okuyan "…" --dayanak "<kaynak_ad + ≤25 kelime>"` (dayanaksız RED; `kaynak_okundu:true` + `onceki_karar` + yanlış alarmda `elle_cevrildi`; bulut-uretim AH kaydında da, yalnız smmm-).
+     Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 40/40 + PS uçtan uca 15/15), `dogrula.yml`'de.
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
@@ -482,6 +500,7 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   | S6 yanlış madde/fıkra (İş K. m.8/4, 3568 m.45, 5510 m.28/3, "55 gün 5018'de" → Anayasa m.161) | elle | **YOK** | → açıklama hakemi + ≥150 elle okuma |
   | S7 uydurma bilgi / hesaplanana "(soruda verilen)" | elle; mekanik onarım 54 soru (98 etiket) | **YOK** | → açıklama hakemi + elle okuma |
   | S8 kök muğlaklığı (tartışmalı dil bilgisi, eksik çerçeve) | elle 7 soru | **YOK** | → hakem2 + elle okuma |
+  | S9 şık karnesi anahtarla çelişik (beşi "doğru", çoklu yeşil, işaret başka şıkta, kapanışa/öncüle harf) — 27.10 | kasa 155 → elle okundu, 9 çekildi, 146 onarıldı → 0 | KAPI-KARNE (`arac/karne-kapisi.js`) + istem KURAL2710 + `sik-kaydir.ps1` koruması | adım metninin doğruluğu; kapanış ✓/✗ metni; sik alanı boş "Şık A:" serbest metin |
   **Eşdeğerlik (03.10, ambar 15.054 soru):** bugünkü tarihle tarihli soruda karar değişen 0; SGS 4.947 / bitirme 3.820 / KGK 108 yayın kümesinde
   değişen 0. Başlangıç 10-01'e çekilince yeni üretimin SGS 14/140, SMMM 38/176'sı döner (çoğu ADIM-KAYMA). Öz-sınav + mutasyon `dogrula.yml`'de
   (KAPI-TR 16/16 · 9/9, BOS 24/24 · 9/9, YENİ2 bağı 14/14 · 7/7, KAPI-YY 17/17 · 12/12). **Yanlış alarm ölçüldü:** KAPI-YY ilk kasa
@@ -498,6 +517,39 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   16→28, "sebepsiz zenginleşme" 10→25, "disiplin" 12→32, "Lozan" 8→21 dönem çıktı (aynı konu birden çok etikete bölünmüş),
   kaynak satırı 5 dönemi yanlışlıkla TESMER'e yazıyordu. Sayfa açılıştan önce çekildi (noindex + yönlendirme).
   Kaynak satırı kitapçığın gerçek kaynağını yazar (TESMER resmî / ikincil yayım ayrı). "Garanti", "kesin çıkar" yazılmaz.
+- ⛔⭐ **SORU YILI = SINAVIN SORDUĞU YIL; YILLIK TUTAR KÜTÜKTEN** (22.10.2026, Cem: *"sınavda 2025 çıkıyorsa 2026 sınavında 2025
+  olsun, zaten benim dememe gerek yok"* + *"zamanı geldiğinde hemen değiştirecek sistem kuralım"*). **Olay (ölçüldü):** bir üye
+  "2026 tarifesi yok, sınavda 2025 çıkıyor" diye üyeliği iptal etti. Çıkmış vergi soruları: 2025 sınavları 2024'ü, 2026/1-2 2025'i
+  soruyor (beyannamesi kapanmış son yıl). Banka: bitirme Vergi 402 sorunun 275'i 2026 yılı; 3 kıdem sorusu "2026 tavanı" diye
+  46.000/43.700/41.830 yazıyordu (resmî 64.948,77/73.729,87; 41.830 = 2024/II tavanı). Muhasebe dersleri cari yılı da kullanıyor
+  (2026/2'de 2026 ×6) → kural **gelir/kurumlar vergisi beyanı** sorularına özgü. Kurallar:
+  1. Vergi beyanı sorusu **Y−1** yılında ve o yılın tutarıyla yazılır (2026 sınavı → 2025). Cem'e sorulmaz, uygulanır.
+  2. Yıllık tutar (GVK tarife/had, mesken, binek, engellilik, damga azami, kıdem tavanı, asgari ücret…) **hafızadan değil**
+     `veri/sinav/yillik-tutarlar.json`'dan alınır; kütük resmî metinden üretilir: `node arac/yillik-tutar-kutugu.js --yaz`
+     (kaynak + alıntı her değerin yanında; okunamayan kalem `olculmedi` listesinde). Tutar mümkünse **soru kökünde verilir**
+     (çıkmış sınav dili: "… olduğu varsayılmıştır").
+  3. **KAPI-YT** (`arac/yillik-tutar-kapisi.js`, `soru-kalite-kapisi` üzerinden basım + yayın): YENİ soruda (tarih ≥ 2026-10-23)
+     DURDURUR: YT-KAYNAKSIZ (resmî olmayan tutar gerçekmiş gibi) · YT-VARSAYIM (aynı cümlede yıl + "varsayılmıştır / kabul
+     edilmiştir / bilinmektedir" + kütük kalemi + o yılın resmî tutarı olmayan sayı; banka 22.10: 12 bulgunun 12'si gerçek - "2026 4. dilim
+     4.300.000", "2026 mesken 33.000", "beyan haddi 230.000"; yıl adı olmayan varsayım ve kütükte olmayan oran geçer) · vergi kanunu dilinde YT-YIL (yıl > Y−1). Yalnız NOT: YT-YANLIS-YIL
+     (isabet ≈%45, 22.10 elle okuma: 25'in ~11'i) · YT-ESKI-YIL ("zamanı geldi", yeni yıla taşı) · YT-EZBER (tutar kökte verilmiyor).
+     Eşdeğerlik 22.10: önbellekteki 15.786 kayıtta bugün duran 0. Öz-sınav 18 vaka + 13 mutasyon (`dogrula.yml`).
+  4. **Yıl dönümü:** Kanun Aynası (`mevzuat.yml`) her yutmada kütüğü tazeler + `--nobet` ile "sınav yılının tutarı kütükte yok"
+     uyarısı basar. 1 Ocak'ta sınav yılı kendiliğinden ilerler; eski yıl soruları `--banka` taramasında YT-ESKI-YIL olarak listelenir
+     ve **resmî kaynakla elle onarılır** (otomatik soru değişikliği YOK — yanlış soru basma kuralı).
+  5. ⭐ **YENİ HÜKÜM, İLK UYGULAMA YILI KAPANINCA SORULUR** (28.10.2026, Cem "karar ver, eski sorulardan bak" + "kurala yaz").
+     **Ölçüldü (bitirme Vergi, 2019–2026 çıkmış metinleri + `veri/smmm-analiz.json`):** yıllık beyanı 2021'den beri 18 sınavın 17'si
+     Y−1 yılıyla soruyor (2021/2 karışık: 2019+2020). Yurt içi asgari kurumlar vergisi (7524, 08.2024, 2025 dönemi) 2025'in üç sınavında
+     YOK, ilk kez 2026/2'de "2025 hesap dönemi" diye. Mük. m.20/D (7582, 21.05.2026) 2026/2'de YOK. Tek istisna 2020/2 (26.09.2020):
+     dijital hizmet vergisi "Mart 2020" dönemiyle - o sınav yıllık beyanı da cari yılla (2020) sormuştu, düzen 2021'den beri tekrarlanmadı.
+     Kurallar: (a) Y yılında yürürlüğe giren hüküm Y sınavında sorulmaz; ilk kez Y+1 sınavlarında, Y yılıyla sorulur. (b) Bu sorular
+     **1 Ocak Y+1'den sonra basılır** (önce basılırsa KAPI-YT YT-YIL yeni soruyu durdurur, hakem parası boşa gider; 2027/1 eski yıllara
+     göre Mart–Nisan, ocak basımı yetişir). (c) Bekleyen hükümler `veri/sinav/yeni-hukum-takvimi.json`'da (elle tutulur: hüküm,
+     yürürlük, ilk sorulabileceği sınav, ambar durumu); 1 Ocak'ta takvimdeki "basim_baslar" yılı gelen kayıtlar basım planına girer.
+     (d) Aylık vergi (KDV, ÖTV, dijital hizmet) **son kapanmış dönemle** yazılır (2026/1: "Aralık 2025"); tutar içermeyen usul
+     sorusunda olay tarihi cari yıl olabilir (2026/1: "2026 yılının Ocak ayında vefat").
+  🚫 GÖRMEZ: kütükte olmayan yıl/kalem (2025 asgari ücret, VUK m.370 haddinin yılı, SGK tavanı, MTV, harç) · sayının kelime
+  yakınında (±100) geçmediği yazım · tutarın yazıyla ya da farklı biçimle yazılması.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

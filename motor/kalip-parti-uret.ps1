@@ -177,6 +177,7 @@ if($script:PARMAK_TUZU){ Write-Host "  ONARIM TURU: parmak izi tuzu '$script:PAR
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')      # 22.09: etiket → ders (yayıncıyla aynı harita); ikiz karşılaştırması ders içinde yapılır
 . (Join-Path $kok 'arac\ozel-maliyet-kapisi.ps1') # 27.09: KAPI-OM özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralı (VUK m.327: kira süresine göre)
 . (Join-Path $here 'model-kod.ps1')              # 10.10: soru verisine model adı girmez — iz alanları ModelKod ile nötr kod (model-a/b/c)
+. (Join-Path $kok 'arac\yil-tebligi-eki.ps1')     # 23.10: hakem paketine sorunun yılının resmî tutar düzenlemesi (YilTebligiEki; kütük veri/sinav/yillik-tutarlar.json)
 . (Join-Path $kok 'arac\soru-kalite-kapisi.ps1')  # 30.09: KAPI-AS (şık açıklaması başka şıkkın sayısını sonuç diye anlatıyor) + KAPI-EK (arac/eski-kurallar.json)
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
@@ -583,12 +584,19 @@ function AtifDesen([string]$dayanak){
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
-  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|EMLAK|MTVK|TMKK|OTVK|KMYK|SIGK|GIDERV|VIVK|HARC|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z0-9]))?')){
+  # ⭐ 23.10.2026 (Cem "ikisini de yap"): iki desen kusuru hakeme "kaynakta yok" dedirtiyordu. ÖLÇÜLDÜ (önbellek 15.905 soru):
+  #   (1) "m.86/1-c", "m.21/2" → eski desen rakamı ek sanıp "m.86/1" arıyordu; ambarda m.N/<rakam> adlı belge YOK (veri/mevzuat taraması 0) →
+  #       atıf hiç eşleşmiyor. Fıkralı atıf 2.365 soruda, 115'inde o madde pakete hiç girmemiş (21'i hakem HAYIR). Artık ek yalnız HARF (m.153/A).
+  #   (2) "mükerrer m.20", "mük.20/D" → ambar adı "GVK (193 s.K.) muk. m.20" ama desen "m.20" üretiyor ya da hiç üretmiyordu: 118 sorunun 4'ünde
+  #       madde pakette yok, 4'ü de HAYIR (bitirme 22.10 rehakemi: 4k-a-yvergi-zor-r2/kp-16 "mük.20 fıkra 3 kaynakta yok").
+  $t=[regex]::Replace($t,'(?i)m[üu]kerrer\s*(?:m(?:adde)?\.?\s*)?(\d+)|m[üu]k\.\s*(?:m\.\s*)?(\d+)',{ param($x) 'muk. m.' + $(if($x.Groups[1].Success){ $x.Groups[1].Value } else { $x.Groups[2].Value }) })
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|EMLAK|MTVK|TMKK|OTVK|KMYK|SIGK|GIDERV|VIVK|HARC|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?(?:\b(muk)\.\s*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z])(?![a-zçğıöşü]))?')){
     if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
     if(-not $son -or -not $KANUN2.ContainsKey($son) -or $KANUN2[$son] -match '%$'){ continue }
-    $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
+    $ek=if($m.Groups[4].Success){ "/$($m.Groups[4].Value)" } else { '' }
+    $mk=if($m.Groups[2].Success){ 'muk. ' } else { '' }
     # 'm.6%' m.61/m.62'yi de yakalar; ad ya tam 'm.6' ya 'm.6 ' ile devam eder -> iki desen
-    $d.Add("$($KANUN2[$son]) m.$($m.Groups[2].Value)$ek"); $d.Add("$($KANUN2[$son]) m.$($m.Groups[2].Value)$ek %")
+    $d.Add("$($KANUN2[$son]) $($mk)m.$($m.Groups[3].Value)$ek"); $d.Add("$($KANUN2[$son]) $($mk)m.$($m.Groups[3].Value)$ek %")
     if($d.Count -ge 10){ break }
   }
   return @($d | Select-Object -Unique)
@@ -1927,6 +1935,34 @@ $KURAL0310_ADIM=@'
 if($script:KURAL0310){
   if(-not $adimIstem.Contains('Cevap YALNIZ JSON: {"verilen"')){ throw 'KURAL0310: adım isteminde "Cevap YALNIZ JSON" çapası yok (son10-uret.ps1 değişmiş) — kural eklenemedi' }
   $adimIstem=$adimIstem.Replace('Cevap YALNIZ JSON: {"verilen"',$KURAL0310_ADIM+'Cevap YALNIZ JSON: {"verilen"')
+}
+# ⭐ 27.10.2026 KARNE KURALI (Cem: "karne-anahtar tutarlılık kapısını kur … öncüllerin şık harfine yazılmasını / kapanışa harf verilmesini
+#   kökten düzelt"). ÖLÇÜLDÜ 24–27.10: yayındaki kasada şık karnesi anahtarla çelişen 155 soru (elle okundu: 9 çekildi, 146 onarıldı).
+#   İstem kökü: şık adımının kararı "İFADENİN kendisi doğru mu" diye tanımlıydı → "hangisinde X" sorusunda beş kanun cümlesinin beşi
+#   "doğru" (24.10 aday bildirimi, KDV m.10/g); Roma rakamlı öncül için yer yoktu → öncüller A–E harfine yazıldı; kapanış adımına harf
+#   verildi → karnede çift satır. Yeni tanım: karar = kökün bu şık için sorduğu yargının cevabı → olumlu kökte tek "doğru", olumsuz kökte
+#   tek "yanlış", o şık anahtar. Mekanik karşılığı arac/karne-kapisi.js (KAPI-KARNE, YENİ2'de durdurur) + aşağıdaki YAPI KAPISI eki.
+#   ⛔ İSTEM BAYTI KORUMASI: KURAL0310 ile aynı düzen — yalnız saat ≥ 2026-10-28 00:00 VE bu etiketin bekleyen-partiler kaydında
+#   2026-10-28'den önce gönderilmiş parti YOKSA. Kapalıyken istem ve YAPI KAPISI dünküyle aynıdır. Elle: MEVZUAT_KURAL_2710=1 / =0.
+#   🚫 GÖRMEZ: kökün olumlu/olumsuz yönünü model okur, kapı okumaz (kapı yöne bakmadan "tek yeşil ya da tek kırmızı = anahtar" der) ·
+#   olay adımının köke uyumu · son10-uret.ps1 kendi başına koşarsa (yeni10-fmuh) bu ek UYGULANMAZ (o yol hesap dersi, karnesiz).
+$KURAL2710_BAS='2026-10-28'
+$script:KURAL2710=$false
+if("$env:MEVZUAT_KURAL_2710" -eq '1'){ $script:KURAL2710=$true }
+elseif("$env:MEVZUAT_KURAL_2710" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:mm') -ge "$KURAL2710_BAS 00:00"){
+  $script:KURAL2710=$true
+  foreach($kuralBekleyen in @(Get-BekleyenPartiler)){ if("$($kuralBekleyen.etiket)" -like "$Etiket/*" -and "$($kuralBekleyen.zaman)" -lt $KURAL2710_BAS){ $script:KURAL2710=$false; break } }
+}
+"KARNE KURALI 27.10 (şık adımı kararı + öncül + kapanış): $(if($script:KURAL2710){ 'AÇIK' } else { 'KAPALI (istem eski hâliyle bayt bayt aynı — 10-28 öncesi ya da bu etiketin eski partisi var)' })"
+$KURAL2710_KARAR='"karar":"doğru" ya da "yanlış" — KARNE KURALI: karar, formuldeki karar sorusunun cevabıdır; formul KÖKÜN bu şık için sorduğu yargıyı sınar (kök "hangisinde X" diyorsa "Bu şıkta X mi?", "hangisi doğrudur/yanlıştır" diyorsa "Bu ifade doğru mu?"). ZORUNLU sonuç: olumlu kökte YALNIZ doğru şık "doğru", öteki dördü "yanlış"; olumsuz kökte ("yanlıştır", "değildir", "söylenemez") YALNIZ doğru şık "yanlış", öteki dördü "doğru". Şık kanunda geçen doğru bir cümle olsa da kökün aradığı şey değilse karar "yanlış"tır. Her harf A–E TAM BİR KEZ kullanılır,'
+$KURAL2710_ONCUL=' ROMA RAKAMLI ÖNCÜLLÜ SORU (I, II, III… ve şıklar "I ve II" gibi): öncüller formulü "Öncül I: …" olan, "sik" ve "karar" alanı OLMAYAN ayrı adımlarda tek tek sınanır (bu adımlar "Ne yapacağız" ile Şık A arasına girer; toplam adım 8''i geçebilir); ardından A–E şık adımları "Şık C (I ve II): doğru öncüllerin tamamı bu mu?" biçiminde kurulur. Öncülü ASLA A–E harfiyle etiketleme. Kapanış adımında "sik" ve "karar" alanı YOKTUR; kapanış satırı karnenin aynısıdır.'
+if($script:KURAL2710){
+  $eskiKarar='"karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu),'
+  if(-not $adimIstem.Contains($eskiKarar)){ throw 'KURAL2710: adım isteminde (son10 kural j) karar tanımı çapası yok — kural eklenemedi' }
+  $adimIstem=$adimIstem.Replace($eskiKarar,$KURAL2710_KARAR)
+  $eskiKapanis='ADIM 8 formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" —'
+  if(-not $adimIstem.Contains($eskiKapanis)){ throw 'KURAL2710: adım isteminde (son10 kural j) kapanış çapası yok — kural eklenemedi' }
+  $adimIstem=$adimIstem.Replace($eskiKapanis,'ADIM 8 formul "Kapanış: A ✗ B ✓ C ✗ D ✗ E ✗" (karne ile aynı; sik ve karar alanı yok).'+$KURAL2710_ONCUL+' ADIM 8 anlatımı —')
 }
 Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').Value)
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
@@ -3382,6 +3418,17 @@ $kaynakBorcu=New-Object System.Collections.Generic.List[string]
 # tip dagilimi kayit %41 / hesaplama %26 / teori %18.
 # Cem karari: TAVAN 350 (medyanin hemen ustu - gercek sinavin ~%65'i bu bandin altinda).
 $UZUNLUK_TAVAN=$UzunlukTavan
+# 27.10 UZUNLUK DAĞILIMI (Cem "1.2.3.4 yap", madde 3). ÖLÇÜLDÜ 27.10 (SGS kasası 5.451 soru ↔ veri/sinav-anatomisi-sgs.json, 29 kitapçık):
+#   tavan = ders p75 iken model soruyu tavanın hemen altına yazıyor; banka ortancası gerçek ORTANCA değil p75'e oturdu —
+#   Vergi 233 (gerçek 146, p75 239) · Borçlar 252 (164/258) · İş-SGK 235 (147/270) · Denetim 223 (168/241). Kural (yalnız KURAL2710 açıkken):
+#   her soruya kimliğinden türeyen kalıcı payla tavan atanır — %60'ı dersin gerçek ORTANCASI, %40'ı p75. Kapalıyken davranış aynı (tek tavan).
+#   🚫 GÖRMEZ: modelin kısa slotta içeriği zorla sığdırıp sığdırmadığı (kısaltma kapısı ve hakemler ayrıca bakar) · ders kalıbı yoksa tek tavan.
+$UZUNLUK_MEDYAN=0
+function SoruTavani([string]$soruId){
+  if(-not $script:KURAL2710 -or $UZUNLUK_MEDYAN -le 0 -or $UZUNLUK_MEDYAN -ge $UZUNLUK_TAVAN){ return $UZUNLUK_TAVAN }
+  $karma=0; foreach($ch in "$Etiket|$soruId|uzunluk".ToCharArray()){ $karma=($karma*31 + [int]$ch) % 100 }
+  if($karma -lt 60){ return $UZUNLUK_MEDYAN } else { return $UZUNLUK_TAVAN }
+}
 $KALIP_TIP=''
 $TIP_HEDEF=New-Object System.Collections.Generic.List[string]
 $TIP_TARIF=@{
@@ -3395,6 +3442,9 @@ if(Test-Path $kalipYol){
   try{
     $kp=Get-Content $kalipYol -Raw -Encoding UTF8 | ConvertFrom-Json
     $dAd=@($kp.dersler.PSObject.Properties.Name | Where-Object { $_ -match $DersRegex -or (Katla2 $_) -match (Katla2 $DersRegex) }) | Select-Object -First 1
+    # 27.10 (KURAL2710 açıkken): kalıp adı DersRegex'in BAŞINDA geçiyorsa da eşleşir. Ölçüldü: 60 İş-SGK planı "Is ve Sosyal Guvenlik Hukuku"
+    #   yazıyordu, kalıp anahtarı "Is ve Sosyal Guvenlik" → eşleşmedi, ders p75 (270) yerine sabit 350 kullanıldı.
+    if(-not $dAd -and $script:KURAL2710){ $dAd=@($kp.dersler.PSObject.Properties.Name | Where-Object { $kAd=(Katla2 $_); @("$DersRegex" -split '\|' | Where-Object { (Katla2 $_).StartsWith($kAd) }).Count }) | Select-Object -First 1 }
     if($dAd){
       $dk=$kp.dersler.$dAd
       $tipler=@($dk.tip_dagilim.PSObject.Properties | Sort-Object { -[int]$_.Value } | ForEach-Object { "$($_.Name) %$([math]::Round(100*[int]$_.Value/[int]$dk.soru_sayisi))" })
@@ -3402,6 +3452,7 @@ if(Test-Path $kalipYol){
       "gercek kalip [$dAd]: n=$($dk.soru_sayisi) medyan=$($dk.medyan) p90=$($dk.p90) | tip: $KALIP_TIP"
       # 06.09 (Cem "geç", 05.09 ölçümü: hukuk soruları 1,5-2× uzundu): -UzunlukTavan açıkça verilmediyse tavan DERSİN çıkmış p75'idir
       if(-not $PSBoundParameters.ContainsKey('UzunlukTavan') -and $dk.PSObject.Properties['p75'] -and [int]$dk.p75 -gt 0){ $UZUNLUK_TAVAN=[int]$dk.p75; "tavan ders p75'ten: $UZUNLUK_TAVAN kr (tek 350 yerine)" }
+      if(-not $PSBoundParameters.ContainsKey('UzunlukTavan') -and $dk.PSObject.Properties['medyan'] -and [int]$dk.medyan -gt 0){ $UZUNLUK_MEDYAN=[int]$dk.medyan }
       # TIP KOTASI (02.09 Cem "3 yap"): parti, gercek sinavin tip dagilimini taklit
       # eder. 'diger' kotasi dagitilmaz - dolgu tipi degil, olcum artigidir.
       $TIP_HEDEF=New-Object System.Collections.Generic.List[string]
@@ -3617,8 +3668,8 @@ foreach($gecisA in $(if($script:A_UC_GECIS){ @(1,2,3) } else { @(1,2) })){ if($g
   }
   # 02.09 uzunluk kapisi GERIYE DONUK: tavani asan eski sorular yeniden basilir
   # (soru degisince adim/ikiz/yevmiye de dusurulur ki tutarli kalsin).
-  if($don.Contains($id) -and $don[$id].soru -and "$($don[$id].soru)".Length -gt $UZUNLUK_TAVAN){
-    Write-Host "  CACHE DUSTU (uzun: $("$($don[$id].soru)".Length) kr > $UZUNLUK_TAVAN): $id $($kk.kayit.konu)" -ForegroundColor Yellow
+  if($don.Contains($id) -and $don[$id].soru -and "$($don[$id].soru)".Length -gt (SoruTavani $id)){
+    Write-Host "  CACHE DUSTU (uzun: $("$($don[$id].soru)".Length) kr > $(SoruTavani $id)): $id $($kk.kayit.konu)" -ForegroundColor Yellow
     $don.Remove($id)
   }
   if($don.Contains($id) -and $don[$id].soru){
@@ -3859,7 +3910,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     hesabı ve gerçek çeldirici yollarını koru. Bu kural yalnız beş şıkkın BEŞİ DE SAYI olan soruda geçerlidir.
 "@
   }
-  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SAYI_SIRA_KURAL}',$SAYI_SIRA_KURAL).Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){ if($script:KURAL0310){"medyan uzunluk $UZUNLUK_TAVAN kr civarı, tip dağılımı $KALIP_TIP"} else {"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"} }else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $UZ_SORU=SoruTavani $id   # 27.10 UZUNLUK DAĞILIMI: bu sorunun tavanı (KURAL2710 kapalıyken $UZUNLUK_TAVAN ile aynı)
+  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SAYI_SIRA_KURAL}',$SAYI_SIRA_KURAL).Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZ_SORU").Replace('{KALIP}',$(if($KALIP_TIP){ if($script:KURAL0310){"medyan uzunluk $UZ_SORU kr civarı, tip dağılımı $KALIP_TIP"} else {"medyan uzunluk $UZ_SORU kr civari, tip dagilimi $KALIP_TIP"} }else{"medyan $UZ_SORU kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
@@ -3874,7 +3926,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   $onarimIstem=$null   # 17.09 hedefli onarım: 1. deneme yalnız yüzey kusuruyla dönerse 2. denemenin istemi (bkz. HedefliOnarimIstemi)
   foreach($deneme in 1..2){
     $istBu=$ist
-    if($deneme -gt 1){ if($onarimIstem){ $istBu=$onarimIstem } elseif($script:KURAL0310){ $istBu=$ist+"`nDİKKAT: önceki denemende soru gövdesi TAVANI AŞTI. Bu kez $UZUNLUK_TAVAN karakteri KESİNLİKLE aşma - senaryoyu tek işleme indir, hikâyeyi at." } else { $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." } }   # 03.10: Türkçe harfli yalnız KURAL0310 açıkken
+    if($deneme -gt 1){ if($onarimIstem){ $istBu=$onarimIstem } elseif($script:KURAL0310){ $istBu=$ist+"`nDİKKAT: önceki denemende soru gövdesi TAVANI AŞTI. Bu kez $UZ_SORU karakteri KESİNLİKLE aşma - senaryoyu tek işleme indir, hikâyeyi at." } else { $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZ_SORU karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." } }   # 03.10: Türkçe harfli yalnız KURAL0310 açıkken
     $y=$null
     # 02.09 gece KGK partisinde OLCULDU: KGK sorularinin HEPSI 8k'da kesilip 20k ile yeniden
     # gidiyor (her soru iki cagri = iki kat sure). KGK/SMMM uzun kaynak metniyle dusunuyor;
@@ -4052,15 +4104,15 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($alDurum -ne 'AL-TAM' -and $deneme -eq 1){ $rapor.Add("DAYANAK ALINTISI: $id | $alDurum") }
     if($cbSonuc.kor -and $deneme -eq 1){ $rapor.Add("KAPI-CB KÖR: $id | $($cbSonuc.kor)") }
     if(@($cbSonuc.not).Count -and -not $cbKusur.Count){ $rapor.Add("KAPI-CB NOTU (deneme $deneme): $id | $(@($cbSonuc.not)[0])") }
-    if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count -and -not $acKusur.Count -and -not $omKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
-    $ksKodlar=@(foreach($ksK in @(@('UZUN',($uz -gt $UZUNLUK_TAVAN)),@('S',[bool]$sikKusur),@('H',[bool]$hkKusur.Count),@('K',[bool]$kvKusur.Count),@('T',[bool]$tipKusur),@('C',[bool]$cyKusur.Count),@('Y',[bool]$yilKusur),@('O',[bool]$koKusur.Count),@('B',[bool]$bzKusur.Count),@('D2',[bool]$trKusur.Count),@('YD',[bool]$ydKusur.Count),@('P',[bool]$paKusur.Count),@('M',[bool]$muKusur.Count),@('SU',[bool]$suKusur.Count),@('CB',[bool]$cbKusur.Count),@('GT',[bool]$gtKusur.Count),@('AC',[bool]$acKusur.Count),@('OM',[bool]$omKusur.Count))){ if($ksK[1]){ $ksK[0] } })
+    if($uz -le $UZ_SORU -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count -and -not $acKusur.Count -and -not $omKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
+    $ksKodlar=@(foreach($ksK in @(@('UZUN',($uz -gt $UZ_SORU)),@('S',[bool]$sikKusur),@('H',[bool]$hkKusur.Count),@('K',[bool]$kvKusur.Count),@('T',[bool]$tipKusur),@('C',[bool]$cyKusur.Count),@('Y',[bool]$yilKusur),@('O',[bool]$koKusur.Count),@('B',[bool]$bzKusur.Count),@('D2',[bool]$trKusur.Count),@('YD',[bool]$ydKusur.Count),@('P',[bool]$paKusur.Count),@('M',[bool]$muKusur.Count),@('SU',[bool]$suKusur.Count),@('CB',[bool]$cbKusur.Count),@('GT',[bool]$gtKusur.Count),@('AC',[bool]$acKusur.Count),@('OM',[bool]$omKusur.Count))){ if($ksK[1]){ $ksK[0] } })
     foreach($ksKod in $ksKodlar){ KapiSay "d$deneme-$ksKod" "$id|$deneme" }   # 17.09 kapı sayımı (yalnız kod+sayı)
     # 17.09 hedefli onarım: yalnız bitirme, yalnız 1. deneme, dönen kapıların HEPSİ yüzey kusuru ise 2. deneme soruyu baştan yazmaz, onarır
     if($deneme -eq 1 -and $Sinav -eq 'SMMM'){
       $onarimIstem=$null
       if($ksKodlar.Count -and -not @($ksKodlar | Where-Object { $HEDEFLI_ONARIM_KODLARI -notcontains $_ }).Count){
         $onNot=@()
-        if($uz -gt $UZUNLUK_TAVAN){ $onNot+="Soru gövdesi $uz karakter; en çok $UZUNLUK_TAVAN karakter olmalı. Gövdeyi kısalt (hikâyeyi at, gereksiz cümleyi sil); soruda verilen veriler ve sorulan şey aynı kalsın." }
+        if($uz -gt $UZ_SORU){ $onNot+="Soru gövdesi $uz karakter; en çok $UZ_SORU karakter olmalı. Gövdeyi kısalt (hikâyeyi at, gereksiz cümleyi sil); soruda verilen veriler ve sorulan şey aynı kalsın." }
         if($sikKusur){ $onNot+="Şıklar cevabı ele veriyor: $sikKusur. Şık uzunlukları birbirine yakın olsun, doğru şık en uzun şık olmasın; bir ipucu (parantezli açıklama, birim) yalnız doğru şıkta bulunmasın; aynı tutar iki şıkta tekrar etmesin; tutar+yön şıklarında her tutar iki yönle görünsün." }
         if($koKusur.Count){ $onNot+="Yapay zekâ izi: $($koKusur -join '; '). Tutarların hepsi yuvarlak olmasın (12.500, 47.350 gibi gerçekçi tutarlar karışsın; hesap yine düzgün çıksın); 'ABC/XYZ' gibi yer tutucu ad, klişe kalıp ve uzun tire (—) kullanma." }
         if($trKusur.Count){ $onNot+="Şu kelimeler Türkçe harfsiz yazılmış: $($trKusur -join ', '). Bütün metinde Türkçe harfleri tam yaz." }
@@ -4084,11 +4136,11 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($cyKusur.Count){ Write-Host "  KAPI-Ç (çeldirici yolu) ($id): $($cyKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ç DÜŞTÜ: $($cyKusur -join '; '). Her yanlış şık için celdirici_yol yaz: sayılı yanlış yol formülü, sonu '= <şık tutarı>' ve şık tutarı formülün GERÇEK sonucu olmalı; tutmuyorsa şık tutarını formülün sonucuna göre düzelt." }
     if($tipKusur){ Write-Host "  KAPI-T (soru tipi) ($id): $tipKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-T DÜŞTÜ: örnek çıkmış soru HESAPLAMA sorusudur, sen teori sorusu yazdın. Soru sayısal veri verip 'kaç TL' diye sormalı ve en az 2 satırlı cozum_tablo taşımalı; 'hangisi yanlıştır/doğrudur' biçimi YASAK." }
     if($kvKusur.Count){ Write-Host "  KAPI-K (pencere dışı kavram) ($id): $($kvKusur -join ', ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-K DÜŞTÜ: şu kelimeler son $DonemPencere dönemin sınav sorularında HİÇ geçmiyor: $($kvKusur -join ', '). Sınavın sormadığı kavramla soru kurma; gövdeyi yalnız sınavda geçen kavramlarla (verilen örnek sorunun diliyle) yeniden yaz." }
-    if($uz -gt $UZUNLUK_TAVAN){ Write-Host "  UZUN ($uz kr > $UZUNLUK_TAVAN) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
+    if($uz -gt $UZ_SORU){ Write-Host "  UZUN ($uz kr > $UZ_SORU) - yeniden: $($ky.konu)" -ForegroundColor DarkYellow }
     if($sikKusur){ Write-Host "  KAPI-Ş ($id): $sikKusur - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-Ş DÜŞTÜ: önceki denemede şıklar cevabı ele veriyordu ($sikKusur). Kural 2a'yı uygula: her tutar iki yönle (olumlu/olumsuz), 2 tutar × 2 yön + 1." }
     if($hkKusur.Count){ Write-Host "  KAPI-H (hesap adı) ($id): $($hkKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-H DÜŞTÜ: hesap adları Tekdüzen Hesap Planı'ndaki resmî adla BİREBİR yazılır: $($hkKusur -join '; ')." }
     if($deneme -eq 2){
-      if($uz -gt $UZUNLUK_TAVAN){ $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)") }
+      if($uz -gt $UZ_SORU){ $rapor.Add("UZUNLUK TAVANI ASILDI ($uz kr): $($ky.konu)") }
       if($sikKusur){ $rapor.Add("KAPI-Ş (şık dengesi) DÜŞTÜ: $($ky.konu) | $sikKusur") }
       if($hkKusur.Count){ $rapor.Add("KAPI-H (hesap adı) DÜŞTÜ: $($ky.konu) | $($hkKusur -join '; ')") }
       if($kvKusur.Count){ $rapor.Add("KAPI-K (pencere dışı kavram) DÜŞTÜ: $($ky.konu) | $($kvKusur -join ', ')") }
@@ -4789,6 +4841,16 @@ foreach($id in @($don.Keys)){
       }
     }
   }
+  # 23.10 YIL TEBLİĞİ EKİ (Cem "ikisini de yap"): soru kökü bir yıl anıyorsa (CLAUDE.md "soru yılı = sınavın sorduğu yıl": 2026 sınavı → 2025)
+  # o yılın resmî tutarı + dayandığı tebliğ/genelge maddesi paketin BAŞINA. Ölçüldü: 22.10 rehakeminde w4-yvergi-zor/kp-06 HAYIR — paketteki
+  # GVK m.86/1-d "(22.000 TL)" 2026 tutarı, soru 2025'in 18.000'i (GVGT 329). Ambar çağrısı yok (depodaki veri/mevzuat/*.json); kütükte yoksa paket değişmez.
+  $yte = YilTebligiEki "$($cvp.soru)" $kok
+  if ($yte.metin) {
+    $kMetin = $yte.metin + "`n---`n" + $kMetin
+    if ($yte.adlar.Count) { $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @(@($yte.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $yte.adlar -notcontains $_ })) -Force }
+    $cvp | Add-Member -NotePropertyName yil_tebligi_eki -NotePropertyValue @($yte.yil) -Force
+    Write-Host ("  YIL TEBLIGI EKI: {0} <- {1} ({2} belge)" -f $id, ($yte.yil -join ','), $yte.adlar.Count) -ForegroundColor DarkCyan
+  }
   # --- KAPI-HG · HESAP GRUBU GENISLETME (11.09.2026) --------------------------
   # DOGUSU: Cem muhur ornegi #4'te (sgs-t1-fmuh-kolay/kp-80) gercek hata buldu.
   # Iskat edilen hisse senetlerinin nominal ustu satisindan dogan 35.000 TL soruda
@@ -5362,6 +5424,29 @@ Cevap YALNIZ JSON: {"adimlar":[{"formul":"...","anlatim":"...","sik":"A","karar"
 === TEŞHİS (her şık: ne sanıyorsun / aslında / nereden anlarsın) === {TESHIS}
 === KAYNAK METİNLERİ (ambardan) === {KAYNAK}
 '@
+# 27.10 KARNE KURALI (yukarıdaki KURAL2710 notu): teori isteminde aynı tanım. Kapalıyken istem bayt bayt aynı.
+if($script:KURAL2710){
+  $eskiKararT='"karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu, yanlış mı),'
+  $eskiKapanisT='8. formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" (gerçek dağılıma göre) —'
+  if(-not $adimIstemTeori.Contains($eskiKararT) -or -not $adimIstemTeori.Contains($eskiKapanisT)){ throw 'KURAL2710: teori adım isteminde karar/kapanış çapası yok — kural eklenemedi' }
+  $adimIstemTeori=$adimIstemTeori.Replace($eskiKararT,$KURAL2710_KARAR).Replace($eskiKapanisT,'8. formul "Kapanış: A ✗ B ✓ C ✗ D ✗ E ✗" (karne ile aynı; sik ve karar alanı yok).'+$KURAL2710_ONCUL+' 8. adımın anlatımı —')
+}
+# 27.10 YAPI KAPISI eki (yalnız KURAL2710 açıkken; kapalıyken eski partinin hasat edilen cevabı yeni kapıya takılıp YENİDEN ÖDENMESİN):
+#   şık adımı ≥4 olan her soruda (teori ya da değil) harf tekrarı, A–E dışı harf, karne tutarlılığı (tek yeşil ya da tek kırmızı = anahtar).
+#   Kural arac/karne-kapisi.js ile AYNI; orada öz-sınav + mutasyon var, burada yalnız tur tekrarı için not üretilir.
+function KarneYapiKusur($adimlar,[string]$anahtar){
+  $sa=@(@($adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)".Trim() })
+  if($sa.Count -lt 4){ return @() }
+  $k=@(); $say=@{}; foreach($a in $sa){ $h="$($a.sik)".Trim().ToUpperInvariant(); $say[$h]=1+$(if($say.ContainsKey($h)){ $say[$h] } else { 0 }) }
+  $cift=[object[]]@($say.Keys | Where-Object { $say[$_] -gt 1 }); if($cift.Length){ $k+="$($cift -join ',') harfi birden çok adımda (kapanışa ya da öncüle harf verilmiş)" }
+  $disi=[object[]]@($say.Keys | Where-Object { $_ -notmatch '^[A-E]$' }); if($disi.Length){ $k+="A–E dışı sik: $($disi -join ',') (öncül şık harfiyle yazılmış)" }
+  $yes=@($sa | Where-Object { "$($_.karar)" -notmatch '^(?i)y' } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() } | Select-Object -Unique)
+  $kir=@($sa | Where-Object { "$($_.karar)" -match '^(?i)y' } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() } | Select-Object -Unique)
+  $an="$anahtar".Trim().ToUpperInvariant()
+  $tutarli=(($yes.Count -eq 1 -and $yes[0] -eq $an -and $kir -notcontains $an) -or ($kir.Count -eq 1 -and $kir[0] -eq $an -and $yes -notcontains $an))
+  if(-not $tutarli){ $k+="karne anahtarla çelişiyor (doğru şık $an; 'doğru' kararlı: $(($yes|Sort-Object) -join '') ; 'yanlış' kararlı: $(($kir|Sort-Object) -join '')) — olumlu kökte YALNIZ $an 'doğru', olumsuz kökte YALNIZ $an 'yanlış' olmalı" }
+  return $k
+}
 foreach($gecisB in @(1,2,3)){ if($gecisB -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisB -eq 1); $script:DALGA2_TOPLA=($gecisB -eq 2 -and -not $IkinciDalgaKapat)   # 15.09: 1=topla, 2=toplu cevapla + kalanı İKİNCİ DALGAYA topla, 3=ikinci dalga cevabı (son çare anlık)
 :soruB foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
@@ -5412,6 +5497,7 @@ foreach($gecisB in @(1,2,3)){ if($gecisB -ne 3 -and -not $Toplu){ continue }; $s
       $kararsiz=@(@($a2.adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)" -and ("$($_.karar)" -notmatch '^(?i)(doğru|dogru|yanlış|yanlis)$') }).Count; if($kararsiz){ $yapiK+="$kararsiz şık adımında karar alanı doğru/yanlış değil" }
       $tanimli=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.formul)" -match '(?i)\bnedir\b' }).Count; if($tanimli){ $yapiK+="$tanimli tanım adımı var (yasak)" }
       if(-not (@($a2.adimlar) | Where-Object { $_ -and "$($_.formul)" -match '^\s*Olay\s*:' })){ $yapiK+='1. adım "Olay:" değil' } }
+    if($script:KURAL2710){ $yapiK+=@(KarneYapiKusur $a2.adimlar "$($cvp.dogru)") }   # 27.10 KARNE KURALI (teori ve hesap dersi)
     # 07.09 Cem (FIFO ekranı "neyle çarpıyor anlaşılmıyor") — TEK İŞLEM KAPISI: sayılı parçada parantez dışı ≥2 "+" VE terimlerde ×// varsa
     # (karışık formül: çarpımların toplamı) adım bölünmeli. Yalın toplam (a + b + c) serbest.
     $cokK=@(); if(-not $teoriDers){ foreach($ad in @($a2.adimlar)){ $f="$($ad.formul)"; if($f -match '^\s*(Verilen|Soruda ne var|Yanlış yol|Sağlama|Sonuç|Ters durum|Dahil değil)'){ continue }
@@ -5434,7 +5520,7 @@ foreach($gecisB in @(1,2,3)){ if($gecisB -ne 3 -and -not $Toplu){ continue }; $s
     if(-not $cokOk){ $notlar+="TEK İŞLEM KURALI (m): $($cokK -join '; '). Her çarpım terimi KENDİ adımı olsun (adı + nedeni + '= sonuç'), sonra ayrı bir toplama adımı tablo hücresini doldursun; tamamlanmayan oranı '(1 − %100 = %0)' biçiminde yaz" }
     if($trA.Count){ $notlar+="TÜRKÇE HARF: şu kelimeler Türkçe harfsiz yazılmış: $($trA -join ', '). Adım anlatımı, formül adları ve verilenlerde ş, ç, ğ, ı, ö, ü, İ tam yazılır (yıllık, değil, yanlış, hesabı, işletme)" }
     if(-not $aritOk){ $notlar+="şu formül satırları ARİTMETİK olarak tutmuyor (sol taraf hesaplanınca sağdaki sonuç çıkmıyor): $($aritK -join '; '). Her formülde sol tarafı gerçekten hesapla, sonucu ona göre yaz; ara sonuç ile tablo hücresi aynı olsun" }
-    if(-not $yapiOk){ $notlar+="YAPI: $($yapiK -join '; '). Tam 8 adım: Olay · Ne yapacağız · Şık A · Şık B · Şık C · Şık D · Şık E (her birinde sik/karar/paragraf alanları) · Kapanış; tanım adımı yazma" }
+    if(-not $yapiOk){ $notlar+="YAPI: $($yapiK -join '; '). Tam 8 adım: Olay · Ne yapacağız · Şık A · Şık B · Şık C · Şık D · Şık E (her birinde sik/karar/paragraf alanları) · Kapanış; tanım adımı yazma$(if($script:KURAL2710){ ' (Roma rakamlı soruda öncül adımları sik/karar alanı OLMADAN Ne yapacağız ile Şık A arasına girer; kapanışta sik/karar alanı yok)' })" }
     Write-Host "  ADIM KAPI ($id, tur $turA): $(if(-not $dilOk){"dil($uzunAd/$dolgu) "})$(if(-not $aritOk){"aritmetik($($aritK.Count)) "})$(if(-not $yapiOk){"yapı($($yapiK.Count))"}) -> tekrar" -ForegroundColor Yellow
     $ist2+="`n`nKAPI DÜŞTÜ: $($notlar -join ' · '). Yalnız JSON."
   }

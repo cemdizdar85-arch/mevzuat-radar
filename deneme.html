@@ -257,7 +257,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <!-- 29.09 açılış gecesi (Cem "deneme sayfasını düzelt"): kayıtsız ziyaretçide banka boş (veri/soru-bankasi.json
            09.09'dan beri bilerek boş). Eski metin "açılışta hazır olacak" diyordu; site açıldı. Boş bankada seçiciler
            gizlenir (#ekranKurulum.bosBanka), ziyaretçi çalışan ücretsiz yollara gider. Kasadan deneme = ADIM 4 (05.10). -->
-      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Deneme sınavı Sınav Paketi üyelerine açık.</b> Paket üyesiysen aşağıdan giriş yap; soruların yüklenir.<br><br>Ücretsiz başlamak için:<br>🎯 <a href="seviye-testi.html"><b>30 soruda geçme ihtimalini ölç</b></a> · Staja Giriş seviye testi, sonucun hemen görünür; ayrıntılı rapor ücretsiz hesabınla açılır.<br><a href="index.html?sinav=sgs#ekran"><b>Günün sorusunu çöz</b></a> · her şıkkın gerekçesiyle.<br><br><a href="satin-al.html"><b>Paketi al →</b></a> · <a href="fiyat.html">fiyatlar</a></div>
+      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Deneme sınavı Sınav Paketi üyelerine açık.</b> Paket üyesiysen aşağıdan giriş yap; soruların yüklenir.<br><br>Ücretsiz başlamak için:<br>🎯 <a href="kaydir/vitrin/ornek-sgs.html"><b>5 örnek soru çöz</b></a> · üye olmadan; her cevabından sonra doğrusu ve dayandığı madde açılır.<br><a href="index.html?sinav=sgs#ekran"><b>Günün sorusunu çöz</b></a> · her şıkkın gerekçesiyle.<br><br><a href="satin-al.html"><b>Paketi al →</b></a> · <a href="fiyat.html">fiyatlar</a></div>
       <div class="etiket">0 · Sınav</div>
       <div class="secgrup" id="sinavSec">
         <button class="sec aktif" data-sinav="hepsi">📚 Hepsi</button>
@@ -284,12 +284,12 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div class="etiket">3 · Çalışma biçimi</div>
       <div class="secgrup" id="modSec">
         <button class="sec aktif" data-mod="calisma">📖 <b>Öğrenme</b> <small>· her sorudan sonra doğru cevap + tüm şıkların gerekçesi. Konu çalışırken.</small></button>
-        <button class="sec" data-mod="deneme">⏱ <b>Sınav provası</b> <small>· cevaplar gizli, karne sonda. Gerçek sınav düzeni.</small></button>
+        <button class="sec" data-mod="deneme">⏱ <b>Sınav provası</b> <small>· cevaplar gizli, karne sonda. Sınavdaki soru sayısı ve süre.</small></button>
         <!-- 02.08 Cem onayi ("once 1'den baslayarak hepsini yapalim"): BIREBIR PROVA.
              SGS'de ders/adet secimine BAKILMAZ - 130 soru resmi dagilimla kurulur
              (kaynak: veri/sgs-sinav-yapisi.json <- TESMER Uygulama Yonergesi 2024 m.6.2).
              Yeterlilik'te secilen ders 100 uzerinden puanlanir, ders baraji 50. -->
-        <button class="sec" data-mod="prova">🎯 <b>Birebir Prova</b> <small>· Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te gerçek 2026 düzeni: seçtiğin dersten 20 soru / 45 dk, yanlış 0,25 götürür, baraj 50. Gerçek sınavın kendisi.</small></button>
+        <button class="sec" data-mod="prova">🎯 <b>Sınav düzeninde deneme</b> <small>· Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te sınavdaki soru sayısı ve süre: seçtiğin dersten 20 soru / 45 dk, yanlış 0,25 götürür, baraj 50. Gerçek sınavın kendisi.</small></button>
       </div>
       <div class="etiket">4 · Soru havuzu</div>
       <div class="secgrup" id="kaynakSec">
@@ -866,13 +866,13 @@ function provaPaneli(dogru,yanlis,bos,yuzde){
     var net=dogru-0.25*yanlis; if(net<0) net=0;
     var netStr=(Math.round(net*100)/100).toLocaleString('tr-TR');
     var puan=toplam?Math.round(100*net/toplam):0;
-    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Yeterlilik (2026 test düzeni)</div>'
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Sınav düzeninde deneme · Yeterlilik (2026 soru sayısı ve süre)</div>'
      +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Net puan 100 üzerinden <b style="color:var(--ink)">'+puan+'</b>; ders barajı 50: '
      +(puan>=50?'<b style="color:var(--green)">baraj üstü ✓</b>':'<b style="color:var(--red)">baraj altı ✗</b>')
      +'. Hesap: '+dogru+' doğru − 0,25 × '+yanlis+' yanlış = <b style="color:var(--ink)">'+netStr+' net</b> / '+toplam+' soru (ham %'+yuzde+'). '
      +'Gerçek kural: <b>yanlış cevap doğrunun 0,25\'ini götürür</b>, emin değilsen boş bırakmak da stratejidir; her ders ≥50 <b>ve</b> ortalama ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil; oturumda hesap makinesi <b>yasak</b> <span style="color:var(--dim)">(TÜRMOB YK 14.01.2026 · TESMER Uygulama Yönergesi)</span>.</div>';
   } else {
-    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Staja Giriş bileşimi</div>'
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Sınav düzeninde deneme · Staja Giriş ders dağılımı</div>'
      +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Ham başarı <b style="color:var(--ink)">%'+yuzde+'</b> ('+dogru+' doğru / '+toplam+' soru). Gerçek SGS <b>bağıl</b> değerlendirilir: ortalama 50, standart sapma 10 kabul edilir; <b>60 ve üzeri puan geçer</b>; yanlış doğruyu götürmez <span style="color:var(--dim)">(TESMER Uygulama Yönergesi m.6.2)</span>. Ham yüzde bağıl puanın kendisi değildir; diğer adaylara göre yerin belirler.</div>';
   }
   var ek=window.PROVA_EKSIK||[];

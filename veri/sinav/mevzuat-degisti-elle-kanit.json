@@ -522,6 +522,131 @@
                                                                      "tur":  "KAVRAM-TARAMASI",
                                                                      "gerekce":  "SGS konu \u0027tacir sifati\u0027: soru, şıklar ve açıklama ne TTK geç. m.7\u0027nin ayırt edici belirteçlerine (MdAyirtEdici: tutul/ortay/çıkab/…) ne de iptal edilen hükmün kavramlarına (Hazine, intikal, on/beş yıl, ihya, borçlarından sorumlu) değiyor; geç. m.7 pakette mıknatıs kaynaktı",
                                                                      "okuyan":  "GM, 23.09.2026 (site oturumu isteği, Cem kararı)"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t3-fy-g2-cokzor/kp-03":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Alacak senedi iskontosu notu (400b2c04): formül cümlesi aynen korundu, arkasına \"faizsiz senette nominal = vade sonu değer; faizli senette dış iskonto vade sonu değer (nominal + vadeye kadar faiz) üzerinden\" cümlesi EKLENDİ. Kökteki senet faizsiz (faiz yazılı değil) → nominal = vade sonu değer, dış iskonto matrahı değişmez. Yeniden hesap: 540.000 × 0,32 × 120/360 = 57.600; kesinti 60.480; eline geçen 479.520; 60.480/479.520 × 3 = %37,84 = E.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t3-fy-g2-kolay/kp-03":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Alacak senedi iskontosu notu (400b2c04): formül cümlesi aynen korundu, arkasına \"faizsiz senette nominal = vade sonu değer; faizli senette dış iskonto vade sonu değer (nominal + vadeye kadar faiz) üzerinden\" cümlesi EKLENDİ. Kökteki senet faizsiz → nominal üzerinden dış iskonto doğru. Yeniden hesap: 720.000 × 0,30 × 90/360 = 54.000; 720.000 − 54.000 − 3.600 = 662.400 = A.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t3-fy-g2-zor/kp-03":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Reeskont notu (400b2c04): \"reeskont iç iskonto ile hesaplanır\" cümlesi aynen korundu, arkasına \"VUK m.281 yöntem belirlemez; iç iskonto yaygındır, soru hangi yöntemi istiyorsa o kullanılır\" cümlesi EKLENDİ. Kök iç iskonto yöntemini AÇIKÇA istiyor → eklenen \"soru hangi yöntemi istiyorsa\" cümlesiyle uyumlu. Yeniden hesap: 387.000 × 27/387 = 27.000; peşin değer 360.000 = C.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t3-fy-g4-cokzor/kp-04":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Soru nakit dönüşüm süresini soruyor: 50 + 60 − 40 = 70 = B; açıklama 110 çeldiricisini \"stok + tahsil = faaliyet döngüsü\" diye tanımlıyor → yeni cümleyle birebir uyumlu.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t3-fy-g4-zor/kp-06":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Soru yalnız alacak devir hızı/tahsil süresinden geriye dönem sonu alacağı istiyor; döngü cümlesine değmiyor. Yeniden hesap: 360/45 = 8; 5.400.000/8 = 675.000; ×2 − 600.000 = 750.000 = E.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t4-fy-g1-kolay/kp-04":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Likidite notu (400b2c04): asit-test cümlesi aynen korundu, arkasına \"stoklar nakde dönüşen dönen varlıkların en az likididir; gelecek aylara ait giderler hiç nakde dönmez, dar kapsamlı asit-testte onlar da düşülür\" cümlesi EKLENDİ. Soru nakit oranını soruyor (hazır değer + menkul kıymet)/KVYK; eklenen cümle asit-test kapsamıyla ilgili, nakit oranına değmiyor. Yeniden hesap: 12/30 = 0,40 = D.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t5-fy-g3-cokzor/kp-01":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Reeskont notu (400b2c04): \"reeskont iç iskonto ile hesaplanır\" cümlesi aynen korundu, arkasına \"VUK m.281 yöntem belirlemez; iç iskonto yaygındır, soru hangi yöntemi istiyorsa o kullanılır\" cümlesi EKLENDİ. Kök \"iç iskonto yöntemiyle\" diyor → eklenen cümleyle uyumlu. Yeniden hesap: (I) 110.000 × 0,40 × 90/396 = 10.000; (II) 52.000 × 0,48 × 30/374,4 = 2.000; (III) vadesi geçmiş, reeskont yok; toplam 202.000 − 12.000 = 190.000 = D.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t5-fy-g3-cokzor/kp-03":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Soru nakit döngüsünü soruyor: 40 + 30 − 45 = 25 = A; açıklama 70 günü faaliyet döngüsü (stok + tahsil) diye tanımlıyor → yeni cümleyle birebir uyumlu.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t5-fy-g3-kolay/kp-01":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Reeskont notu (400b2c04): \"reeskont iç iskonto ile hesaplanır\" cümlesi aynen korundu, arkasına \"VUK m.281 yöntem belirlemez; iç iskonto yaygındır, soru hangi yöntemi istiyorsa o kullanılır\" cümlesi EKLENDİ. Kök iç iskontoyu ve 365 günü açıkça veriyor. Yeniden hesap: 0,20 × 73/365 = 0,04; 73.000/1,04 = 70.192,31 = E.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t5-fy-g3-zor/kp-01":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Reeskont notu (400b2c04): \"reeskont iç iskonto ile hesaplanır\" cümlesi aynen korundu, arkasına \"VUK m.281 yöntem belirlemez; iç iskonto yaygındır, soru hangi yöntemi istiyorsa o kullanılır\" cümlesi EKLENDİ. Kök iç iskontoyu açıkça istiyor. Yeniden hesap: 84.000 × 0,40 × 45/(360 + 18) = 4.000 = B.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t6-fy-g1-cokzor/kp-02":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Soru nakit dönüşüm süresi formülünü (stok + tahsil − ödeme) kullanıyor; değişen cümle bu formülü değiştirmedi. Yeniden hesap: ödeme süresi 60 + 45 − 48 = 57; 3.960.000 × 57/360 = 627.000 = D.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t6-fy-g1-zor/kp-04":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Nakit dönüşüm süresi 60 + 30 − 45 = 45 = B; çeldirici 90 \"faaliyet döngüsü\" diye açıklanıyor → yeni cümleyle uyumlu. Devir hızları 6/12/8 yeniden bölündü.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t6-fy-g2-cokzor/kp-02":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Nakit döngüsü formülünden tahsilat süresi çekiliyor; değişen cümleye değmiyor. Yeniden hesap: stok 50 gün, ödeme 40 gün, tahsil 55 − 50 + 40 = 45; 12.618.000/8 = 1.577.250 = E.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t6-fy-g2-kolay/kp-02":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Yalnız alacak devir hızı/tahsil süresi kullanılıyor. Yeniden hesap: 7.200.000/(360/36) = 720.000 = A.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t6-fy-g2-zor/kp-02":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Yalnız alacak devir hızı/tahsil süresi ve ortalama kuralı kullanılıyor. Yeniden hesap: 10.800.000/9 = 1.200.000; ×2 − 1.050.000 = 1.350.000 = C.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t6-fy-g5-kolay/kp-01":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Likidite notu (400b2c04): asit-test cümlesi aynen korundu, arkasına \"stoklar nakde dönüşen dönen varlıkların en az likididir; gelecek aylara ait giderler hiç nakde dönmez, dar kapsamlı asit-testte onlar da düşülür\" cümlesi EKLENDİ. Kök asit-test formülünü (DV − stok)/KVYK olarak veriyor ve dönen varlıklar yalnız hazır değer, menkul kıymet, alacak, stoktan oluşuyor (GAAG yok) → dar/geniş ayrımı doğmuyor. Yeniden hesap: 1.344.000 − 512.000 = 832.000 = E.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t6-fy-g5-kolay/kp-06":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Likidite notu (400b2c04): asit-test cümlesi aynen korundu, arkasına \"stoklar nakde dönüşen dönen varlıkların en az likididir; gelecek aylara ait giderler hiç nakde dönmez, dar kapsamlı asit-testte onlar da düşülür\" cümlesi EKLENDİ. Soru brüt çalışma sermayesini (dönen varlık toplamı, GAAG dahil) soruyor; eklenen cümle asit-test payıyla ilgili, brüt tanıma değmiyor. Yeniden hesap: 145.000 + 62.000 + 318.000 + 427.000 + 28.000 = 980.000 = D.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t6-fy-g6-cokzor/kp-03":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Alacak senedi iskontosu notu (400b2c04): formül cümlesi aynen korundu, arkasına \"faizsiz senette nominal = vade sonu değer; faizli senette dış iskonto vade sonu değer (nominal + vadeye kadar faiz) üzerinden\" cümlesi EKLENDİ. Senet FAİZLİ ve banka vade sonu değer üzerinden iskonto ediyor → eklenen cümlenin tam uygulaması. Yeniden hesap: 150.000 × 1,12 = 168.000; iskonto 168.000 × 0,40 × 108/360 = 20.160; komisyon 504; ödenen 147.336; 20.664/147.336 × 360/108 = %46,75 = E.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t6-fy-g6-kolay/kp-04":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Likidite notu (400b2c04): asit-test cümlesi aynen korundu, arkasına \"stoklar nakde dönüşen dönen varlıkların en az likididir; gelecek aylara ait giderler hiç nakde dönmez, dar kapsamlı asit-testte onlar da düşülür\" cümlesi EKLENDİ. Kök GENİŞ kapsamı (yalnız stok düşülür) açıkça istiyor; açıklama dar kapsamda GAAG\u0027nin de düşüleceğini çeldirici (1,12) olarak doğru anlatıyor → eklenen cümleyle uyumlu. Yeniden hesap: (1.660.000 − 759.000)/750.000 = 1,20 = B.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t6-fy-g6-zor/kp-03":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Alacak senedi iskontosu notu (400b2c04): formül cümlesi aynen korundu, arkasına \"faizsiz senette nominal = vade sonu değer; faizli senette dış iskonto vade sonu değer (nominal + vadeye kadar faiz) üzerinden\" cümlesi EKLENDİ. Senet FAİZLİ, dış iskonto vade sonu değer üzerinden → eklenen cümleyle birebir. Yeniden hesap: 60.000 × 1,10 = 66.000; 66.000 × 0,42 × 70/360 = 5.390; 66.000 − 5.390 = 60.610 = C.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t6-fy-g8-cokzor/kp-05":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Faaliyet devri süresi kökte stok + tahsil olarak tanımlı = yeni cümledeki faaliyet döngüsü tanımı. Yeniden hesap: 40 + 50 = 90; katsayı 4; 270.450.000/4 = 67.612.500 = B.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t6-fy-g8-cokzor/kp-06":  {
+                                                                      "tur":  "ELLE-OKUNDU",
+                                                                      "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Faaliyet döngüsü = nakit döngüsü + borç gün → yeni cümleyle birebir. Yeniden hesap: ortalama borç 35.062.500; devir 7,2; 50 gün; 58 + 50 = 108 = C.",
+                                                                      "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                  },
+                     "b6293b4e^|soru|kgk-t6-fy-g8-kolay/kp-06":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Faaliyet döngüsü = stok gün + alacak gün = 45 + 60 = 105 = D; borç ödeme süresi düşülmüyor → yeni cümle soruyu doğruluyor (eski \"üç temel süre\" cümlesi yanlış anlaşılmaya açıktı).",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                                 },
+                     "b6293b4e^|soru|kgk-t6-fy-g8-zor/kp-05":  {
+                                                                   "tur":  "ELLE-OKUNDU",
+                                                                   "gerekce":  "Tahsilat notu (400b2c04): değişen tek cümle eski \"döngüsü, üç temel süre üzerinden hesaplanır\" → yeni \"faaliyet döngüsü = stokta kalma + ortalama tahsilat süresi; ödeme süresi düşülünce nakit (dönüşüm) döngüsü\". Formül cümleleri (devir hızları, süre = 360/devir hızı, nakit döngüsü = stok + tahsil − ödeme) aynen duruyor. Faaliyet devri süresi kökte stok + tahsil = yeni tanım; borç ödeme süresi düşülmüyor. Yeniden hesap: 40 + 50 = 90; katsayı 4; 324.000.000/4 = 81.000.000 = E.",
+                                                                   "okuyan":  "KGK oturumu elle okuma 22.10"
+                                                               },
+                     "b6293b4e^|soru|kgk-t6-fy-g9-kolay/kp-04":  {
+                                                                     "tur":  "ELLE-OKUNDU",
+                                                                     "gerekce":  "Likidite notu (400b2c04): asit-test cümlesi aynen korundu, arkasına \"stoklar nakde dönüşen dönen varlıkların en az likididir; gelecek aylara ait giderler hiç nakde dönmez, dar kapsamlı asit-testte onlar da düşülür\" cümlesi EKLENDİ. Yorum sorusu (aşırı yüksek cari oran = atıl kaynak); doğru şık A ve gerekçesi (asit-test ≥ nakit oranı 1,8, yüksekliğin kaynağı nakit) eklenen likidite sırası cümlesine aykırı değil.",
+                                                                     "okuyan":  "KGK oturumu elle okuma 22.10"
                                                                  }
                  }
 }

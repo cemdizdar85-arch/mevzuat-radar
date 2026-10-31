@@ -138,8 +138,18 @@ async function ana() {
   const ayar = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'hatirlatma-ayar.json'), 'utf8'));
   const im = imza(), acik = !process.argv.includes('--kuru') && ayar.havale_acik === true && ayar.havale_onayli_imza === im;
   const L = await hepsi('/rest/v1/siparisler?select=siparis_no,ad_soyad,email,paket,paket_ad,tutar,durum,odeme,olusturma&order=olusturma.asc');
-  const gitti = new Set((await hepsi(`/rest/v1/form_kayit?select=alanlar&konu=eq.${encodeURIComponent(KAYIT)}`)).flatMap(x => (x.alanlar || {}).kapsar || [(x.alanlar || {}).siparis_no]).filter(Boolean));
-  const { out, say } = sec(L, gitti, new Date());
+  /* 29.10: motor/kart-takildi.mjs maili giden siparişe ikinci (havale) hatırlatma gitmez - iki kayıt birlikte okunur */
+  const gitti = new Set((await hepsi(`/rest/v1/form_kayit?select=alanlar&konu=in.(${encodeURIComponent('"' + KAYIT + '","Kart takıldı maili gönderildi"')})`)).flatMap(x => (x.alanlar || {}).kapsar || [(x.alanlar || {}).siparis_no]).filter(Boolean));
+  const { out: aday, say } = sec(L, gitti, new Date());
+  /* 21.10 çift ödeme kapısı: paketi başka yoldan (Play / başka e-postayla sipariş) açılmış kişiye "ödemeni yap" gitmez.
+     siparis_odeme_kontrol yoksa (göç basılmadan) ya da okunamazsa eski davranış sürer. */
+  const out = []; say.paketAcik = 0;
+  for (const x of aday) {
+    let k = '';
+    try { const r = await fetch(SB + '/rest/v1/rpc/siparis_odeme_kontrol', { method: 'POST', headers: { apikey: SK, Authorization: 'Bearer ' + SK, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_no: x.s.siparis_no }) }); if (r.ok) k = await r.json(); } catch (e) { /* eski davranış */ }
+    if (k === 'PAKET_ZATEN_ACIK') say.paketAcik++; else out.push(x);
+  }
+  say.gidecek = out.length;
   let git = 0, dus = 0;
   if (acik) {
     if (!RESEND_KEY) throw new Error('RESEND_KEY yok');
@@ -151,7 +161,7 @@ async function ana() {
       await new Promise(r => setTimeout(r, 600));
     }
   }
-  const ozet = `HAVALE HATIRLATMASI ${acik ? 'GÖNDERİM' : 'SAYIM (gönderim kapalı)'}: bekleyen havale ${say.bekleyen} · 3 saatten yeni ${say.yeni} · sınavı geçmiş ${say.sinavGecti} · sonra ödemiş ${say.kartaGecti} · zaten hatırlatıldı ${say.zatenGitti} · aynı kişinin eski siparişi ${say.ayniKisi} · gidecek ${say.gidecek}` + (acik ? ` · gitti ${git} · düştü ${dus}` : '') + ` · metin imzası ${im}${ayar.havale_onayli_imza === im ? ' (onaylı)' : ' (ONAYSIZ)'}`;
+  const ozet = `HAVALE HATIRLATMASI ${acik ? 'GÖNDERİM' : 'SAYIM (gönderim kapalı)'}: bekleyen havale ${say.bekleyen} · 3 saatten yeni ${say.yeni} · sınavı geçmiş ${say.sinavGecti} · sonra ödemiş ${say.kartaGecti} · zaten hatırlatıldı ${say.zatenGitti} · aynı kişinin eski siparişi ${say.ayniKisi} · paketi zaten açık ${say.paketAcik} · gidecek ${say.gidecek}` + (acik ? ` · gitti ${git} · düştü ${dus}` : '') + ` · metin imzası ${im}${ayar.havale_onayli_imza === im ? ' (onaylı)' : ' (ONAYSIZ)'}`;
   console.log(ozet);
   if (acik && dus) process.exitCode = 1;
 }

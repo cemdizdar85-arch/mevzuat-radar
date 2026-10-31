@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20261021043227
-Username: runnervmdkmh8\runner
-RunAs User: runnervmdkmh8\runner
+Start time: 20261031124930
+Username: runnervmnwato\runner
+RunAs User: runnervmnwato\runner
 Configuration Name: 
-Machine: runnervmdkmh8 (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/09ed9187-06e3-4d9d-ab74-e63349819017.ps1'
-Process ID: 2940
-PSVersion: 7.6.6
+Machine: runnervmnwato (Unix 7.0.0.1017)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b8f9044a-d52a-4b6a-ab42-200194e04d93.ps1'
+Process ID: 2693
+PSVersion: 7.6.9
 PSEdition: Core
-GitCommitId: 7.6.6
+GitCommitId: 7.6.9
 OS: Ubuntu 26.04.1 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -17,12 +17,24 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 21-10-2026
+RG gunu      : 31-10-2026
 Kart sayisi  : 6
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Elektrik dağıtım tarifesi gözetim oranı yüzde 1,5'ten yüzde 2'ye yükseltildi
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261021043227
+End time: 20261031124930
 **********************

@@ -68,9 +68,15 @@
     return { gun: n, bugunVar: bugunVar };
   }
 
-  function ozet(){
+  /* 28.10 (Cem "bak ilgilen", girişli hesapta görüldü): Hesabım Yeterlilik seçiliyken kart "Çözülen 18 · tekrar bekleyen 146" diyordu,
+     sayıların 15'i/104'ü SGS'dendi; aynı ekranda "0 çözülen" ve "Paketin hazır, ilk sorunla başla" ile çelişiyordu. sinav verilirse
+     ('sgs'|'yeterlilik'|'kgk') cevap ve kutu soru kimliğinin önekiyle (sgs-/smmm-/kgk-) o sınava indirilir. Seri hep TÜM sınavlardan
+     (hangi sınava çalışılsa çalışılmış gün). sinav verilmezse eskisi gibi hepsi (yanlislarim.html). */
+  function ozet(sinav){
     var kayit = oku('kc_kayit', []), kutu = oku('kc_kutu', []), ileri = parseInt(localStorage.getItem('kc_ileri') || '0') || 0;
     if(!Array.isArray(kayit)) kayit = []; if(!Array.isArray(kutu)) kutu = [];
+    var tumKayit = kayit, onek = sinav === 'yeterlilik' ? 'smmm-' : sinav === 'kgk' ? 'kgk-' : sinav === 'sgs' ? 'sgs-' : null;
+    if(onek){ var bu = function(x){ return x && String(x.id || '').indexOf(onek) === 0; }; kayit = kayit.filter(bu); kutu = kutu.filter(bu); }
     var an = Date.now() + ileri;
     var dogru = kayit.filter(function(x){ return x && x.dogru; }).length;
     var vadeli = kutu.filter(function(x){ return x && x.due <= an; });
@@ -114,7 +120,7 @@
       sonSeviyeYet: svYet.length ? svYet[svYet.length - 1] : null,
       /* 04.10 günlük görev (Cem "beş maddeyi yapalım", rakip BPP): bugün (yerel gün) çözülen cevap sayısı */
       bugunCozulen: kayit.filter(function(x){ return x && x.t && new Date(x.t).toDateString() === new Date(an).toDateString(); }).length,
-      gunSeri: gunSerisi(kayit, an),
+      gunSeri: gunSerisi(tumKayit, an),
       an: an
     };
   }
@@ -162,6 +168,12 @@
        koyar) bu cihazın kc_kayit'ine eklenir; telefonda çözülen konu bilgisayarda da "dokundun" sayılır. Kimlik biçimi aynı.
        hesap=true sonuçta: liste hesaptaki cevaplara göre. 🚫 GÖRMEZ: ücretsiz örnek cevapları (sunucuya yazılmıyor; yalnız kc_kayit). */
     var hesapEk = Array.isArray(window.TT_HESAP_COZ) ? window.TT_HESAP_COZ : null;
+    /* 28.10 KONU HEDEFİ (Cem "SmartPath gibi yapalım"): soru başına SON cevabın doğruluğu. Önce hesap (uye_cozdugum_sorular 'o',
+       2026-10-28 SQL'inden sonra dolu; öncesinde null = bilinmiyor), sonra bu cihaz (kc_kayit.dogru) üstüne yazar. Tekil soru sayılır. */
+    var cvp = {};
+    (hesapEk || []).forEach(function(x){ if(x && x.i) cvp[x.i] = (x.o === true || x.o === false) ? x.o : null; });
+    kayit.forEach(function(x){ if(x && x.id) cvp[x.id] = !!x.dogru; });
+    var konuSay = function(r2, id){ r2.coz = (r2.coz || 0) + 1; if(cvp[id] !== null){ r2.olc = (r2.olc || 0) + 1; if(cvp[id]) r2.dog = (r2.dog || 0) + 1; } };
     if(hesapEk) kayit = kayit.concat(hesapEk.map(function(x){ return { id:x.i, ders:x.d }; }));
     var bitir = function(x){ try{ if(x) x.hesap = !!hesapEk; cb(x); }catch(e){} };
     /* 13.10 KGK (site kolu, KGK açılış hazırlığı): KGK'da seviye testi, deneme seti ve okunmuş konu bağı YOK → DERS düzeyi.
@@ -196,10 +208,12 @@
         Object.keys(es).forEach(function(id){ var e = es[id]; (e.konular || []).forEach(function(k){ var r2 = K[e.ders + '|' + k]; if(r2) r2.banka++; }); });
         var cozulen = 0;
         kayit.forEach(function(x){ var e = x && es[x.id]; if(!e) return; cozulen++; (e.konular || []).forEach(function(k){ var r2 = K[e.ders + '|' + k]; if(r2) r2.dokundu = true; }); });
+        Object.keys(cvp).forEach(function(id){ var e = es[id]; if(!e) return; (e.konular || []).forEach(function(k){ var r2 = K[e.ders + '|' + k]; if(r2) konuSay(r2, id); }); });
         var srt = function(z){ var p = String(z).split('/'); return +p[0] * 10 + +p[1]; };
         var hepsi = Object.keys(K).map(function(k){ var r2 = K[k], dn = Object.keys(r2.don).sort(function(a, b){ return srt(a) - srt(b); });
           r2.kanit.sort(function(a, b){ return srt(a.donem) - srt(b.donem) || String(a.soru).localeCompare(String(b.soru), 'tr', { numeric:true }); });
-          return { ders:r2.ders, konu:r2.konu.replace(/ › /g, ' — '), donSay:dn.length, son:dn[dn.length - 1], kanit:r2.kanit, banka:r2.banka, dokundu:r2.dokundu, sayfa:sayfa[r2.ders] || 'sorular.html#smmm' };
+          return { ders:r2.ders, konu:r2.konu.replace(/ › /g, ' — '), donSay:dn.length, son:dn[dn.length - 1], kanit:r2.kanit, banka:r2.banka, dokundu:r2.dokundu, sayfa:sayfa[r2.ders] || 'sorular.html#smmm',
+            coz:r2.coz || 0, olc:r2.olc || 0, dog:r2.dog || 0 };
         }).filter(function(z){ return z.banka >= 3; })
           .sort(function(a, b){ return b.donSay - a.donSay || srt(b.son) - srt(a.son); });
         /* "sık çıkan" = her dersin en sık 5 konusu (en-cok-cikan-konular-yeterlilik.html ile aynı ölçü) */
@@ -221,10 +235,13 @@
       var sgs = d && d.sinavlar ? d.sinavlar.filter(function(s){ return s.kod === 'sgs'; })[0] : null;
       if(!sgs) return bitir(null);
       if(sk && Array.isArray(sk.konular) && sk.kimlik){
-        var dok = {}, coz = 0;
+        var dok = {}, coz = 0, bk = {}, ks = {};
         kayit.forEach(function(x){ var i = x && sk.kimlik[x.id]; if(i == null) return; coz++; dok[i] = 1; });
-        var kl = sk.konular.map(function(k, i){ var b = dersBul(d, k.ders, 'sgs');
-          return { ders:k.ders, konu:k.konu, donSay:k.donem, son:k.son, kanit:k.kanit || [], dokundu:!!dok[i], sayfa:b ? b.sayfa : 'sorular.html#sgs' }; });
+        Object.keys(sk.kimlik).forEach(function(id){ var i = sk.kimlik[id]; bk[i] = (bk[i] || 0) + 1; });
+        Object.keys(cvp).forEach(function(id){ var i = sk.kimlik[id]; if(i == null) return; konuSay(ks[i] || (ks[i] = {}), id); });
+        var kl = sk.konular.map(function(k, i){ var b = dersBul(d, k.ders, 'sgs'), s2 = ks[i] || {};
+          return { ders:k.ders, konu:k.konu, donSay:k.donem, son:k.son, kanit:k.kanit || [], dokundu:!!dok[i], sayfa:b ? b.sayfa : 'sorular.html#sgs',
+            banka:bk[i] || 0, coz:s2.coz || 0, olc:s2.olc || 0, dog:s2.dog || 0 }; });
         return bitir({ sinav:'sgs', tur:'konu', cozulen:coz, pencere:sk.pencere, donem:sk.donem, toplamSik:kl.length,
           dokunulanSik:kl.filter(function(z){ return z.dokundu; }).length, liste:kl.filter(function(z){ return !z.dokundu; }).slice(0, 6), tumu:kl });
       }
@@ -247,8 +264,8 @@
        kurulamaz → soru bankasına yönlendirir · kc_kayit sınav taşımaz, "Sermaye Piyasası Mevzuatı" Yeterlilik cevabı KGK'ya da sayılır.
      cb({baslik, metin, dugme, adres}, ozet, evre|null) */
   function oneri(cb, bag){
-    var o = ozet();
     bag = bag || {};
+    var o = ozet(bag.sinav);
     var ev = evre(bag.gun), yet = bag.sinav === 'yeterlilik', kgk = bag.sinav === 'kgk', kod = bag.sinav ? (yet ? 'smmm' : kgk ? 'kgk' : 'sgs') : null;
     var sikSayfa = yet ? 'en-cok-cikan-konular-yeterlilik.html' : 'en-cok-cikan-konular-sgs.html';
     dizin().then(function(d){
@@ -296,8 +313,9 @@
           sonuc = { baslik:'Şimdi bunu yap', metin:'Son seviye testinde en zayıf alanın ' + g.ad + ' (' + g.dogru + '/' + g.soru + '). Bugün oradan 10 soru çöz, yaklaşık 15 dakika.',
                     dugme:'Başla', adres: gb ? gb.sayfa : 'sorular.html' };
         } else {
-          sonuc = { baslik:'Şimdi bunu yap', metin:'30 soruluk seviye testini çöz; hangi derste ne kadar hazır olduğunu gör, sonra sana nereden başlayacağını söyleyelim.',
-                    dugme:'Seviye testine başla', adres:'seviye-testi.html' };
+          /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
+          sonuc = { baslik:'Şimdi bunu yap', metin:'5 örnek soruyla başla: her cevabından sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.',
+                    dugme:'5 örnek soru çöz', adres:'kaydir/vitrin/ornek-' + (yet ? 'smmm' : 'sgs') + '.html' };
         }
       }
       try{ cb(sonuc, o, ev); }catch(e){}

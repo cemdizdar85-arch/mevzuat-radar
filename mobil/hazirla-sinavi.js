@@ -57,7 +57,7 @@ const SEVIYE = (ek, eksik) => {
     canonical: '<link rel="canonical" href="https://tetikte.com/seviye-testi.html">',
     sayac: '<script data-goatcounter="https://x.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>',
     menu: '<script src="menu.js" defer></script>', komutcss: '<link rel="stylesheet" href="komut.css">', komut: '<script src="komut.js" defer></script>',
-    fiyat: '<script src="fiyat-motoru.js?v=1"></script>', uye: '<script src="uye-durumu.js?v=1"></script>'
+    fiyat: '<script src="fiyat-motoru.js?v=20261028z"></script>', uye: '<script src="uye-durumu.js?v=20261028z"></script>'
   };
   if (eksik) delete satir[eksik];
   return '<!doctype html><html lang="tr"><head>' + satir.canonical + '<link rel="stylesheet" href="stil.css"></head><body>' +
@@ -70,6 +70,13 @@ const SEVIYE = (ek, eksik) => {
 const SITE_DIGER = ['yanlislarim.html', 'canli-deneme.html', 'en-cok-cikan-konular-sgs.html', 'en-cok-cikan-konular-yeterlilik.html'];
 const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" href="stil.css">', kapisiz ? '' : '<script src="paket-kapisi.js"></script>')
   .replace('<a href="ogrenci.html', '<a href="sorular.html#sgs">Soru çöz</a><a href="ogrenci.html');
+/* 31.10 1.9.1 Son 20 Gün: yalnız canonical sökülür; sayfaya özgü satış/giriş bağları hazirla.js `degis` ile çevrilir (gerçek sayfanın biçimi) */
+const SON20 = () => '<!doctype html><html lang="tr"><head><link rel="canonical" href="https://tetikte.com/son-20-gun.html"><link rel="stylesheet" href="stil.css"></head><body>' +
+  '<a href="kampanya-son-20-gun.html">Koşullar</a><script>' + String.raw`
+  k.innerHTML='<a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a>';
+  k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a>';
+  k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a>';
+` + '</script></body></html>';
 const SITE_EK_SAHTE = {};
 ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js',
   'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js', 'nobetci-notu.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
@@ -80,7 +87,8 @@ function kur(degisiklik) {
     'seviye-testi.html': SEVIYE(),
     'sinav-gibi.html': SINAV_GIBI(),
     /* 18.10: en çok çıkan konulardan sorular sayfası (iPhone'da gizlenen satış kartı #ecSatis) */
-    'en-cok-cikan-sorular.html': SEVIYE().replace('id="svTeklif"', 'id="ecSatis"')
+    'en-cok-cikan-sorular.html': SEVIYE().replace('id="svTeklif"', 'id="ecSatis"'),
+    'son-20-gun.html': SON20()
   }, SITE_EK_SAHTE, Object.fromEntries(SITE_DIGER.map((y) => [y, SEVIYE()])), {
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",
@@ -89,6 +97,10 @@ function kur(degisiklik) {
     'cihaz-kapisi.js': '/* cihaz */',
     'icerik-koruma.js': '/* koruma (09.10) */',
     'captcha.js': '/* captcha */',
+    'cizerek-coz.js': '/* çizerek çöz (27.10) */',
+    'kutuphane/caveat-600-latin.woff2': 'f',
+    'kutuphane/caveat-600-latin-ext.woff2': 'f',
+    'ses/cizim/x__kp-01/r1.mp3': 'm',
     'kaydir/sgs/index.html': '<a class="kart" href="turkce.html"><div class="ad">T&#252;rk&#231;e</div></a>',
     'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html'),
     'kaydir/sgs/maliye.html': '<html><script>const SORULAR=[{"dogru":"A"}]</script></html>',
@@ -155,7 +167,13 @@ const VAKALAR = [
   { ad: 'seviye sayfasında iPhone gizleme kimliği (svTeklif) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*svTeklif/,
     d: { 'seviye-testi.html': SEVIYE().replace('id="svTeklif"', 'id="baska"') } },
   { ad: 'yanlışlarım sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*yanlislarim\.html yok/, d: { 'yanlislarim.html': null } },
-  { ad: 'canlı deneme yardımcısı (tema.js) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*tema\.js yok/, d: { 'tema.js': null } }
+  { ad: 'canlı deneme yardımcısı (tema.js) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*tema\.js yok/, d: { 'tema.js': null } },
+  /* 31.10 1.9.1 Son 20 Gün */
+  { ad: 'Son 20 Gün sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html yok/, d: { 'son-20-gun.html': null } },
+  { ad: 'Son 20 Gün "Paketleri gör" bağı değişmiş (site satış sayfasına gider) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*değişim deseni/,
+    d: { 'son-20-gun.html': SON20().replace('#gktPaket', '#gktPaketYeni') } },
+  { ad: 'Son 20 Gün giriş bağı tek kalmış (adet 2 bekleniyor) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*bulunan 1/,
+    d: { 'son-20-gun.html': SON20().replace("ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'", 'index.html') } }
 ];
 
 let gecen = 0, toplam = 0;
@@ -210,24 +228,33 @@ for (const v of VAKALAR) {
   sonuc('kapsar()/sinaviBul() paket-kapisi.js ile aynı (' + 15 * 3 + ' paket×sınav + 4 yol)', tamam, not);
 }
 
-/* --------------------------- 02.10 B1: iPhone'da satış kapalıyken web paketi açılmaz --------------------------- */
+/* ------ 30.10 (Cem, 02.10 B1'in yerine): iPhone'da web paketi AÇILIR; satış iPhone'da kapalı kalır;
+          "yalnız ücretsiz" görünüm yalnız paketsiz iPhone kullanıcısında ------ */
 {
   let kaynak = fs.readFileSync(path.join(__dirname, 'uygulama', 'ortak.js'), 'utf8');
-  if (process.env.HZ_MUTASYON === 'ioskilit') kaynak = kaynak.replace('if (iosKilitli())', 'if (false)');
-  const dene = async (platform, iosSatis) => {
-    let sorgu = 0;
-    const kutu = { window: platform ? { Capacitor: { getPlatform: () => platform } } : {}, localStorage: { setItem() {}, getItem() { return null; } }, navigator: {}, indexedDB: null };
+  if (process.env.HZ_MUTASYON === 'ioskilit') kaynak = kaynak.replace('function iosKilitli() { return iosSatisYok() && !iosPaketli(); }', 'function iosKilitli() { return iosSatisYok(); }');
+  const dene = async (platform, iosSatis, satirlar) => {
+    let sorgu = 0; const depo = {};
+    const kutu = { window: platform ? { Capacitor: { getPlatform: () => platform } } : {}, navigator: {}, indexedDB: null,
+      localStorage: { setItem(k, v) { depo[k] = String(v); }, getItem(k) { return k in depo ? depo[k] : null; }, removeItem(k) { delete depo[k]; } } };
     vm.createContext(kutu);
     vm.runInContext(iosSatis ? kaynak.replace('var IOS_SATIS = false; /*HAZIRLA:IOS_SATIS*/', 'var IOS_SATIS = true;') : kaynak, kutu);
-    const sb = { from: () => ({ select: () => ({ eq: async () => { sorgu++; return { data: [{ paket: 'sgs', bitis: null }], error: null }; } }) }) };
-    const r = await kutu.window.TT.paketler(sb, 'u1');
-    return { acar: kutu.window.TT.acarMi(r.satir, 'sgs'), sorgu };
+    const sb = { from: () => ({ select: () => ({ eq: async () => { sorgu++; return { data: satirlar, error: null }; } }) }) };
+    const TT = kutu.window.TT, once = TT.yalnizUcretsiz();
+    const r = await TT.paketler(sb, 'u1');
+    return { acar: TT.acarMi(r.satir, 'sgs'), sorgu, ucretsizOnce: once, ucretsizSonra: TT.yalnizUcretsiz(), satisGizli: !!(TT.satisGizli && TT.satisGizli()) };
   };
   (async () => {
-    const ios = await dene('ios', false), iosAcik = await dene('ios', true), android = await dene('android', false), web = await dene(null, false);
-    const tamam = ios.acar === false && ios.sorgu === 0 && iosAcik.acar === true && android.acar === true && web.acar === true;
-    sonuc('iPhone satış kapalı → web paketi açılmaz; iPhone satış açık / Android / web → açılır', tamam,
-      JSON.stringify({ ios, iosAcik, android, web }));
+    const PAKET = [{ paket: 'sgs', bitis: null }], BITMIS = [{ paket: 'sgs', bitis: '2020-01-01' }];
+    const ios = await dene('ios', false, PAKET), iosBos = await dene('ios', false, []), iosBitmis = await dene('ios', false, BITMIS),
+      iosAcik = await dene('ios', true, PAKET), android = await dene('android', false, PAKET), web = await dene(null, false, PAKET);
+    const tamam = ios.acar === true && ios.sorgu === 1 && ios.ucretsizOnce === true && ios.ucretsizSonra === false && ios.satisGizli === true &&
+      iosBos.acar === false && iosBos.ucretsizSonra === true && iosBos.satisGizli === true &&
+      iosBitmis.acar === false && iosBitmis.ucretsizSonra === true &&
+      iosAcik.acar === true && iosAcik.satisGizli === false && iosAcik.ucretsizSonra === false &&
+      android.acar === true && android.satisGizli === false && web.acar === true;
+    sonuc('iPhone: web paketi açılır, satış gizli; paketsiz/bitmiş iPhone yalnız ücretsiz; Android/web aynen', tamam,
+      JSON.stringify({ ios, iosBos, iosBitmis, iosAcik, android, web }));
     console.log('HAZIRLA-SINAVI: ' + (gecen === toplam ? 'YESIL' : 'KIRMIZI') + ' — ' + gecen + '/' + toplam + (process.env.HZ_MUTASYON ? ' · HZ_MUTASYON=' + process.env.HZ_MUTASYON : ''));
     process.exitCode = gecen === toplam ? 0 : 1;
   })();

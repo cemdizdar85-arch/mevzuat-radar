@@ -77,7 +77,8 @@ if ($MyInvocation.InvocationName -ne '.') {
     $kgkAcik = KgkIcerikAcik $kok
     if ($kgkAcik -and $t.Contains("Disallow: /kaydir/kgk/`n")) { $hata += 'ICERIK_HAZIR.kgk:true ama kaydir/kgk kapali' }
     if (-not $kgkAcik -and -not $t.Contains("Disallow: /kaydir/kgk/`n")) { $hata += 'ICERIK_HAZIR.kgk:false ama kaydir/kgk acik' }
-    $gecici = Join-Path $env:TEMP ('robots-sinav-' + [guid]::NewGuid().ToString('N'))
+    # 21.10: $env:TEMP Linux pwsh'te (dogrula.yml ubuntu) tanımsız → Join-Path 'Path is null'; GetTempPath iki kabukta da dolu
+    $gecici = Join-Path ([IO.Path]::GetTempPath()) ('robots-sinav-' + [guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $gecici | Out-Null
     try {
       Copy-Item (Join-Path $kok 'menu.js') $gecici

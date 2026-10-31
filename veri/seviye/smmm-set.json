@@ -197,16 +197,13 @@
       "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-4k-a-yfta-cokzor-r5/kp-01",
+      "id": "smmm-w9-2-yfta-cokzor/kp-02",
       "ders": "Finansal Tablolar ve Analizi",
-      "konu": "nakit oranı",
+      "konu": "faiz karşılama oranı",
       "zorluk": "cokzor",
-      "son10": 12,
-      "cikmis": 11,
-      "son_soruldu": "2025/3",
-      "okunan_konu": "Likidite oranları",
-      "okunan_donem": 20,
-      "okunan_son": "2026/2"
+      "son10": 1,
+      "cikmis": 0,
+      "son_soruldu": ""
     },
     {
       "id": "smmm-w2-yhukuk-zor/kp-01",
@@ -317,52 +314,40 @@
       "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-w5-yvergi-zor/kp-01",
+      "id": "smmm-w3-yvergi-zor/kp-01",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "kurumlar vergisi matrahı",
+      "konu": "gelir tanımı",
       "zorluk": "zor",
-      "son10": 6,
-      "cikmis": 5,
-      "son_soruldu": "2026/1",
-      "okunan_konu": "KVK › Kurumlar vergisi matrahı (KKEG, istisnalar)",
-      "okunan_donem": 10,
-      "okunan_son": "2026/1"
-    },
-    {
-      "id": "smmm-gm12-1-yvergi-zor/kp-01",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "gvk › yıllık beyan ve gelir vergisi hesabı",
-      "zorluk": "zor",
-      "son10": 0,
+      "son10": 1,
       "cikmis": 0,
-      "son_soruldu": "",
-      "okunan_konu": "GVK › Yıllık beyan ve gelir vergisi hesabı",
-      "okunan_donem": 25,
-      "okunan_son": "2026/2"
+      "son_soruldu": ""
     },
     {
-      "id": "smmm-gm12-1-yvergi-cokzor/kp-02",
+      "id": "smmm-4k-a-yvergi-zor-r6/kp-15",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "gvk › gayrimenkul sermaye iradı",
+      "konu": "bilanço esasi",
+      "zorluk": "zor",
+      "son10": 1,
+      "cikmis": 0,
+      "son_soruldu": ""
+    },
+    {
+      "id": "smmm-w3-yvergi-cokzor/kp-11",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "emsal bedel kdv hesaplama",
       "zorluk": "cokzor",
-      "son10": 0,
+      "son10": 1,
       "cikmis": 0,
-      "son_soruldu": "",
-      "okunan_konu": "GVK › Gayrimenkul sermaye iradı",
-      "okunan_donem": 18,
-      "okunan_son": "2026/2"
+      "son_soruldu": ""
     },
     {
-      "id": "smmm-4k-a-yvergi-zor-r7/kp-02",
+      "id": "smmm-w3-yvergi-zor/kp-23",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "vergi sorumlusu",
+      "konu": "menkul sermaye iradı",
       "zorluk": "zor",
-      "son10": 5,
-      "cikmis": 3,
-      "son_soruldu": "2019/1",
-      "okunan_konu": "GVK › Menkul sermaye iradı",
-      "okunan_donem": 14,
-      "okunan_son": "2026/2"
+      "son10": 1,
+      "cikmis": 0,
+      "son_soruldu": ""
     }
   ],
   "onarim": [
@@ -433,6 +418,29 @@
       "neden": "kasadan çıkan soru",
       "degisen": [
         "Finansal Muhasebe: smmm-4k-a-fmuh-kolay-r4/kp-01 [amortisman ayirma/kolay] -> smmm-4k-a-fmuh-kolay-r8/kp-03 [açılış kaydı/kolay]"
+      ]
+    },
+    {
+      "tarih": "2026-10-22T16:33:19.714Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Finansal Tablolar ve Analizi: smmm-4k-a-yfta-cokzor-r5/kp-01 [nakit oranı/cokzor] -> smmm-w9-2-yfta-cokzor/kp-02 [faiz karşılama oranı/cokzor]"
+      ]
+    },
+    {
+      "tarih": "2026-10-30T20:22:50.281Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Vergi Mevzuatı ve Uygulaması: smmm-gm12-1-yvergi-zor/kp-01 [gvk › yıllık beyan ve gelir vergisi hesabı/zor] -> smmm-4k-a-yvergi-zor-r6/kp-15 [bilanço esasi/zor]"
+      ]
+    },
+    {
+      "tarih": "2026-10-31T08:56:56.691Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Vergi Mevzuatı ve Uygulaması: smmm-w5-yvergi-zor/kp-01 [kurumlar vergisi matrahı/zor] -> smmm-w3-yvergi-zor/kp-01 [gelir tanımı/zor]",
+        "Vergi Mevzuatı ve Uygulaması: smmm-gm12-1-yvergi-cokzor/kp-02 [gvk › gayrimenkul sermaye iradı/cokzor] -> smmm-w3-yvergi-cokzor/kp-11 [emsal bedel kdv hesaplama/cokzor]",
+        "Vergi Mevzuatı ve Uygulaması: smmm-4k-a-yvergi-zor-r7/kp-02 [vergi sorumlusu/zor] -> smmm-w3-yvergi-zor/kp-23 [menkul sermaye iradı/zor]"
       ]
     }
   ],

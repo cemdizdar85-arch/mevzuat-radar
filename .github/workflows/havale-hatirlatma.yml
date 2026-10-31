@@ -4,10 +4,14 @@
 # "kartla ode / havale bilgisi" maili (motor/havale-hatirlatma.mjs). Saat basi kosar.
 # Gonderim arac/hatirlatma-ayar.json havale_acik + havale_onayli_imza ile ACILIR; kapaliyken yalniz SAYI.
 # Gunluk PUBLIC: betik e-posta/ad/siparis no basmaz. Oz-sinav once kosar; duserse gonderim yapilmaz.
+# 29.10 (Cem "Evet, kur"): ayni akista motor/kart-takildi.mjs - iyzico'da takilan siparise son denemeden 30 dk sonra BIR KEZ
+# "kartla yeniden dene / havale bilgisi" maili. 30 dk'yi tutturmak icin 15 dakikada bir kosar (havale betigi 3 saatlik
+# esigini kendi sayar; sik kosmasi ayni siparise ikinci mail gondermez, form_kayit kaydi tek seferi tutar).
+# Kart takildi gonderimi arac/hatirlatma-ayar.json kart_takildi_acik + kart_takildi_onayli_imza ile ACILIR.
 name: Havale hatirlatmasi
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "2,17,32,47 * * * *"
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,10 +28,35 @@ jobs:
         with:
           node-version: 24
       - name: Oz-sinav
-        run: node motor/havale-hatirlatma.mjs --sinav
+        id: oz
+        run: |
+          node motor/havale-hatirlatma.mjs --sinav
+          node motor/kart-takildi.mjs --sinav
+          node motor/siparis-son-hatirlatma.mjs --sinav
+      # 29.10: kart adimi ONCE kosar (ilk koşuda havale once kosup ayni siparise iki mail gitti, UU4A). Iki betik de
+      # iki kaydi okur; ayni siparise hangisi once giderse digeri atlar.
+      - name: Kart takildi - say ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/kart-takildi.mjs
       - name: Say ya da gonder
+        if: ${{ !cancelled() && steps.oz.outcome == 'success' }}
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: node motor/havale-hatirlatma.mjs
+      # 29.10 (Cem "büyük firmalar ne yapıyorsa", "Robot mail + otomatik iptal"): 24 saatte ödenmeyen havale siparişine
+      # BIR KEZ "son hatırlatma" (Siparişini tamamla bağlantısı + iptal günü), 72 saat + son hatırlatmadan 24 saat sonra
+      # otomatik iptal (radar-app/sql/2026-10-29-otomatik-iptal.sql; geç gelen havale panelden yine açılır).
+      # Son hatırlatma 12 saat içinde başka hatırlatma almış siparişi bekletir. Anahtarlar arac/hatirlatma-ayar.json
+      # son_hatirlatma_acik + son_hatirlatma_onayli_imza (+ otomatik_iptal_acik).
+      - name: Son hatirlatma + otomatik iptal - say ya da yap
+        if: ${{ !cancelled() && steps.oz.outcome == 'success' }}
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/siparis-son-hatirlatma.mjs

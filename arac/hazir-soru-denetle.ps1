@@ -17,7 +17,8 @@
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
       [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi,
-      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi,[switch]$KgkKapiSinavi)
+      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi,[switch]$KgkKapiSinavi,
+      [switch]$A1Yok,[switch]$A1Sinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -44,7 +45,11 @@ function DersTavaniOlc([string]$dersRx,[string]$kokYol){
 function SmmmTavaniOlc([string]$smmmDers,[string]$kokYol){
   $tabloS=@{}; $anYS=Join-Path $kokYol 'veri\sinav-anatomisi-smmm.json'
   if(Test-Path $anYS){ try{ $anS=ConvertFrom-Json -InputObject (Get-Content $anYS -Raw -Encoding UTF8); foreach($p in $anS.C_ders_kalibi.PSObject.Properties){ $tabloS[$p.Name]=[int]$p.Value.uzunluk.p90 } }catch{ } }
-  foreach($k in $tabloS.Keys){ if($smmmDers -match [regex]::Escape($k) -or $k -match [regex]::Escape($smmmDers)){ return $tabloS[$k] } }
+  # 21.10: 'Hukuk' iki anahtara uyar ("Hukuk (Ticaret H., …)" 308 / "…Meslek Hukuku" 461). .NET Core (pwsh 7, dogrula.yml) dize
+  #   özetini her süreçte rastgeleler → Hashtable sırası koşudan koşuya değişiyor, CI 308/461 arasında gidip geliyordu (20.10 kırmızı,
+  #   kodda değişiklik yokken). Önce TAM ad ya da parantez öncesi ad eşitliği; yoksa eski alt-dize eşleşmesi SIRALI anahtarla (deterministik).
+  foreach($k in @($tabloS.Keys)){ if($k -eq $smmmDers -or ($k -replace '\s*\(.*$','') -eq $smmmDers){ return $tabloS[$k] } }
+  foreach($k in @($tabloS.Keys | Sort-Object)){ if($smmmDers -match [regex]::Escape($k) -or $k -match [regex]::Escape($smmmDers)){ return $tabloS[$k] } }
   return 350
 }
 # Tavan seçimi (öncelik): -Tavan > SMMM etiketi (koşucu SMMM dalı) > -Ders (SGS anatomisi) > 746. Mutasyon: $env:DENETLE_TAVAN_MUTASYON='smmm-kapali'.
@@ -406,11 +411,11 @@ if($KgkKapiSinavi){
     @('harf: adım şablon alanı sik=A ölçülmez',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Hangisi?'; adimlar=@([pscustomobject]@{ sik='A'; anlatim='Doğru cevap: görüş vermekten kaçınma.' }) })).Count),0),
     @('fıkra: numarasız madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Bankacılık K. m.24/2 gereği komite kurulur.' } }) $mt).Count),0),
     @('fıkra: kaynak_adlar''da olmayan madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='TTK m.397/4 gereği denetçi seçilir.' } }) $mt).Count),0),
-    @('bağ: smmm hazir-gm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-gm9-1-yvergi-zor.json')),1),
-    @('bağ: smmm hazir-smmm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-smmm-gm-p1-yfta.json')),1),
+    @('bağ: smmm hazir-gm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-gm9-1-yvergi-zor.json')),1),
+    @('bağ: smmm hazir-smmm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-smmm-gm-p1-yfta.json')),1),
     @('bağ: smmm -IkizEtiket açık',[int](Kgk3Acik (Kgk3Etiket 'smmm-gm5-1-fmuh-zor' 'x.json')),1),
-    @('bağ: kgk dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-kgk-gm-tms-r1.json')),1),
-    @('bağ: sgs dosyası kapalı',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-denetim-zor-1.json')),0),
+    @('bağ: kgk dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-kgk-gm-tms-r1.json')),1),
+    @('bağ: sgs dosyası kapalı',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-denetim-zor-1.json')),0),
     @('bağ: sgs -IkizEtiket kapalı (dosya adı gm olsa da)',[int](Kgk3Acik (Kgk3Etiket 'sgs-k10-yd-kolay' 'hazir-gm9-1-yvergi-zor.json')),0),
     @('ek: KGK-DC bağlı (Doğru cevap kayması)',@(KgkEkKapi ([pscustomobject]@{ konu='x'; soru='Kök'; dogru='B'; siklar=[pscustomobject]@{ A='1.000 TL'; B='3.767.000 TL'; C='5.000 TL'; D='6.000 TL'; E='7.000 TL' }; aciklama=[pscustomobject]@{ A='Doğru cevap: 3.740.000 TL.' } }) | Where-Object { $_ -like 'KGK-DC*' }).Count,1),
     @('ek: KGK-MK bağlı (sigortada Müsteşarlık)',@(KgkEkKapi ([pscustomobject]@{ konu='x'; soru='Sigorta kooperatifi kuruluşu'; dogru='A'; siklar=[pscustomobject]@{ A='a'; B='b'; C='c'; D='d'; E='e' }; aciklama=[pscustomobject]@{ A='Müsteşarlık izni gerekir.' } }) | Where-Object { $_ -like 'KGK-MK*' }).Count,1))
@@ -477,7 +482,7 @@ if($KokDeneSinavi){
   $script:KAPIK_KURUCU=@{ sgs={ param($dR,$pN) $sahteS }; smmm={ param($dR) $sahteM }; smmmOnb={ param($dR,$tz) $sahteM }; kgk={ $sahteG } }
   $metinler=@('dördüncü bir ekiple denetim','dördüncü denetim raporu','bağımsız denetim bulgusu raporu','ekiple seçememiştir')
   $durumlar=@(@('-Ders + smmm etiketi','Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('smmm etiketi','','smmm-gm13-1-ydenetim-zor',''),
-              @('hazır dosya adı','','','veri\fabrika\hazir-gm13-1-ydenetim-zor.json'),@('-Ders, etiketsiz','Muhasebe Denetimi','',''),@('kgk etiketi','','kgk-t1-tms-g5-kolay',''),@('Yabancı Dil','Yabanci Dil','sgs-k10-yd-kolay',''))
+              @('hazır dosya adı','','','veri/fabrika/hazir-gm13-1-ydenetim-zor.json'),@('-Ders, etiketsiz','Muhasebe Denetimi','',''),@('kgk etiketi','','kgk-t1-tms-g5-kolay',''),@('Yabancı Dil','Yabanci Dil','sgs-k10-yd-kolay',''))
   $nB=0; foreach($du in $durumlar){
     $tam=KapiKSozlukSec $du[1] 7 $du[2] $du[3]; $kd=KokDeneSozluk $du[1] 7 $du[2] $(if($du[3]){ $du[3] } else { 'metin' }) $false
     foreach($t in $metinler){ $nB++; $kT=$(if($tam.sozluk){ KapiKKarar $t $tam.sozluk } else { "yok:$($tam.yol)" }); $kK=$(if($kd.sozluk){ KapiKKarar $t $kd.sozluk } else { "yok:$($kd.yol)" })
@@ -485,7 +490,7 @@ if($KokDeneSinavi){
   # mutlak çapalar (yalnız eşitlik ölçülseydi iki yol birlikte bozulabilirdi): etiketsiz -Ders → SGS penceresi → DUSER;
   #   smmm etiketi + -Ders → SMMM sözlüğü → ok (gm14). Mutasyon $env:DENETLE_KAPIK_MUTASYON='ders-once' → ikinci çapa KIRMIZI.
   $nB++; $ca=KokDeneSozluk 'Muhasebe Denetimi' 7 '' 'metin' $false; if(-not $ca.sozluk -or (KapiKKarar 'dördüncü bir ekiple denetim' $ca.sozluk) -ne 'DUSER'){ $h++; "  DUSTU: çapa: etiketsiz -Ders'li kök denemesi SGS penceresiyle DUSER demeli" }
-  foreach($cs in @(@('Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('Vergi Mevzuatı ve Uygulaması','','veri\fabrika\hazir-gm12-1-yvergi-zor.json'))){ $nB++; $cb=KapiKSozlukSec $cs[0] 7 $cs[1] $cs[2]
+  foreach($cs in @(@('Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('Vergi Mevzuatı ve Uygulaması','','veri/fabrika/hazir-gm12-1-yvergi-zor.json'))){ $nB++; $cb=KapiKSozlukSec $cs[0] 7 $cs[1] $cs[2]
     if($cb.yol -ne 'smmm' -or -not $cb.sozluk -or (KapiKKarar 'dördüncü bir ekiple denetim' $cb.sozluk) -ne 'ok'){ $h++; "  DUSTU: çapa: SMMM etiketi + -Ders '$($cs[0])' SMMM sözlüğü seçmeli (seçilen $($cb.yol))" } }
   $nT=$v.Count+$nB
   if($h){ "KOK DENEME SINAVI KIRMIZI: $h/$nT"; exit 1 } else { "KOK DENEME SINAVI YESIL: $nT/$nT"; exit 0 }
@@ -564,7 +569,13 @@ if($YilSinavi){
   $v=@(@('2025 yılı gelirleri için yıllık beyan','KUSUR'),@('2025 yılı gelirleri için 2026 yılı Mart ayında verilecek beyanname','ok'),@('2025 gelirleri, beyan 2026''da','ok'),@('6183 ve 2004 sayılı Kanun hükümlerine göre','ok'),@('5520 s. Kanun ve 2004 s. Kanun','ok'),@('yıl geçmeyen soru','ok'),@('2024 ve 2025 yılları','KUSUR'))
   $h=0; foreach($x in $v){ $c=$(if(YilKusurOlc $x[0] 2026){ 'KUSUR' } else { 'ok' }); if($c -ne $x[1]){ $h++; "  DUSTU: '$($x[0])' -> $c (beklenen $($x[1]))" } }
   if($h){ "KAPI-Y SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-Y SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
-}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi / -SimSinavi)' }
+}
+if($A1Sinavi){
+  # arşivden 30 kelimelik lafız dışı kopya → KUSUR · 16 kelimesi gömülü soru → KUSUR · özgün → ok (arac/cikmis-benzerlik-kapisi.js --sinav)
+  if(-not "$env:SUPABASE_SERVICE_KEY".Trim()){ $env:SUPABASE_SERVICE_KEY="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
+  & node (Join-Path $depoKokD 'arac\cikmis-benzerlik-kapisi.js') --sinav; exit $LASTEXITCODE
+}
+if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi / -SimSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -642,8 +653,22 @@ if(-not $KaynakYok){
     $kaynakOlcu=$true; "KAYNAK ADI: $($adlarT.Count) benzersiz ad · ambarda yok: $(@($kaynakVar.Keys | Where-Object { $kaynakVar[$_] -eq $false }).Count) · okunamadı: $(@($kaynakVar.Keys | Where-Object { $null -eq $kaynakVar[$_] }).Count)"
   } else { "KAYNAK ADI: ÖLÇÜLMEDİ (SUPABASE_SERVICE_KEY yok)" }
 }
+# 29.10.2026 KAPI-A1 ÇIKMIŞ BENZERLİK (Cem "evet kur"; sözleşme A1 kapısızdı): soru+şıklarda çıkmış arşivle (SGS + SMMM test +
+#   SMMM komisyon cevabı 2008–2025) ≥15 kelime aynı dizi → KUSUR; mevzuat-hazir'de de geçen öbek (kanun lafzı, hesap adı) muaf.
+#   Ölçü ve GÖRMEZ listesi arac/cikmis-benzerlik-kapisi.js başında. Dosya başına bir node çağrısı (önbellek veri/fabrika/*-5li.bin).
+#   29.10 ölçümü: 140 Son 20 Gün sorusu 0 KUSUR (en uzun 9) · muafiyet kapalıyken 2 (GVK lafzı 15 + 18 kelime) · öz-sınav 3/3.
+$a1Kusur=@{}
+if(-not $A1Yok){
+  $a1Js=Join-Path $depoKokD 'arac\cikmis-benzerlik-kapisi.js'
+  if((Test-Path $a1Js) -and (Get-Command node -ErrorAction SilentlyContinue)){
+    if(-not "$env:SUPABASE_SERVICE_KEY".Trim()){ $env:SUPABASE_SERVICE_KEY="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
+    foreach($l in @(& node $a1Js --dosya (Resolve-Path $Dosya).Path 2>&1 | ForEach-Object { "$_" })){
+      $p=$l -split "`t",3; if($p[0] -eq 'A1' -and $p.Count -eq 3){ $a1Kusur[[int]$p[1]]=$p[2] } elseif($p[0] -eq 'A1-BILGI'){ $p[1] } }
+  } else { "ÇIKMIŞ BENZERLİK (KAPI-A1): ÖLÇÜLMEDİ — node ya da arac/cikmis-benzerlik-kapisi.js yok" }
+} else { "ÇIKMIŞ BENZERLİK (KAPI-A1): KAPALI (-A1Yok)" }
 foreach($q in $liste){
   $i++; $k=New-Object System.Collections.Generic.List[string]
+  if($a1Kusur.ContainsKey($i)){ $k.Add($a1Kusur[$i]) }
   $not=New-Object System.Collections.Generic.List[string]   # kapıyı DÜŞÜRMEYEN uyarılar (KAPI-K tek kelime gibi)
   $harf=@('A','B','C','D','E')
   foreach($h in $harf){ if(-not $q.siklar.PSObject.Properties[$h]){ $k.Add("sik $h yok") } }

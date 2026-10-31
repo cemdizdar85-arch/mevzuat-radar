@@ -4,6 +4,21 @@
 > Araçlar: `arac/site-yayin.js` (kurucu + denetim + öz-sınav) · `arac/site-beyaz-liste.txt` (liste) ·
 > `.github/workflows/site-yayin.yml` (yayın akışı) · `arac/site-esdegerlik.js` (tarayıcılı tarama + Pages benzeri sunucu + kıyas).
 
+## ✅ GEÇİLDİ — 28.10.2026 ~02:25 TR (Cem "GEÇ", altyapı kolu)
+
+- Önce (28.10 01:00): `CLAUDE.md`, `arac/*.ps1`, `radar-app/sql/*` canlıda 200; Pages "legacy".
+- Prova (geçişten önce, yerel Pages benzeri sunucu): canlı tarama 651 sayfa / 807 yol → canlıda 200 olan **521'in 521'i**
+  yenide 200, KAYIP 0 · iç dosya **9.602'nin 9.602'si** 404 · depoda anılan 100 mutlak adresten yenide olmayan 15'i canlıda da zaten 404.
+- Liste düzeltmesi (371fe92b): IndexNow anahtarı `a207c53416bf9ed8.txt` listede yoktu (kökteki .txt) → eklendi.
+- Geçiş: `gh api -X PUT .../pages -f build_type=workflow` + `gh workflow run site-yayin.yml -f zorla=true`.
+- ⚠ **YAŞANDI:** geçişten saniyeler önce bir push'la başlamış ESKİ tip yayın (`pages build and deployment`, 23:22:17Z başladı,
+  23:23:57Z bitti) bizim beyaz liste dağıtımımızdan SONRA bitti ve onu ezdi → iç dosyalar yeniden 200 oldu (Last-Modified 23:24).
+  Sonraki koşular "aynı commit zaten yayında" diye dağıtmadı. Çözüm: zorla yeniden dağıtım (40602033722). **Ders:** geçişten
+  sonra dağıtım değil, `curl -sI /CLAUDE.md` (404 + yeni Last-Modified) ölçülür; koşan `pages-build-deployment` varsa bitmesi beklenir.
+- Sonra (canlı): `CLAUDE.md`, `KURALLAR.md`, `arac/havuz-kur.ps1`, `radar-app/sql/UYGULANDI.md`, `motor/oturum.ps1`, `DEVIR-NOTU.md` → 404 ·
+  ana sayfa, satin-al, ogrenci, son-20-gun, kaydir/sgs/, sorular, sitemap, IndexNow anahtarı → 200 · canlıya karşı kıyas 521/521 KAYIP 0.
+- 🚫 ÖLÇÜLMEDİ: girişli üyenin gördüğü içerik (Hesabım, paketli ders) · uygulamanın (iOS/Android) siteden çektiği dosyalar.
+
 ## Neden
 
 08.10.2026 ölçümü: tetikte.com deponun KÖKÜNDEN yayınlanıyor; `/CLAUDE.md`, `/DEVIR-NOTU.md`, `/motor/*.ps1`,

@@ -152,7 +152,8 @@
     } else h += '<div class="kart bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
     /* 09.10 (Cem "1.8 seviyesini koy · siteye aynıları olsun"): sitedeki 30 soruluk seviye testi uygulamada — seviye-testi.html
        derlemede gömülür (hazirla.js 2b, köprü uygulama-sayfa.js). Ücretsiz içerik: kilitsiz, iPhone'da da görünür. */
-    if (s !== 'kgk' && sayfaVar('seviye-testi.html')) {
+    /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir"): 30 soru kartı kalktı; ücretsiz yol yukarıdaki "Örnek sorular" kartı */
+    if (false && s !== 'kgk' && sayfaVar('seviye-testi.html')) {
       h += '<a class="ilerKart" href="seviye-testi.html' + (s === 'yeterlilik' ? '?sinav=yeterlilik' : '') + '"><span class="iUst"><span class="iAd">30 soruda seviyeni ölç<small>' +
         'Geçme ihtimalin ve ders ders karnen · 20 dakika</small></span><span class="iDugme">Başla' + ik('ok') + '</span></span></a>';
     }
@@ -180,6 +181,13 @@
        iPhone'da satış kapalıyken buraya gelinmez (yukarıdaki yu dönüşü): kilitli/pakete çağıran öğe çizilmez. */
     var konuSayfa = 'en-cok-cikan-konular-' + (s === 'yeterlilik' ? 'yeterlilik' : 'sgs') + '.html';
     h += '<div class="satirlar" style="margin-top:14px">';
+    /* 31.10 1.9.1: Son 20 Gün denemeleri (son-20-gun.html; SGS 1 Kasım, Yeterlilik 8 Kasım). Erişimi sayfa sunucudan okur
+       (s20_erisim: "Sadece 7 Deneme" alan da açılır, uygulamada paketsiz görünse bile) → satır kilitsiz. */
+    if (s !== 'kgk' && sayfaVar('son-20-gun.html')) {
+      var yetS = s === 'yeterlilik', acT = Date.parse(yetS ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
+      h += '<a class="srt" href="son-20-gun.html' + (yetS ? '?sinav=yeterlilik' : '') + '">' + ik('takvim') + '<span class="ad">Son 20 Gün denemeleri<small>' +
+        (Date.now() < acT ? (yetS ? '8' : '1') + ' Kasım\'da açılıyor · takvimin hazır' : (yetS ? 'Ders ders denemeler' : '7 deneme') + ', çalışma görevleri, takvimin') + '</small></span>' + OK + '</a>';
+    }
     if (sayfaVar('sinav-gibi.html')) {
       h += '<button type="button" class="srt" data-yol="sik">' + ik('alev') + '<span class="ad">En çok sorulan 20 konu denemesi<small>40 soru, 50 dakika' +
         (acik ? '' : ' · pakette') + '</small></span>' + (acik ? OK : ik('kilit', 'ok')) + '</button>';

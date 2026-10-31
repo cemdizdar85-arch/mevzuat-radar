@@ -13,6 +13,7 @@
 //     KAPI-ADIM ADIM-KAYMA            ("(N. adımda bulduk)" başka adımı gösteriyor; ADIM-YOK her zaman NOT)
 //     KAPI-TR   TR-ASCII              (açıklama Türkçe harfsiz yazılmış; arac/turkce-karakter-kapisi.js)
 //     KAPI-BOS  BOS-KALIP             (istem cümlesi / iç etiket kalıntısı; arac/bos-alan-kapisi.js)
+//     KAPI-KARNE KARNE-ANAHTAR/CIFT/HARF (şık karnesi anahtarla tutarsız; arac/karne-kapisi.js — 27.10, KARNE-EKSIK her zaman NOT)
 //   YENİ2 = kör çözüm ya da hakem2 tarihinin EN YENİSİ ≥ KALITE_BASLANGIC_YENI2 (varsayılan 2026-10-04; ortam değişkeni yalnız prova
 //   içindir — KALITE_BASLANGIC düzeninin kopyası). İkisi de YOKSA soru henüz hakemden geçmemiş üretim girdisidir (FAZ GM hazır soru,
 //   koşucu seçiminden önceki taslak) → YENİ2 sayılır. Yayın seçimleri (havuz-kur YeniSoruMu, smmm-yayin-sarti SmmmYeniSoruMu) zaten
@@ -24,7 +25,7 @@
 'use strict';
 const fs = require('fs');
 const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js'), BP = require('./bds-atif-kapisi.js'), BOS = require('./bos-alan-kapisi.js'), ADIM = require('./adim-atif-kapisi.js');
-const YY = require('./yanlis-yol-kapisi.js'), TR = require('./turkce-karakter-kapisi.js');
+const YY = require('./yanlis-yol-kapisi.js'), TR = require('./turkce-karakter-kapisi.js'), YT = require('./yillik-tutar-kapisi.js'), KARNE = require('./karne-kapisi.js');
 const MUT = process.env.KALITE_MUTASYON || '';
 function yeni2Baslangic() { return String(process.env.KALITE_BASLANGIC_YENI2 || '2026-10-04').trim(); }
 // Soru YENİ2 mi? (tarih biçimi "YYYY-MM-DD" ya da "YYYY-MM-DD HH:mm"; dize kıyası yeter)
@@ -68,6 +69,14 @@ function satirlar(k) {
   YY.kusurlar(k).forEach(b => c.push((y2 && MUT !== 'yy-bagsiz' ? 'KAPI-YY: ' : 'NOT-YY: ') + b.tur + ' ' + b.alan));
   // 03.10 KAPI-TR: Türkçe harfsiz (ASCII) açıklama dizesi → YENİ2'de DURDURUR (yayındaki TurkceOnar tahminle düzeltip hata üretiyordu).
   TR.kusurlar(k).forEach(b => c.push((y2 && MUT !== 'tr-bagsiz' ? 'KAPI-TR: ' : 'NOT-TR: ') + b.tur + ' ' + b.alan));
+  // 22.10 KAPI-YT (Cem "1.2.3"): yıllık tutar/yıl kuralı (arac/yillik-tutar-kapisi.js, kütük veri/sinav/yillik-tutarlar.json).
+  //   Kendi "yeni" eşiği var (tarih ≥ 2026-10-23, tarihsiz = eski): eşdeğerlik 22.10 - önbellekteki 15.786 kayıtta bugün duran 0.
+  //   DURDURAN: YT-KAYNAKSIZ + vergi kanunu dilinde YT-YIL; YT-YANLIS-YIL / YT-ESKI-YIL / YT-EZBER yalnız NOT-YT.
+  if (MUT !== 'yt-bagsiz') YT.satirlar(k).forEach(s => c.push(s));
+  // 27.10 KAPI-KARNE (Cem "karne-anahtar tutarlılık kapısını kur"): şık karnesi tek yeşil/tek kırmızı = anahtar değil, harf çift ya da
+  //   A–E dışı → YENİ2'de DURDURUR, eskide NOT-KARNE. KARNE-EKSIK (bir şıkkın adımı yok) her zaman NOT. Kasa 24–27.10'da 155 çelişkili
+  //   soru elle okunup onarıldı/çekildi; yayındaki kasada çelişki 0 (arac/karne-kapisi.js başlığı).
+  KARNE.kusurlar(k).forEach(b => c.push((b.tur !== 'KARNE-EKSIK' && y2 && MUT !== 'karne-bagsiz' ? 'KAPI-KARNE: ' : 'NOT-KARNE: ') + b.tur + ' ' + b.not));
   return c;
 }
 
@@ -98,6 +107,16 @@ function sinav() {
   V.push(['ortam değişkeni KALITE_BASLANGIC_YENI2=2026-10-01 → 2026-10-02 soru DURUR', () => { const e = process.env.KALITE_BASLANGIC_YENI2; process.env.KALITE_BASLANGIC_YENI2 = '2026-10-01'; try { return dur(tarihli(bozTR(temel()), '2026-10-02'), 'TR'); } finally { if (e === undefined) delete process.env.KALITE_BASLANGIC_YENI2; else process.env.KALITE_BASLANGIC_YENI2 = e; } }, true]);
   V.push(['kör ve hakem2 tarihinin EN YENİSİ alınır (kör 09-20, hakem2 10-05 → YENİ2)', () => { const k = bozYY(temel()); k.kor_cozum = { tarih: '2026-09-20' }; k.hakem2 = { tarih: '2026-10-05' }; return dur(k, 'YY'); }, true]);
   V.push(['eski bağlar değişmedi: AS2 tarihten bağımsız DURDURUR (eski soru)', () => { const k = tarihli(temel(), '2026-09-01'); k.aciklama.A = 'Ne soruluyor: payın tutarı. Kural: maliyetin yarısı. Doğrusu: 150.000.'; return satirlar(k).some(s => s.startsWith('KAPI-AS2:')); }, true]);
+  // 22.10 KAPI-YT bağı: yeni (≥2026-10-23) soruda resmî olmayan kıdem tavanı → DURDURAN satır; eski soruda yalnız NOT-YT
+  const ytSoru = t => ({ soru: 'İşçi 15.03.2017\'de başlamış, 15.03.2025\'te ayrılmıştır. Kıdem tazminatı tavanı 46.000 ₺\'dir. Karşılık?', siklar: { A: '1', B: '2' }, dogru: 'A', kor_cozum: { tarih: t } });
+  V.push(['KAPI-YT bağlı: yeni soruda resmî olmayan kıdem tavanı → KAPI-YT', () => satirlar(ytSoru('2026-10-25')).some(s => s.startsWith('KAPI-YT: YT-KAYNAKSIZ')), true]);
+  V.push(['KAPI-YT: eski soruda aynı kusur → yalnız NOT-YT', () => { const s = satirlar(ytSoru('2026-10-05')); return !s.some(x => x.startsWith('KAPI-YT')) && s.some(x => x.startsWith('NOT-YT')); }, true]);
+  // 27.10 KAPI-KARNE bağı: beşi "doğru" karneli soru → YENİ2'de DURUR, eskide NOT; tutarlı karne hiç satır üretmez
+  const karneSoru = (kararlar) => { const k = temel(); k.adimlar = ['A', 'B', 'C', 'D', 'E'].map((h, i) => ({ sik: h, karar: kararlar[i], formul: 'Şık ' + h + ': ?', anlatim: '.' })); return k; };
+  const hepDogru = () => karneSoru(['doğru', 'doğru', 'doğru', 'doğru', 'doğru']);
+  V.push(['KAPI-KARNE: YENİ2 soruda beşi "doğru" → DURUR', () => dur(tarihli(hepDogru(), '2026-10-05'), 'KARNE'), true]);
+  V.push(['KAPI-KARNE: eski soruda aynı kusur → yalnız NOT-KARNE', () => { const k = tarihli(hepDogru(), '2026-10-02'); return !dur(k, 'KARNE') && satirlar(k).some(s => s.startsWith('NOT-KARNE: KARNE-ANAHTAR')); }, true]);
+  V.push(['KAPI-KARNE: YENİ2 soruda tek yeşil = anahtar C → satır yok', () => !satirlar(tarihli(karneSoru(['yanlış', 'yanlış', 'doğru', 'yanlış', 'yanlış']), '2026-10-05')).some(s => /KARNE/.test(s)), true]);
   let ok = 0;
   for (const [ad, f, bek] of V) { let g; try { g = f(); } catch (e) { g = 'HATA ' + e.message; } const t = g === bek; if (t) ok++; console.log((t ? '  ✓ ' : '  ✗ ') + ad); }
   console.log((ok === V.length ? 'KAPI-KALITE YENİ2 ÖZ-SINAVI YEŞİL' : 'KAPI-KALITE YENİ2 ÖZ-SINAVI KIRMIZI') + ` (${ok}/${V.length})` + (MUT ? ' · KALITE_MUTASYON=' + MUT : ''));
@@ -111,7 +130,7 @@ if (require.main === module) {
     if (a.includes('--mutasyon')) {
       if (!sinav()) { console.log('MUTASYON koşulmadı: bozulmamış öz-sınav zaten KIRMIZI'); process.exit(1); }
       const { spawnSync } = require('child_process');
-      const ler = ['yeni2-hep-eski', 'yeni2-hep-yeni', 'tarihsiz-eski', 'yy-bagsiz', 'adim-bagsiz', 'tr-bagsiz', 'bos-bagsiz'];
+      const ler = ['yeni2-hep-eski', 'yeni2-hep-yeni', 'tarihsiz-eski', 'yy-bagsiz', 'adim-bagsiz', 'tr-bagsiz', 'bos-bagsiz', 'yt-bagsiz', 'karne-bagsiz'];
       let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, KALITE_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' mutasyon KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
