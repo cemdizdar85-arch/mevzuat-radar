@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Üye yorumları görseli</title>
+<style>
+  /* Instagram görseli (sitede yayınlanmaz): palet son-gun.html ile aynı. */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; font-family: "Segoe UI", Arial, sans-serif;
+               background: radial-gradient(circle at 50% 25%, #1b3656 0%, #0f2338 62%, #091626 100%); }
+  #ic { position: absolute; left: 0; right: 0; top: 0; }
+  body.hikaye #ic { top: 285px; }
+  .baslik { position: absolute; top: 56px; left: 0; right: 0; text-align: center; color: #f5b301; font-size: 58px; font-weight: 900; letter-spacing: 3px; }
+  .kart { position: absolute; left: 70px; right: 70px; background: #fff; border-radius: 26px; padding: 26px 34px 22px 34px; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+  .kart .y { color: #1b2430; font-size: 33px; font-weight: 700; line-height: 1.3; }
+  .kart .k { margin-top: 12px; color: #6b7684; font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  /* yıldız YOK: yorum sahipleri puan vermedi, yıldız uydurma puan olurdu */
+  .kart .k::before { content: "💬"; font-size: 22px; }
+  .alt { position: absolute; top: 1110px; left: 90px; right: 90px; text-align: center; color: #fff; font-size: 30px; font-weight: 800;
+         background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.2); border-radius: 18px; padding: 16px 18px; }
+  .adres { position: absolute; top: 1270px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.7); font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+<div id="ic">
+  <div class="baslik" id="s1"></div>
+  <div class="kart" style="top:160px"><div class="y" id="s2"></div><div class="k" id="s3"></div></div>
+  <div class="kart" style="top:408px"><div class="y" id="s4"></div><div class="k" id="s5"></div></div>
+  <div class="kart" style="top:612px"><div class="y" id="s6"></div><div class="k" id="s7"></div></div>
+  <div class="kart" style="top:816px"><div class="y" id="s8"></div><div class="k" id="s9"></div></div>
+  <div class="alt" id="s10"></div>
+  <div class="adres" id="s11"></div>
+</div>
+<script>
+  window.kur = v => {
+    if (v.hikaye) { document.body.classList.add('hikaye'); document.documentElement.style.height = document.body.style.height = '1920px'; }
+    for (let i = 1; i <= 11; i++) document.getElementById('s' + i).textContent = v['s' + i];
+  };
+</script>
+</body>
+</html>
