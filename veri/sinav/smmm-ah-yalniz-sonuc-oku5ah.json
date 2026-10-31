@@ -1,0 +1,61 @@
+{
+ "ad": "oku5ah",
+ "tarih": "2026-10-31T23:32:04.229Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41252726144",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 1,
+  "gonderilen": 1,
+  "temiz": 0,
+  "kusurlu": 1,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 1,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.027
+ },
+ "kararlar": {
+  "smmm-4k-a-fmuh-kolay-r4/kp-08": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[3]"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) m.285 - Borçlar",
+    "THP 647 - REESKONT FAİZ GELİRLERİ",
+    "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+    "TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-fmuh-kolay-r4/kp-08"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
