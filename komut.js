@@ -133,6 +133,8 @@
                  'aria-controls="kp-liste" aria-autocomplete="list" autocomplete="off" ' +
                  'spellcheck="false" placeholder="Ara: ders, konu, sayfa… (ör. amortisman)">' +
           '<kbd class="kp-esc">esc</kbd>' +
+          /* 31.10 telefon taraması: telefonda "esc" gizli, ✕ yoktu (kural: her katman ✕ ile kapanır) */
+          '<button type="button" class="kp-x" aria-label="Aramayı kapat">✕</button>' +
         '</div>' +
         '<ul class="kp-liste" id="kp-liste" role="listbox" aria-label="Sonuçlar"></ul>' +
         '<div class="kp-alt">' +
@@ -148,6 +150,7 @@
 
     girdi.addEventListener('input', function () { ciz(girdi.value); });
     kok.addEventListener('mousedown', function (e) { if (e.target.dataset.kapat) kapat(); });
+    kok.querySelector('.kp-x').addEventListener('click', function (e) { e.preventDefault(); kapat(); });
     liste.addEventListener('click', function (e) {
       var li = e.target.closest('li[data-yol]');
       if (li) git(li.dataset.yol);

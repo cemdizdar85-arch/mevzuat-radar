@@ -26,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"S
 a{color:var(--accent2)}
 .wrap{max-width:860px;margin:0 auto;padding:18px 16px 80px}
 .ust{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;font-size:14px}
-.ust a{color:var(--muted);text-decoration:none;font-weight:650}
+.ust a{color:var(--muted);text-decoration:none;font-weight:650;display:inline-flex;align-items:center;min-height:40px;padding:0 4px}
 h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6px 0 6px}
 .alt{color:var(--muted);margin:0 0 18px;font-size:15.5px}
 .kart{background:var(--kagit,var(--panel));border:1px solid var(--line2,var(--line));border-radius:16px;padding:16px 18px;margin:0 0 14px}
@@ -91,7 +91,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
 .kart.acilis h2{margin:0 0 4px}.kart.acilis p{margin:0}.kart.acilis .gun{color:var(--amber,#9a6400);font-weight:800}
 .dip{font-size:12.5px;color:var(--dim);margin-top:26px}
 .akis h2{margin:0 0 10px}.akis .not{margin:10px 0 0}
-.takvim h2{margin:0 0 4px}.takvim .ust{margin:0 0 10px}.takvim ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.takvim h2{margin:0 0 4px}.takvim .tk-ust{margin:0 0 10px}.takvim ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .takvim li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--cizgi,#e6dccb);border-radius:10px}
 .takvim li b{white-space:nowrap}.takvim li span{color:var(--muted);font-size:14px;text-align:right}
 .takvim li.bugun{border:2px solid var(--amber-dolgu,#f3a52a);background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 9%,var(--kagit,#fff))}
@@ -246,7 +246,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     if(gun<1) ust='Önerilen tempo: 3 günde 1 deneme. 1 Kasım\'da Deneme 1 ile başla; 20 Kasım\'da 7\'si biter, 21 Kasım sınav günü.';
     else if(gun===21) ust='Bugün sınav günü. Başarılar!';
     else { var t=TAKVIM[hedef]; ust='Bugün '+gun+' Kasım · hedefin <b>Deneme '+(hedef+1)+'</b> (son gün '+t[1]+' Kasım).'; }
-    k.innerHTML='<h2>Takvimin</h2><p class="ust">'+ust+'</p><ul>'+satir+'</ul>';
+    k.innerHTML='<h2>Takvimin</h2><p class="tk-ust">'+ust+'</p><ul>'+satir+'</ul>';
     k.hidden=false;
   }
 
