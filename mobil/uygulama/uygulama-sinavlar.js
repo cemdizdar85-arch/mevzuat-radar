@@ -181,6 +181,13 @@
        iPhone'da satış kapalıyken buraya gelinmez (yukarıdaki yu dönüşü): kilitli/pakete çağıran öğe çizilmez. */
     var konuSayfa = 'en-cok-cikan-konular-' + (s === 'yeterlilik' ? 'yeterlilik' : 'sgs') + '.html';
     h += '<div class="satirlar" style="margin-top:14px">';
+    /* 31.10 1.9.1: Son 20 Gün denemeleri (son-20-gun.html; SGS 1 Kasım, Yeterlilik 8 Kasım). Erişimi sayfa sunucudan okur
+       (s20_erisim: "Sadece 7 Deneme" alan da açılır, uygulamada paketsiz görünse bile) → satır kilitsiz. */
+    if (s !== 'kgk' && sayfaVar('son-20-gun.html')) {
+      var yetS = s === 'yeterlilik', acT = Date.parse(yetS ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
+      h += '<a class="srt" href="son-20-gun.html' + (yetS ? '?sinav=yeterlilik' : '') + '">' + ik('takvim') + '<span class="ad">Son 20 Gün denemeleri<small>' +
+        (Date.now() < acT ? (yetS ? '8' : '1') + ' Kasım\'da açılıyor · takvimin hazır' : (yetS ? 'Ders ders denemeler' : '7 deneme') + ', çalışma görevleri, takvimin') + '</small></span>' + OK + '</a>';
+    }
     if (sayfaVar('sinav-gibi.html')) {
       h += '<button type="button" class="srt" data-yol="sik">' + ik('alev') + '<span class="ad">En çok sorulan 20 konu denemesi<small>40 soru, 50 dakika' +
         (acik ? '' : ' · pakette') + '</small></span>' + (acik ? OK : ik('kilit', 'ok')) + '</button>';

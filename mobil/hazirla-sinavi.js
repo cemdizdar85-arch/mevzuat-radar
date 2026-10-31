@@ -70,6 +70,13 @@ const SEVIYE = (ek, eksik) => {
 const SITE_DIGER = ['yanlislarim.html', 'canli-deneme.html', 'en-cok-cikan-konular-sgs.html', 'en-cok-cikan-konular-yeterlilik.html'];
 const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" href="stil.css">', kapisiz ? '' : '<script src="paket-kapisi.js"></script>')
   .replace('<a href="ogrenci.html', '<a href="sorular.html#sgs">Soru çöz</a><a href="ogrenci.html');
+/* 31.10 1.9.1 Son 20 Gün: yalnız canonical sökülür; sayfaya özgü satış/giriş bağları hazirla.js `degis` ile çevrilir (gerçek sayfanın biçimi) */
+const SON20 = () => '<!doctype html><html lang="tr"><head><link rel="canonical" href="https://tetikte.com/son-20-gun.html"><link rel="stylesheet" href="stil.css"></head><body>' +
+  '<a href="kampanya-son-20-gun.html">Koşullar</a><script>' + String.raw`
+  k.innerHTML='<a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a>';
+  k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a>';
+  k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a>';
+` + '</script></body></html>';
 const SITE_EK_SAHTE = {};
 ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js',
   'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js', 'nobetci-notu.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
@@ -80,7 +87,8 @@ function kur(degisiklik) {
     'seviye-testi.html': SEVIYE(),
     'sinav-gibi.html': SINAV_GIBI(),
     /* 18.10: en çok çıkan konulardan sorular sayfası (iPhone'da gizlenen satış kartı #ecSatis) */
-    'en-cok-cikan-sorular.html': SEVIYE().replace('id="svTeklif"', 'id="ecSatis"')
+    'en-cok-cikan-sorular.html': SEVIYE().replace('id="svTeklif"', 'id="ecSatis"'),
+    'son-20-gun.html': SON20()
   }, SITE_EK_SAHTE, Object.fromEntries(SITE_DIGER.map((y) => [y, SEVIYE()])), {
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",
@@ -159,7 +167,13 @@ const VAKALAR = [
   { ad: 'seviye sayfasında iPhone gizleme kimliği (svTeklif) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*svTeklif/,
     d: { 'seviye-testi.html': SEVIYE().replace('id="svTeklif"', 'id="baska"') } },
   { ad: 'yanlışlarım sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*yanlislarim\.html yok/, d: { 'yanlislarim.html': null } },
-  { ad: 'canlı deneme yardımcısı (tema.js) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*tema\.js yok/, d: { 'tema.js': null } }
+  { ad: 'canlı deneme yardımcısı (tema.js) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*tema\.js yok/, d: { 'tema.js': null } },
+  /* 31.10 1.9.1 Son 20 Gün */
+  { ad: 'Son 20 Gün sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html yok/, d: { 'son-20-gun.html': null } },
+  { ad: 'Son 20 Gün "Paketleri gör" bağı değişmiş (site satış sayfasına gider) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*değişim deseni/,
+    d: { 'son-20-gun.html': SON20().replace('#gktPaket', '#gktPaketYeni') } },
+  { ad: 'Son 20 Gün giriş bağı tek kalmış (adet 2 bekleniyor) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*bulunan 1/,
+    d: { 'son-20-gun.html': SON20().replace("ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'", 'index.html') } }
 ];
 
 let gecen = 0, toplam = 0;

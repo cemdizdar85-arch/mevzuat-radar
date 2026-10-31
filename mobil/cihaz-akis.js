@@ -231,6 +231,20 @@ async function sekme(ad) {
     }
   }
 
+  // 5b) 31.10 1.9.1: Son 20 Gün (Sınavlar → "Son 20 Gün denemeleri" → son-20-gun.html; denemeler sunucudan s20_liste)
+  await anaSayfa(); await sekme('Sınavlar');
+  if (await bas('Son 20 Gün satırı', 'a', /Son 20 Gün denemeleri/, 10)) {
+    const dn = await bekleBul('#denemeler .dn', null, 30);
+    await bekle(1500); goruntu('son-20-gun');
+    const d = await js(`({a:location.pathname.replace(/^.*\\//,''), dn:document.querySelectorAll('#denemeler .dn').length,
+      satis:[...document.querySelectorAll('a')].filter(a=>/satin-al|fiyat\\.html|gktPaket/.test(a.getAttribute('href')||'')).length,
+      paket:[...document.querySelectorAll('#kapi a')].map(a=>a.getAttribute('href')).join(',')})`);
+    sonuc('Son 20 Gün sayfası açıldı, 7 deneme sunucudan geldi', d.a === 'son-20-gun.html' && d.dn === 7 && !!dn, JSON.stringify(d));
+    sonuc('Son 20 Gün: site satış bağı yok, giriş/paket uygulama içinde', d.satis === 0 && /index\.html#giris/.test(d.paket) && /index\.html#paketler/.test(d.paket), d.paket);
+    await donma('Son 20 Gün');
+    await xler('Son 20 Gün');
+  }
+
   // 6) çökme / ANR / JS hataları
   const log = adb(['logcat', '-d', '-b', 'crash,main,system']);
   sonuc('çökme yok (FATAL EXCEPTION)', !/FATAL EXCEPTION[\s\S]{0,200}com\.tetikte/.test(log));

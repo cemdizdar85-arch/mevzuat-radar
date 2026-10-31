@@ -242,6 +242,28 @@
     return html;
   }
 
+  /* 31.10 1.9.1: Son 20 Gün (son-20-gun.html) Bugün'de ve Hesap'ta kısa yol. Seçili sınava göre (SGS 1 Kasım · Yeterlilik 8 Kasım).
+     iPhone'da satış kapalı ve paketsizken gizli (sayfa paket ister; Apple 2.1 "kilit/satış çizilmez"). */
+  function s20Bag() {
+    if ((K.sayfalar || []).indexOf('son-20-gun.html') < 0) return null;
+    if (window.TT && window.TT.yalnizUcretsiz && window.TT.yalnizUcretsiz()) return null;
+    var yet = seciliSinav() === 'yeterlilik', acT = Date.parse(yet ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
+    return { href: 'son-20-gun.html' + (yet ? '?sinav=yeterlilik' : ''),
+      alt: Date.now() < acT ? (yet ? '8' : '1') + ' Kasım\'da açılıyor · takvimin hazır' : (yet ? 'Ders ders denemeler' : '7 deneme') + ', çalışma görevleri, takvimin' };
+  }
+  function s20Satiri() {
+    var b = s20Bag(); if (!b) return '';
+    return '<span class="etk">Son 20 Gün</span><div class="satirlar"><a class="srt" href="' + esc(b.href) + '">' + ik('takvim') +
+      '<span class="ad">Son 20 Gün denemeleri<small>' + esc(b.alt) + '</small></span>' + OK + '</a></div>';
+  }
+  function hesapS20() {
+    var h = $('hesap'); if (!h) return;
+    var k = $('hesapS20'), b = s20Bag();
+    if (!b) { if (k) k.remove(); return; }
+    if (!k) { k = document.createElement('div'); k.id = 'hesapS20'; k.className = 'satirlar'; k.style.marginTop = '14px'; h.appendChild(k); }
+    k.innerHTML = '<a class="srt" href="' + esc(b.href) + '">' + ik('takvim') + '<span class="ad">Son 20 Gün<small>' + esc(b.alt) + '</small></span>' + OK + '</a>';
+  }
+
   function bugunCiz() {
     IL.yenidenOku();
     var v = IL.veri(), h = v.ayar.hedef || 10, bugun = v.gun[IL.bugun()] || 0, seri = IL.seri(), t = toplam();
@@ -263,6 +285,7 @@
       html += '</div>' + kahramanKart(seciliSinav());
     }
 
+    html += s20Satiri();
     var D = window.TT_DURUM;
     if (D && !D.girisli) {
       html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="uyeol">' + ik('hesap', 'rozet amber') +
@@ -443,7 +466,7 @@
     });
   }
 
-  function ciz() { bugunCiz(); karneCiz(); }
+  function ciz() { bugunCiz(); karneCiz(); hesapS20(); }
 
   /* ilk açılış: karşılama (nasıl öğrettiğimiz) → sınav → günlük hedef → hatırlatıcı */
   function kurulum() {
