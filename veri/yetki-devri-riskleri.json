@@ -1,5 +1,5 @@
 {
-  "tarih": "31.10.2026 12:51",
+  "tarih": "31.10.2026 13:06",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 900,
   "riskli_madde": 1315,
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2975,43 +2975,43 @@
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 105,
+      "satir": 112,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün · 7 deneme"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 113,
+      "satir": 131,
       "iddia": "%60",
       "metin": "0/5 %60 ve üstü"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 166,
+      "satir": 184,
       "iddia": "20 gün",
       "metin": "+(YET?'Sınava 20 gün kala. ':'')+'Paketini şimdi al; denemeler o gün bu sayfada hesabında açılır. ';"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 247,
+      "satir": 269,
       "iddia": "%5",
       "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 350,
+      "satir": 372,
       "iddia": "20 Gün",
       "metin": "document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 351,
+      "satir": 373,
       "iddia": "20 Gün",
-      "metin": "$('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik';"
+      "metin": "$('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true;"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 354,
+      "satir": 376,
       "iddia": "%60",
       "metin": "$('soz').querySelector('.soz-s').innerHTML=' 0/8 şartı tamam ders 5 deneme her derste 3/5 %60 ve üstü gerekir ';"
     },
