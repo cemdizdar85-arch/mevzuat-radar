@@ -1,0 +1,102 @@
+{
+ "ad": "thp",
+ "tarih": "2026-10-31T19:54:28.642Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41236174882",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.2,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 4,
+  "gonderilen": 4,
+  "temiz": 0,
+  "kusurlu": 4,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 4,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.1
+ },
+ "kararlar": {
+  "smmm-4k-a-fmuh-kolay-r7/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.E"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w2-fmuh-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[4]"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w3-fmuh-zor/kp-31": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.A"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w5-fmuh-zor-2/kp-13": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "aciklama.C",
+    "teshis.C.gercek",
+    "adimlar",
+    "aciklama.A",
+    "teshis.A.yanilgi"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-fmuh-kolay-r7/kp-02",
+  "smmm-w2-fmuh-kolay/kp-01",
+  "smmm-w3-fmuh-zor/kp-31",
+  "smmm-w5-fmuh-zor-2/kp-13"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
