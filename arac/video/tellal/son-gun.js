@@ -6,7 +6,7 @@
      A  0,00– 9,30 ← 0,00– 9,30   r1 r2 r3 r4 + YK kâğıdı   · üstüne "YARIN SON GÜN" damgası
      B  9,30–14,42 ← 15,30–20,42  r8 + soru kartı (tuzaklar kırmızı, doğru yeşil, dayanak)
      C 14,42–17,07 ← 22,77–25,42  r10 "Duyduk duymadık demeyin! Bir Kasım gece yarısı!"
-     T 17,07–20,57   lacivert tanıtım kartı: YARIN AÇIKLIYORUZ · SGS testi · 3 adım (zil sesi)
+     T 17,07–20,57   lacivert tanıtım kartı: YARIN AÇILIYOR · SGS · Son 20 Gün sınavı · 3 adım (zil sesi)
      K 20,57–      ← 25,42–son    kap-A "Yanlışını böyle öğrenirsin."
    METİN KAPISI: yeni yazılar pazarlama/reklam/instagram-son-gun-sgs-testi.md "Ekrandaki yazı" + "Hikâye görseli" satırlarından (exit 3).
    GÜVENLİ ALAN KAPISI: Reels üst %14 · alt %35 · yan %6 (exit 4).
@@ -33,14 +33,14 @@ const SATIR = {}; for (const m of md.matchAll(/^(\d+)\. (.+)$/gm)) SATIR[m[1]] =
 const S = n => { if (!SATIR[n]) { console.error(`METİN KAPISI: md'de ${n}. satır yok`); process.exit(3); } return SATIR[n]; };
 
 const filmSure = sure(FILM);
-const PARCA = [['A', 0, 9.30], ['B', 15.30, 20.42], ['C', 22.77, 25.42], ['T', null, 3.50], ['K', 25.42, filmSure]];
+const PARCA = [['A', 0, 9.30], ['B', 15.30, 20.42], ['C', 22.77, 25.42], ['T', null, 4.50], ['K', 25.42, filmSure]];
 let t = 0; const CIZELGE = {};
 for (const [ad, a, b] of PARCA) { const d = a === null ? b : b - a; CIZELGE[ad] = [t, t + d]; t += d; }
 const SON = t;
 
 const V = {
   damga: S(1), damgaAlt: S(2), damgaZaman: [0.30, 4.40],
-  ust: S(3), baslik: S(4), adimlar: [S(5), S(6), S(7)], tanitZaman: CIZELGE.T,
+  ust: S(3), baslik: S(4), baslikAlt: S(13), guven: S(15), adimlar: [S(5), S(6), S(7)], tanitZaman: CIZELGE.T,
 };
 
 (async () => {
@@ -51,27 +51,29 @@ const V = {
   await sayfa.evaluate(v => window.kur(v), V);
   const kareDiz = path.join(CIKTI, 'son-gun-katman');
   fs.rmSync(kareDiz, { recursive: true, force: true }); fs.mkdirSync(kareDiz, { recursive: true });
+  const YALNIZ_HIKAYE = process.argv.includes('--hikaye');   // yalnız hikâye görseli yeniden çizilir, film dokunulmaz
   const n = Math.round(FPS * SON), tasma = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < (YALNIZ_HIKAYE ? 0 : n); i++) {
     const x = await sayfa.evaluate(s => { window.kare(s); return window.alanDisi(); }, i / FPS);
     if (x.length) tasma.push(`${(i / FPS).toFixed(2)} sn: ${x.join(' | ')}`);
     await sayfa.screenshot({ path: path.join(kareDiz, String(i).padStart(4, '0') + '.png'), omitBackground: true });
   }
   if (tasma.length) { console.error(`GÜVENLİ ALAN KIRMIZI — ${tasma.length} karede taşma:\n  ` + tasma.slice(0, 8).join('\n  ')); process.exit(4); }
-  console.log(`güvenli alan: ${n} karenin hepsi içeride`);
+  if (!YALNIZ_HIKAYE) console.log(`güvenli alan: ${n} karenin hepsi içeride`);
 
   /* ---- hikâye görseli: filmden zil karesi + yazılar, 1080×1920 ---- */
   const foto = path.join(CIKTI, 'son-gun-foto.png');
   ff(['-ss', '1.60', '-i', FILM, '-frames:v', '1', foto]);
   const hs = await tarayici.newPage({ viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1.5 });
   await hs.goto(url);
-  await hs.evaluate(v => window.kur(v), { ...V, hikaye: { foto: 'file:///' + foto.replace(/\\/g, '/'), s1: S(9), s2: S(10), s3: S(11), s4: S(12) } });
+  await hs.evaluate(v => window.kur(v), { ...V, hikaye: { foto: 'file:///' + foto.replace(/\\/g, '/'), s1: S(14), s2: S(10), s3: S(15), s4: S(12) } });
   await hs.waitForFunction(() => document.getElementById('hkFoto').complete);
   if (S(8) !== S(1)) { console.error('METİN KAPISI: hikâye damgası (8) Reels damgasıyla (1) aynı değil'); process.exit(3); }
   const hikaye = path.join(CIKTI, 'SON-GUN-HIKAYE.png');
   await hs.screenshot({ path: hikaye });
   await tarayici.close();
   console.log(`hikâye: ${hikaye}`);
+  if (YALNIZ_HIKAYE) return;
 
   /* ---- parçalar aynı biçimde, concat demuxer ile sırayla (30.10: tek grafik kilitlendi) ---- */
   const kod = ['-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'medium', '-r', String(FPS)];
