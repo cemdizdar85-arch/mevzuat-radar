@@ -1,0 +1,195 @@
+{
+ "ad": "onarim-ah17",
+ "tarih": "2026-10-31T16:50:44.149Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41221404716",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.7,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 13,
+  "gonderilen": 13,
+  "temiz": 10,
+  "kusurlu": 3,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 13,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.34
+ },
+ "kararlar": {
+  "smmm-4k-a-yvergi-cokzor-r9/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.116 - ÜÇÜNCÜ BÖLÜM Vergi Hatalarını Düzeltme ve Reddiyat31 Vergi hatası"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-kolay-r10/kp-10": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "celdirici_yol.D",
+    "aciklama.D",
+    "celdirici_yol.C",
+    "aciklama.C"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-yvergi-kolay-r2/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "ÖTV K. (4760 s.K.) gec. m.3",
+    "ÖTV K. (4760 s.K.) m.12 [1/8]",
+    "ÖTV K. (4760 s.K.) m.4"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-kolay-r3/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.3 - İKİNCİ BÖLÜM Tam Mükellefiyet Mükellefler",
+    "GVK (193 s.K.) m.6 - ÜÇÜNCÜ BÖLÜM Dar Mükellefiyet Mükellefler ve mevzuu"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-kolay-r7/kp-19": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.21 - BEŞİNCİ BÖLÜM Sermaye İratlarında İstisnalar Gayrimenkuller ve haklarda",
+    "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 329) m.3 [1/3]",
+    "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [1/3]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-dog1-vergi/kp-29": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.B"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-dog1-vergi/kp-55": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "KVK (5520 s.K.) m.5/B [1/3]",
+    "KVK (5520 s.K.) m.5/B [2/3]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-gm5-19-yvergi-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GVK (193 s.K.) muk. m.120 - Geçici vergi [1/2]",
+    "KVK GUT (1 Seri No) b.20.1 [2/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-olc2-b-vergi/kp-23": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-olc2-b-vergi/kp-40": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.94 [10/14]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w3-yvergi-cokzor/kp-18": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.A",
+    "teshis.B"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.376"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w3-yvergi-kolay/kp-18": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.7 - Kazanç veya iradın Türkiye'de elde edilmesi [1/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w7-1-yvergi-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-yvergi-kolay-r10/kp-10",
+  "smmm-dog1-vergi/kp-29",
+  "smmm-w3-yvergi-cokzor/kp-18"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
