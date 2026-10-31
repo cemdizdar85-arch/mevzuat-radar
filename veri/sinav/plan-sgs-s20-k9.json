@@ -1,0 +1,41 @@
+[
+  {
+    "ders": "Meslek Hukuku",
+    "dersAd": "Meslek Hukuku",
+    "etiket": "sgs-s20-meslek-k9-kolay",
+    "adet": 3,
+    "zorluk": "kolay",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-meslek-k9-kolay.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-meslek-k9-kolay.json"
+  },
+  {
+    "ders": "Meslek Hukuku",
+    "dersAd": "Meslek Hukuku",
+    "etiket": "sgs-s20-meslek-k9-zor",
+    "adet": 7,
+    "zorluk": "zor",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-meslek-k9-zor.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-meslek-k9-zor.json"
+  },
+  {
+    "ders": "Meslek Hukuku",
+    "dersAd": "Meslek Hukuku",
+    "etiket": "sgs-s20-meslek-k9-cokzor",
+    "adet": 4,
+    "zorluk": "çok zor",
+    "sinav": "SGS",
+    "konuDosya": "veri/sinav/konu/sgs-s20-meslek-k9-cokzor.json",
+    "toplu": true,
+    "disla": "",
+    "tur": 1,
+    "hazirSoru": "veri/fabrika/hazir-sgs-s20-meslek-k9-cokzor.json"
+  }
+]
