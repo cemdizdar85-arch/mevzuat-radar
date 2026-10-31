@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-10-30T00:47:03.401Z",
-  "gun": "2026-10-30",
+  "olcum": "2026-10-31T00:40:51.466Z",
+  "gun": "2026-10-31",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 2,
+      "sira": 3,
       "toplam": 10,
-      "id": "sgs-a6e-yabancidil-p1b/kp-01",
-      "ders": "Yabancı Dil",
-      "konu": "cümle tamamlama",
-      "donem": 18,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "Although the audit team had full access to all the accounting records, ----.",
+      "id": "sgs-t1-maliyet-cokzor/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dağıtımı",
+      "donem": 13,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Bir tekstil işletmesinde A ve B ana ürünleri ile Z yan ürünü aynı ortak üretim sürecinden elde edilmektedir. Ayrılma noktasından sonra A ürününe 100.000 TL, B ürününe 30.000 TL ek işleme maliyeti yüklenmekte; A ürününün nihai satış değeri 300.000 TL, B ürününün nihai satış değeri 150.000 TL'dir. Z yan ürününün satış geliri 20.000 TL olup yan ürüne ortak maliyetten pay verilmemekte, bu tutar ortak maliyetten düşülmektedir. Net gerçekleşebilir değer yöntemine göre yapılan dağıtım sonucunda B ürününe isabet eden ortak maliyet payı 96.000 TL olarak hesaplanmıştır. Buna göre işletmenin toplam birleşik (ortak) üretim maliyeti kaç TL'dir?",
       "siklar": {
-        "A": "they were able to complete the whole review well ahead of schedule",
-        "B": "the management refused to sign the letter of representation",
-        "C": "they still could not verify the origin of several large payments",
-        "D": "the financial statements had been prepared in line with the standards",
-        "E": "an independent expert was appointed by the board of directors"
+        "A": "236.000",
+        "B": "256.000",
+        "C": "276.000",
+        "D": "288.000",
+        "E": "308.000"
       },
       "dogru": "C",
       "tuzak": {
         "D": {
-          "ad": "Yön Tuzağı",
-          "metin": "Tabloların standartlara uygun hazırlanmış olması erişimle aynı yönde olumlu bir yargıdır. Doğrusu: zıtlık için olumsuz bir sonuç gerekir."
+          "ad": "Ölçüt Karışıklığı Tuzağı",
+          "metin": "NGD hesaplarken ek işleme maliyetlerini düşmeden doğrudan nihai satış değerlerini oranladın, ayrıca yan ürün gelirini eklemedin. Doğrusu: dağıtım anahtarı ek işleme maliyeti düşülmüş NGD'dir, nihai satış değeri değildir."
         },
         "E": {
-          "ad": "Bağlantı Tuzağı",
-          "metin": "Bağımsız uzman atanması ayrı bir olaydır, yan cümleyle zıtlık ilişkisi kurmaz. Doğrusu: ana cümle yan cümlenin beklentisini bozmalıdır."
+          "ad": "Bileşik Hata Tuzağı",
+          "metin": "hem yanlış oranla (ek işleme maliyetini düşmeden) net tutarı buldun hem de sonuna Z'yi ekleyerek iki hatayı birleştirdin. Doğrusu: doğru oran NGD'den, doğru toplam ise Z'nin doğru orana dayalı net tutara eklenmesinden g…"
         },
         "A": {
-          "ad": "Zıtlık Tuzağı",
-          "metin": "'Although' iki yargı arasında zıtlık kurar; erişim kolaylığı ile işin erken bitmesi aynı yönde olduğu için zıtlık doğmaz. Doğrusu: yan cümleyle ters düşen bir sonuç gerekir."
+          "ad": "Ters İşaret Tuzağı",
+          "metin": "Yan ürün satış gelirinin ortak maliyetten düşüldüğünü gördüğün için toplam ortak maliyeti bulurken bu tutarı dağıtılacak net tutardan bir kez daha çıkardın. Doğrusu: Z'nin satış geliri, net dağıtılacak tutara geri EKLEN…"
         },
         "B": {
-          "ad": "İlgi Tuzağı",
-          "metin": "Yönetimin beyan mektubunu imzalamaması, kayıtlara erişimle mantıksal olarak bağlanmaz. Doğrusu: sonuç, erişim olgusuyla çelişmelidir."
+          "ad": "Atlanan Katman Tuzağı",
+          "metin": "96.000 TL'yi 0,375 orana bölerek bulduğun 256.000'i doğrudan toplam ortak maliyet sandın, yan ürünün düşülmüş olan payını geri eklemeyi unuttun. Doğrusu: 256.000, Z düşüldükten SONRAKİ net dağıtılabilir tutardır, toplam…"
         }
       },
-      "hap": "Although gördüğünde ana cümlede beklenenin TERSİNİ ara; iki olumlu yargı yan yana gelmez.",
+      "hap": "Net gerçekleşebilir değer yönteminde dağıtım anahtarı, nihai satış değerinden ek işleme maliyetinin düşülmesiyle bulunan NGD'dir; yan ürünün ortak maliyetten düşülen satış geliri, toplam birleşik maliyete geri eklenerek bulunur.",
       "satirlar": [
         [
-          "Ne soruluyor",
-          "'Although' ile başlayan yan cümleyi anlamca tamamlayan ana cümle isteniyor."
+          "B ürünü net gerçekleşebilir değeri (150.000-30.000)",
+          "120.000"
         ],
         [
-          "Kural",
-          "'Although' zıtlık bağlacıdır; yan cümlede beklenen sonucun tersi ana cümlede yer alır. Burada yan cümle 'tüm kayıtlara tam erişim vardı' diyor; beklenen sonuç 'her şey doğrulandı' olurdu."
+          "Toplam net gerçekleşebilir değer",
+          "320.000"
         ],
         [
-          "Doğru şık",
-          "C) they still could not verify the origin of several large payments"
+          "B ürünü dağıtım oranı (120.000/320.000)",
+          "%37,5"
+        ],
+        [
+          "Dağıtılacak net ortak maliyet (96.000/0,375)",
+          "256.000"
+        ],
+        [
+          "Toplam birleşik (ortak) üretim maliyeti (256.000+20.000)",
+          "276.000"
         ]
       ],
-      "dayanak": "Yabancı Dil dilbilgisi kuralı - Zıtlık bağlaçları (although / though / even though): yan cümlede belirtilen durumun doğal sonucu ana cümlede GERÇEKLEŞMEZ. Cümle tamamlamada ilk adım bağlacın kurduğu anlam ilişkisini (zı…",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=2",
+      "dayanak": "Ortak maliyet dağıtımı - net gerçekleşebilir değer yöntemi ve yan ürün maliyetlendirmesi (maliyet muhasebesi teorisi, mevzuat maddesi yok)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=3",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -16,
+        "kalan_gun": -17,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,71 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 5,
+      "sira": 6,
       "toplam": 9,
-      "id": "smmm-4k-a-yspk-zor-r8/kp-01",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "sermaye piyasası kurumları",
-      "donem": 6,
+      "id": "smmm-w7-1-yhukuk-zor/kp-01",
+      "ders": "Hukuk",
+      "konu": "borcu sona erdiren sebepler",
+      "donem": 4,
       "teori": true,
       "rakamSik": false,
-      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun 35. maddesinde, bu Kanuna göre faaliyette bulunabilecek sermaye piyasası kurumları tek tek sayılmıştır. Buna göre, aşağıdakilerden hangisi 6362 sayılı Kanun'un 35. maddesinde sayılan sermaye piyasası kurumlarından biri değildir?",
+      "soru": "Mobilya üreticisi İşletme'nin, tedarikçisi Kişi'den 2019 yılında verdiği ödünç paraya ilişkin 60.000 ₺ alacağı vardır. Kişi'nin de İşletme'den 2023 yılında teslim ettiği malzeme bedeline ilişkin 60.000 ₺ alacağı bulunmaktadır. İşletme'nin alacağı, iki borcun birlikte var olduğu 2023 yılında zamanaşımına uğramamışken, 2026 yılında zamanaşımına uğramış ve İşletme takas beyanını bu tarihte yapmıştır. Buna göre, aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "Merkezî takas kuruluşları",
-        "B": "Konut finansmanı ve varlık finansmanı fonları",
-        "C": "Veri depolama kuruluşları",
-        "D": "Varlık kiralama şirketleri",
-        "E": "Faktoring şirketleri"
+        "A": "Takas beyanının zamanaşımı süresi dolduktan sonra yapılmış olması, İşletme'nin takas hakkını ortadan kaldırır.",
+        "B": "İşletme'nin alacağı, iki borcun birlikte var olduğu anda zamanaşımına uğramamış olduğundan, takas beyanı geçerli olarak ileri sürülebilir.",
+        "C": "Alacaklardan birinin ödünç bedeline, diğerinin malzeme bedeline dayanması, edimlerin özdeş sayılmasını engellediğinden takas mümkün değildir.",
+        "D": "Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uyarınca hiçbir koşulda takasa konu edilemeyeceğinden İşletme'nin beyanı sonuçsuzdur.",
+        "E": "Taraflar arasında alacaklı ve borçlu sıfatları aynı kişide birleştiğinden borç zaten sona ermiş olup takas beyanına gerek kalmamıştır."
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Yeni Kurum Yabancılaşması Tuzağı",
-          "metin": "Öğrenci veri depolama kuruluşlarını teknik-idari bir birim sanıp Kanun kapsamı dışında görür. Doğrusu: Veri depolama kuruluşları madde 35/1-h bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kapsam Tuzağı",
+          "metin": "Alacakların farklı hukuki kaynaklardan (ödünç, malzeme bedeli) doğmasının edim özdeşliğini bozduğunu düşünürsün. Doğrusu: TBK m.139/1 aynı cins ve nitelikte edimi esas alır, her iki alacak da para borcu olduğundan özdeş…"
         },
-        "A": {
-          "ad": "Kapsam Daraltma Tuzağı",
-          "metin": "Öğrenci takas kuruluşlarını borsa bünyesinde bir birim sanıp ayrı bir kurum türü olarak Kanun'da sayılmadığını düşünür. Doğrusu: Merkezî takas kuruluşları madde 35/1-g bendinde sermaye piyasası kurumu olarak açıkça sayı…"
+        "E": {
+          "ad": "Kurum Karıştırma Tuzağı",
+          "metin": "Alacaklı-borçlu sıfatlarının birleşmesini (m.135) takas ile aynı olaya uygularsın. Doğrusu: Birleşme, alacaklı ve borçlunun aynı kişide toplanmasını gerektirir; olayda İşletme ve Kişi ayrı kişiler olduğundan birleşme sö…"
         },
         "D": {
-          "ad": "Sukuk Aracı Karıştırma Tuzağı",
-          "metin": "Öğrenci varlık kiralama şirketlerini yalnız kira sertifikası çıkaran bir araç sanıp ayrı kurum sayılmadığını düşünür. Doğrusu: Varlık kiralama şirketleri madde 35/1-f bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kural Genelleme Tuzağı",
+          "metin": "Zamanaşımına uğramış her alacağın takasa konu olamayacağını genel kural sayarsın. Doğrusu: TBK m.139/3 bu genel kurala açık bir istisna getirir; takas edilebilir anda zamanaşımı dolmamışsa takas ileri sürülebilir."
         },
-        "B": {
-          "ad": "Fon-Kurum Karıştırma Tuzağı",
-          "metin": "Öğrenci tüzel kişiliği bulunmayan fonların kurum sayılmayacağını düşünür. Doğrusu: Konut finansmanı ve varlık finansmanı fonları madde 35/1-e bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        "A": {
+          "ad": "Zamanlama Tuzağı",
+          "metin": "Beyanın hangi tarihte yapıldığını belirleyici sanırsın. Doğrusu: TBK m.139/3'e göre önemli olan iki borcun birlikte var olduğu andaki durumdur, beyanın sonradan yapılması hakkı ortadan kaldırmaz."
         }
       },
-      "hap": "6362 sayılı Kanun m.35/1'de sayılan sermaye piyasası kurumları arasında faktoring şirketleri yoktur; bunlar 6361 sayılı Kanun'a tabidir. Bankalar ise m.3/1-v gereği yatırım kuruluşu olarak m.35/1-a kapsamındadır.",
+      "hap": "Zamanaşımına uğramış alacağın takası, borçların birlikte var olduğu (takas edilebilir hale geldiği) anda zamanaşımı henüz dolmamışsa geçerlidir.",
       "satirlar": [
         [
-          "A) Merkezî takas kuruluşları",
-          "m.35/1-g"
+          "A) Takas beyanının zamanaşımı süresi dolduktan sonra yapılm…",
+          "TBK m.139/3"
         ],
         [
-          "B) Konut finansmanı ve varlık finansmanı fonları",
-          "m.35/1-e"
+          "B) İşletme'nin alacağı, iki borcun birlikte var olduğu anda…",
+          "TBK m.139/3"
         ],
         [
-          "C) Veri depolama kuruluşları",
-          "m.35/1-h"
+          "C) Alacaklardan birinin ödünç bedeline, diğerinin malzeme b…",
+          "TBK m.139/1"
         ],
         [
-          "D) Varlık kiralama şirketleri",
-          "m.35/1-f"
+          "D) Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uya…",
+          "TBK m.139/3"
         ],
         [
-          "E) Faktoring şirketleri",
-          "m.35/1"
+          "E) Taraflar arasında alacaklı ve borçlu sıfatları aynı kişi…",
+          "TBK m.135"
         ]
       ],
-      "dayanak": "6362 sayılı Sermaye Piyasası Kanunu m.35/1 (a–ı bentleri), m.3/1-v (yatırım kuruluşu bankaları kapsar); 6361 sayılı Kanun m.1 (faktoring şirketleri)",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=5",
+      "dayanak": "TBK m.139/3",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=6",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -10,
+        "kalan_gun": -11,
         "durum": "DONGU",
         "mail_gunu": false
       },
