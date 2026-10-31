@@ -461,6 +461,9 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      ⛔ **Yeniden hakem Cem/kontrol elle ret kaydını SİLMEZ (31.10, ddbeecc2):** `hakem` kaydı listeden yalnız kaynak alanı Cem/kontrol değilse çıkarır
      (`onarim-rehakem` ve tarama kaynakları eskisi gibi). Kaynakta "Cem" / "kontrol" / "yanlış-kesin" geçen kayıt ELLE KİLİT: robot ne siler ne gerekçeye yazar,
      günlükte listeler; düzeltme dönünce kontrol okuyup elle çıkarır. Ölçülen neden: eski planın (o0610l) bayat hakem EVET'i (a) kaydını 40 dk'da sildi, kusurlu soru siteye döndü.
+     ⛔ **SMMM'de hakem EVET tek başına listeden çıkarmaz (31.10, Cem "evet yap"):** çıkış = hakem EVET + hakem2 EVET + kör doğru + simülasyon
+     yanlış değil + açıklama hakemi TEMIZ (`gecmeNedeni`); biri yoksa kayıt kalır, sonraki turda yeniden bakılır. SGS/KGK eskisi gibi.
+     Ölçülen neden: 8269da0e robot 53 kaydı çıkardı, 21'i kör yanlış / AH KUSURLU'ydu (yayın şartı tuttu, sitede 0).
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,

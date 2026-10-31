@@ -274,17 +274,32 @@ async function sahteDeneme(sessiz) {
 async function hakem(planlar) {
   // 02.10: SMMM planları da işlenir — liste etiket önekinden seçilir (teslim ile aynı retSec; karışık plan kümesi DURUR).
   const planSatir = []; for (const p of planlar) for (const r of JSON.parse(fs.readFileSync(path.resolve(p), 'utf8').replace(/^﻿/, ''))) planSatir.push(r);
-  if (planSatir.length) retSec([...new Set(planSatir.map(r => String(r.etiket)))]);
+  const sec = planSatir.length ? retSec([...new Set(planSatir.map(r => String(r.etiket)))]) : null;
+  const smmm = sec === 'SMMM';
   const o = okuJ(RET); const bekSet = new Set();
   for (const r of planSatir) for (const kp of String(r.pilotId || '').split(',').filter(Boolean)) bekSet.add(r.etiket + '/' + kp);
   const bek = [...bekSet].filter(k => o.j.kayitlar[k]);
-  const Kk = anahtar(); const onb = {}; const evet = [], hayir = [], bekliyor = [];
+  const Kk = anahtar(); const onb = {}; const evet = [], hayir = [], bekliyor = [], eksik = [];
   for (const ad of bek) { const [e, kp] = ad.split('/'); if (!onb[e]) onb[e] = await ambarParti(e, Kk); const q = onb[e][kp] || {};
     const k = q.hakem && String(q.hakem.karar || q.hakem.sonuc || '').toUpperCase();
-    if (!q.hakem) bekliyor.push(ad); else if (k === 'EVET') evet.push(ad); else hayir.push(ad + ' (' + k + ')'); }
+    if (!q.hakem) bekliyor.push(ad); else if (k !== 'EVET') hayir.push(ad + ' (' + k + ')');
+    else { const n = smmm ? gecmeNedeni(q) : null; if (n) eksik.push(ad + ' (' + n + ')'); else evet.push(ad); } }
   const rr = retYaz(kay => hakemRetIsle(kay, evet, hayir));
-  console.log(`yeniden hakem: bekleyen ${bek.length} · EVET ${evet.length} (listeden çıkan ${rr.cikan}) · HAYIR ${hayir.length} (yayın dışı kalır) · henüz hakemsiz ${bekliyor.length} · elle ret ${rr.once}→${rr.sonra}`);
+  console.log(`yeniden hakem: bekleyen ${bek.length} · EVET+tam ${evet.length} (listeden çıkan ${rr.cikan}) · EVET ama eksik ${eksik.length} (kalır) · HAYIR ${hayir.length} (yayın dışı kalır) · henüz hakemsiz ${bekliyor.length} · elle ret ${rr.once}→${rr.sonra}`);
+  if (eksik.length) console.log(`  EVET AMA EKSİK (listede kalır): ${eksik.join(', ')}`);
   if (rr.korunan.length) console.log(`  ELLE KİLİT (Cem/kontrol kaydı, robot dokunmaz — kontrol düzeltmeyi okuyup elle çıkarır): ${rr.korunan.join(', ')}`);
+}
+// 31.10 ÖLÇÜLDÜ (8269da0e): robot yalnız hakem EVET'e bakıp 53 SMMM kaydını listeden çıkardı; 21'i kör yanlış ya da açıklama
+//   hakemi KUSURLU'ydu (sitede yayın şartı tuttu, 0 sızdı). Cem 31.10 "evet yap": SMMM'de liste çıkışı = hakem EVET + hakem2 EVET +
+//   kör doğru + simülasyon yanlış değil + açıklama hakemi TEMIZ. Kayıt yoksa (koşu sürüyor) çıkmaz, sonraki turda yeniden bakılır.
+//   SGS/KGK davranışı değişmez (bitirme oturumu SGS'ye dokunmaz).
+function gecmeNedeni(q) {
+  const n = [];
+  if (!q.hakem2) n.push('hakem2 yok'); else if (String(q.hakem2.karar || '').toUpperCase() !== 'EVET') n.push('hakem2 ' + q.hakem2.karar);
+  if (!q.kor_cozum) n.push('kör yok'); else if (q.kor_cozum.dogru_mu !== true) n.push('kör yanlış');
+  for (const sa of ['simulasyon_sonnet', 'simulasyon']) if (q[sa] && q[sa].dogru_mu === false) n.push('simülasyon yanlış');
+  if (!q.aciklama_hakem) n.push('AH yok'); else if (String(q.aciklama_hakem.karar || '').toUpperCase() !== 'TEMIZ') n.push('AH ' + q.aciklama_hakem.karar);
+  return n.join(', ');
 }
 // 31.10 ÖLÇÜLDÜ (ddbeecc2): Cem 01.11 (a) "yanlış-kesin" kaydı smmm-4k-a-yvergi-zor-r7/kp-02, ESKİ plan (o0610l) pilotId'si olduğu ve
 //   ambardaki ESKİ hakem EVET'i durduğu için 40 dk sonra listeden silindi → kusurlu soru siteye döndü. Hakem kaydında tarih yok,
@@ -337,6 +352,15 @@ function sinav() {
     ['hakem: HAYIR + Cem elle kaydı → gerekçe DEĞİŞMEZ', (() => { const kay = { 'e/kp-4': { gerekce: 'g', kaynak: 'Cem 30.10 ilk 120 temizliği' } }; hakemRetIsle(kay, [], ['e/kp-4 (HAYIR)']); return { durum: kay['e/kp-4'].gerekce === 'g' ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
     ['hakem: HAYIR + onarim kaydı → HAKEM HAYIR işlenir (bir kez)', (() => { const kay = { 'e/kp-5': { gerekce: 'g', kaynak: 'onarim-rehakem' } }; hakemRetIsle(kay, [], ['e/kp-5 (HAYIR)']); hakemRetIsle(kay, [], ['e/kp-5 (HAYIR)']); return { durum: kay['e/kp-5'].gerekce === 'g | HAKEM HAYIR (yeniden onarim gerekir)' ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
     ['hakem: "kontrol" kaynaklı elle kayıt → KALIR', { durum: elleKilitli({ kaynak: 'kontrol ajanı 01.11' }) && !elleKilitli({ kaynak: 'onarim-rehakem' }) && !elleKilitli({ kaynak: 'sinav kolu kanun değişikliği taraması' }) && !elleKilitli({}) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    // 31.10 8269da0e vakası: SMMM'de hakem EVET tek başına listeden çıkarmaz
+    ...(() => { const tam = { hakem: { karar: 'EVET' }, hakem2: { karar: 'EVET' }, kor_cozum: { dogru_mu: true }, simulasyon_sonnet: { dogru_mu: true }, aciklama_hakem: { karar: 'TEMIZ' } };
+      return [['SMMM çıkış: hepsi geçti → neden yok', { durum: gecmeNedeni(tam) === '' ? 'ok' : 'x' }, r => r.durum === 'ok'],
+        ['SMMM çıkış: kör yanlış → kalır', { durum: /kör yanlış/.test(gecmeNedeni({ ...tam, kor_cozum: { dogru_mu: false } })) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+        ['SMMM çıkış: AH KUSURLU → kalır', { durum: /AH KUSURLU/.test(gecmeNedeni({ ...tam, aciklama_hakem: { karar: 'KUSURLU' } })) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+        ['SMMM çıkış: AH henüz yok → kalır', { durum: /AH yok/.test(gecmeNedeni({ ...tam, aciklama_hakem: undefined })) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+        ['SMMM çıkış: simülasyon yanlış → kalır', { durum: /simülasyon/.test(gecmeNedeni({ ...tam, simulasyon_sonnet: { dogru_mu: false } })) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+        ['SMMM çıkış: hakem2 HAYIR → kalır', { durum: /hakem2 HAYIR/.test(gecmeNedeni({ ...tam, hakem2: { karar: 'HAYIR' } })) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+        ['SMMM çıkış: kör yok → kalır', { durum: /kör yok/.test(gecmeNedeni({ ...tam, kor_cozum: undefined })) ? 'ok' : 'x' }, r => r.durum === 'ok']]; })(),
     ['kgk- etiketleri → KGK elle ret listesi', retSecim(['kgk-d1-tds-zor-1', 'kgk-gm-ky-r1']), r => r.sinav === 'KGK' && r.dosya === 'kgk-elle-ret.json'],
     ['sgs- etiketi → SGS (davranış aynı)', retSecim(['sgs-c2-fmuh-zor-r3']), r => r.sinav === 'SGS' && r.dosya === 'sgs-elle-ret.json'],
     ['smmm- etiketi → SMMM (davranış aynı)', retSecim(['smmm-gm9-1-yvergi-zor']), r => r.sinav === 'SMMM' && r.dosya === 'smmm-elle-ret.json'],
@@ -351,7 +375,7 @@ function sinav() {
   return { ok, toplam: V.length };
 }
 
-module.exports = { karar, fark, esit, retCikabilir, retSecim, hakemRetIsle, elleKilitli, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
+module.exports = { karar, fark, esit, retCikabilir, retSecim, hakemRetIsle, elleKilitli, gecmeNedeni, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
   if (kmt === '--sinav') (async () => {
