@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Kurucu son gün görseli</title>
+<style>
+  /* Instagram görseli (sitede yayınlanmaz): palet son-gun.html ile aynı. */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; font-family: "Segoe UI", Arial, sans-serif;
+               background: radial-gradient(circle at 50% 30%, #1b3656 0%, #0f2338 62%, #091626 100%); }
+  body.hikaye, body.hikaye html { height: 1920px; }
+  #ic { position: absolute; left: 0; right: 0; top: 0; }
+  body.hikaye #ic { top: 285px; }
+  .serit { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); white-space: nowrap; background: #f5b301; color: #0f2338;
+           font-size: 38px; font-weight: 900; letter-spacing: 1px; padding: 14px 34px; border-radius: 50px; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+  .foto { position: absolute; top: 170px; left: 330px; width: 420px; height: 525px; border-radius: 26px; object-fit: cover;
+          box-shadow: 0 22px 50px rgba(0,0,0,.55); border: 6px solid rgba(255,255,255,.9); }
+  .soz { position: absolute; top: 735px; left: 90px; right: 90px; text-align: center; color: #fff; font-size: 50px; font-weight: 800; line-height: 1.25; }
+  .soz b { color: #f5b301; }
+  .imza { position: absolute; top: 1005px; left: 0; right: 0; text-align: center; }
+  .imza .ad { color: #fff; font-size: 40px; font-weight: 900; }
+  .imza .unvan { color: #ffe08a; font-size: 28px; font-weight: 700; margin-top: 4px; }
+  .alt { position: absolute; top: 1125px; left: 110px; right: 110px; text-align: center; color: #fff; font-size: 29px; font-weight: 800;
+         background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.2); border-radius: 18px; padding: 16px 18px; }
+  .alt small { display: block; color: #ffe08a; font-size: 25px; margin-top: 6px; }
+  .adres { position: absolute; top: 1278px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.7); font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+<div id="ic">
+  <div class="serit" id="s1"></div>
+  <img class="foto" id="foto" alt="">
+  <div class="soz" id="s2"></div>
+  <div class="imza"><div class="ad" id="s3"></div><div class="unvan" id="s4"></div></div>
+  <div class="alt"><span id="s5"></span><small id="s6"></small></div>
+  <div class="adres" id="s7"></div>
+</div>
+<script>
+  window.kur = v => {
+    if (v.hikaye) { document.body.classList.add('hikaye'); document.documentElement.style.height = document.body.style.height = '1920px'; }
+    document.getElementById('foto').src = v.foto;
+    for (const k of ['s1', 's3', 's4', 's5', 's6', 's7']) document.getElementById(k).textContent = v[k];
+    // güven cümlesinin ikinci yarısı vurgulu: "...ki:" sonrası
+    const [a, b] = v.s2.split(/:\s*/);
+    const s2 = document.getElementById('s2'); s2.textContent = a + ': '; const vb = document.createElement('b'); vb.textContent = b; s2.appendChild(vb);
+  };
+</script>
+</body>
+</html>
