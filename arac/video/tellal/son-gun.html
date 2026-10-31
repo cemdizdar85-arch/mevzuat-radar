@@ -15,23 +15,27 @@
               text-shadow: 0 2px 0 #000, 0 0 10px rgba(0,0,0,.9); }
   /* tanıtım kartı: tam ekran lacivert */
   #tanit { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 35%, #1b3656 0%, #0f2338 60%, #091626 100%); }
-  #ust { position: absolute; top: 230px; left: 43px; right: 43px; text-align: center; color: #f5b301; font-size: 34px; font-weight: 900; letter-spacing: 3px; }
-  #baslik { position: absolute; top: 284px; left: 43px; right: 43px; text-align: center; color: #fff; font-size: 82px; font-weight: 900; }
+  #ust { position: absolute; top: 216px; left: 43px; right: 43px; text-align: center; color: #f5b301; font-size: 34px; font-weight: 900; letter-spacing: 3px; }
+  #baslik { position: absolute; top: 252px; left: 43px; right: 43px; text-align: center; color: #fff; font-size: 116px; font-weight: 900; line-height: 1.1; }
+  #baslikAlt { position: absolute; top: 392px; left: 43px; right: 43px; text-align: center; color: #fff; font-size: 44px; font-weight: 800; }
   .adim { position: absolute; left: 70px; right: 70px; display: flex; align-items: center; gap: 18px; color: #fff; font-size: 38px; font-weight: 800;
           background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.18); border-radius: 18px; padding: 16px 22px; opacity: 0; }
   .adim .n { flex: 0 0 52px; height: 52px; border-radius: 50%; background: #f5b301; color: #0f2338; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900; }
-  #kapanis { position: absolute; top: 768px; left: 43px; right: 43px; text-align: center; color: #ffe08a; font-size: 26px; font-weight: 800; opacity: 0; }
+  #kapanis { position: absolute; top: 782px; left: 43px; right: 43px; text-align: center; color: #ffe08a; font-size: 26px; font-weight: 800; opacity: 0; }
   /* hikâye kipi (1080x1920 olarak 720x1280'de çizilir, 1,5 ölçekle) */
   body.hikaye { background: radial-gradient(circle at 50% 30%, #1b3656 0%, #0f2338 60%, #091626 100%); }
   #hk { display: none; position: absolute; inset: 0; }
   body.hikaye #hk { display: block; }
-  #hkFoto { position: absolute; top: 150px; left: 110px; width: 500px; height: 560px; object-fit: cover; object-position: 50% 40%; border-radius: 22px;
+  #hk .h0 { position: absolute; top: 120px; left: 40px; right: 40px; text-align: center; color: #f5b301; font-size: 30px; font-weight: 900; letter-spacing: 4px; }
+  #hk .h1 { position: absolute; top: 158px; left: 40px; right: 40px; text-align: center; color: #fff; font-size: 104px; font-weight: 900; line-height: 1; }
+  #hk .h2 { position: absolute; top: 268px; left: 40px; right: 40px; text-align: center; color: #fff; font-size: 42px; font-weight: 800; }
+  #hkFoto { position: absolute; top: 340px; left: 150px; width: 420px; height: 390px; object-fit: cover; object-position: 50% 62%; border-radius: 22px;
             box-shadow: 0 18px 40px rgba(0,0,0,.55); }
-  #hk .damga2 { position: absolute; top: 640px; left: 50%; transform: translateX(-50%) rotate(-5deg); white-space: nowrap; border: 7px solid #ff4b3e; color: #ff4b3e;
+  #hk .damga2 { position: absolute; top: 676px; left: 50%; transform: translateX(-50%) rotate(-5deg); white-space: nowrap; border: 7px solid #ff4b3e; color: #ff4b3e;
                 background: #fff; border-radius: 14px; font-size: 64px; font-weight: 900; letter-spacing: 2px; padding: 2px 24px; box-shadow: 0 10px 30px rgba(0,0,0,.45); }
-  #hk .s1 { position: absolute; top: 770px; left: 40px; right: 40px; text-align: center; color: #fff; font-size: 34px; font-weight: 900; }
-  #hk .s2 { position: absolute; top: 818px; left: 40px; right: 40px; text-align: center; color: #f5b301; font-size: 26px; font-weight: 800; }
-  #hk .s3 { position: absolute; top: 880px; left: 60px; right: 60px; text-align: center; color: #fff; font-size: 27px; font-weight: 800;
+  #hk .s1 { position: absolute; top: 790px; left: 40px; right: 40px; text-align: center; color: #fff; font-size: 34px; font-weight: 900; }
+  #hk .s2 { position: absolute; top: 836px; left: 40px; right: 40px; text-align: center; color: #f5b301; font-size: 26px; font-weight: 800; }
+  #hk .s3 { position: absolute; top: 892px; left: 60px; right: 60px; text-align: center; color: #fff; font-size: 27px; font-weight: 800;
             background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.2); border-radius: 16px; padding: 12px 14px; }
   #hk .s3 small { display: block; margin-top: 6px; color: #ffe08a; font-size: 20px; font-weight: 700; }
 </style>
@@ -42,12 +46,14 @@
 <div id="tanit">
   <div id="ust" class="metin"></div>
   <div id="baslik" class="metin"></div>
-  <div class="adim metin" style="top:430px"><span class="n">1</span><span class="t"></span></div>
-  <div class="adim metin" style="top:540px"><span class="n">2</span><span class="t"></span></div>
-  <div class="adim metin" style="top:650px"><span class="n">3</span><span class="t"></span></div>
+  <div id="baslikAlt" class="metin"></div>
+  <div class="adim metin" style="top:478px"><span class="n">1</span><span class="t"></span></div>
+  <div class="adim metin" style="top:578px"><span class="n">2</span><span class="t"></span></div>
+  <div class="adim metin" style="top:678px"><span class="n">3</span><span class="t"></span></div>
   <div id="kapanis" class="metin"></div>
 </div>
 <div id="hk">
+  <div class="h0"></div><div class="h1"></div><div class="h2"></div>
   <img id="hkFoto" alt="">
   <div class="damga2"></div>
   <div class="s1"></div><div class="s2"></div>
@@ -60,10 +66,11 @@
   window.kur = v => {
     V = v;
     $('#damga').textContent = v.damga; $('#damgaAlt').textContent = v.damgaAlt;
-    $('#ust').textContent = v.ust; $('#baslik').textContent = v.baslik; $('#kapanis').textContent = v.damgaAlt;
+    $('#ust').textContent = v.ust; $('#baslik').textContent = v.baslik; $('#baslikAlt').textContent = v.baslikAlt; $('#kapanis').textContent = v.damgaAlt;
     document.querySelectorAll('.adim .t').forEach((e, i) => { e.textContent = v.adimlar[i]; });
     if (v.hikaye) {
       document.body.classList.add('hikaye');
+      $('#hk .h0').textContent = v.ust; $('#hk .h1').textContent = v.baslik; $('#hk .h2').textContent = v.baslikAlt;
       $('#hkFoto').src = v.hikaye.foto; $('#hk .damga2').textContent = v.damga;
       $('#hk .s1').textContent = v.hikaye.s1; $('#hk .s2').textContent = v.hikaye.s2;
       $('#hk .s3 span').textContent = v.hikaye.s3; $('#hk .s3 small').textContent = v.hikaye.s4;

@@ -3,18 +3,18 @@
 > Türetilmiştir (`arac/kgk-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (24 sınav). Eski genel muhasebe konuları hedef dışı. Genel Hukuk (2022'den beri sınavda yok) sayılmaz.
 > Eşleme sözlüğü: `veri/sinav/kgk-konu-es.json`. Tam liste: `veri/fabrika/kgk-konu-kapsama.csv`.
 
-Sitede (paket_soru, sinav=kgk): **1.815** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
+Sitede (paket_soru, sinav=kgk): **1.883** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
 
-**TOPLAM: hedef 4.229 · sitede 1.815 · EKSİK 2.629** (1.893 konu)
+**TOPLAM: hedef 4.229 · sitede 1.883 · EKSİK 2.565** (1.893 konu)
 
 | Modül | Hedefli konu | Son 10 yılda çıkan | Hedef | Sitede | EKSİK | VAR | AZ | Hiç yok (2+ sınav) | Hiç yok (1 sınav) | Eski muhasebe konusu |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | a) Türkiye Muhasebe Standartları | 359 | 852 | 852 | 421 | **501** | 107 | 93 | 29 | 130 | 311 |
 | b) Türkiye Denetim Standartları | 355 | 830 | 830 | 427 | **415** | 51 | 66 | 49 | 189 | 0 |
 | c) Finansal Yönetim | 260 | 636 | 636 | 320 | **383** | 83 | 67 | 17 | 93 | 0 |
-| ç) Sermaye Piyasası Mevzuatı | 200 | 484 | 484 | 168 | **320** | 13 | 55 | 27 | 105 | 0 |
-| d) Bankacılık Mevzuatı | 198 | 465 | 465 | 145 | **322** | 4 | 44 | 44 | 106 | 0 |
-| e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 89 | **334** | 13 | 25 | 48 | 145 | 0 |
+| ç) Sermaye Piyasası Mevzuatı | 200 | 484 | 484 | 187 | **301** | 13 | 55 | 27 | 105 | 0 |
+| d) Bankacılık Mevzuatı | 198 | 465 | 465 | 159 | **311** | 7 | 41 | 44 | 106 | 0 |
+| e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 124 | **300** | 15 | 25 | 46 | 145 | 0 |
 | c) Kurumsal Yönetim | 104 | 254 | 254 | 119 | **150** | 31 | 26 | 6 | 41 | 0 |
 | f) Sürdürülebilirlik Raporlaması | 139 | 226 | 226 | 69 | **164** | 15 | 13 | 15 | 96 | 0 |
 | g) Sürdürülebilirlik Denetimi | 47 | 61 | 61 | 32 | **40** | 13 | 0 | 5 | 29 | 0 |
@@ -25,7 +25,7 @@ Sitede (paket_soru, sinav=kgk): **1.815** soru · konu kümesi: 2.440 · sözlü
 
 ## Eksik — sıklık katmanı (plan bu sırayla kurulur)
 
-- Hedefi 5+ soru olan konular: **191 konu / 838 soru**
+- Hedefi 5+ soru olan konular: **186 konu / 774 soru**
 - Hedefi 2–4 soru: 443 konu / 862 soru
 - Hedefi 1 soru: 929 konu / 929 soru
 
@@ -40,7 +40,6 @@ Sitede (paket_soru, sinav=kgk): **1.815** soru · konu kümesi: 2.440 · sözlü
 | c) Finansal Yönetim | reel getiri hesabi | 14 / 12 | 2 | 12 |
 | a) Türkiye Muhasebe Standartları | tms 2 net gerceklesebilir deger | 15 / 11 | 3 | 12 |
 | c) Finansal Yönetim | basit faiz hesabi | 14 / 11 | 2 | 12 |
-| ç) Sermaye Piyasası Mevzuatı | kayitli sermaye sistemi | 16 / 15 | 5 | 11 |
 | c) Finansal Yönetim | temettu buyume modeli | 14 / 12 | 3 | 11 |
 | c) Finansal Yönetim | capm sermaye maliyeti | 14 / 12 | 3 | 11 |
 | a) Türkiye Muhasebe Standartları | tms 12 ertelenmis vergi | 13 / 12 | 3 | 10 |
@@ -48,20 +47,17 @@ Sitede (paket_soru, sinav=kgk): **1.815** soru · konu kümesi: 2.440 · sözlü
 | c) Kurumsal Yönetim | faaliyet raporu icerigi | 11 / 11 | 1 | 10 |
 | c) Finansal Yönetim | net isletme sermayesi tanimi | 13 / 10 | 3 | 10 |
 | c) Kurumsal Yönetim | yatirimci iliskileri bolumu gorevleri | 11 / 7 | 1 | 10 |
-| ç) Sermaye Piyasası Mevzuatı | sermaye piyasasi kurumlari | 12 / 12 | 3 | 9 |
 | a) Türkiye Muhasebe Standartları | tfrs 16 kullanim hakki varligi | 11 / 11 | 2 | 9 |
-| e) Sigortacılık ve Özel Emeklilik | sigorta sozlesmesi hukumleri | 12 / 11 | 3 | 9 |
 | a) Türkiye Muhasebe Standartları | tms 16 yeniden degerleme | 11 / 9 | 2 | 9 |
+| ç) Sermaye Piyasası Mevzuatı | kayitli sermaye sistemi | 16 / 15 | 8 | 8 |
 | a) Türkiye Muhasebe Standartları | tms 23 borclanma maliyeti aktiflestirme | 10 / 10 | 2 | 8 |
 | a) Türkiye Muhasebe Standartları | tms 28 ozkaynak yontemi | 10 / 10 | 2 | 8 |
-| ç) Sermaye Piyasası Mevzuatı | yatirimci tazmin merkezi | 11 / 10 | 3 | 8 |
-| e) Sigortacılık ve Özel Emeklilik | teknik karsiliklar | 12 / 10 | 4 | 8 |
 | a) Türkiye Muhasebe Standartları | tfrs 3 serefiye hesaplama | 9 / 9 | 1 | 8 |
 | c) Finansal Yönetim | net bugunku deger | 10 / 9 | 2 | 8 |
 | c) Finansal Yönetim | sistematik olmayan risk | 9 / 9 | 1 | 8 |
 | c) Kurumsal Yönetim | bagimsiz uye kriterleri | 9 / 9 | 1 | 8 |
 | a) Türkiye Muhasebe Standartları | tfrs 5 satis amacli varlik olcumu | 8 / 8 | 0 | 8 |
-| e) Sigortacılık ve Özel Emeklilik | guvence hesabi | 10 / 10 | 3 | 7 |
+| ç) Sermaye Piyasası Mevzuatı | sermaye piyasasi kurumlari | 12 / 12 | 5 | 7 |
 | a) Türkiye Muhasebe Standartları | tms 21 kur farki | 9 / 9 | 2 | 7 |
 | a) Türkiye Muhasebe Standartları | kavramsal çerçeve niteliksel özellikler | 9 / 8 | 2 | 7 |
 | c) Finansal Yönetim | tahvil degerleme | 10 / 8 | 3 | 7 |
@@ -69,7 +65,11 @@ Sitede (paket_soru, sinav=kgk): **1.815** soru · konu kümesi: 2.440 · sözlü
 | a) Türkiye Muhasebe Standartları | tms 1 finansal tabloların sunuluşu | 7 / 7 | 0 | 7 |
 | c) Finansal Yönetim | likidite oranlari | 10 / 7 | 3 | 7 |
 | c) Finansal Yönetim | likit oran | 9 / 7 | 2 | 7 |
-| e) Sigortacılık ve Özel Emeklilik | yurt disi sigorta yaptirma | 7 / 7 | 0 | 7 |
-| ç) Sermaye Piyasası Mevzuatı | kar payi avansi | 11 / 11 | 5 | 6 |
-| ç) Sermaye Piyasası Mevzuatı | sermaye piyasasi suclari | 11 / 11 | 5 | 6 |
-| e) Sigortacılık ve Özel Emeklilik | sigorta sirketi kurulusu | 10 / 10 | 4 | 6 |
+| c) Finansal Yönetim | efektif faiz orani | 8 / 8 | 2 | 6 |
+| c) Finansal Yönetim | stok devir hizi | 7 / 7 | 1 | 6 |
+| c) Kurumsal Yönetim | denetimden sorumlu komite | 8 / 7 | 2 | 6 |
+| a) Türkiye Muhasebe Standartları | tfrs 10 grup içi satış eliminasyonu | 7 / 5 | 1 | 6 |
+| a) Türkiye Muhasebe Standartları | tms 1 kapsamli gelir | 6 / 5 | 0 | 6 |
+| ç) Sermaye Piyasası Mevzuatı | yatirimci tazmin merkezi | 11 / 10 | 6 | 5 |
+| a) Türkiye Muhasebe Standartları | tms 36 deger dusuklugu hesaplama | 8 / 8 | 3 | 5 |
+| c) Kurumsal Yönetim | menfaat sahipleri | 8 / 8 | 3 | 5 |

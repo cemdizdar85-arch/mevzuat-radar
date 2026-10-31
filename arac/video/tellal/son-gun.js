@@ -6,7 +6,7 @@
      A  0,00– 9,30 ← 0,00– 9,30   r1 r2 r3 r4 + YK kâğıdı   · üstüne "YARIN SON GÜN" damgası
      B  9,30–14,42 ← 15,30–20,42  r8 + soru kartı (tuzaklar kırmızı, doğru yeşil, dayanak)
      C 14,42–17,07 ← 22,77–25,42  r10 "Duyduk duymadık demeyin! Bir Kasım gece yarısı!"
-     T 17,07–20,57   lacivert tanıtım kartı: YARIN AÇIKLIYORUZ · SGS testi · 3 adım (zil sesi)
+     T 17,07–20,57   lacivert tanıtım kartı: YARIN AÇILIYOR · SGS · Son 20 Gün sınavı · 3 adım (zil sesi)
      K 20,57–      ← 25,42–son    kap-A "Yanlışını böyle öğrenirsin."
    METİN KAPISI: yeni yazılar pazarlama/reklam/instagram-son-gun-sgs-testi.md "Ekrandaki yazı" + "Hikâye görseli" satırlarından (exit 3).
    GÜVENLİ ALAN KAPISI: Reels üst %14 · alt %35 · yan %6 (exit 4).
@@ -40,7 +40,7 @@ const SON = t;
 
 const V = {
   damga: S(1), damgaAlt: S(2), damgaZaman: [0.30, 4.40],
-  ust: S(3), baslik: S(4), adimlar: [S(5), S(6), S(7)], tanitZaman: CIZELGE.T,
+  ust: S(3), baslik: S(4), baslikAlt: S(13), adimlar: [S(5), S(6), S(7)], tanitZaman: CIZELGE.T,
 };
 
 (async () => {
@@ -65,7 +65,7 @@ const V = {
   ff(['-ss', '1.60', '-i', FILM, '-frames:v', '1', foto]);
   const hs = await tarayici.newPage({ viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1.5 });
   await hs.goto(url);
-  await hs.evaluate(v => window.kur(v), { ...V, hikaye: { foto: 'file:///' + foto.replace(/\\/g, '/'), s1: S(9), s2: S(10), s3: S(11), s4: S(12) } });
+  await hs.evaluate(v => window.kur(v), { ...V, hikaye: { foto: 'file:///' + foto.replace(/\\/g, '/'), s1: S(9), s2: S(10), s3: S(14), s4: S(12) } });
   await hs.waitForFunction(() => document.getElementById('hkFoto').complete);
   if (S(8) !== S(1)) { console.error('METİN KAPISI: hikâye damgası (8) Reels damgasıyla (1) aynı değil'); process.exit(3); }
   const hikaye = path.join(CIKTI, 'SON-GUN-HIKAYE.png');
