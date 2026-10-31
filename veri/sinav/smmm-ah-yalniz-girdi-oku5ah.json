@@ -1,0 +1,34 @@
+{
+ "ad": "oku5ah",
+ "olusturma": "2026-10-31T23:28:28.482Z",
+ "kaynak_klasor": "veri/fabrika/temizlik/onarim-oku5-ah",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK.",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r4/kp-08",
+   "taslak_sha": "b301316fb0aac6c15301a8b00c5818d976c2336620b985744fe674478c532f5d",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.285 - Borçlar",
+     "alinti": "Vadesi gelmemiş olan senede bağlı borçlar değerleme günü kıymetine irca olunabilir. Bu takdirde senette faiz nispeti açıklanmışsa bu nispet, açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddinde bir faiz uygulanır."
+    },
+    {
+     "kaynak_ad": "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli borçların tasarruf değeri ile değerlemesini sağlamak üzere borç senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi : Hesaplanan reeskont tutarları bu hesaba borç, \"64-Diğer Faaliyetlerden Olağan Gelir ve Kârlar\" grubundaki \"642- Faiz Gelirleri Hesabı\"na gelir, kaydedilir. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Gider ve Zararla"
+    },
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": "İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+     "alinti": "İşletmenin senetli alacaklarının dönem sonu itibariyle yapılan reeskont faiz giderleri ile borç senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz giderlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü",
+     "alinti": "KURAL (borç senetleri): Dönem sonunda hesaplanan reeskont tutarı 322 BORÇ SENETLERİ REESKONTU (-) hesabına BORÇ, 647 REESKONT FAİZ GELİRLERİ hesabına ALACAK kaydedilir (THP 322 metninin ilk sürümü 642 Faiz Gelirleri'ni anar; 647 hesabı sonradan açılmıştır ve güncel uygulama 647"
+    }
+   ]
+  }
+ ]
+}
