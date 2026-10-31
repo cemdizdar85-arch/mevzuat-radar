@@ -121,7 +121,7 @@ try { & {   # gövde ayrı blokta: içerideki return yalnız bloğu bitirir, ç�
     } elseif ("$($md.kaynak)" -eq 'kaynaksiz' -or -not "$($md.metin)") {
       $ekMetin = "`n`nRESMÎ MADDE METNİ: (ambarda bu sorunun dayanağı okunamadı — madde, fıkra, bent ve oran iddiasında yalnız yukarıdaki KAYNAK metne dayan.)"
     } else {
-      $ekMetin = "`n`nRESMÎ MADDE METNİ (ambardaki resmî mevzuat metninden okundu" + $(if ("$($md.kaynak)" -eq 'kart') { ', sorunun kendi dayanağı' } else { ', onarımın dayanağı' }) + "):`n" + "$($md.metin)" +
+      $ekMetin = "`n`nRESMÎ MADDE METNİ (ambardaki resmî mevzuat metninden okundu" + $(if ("$($md.kaynak)" -eq 'kart') { ', sorunun kendi dayanağı' } elseif ("$($md.kaynak)" -eq 'kayit+ambar') { '; yukarıdaki KAYNAK özetinde OLMAYAN güncel lafız ve UYGULAMA NOTLARI — özet eskidir, çelişkide BU metin geçerlidir' } else { ', onarımın dayanağı' }) + "):`n" + "$($md.metin)" +
         "`n`nMADDE METNİ KURALI: Kanun maddesi, fıkra, bent, süre ve oran hakkındaki her kusur iddiasını önce yukarıdaki RESMÎ MADDE METNİ ile karşılaştır. Açıklamadaki atıf ya da kural bu metinle örtüşüyorsa o konuda kusur deme. Metinle çelişiyorsa 'neden' alanına metindeki doğru madde, fıkra ya da bendi yaz. Metinde geçmeyen konularda yukarıdaki denetim kuralları aynen geçerlidir. Çıktı biçimi değişmez."
     }
     $is.icerik[0].text = ("$($is.icerik[0].text)" + $ekMetin) -replace "`r`n", "`n"
