@@ -218,6 +218,21 @@ async function sekme(ad) {
     await xler('seviye testi');
   }
 
+  // 4b) 31.10 1.9.1 (Ders ders çöz’den ÖNCE: o adım Sınavlar sekmesini ders listesinde bırakıyor, ilk koşu 41214243165 satırı bulamadı): Son 20 Gün (Sınavlar → "Son 20 Gün denemeleri" → son-20-gun.html; denemeler sunucudan s20_liste)
+  await anaSayfa(); await sekme('Sınavlar');
+  if (!(await bekleBul('a', /Son 20 Gün denemeleri/, 10))) console.log('BILGI Son 20 Gün yok · sınavlar ekranı: ' + String(await js('(document.getElementById("sinavUst")||{}).innerText||""')).replace(/s+/g, ' ').slice(0, 300));
+  if (await bas('Son 20 Gün satırı', 'a', /Son 20 Gün denemeleri/, 10)) {
+    const dn = await bekleBul('#denemeler .dn', null, 30);
+    await bekle(1500); goruntu('son-20-gun');
+    const d = await js(`({a:location.pathname.replace(/^.*\\//,''), dn:document.querySelectorAll('#denemeler .dn').length,
+      satis:[...document.querySelectorAll('a')].filter(a=>/satin-al|fiyat\\.html|gktPaket/.test(a.getAttribute('href')||'')).length,
+      paket:[...document.querySelectorAll('#kapi a')].map(a=>a.getAttribute('href')).join(',')})`);
+    sonuc('Son 20 Gün sayfası açıldı, 7 deneme sunucudan geldi', d.a === 'son-20-gun.html' && d.dn === 7 && !!dn, JSON.stringify(d));
+    sonuc('Son 20 Gün: site satış bağı yok, giriş/paket uygulama içinde', d.satis === 0 && /index\.html#giris/.test(d.paket) && /index\.html#paketler/.test(d.paket), d.paket);
+    await donma('Son 20 Gün');
+    await xler('Son 20 Gün');
+  }
+
   // 5) Ders ders çöz → Denetim (girişsiz)
   await anaSayfa(); await sekme('Sınavlar');
   if (await bas('Ders ders çöz', 'button,a', /Ders ders çöz/, 10)) {
@@ -229,20 +244,6 @@ async function sekme(ad) {
       await donma('Denetim ders sayfası');
       await xler('Denetim ders sayfası');
     }
-  }
-
-  // 5b) 31.10 1.9.1: Son 20 Gün (Sınavlar → "Son 20 Gün denemeleri" → son-20-gun.html; denemeler sunucudan s20_liste)
-  await anaSayfa(); await sekme('Sınavlar');
-  if (await bas('Son 20 Gün satırı', 'a', /Son 20 Gün denemeleri/, 10)) {
-    const dn = await bekleBul('#denemeler .dn', null, 30);
-    await bekle(1500); goruntu('son-20-gun');
-    const d = await js(`({a:location.pathname.replace(/^.*\\//,''), dn:document.querySelectorAll('#denemeler .dn').length,
-      satis:[...document.querySelectorAll('a')].filter(a=>/satin-al|fiyat\\.html|gktPaket/.test(a.getAttribute('href')||'')).length,
-      paket:[...document.querySelectorAll('#kapi a')].map(a=>a.getAttribute('href')).join(',')})`);
-    sonuc('Son 20 Gün sayfası açıldı, 7 deneme sunucudan geldi', d.a === 'son-20-gun.html' && d.dn === 7 && !!dn, JSON.stringify(d));
-    sonuc('Son 20 Gün: site satış bağı yok, giriş/paket uygulama içinde', d.satis === 0 && /index\.html#giris/.test(d.paket) && /index\.html#paketler/.test(d.paket), d.paket);
-    await donma('Son 20 Gün');
-    await xler('Son 20 Gün');
   }
 
   // 6) çökme / ANR / JS hataları
