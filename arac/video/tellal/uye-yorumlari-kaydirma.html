@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Üye yorumları kaydırmalı</title>
+<style>
+  /* Instagram kaydırmalı gönderi sayfası (sitede yayınlanmaz): palet son-gun.html ile aynı. */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; font-family: "Segoe UI", Arial, sans-serif;
+               background: radial-gradient(circle at 50% 25%, #1b3656 0%, #0f2338 62%, #091626 100%); }
+  #sayfa { position: absolute; inset: 70px 70px 110px 70px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+  .baslik { text-align: center; color: #f5b301; font-size: 66px; font-weight: 900; letter-spacing: 3px; }
+  .altbaslik { text-align: center; color: #ffe08a; font-size: 30px; font-weight: 700; margin-top: -14px; }
+  .kart { background: #fff; border-radius: 26px; padding: 28px 34px 22px; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+  .kart .y { color: #1b2430; font-size: 35px; font-weight: 700; line-height: 1.32; }
+  /* yıldız/puan YOK: yorum sahipleri puan vermedi */
+  .kart .k { margin-top: 12px; color: #6b7684; font-size: 25px; font-weight: 700; }
+  .son { text-align: center; color: #fff; }
+  .son .s1 { display: inline-block; background: #f5b301; color: #0f2338; font-size: 48px; font-weight: 900; padding: 16px 38px; border-radius: 60px; }
+  .son .s2 { font-size: 52px; font-weight: 900; line-height: 1.25; margin-top: 46px; }
+  .son .s3 { font-size: 36px; font-weight: 800; color: #ffe08a; margin-top: 34px; }
+  .son .s4 { font-size: 34px; font-weight: 700; margin-top: 24px; }
+  .son .s5 { font-size: 44px; font-weight: 900; letter-spacing: 3px; margin-top: 70px; color: #f5b301; }
+  #no { position: absolute; bottom: 44px; left: 0; right: 0; text-align: center; }
+  #no span { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.3); margin: 0 6px; }
+  #no span.a { background: #f5b301; }
+</style>
+</head>
+<body>
+<div id="sayfa"></div>
+<div id="no"></div>
+<script>
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  window.kur = v => {
+    const s = document.getElementById('sayfa'), p = v.sayfa;
+    if (p.baslik) { s.appendChild(el('div', 'baslik', p.baslik)); s.appendChild(el('div', 'altbaslik', p.altbaslik)); }
+    for (const [y, k] of p.kartlar || []) { const c = el('div', 'kart'); c.appendChild(el('div', 'y', y)); c.appendChild(el('div', 'k', k)); s.appendChild(c); }
+    if (p.son) { const c = el('div', 'son'); p.son.forEach((x, i) => { const d = el('div', 's' + (i + 1), x); c.appendChild(i === 0 ? d : d); if (i === 0) c.appendChild(document.createElement('br')); }); s.appendChild(c); }
+    const no = document.getElementById('no'); for (let i = 0; i < v.toplam; i++) no.appendChild(el('span', i === v.sira ? 'a' : ''));
+  };
+</script>
+</body>
+</html>
