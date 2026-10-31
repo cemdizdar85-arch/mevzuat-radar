@@ -152,9 +152,12 @@ CREATE OR REPLACE FUNCTION public._s20_gorev_kapi(p_deneme integer, p_ders text)
  SET search_path TO 'public'
 AS $function$
 begin
-  if public._s20_gorev_acik(auth.uid())
-     and not exists (select 1 from public.s20_sonuc x where x.user_id = auth.uid() and x.deneme = p_deneme and x.ders = p_ders) then
-    raise exception 'S20_GOREV' using errcode = 'P0001';
+  if exists (select 1 from public.s20_sonuc x where x.user_id = auth.uid() and x.deneme = p_deneme and x.ders = p_ders) then return; end if;
+  if public._s20_gorev_acik(auth.uid()) then raise exception 'S20_GOREV' using errcode = 'P0001'; end if;
+  if exists (select 1 from public.s20_soru s
+              where s.deneme < p_deneme and public._s20_acik(s.deneme)
+                and not exists (select 1 from public.s20_sonuc x where x.user_id = auth.uid() and x.deneme = s.deneme and x.ders = s.ders)) then
+    raise exception 'S20_ONCEKI' using errcode = 'P0001';
   end if;
 end $function$
 ;
