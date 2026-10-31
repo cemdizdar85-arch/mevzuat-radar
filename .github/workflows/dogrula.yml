@@ -829,6 +829,11 @@ jobs:
           # harf duyarsiz, sik alanli adimli soru kaydirilmaz, takas karneyi bozarsa yazilmaz. 7 vaka; 3 mutasyon KIRMIZI. Ag yok.
           - { ad: "Sik kaydirma korumasi OZ-SINAVI + MUTASYON",
               kabuk: pwsh, komut: "./arac/sik-kaydir.ps1 -Sinav -Mutasyon" }
+          # 31.10: kalip-parti-uret.ps1 SIK DENGESI (SikTasi): sik kayinca butun harf anmalari ayni eslesmeyle cevrilir; belirsiz anma /
+          # formul harfi / kokte sik anmasi / ikizde harf / ic ice adim dizisi / sayi-tarih siklar (S8) / harf_sabit izi / kasada yayinda → takas yok;
+          # onarim kosusunda dengeleyici kapali. Uretim CALISTIRILMAZ (AST). 55 vaka (SMMM+SGS+KGK); 17 mutasyon KIRMIZI (01.11). Ag yok.
+          - { ad: "Sik takasi harf anmasi OZ-SINAVI + MUTASYON (SikTasi)",
+              kabuk: pwsh, komut: "./arac/sik-tasi-sinavi.ps1 -Mutasyon" }
           # 30.09: KAPI-ADIM adim atfi kaymasi ("X (N. adimda bulduk)" X'in sonuc oldugu adimi gostermiyor) + mekanik onarim. 7 vaka;
           # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",

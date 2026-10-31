@@ -458,6 +458,10 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      (yerel bayat) HİÇBİR ŞEY yazmadan durur. Ambara giden içerik = ambardaki parti + yalnız taslağın kayıtları; yazmadan önce damga yeniden okunur (yarış).
      Teslimden önce `teslim <klasör> --kuru` (yalnız okuma). Ölçülen neden: 30.10 kd1 teslimi 19 partiyi bütünüyle yükledi; aynı gün kd2–kd6 etiketlerinin 12'sinde yerel ≠ ambar.
      Öz-sınav `node arac/onarim-hatti.js --sinav` (sahte ambar 6 senaryo dahil).
+     ⛔ **ŞIK DENGESİ onarılan soruyu taşımaz (Cem 31.10):** rehakem kaydına `harf_sabit` izi düşer; `kalip-parti-uret.ps1` onarım koşusunda
+     (-PilotId / -*Yenile* / -OnarimTuru) dengeleyiciyi hiç çalıştırmaz; kasada yayındaki, izli, sayı/tarih şıklı (Ş8) ya da harf anması belirsiz
+     soru taşınmaz; taşınan soruda bütün harf anmaları aynı eşleşmeyle çevrilir. Öz-sınav + mutasyon `arac/sik-tasi-sinavi.ps1 -Mutasyon`
+     (55/55 · 17/17, dogrula.yml). GÖRMEZ: küçük harfli ("c şıkkı") ve harfsiz ("son şık") anma.
      ⛔ **Yeniden hakem Cem/kontrol elle ret kaydını SİLMEZ (31.10, ddbeecc2):** `hakem` kaydı listeden yalnız kaynak alanı Cem/kontrol değilse çıkarır
      (`onarim-rehakem` ve tarama kaynakları eskisi gibi). Kaynakta "Cem" / "kontrol" / "yanlış-kesin" geçen kayıt ELLE KİLİT: robot ne siler ne gerekçeye yazar,
      günlükte listeler; düzeltme dönünce kontrol okuyup elle çıkarır. Ölçülen neden: eski planın (o0610l) bayat hakem EVET'i (a) kaydını 40 dk'da sildi, kusurlu soru siteye döndü.
