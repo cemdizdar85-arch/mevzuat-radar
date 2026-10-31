@@ -10,7 +10,8 @@
      K 20,57–      ← 25,42–son    kap-A "Yanlışını böyle öğrenirsin."
    METİN KAPISI: yeni yazılar pazarlama/reklam/instagram-son-gun-sgs-testi.md "Ekrandaki yazı" + "Hikâye görseli" satırlarından (exit 3).
    GÜVENLİ ALAN KAPISI: Reels üst %14 · alt %35 · yan %6 (exit 4).
-   Kullanım: node arac/video/tellal/son-gun.js   → <kasa>/tellal-reklam/SON-GUN-SGS.mp4 + SON-GUN-HIKAYE.png
+   Kullanım: node arac/video/tellal/son-gun.js [--metin <md>] [--ad <önek>] [--hikaye]
+             → <kasa>/tellal-reklam/<önek>-SGS.mp4 + <önek>-HIKAYE.png + <önek>-GONDERI-4x5.png (önek vars. SON-GUN)
    🚫 GÖRMEZ: filmden gelen yazılar (30.10 bas.js kapısından geçti) · hikâyeye telefondan eklenen çıkartmalar · yazının okunma süresi.
    ============================================================================ */
 'use strict';
@@ -28,7 +29,11 @@ const ff = a => execFileSync(FF, ['-nostdin', '-y', '-v', 'error', ...a], { stdi
 const sure = f => parseFloat(execFileSync(FP, ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).toString());
 
 /* ---- metin kapısı ---- */
-const md = fs.readFileSync(path.join(KOK, 'pazarlama', 'reklam', 'instagram-son-gun-sgs-testi.md'), 'utf8');
+// --metin <md> + --ad <önek>: aynı tasarımın başka sürümü (1 Kasım: instagram-son-gun-bugun.md → SON-GUN-BUGUN-*)
+const arg = n => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : null; };
+const MD = arg('--metin') || path.join('pazarlama', 'reklam', 'instagram-son-gun-sgs-testi.md');
+const AD = arg('--ad') || 'SON-GUN';
+const md = fs.readFileSync(path.resolve(KOK, MD), 'utf8');
 const SATIR = {}; for (const m of md.matchAll(/^(\d+)\. (.+)$/gm)) SATIR[m[1]] = m[2].trim();
 const S = n => { if (!SATIR[n]) { console.error(`METİN KAPISI: md'de ${n}. satır yok`); process.exit(3); } return SATIR[n]; };
 
@@ -69,10 +74,14 @@ const V = {
   await hs.evaluate(v => window.kur(v), { ...V, hikaye: { foto: 'file:///' + foto.replace(/\\/g, '/'), s1: S(14), s2: S(10), s3: S(15), s4: S(12) } });
   await hs.waitForFunction(() => document.getElementById('hkFoto').complete);
   if (S(8) !== S(1)) { console.error('METİN KAPISI: hikâye damgası (8) Reels damgasıyla (1) aynı değil'); process.exit(3); }
-  const hikaye = path.join(CIKTI, 'SON-GUN-HIKAYE.png');
+  const hikaye = path.join(CIKTI, `${AD}-HIKAYE.png`);
   await hs.screenshot({ path: hikaye });
   await tarayici.close();
   console.log(`hikâye: ${hikaye}`);
+  // akış gönderisi 4:5 (Instagram fotoğrafı en çok 4:5; 9:16 kırpılır): başlıktan kutunun altına kadar
+  const gonderi = path.join(CIKTI, `${AD}-GONDERI-4x5.png`);
+  ff(['-i', hikaye, '-vf', 'crop=1080:1420:0:160,scale=-2:1350,pad=1080:1350:(ow-iw)/2:0:color=0x10233a', gonderi]);
+  console.log(`gönderi: ${gonderi}`);
   if (YALNIZ_HIKAYE) return;
 
   /* ---- parçalar aynı biçimde, concat demuxer ile sırayla (30.10: tek grafik kilitlendi) ---- */
@@ -90,7 +99,7 @@ const V = {
   fs.writeFileSync(liste, dosyalar.map(p => `file '${p.replace(/\\/g, '/')}'`).join('\n'));
   const taban = path.join(CIKTI, 'songun-taban.mp4');
   ff(['-f', 'concat', '-safe', '0', '-i', liste, '-c', 'copy', taban]);
-  const film = path.join(CIKTI, 'SON-GUN-SGS.mp4');
+  const film = path.join(CIKTI, `${AD}-SGS.mp4`);
   ff(['-i', taban, '-framerate', String(FPS), '-i', path.join(kareDiz, '%04d.png'), '-filter_complex',
       '[1:v]format=rgba[kat];[0:v][kat]overlay=0:0:eof_action=pass,format=yuv420p[v]', '-map', '[v]', '-map', '0:a',
       ...kod, '-c:a', 'copy', '-movflags', '+faststart', film]);
