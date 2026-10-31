@@ -162,7 +162,7 @@
 - **Dönem:** 14 (son 2026/2) · **Test:** 2026/2 S4
 - **Kalıp:** A doğrudur · **Beceri:** UYGULAMA · **Kök:** 147–245 kr · **Şık:** hüküm cümlesi (~54 kr)
 - **Ne sorar:** alacak senedi reeskontu (657/122) ve borç senedi reeskontu (322/647) · iç iskonto ile reeskont tutarı · izleyen dönem başında iptal · vadeli çeklerin reeskontu
-- **Dayanak:** VUK m.281 (alacaklar), m.285 (borçlar); THP 122, 322, 647, 657 işleyişi; TEORI - Alacak senetleri reeskontu hesaplama ve kaydı; TEORI - Borç senedi reeskontu ve iskontosu
+- **Dayanak:** VUK m.281 (alacaklar), m.285 (borçlar); THP 122, 322, 647, 657 işleyişi (THP 122/322 UYGULAMA NOTU: MSUGT Sıra No 2 ile 652→657, 647 açıldı; karşı hesap 647/657 — K1c); TEORI - Alacak senetleri reeskontu hesaplama ve kaydı; TEORI - Borç senedi reeskontu ve iskontosu
 - **Çeldirici:** borç senedi reeskontunda 657 Giderler'i kullanmak (yön ters) · reeskontu doğrudan 321/121'e yazmak · dış iskonto ile hesaplamak · 322'yi borçlandırmak · reeskont faiz giderini alacak yazmak
 - **Yazım notu:** Senet türü ve hesaplanan tutar kökte; şıkta tutar yoksa beşi de 'hesabına … kaydı yapılır' kalıbında.
 
