@@ -1,0 +1,34 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/erken-kayit-kampanya.yml
+# NEDEN VAR (31.10.2026, Cem: "gönder mailleri"): tek seferlik erken kayit + yonetim kurulu karari maili
+# (motor/erken-kayit-kampanya.mjs). Yalniz elle (workflow_dispatch); betik 31.10-1.11 TR disinda gondermez,
+# ayni kisiye ikinci kez gondermez. Gunluk PUBLIC: betik e-posta/ad basmaz, yalniz sayi.
+name: Erken kayit kampanya maili (tek seferlik)
+on:
+  workflow_dispatch:
+    inputs:
+      kip:
+        description: "say | gonder"
+        required: true
+        default: say
+permissions:
+  contents: read
+concurrency:
+  group: hatirlatma-dizisi
+  cancel-in-progress: false
+jobs:
+  kampanya:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Say ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          KIP: ${{ github.event.inputs.kip }}
+        run: |
+          if [ "$KIP" = "gonder" ]; then node motor/erken-kayit-kampanya.mjs --gonder; else node motor/erken-kayit-kampanya.mjs --kuru; fi
