@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261030175925
+Start time: 20261031013933
 Username: runnervmnwato\runner
 RunAs User: runnervmnwato\runner
 Configuration Name: 
 Machine: runnervmnwato (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/04a3862e-1326-4258-8032-b15708484ba2.ps1'
-Process ID: 2643
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b5b1f12d-5adc-4526-b840-3e49ca737a30.ps1'
+Process ID: 2851
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -17,12 +17,24 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 30-10-2026
-Kart sayisi  : 1
+RG gunu      : 31-10-2026
+Kart sayisi  : 6
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Elektrik dağıtım tarifesi gözetim oranı yüzde 1,5'ten yüzde 2'ye yükseltildi
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261030175926
+End time: 20261031013933
 **********************
