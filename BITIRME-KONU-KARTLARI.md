@@ -89,9 +89,9 @@
 ### Şüpheli ve değersiz alacaklar
 - **Dönem:** 19 (son 2026/1) · **Test:** 2026/1 S7
 - **Kalıp:** I günlük defter kaydı · **Beceri:** UYGULAMA · **Kök:** 155–258 kr · **Şık:** kod + hesap adı + tutar satırları (~121 kr)
-- **Ne sorar:** şüpheli hâle gelen alacağın 128'e aktarılması ve 654/129 karşılık · karşılıklı alacağın tahsili (644) · değersiz hâle gelmesinde karşılık kısmı 129, kalan 689 · silinmiş alacağın sonradan tahsili
-- **Dayanak:** VUK m.323 (şüpheli alacaklar), m.322 (değersiz alacaklar); THP 128, 129, 644, 654, 689 işleyişi
-- **Çeldirici:** karşılıksız kalan farkı 659 ya da 780'e yazmak · değersizde 128 yerine 129'u alacaklandırmak · tahsilatta karşılığı 654'ten iptal etmek (644 yerine) · alacağın tamamını gider yazmak · cari dönem işlemini 681 Önceki Dönem gidere yazmak
+- **Ne sorar:** şüpheli hâle gelen alacağın 128'e aktarılması ve 654/129 karşılık · karşılıklı alacağın tahsili (644) · tahsili imkânsızlaşınca karşılık kısmı 129, karşılığı aşan zarar fazlası 681 Önceki Dönem Gider ve Zararları (THP 129) · silinmiş alacağın sonradan tahsili
+- **Dayanak:** VUK m.323 (şüpheli alacaklar), m.322 (değersiz alacaklar); THP 128, 129, 644, 654, 681 işleyişi. THP 129 (MSUGT Sıra No 1) aynen: "Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise "681- Önceki Dönem Gider ve Zararları" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+- **Çeldirici:** karşılıksız kalan farkı 659 ya da 780'e yazmak · değersizde 128 yerine 129'u alacaklandırmak · tahsilatta karşılığı 654'ten iptal etmek (644 yerine) · alacağın tamamını gider yazmak · karşılığı aşan zarar fazlasını 689 Diğer Olağandışı Gider ve Zararlar ya da 654 Karşılık Giderleri'ne yazmak (THP 129 681 der; kart 01.11'e kadar 689'u doğru yazıyordu)
 - **Yazım notu:** Karşılık tutarı ve alacak tutarı ayrı verilsin; karşılığın hangi dönemde ayrıldığı belirsiz kalmasın.
 
 ### Maddi duran varlıkların elden çıkarılması
