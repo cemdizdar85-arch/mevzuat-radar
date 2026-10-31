@@ -11,7 +11,7 @@
 //   → geri okuma, kanonik birebir. Damga değiştiyse YAZILMAZ (yarış). Bulutta koşan partiler (arac/bulut-kosan-etiketler.ps1 -Kati) ATLANIR.
 //  Komutlar:
 //    node arac/kaynak-adi-tasi.js --kuru  <esleme.json>    kaç parti/kayıt/ad değişecek, bulutta koşan (yazma yok)
-//    node arac/kaynak-adi-tasi.js --yaz   <esleme.json> [--cikti f]
+//    node arac/kaynak-adi-tasi.js --yaz   <esleme.json> [--yalniz kimlikler.json] [--cikti f]   (--yalniz: ["etiket/kp-NN", ...] dışına yazmaz)
 //    node arac/kaynak-adi-tasi.js --sinav                  öz-sınav (sahte ambar, ağ yok)
 //  esleme.json: { "esleme": { "<eski kaynak_ad>": "<yeni kaynak_ad>", ... } }  — yeni adın ambarda var olduğu yazmadan ÖNCE denetlenir.
 //  🚫 GÖRMEZ: kaynak_adlar dışındaki alanlarda (dayanak, kaynak_metin_ozet, açıklama) geçen eski ad · smmm- dışı partiler ·
@@ -66,12 +66,12 @@ function sahteIO(P, kosanListe = [], adlar = null) {
 async function havuz(isler, n, fn) { let i = 0; await Promise.all(Array.from({ length: n }, async () => { while (i < isler.length) { const j = i++; await fn(isler[j], j); } })); }
 
 async function tasi(io, esleme, opt = {}) {
-  const r = { parti_toplam: 0, degisecek: { parti: 0, kayit: 0, ad: 0 }, kimlik: [], ad_sayim: {}, atlanan_kosan: [], yazilan: [], yaris: [], uyusmaz: [], hata: [], yeni_ad_yok: [] };
+  const r = { parti_toplam: 0, degisecek: { parti: 0, kayit: 0, ad: 0 }, kimlik: [], ad_sayim: {}, atlanan_kosan: [], yazilan: [], yaris: [], uyusmaz: [], hata: [], yeni_ad_yok: [], kapsam_disi: [] };
   for (const y of new Set(Object.values(esleme))) if (!(await io.adVar(y))) r.yeni_ad_yok.push(y);
   if (r.yeni_ad_yok.length) { r.hata.push('yeni ad ambarda yok: ' + r.yeni_ad_yok.length + ' — HİÇBİR ŞEY yazılmadı'); return r; }
   const ets = await io.etiketler(); r.parti_toplam = ets.length; const satir = {};
   await havuz(ets, opt.paralel || 6, async e => { const A = await io.ambarSatir(e); if (!A) return; const iz = [];
-    for (const [kp, k] of Object.entries(A.icerik || {})) { if (!k || !Array.isArray(k.kaynak_adlar)) continue; k.kaynak_adlar.forEach((a, i) => { if (Object.prototype.hasOwnProperty.call(esleme, a)) iz.push({ kp, i, eski: a, yeni: esleme[a] }); }); }
+    for (const [kp, k] of Object.entries(A.icerik || {})) { if (!k || !Array.isArray(k.kaynak_adlar)) continue; if (opt.yalniz && !opt.yalniz.has(e + '/' + kp)) { if (k.kaynak_adlar.some(a => Object.prototype.hasOwnProperty.call(esleme, a))) r.kapsam_disi.push(e + '/' + kp); continue; } k.kaynak_adlar.forEach((a, i) => { if (Object.prototype.hasOwnProperty.call(esleme, a)) iz.push({ kp, i, eski: a, yeni: esleme[a] }); }); }
     if (iz.length) satir[e] = { A, iz }; });
   const kosan = io.kosan();
   for (const [e, { A, iz }] of Object.entries(satir).sort()) {
@@ -102,6 +102,8 @@ async function sinav() {
   { const p = P(); const io = sahteIO(p, ['smmm-d']); const w = await tasi(io, E, { yaz: true });
     S('YAZ: a ve b yazıldı, c YARIŞ (damga değişti), d bulutta', w.yazilan.join() === 'smmm-a,smmm-b' && w.yaris.join() === 'smmm-c' && p['smmm-d'].guncelleme === 'd1');
     S('YAZ: yalnız kaynak_adlar değişti; dayanak ve öteki adlar AYNI', p['smmm-a'].icerik['kp-01'].kaynak_adlar.join('|') === 'K m.44 - X|K m.45 - Tarh zamanı' && p['smmm-a'].icerik['kp-01'].dayanak === 'K m.45 - Kirli. Tarh zamanı' && p['smmm-a'].icerik['kp-02'].kaynak_adlar.join() === 'K m.1'); }
+  { const p = P(); const io = sahteIO(p); const w = await tasi(io, E, { yaz: true, yalniz: new Set(['smmm-b/kp-01']) });
+    S('--yalniz: yalnız listedeki kayıt yazıldı, öteki eşleşenler kapsam dışı sayıldı', w.yazilan.join() === 'smmm-b' && p['smmm-a'].icerik['kp-01'].kaynak_adlar[1] === 'K m.45 - Kirli. Tarh zamanı' && w.kapsam_disi.length === 3); }
   { const p = P(); const io = sahteIO(p, [], []); const w = await tasi(io, E, { yaz: true });
     S('Yeni ad ambarda YOKSA hiçbir şey yazılmaz', io.yazilan.length === 0 && w.yeni_ad_yok.length === 1); }
   { process.env.KAYNAK_TASI_MUTASYON = ''; }
@@ -116,8 +118,9 @@ async function sinav() {
     process.exit(g ? 0 : 1); }
   if (kip !== '--kuru' && kip !== '--yaz') { console.error('kullanım: --kuru|--yaz <esleme.json> | --sinav'); process.exit(2); }
   const esleme = JSON.parse(fs.readFileSync(process.argv[3], 'utf8').replace(/^﻿/, '')).esleme;
-  const r = await tasi(gercekIO(), esleme, { yaz: kip === '--yaz' });
-  console.log(`parti ${r.parti_toplam} · değişecek parti ${r.degisecek.parti} · kayıt ${r.degisecek.kayit} · ad ${r.degisecek.ad} · bulutta koşan atlanan ${r.atlanan_kosan.length}`);
+  const yi = process.argv.indexOf('--yalniz'); const yalniz = yi > 0 ? new Set(JSON.parse(fs.readFileSync(process.argv[yi + 1], 'utf8').replace(/^﻿/, ''))) : null;
+  const r = await tasi(gercekIO(), esleme, { yaz: kip === '--yaz', yalniz });
+  console.log(`parti ${r.parti_toplam} · değişecek parti ${r.degisecek.parti} · kayıt ${r.degisecek.kayit} · ad ${r.degisecek.ad} · bulutta koşan atlanan ${r.atlanan_kosan.length}` + (yalniz ? ` · --yalniz dışında kalan eşleşen kayıt ${r.kapsam_disi.length}` : ''));
   for (const [a, n] of Object.entries(r.ad_sayim)) console.log(`  ${n} × ${a}`);
   if (r.atlanan_kosan.length) console.log('  BULUTTA (sonraki tur): ' + r.atlanan_kosan.join(', '));
   if (kip === '--yaz') console.log(`yazılan ${r.yazilan.length} · yarış ${r.yaris.length} ${r.yaris.join(',')} · geri okuma uyuşmaz ${r.uyusmaz.length} · hata ${r.hata.length} ${r.hata.join('; ')}`);
