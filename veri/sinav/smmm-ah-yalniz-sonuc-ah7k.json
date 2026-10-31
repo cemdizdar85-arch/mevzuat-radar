@@ -1,0 +1,123 @@
+{
+ "ad": "ah7k",
+ "tarih": "2026-10-31T21:13:52.986Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41242338602",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.35,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 6,
+  "gonderilen": 6,
+  "temiz": 5,
+  "kusurlu": 1,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 6,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.134
+ },
+ "kararlar": {
+  "smmm-4k-a-ymeslek-zor-r10/kp-07": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.43"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-kolay-r2/kp-08": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.371 - Pişmanlık ve ıslah [1/2]",
+    "VUK (213 s.K.) m.18 - Sürelerin hesaplanması",
+    "GVK (193 s.K.) m.92 - Yıllık beyannamenin verilmesi"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-ab-b-hukuk/kp-20": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "5510 s. SGK Kanunu m.18 [1/3]",
+    "5510 s. SGK Kanunu m.18 [2/3]",
+    "5510 s. SGK Kanunu m.16 [1/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-olc2-a-vergi/kp-64": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "celdirici_yol.C",
+    "aciklama.C",
+    "sade.siklar.C",
+    "ikiz.ikiz_soru"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "ÖTV K. (4760 s.K.) gec. m.3 - EYEN HÜKÜMLER 1-18/2/2009 tarihli ve 5838 sayılı Kanunun geçici maddesi [12/35]",
+    "ÖTV K. (4760 s.K.) gec. m.3 - EYEN HÜKÜMLER 1-18/2/2009 tarihli ve 5838 sayılı Kanunun geçici maddesi [13/35]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w10-4-fmuh-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 180 - Gelecek Aylara Ait Giderler",
+    "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w12b-2-yvergi-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "GVK (193 s.K.) m.1 - BİRİNCİ KISIM Mükellefiyet BİRİNCİ BÖLÜM Verginin Mevzuu Mevzuu",
+    "GVK (193 s.K.) m.2 - Gelirin unsurları",
+    "GVK (193 s.K.) m.3 - İKİNCİ BÖLÜM Tam Mükellefiyet Mükellefler"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [
+  "smmm-olc2-a-vergi/kp-64"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
