@@ -18,6 +18,8 @@
 //                                                                    + madde metni → hazır dosya (GEÇİCİ klasöre; soru içeriği taşır)
 //    node arac/smmm-ah-yalniz.js yaz <hazir.json> <kararlar.json> <sonuc.json> [--meta f]
 //                                                                    yarış kapısı + YALNIZ hedef kaydın aciklama_hakem alanı + geri okuma
+//    node arac/smmm-ah-yalniz.js oku <etiket>/<kp> --karar TEMIZ|KUSURLU --okuyan "…" --dayanak "<kaynak_ad + ≤25 kelime>" [--not] [--kuru]
+//                                                                    incelenecek kaydı resmî metinle okuyup kapatır (aşağıda OKU)
 //    node arac/smmm-ah-yalniz.js --sinav                             öz-sınav (sahte ambar, ağ yok)
 //  KURALLAR:
 //   · Yalnız smmm- etiketi (ve sınama etiketi __sinama/smmm-ah-yalniz). sgs-/kgk- kimliği ATLANIR (SGS'ye dokunulmaz).
@@ -255,6 +257,48 @@ async function yaz(hazir, kararlar, meta = {}, io = ioSec()) {
   return out;
 }
 
+// ---------------------------------------------------------------- OKU: incelenecek kaydı resmî metinle okuyup kapatma (31.10, koordinatör + Cem "okumadan kabul etme")
+// node arac/smmm-ah-yalniz.js oku <etiket>/<kp> --karar TEMIZ|KUSURLU --okuyan "<ajan/kişi>" --dayanak "<kaynak_ad + ≤25 kelime>" [--not "…"] [--kuru] [--yeniden]
+//   · ambardaki aciklama_hakem'e kaynak_okundu:true + okuma {okuyan, dayanak, not, tarih} + onceki_karar (MODELİN kararı, ilk okumada sabitlenir)
+//     yazılır; incelenecek:false. Yanlış alarmda karar TEMIZ'e çevrilir: elle_cevrildi:true, modelin kusurlar listesi İZ olarak kalır.
+//   · Yol alanına bakılmaz: bu yolun (smmm-ah-yalniz) ve bulut-uretim'in (yol alanı yok) kararı aynı kapıdan okunur; YALNIZ smmm- kimliği.
+//   · Reddeder: dayanak boş / 60 kelimeden uzun · okuyan boş · karar TEMIZ|KUSURLU değil · kayıtta aciklama_hakem yok · karar içerik izi
+//     (icerik_sha) bugünkü metne ait değil (metin karardan sonra değişmiş → önce AH yeniden) · zaten okunmuş (--yeniden: önceki okuma
+//     okuma_gecmisi'ne taşınır).
+//   · Yazım 'yaz' ile aynı kapı: damga oku → yalnız <kp>.aciklama_hakem değişir (fark denetimi) → damga yeniden → KOŞULLU yazım → geri okuma.
+//   🚫 GÖRMEZ: okuyanın gerçekten resmî metni okuduğu (beyandır; dayanak zorunluluğu izi bırakır) · YENİ soruda TEMIZ'e çevirmenin yayını
+//     açması (üretim yayın şartı aciklama_hakem.karar=TEMIZ arar — bilerek yapılan elle karar).
+async function oku(io, sid, opt = {}) {
+  const red = neden => ({ durum: 'red', neden });
+  const ka = kimlikAyir(sid); if (!ka) return red('kimlik biçimi <etiket>/<kp> değil');
+  if (!etiketGecerli(ka.e)) return red('SMMM kimliği değil (yalnız smmm-)');
+  const karar = String(opt.karar || '').toUpperCase(); if (!/^(TEMIZ|KUSURLU)$/.test(karar)) return red('--karar TEMIZ ya da KUSURLU olmalı');
+  const okuyan = String(opt.okuyan || '').trim(); if (!okuyan) return red('--okuyan boş');
+  const dayanak = String(opt.dayanak || '').trim(); if (!dayanak) return red('--dayanak boş — resmî metin adı + kısa alıntı olmadan okuma kaydı yazılmaz');
+  if (dayanak.split(/\s+/).length > 60 || dayanak.length > 600) return red('--dayanak çok uzun (kaynak adı + en çok 25 kelime alıntı)');
+  const A = await io.ambarSatir(ka.e); if (!A) return red('ambarda parti yok');
+  const k = A.icerik[ka.kp]; if (!k || !k.soru) return red('kayıt yok');
+  const ah = k.aciklama_hakem; if (!ah || !ah.karar) return red('kayıtta aciklama_hakem kararı yok (önce AH)');
+  if (ah.icerik_sha && ah.icerik_sha !== icerikSha(k)) return red('karar bugünkü metne ait değil (icerik_sha farklı) — önce AH yeniden');
+  if (ah.kaynak_okundu === true && !opt.yeniden) return red('zaten okunmuş (' + ((ah.okuma && ah.okuma.okuyan) || '?') + ') — --yeniden ile');
+  const yeniAh = JSON.parse(JSON.stringify(ah));
+  if (ah.kaynak_okundu === true && ah.okuma) yeniAh.okuma_gecmisi = [...(ah.okuma_gecmisi || []), { ...ah.okuma, karar: ah.karar }];
+  if (yeniAh.onceki_karar === undefined) yeniAh.onceki_karar = ah.karar;   // modelin kararı (ilk okumada sabitlenir)
+  yeniAh.karar = karar; yeniAh.kaynak_okundu = true; yeniAh.incelenecek = false;
+  yeniAh.okuma = { okuyan, dayanak, not: String(opt.not || '').trim(), tarih: opt.tarih || new Date().toISOString().slice(0, 10) };
+  yeniAh.elle_cevrildi = yeniAh.onceki_karar !== karar;
+  delete yeniAh.not;
+  const yeni = JSON.parse(JSON.stringify(A.icerik)); yeni[ka.kp].aciklama_hakem = yeniAh; if (MUT === 'oku-baska-alan') yeni[ka.kp].soru += ' ';
+  const izinsiz = fark(A.icerik, yeni).filter(y => !(y === ka.kp + '.aciklama_hakem' || y.startsWith(ka.kp + '.aciklama_hakem.') || y.startsWith(ka.kp + '.aciklama_hakem[')));
+  if (izinsiz.length) return { durum: 'hata', neden: 'beklenmeyen fark ' + izinsiz.slice(0, 5).join(',') };
+  const ozet = { onceki: ah.karar, yeni: karar, elle_cevrildi: yeniAh.elle_cevrildi, yol: ah.yol || 'uretim' };
+  if (opt.kuru) return { durum: 'kuru', ...ozet };
+  const d2 = await io.damga(ka.e); if (d2 !== A.guncelleme) return { durum: 'yaris', neden: 'damga değişti' };
+  const w = await io.kosulluYaz(ka.e, A.guncelleme, yeni); if (w.satir !== 1) return { durum: 'yaris', neden: 'koşullu yazım 0 satır' };
+  const G = await io.ambarSatir(ka.e);
+  return { durum: G && esit(notrModel(G.icerik), notrModel(yeni)) ? 'yazildi' : 'uyusmaz', ...ozet };
+}
+
 // ---------------------------------------------------------------- SONUÇ DOSYASI (soru metni / gerekçe YOK)
 function sonucKur(hazir, kararlar, olculemedi, w, meta = {}) {
   const sayim = { istenen: hazir.ogeler.length, gonderilen: hazir.ogeler.filter(o => o.durum === 'hazir').length, temiz: 0, kusurlu: 0, olculemedi: (olculemedi || []).length,
@@ -380,12 +424,42 @@ async function sinav() {
     const H2 = await hazirla({ ad: 's8b', kimlikler: [g(e + '/kp-02')] }, {}, t2.io);
     S('özet alıntıyı içermiyor + ambarda madde yok → kayit (alıntı doğrulanamadı), kaynaksız DEĞİL', H2.ogeler[0].madde.kaynak === 'kayit' && H2.ogeler[0].madde.alinti_dogrulandi === false);
   }
+  { // 9) OKU: incelenecek kaydı resmî metinle kapatma
+    const tb = taban(); tb['kp-01'].aciklama_hakem = { karar: 'KUSURLU', kusurlar: [{ alan: 'aciklama.A', neden: 'x' }], yol: YOL, icerik_sha: icerikSha(tb['kp-01']), kaynak_okundu: false, incelenecek: true, not: 'kesin değil' };
+    tb['kp-02'].aciklama_hakem = { karar: 'KUSURLU', kusurlar: [{ alan: 'adimlar[0]', neden: 'y' }], model: 'model-c', tarih: '2026-10-20' };   // bulut-uretim kaydı (yol yok)
+    tb['kp-03'].aciklama_hakem = { karar: 'KUSURLU', yol: YOL, icerik_sha: 'eski-metin' };
+    const O = { okuyan: 'Ajan 9', dayanak: 'KDVK (3065 s.K.) m.28: "Katma değer vergisi oranı ... % 10\'dur"', not: 'atıf doğru' };
+    const t = kur('s9', { [e]: { icerik: JSON.parse(JSON.stringify(tb)), guncelleme: 'd1' } });
+    const r1 = await oku(t.io, e + '/kp-01', { ...O, karar: 'TEMIZ' }); const A1 = t.parti(e).icerik['kp-01'].aciklama_hakem;
+    S('OKU yanlış alarm → TEMIZ, onceki_karar KUSURLU, elle_cevrildi, kaynak_okundu:true, okuyan+dayanak, kusurlar iz olarak kalır', r1.durum === 'yazildi' && A1.karar === 'TEMIZ' && A1.onceki_karar === 'KUSURLU' && A1.elle_cevrildi === true && A1.kaynak_okundu === true && A1.incelenecek === false && A1.okuma.okuyan === 'Ajan 9' && /m\.28/.test(A1.okuma.dayanak) && A1.kusurlar.length === 1);
+    const fk = fark(tb, t.parti(e).icerik); S('OKU → yalnız kp-01.aciklama_hakem altı değişti', fk.length > 0 && fk.every(y => y.startsWith('kp-01.aciklama_hakem.')));
+    const r2 = await oku(t.io, e + '/kp-02', { ...O, karar: 'KUSURLU' }); const A2 = t.parti(e).icerik['kp-02'].aciklama_hakem;
+    S('OKU bulut-uretim kaydı (yol yok) → KUSURLU teyit, elle_cevrildi:false, kaynak_okundu:true', r2.durum === 'yazildi' && r2.yol === 'uretim' && A2.karar === 'KUSURLU' && A2.elle_cevrildi === false && A2.kaynak_okundu === true && A2.model === 'model-c');
+    const n0 = t.io.yazilan.length;
+    const rd = await oku(t.io, e + '/kp-01', { ...O, karar: 'KUSURLU', dayanak: '' }); S('OKU dayanak boş → RED, 0 yazma', rd.durum === 'red' && /dayanak/.test(rd.neden) && t.io.yazilan.length === n0);
+    const ro = await oku(t.io, e + '/kp-01', { ...O, karar: 'KUSURLU', okuyan: ' ' }); S('OKU okuyan boş → RED', ro.durum === 'red' && /okuyan/.test(ro.neden));
+    const rk = await oku(t.io, e + '/kp-01', { ...O, karar: 'BELKI' }); S('OKU karar TEMIZ/KUSURLU değil → RED', rk.durum === 'red');
+    const rz = await oku(t.io, e + '/kp-01', { ...O, karar: 'KUSURLU' }); S('OKU zaten okunmuş → RED (--yeniden yok)', rz.durum === 'red' && /zaten okunmuş/.test(rz.neden) && t.io.yazilan.length === n0);
+    const ry = await oku(t.io, e + '/kp-01', { ...O, karar: 'KUSURLU', okuyan: 'Cem', yeniden: true }); const A1b = t.parti(e).icerik['kp-01'].aciklama_hakem;
+    S('OKU --yeniden → önceki okuma okuma_gecmisi\'nde, onceki_karar MODELİN kararı kalır', ry.durum === 'yazildi' && A1b.karar === 'KUSURLU' && A1b.onceki_karar === 'KUSURLU' && A1b.okuma_gecmisi.length === 1 && A1b.okuma_gecmisi[0].okuyan === 'Ajan 9' && A1b.okuma_gecmisi[0].karar === 'TEMIZ' && A1b.elle_cevrildi === false);
+    const rs = await oku(t.io, e + '/kp-03', { ...O, karar: 'TEMIZ' }); S('OKU karar eski metne ait (icerik_sha farklı) → RED', rs.durum === 'red' && /icerik_sha/.test(rs.neden));
+    const t2 = kur('s9b', { [e]: { icerik: taban(), guncelleme: 'd1' }, 'sgs-sahte': { icerik: tb, guncelleme: 'd1', sinav: 'SGS' } });
+    const ra = await oku(t2.io, e + '/kp-01', { ...O, karar: 'TEMIZ' }); S('OKU aciklama_hakem yok → RED', ra.durum === 'red' && /aciklama_hakem/.test(ra.neden));
+    const rg = await oku(t2.io, 'sgs-sahte/kp-02', { ...O, karar: 'TEMIZ' }); S('OKU sgs- kimliği → RED (yalnız smmm-)', rg.durum === 'red' && /SMMM/.test(rg.neden) && t2.io.yazilan.length === 0);
+    const t3 = kur('s9c', { [e]: { icerik: JSON.parse(JSON.stringify(tb)), guncelleme_sira: ['d1', 'd2'] } });
+    const rr = await oku(t3.io, e + '/kp-02', { ...O, karar: 'TEMIZ' }); S('OKU damga değişti → DURUR, 0 yazma', rr.durum === 'yaris' && t3.io.yazilan.length === 0);
+    const t4 = kur('s9d', { [e]: { icerik: JSON.parse(JSON.stringify(tb)), guncelleme: 'd1' } });
+    const rq = await oku(t4.io, e + '/kp-02', { ...O, karar: 'TEMIZ', kuru: true }); S('OKU --kuru → yazma yok, değişim raporlanır', rq.durum === 'kuru' && rq.yeni === 'TEMIZ' && t4.io.yazilan.length === 0);
+    const r = cp.spawnSync(process.execPath, ['-e', `process.env.SMMM_AH_MUTASYON='oku-baska-alan';const m=require(${JSON.stringify(__filename)});const io=m.sahteIO(${JSON.stringify(t4.D)});m.oku(io,${JSON.stringify(e + '/kp-02')},${JSON.stringify({ ...O, karar: 'TEMIZ' })}).then(w=>console.log(JSON.stringify({d:w.durum,y:io.yazilan.length})))`], { encoding: 'utf8' });
+    let mu = false; try { const j = JSON.parse(r.stdout.trim().split('\n').pop()); mu = j.d === 'hata' && j.y === 0; } catch (x) { }
+    S('OKU MUTASYON: başka alanı değiştiren okuma yazımı DURDURULUR', mu);
+  }
   fs.rmSync(T, { recursive: true, force: true });
   console.log(`SMMM-AH-YALNIZ ÖZ-SINAVI ${ok === top ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${top})`);
   return ok === top;
 }
 
-module.exports = { icerikSha, hazirla, yaz, sonucKur, girdiKur, girdiOku, maddeMetni, sahteIO, notrModel, esit, fark, SINAMA_ETIKET };
+module.exports = { icerikSha, hazirla, yaz, oku, sonucKur, girdiKur, girdiOku, maddeMetni, sahteIO, notrModel, esit, fark, SINAMA_ETIKET };
 if (require.main === module) {
   const a = process.argv.slice(2); const bayrak = n => { const i = a.indexOf(n); return i >= 0 ? a[i + 1] : undefined; };
   const kmt = a[0];
@@ -414,6 +488,10 @@ if (require.main === module) {
       if (w.kayit_degisti.length) console.log(`  ⚠ kayıt hazırlıktan sonra değişti, yazılmadı: ${w.kayit_degisti.join(', ')}`);
       for (const h of w.hata) console.log('  ⛔ ' + h);
       process.exit(w.durum === 'yaris' ? 3 : (w.durum === 'hata' ? 1 : 0)); }
-    console.log('komut: girdi | hazirla | yaz | --sinav'); process.exit(2);
+    if (kmt === 'oku') {
+      const r = await oku(ioSec(), a[1], { karar: bayrak('--karar'), okuyan: bayrak('--okuyan'), dayanak: bayrak('--dayanak'), not: bayrak('--not'), kuru: a.includes('--kuru'), yeniden: a.includes('--yeniden') });
+      console.log(`OKU ${a[1]}: ${r.durum}${r.neden ? ' — ' + r.neden : ''}${r.yeni ? ` · ${r.onceki} → ${r.yeni}${r.elle_cevrildi ? ' (ELLE ÇEVRİLDİ)' : ''} · kaynak ${r.yol}` : ''}`);
+      process.exit(r.durum === 'yazildi' || r.durum === 'kuru' ? 0 : (r.durum === 'yaris' ? 3 : (r.durum === 'red' ? 2 : 1))); }
+    console.log('komut: girdi | hazirla | yaz | oku | --sinav'); process.exit(2);
   })().catch(e => { console.error('HATA: ' + e.message); process.exit(1); });
 }

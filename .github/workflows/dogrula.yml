@@ -265,6 +265,11 @@ jobs:
           - { ad: "SMMM risk taramasi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-risk-tarama.ps1 -Sinav" }
 
+          # 31.10.2026 - SMMM yalniz aciklama denetimi yolu (arac/smmm-ah-yalniz.ps1/.js): taslak tazeligi, yalniz aciklama_hakem alani
+          # kosullu yazim + geri okuma, KUSURLU = incelenecek, butce kapisi, madde metni sirasi, oku (incelenecek kapatma) + 2 mutasyon. Sahte ambar, ag yok.
+          - { ad: "SMMM yalniz aciklama denetimi OZ-SINAVI (node + PS uctan uca, sahte ambar)",
+              kabuk: pwsh, komut: "./arac/smmm-ah-yalniz-sinavi.ps1" }
+
           # 03.10.2026 - Sayfa basimindaki Turkce onarim (motor/kaydir-coz.ps1 TurkceOnar): sitede 'cocuk'tur -> 'cocuk'tur(u),
           # WHICH -> WHICH(I noktali), Esasi -> Esasi(ı) goruldu. Gercek bolge (# ---- turkce-onar) AYNEN yuklenir, sahte kucuk sozlukle
           # 29 vaka (11 duzelt / 18 bozma). Mutasyon: kesme, liste, en-kelime, en-harf, en-parca, en-yogun, en-tirnak, en-tr-kanit, en-tr-yari, i-basi -> 10/10 KIRMIZI (03.10 olculdu).
