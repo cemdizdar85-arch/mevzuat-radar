@@ -278,6 +278,15 @@ jobs:
           - { ad: "Turkce onarim MUTASYON (10 koruma bozulunca sinav duser mi)",
               kabuk: pwsh, komut: "./arac/turkce-onar-sinavi.ps1 -Mutasyon" }
 
+          # 31.10.2026 - Sik karnesi etiketi kok yonu + anahtardan (motor/kaydir-coz.ps1 # ---- sik-karne bolgesi AYNEN yuklenir):
+          # olumsuz/olumlu/belirsiz kok, dil dersi, SGS kaydi, karar alani bos sik; THP tanimi kesilirken UYGULAMA NOTU korunur.
+          # 45 vaka. Mutasyon: belirsiz-liste, olumsuz-liste, olumlu-sart, yon-ters, belirsiz-dokun, dil-dersi, kac, noktali-virgul,
+          # not-ayir, not-ekle -> 10/10 KIRMIZI (31.10 olculdu; ilk kosuda belirsiz-dokun YESIL kaldi, vaka eklendi).
+          - { ad: "Sik karnesi yonu + THP notu OZ-SINAVI (kok yonu, anahtar, not koruma)",
+              kabuk: pwsh, komut: "./arac/sik-karne-sinavi.ps1" }
+          - { ad: "Sik karnesi yonu MUTASYON (10 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/sik-karne-sinavi.ps1 -Mutasyon" }
+
           # 03.10.2026 - Kisaltma acimi TEK KAYNAK: arac/kisaltma-acim.json (uretim_yedek = kalip-parti-uret.ps1 TerimOnar,
           # yayin = kaydir-coz.ps1 TurkceOnar) + arac/kisaltma-acim.ps1 (KisaltmaDeseni = kesme korumasi tek yer). 03.10'da
           # "GUG'un" -> "genel uretim gideri'un" iki yerde ayri ayri duzeltilmisti. 38 vaka (iki kumede kesme, FIFO'da, DB YM sirasi,
@@ -820,6 +829,11 @@ jobs:
           # harf duyarsiz, sik alanli adimli soru kaydirilmaz, takas karneyi bozarsa yazilmaz. 7 vaka; 3 mutasyon KIRMIZI. Ag yok.
           - { ad: "Sik kaydirma korumasi OZ-SINAVI + MUTASYON",
               kabuk: pwsh, komut: "./arac/sik-kaydir.ps1 -Sinav -Mutasyon" }
+          # 31.10: kalip-parti-uret.ps1 SIK DENGESI (SikTasi): sik kayinca butun harf anmalari ayni eslesmeyle cevrilir; belirsiz anma /
+          # formul harfi / kokte sik anmasi / ikizde harf / ic ice adim dizisi / sayi-tarih siklar (S8) / harf_sabit izi / kasada yayinda → takas yok;
+          # onarim kosusunda dengeleyici kapali. Uretim CALISTIRILMAZ (AST). 55 vaka (SMMM+SGS+KGK); 17 mutasyon KIRMIZI (01.11). Ag yok.
+          - { ad: "Sik takasi harf anmasi OZ-SINAVI + MUTASYON (SikTasi)",
+              kabuk: pwsh, komut: "./arac/sik-tasi-sinavi.ps1 -Mutasyon" }
           # 30.09: KAPI-ADIM adim atfi kaymasi ("X (N. adimda bulduk)" X'in sonuc oldugu adimi gostermiyor) + mekanik onarim. 7 vaka;
           # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",

@@ -52,13 +52,20 @@ function fark(a, b, p = '', out = []) {
 }
 const izinli = (y, izin) => izin.some(z => y === z || y.startsWith(z + '.') || y.startsWith(z + '[') || z.startsWith(y + '.') || z.startsWith(y + '['));
 const modelYolu = y => MODEL.some(m => y === m || y.startsWith(m + '.') || y.startsWith(m + '['));
+// 31.10 (Cem "şık kayınca açıklamadaki harf anmaları da değişsin"; Ajan 20 ölçtü: ts20-kayma-son.json): rehakem yolu hakem kaydını sildiği
+//   için onarılmış soru motor/kalip-parti-uret.ps1 ŞIK DENGESİ'ne "hakemsiz yeni soru" gibi düşüyor, doğru harfi kayıyordu. Rehakem kaydına
+//   `harf_sabit` izi yazılır; dengeleyici (SikTasiEngel) izli soruyu TAŞIMAZ. İz bir kez düştü mü sonraki onarımlarda korunur ve fark
+//   denetimine girmez (eski taslakta yoksa "izinsiz fark" diye reddetmesin). Öteki davranış AYNI.
+const IZ = 'harf_sabit';
+const izYolu = y => y === IZ || y.startsWith(IZ + '.');
+const izKoru = (eski, y) => { if (eski && eski[IZ] !== undefined) y[IZ] = eski[IZ]; else delete y[IZ]; return y; };
 
 // saf karar: eski kayıt + taslak (tam + beyan) → {durum, yeni}
 function karar(eski, tam, bey) {
   if (bey && bey.onarilamadi) return { durum: 'onarilamadi', neden: String(bey.onarilamadi) };
   if (!eski) return { durum: 'red', neden: 'kayit yok' };
   const izin = [...new Set([...((bey && bey.degisen_alanlar) || []), ...Object.keys((bey && bey.yeni) || {})])];
-  const fr = fark(eski, tam).filter(y => !modelYolu(y));
+  const fr = fark(eski, tam).filter(y => !modelYolu(y) && !izYolu(y));
   if (!fr.length) return { durum: 'red', neden: 'hic fark yok' };
   const izinsiz = fr.filter(y => !izinli(y, izin));
   if (izinsiz.length) return { durum: 'red', neden: 'izinsiz fark: ' + izinsiz.slice(0, 5).join(',') };
@@ -68,8 +75,8 @@ function karar(eski, tam, bey) {
   //   gitmiyordu (AH "(yok)" aldı; dalga 1'de 17 KUSURLU'nun 4'ü yanlış alarm). Cem 31.10: "ilgili madde metnini ambardan hakeme ver".
   //   Kural: beyan degisen_alanlar'da kaynak_metin_ozet'i açıkça sayıyorsa taslaktaki dolu değer KORUNUR (öteki model alanları eskisi gibi).
   const ozetBeyanli = izin.includes('kaynak_metin_ozet') && typeof tam.kaynak_metin_ozet === 'string' && tam.kaynak_metin_ozet.trim() !== '';
-  const ozetKoy = y => { if (ozetBeyanli) y.kaynak_metin_ozet = tam.kaynak_metin_ozet; return y; };
-  if (kritik) { for (const m of MODEL) delete yeni[m]; return { durum: 'rehakem', yeni: ozetKoy(yeni) }; }
+  const ozetKoy = y => { if (ozetBeyanli) y.kaynak_metin_ozet = tam.kaynak_metin_ozet; return izKoru(eski, y); };
+  if (kritik) { for (const m of MODEL) delete yeni[m]; ozetKoy(yeni); if (MUT !== 'harf-sabit-yok') yeni[IZ] = { tarih: new Date().toISOString().slice(0, 10), kaynak: 'onarim-rehakem', not: 'doğru harf onarımda sabitlendi; ŞIK DENGESİ taşımaz' }; return { durum: 'rehakem', yeni }; }
   // 07.10 (Cem "1.2.3", SGS oturumu ölçtü): aciklama_hakem silinince YENİ soru (kör/hakem2 ≥ 10-01) yayın şartını kaybedip SESSİZCE
   //   düşüyordu (06.10: sgs-c5-fmuh-zor-r1-2/kp-07, ücretsiz). Kural: yalnız açıklama onarıldıysa ve önceki karar TEMIZ ise karar KORUNUR,
   //   yanına onarim_sonrasi izi düşülür (onarım GM + resmî kaynakla yapıldı; hakemin geçirdiği soru iyileşti). KUSURLU/başka karar
@@ -337,6 +344,10 @@ function sinav() {
     ['31.10 yalnız açıklama + beyansız → eski özet korunur', karar({ ...e, kaynak_metin_ozet: 'eski' }, { ...e, aciklama: { A: 'a2', B: 'b' }, kaynak_metin_ozet: 'yeni' }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.kaynak_metin_ozet === 'eski'],
     ['anahtar değişti → hakem silinir', karar(e, { ...e, dogru: 'A' }, { degisen_alanlar: ['dogru'] }), r => r.durum === 'rehakem' && !r.yeni.hakem],
     ['şık değişti → yeniden hakem', karar(e, { ...e, siklar: { A: '3', B: '2' } }, { degisen_alanlar: ['siklar.A'] }), r => r.durum === 'rehakem'],
+    // 31.10: rehakem kaydına harf_sabit izi (ŞIK DENGESİ onarılan sorunun harfini taşımasın); açıklama yolunda iz EKLENMEZ, varsa korunur
+    ['31.10 rehakem → harf_sabit izi düşer (onarim-rehakem)', karar(e, { ...e, dogru: 'A' }, { degisen_alanlar: ['dogru'] }), r => r.durum === 'rehakem' && r.yeni.harf_sabit && r.yeni.harf_sabit.kaynak === 'onarim-rehakem' && !r.yeni.hakem],
+    ['31.10 yalnız açıklama → harf_sabit EKLENMEZ (davranış aynı)', karar(e, { ...e, aciklama: { A: 'a2', B: 'b' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.harf_sabit === undefined],
+    ['31.10 eskide iz var, taslakta yok → izinsiz fark SAYILMAZ, iz korunur', karar({ ...e, harf_sabit: { tarih: 'x' } }, { ...e, aciklama: { A: 'a2', B: 'b' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.harf_sabit && r.yeni.harf_sabit.tarih === 'x'],
     ['beyansız fark → red', karar(e, { ...e, aciklama: { A: 'a', B: 'b2' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /izinsiz/.test(r.neden)],
     ['fark yok → red', karar(e, { ...e }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /fark yok/.test(r.neden)],
     // 22.10 geri okuma: yükleme "claude-…" model izini nötr koda çevirir (kıdem onarımı, 2/3 kayıt)

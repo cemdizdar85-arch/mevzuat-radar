@@ -32,6 +32,7 @@ param(
   [string]$Sadece = '',
   [string]$Dilim = '',
   [string]$Rapor = '',
+  [string]$Adlar = '',    # verilirse HER kaynagin yeni cikti adlari buraya yazilir {slug:[kaynak_ad]} (bag kapisi olcumu)
   [string]$Dok = '',      # verilirse degisen kaynaklarin eski/yeni parcalari buraya yazilir (inceleme icin)
   [switch]$OzSinav
 )
@@ -231,7 +232,7 @@ if($Sadece){ $sk = @($Sadece -split ',' | ForEach-Object { $_.Trim() }); $liste 
 if($Dilim -match '^(\d+)/(\d+)$'){ $dk = [int]$Matches[1]; $dn = [int]$Matches[2]; $liste = @(for($i=0; $i -lt $liste.Count; $i++){ if(($i % $dn) -eq ($dk-1)){ $liste[$i] } }) }
 $say = [ordered]@{ kaynak=$liste.Count; prova=0; ayni=0; sinif_i=0; sinif_ii=0; girdi_yok=0; kisa=0; hata=0; parca_eski=0; parca_yeni=0; degisen_parca_eski=0; degisen_parca_yeni=0; madde_degisen=0; tasima=0; parca_sayisi_degisen=0 }
 $kayit = New-Object System.Collections.Generic.List[object]
-$bas = Get-Date; $n = 0
+$bas = Get-Date; $n = 0; $script:CIKTI_AD_DIZINI = [ordered]@{}
 foreach($law in $liste){
   $n++
   $hz = Join-Path $kok "veri/mevzuat-hazir/$($law.slug).txt"; $tx = Join-Path $TxtDir "$($law.slug).txt"
@@ -248,6 +249,7 @@ foreach($law in $liste){
   $say.degisen_parca_eski += $s.degisen_parca_eski; $say.degisen_parca_yeni += $s.degisen_parca_yeni; $say.madde_degisen += $s.madde_degisen
   $say.tasima += @($s.tasima).Count; $say.parca_sayisi_degisen += $s.parca_sayisi_degisen
   switch($s.sinif){ 'ayni' { $say.ayni++ } '(i)' { $say.sinif_i++ } '(ii)' { $say.sinif_ii++ } }
+  if($Adlar){ $script:CIKTI_AD_DIZINI[$law.slug] = @($y | ForEach-Object { $_.kaynak_ad }) }
   if($s.sinif -ne 'ayni' -and $Dok){   # inceleme icin iki surumun ciktisi (yalniz degisen kaynak; ambara degil, -Dok klasorune)
     if(-not (Test-Path $Dok)){ New-Item -ItemType Directory -Path $Dok -Force | Out-Null }
     [IO.File]::WriteAllText((Join-Path $Dok "$($law.slug).json"), (ConvertTo-Json -InputObject ([ordered]@{ eski=@($o); yeni=@($y) }) -Depth 4), (New-Object System.Text.UTF8Encoding($false)))
@@ -256,6 +258,7 @@ foreach($law in $liste){
   if(($n % 50) -eq 0){ Write-Host ("  {0}/{1} ({2:n0} sn) ayni {3} (i) {4} (ii) {5}" -f $n, $liste.Count, ((Get-Date)-$bas).TotalSeconds, $say.ayni, $say.sinif_i, $say.sinif_ii) }
 }
 $cikti = [ordered]@{ olcum=(Get-Date).ToString('s'); eski=$Eski; yeni=$Yeni; dilim=$Dilim; sayim=$say; kaynaklar=$kayit.ToArray() }
+if($Adlar){ [IO.File]::WriteAllText($Adlar, (ConvertTo-Json -InputObject $script:CIKTI_AD_DIZINI -Depth 3 -Compress), (New-Object System.Text.UTF8Encoding($false))) }
 if($Rapor){ [IO.File]::WriteAllText($Rapor, ($cikti | ConvertTo-Json -Depth 8), (New-Object System.Text.UTF8Encoding($false))) }
 Write-Host ("PROVA: kaynak {0} · prova {1} · ayni {2} · (i) {3} · (ii) {4} · girdi-yok {5} · kisa {6} · hata {7}" -f $say.kaynak,$say.prova,$say.ayni,$say.sinif_i,$say.sinif_ii,$say.girdi_yok,$say.kisa,$say.hata)
 Write-Host ("PARCA: eski {0} · yeni {1} · degisen (eski tarafta) {2} · (yeni tarafta) {3} · madde degisen {4} · sinir tasimasi {5}" -f $say.parca_eski,$say.parca_yeni,$say.degisen_parca_eski,$say.degisen_parca_yeni,$say.madde_degisen,$say.tasima)

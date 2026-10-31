@@ -1,0 +1,162 @@
+{
+ "ad": "ah8",
+ "olusturma": "2026-10-31T22:39:02.191Z",
+ "kaynak_klasor": "veri/fabrika/temizlik/onarim-ah8",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK.",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r1-2/kp-08",
+   "taslak_sha": "5f3408da755bd75d88117dfdb0bccab98a4914926dd05ced6af8ef1a38f90892",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 500 - SERMAYE",
+     "alinti": "İşleyişi: Taahhüt edilen sermaye tutarı bu hesaba alacak, ödenmemiş sermaye hesabına borç kaydedilir."
+    },
+    {
+     "kaynak_ad": "THP 501 - ÖDENMEMİŞ SERMAYE (-)",
+     "alinti": "İşleyişi: Taahhüt edilen sermaye tutarı \"500- Sermaye Hesabı\" alacağı ile bu hesaba borç, ödenen tutarlar alacak kaydedilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r5/kp-15",
+   "taslak_sha": "fb759c5f509e645f28ae44d05825caa432b94ad422d050b01a5abf834b95c0f2",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 380 - Gelecek Aylara Ait Gelirler",
+     "alinti": "Peşin tahsil olunan gelirler bu hesabın alacağına kaydedilir. Ait olduğu dönemde ilgili gelir hesaplarına devredilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yfta-zor-r5/kp-19",
+   "taslak_sha": "3ea09a4115410659425994b0a0d37d897761bdb1ce926f9ddd69580029bfd2d1",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TMS 1 p.66 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": "Bir varlık aşağıdaki kriterlerden herhangi birini karşıladığında işletme bu varlığı cari varlık olarak sınıflandırır:"
+    },
+    {
+     "kaynak_ad": "TMS 1 p.66 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": "İşletme diğer tüm varlıklarını cari olmayan varlık olarak sınıflandırır."
+    },
+    {
+     "kaynak_ad": "TMS 1 p.68 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": "Cari varlıklar, raporlama döneminden sonraki on iki ay içinde nakde dönüşmesi beklenmese dahi, normal faaliyet döngüsünün bir parçası olarak satılan, tüketilen veya nakde çevrilen varlıkları (örneğin stokları ve ticari alacakları) içerir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yhukuk-kolay-r6/kp-14",
+   "taslak_sha": "50b7d405cc0b595d88a08ea030a34c9eef75c298d043a91862a77d11449ec57f",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TBK (6098 s.K.) m.547",
+     "alinti": "İşletme sahibi, ticari temsilcilik yetkisi verildiğini ticaret siciline tescil ettirmek zorundadır; ancak ticari işletme sahibinin ticari temsilcinin fiillerinden sorumluluğu, tescilin yapılmış olmasına bağlı değildir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yhukuk-kolay-r7/kp-02",
+   "taslak_sha": "6fa34a2e591386348cdc80838cda9e191921c1e6d1226be56b685f6ac6311a41",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TBK (6098 s.K.) m.42",
+     "alinti": "Temsil olunan, hukuki bir işlemden doğan temsil yetkisini her zaman sınırlayabilir veya geri alabilir."
+    },
+    {
+     "kaynak_ad": "TBK (6098 s.K.) m.43",
+     "alinti": "Hukuki işlemden doğan temsil yetkisi, aksi taraflarca kararlaştırılmadıkça veya işin özelliğinden anlaşılmadıkça, temsil olunanın veya temsilcinin ölümü, gaipliğine karar verilmesi, fiil ehliyetini kaybetmesi veya iflas etmesi durumlarında sona erer."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-ab2-b-maliyet/kp-39",
+   "taslak_sha": "6c947f2e39d54fee009f1a56c54fcda15c9c3a4d3b6573f56cb2d3710c0abefb",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Safha maliyet sisteminde maliyet dağıtım tablosu: miktar dengesi, eşdeğer birim, birim maliyet ve maliyet dağıtımı basamakları; ağırlıklı ortalama ile ilk giren ilk çıkar karşılaştırması",
+     "alinti": "İLK GİREN İLK ÇIKARDA (FIFO) eşdeğer birim = dönem başı yarı mamulün TAMAMLANMASI için kalan yüzde + bu dönem başlanıp tamamlanan + dönem sonu yarı mamul × tamamlanma yüzdesi; yalnız bu dönem yapılan iş sayılır."
+    },
+    {
+     "kaynak_ad": "TEORI - Safha maliyet sisteminde maliyet dağıtım tablosu: miktar dengesi, eşdeğer birim, birim maliyet ve maliyet dağıtımı basamakları; ağırlıklı ortalama ile ilk giren ilk çıkar karşılaştırması",
+     "alinti": "BASAMAK 3 - BİRİM MALİYET: Ağırlıklı ortalamada birim maliyet = (dönem başı yarı mamul maliyeti + dönem maliyeti) / eşdeğer birim; FIFO'da birim maliyet = YALNIZ dönem maliyeti / eşdeğer birim, devreden maliyet paya girmez."
+    },
+    {
+     "kaynak_ad": "TEORI - Safha maliyet sisteminde maliyet dağıtım tablosu: miktar dengesi, eşdeğer birim, birim maliyet ve maliyet dağıtımı basamakları; ağırlıklı ortalama ile ilk giren ilk çıkar karşılaştırması",
+     "alinti": "tamamlananlar İKİ KATMANDIR: (a) dönem başı yarı mamuller = devreden maliyet + bu dönem eklenen tamamlama maliyeti, (b) bu dönem başlanıp tamamlananlar = birim × dönem birim maliyeti."
+    },
+    {
+     "kaynak_ad": "TMS 2 p.16 - Diğer maliyetler",
+     "alinti": "Aşağıdakiler, stokların maliyetine dâhil edilmeyen ve gerçekleştikleri dönemde gider olarak finansal tablolara yansıtılan maliyetlere örnek olarak verilebilir: (a) Normalin üstünde gerçekleşen; hammadde fire ve kayıpları, işçilik ve diğer üretim maliyetleri,"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm13-1-ydenetim-kolay/kp-03",
+   "taslak_sha": "5b188a16f25515a1a2ad0923a884bf346ba24d367fdb412aaa54ef63d71be658",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.399 [2/3]",
+     "alinti": "Faaliyet döneminin dördüncü ayına kadar denetçi seçilememişse, denetçi, yönetim kurulunun, her yönetim kurulu üyesinin veya herhangi bir pay sahibinin istemi üzerine, dördüncü fıkrada gösterilen mahkemece atanır."
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.399 [2/3]",
+     "alinti": "Aynı hüküm, seçilen denetçinin görevi red veya sözleşmeyi feshetmesi, görevlendirme kararının iptal olunması, butlanı veya denetçinin kanuni sebeplerle veya diğer herhangi bir nedenle görevini yerine getirememesi veya görevini yapmaktan engellenmesi hâllerinde de uygulanır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm14-1-yvergi-kolay/kp-05",
+   "taslak_sha": "5998d80b768feccb3e2c0b547bd6020fc1c87214c7197ef049c0d9f4218467e1",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [2/10]",
+     "alinti": "Beyan edilen gelirin % 10’unu aşmaması, Türkiye’de yapılması ve gelir veya kurumlar vergisi mükellefiyeti bulunan gerçek veya tüzel kişilerden alınacak belgelerle tevsik edilmesi şartıyla, mükellefin kendisi, eşi ve küçük çocuklarına ilişkin olarak yapılan eğitim ve sağlık harcamaları"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [2/10]",
+     "alinti": "yıllık toplamı beyan edilecek gelirin % 5’ini (kalkınmada öncelikli yöreler için % 10’unu) aşmamak üzere, makbuz karşılığında yapılan bağış ve yardımlar."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [1/10]",
+     "alinti": "Beyan edilen gelirin %15’ini ve asgari ücretin yıllık tutarını aşmamak şartıyla"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm2-1-ymeslek-cokzor/kp-01",
+   "taslak_sha": "06575216a88eb575e4188cc8c4628ab0497192430e56201240519f1a70b37c08",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) muk. m.227 - Beyannamelerinin İmzalanması ve Yeminli Mali Müşavir Tasdik Raporları [1/2]",
+     "alinti": "imzaladıkları beyannamelerde veya düzenledikleri tasdik raporlarında yer alan bilgilerin defter kayıtlarına ve bu kayıtların dayanağını teşkil eden belgelere uygun olmamasından dolayı ortaya çıkan vergi ziyaına bağlı olarak salınacak vergi, ceza, gecikme faizlerinden mükellefle birlikte müştereken ve müteselsilen sorumlu tutulurlar."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) muk. m.227 - Beyannamelerinin İmzalanması ve Yeminli Mali Müşavir Tasdik Raporları [2/2]",
+     "alinti": "233 Sayılı Kanun Hükmünde Kararname hükümlerine tabi olan Kamu İktisadi Teşebbüsleri ile bunlara ait müesseseler hakkında bu madde hükümleri uygulanmaz."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w12a-3-ymeslek-zor/kp-04",
+   "taslak_sha": "9b0841f98a5f035f1fbf26da82ef716673def9c13ca16b76ca8b31ef5375fae9",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.4",
+     "alinti": "kasten işlenen bir suçtan dolayı bir yıl veya daha fazla süreyle hapis cezasına ya da affa uğramış olsa bile devletin güvenliğine karşı suçlar, Anayasal düzene ve bu düzenin işleyişine karşı suçlar,"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w2-ymeslek-cokzor/kp-02",
+   "taslak_sha": "e375d59df7372651014299579c9f48b2b215144414cdc43a44af1ead54442e4b",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.24",
+     "alinti": "Aşağıdaki çalışma konularında sözleşme yapılması zorunludur. a) Defter tutmak, b) Süreklilik arz eden müşavirlik hizmetinde, c) İnceleme, tahlil ve denetim yapmak ve bunlarla ilgili, rapor ve benzerlerini düzenlemek, d) Yeminli Mali Müşavirlerin tasdik işlemleri."
+    }
+   ]
+  }
+ ]
+}
