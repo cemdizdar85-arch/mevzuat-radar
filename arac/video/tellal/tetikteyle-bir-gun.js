@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+/* ============================================================================
+   TETİKTE'YLE BİR GÜN · 4 SAYFALIK KAYDIRMALI GÖNDERİ (01.11.2026, Cem "gerçek hayat hissini dürüst biçimde… bunu yap").
+   İkinci tekil şahıs SENARYO (sayfada yazılı), kimse adına söz yok. Şablon uye-yorumlari-kaydirma.html (sahne + son kipi).
+   METİN KAPISI: her yazı pazarlama/reklam/instagram-tetikteyle-bir-gun.md satırlarından (exit 3).
+   TAŞMA KAPISI: içerik sayfa alanına sığmalı, yazı yan 40 px'e girmemeli (exit 4).
+   Kullanım: node arac/video/tellal/tetikteyle-bir-gun.js → <kasa>/tellal-reklam/TETIKTEYLE-BIR-GUN-S{1..4}.png
+   🚫 GÖRMEZ: sahnedeki özelliklerin yarın da sitede kalıp kalmadığı · okuyanın senaryoyu gerçek sanıp sanmadığı (insan).
+   ============================================================================ */
+'use strict';
+const fs = require('fs'), path = require('path');
+let chromium; try { ({ chromium } = require('playwright')); } catch (e) { ({ chromium } = require('C:/Users/cemdi/.claude/araclar/kayit/node_modules/playwright')); }
+
+const KOK = path.resolve(__dirname, '..', '..', '..');
+const CIKTI = path.join('C:/Users/cemdi/OneDrive/Masaüstü/mevzuat işi', '_yerel-veri-kasasi', 'tellal-reklam');
+const md = fs.readFileSync(path.join(KOK, 'pazarlama', 'reklam', 'instagram-tetikteyle-bir-gun.md'), 'utf8');
+const SATIR = {}; for (const m of md.matchAll(/^(\d+)\. (.+)$/gm)) SATIR[m[1]] = m[2].trim();
+const S = n => { if (!SATIR[n]) { console.error(`METİN KAPISI: md'de ${n}. satır yok`); process.exit(3); } return SATIR[n]; };
+const sahne = (a, b, c) => ({ ust: S(1), not: S(2), sahne: [S(a), S(b), S(c)] });
+const SAYFALAR = [sahne(3, 4, 5), sahne(6, 7, 8), sahne(9, 10, 11), { son: [S(1), S(12), S(13), S(14), S(15)] }];
+
+(async () => {
+  const tarayici = await chromium.launch();
+  const url = 'file:///' + path.join(__dirname, 'uye-yorumlari-kaydirma.html').replace(/\\/g, '/');
+  for (let i = 0; i < SAYFALAR.length; i++) {
+    const sayfa = await tarayici.newPage({ viewport: { width: 1080, height: 1350 } });
+    await sayfa.goto(url);
+    await sayfa.evaluate(v => window.kur(v), { sayfa: SAYFALAR[i], sira: i, toplam: SAYFALAR.length });
+    const sorun = await sayfa.evaluate(() => {
+      const o = [], s = document.getElementById('sayfa');
+      if (s.scrollHeight > s.clientHeight + 1) o.push(`sayfa taşıyor ${s.scrollHeight}>${s.clientHeight}`);
+      for (const e of s.querySelectorAll('.ust, .not, .saat, .yer, .metin, .son > div')) {
+        const g = document.createRange(); g.selectNodeContents(e); const r = g.getBoundingClientRect();
+        if (r.left < 40 || r.right > 1040 || r.top < 40 || r.bottom > 1260) o.push(e.className);
+      }
+      return o;
+    });
+    if (sorun.length) { console.error(`TAŞMA (sayfa ${i + 1}): ${sorun.join(', ')}`); process.exit(4); }
+    await sayfa.screenshot({ path: path.join(CIKTI, `TETIKTEYLE-BIR-GUN-S${i + 1}.png`) });
+  }
+  await tarayici.close();
+  console.log(`${SAYFALAR.length} sayfa: ${CIKTI}\\TETIKTEYLE-BIR-GUN-S1..S${SAYFALAR.length}.png`);
+})().catch(e => { console.error(e); process.exit(1); });
