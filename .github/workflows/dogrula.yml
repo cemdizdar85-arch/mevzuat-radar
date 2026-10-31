@@ -515,6 +515,13 @@ jobs:
           # (15 vaka: gercek degisiklik kacmasin + dizilis/ayri kayit alarm vermesin).
           - { ad: "Mevzuat ayristirici OZ-SINAVI (mulga serhinin SON islemi)",
               kabuk: pwsh, komut: "./motor/mevzuat-yut.ps1 -OzSinav" }
+          # 31.10.2026 - madde siniri onarimi (KDVK m.6/b: onceki maddenin son cumlesi sonraki maddenin ADINA gecerdi) ve
+          # ayri parantezli yeniden duzenleme (13 yururlukteki madde ambarda yoktu). Esdegerlik provasinin siniflandiricisi
+          # (6 mutasyon + gercek betikte KDVK vakasi) ve kaynak_adlar tasima aracinin kosullu yazimi (yaris, kosan parti, mutasyon).
+          - { ad: "Yut esdegerlik provasi OZ-SINAVI (eski/yeni parcalayici farki siniflansin)",
+              kabuk: pwsh, komut: "./arac/yut-esdegerlik-provasi.ps1 -OzSinav" }
+          - { ad: "Kaynak adi tasima OZ-SINAVI (yalniz kaynak_adlar degissin, kosullu yazim)",
+              kabuk: bash, komut: "node arac/kaynak-adi-tasi.js --sinav" }
           - { ad: "Damga degisim turu OZ-SINAVI (dizilis kaymasi soru cekmesin)",
               kabuk: pwsh, komut: "./arac/damga-degisim-sinavi.ps1" }
 
