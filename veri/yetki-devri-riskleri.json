@@ -1,11 +1,11 @@
 {
-  "tarih": "31.10.2026 13:31",
+  "tarih": "31.10.2026 13:37",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 900,
   "riskli_madde": 1315,
   "sayfa": 82,
   "atifli_iddia": 315,
-  "dayanaksiz_iddia": 550,
+  "dayanaksiz_iddia": 551,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -1457,21 +1457,27 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 540,
+      "satir": 542,
       "iddia": "20 Gün",
       "metin": "SMMM Staja Giriş · Son 20 Gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 543,
+      "satir": 544,
       "iddia": "3 gün",
-      "metin": "Takvim: 3 günde 1 deneme · Deneme 1 → 1–3 Kasım … Deneme 7 → 19–20 Kasım · 21 Kasım sınav."
+      "metin": "130'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım."
     },
     {
       "sayfa": "index.html",
-      "satir": 566,
+      "satir": 567,
       "iddia": "20 Gün",
       "metin": "$('s20bEt').textContent=(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün';"
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 571,
+      "iddia": "3 gün",
+      "metin": ": '130\\'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.';"
     },
     {
       "sayfa": "index.html",
