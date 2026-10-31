@@ -515,7 +515,68 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   </div>
 </section>
 
-
+<!-- 31.10 Cem ("ana sayfamıza 20 günlük sgs sınav testi ve üyelerin gördüğü yere koyalım, insanlar kolay görsün"): kahramanın hemen
+     altında Son 20 Gün bölümü. Seçili sınava göre (SGS 1 Kasım · Yeterlilik 8 Kasım; KGK'da gizli). Üyede son20-kart.js'in kişisel
+     satırı + "Denemelerime git". Fiyat yazılmaz (fiyat tek yerden: paket kartları). Akış son-20-gun.html "Nasıl ilerler?" ile aynı. -->
+<style>
+.s20b{padding:6px 0 18px}.s20b .kutu{border:2px solid var(--amber-dolgu,#f3a52a);border-radius:16px;padding:18px 20px;
+  background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 8%,var(--kagit,#fff));display:grid;grid-template-columns:1.1fr 1.4fr;gap:18px;align-items:center}
+.s20b .et{font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--amber,#9a6400);margin:0}
+.s20b h2{margin:4px 0 6px;font-size:24px;line-height:1.2}.s20b .ozet{margin:0 0 12px;color:var(--muted)}
+.s20b .uye{margin:0 0 12px;font-weight:700}
+.s20b ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.s20b li{background:var(--kagit,#fff);border:1px solid var(--cizgi,#e6dccb);border-radius:12px;padding:10px;font-weight:700;font-size:14px;line-height:1.25}
+.s20b li b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;margin-bottom:6px}
+.s20b li small{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:3px}
+.s20b .dgs{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:760px){ .s20b .kutu{grid-template-columns:1fr;padding:16px} .s20b ol{grid-template-columns:1fr 1fr} .s20b h2{font-size:21px} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
+</style>
+<section class="s20b" id="s20Bolum" aria-labelledby="s20bBas">
+  <div class="ic"><div class="kutu">
+    <div>
+      <p class="et" id="s20bEt">SMMM Staja Giriş · Son 20 Gün</p>
+      <h2 id="s20bBas">7 deneme, 1 Kasım'da açılıyor</h2>
+      <p class="ozet" id="s20bOzet">Sınavdaki soru sayısı ve ders dağılımıyla 7 deneme (her biri 130 soru). Her denemeden sonra eksik konularını kapatırsın.</p>
+      <p class="uye" id="s20bUye" hidden></p>
+      <div class="dgs"><a class="dg dg-ana" id="s20bDg1" href="son-20-gun.html">Denemeleri gör →</a><a class="dg dg-iki" id="s20bDg2" href="#paketler">Paketleri gör</a></div>
+    </div>
+    <ol aria-label="Nasıl ilerler">
+      <li><b>1</b>Denemeyi çöz<small>Ders ders testler</small></li>
+      <li><b>2</b>Sonucunu gör<small>Doğrular + her sorunun açıklaması</small></li>
+      <li><b>3</b>Eksiğini kapat<small>Yanlış konulardan 4'er yeni soru</small></li>
+      <li><b>4</b>Sonraki deneme<small>Görevler bitince açılır</small></li>
+    </ol>
+  </div></div>
+</section>
+<script>
+(function(){
+  function $(i){ return document.getElementById(i); }
+  var B=$('s20Bolum'); if(!B) return;
+  function secili(){ var b=document.querySelector('.sinav[data-sinav][aria-pressed="true"]'); return b?b.getAttribute('data-sinav'):'sgs'; }
+  function ciz(){
+    var s=secili(), yet=s==='yeterlilik';
+    if(s!=='sgs'&&!yet){ B.hidden=true; return; }
+    var acT=Date.parse(yet?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00'), sonT=Date.parse(yet?'2026-11-29T00:00:00+03:00':'2026-11-22T00:00:00+03:00');
+    if(Date.now()>=sonT){ B.hidden=true; return; }
+    B.hidden=false; var once=Date.now()<acT;
+    $('s20bEt').textContent=(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün';
+    $('s20bBas').textContent=yet? (once?'Ders ders denemeler, 8 Kasım\'da açılıyor':'Ders ders denemeler açık')
+                                : (once?'7 deneme, 1 Kasım\'da açılıyor':'7 deneme açık');
+    $('s20bOzet').textContent=yet? 'Her dersin 5 denemesi (20 soru, 45 dakika). Her denemeden sonra eksik konularını kapatırsın.'
+                                 : 'Sınavdaki soru sayısı ve ders dağılımıyla 7 deneme (her biri 130 soru). Her denemeden sonra eksik konularını kapatırsın.';
+    var adres=yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
+    $('s20bDg1').href=adres; $('s20bDg1').textContent='Denemeleri gör →'; $('s20bDg2').hidden=false; $('s20bUye').hidden=true;
+    if(!yet&&window.ttSon20) ttSon20.durum('sgs',true).then(function(k){
+      if(!k||secili()!=='sgs') return;            /* üye değil ya da erişimi yok: genel hâl kalır */
+      $('s20bUye').textContent=k.metin; $('s20bUye').hidden=false;
+      $('s20bDg1').textContent=k.once?'Denemelerim 1 Kasım\'da açılır →':(k.dugme||'Denemelerime git →'); $('s20bDg2').hidden=true;
+    },function(){});
+  }
+  [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.addEventListener('click',function(){ setTimeout(ciz,0); }); });
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ciz); else ciz();
+  window.addEventListener('load',ciz);
+})();
+</script>
 
 <!-- 28.10 Cem ("bunu eski ekranda büyük şekilde SMMM giriş paketi üstüne koyuyordun, hem burada kalsın hem dediğim yere de koy"):
      büyük sınav düğmeleri paketlerin hemen üstünde (açılış ekranındaki küçük sekmelerle aynı seçim). -->
