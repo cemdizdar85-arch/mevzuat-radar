@@ -220,7 +220,7 @@ async function sekme(ad) {
 
   // 4b) 31.10 1.9.1 (Ders ders çöz’den ÖNCE: o adım Sınavlar sekmesini ders listesinde bırakıyor, ilk koşu 41214243165 satırı bulamadı): Son 20 Gün (Sınavlar → "Son 20 Gün denemeleri" → son-20-gun.html; denemeler sunucudan s20_liste)
   await anaSayfa(); await sekme('Sınavlar');
-  if (!(await bekleBul('a', /Son 20 Gün denemeleri/, 10))) console.log('BILGI Son 20 Gün yok · sınavlar ekranı: ' + String(await js('(document.getElementById("sinavUst")||{}).innerText||""')).replace(/s+/g, ' ').slice(0, 300));
+  if (!(await bekleBul('a', /Son 20 Gün denemeleri/, 10))) console.log('BILGI Son 20 Gün yok · sınavlar ekranı: ' + String(await js('(document.getElementById("sinavUst")||{}).innerText||""')).replace(/\s+/g, ' ').slice(0, 300));
   if (await bas('Son 20 Gün satırı', 'a', /Son 20 Gün denemeleri/, 10)) {
     const dn = await bekleBul('#denemeler .dn', null, 30);
     await bekle(1500); goruntu('son-20-gun');
