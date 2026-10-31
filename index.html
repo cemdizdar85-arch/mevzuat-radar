@@ -418,6 +418,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   html.sig4 body .kah .maskot{max-width:200px}
   html.sig4 body .secim-bolum .sinav{min-height:52px}
   html.sig4 body .secim-bolum .secim-bas{display:none}
+  /* 31.10 Cem ("biraz yukarı taşı, alttaki görünmüyor"): Son 20 Gün kartı kahramanla büyük düğmeler arasına girdi → iki basamak daha */
+  html.sig5 body .kah .maskot{max-width:150px}
+  html.sig5 body .kah h1{font-size:28px;margin-bottom:6px}
+  html.sig5 body .s20b{margin-top:-6px;padding-bottom:10px}
+  html.sig5 body .s20b .kutu{padding:10px 16px}
+  html.sig5 body .s20b h2{font-size:19px;margin:2px 0}
+  html.sig5 body .s20b .dgs a{min-height:40px;padding:6px 16px}
+  html.sig6 body .s20b .dgs{flex-direction:row}
+  html.sig6 body .s20b .uye{display:none}
+  html.sig6 body .kah .kah-alt .dg{min-height:44px}
+  html.sig6 body .secim-bolum .sinav{min-height:46px}
 }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
@@ -572,6 +583,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       $('s20bUye').textContent=k.metin; $('s20bUye').hidden=false;
       $('s20bDg1').textContent=k.once?'Denemelerimi gör →':(k.dugme||'Denemelerime git →');
       $('s20bDg2').textContent='Paketlerimi gör'; $('s20bDg2').href='ogrenci.html#ogPaketler';   /* 31.10 Cem: "altına paketlerimi gör" */
+      if(window.ttSigdir) ttSigdir();   /* üye satırı kartı uzattı: ilk ekran sığdırması yeniden */
     },function(){});
   }
   [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.addEventListener('click',function(){ setTimeout(ciz,0); }); });
@@ -1106,7 +1118,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 /* 28.10 Cem ("tam sığmıyor, sığdır ve kontrol et"): bilgisayarda büyük sınav düğmeleri ilk ekranın içinde bitsin. Ölçer, sığmazsa
    sıkıştırma basamağını (sig1..sig4, stil yukarıda) birer birer artırır. Telefonda (<901 px) dokunmaz. */
 (function(){
-  var h=document.documentElement, SINIF=['sig1','sig2','sig3','sig4'];
+  var h=document.documentElement, SINIF=['sig1','sig2','sig3','sig4','sig5','sig6'];
   function sigdir(){
     try{
       SINIF.forEach(function(c){ h.classList.remove(c); });
