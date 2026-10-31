@@ -282,8 +282,21 @@ async function hakem(planlar) {
   for (const ad of bek) { const [e, kp] = ad.split('/'); if (!onb[e]) onb[e] = await ambarParti(e, Kk); const q = onb[e][kp] || {};
     const k = q.hakem && String(q.hakem.karar || q.hakem.sonuc || '').toUpperCase();
     if (!q.hakem) bekliyor.push(ad); else if (k === 'EVET') evet.push(ad); else hayir.push(ad + ' (' + k + ')'); }
-  const rr = retYaz(kay => { for (const k of evet) delete kay[k]; for (const h of hayir) { const k = h.split(' (')[0]; if (kay[k] && !/HAKEM HAYIR/.test(kay[k].gerekce)) kay[k].gerekce += ' | HAKEM HAYIR (yeniden onarim gerekir)'; } return {}; });
-  console.log(`yeniden hakem: bekleyen ${bek.length} · EVET ${evet.length} (listeden çıktı) · HAYIR ${hayir.length} (yayın dışı kalır) · henüz hakemsiz ${bekliyor.length} · elle ret ${rr.once}→${rr.sonra}`);
+  const rr = retYaz(kay => hakemRetIsle(kay, evet, hayir));
+  console.log(`yeniden hakem: bekleyen ${bek.length} · EVET ${evet.length} (listeden çıkan ${rr.cikan}) · HAYIR ${hayir.length} (yayın dışı kalır) · henüz hakemsiz ${bekliyor.length} · elle ret ${rr.once}→${rr.sonra}`);
+  if (rr.korunan.length) console.log(`  ELLE KİLİT (Cem/kontrol kaydı, robot dokunmaz — kontrol düzeltmeyi okuyup elle çıkarır): ${rr.korunan.join(', ')}`);
+}
+// 31.10 ÖLÇÜLDÜ (ddbeecc2): Cem 01.11 (a) "yanlış-kesin" kaydı smmm-4k-a-yvergi-zor-r7/kp-02, ESKİ plan (o0610l) pilotId'si olduğu ve
+//   ambardaki ESKİ hakem EVET'i durduğu için 40 dk sonra listeden silindi → kusurlu soru siteye döndü. Hakem kaydında tarih yok,
+//   EVET'in retten sonra mı verildiği okunamıyor. KAPI: Cem/kontrol elle kaydı (kaynak alanında "Cem" / "kontrol" / "yanlış-kesin")
+//   robotça ÇIKARILMAZ, gerekçesine de yazılmaz; onarım hattının kendi kaydı (kaynak onarim-rehakem) ve tarama kaynaklı kayıtlar eskisi gibi.
+const ELLE_KILIT = /\bCem\b|kontrol|yanl[ıi][şs]-kesin/i;
+const elleKilitli = kayit => !!kayit && ELLE_KILIT.test(String(kayit.kaynak || ''));
+function hakemRetIsle(kay, evet, hayir) {
+  const korunan = []; let cikan = 0;
+  for (const k of evet) { if (!kay[k]) continue; if (elleKilitli(kay[k])) { korunan.push(k); continue; } delete kay[k]; cikan++; }
+  for (const h of hayir) { const k = h.split(' (')[0]; if (!kay[k] || elleKilitli(kay[k])) continue; if (!/HAKEM HAYIR/.test(kay[k].gerekce)) kay[k].gerekce += ' | HAKEM HAYIR (yeniden onarim gerekir)'; }
+  return { cikan, korunan };
 }
 
 function sinav() {
@@ -317,6 +330,13 @@ function sinav() {
     ['türev klasör (grup-C-ek) kök parçayı tanır', { durum: retCikabilir('29.09 risk taramasi grup C: AÇIKLAMA KUSURLU …', 'grup-C-ek') ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['grup-B klasörü "grup B" gerekçesini tanır', { durum: retCikabilir('29.09 risk taramasi grup B: AÇIKLAMA KUSURLU …', 'grup-B') ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['grup-B klasörü "grup BC" gibi başka grubu tanımaz', { durum: retCikabilir('29.09 risk taramasi grup BC: …', 'grup-B') ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    // 31.10 ddbeecc2 vakası: eski planın bayat hakem EVET'i Cem/kontrol elle kaydını SİLMEZ
+    ['hakem: eski EVET + Cem (a) yanlış-kesin elle ret → KALIR (ddbeecc2)', (() => { const g = 'TTK m.519/2-c'; const kay = { 'e/kp-02': { gerekce: g, kaynak: 'Cem 01.11 (a) yanlış-kesin: iki kör çözücü (Ajan 1)', tarih: '2026-10-30' } }; const r = hakemRetIsle(kay, ['e/kp-02'], []); return { durum: kay['e/kp-02'] && kay['e/kp-02'].gerekce === g && r.cikan === 0 && r.korunan.join() === 'e/kp-02' ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
+    ['hakem: EVET + onarim-rehakem kaydı → ÇIKAR', (() => { const kay = { 'e/kp-1': { gerekce: 'onarim k: anahtar/kok degisti, yeniden hakeme kadar yayin disi', kaynak: 'onarim-rehakem' } }; const r = hakemRetIsle(kay, ['e/kp-1'], []); return { durum: !kay['e/kp-1'] && r.cikan === 1 ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
+    ['hakem: EVET + tarama kaydı (sgs-risk-taramasi) → ÇIKAR (eski akış)', (() => { const kay = { 'e/kp-3': { gerekce: 'risk', kaynak: 'sgs-risk-taramasi' } }; hakemRetIsle(kay, ['e/kp-3'], []); return { durum: kay['e/kp-3'] ? 'x' : 'ok' }; })(), r => r.durum === 'ok'],
+    ['hakem: HAYIR + Cem elle kaydı → gerekçe DEĞİŞMEZ', (() => { const kay = { 'e/kp-4': { gerekce: 'g', kaynak: 'Cem 30.10 ilk 120 temizliği' } }; hakemRetIsle(kay, [], ['e/kp-4 (HAYIR)']); return { durum: kay['e/kp-4'].gerekce === 'g' ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
+    ['hakem: HAYIR + onarim kaydı → HAKEM HAYIR işlenir (bir kez)', (() => { const kay = { 'e/kp-5': { gerekce: 'g', kaynak: 'onarim-rehakem' } }; hakemRetIsle(kay, [], ['e/kp-5 (HAYIR)']); hakemRetIsle(kay, [], ['e/kp-5 (HAYIR)']); return { durum: kay['e/kp-5'].gerekce === 'g | HAKEM HAYIR (yeniden onarim gerekir)' ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
+    ['hakem: "kontrol" kaynaklı elle kayıt → KALIR', { durum: elleKilitli({ kaynak: 'kontrol ajanı 01.11' }) && !elleKilitli({ kaynak: 'onarim-rehakem' }) && !elleKilitli({ kaynak: 'sinav kolu kanun değişikliği taraması' }) && !elleKilitli({}) ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['kgk- etiketleri → KGK elle ret listesi', retSecim(['kgk-d1-tds-zor-1', 'kgk-gm-ky-r1']), r => r.sinav === 'KGK' && r.dosya === 'kgk-elle-ret.json'],
     ['sgs- etiketi → SGS (davranış aynı)', retSecim(['sgs-c2-fmuh-zor-r3']), r => r.sinav === 'SGS' && r.dosya === 'sgs-elle-ret.json'],
     ['smmm- etiketi → SMMM (davranış aynı)', retSecim(['smmm-gm9-1-yvergi-zor']), r => r.sinav === 'SMMM' && r.dosya === 'smmm-elle-ret.json'],
@@ -331,7 +351,7 @@ function sinav() {
   return { ok, toplam: V.length };
 }
 
-module.exports = { karar, fark, esit, retCikabilir, retSecim, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
+module.exports = { karar, fark, esit, retCikabilir, retSecim, hakemRetIsle, elleKilitli, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
   if (kmt === '--sinav') (async () => {
