@@ -519,36 +519,37 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
      altında Son 20 Gün bölümü. Seçili sınava göre (SGS 1 Kasım · Yeterlilik 8 Kasım; KGK'da gizli). Üyede son20-kart.js'in kişisel
      satırı + "Denemelerime git". Fiyat yazılmaz (fiyat tek yerden: paket kartları). Akış son-20-gun.html "Nasıl ilerler?" ile aynı. -->
 <style>
-.s20b{padding:6px 0 18px}.s20b .kutu{border:2px solid var(--amber-dolgu,#f3a52a);border-radius:16px;padding:18px 20px;
-  background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 8%,var(--kagit,#fff));display:grid;grid-template-columns:1.1fr 1.4fr;gap:18px;align-items:center}
-.s20b .et{font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--amber,#9a6400);margin:0}
-.s20b h2{margin:4px 0 6px;font-size:24px;line-height:1.2}.s20b .ozet{margin:0 0 12px;color:var(--muted)}
-.s20b .uye{margin:0 0 12px;font-weight:700}
-.s20b ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.s20b li{background:var(--kagit,#fff);border:1px solid var(--cizgi,#e6dccb);border-radius:12px;padding:10px;font-weight:700;font-size:14px;line-height:1.25}
-.s20b li b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;margin-bottom:6px}
-.s20b li small{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:3px}
-.s20b .dgs{display:flex;gap:10px;flex-wrap:wrap}
+/* 31.10 Cem ("biraz daha yukarı kaldır, denemeler 1 Kasım açılır görünsün"): bilgisayarda kart ilk ekrana sığsın diye sıkı:
+   solda başlık + tek satır özet + üye satırı, sağda düğmeler, altta tek satır adım şeridi (ayrıntı son-20-gun.html'de). */
+.s20b{padding:0 0 18px;margin-top:-18px}.s20b .kutu{border:2px solid var(--amber-dolgu,#f3a52a);border-radius:16px;padding:14px 18px;
+  background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 8%,var(--kagit,#fff));display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center}
+.s20b .et{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--amber,#9a6400);margin:0}
+.s20b h2{margin:2px 0 4px;font-size:22px;line-height:1.2}.s20b .ozet{margin:0;color:var(--muted);font-size:15px}
+.s20b .uye{margin:4px 0 0;font-weight:700}
+.s20b ol{grid-column:1/-1;list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.s20b li{display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px}
+.s20b li:not(:last-child)::after{content:"→";color:var(--amber,#9a6400);margin-left:4px}
+.s20b li b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;font-size:12.5px}
+.s20b .dgs{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .s20b .dgs a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border-radius:12px;font-weight:800;text-decoration:none;border:2px solid var(--cizgi,#d8ccb8);background:var(--kagit,#fff);color:var(--ink,#1a1a1a)}
 .s20b .dgs a.dg-ana{background:var(--amber-dolgu,#f3a52a);border-color:var(--amber-dolgu,#f3a52a);color:#1a1a1a}
 .s20b .dgs a[hidden]{display:none}
-@media(max-width:760px){ .s20b .kutu{grid-template-columns:1fr;padding:16px} .s20b ol{grid-template-columns:1fr 1fr} .s20b h2{font-size:21px} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
+@media(max-width:760px){ .s20b{margin-top:0} .s20b .kutu{grid-template-columns:1fr;padding:14px} .s20b h2{font-size:20px} .s20b .dgs{justify-content:stretch} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
 </style>
 <section class="s20b" id="s20Bolum" aria-labelledby="s20bBas">
   <div class="ic"><div class="kutu">
     <div>
       <p class="et" id="s20bEt">SMMM Staja Giriş · Son 20 Gün</p>
       <h2 id="s20bBas">7 deneme, 1 Kasım'da açılıyor</h2>
-      <p class="ozet" id="s20bOzet">Sınavdaki soru sayısı ve ders dağılımıyla 7 deneme (her biri 130 soru). Her denemeden sonra eksik konularını kapatırsın.</p>
-      <p class="ozet" id="s20bTempo"><b>Takvim:</b> 3 günde 1 deneme · Deneme 1 → 1–3 Kasım … Deneme 7 → 19–20 Kasım · 21 Kasım sınav.</p>
+      <p class="ozet" id="s20bOzet">130'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.</p>
       <p class="uye" id="s20bUye" hidden></p>
-      <div class="dgs"><a class="dg dg-ana" id="s20bDg1" href="son-20-gun.html">Denemeleri gör →</a><a class="dg dg-iki" id="s20bDg2" href="#paketler">Paketleri gör</a></div>
     </div>
+    <div class="dgs"><a class="dg dg-ana" id="s20bDg1" href="son-20-gun.html">Denemeleri gör →</a><a class="dg dg-iki" id="s20bDg2" href="#paketler">Paketleri gör</a></div>
     <ol aria-label="Nasıl ilerler">
-      <li><b>1</b>Denemeyi çöz<small>Ders ders testler</small></li>
-      <li><b>2</b>Sonucunu gör<small>Doğrular + her sorunun açıklaması</small></li>
-      <li><b>3</b>Eksiğini kapat<small>Yanlış konulardan 4'er yeni soru</small></li>
-      <li><b>4</b>Sonraki deneme<small>Görevler bitince açılır</small></li>
+      <li><b>1</b>Denemeyi çöz</li>
+      <li><b>2</b>Sonucunu ve açıklamaları gör</li>
+      <li><b>3</b>Eksik konunu kapat</li>
+      <li><b>4</b>Sonraki deneme açılır</li>
     </ol>
   </div></div>
 </section>
@@ -567,8 +568,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     $('s20bBas').textContent=yet? (once?'Ders ders denemeler, 8 Kasım\'da açılıyor':'Ders ders denemeler açık')
                                 : (once?'7 deneme, 1 Kasım\'da açılıyor':'7 deneme açık');
     $('s20bOzet').textContent=yet? 'Her dersin 5 denemesi (20 soru, 45 dakika). Her denemeden sonra eksik konularını kapatırsın.'
-                                 : 'Sınavdaki soru sayısı ve ders dağılımıyla 7 deneme (her biri 130 soru). Her denemeden sonra eksik konularını kapatırsın.';
-    $('s20bTempo').hidden=yet;
+                                 : '130\'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.';
     var adres=yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
     $('s20bDg1').href=adres; $('s20bDg1').textContent='Denemeleri gör →'; $('s20bDg2').hidden=false; $('s20bUye').hidden=true;
     if(!yet&&window.ttSon20) ttSon20.durum('sgs',true).then(function(k){
