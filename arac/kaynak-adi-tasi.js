@@ -46,7 +46,7 @@ function gercekIO() {
         headers: { 'Content-Type': 'application/json; charset=utf-8', Prefer: 'return=representation' }, body: JSON.stringify({ icerik, yazan: 'kaynak-adi-tasi-yerel' }) });
       return { satir: (await r.json()).length }; },
     async adVar(ad) { const r = await al(`${TABAN}/dokumanlar?select=id&kaynak_ad=eq.${encodeURIComponent(ad)}&limit=1`); return (await r.json()).length > 0; },
-    kosan() { const r = cp.spawnSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(KOK, 'arac', 'bulut-kosan-etiketler.ps1'), '-Kati'], { cwd: KOK, encoding: 'utf8' });
+    kosan() { const r = cp.spawnSync(process.platform === 'win32' ? 'powershell' : 'pwsh', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(KOK, 'arac', 'bulut-kosan-etiketler.ps1'), '-Kati'], { cwd: KOK, encoding: 'utf8' });
       if (r.status !== 0) throw new Error('bulut-kosan-etiketler düştü — yazan araç bekler: ' + (r.stderr || '').slice(0, 200));
       return new Set((r.stdout || '').split(/\s+/).filter(Boolean)); },
   };

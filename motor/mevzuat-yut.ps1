@@ -454,6 +454,56 @@ function ParcalaKilavuz([string]$flatMetin, [string]$kanunAd, [string]$url){
 
 function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16) }
 
+# --- 01.11.2026 BAG KAPISI (Cem onayi: "parcanin adi degisecekse ve o ada bagli soru varsa YAZMASIN") ---
+# NEDEN: 31.10 madde siniri onarimi KDVK'da 14 parca adini degistirdi; sitedeki 34 sorunun kaynak_adlar alani eski ada
+#   bagliydi. Olculdu (31.10, 31 kaynak): yeni betikle yutulsa VUK'ta SMMM 385 / SGS 264 / KGK 2, GVK'da SMMM 94 / SGS 18
+#   soru kaydinin bagi kopacakti. Gunluk ayna bunu sessizce yapardi.
+# KURAL: ambarda bugun duran ad yeni ciktida YOKSA (kopan ad) ve kalip_parti'de (SMMM, SGS, KGK) bir soru kaydinin
+#   kaynak_adlar alani o ada bagliysa kaynak ambara YAZILMAZ, repo dosyasi ve damga da DEGISMEZ (sonraki kosu yeniden
+#   dener ve yeniden bagirir). ISTISNA: BAG_TASI=1 ve her kopan bagli ad yeni ciktida ayni madde anahtarina (madde no +
+#   [k/n] + (n)) eslesiyor ve bagli kayitlarin hicbiri bulutta kosan partide degilse yazilir; baglar AYNI KOSUDA
+#   arac/kaynak-adi-tasi.js ile tasinir (kosullu yazim + geri okuma).
+# BU KAPI SUNU GORMEZ: SISTEM partileri ve soru_havuzu (yalniz SMMM/SGS/KGK kalip_parti) · kaynak_adlar disindaki alanlarda
+#   (dayanak, kaynak_metin_ozet) gecen ad · ambar sayilamazsa kaynak YAZILMAZ (kor = dur).
+function BagAnahtar([string]$a){ return ($a -replace ' - .*?(?=(?: \[\d+/\d+\])?(?: \(\d+\))?$)','') }
+function BagKarari($ambarAdlar, $yeniAdlar, $dizin, [bool]$tasiIzni){
+  $yeni = New-Object 'System.Collections.Generic.HashSet[string]'; foreach($a in @($yeniAdlar)){ [void]$yeni.Add("$a") }
+  $kopan = @(@($ambarAdlar) | Where-Object { -not $yeni.Contains("$_") } | Select-Object -Unique)
+  $r = [ordered]@{ karar='serbest'; kopan=$kopan.Count; bagli=@(); kayit=0; esleme=[ordered]@{}; eslesmeyen=@(); neden='' }
+  if(-not $kopan.Count){ return [pscustomobject]$r }
+  if($dizin -is [scriptblock]){ $dizin = & $dizin }
+  $bagli = @($kopan | Where-Object { $dizin.ContainsKey("$_") }); $r.bagli = $bagli
+  foreach($a in $bagli){ $r.kayit += ($dizin["$a"]).Count }   # @() YOK: List[string] tr-TR PS 5.1'de patlar (K3)
+  if(-not $bagli.Count){ $r.neden = "kopan $($kopan.Count) adin hicbirine soru bagli degil"; return [pscustomobject]$r }
+  $yAn = @{}; foreach($a in @($yeniAdlar)){ $k = BagAnahtar "$a"; if($yAn.ContainsKey($k)){ $yAn[$k] = $null } else { $yAn[$k] = "$a" } }   # cift anahtar eslenmez
+  foreach($a in $bagli){ $k = BagAnahtar "$a"; if($yAn.ContainsKey($k) -and $yAn[$k]){ $r.esleme["$a"] = $yAn[$k] } else { $r.eslesmeyen += "$a" } }
+  if(-not $tasiIzni){ $r.karar = 'dur'; $r.neden = "$($bagli.Count) kopan ada $($r.kayit) soru kaydi bagli (BAG_TASI yok)"; return [pscustomobject]$r }
+  if($r.eslesmeyen.Count){ $r.karar = 'dur'; $r.neden = "$($r.eslesmeyen.Count) bagli ad yeni ciktida eslesmiyor"; return [pscustomobject]$r }
+  $r.karar = 'tasi'; return [pscustomobject]$r
+}
+# kalip_parti (SMMM/SGS/KGK) -> { kaynak_ad: [ "SINAV etiket/kp", ... ] }; kosu basina BIR kez indirilir (yalniz kopan ad varsa)
+function BagDizini($Hb){
+  if($script:BAG_DIZIN){ return $script:BAG_DIZIN }
+  $d = @{}
+  for($ofs = 0; ; $ofs += 40){
+    $yan = Invoke-WebRequest -UseBasicParsing -Uri ("$SB_URL/rest/v1/kalip_parti?select=etiket,sinav,icerik&sinav=in.(SMMM,SGS,KGK)&order=etiket.asc&limit=40&offset=$ofs") -Headers $Hb -TimeoutSec 300
+    $hamJ = ConvertFrom-Json -InputObject ([Text.Encoding]::UTF8.GetString($yan.RawContentStream.ToArray()))
+    $jp = @($hamJ | ForEach-Object { $_ })   # K2: once degiskene al, sonra boru (PS 5.1 diziyi tek ogeye sarar)
+    foreach($pr in $jp){ $ic = $pr.icerik; if($ic -is [string]){ $ic = ConvertFrom-Json -InputObject $ic }; if(-not $ic){ continue }
+      foreach($q in $ic.PSObject.Properties){ $v = $q.Value; if(-not $v -or -not $v.PSObject.Properties['kaynak_adlar']){ continue }
+        foreach($ka in @($v.kaynak_adlar)){ $s = "$ka"; if(-not $s){ continue }; if(-not $d.ContainsKey($s)){ $d[$s] = New-Object System.Collections.Generic.List[string] }; $d[$s].Add("$($pr.sinav) $($pr.etiket)/$($q.Name)") } } }
+    if($jp.Count -lt 40){ break }
+  }
+  $script:BAG_DIZIN = $d; return $d
+}
+function AmbarAdlari([string]$ad, $Hb){
+  $out = New-Object System.Collections.Generic.List[string]; $q = [uri]::EscapeDataString("$ad*")
+  for($o = 0; ; $o += 1000){ $ham = Invoke-RestMethod -Uri "$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&tur=eq.kanun-madde&kaynak_ad=like.$q&order=id.asc&limit=1000&offset=$o" -Headers $Hb -TimeoutSec 120
+    $r = @($ham | ForEach-Object { $_ })   # PS 5.1: dizi tek nesne gelir, boru acar
+    foreach($x in $r){ $out.Add("$($x.kaynak_ad)") }; if($r.Count -lt 1000){ break } }
+  return $out.ToArray()
+}
+
 # --- OZ-SINAV (21.09.2026, kapi kurma kurali 2): kisa madde kurali iki vakayla sinanir.
 #     Ambara DOKUNMAZ, ag istegi YAPMAZ. Cikis 0 = gecti, 1 = kaldi.
 if($OzSinav){
@@ -606,6 +656,27 @@ if($OzSinav){
     if($ok){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) }
     else { $kaldi++; Write-Host ("  KALDI {0}" -f $s.ad) -ForegroundColor Red; $cikan | ForEach-Object { Write-Host ("        [{0}] baslik=[{1}] {2}" -f $_.kaynak_ad,$_.baslik,$_.metin.Substring([Math]::Max(0,$_.metin.Length-70))) } }
   }
+  # 01.11 BAG KAPISI vakalari (ag yok; dizin sahte)
+  $L = New-Object System.Collections.Generic.List[string]; $L.Add('SMMM smmm-a/kp-01')
+  $dz = @{ 'K m.45 - Kirli. Tarh zamanı' = $L; 'K m.9 - Baska' = $L }
+  $bagSinav = @(
+    @{ ad='BAG: ad degismiyor -> SERBEST (dizin hic acilmaz)'; amb=@('K m.1','K m.2'); yeni=@('K m.1','K m.2'); tasi=$false; dz={ throw 'dizin acildi' }
+       kontrol={ param($k) $k.karar -eq 'serbest' -and $k.kopan -eq 0 } }
+    @{ ad='BAG: ad degisiyor ama bagli soru yok -> SERBEST'; amb=@('K m.44 - Eski. Tarhiyatın muhatabı','K m.1'); yeni=@('K m.44 - Tarhiyatın muhatabı','K m.1'); tasi=$false; dz=$dz
+       kontrol={ param($k) $k.karar -eq 'serbest' -and $k.kopan -eq 1 } }
+    @{ ad='BAG: bagli ad kopuyor, BAG_TASI yok -> DUR'; amb=@('K m.45 - Kirli. Tarh zamanı','K m.1'); yeni=@('K m.45 - Tarh zamanı','K m.1'); tasi=$false; dz=$dz
+       kontrol={ param($k) $k.karar -eq 'dur' -and $k.kayit -eq 1 } }
+    @{ ad='BAG: BAG_TASI + ayni madde anahtari -> TASI, esleme dogru'; amb=@('K m.45 - Kirli. Tarh zamanı','K m.1'); yeni=@('K m.45 - Tarh zamanı','K m.1'); tasi=$true; dz=$dz
+       kontrol={ param($k) $k.karar -eq 'tasi' -and $k.esleme['K m.45 - Kirli. Tarh zamanı'] -eq 'K m.45 - Tarh zamanı' } }
+    @{ ad='BAG: BAG_TASI ama bagli madde yeni ciktida YOK (mulga dustu) -> DUR'; amb=@('K m.9 - Baska','K m.1'); yeni=@('K m.1'); tasi=$true; dz=$dz
+       kontrol={ param($k) $k.karar -eq 'dur' -and @($k.eslesmeyen).Count -eq 1 } }
+    @{ ad='BAG: parca sayisi degisti ([1/2] -> tek) -> eslesmez, DUR'; amb=@('K m.45 - Kirli. Tarh zamanı'); yeni=@('K m.45 - Tarh zamanı [1/2]','K m.45 - Tarh zamanı [2/2]'); tasi=$true; dz=@{ 'K m.45 - Kirli. Tarh zamanı' = $L }
+       kontrol={ param($k) $k.karar -eq 'dur' } }
+  )
+  foreach($s in $bagSinav){ $k = $null; try { $k = BagKarari $s.amb $s.yeni $s.dz $s.tasi } catch {}
+    $ok = $false; try { $ok = [bool](& $s.kontrol $k) } catch {}
+    if($ok){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) } else { $kaldi++; Write-Host ("  KALDI {0}" -f $s.ad) -ForegroundColor Red } }
+  if((BagAnahtar 'GVK (193 s.K.) m.88 - EĞİŞİKLİKLER CETVELİ"ne bakınız. 86 Zararlar [1/2]') -ceq 'GVK (193 s.K.) m.88 [1/2]' -and (BagAnahtar 'X gec. m.2 - Kanunun hükmüdür (2)') -ceq 'X gec. m.2 (2)'){ $gecti++; Write-Host '  OK    BAG: madde anahtari ([k/n] ve (n) korunur, baslik duser)' } else { $kaldi++; Write-Host '  KALDI BAG: madde anahtari' -ForegroundColor Red }
   Write-Host ("OZ-SINAV: gecti {0} - kaldi {1}" -f $gecti,$kaldi)
   exit $(if($kaldi){ 1 } else { 0 })
 }
@@ -619,6 +690,8 @@ $degisen = New-Object System.Collections.Generic.List[string]
 # ambara yazilir ama etki zincirlerine (bilgi tabani kuyrugu + mail, soru askisi) GIRMEZ - hukum degismedi.
 $metinDegisen = New-Object System.Collections.Generic.List[string]
 
+$script:BAG_DIZIN = $null; $script:BAG_DURAN = New-Object System.Collections.Generic.List[object]
+$script:BAG_TASINAN = New-Object System.Collections.Generic.List[object]; $script:BAG_TASINACAK = @{}
 foreach($law in $manifest.kanunlar){
   # ==========================================================================
   #  SADECE filtresi (05.08 - kurtarma hatti icin)
@@ -757,6 +830,27 @@ foreach($law in $manifest.kanunlar){
   $kapsama = if($flat.Length -gt 0){ [math]::Round(100*$ambarKr/$flat.Length,1) } else { 0 }
   if($kapsama -lt 98){ Write-Host ("  KAPSAMA UYARISI: {0} -> %{1} (mulga maddeler dusuldugunde normal olabilir)" -f $law.ad, $kapsama) }
   else { Write-Host ("  kapsama %{0}" -f $kapsama) }
+  # 01.11.2026 BAG KAPISI (yukarida BagKarari): ad degisimi soru bagini koparacaksa YAZMA. Repo dosyasi/damga/belirtec de
+  #   yazilmaz -> sonraki kosu yeniden dener. Anahtar yoksa ambara zaten yazilmaz, kapi atlanir.
+  if($H -and "$($env:BAG_KAPISI_ATLA)" -ne '1'){
+    $bk = $null
+    try {
+      $amb = AmbarAdlari "$($law.ad)" $H
+      $bk = BagKarari $amb @($docs | ForEach-Object { "$($_.kaynak_ad)" }) { BagDizini $H } ("$($env:BAG_TASI)" -eq '1')
+      if($bk.karar -eq 'tasi'){
+        $kosan = @(& (Join-Path (Join-Path $kok 'arac') 'bulut-kosan-etiketler.ps1') -Kati)   # okunamazsa throw -> catch -> dur
+        $kosanBagli = @(foreach($a in $bk.esleme.Keys){ foreach($k in $script:BAG_DIZIN[$a]){ $e = ("$k" -split ' ')[1] -replace '/[^/]+$',''; if($kosan -contains $e){ $k } } })
+        if($kosanBagli.Count){ $bk.karar = 'dur'; $bk.neden = "$($kosanBagli.Count) bagli kayit bulutta kosan partide" }
+      }
+    } catch { $bk = [pscustomobject]@{ karar='dur'; kopan=-1; bagli=@(); kayit=0; esleme=@{}; eslesmeyen=@(); neden="bag kapisi olculemedi: $_" } }
+    if($bk.karar -eq 'dur'){
+      Write-Host ("  BAG KAPISI KIRMIZI [{0}]: {1} - kaynak YAZILMADI (ambar, repo dosyasi, damga degismedi). Ornek: {2}" -f $law.ad, $bk.neden, ((@($bk.bagli) | Select-Object -First 3) -join ' | '))
+      $script:BAG_DURAN.Add([ordered]@{ slug=$law.slug; ad=$law.ad; neden=$bk.neden; kopan=$bk.kopan; bagli_ad=@($bk.bagli).Count; kayit=$bk.kayit; eslesmeyen=@($bk.eslesmeyen).Count })
+      continue
+    }
+    if($bk.karar -eq 'tasi'){ $script:BAG_TASINACAK[$law.slug] = $bk; Write-Host ("  BAG KAPISI: {0} bagli ad ({1} kayit) ayni kosuda tasinacak" -f @($bk.bagli).Count, $bk.kayit) }
+    elseif($bk.kopan){ Write-Host ("  bag kapisi: {0}" -f $bk.neden) }
+  }
   # 23.09.2026 AYIRT EDİCİ BELİRTEÇLER (arac/mevzuat-degisti.ps1 MdAyirtEdici): ayna üzerine yazılmadan ÖNCE eski/yeni
   # madde metinleri karşılaştırılır; değişen her madde için farkın belirteçleri veri/mevzuat/_degisen-kokler.json'a yazılır.
   # Soru-dayanak nöbetçisi bu belirteçlerden hiçbirine değmeyen soruyu çekmez (TTK geç. m.7: 93 sorudan 91'i değmiyordu).
@@ -826,8 +920,25 @@ foreach($law in $manifest.kanunlar){
       try { Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer="return=minimal" }) -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 180 | Out-Null } catch { Write-Host ("  ekle HATA batch {0}: {1}" -f $i,$_) }
     }
     Write-Host ("  Supabase guncellendi: {0}" -f $law.ad)
+    # 01.11 BAG KAPISI istisnasi: baglar AYNI KOSUDA tasinir (yalniz bagli kayitlar, kosullu yazim + geri okuma)
+    if($script:BAG_TASINACAK.ContainsKey($law.slug)){
+      $bk = $script:BAG_TASINACAK[$law.slug]; $gec = Join-Path ([IO.Path]::GetTempPath()) ("bag-tasi-" + $law.slug + "-" + [guid]::NewGuid().ToString('N').Substring(0,8))
+      $kim = @(foreach($a in $bk.esleme.Keys){ foreach($k in $script:BAG_DIZIN[$a]){ ("$k" -split ' ')[1] } }) | Select-Object -Unique
+      [IO.File]::WriteAllText("$gec-esleme.json", (ConvertTo-Json -InputObject ([ordered]@{ esleme=$bk.esleme }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
+      [IO.File]::WriteAllText("$gec-kimlik.json", (ConvertTo-Json -InputObject @($kim) -Depth 2), (New-Object Text.UTF8Encoding($false)))
+      $cikti = & node (Join-Path (Join-Path $kok 'arac') 'kaynak-adi-tasi.js') --yaz "$gec-esleme.json" --yalniz "$gec-kimlik.json" --cikti "$gec-sonuc.json"
+      $kod = $LASTEXITCODE; @($cikti) | ForEach-Object { Write-Host "    $_" }
+      $son = if(Test-Path "$gec-sonuc.json"){ Get-Content "$gec-sonuc.json" -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
+      $tam = ($kod -eq 0 -and $son -and @($son.yazilan).Count -eq $son.degisecek.parti -and -not @($son.yaris).Count -and -not @($son.atlanan_kosan).Count)
+      $script:BAG_TASINAN.Add([ordered]@{ slug=$law.slug; ad=@($bk.bagli).Count; kayit=$bk.kayit; tam=$tam; yazilan_parti=$(if($son){ @($son.yazilan).Count } else { 0 }); yaris=$(if($son){ @($son.yaris) } else { @() }); kosan=$(if($son){ @($son.atlanan_kosan) } else { @() }) })
+      if(-not $tam){ Write-Host ("  BAG TASIMA EKSIK [{0}]: kaynak yazildi ama baglarin bir kismi tasinamadi (yaris/kosan/hata) - arac/kaynak-adi-tasi.js ile tamamla: {1}" -f $law.ad, "$gec-esleme.json") }
+    }
   }
 }
+if($script:BAG_DURAN.Count -or $script:BAG_TASINAN.Count){
+  Write-Host ("BAG KAPISI: {0} kaynak durdu ({1}) · {2} kaynakta bag tasindi" -f $script:BAG_DURAN.Count, (($script:BAG_DURAN | ForEach-Object { $_.slug }) -join ', '), $script:BAG_TASINAN.Count)
+}
+try { . (Join-Path (Join-Path $kok 'arac') 'rapor-yaz.ps1'); RaporYaz -Hedef (Join-Path $mevzuatDir '_bag-kapisi.json') -Nesne ([ordered]@{ olcum=(Get-Date).ToString('s'); aciklama='motor/mevzuat-yut.ps1 BAG KAPISI: ad degisimi soru bagini (kalip_parti kaynak_adlar; SMMM/SGS/KGK) koparacagi icin YAZILMAYAN kaynaklar ve ayni kosuda bag tasinan kaynaklar (son kosu).'; duran=$script:BAG_DURAN.ToArray(); tasinan=$script:BAG_TASINAN.ToArray() }) } catch { Write-Host "  bag kapisi raporu yazilamadi: $_" }
 
 # durum dosyasini yaz (commit edilir)
 $dj = ($durum | ConvertTo-Json -Depth 5)

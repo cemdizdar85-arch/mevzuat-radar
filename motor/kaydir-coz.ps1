@@ -156,6 +156,69 @@ function TurkceOnar([string]$t){
   return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "olumlu yani olumlu" → "olumlu"
 }
 # ---- /turkce-onar
+# ---- sik-karne  (31.10.2026, Cem "evet": şık karnesi etiketi KÖK YÖNÜ + ANAHTARDAN; THP tanımında UYGULAMA NOTU korunur.
+#      arac/sik-karne-sinavi.ps1 bu bölgeyi AYNEN yükler — kopya YOK; işaretleri silme/yeniden adlandırma, sınav KÖR kalır.)
+# NİYE: şık karnesi (tablo "Karar" sütunu · karar rozeti · hücre rengi · "Önce sen karar ver") yalnız adımın "karar" alanını
+#   okuyordu ("y" ile başlıyorsa YANLIŞ ifade). Kökün yönü okunmuyordu: olumsuz kökte üretici kararı "bu şık cevap mı" diye
+#   ters yazınca öğrenci ters etiket gördü (Ajan 22 ölçümü 31.10: sitede 25 SMMM sorusu; bitirmede elle düzeltildi).
+# KURAL: kök yönü kesinse etiket ANAHTARDAN türer — olumsuz kökte doğru şık "YANLIŞ ifade", öteki dördü "doğru ifade";
+#   olumlu kökte tersi. Adımın kararı buna uymuyorsa sayfaya giden karar anahtara göre yazılır ve yayın günlüğüne SAYILIR
+#   (ambara yazılmaz). Yön belirsizse ("aykırı/yasak", "… değil, … -dır?" ya da ";" ile iki yönlü kök, "hangileri" öncül
+#   birleşimi, "kaç" sayma sorusu, hata soran kök "yazım yanlışı/anlatım bozukluğu", kökte hem doğru hem yanlış, olumsuzluk eki
+#   taşıyan ama olumsuz bitmeyen kök, Türkçe/yabancı dil dersi) karar alanı AYNEN kullanılır, günlüğe NOT düşer.
+# ÖLÇÜLDÜ 31.10 (ambar, şık adımlı 4.098 soru): ilk kalıp 87 soruda etiket değiştirdi; okununca 4'ü yanlış alarmdı ("kaç yıl
+#   geçmedikçe … seçilemez?" ×3, "girdisidir; … olmaz?" ×1), 7'si Türkçe dersiydi ("yazım yanlışı yoktur" — şık bir cümle) → belirsiz; kalan 76.
+# 🚫 GÖRMEZ: anlamca olumsuz ama eki olmayan kök ("hangisi istisnadır?") olumlu sayılır · kökün son cümlesi dışındaki olumsuzluk ·
+#   adım ANLATIMININ kendisi (rozet düzelir, "bu ifade doğrudur" diyen metin aynen kalır) · karar alanı boş şık ('?' kalır).
+$SIK_KOK_BELIRSIZ=@(
+  '(aykırı|yasak)',                                                   # aykırıdır / yasaktır / aykırı olduğu: yön belirsiz
+  '(değil|değildir|\S+m[ae]z|\S+m[ae]y[ae]n|\S+m[ae]d[ıi]ğ\S*|yanlış\S*)\s*,',   # iki yönlü: "… değil, … -dır?" / "SAYILMAYAN, … hangisidir?"
+  'hangileri', 'kaç\s', 'kaçı',                                          # öncül birleşimi / sayma ("kaç yıl geçmedikçe … seçilemez?"): şık bir ifade değil
+  ';',                                                                   # iki yönlü: "… girdisidir; hiçbir aşamanın çıktısı olmaz?" (31.10 eşdeğerlikte ölçüldü)
+  '(yanlışı|yanlışlığı|bozukluğ|hatası)',                                # hata soruluyor ("yazım yanlışı yoktur", "anlatım bozukluğu"): şık bir cümle, ifade değil
+  'doğru.*yanlış', 'yanlış.*doğru'                                       # iki yön birden
+)
+$SIK_DIL_DERSI='(^|-)(genel-)?(turkce|ingilizce|yabanci|yabancidil)(-|$)'   # dil dersinde şık bir CÜMLEDİR; "doğru/yanlış ifade" cümlenin kendisiyle karışır → belirsiz
+$SIK_KOK_OLUMSUZ=@(
+  '(değildir|değil midir|yanlıştır|hatalıdır|söylenemez|olamaz|yoktur|sayılmaz|\S+m[ae]z|\S+m[ae]m[ıi]şt[ıi]r|\S+m[ae]m[uü]şt[uü]r|\S+m[ae]mektedir|\S+m[ae]maktadır)\s*\?$',
+  '\S+m[ae]y[ae]n\s+(\S+\s+){0,3}hangisi(dir)?\s*\?$',                 # "… -mayan / -meyen … hangisidir?"
+  'yanlış\s+olan\S*\s+(\S+\s+){0,3}hangisi(dir)?\s*\?$',
+  'yanlış\s+\S+(m[ıi]şt[ıi]r|m[uü]şt[uü]r)\s*\?$',                     # "… yanlış verilmiştir?"
+  '(yanlış|hatalı|olmadığı|uyuşmadığı|uymadığı)\s+(olduğu\s+)?soru(luyor|lmaktadır)\s*[.?]$'
+)
+$SIK_KOK_OLUMSUZLUK='(değil|yanlış|hatalı|geçersiz|eksik|hariç|dışında|olmaksızın|\S+m[ae]z\b|\S+m[ae]y[ae]n\b|\S+m[ae]d[ıi]ğ|\S+m[ae]m[ıiuü]ş|\S+m[ae]m[ae]k|\S+m[ae]m[ae]l[ıi])'
+function SikKokCumle([string]$soru){ $t=("$soru" -replace '\s+',' ').Trim(); $m=[regex]::Match($t,'([^.?!]{6,}[?.])\s*$'); if($m.Success){ return $m.Groups[1].Value.Trim() }; if($t.Length -gt 160){ return $t.Substring($t.Length-160) }; return $t }
+function SikKokYonu([string]$soru){
+  $k=(SikKokCumle $soru).ToLower([Globalization.CultureInfo]::GetCultureInfo('tr-TR'))
+  foreach($r in $SIK_KOK_BELIRSIZ){ if($k -match $r){ return 'belirsiz' } }
+  foreach($r in $SIK_KOK_OLUMSUZ){ if($k -match $r){ return 'olumsuz' } }
+  if($k -match '\?\s*$' -and $k -notmatch $SIK_KOK_OLUMSUZLUK){ return 'olumlu' }
+  return 'belirsiz'
+}
+# Şık adımlarının kararını kök yönü + anahtara göre denetler; çelişen kararı (yalnız sayfaya giden kopyada) anahtara göre yazar.
+# Dönüş: @{ yon; sik (karar taşıyan şık adımı); celiski (yeniden yazılan şık) }. Yön belirsizse hiçbir şeye dokunmaz.
+function SikKarneDuzelt($adimlar,[string]$dogru,[string]$soru,[string]$etiket=''){
+  $sonuc=@{ yon=''; sik=0; celiski=0 }
+  $sikA=@($adimlar | Where-Object { $_ -is [hashtable] -and $_.ContainsKey('sik') -and "$($_.sik)".Trim() -match '^[A-Ea-e]$' -and $_.ContainsKey('karar') -and "$($_.karar)".Trim() })
+  $d="$dogru".Trim().ToUpperInvariant()
+  if(-not $sikA.Count -or $d -notmatch '^[A-E]$'){ return $sonuc }
+  $sonuc.sik=$sikA.Count; $yon=$(if("$etiket" -match $SIK_DIL_DERSI){ 'belirsiz' } else { SikKokYonu $soru }); $sonuc.yon=$yon
+  if($yon -eq 'belirsiz'){ return $sonuc }
+  foreach($a in $sikA){ $h="$($a.sik)".Trim().ToUpperInvariant()
+    $beklenenDogru=$(if($yon -eq 'olumsuz'){ $h -ne $d } else { $h -eq $d }); $simdiDogru=-not ("$($a.karar)" -match '^(?i)y')
+    if($simdiDogru -ne $beklenenDogru){ $a.karar=$(if($beklenenDogru){ 'doğru' } else { 'yanlış' }); $sonuc.celiski++ } }
+  return $sonuc
+}
+# THP tanımı 340 karakterde kesilir; sondaki "(gg.aa.yyyy UYGULAMA NOTU: …)" kesimde DÜŞÜYORDU (31.10: THP 122/137/322/337/422,
+# 652→657 / 647 notu sitede görünmüyordu). Not ayrılır, kalan metin eski kuralla kesilir, not sona eklenir. Not yoksa çıktı eskisiyle AYNI.
+function ThpTanimKes([string]$m){
+  $not=''; $nm=[regex]::Match($m,'\s*\((?:[^()]|\([^()]*\))*?UYGULAMA NOTU(?:[^()]|\([^()]*\))*\)')
+  if($nm.Success){ $not=$nm.Value.Trim(); $m=$m.Remove($nm.Index,$nm.Length).Trim() }
+  if($m.Length -gt 340){ $kes=$m.LastIndexOf('. ',340); if($kes -gt 120){ $m=$m.Substring(0,$kes+1) } else { $m=$m.Substring(0,340)+'…' } }
+  if($not){ $m=$m.TrimEnd()+' '+$not }
+  return $m
+}
+# ---- /sik-karne
 # 07.09 Cem: "oran her yerde YÜZDE" kuralı (şartname 3) tablo HÜCRESİNE uygulanmıyordu — Maliyet ortak maliyet sorusunda
 # "Dağıtım Oranı 0,3333 / 0,6667 / 1" çıktı. Kalem adı 'oran' içeren ve BÜTÜN değerleri (0,1] aralığında olan satır yüzdeye çevrilir
 # ("Cari oran 1,5" gibi 1'i aşan satırlara dokunulmaz). Formül tarafı JS oranYuzde'de (4 haneli ondalık + "0,3333 (%33,33)" katlama).
@@ -235,6 +298,7 @@ function TuzakMetin($a){
 }
 # 12.09: sayıya çevrilemeyen doldur hücreleri — sessiz atlanmaz, sonda sayılıp yazılır (kör kalma kuralı).
 $script:DOLDUR_SAYISIZ=New-Object System.Collections.Generic.List[object]
+$script:SIK_CELISKI=New-Object System.Collections.Generic.List[string]; $script:SIK_BELIRSIZ=New-Object System.Collections.Generic.List[string]   # 31.10 şık karnesi yön sayımı (yayın günlüğü)
 $sorular=@()
 foreach($x in $sec){
   $v=$x.v; $d="$($v.dogru)"; $acD=AciklamaDuz $v.aciklama.$d
@@ -274,6 +338,10 @@ foreach($x in $sec){
     $adimH=@{ anlatim=$an; formul=$fmT; doldur=@(@($a.doldur) | ForEach-Object { ,@(@($_ | ForEach-Object { try{ [int]$_ }catch{ [void]$script:DOLDUR_SAYISIZ.Add("$($x.id): '$_'"); "$_" } })) }) }
     foreach($fx in 'sik','karar','paragraf'){ if($a.PSObject.Properties[$fx] -and "$($a.$fx)".Trim()){ $adimH[$fx]="$($a.$fx)".Trim() } }   # 07.09 Ö56: teori dersi şık adımları
     $adimlar+=$adimH }
+  # 31.10 ŞIK KARNESİ YÖNÜ (# ---- sik-karne): kök yönü kesinse şık kararı anahtarla denetlenir; çelişen karar sayfaya anahtara göre gider
+  $skd=SikKarneDuzelt $adimlar $d "$($v.soru)" "$($x.et)"
+  if($skd.celiski){ [void]$script:SIK_CELISKI.Add("$($x.et)/$($x.id) ($($skd.celiski) şık, kök $($skd.yon))"); "    şık karnesi karar anahtarla çelişti [$($x.id)]: $($skd.celiski) şık anahtara göre basıldı (kök $($skd.yon))" }
+  elseif($skd.sik -and $skd.yon -eq 'belirsiz'){ [void]$script:SIK_BELIRSIZ.Add("$($x.et)/$($x.id)") }
   # 04.09 FAZ S: sade Doğrusu + sınav dili + yanlış şık sade nedeni + anahtar kavramlar (üretici cache'inden; yoksa null)
   $sade=$null
   if($v.PSObject.Properties['sade'] -and $v.sade -and $v.sade.dogru){
@@ -468,7 +536,7 @@ function ThpTanim([string]$kod){
 $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString("THP $kod %")+'&order=kaynak_ad.asc&limit=1'
   $son=$null
   try{ $g=AmbarGetir $u ("THP|"+$kod); $r=@(); if($g){ $r=@($g) }   # @($null).Count 1 döner - PS 5.1 tuzağı
-    if($r.Count){ $ad=("$($r[0].kaynak_ad)" -replace '^THP\s*\d{3}\s*-\s*','').Trim(); $m="$($r[0].metin)" -replace '\s+',' '; $m=$m -replace '^MSUGT.*?Tekduzen Hesap Plani\s*-\s*',''; $m=$m -replace ('^'+$kod+'\s+[^:]{1,80}:\s*',''); $m=($m -replace '\s*\(\d{2}\.\d{2}\s+eklendi[^)]*\)','').Trim(); if($m.Length -gt 340){ $kes=$m.LastIndexOf('. ',340); if($kes -gt 120){ $m=$m.Substring(0,$kes+1) } else { $m=$m.Substring(0,340)+'…' } }; $son=@{ ad=$ad; tanim=$m } } }catch{}
+    if($r.Count){ $ad=("$($r[0].kaynak_ad)" -replace '^THP\s*\d{3}\s*-\s*','').Trim(); $m="$($r[0].metin)" -replace '\s+',' '; $m=$m -replace '^MSUGT.*?Tekduzen Hesap Plani\s*-\s*',''; $m=$m -replace ('^'+$kod+'\s+[^:]{1,80}:\s*',''); $m=($m -replace '\s*\(\d{2}\.\d{2}\s+eklendi[^)]*\)','').Trim(); $m=ThpTanimKes $m; $son=@{ ad=$ad; tanim=$m } } }catch{}
   $THP[$kod]=$son; return $son
 }
 for($i=0;$i -lt $sorular.Count;$i++){
@@ -2005,4 +2073,8 @@ try{
     Write-Host "DOLDUR SAYISIZ HÜCRE ($($script:DOLDUR_SAYISIZ.Count) hücre / $(@($ozet).Count) soru): $($ozet -join ' · ') — koordinat yerine metin yazılmış; hücre metin olarak bırakıldı, sayfa basıldı. Üreticide kapı gerekiyor." -ForegroundColor Yellow
   } else { Write-Host "DOLDUR: her hücre koordinat (sayı)" -ForegroundColor DarkGreen }
 }catch{ Write-Host "DOLDUR raporu yazılamadı ($($_.Exception.Message)) - ürün etkilenmez" -ForegroundColor DarkGray }
+try{   # 31.10 şık karnesi: rapor satırı, ürünü durdurmaz (DOLDUR raporuyla aynı ilke). Günlüğe yalnız kimlik ve sayı.
+  if($script:SIK_CELISKI.Count){ Write-Host "ŞIK KARNESİ: $($script:SIK_CELISKI.Count) soruda adım kararı anahtarla çelişti, etiket anahtara göre basıldı: $($script:SIK_CELISKI.ToArray() -join ' · ')" -ForegroundColor Yellow } else { Write-Host "ŞIK KARNESİ: karar ile anahtar çelişen soru 0" -ForegroundColor DarkGreen }
+  if($script:SIK_BELIRSIZ.Count){ Write-Host "ŞIK KARNESİ NOT: $($script:SIK_BELIRSIZ.Count) soruda kök yönü belirsiz (aykırı/yasak, iki yönlü, öncül, sayma) — karar alanı aynen kullanıldı" -ForegroundColor DarkYellow }
+}catch{ Write-Host "ŞIK KARNESİ raporu yazılamadı ($($_.Exception.Message)) - ürün etkilenmez" -ForegroundColor DarkGray }
 if($tahminYok.Count){ Write-Host "ÖZ-SINAV TAHMİN YOK ($($tahminYok.Count) hesap sorusunda 'Önce sen dene' açılamaz): $($tahminYok -join ' · ')" -ForegroundColor Yellow } else { Write-Host "ÖZ-SINAV: her hesap sorusunda tahmin ekranı açılabilir" -ForegroundColor DarkGreen }
