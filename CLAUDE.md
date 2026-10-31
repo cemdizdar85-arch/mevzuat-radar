@@ -458,6 +458,9 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      (yerel bayat) HİÇBİR ŞEY yazmadan durur. Ambara giden içerik = ambardaki parti + yalnız taslağın kayıtları; yazmadan önce damga yeniden okunur (yarış).
      Teslimden önce `teslim <klasör> --kuru` (yalnız okuma). Ölçülen neden: 30.10 kd1 teslimi 19 partiyi bütünüyle yükledi; aynı gün kd2–kd6 etiketlerinin 12'sinde yerel ≠ ambar.
      Öz-sınav `node arac/onarim-hatti.js --sinav` (sahte ambar 6 senaryo dahil).
+     ⛔ **Yeniden hakem Cem/kontrol elle ret kaydını SİLMEZ (31.10, ddbeecc2):** `hakem` kaydı listeden yalnız kaynak alanı Cem/kontrol değilse çıkarır
+     (`onarim-rehakem` ve tarama kaynakları eskisi gibi). Kaynakta "Cem" / "kontrol" / "yanlış-kesin" geçen kayıt ELLE KİLİT: robot ne siler ne gerekçeye yazar,
+     günlükte listeler; düzeltme dönünce kontrol okuyup elle çıkarır. Ölçülen neden: eski planın (o0610l) bayat hakem EVET'i (a) kaydını 40 dk'da sildi, kusurlu soru siteye döndü.
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
