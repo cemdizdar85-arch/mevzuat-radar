@@ -65,7 +65,17 @@ const SITE_SAYFALARI = [
   { yol: 'en-cok-cikan-konular-yeterlilik.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut'] },
   { yol: 'sinav-gibi.html', sok: ['sayac', 'menu', 'komutcss', 'komut'], paket: true },
   /* 18.10 Cem ("Play Store aynen bunun gibi"): en çok çıkan konulardan sorular - ders ders giriş (sinav-gibi.html'deki kart buraya bağlar). Paket bilgisi uygulama-sayfa.js TetikteUye'den; satış kartı iPhone'da gizli. */
-  { yol: 'en-cok-cikan-sorular.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut', 'uye'], iosGizle: ['ecSatis'] }
+  { yol: 'en-cok-cikan-sorular.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut', 'uye'], iosGizle: ['ecSatis'] },
+  /* 31.10 1.9.1 (Cem "play store onaya gönder"): Son 20 Gün 7 deneme (s20_* RPC'leri; istemci __pkSb = uygulama oturumu).
+     degis: [desen, yeni, adet] — sayfaya özgü satış/giriş bağı; her desen TAM adet kez bulunmalı (yoksa KAPI-SAYFA).
+     Site ürünleri (son20-sgs/son20-yet) mağazada yok → düğmeler uygulamanın Paketler bölümüne; "Paketleri gör" sitenin satış
+     sayfasına gidiyordu. Giriş bağı ?sonra='+encodeURIComponent(...)+' biçiminde: genel ogrenci.html çevirisi "#giris" ekini bozar. */
+  { yol: 'son-20-gun.html', sok: ['canonical'], degis: [
+    [/<a class="dg iki" href="smmm-staja-giris-sorulari\.html#gktPaket">Paketleri gör<\/a>/g, '<a class="dg iki" href="index.html#paketler">Paketler</a>', 1],
+    [/<a class="dg" href="satin-al\.html\?paket=son20-sgs">[^<]*<\/a><a class="dg iki" href="satin-al\.html\?paket=sgs">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    [/<a class="dg" href="satin-al\.html\?paket=son20-yet">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    [/ogrenci\.html\?sonra='\+encodeURIComponent\('[^']*'\)\+'/g, 'index.html#giris', 2]
+  ] }
 ];
 const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js',
   'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js',
@@ -199,6 +209,11 @@ for (const sy of SITE_SAYFALARI) {
     const n = say(html, new RegExp(desen.source, 'g'));
     kapi('KAPI-SAYFA', n === 1, yol + ': "' + ad + '" işareti tam 1 kez olmalı (bulunan ' + n + ') — sayfa değişmiş, hazirla.js güncellenmeli');
     html = html.replace(new RegExp(desen.source, 'g'), '');
+  }
+  for (const [desen, yeni, adet] of sy.degis || []) {
+    const n = say(html, desen);
+    kapi('KAPI-SAYFA', n === adet, yol + ': değişim deseni ' + desen.source.slice(0, 50) + '… tam ' + adet + ' kez olmalı (bulunan ' + n + ') — sayfa değişmiş, hazirla.js güncellenmeli');
+    html = html.replace(desen, yeni);
   }
   if (sy.paket) {
     const n = say(html, KOK_KAPI);
