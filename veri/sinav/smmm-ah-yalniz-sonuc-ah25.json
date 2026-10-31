@@ -1,0 +1,200 @@
+{
+ "ad": "ah25",
+ "tarih": "2026-10-31T17:27:59.606Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41224433556",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 20,
+  "gonderilen": 14,
+  "temiz": 12,
+  "kusurlu": 2,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 6,
+  "yazilan": 14,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.259
+ },
+ "kararlar": {
+  "smmm-4k-a-ydenetim-zor-r6/kp-15": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-zor-r3/kp-10": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w11-3-fmuh-cokzor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w13-3-fmuh-cokzor/kp-15": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w13-4-fmuh-zor/kp-08": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w13-4-fmuh-zor/kp-13": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w14-2-yspk-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w2-yhukuk-cokzor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[6].formul"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w3-maliyet-zor/kp-27": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w3-yvergi-zor/kp-12": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w4-fmuh-kolay/kp-43": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w5-fmuh-kolay/kp-23": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w8-3-fmuh-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w9-1-fmuh-zor/kp-08": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.A.gercek",
+    "teshis.A.paragraf",
+    "teshis.C.paragraf",
+    "teshis.D.paragraf"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-w2-yhukuk-cokzor/kp-03",
+  "smmm-w9-1-fmuh-zor/kp-08"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {
+  "smmm-4k-a-yvergi-kolay-r10/kp-06": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-4k-a-yvergi-kolay-r10/kp-12": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-4k-a-yvergi-kolay-r3/kp-15": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-d1-yvergi-kolay-r2/kp-01": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-gm5-6-yvergi-zor/kp-02": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-olc2-a-vergi/kp-23": "parti bulutta koşuyor (bulut-uretim) — sonra"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}

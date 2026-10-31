@@ -1,0 +1,63 @@
+{
+ "ad": "ah5",
+ "tarih": "2026-10-31T18:41:25.436Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41230363250",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 3,
+  "gonderilen": 2,
+  "temiz": 2,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 1,
+  "yazilan": 2,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.042
+ },
+ "kararlar": {
+  "smmm-gm4-2-yvergi-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w2-yvergi-zor/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {
+  "smmm-4k-a-yvergi-kolay-r2/kp-05": "parti bulutta koşuyor (bulut-uretim) — sonra"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}

@@ -162,7 +162,7 @@
 - **Dönem:** 14 (son 2026/2) · **Test:** 2026/2 S4
 - **Kalıp:** A doğrudur · **Beceri:** UYGULAMA · **Kök:** 147–245 kr · **Şık:** hüküm cümlesi (~54 kr)
 - **Ne sorar:** alacak senedi reeskontu (657/122) ve borç senedi reeskontu (322/647) · iç iskonto ile reeskont tutarı · izleyen dönem başında iptal · vadeli çeklerin reeskontu
-- **Dayanak:** VUK m.281 (alacaklar), m.285 (borçlar); THP 122, 322, 647, 657 işleyişi; TEORI - Alacak senetleri reeskontu hesaplama ve kaydı; TEORI - Borç senedi reeskontu ve iskontosu
+- **Dayanak:** VUK m.281 (alacaklar), m.285 (borçlar); THP 122, 322, 647, 657 işleyişi (THP 122/322 UYGULAMA NOTU: MSUGT Sıra No 2 ile 652→657, 647 açıldı; karşı hesap 647/657 — K1c); TEORI - Alacak senetleri reeskontu hesaplama ve kaydı; TEORI - Borç senedi reeskontu ve iskontosu
 - **Çeldirici:** borç senedi reeskontunda 657 Giderler'i kullanmak (yön ters) · reeskontu doğrudan 321/121'e yazmak · dış iskonto ile hesaplamak · 322'yi borçlandırmak · reeskont faiz giderini alacak yazmak
 - **Yazım notu:** Senet türü ve hesaplanan tutar kökte; şıkta tutar yoksa beşi de 'hesabına … kaydı yapılır' kalıbında.
 
@@ -566,7 +566,7 @@
 - **Dönem:** 21 (son 2026/2) · **Test:** 2026/1 S3, 2026/1 S15, 2026/2 S18, 2026/2 S19
 - **Kalıp:** M tanım↔terim / L sırasıyla çoklu değer / F hesap (kaç ₺/gün/oran) · **Beceri:** BILGI, UYGULAMA, ANALIZ · **Kök:** 468–780 kr · **Şık:** aynı aileden 5 terim/tanım / sıralı sayı grupları / sıralı sayı (~43 kr)
 - **Ne sorar:** FIFO ile miktar dengesi (dönem başı + başlanan = tamamlanan + dönem sonu + fire) · tamamlanıp devrolunan ile dönemde başlanıp tamamlanan miktar ayrımı · unsur bazında (DİMM / Dİ-GÜG) eşdeğer birim ve eşdeğer birim maliyeti · ters hesap: eşdeğer birimden dönem başı tamamlanma derecesini bulma; kavram olarak eşdeğer ürün tablosunun amacı
-- **Dayanak:** AMBARDA YOK: resmî mevzuat dayanağı yok (ders kitabı konusu); ambarda yalnız iç TEORI notu "Safha maliyet sisteminde maliyet dağıtım tablosu…"
+- **Dayanak:** HESAP (K1e): resmî metin yok, dayanak hesabın kendisidir (kökte yöntem açıkça yazılır; iki kör bağımsız aynı sonuç — BITIRME-SORU-STANDARDI K1e, Cem 31.10); ambarda yalnız iç TEORI notu "Safha maliyet sisteminde maliyet dağıtım tablosu…"
 - **Çeldirici:** FIFO'da dönem başı stokun kalan işi yerine kendi tamamlanma derecesini almak (1−x yerine x) · tamamlanıp devrolunan ile dönemde başlanıp tamamlanan miktarı karıştırmak · fireyi miktar dengesinden düşmemek · DİMM ile Dİ-GÜG tamamlanma derecelerini yer değiştirmek · ağırlıklı ortalama mantığıyla dönem başı stoku tamamen eşdeğere katmak
 - **Yazım notu:** Yalnız FIFO kullan (AO safha hesabı sınavda yok); tamamlanma dereceleri 5'in katı, sonuç tam sayı birim; çoklu çıktı şıkları ilk değere göre artan.
 

@@ -49,8 +49,19 @@ function MaddeKendisiMulga([string]$govde){
   $m = [regex]::Match($govde, '^.{0,70}?\((Mülga\s*(?:madde)?\s*:[^)]*)\)')
   if(-not $m.Success){ return ($govde -match '^.{0,70}\(Mülga\s*(?:madde)?\s*:') }   # kapanmayan serh: eski davranis
   $serh = $m.Groups[1].Value
+  # 31.10.2026 (Cem onayi): yeniden duzenleme AYRI parantezde gelebilir: "Madde 17 – (Mülga: 22/7/1998-4369/82 md.)
+  #   (Başlığı ile Birlikte Yeniden Düzenleme: 28/7/2024-7524/2 md.)". Mulga parantezini HEMEN izleyen parantezler
+  #   serhe katilir; son islem yeniden duzenlemeyse madde yururluktedir. Olculen zarar: yururlukteki 13 madde ambarda HIC
+  #   yoktu (GVK m.17, m.69 · TPKK m.4 · Gumruk Yon. m.418, m.574-578 · CMK m.250-252 · SPK pay teblig m.27).
+  #   Bu ek kural YALNIZ yururluge dondurur, eski kuralin yururlukte saydigi maddeyi mulgaya CEVIRMEZ (GVK m.32
+  #   "(Mülga: 1985; Yeniden düzenleme: 2007) (Mülga: 2021)" eskisi gibi kalir - kapsam disi, ayri is).
   $mulgalar = [regex]::Matches($serh, 'Mülga'); $yenidenler = [regex]::Matches($serh, '(?i)Yeniden\s+düzenle')
   if($yenidenler.Count -and $yenidenler[$yenidenler.Count-1].Index -gt $mulgalar[$mulgalar.Count-1].Index){ return $false }
+  $ardi = [regex]::Match($govde.Substring($m.Index + $m.Length), '^(?:\s*\([^)]{0,200}\))+')
+  if($ardi.Success){
+    $tum = "$serh $($ardi.Value)"; $mulgalar = [regex]::Matches($tum, 'Mülga'); $yenidenler = [regex]::Matches($tum, '(?i)Yeniden\s+düzenle')
+    if($yenidenler.Count -and $yenidenler[$yenidenler.Count-1].Index -gt $mulgalar[$mulgalar.Count-1].Index){ return $false }
+  }
   return $true
 }
 # --- 06.10.2026 BASLIK SIZMASI (Cem "1.2.3 ucunu de yap"; is emri veri/AMBAR-YUTMA-IS-EMRI-20260930.md satir 23) ---
@@ -229,7 +240,18 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url, $baslikSati
   # Kapsama kapisi bunu yakalamadi cunku metin kaybi yok - metin tek maddede
   # duruyor; kaybolan SINIRLAR. Ders: "kapsama %" madde SAYISINI olcmez.
   # Olcum: tum _txt (706 dosya) tarandi - U+2012 76 kez / 4 dosyada, U+2212 8 kez.
-  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
+  # 31.10.2026 KUSUR (olculdu, KDVK m.6/b vakasi; Cem "evet, sartla"): eski baslik deseni "Baslik: Madde N"den
+  #   GERIYE 70 karaktere kadar gidip ILK buyuk harften basliyordu; arada cumle sonu olsa da. Somut zarar:
+  #   KDVK m.6 "...hizmetten Türkiye'de faydalanılmasını, İfade eder." kuyrugu m.6'dan KOPUP m.7'ye gecti,
+  #   m.7'nin adi "m.7 - Türkiye'de faydalanılmasını, İfade eder. Uluslararası taşıma işleri" oldu
+  #   (KDVK'da 13 madde: m.6, 25, 26, 33, 34, 44, 47, 48, 49, 51, 53, 56, 59 kesikti).
+  #   Kural: baslik cumle sonunu ([.!?…] ya da ".)" + bosluk) ASAMAZ -> baslik son cumle sonundan sonra baslar.
+  #   Numara noktasi cumle sonu DEGILDIR: "B. Sosyal guvenlik", "II. Odeme emri", "3. Sekil" (tek harf, roma
+  #   rakami, 1-2 haneli sayi + nokta) basligin parcasidir; baslik bir sayi numarasiyla da baslayabilir ("3. ").
+  #   Ilk provada (31.10) bu ayrim yokken 19 numara/bolum basligi ONCEKI maddenin sonuna geciyordu (Anayasa m.61 "B.").
+  #   BU KAPI SUNU GORMEZ: onceki madde cumle sonu OLMADAN bitiyorsa (";" ya da noktasiz liste) kuyruk yine
+  #   basliga gecer · 70 kr'yi asan bolum basligi eskisi gibi bolunur. Esdegerlik provasi: arac/yut-esdegerlik-provasi.ps1.
+  $rx = [regex]'(?:(?<pre>(?:\p{Lu}|(?<!\S)\d{1,2}[.)]\s)(?:(?!(?<!(?:^|[\s(])(?:\p{Lu}|[IVXLC]{1,5}|\d{1,2}))[.!?…]\)?\s)[^:]){1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
   $m = $rx.Matches($flatMetin)
   $docs = New-Object System.Collections.Generic.List[object]
   # 06.10 BASLIK SIZMASI (yukarida): once her parcanin akibeti (mulga / onceki maddeye eklenir / kendi kaydi) bilinir;
@@ -304,6 +326,9 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url, $baslikSati
     # Cozum: yakalanan basligi DOGRULA. Gecmezse baslik hic yazilmaz - kayit
     # "VUK m.315" olur. Yanlis baslik, baslik yoklugundan KOTUDUR: arama ve
     # hakem o basliga bakip maddeyi yanlis taniyor.
+    # 31.10: baslik "1. Umuma arz salahiyeti" gibi sayi numarasiyla baslayabilir (desende izin verildi; metin kendi maddesinde
+    #   kalir). AD ve baslik alani numarasiz yazilir - eski adlar ("m.14 - Umuma arz salahiyeti") degismesin.
+    $pre = $pre -replace '^\d{1,2}[.)]\s+',''
     if($pre -and -not (BaslikGecerli $pre)){ $pre = '' }
     $ad = if($pre){ "$kanunAd $md - $pre" } else { "$kanunAd $md" }
 
@@ -446,6 +471,18 @@ if($OzSinav){
     @{ ad='Cevre m.4 "...Yeniden düzenleme; Mülga" -> son islem MULGA, ATLANIR'
        metin='Madde 3 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 4 – (Mülga: 9/8/1991 - KHK-443/43 md.; Yeniden düzenleme: 26/4/2006-5491/4 md.; Mülga: 2/7/2018-KHK-703/82 md.) Madde 5 - Bu madde de yururluktedir ve yeterince uzun bir govdeye sahiptir, ayri kayit olur.'
        bekle='m.4'; olmali=$false }
+    @{ ad='GVK m.17 "(Mülga: ...) (Başlığı ile Birlikte Yeniden Düzenleme: ...)" AYRI parantez -> YURURLUKTE, AYRI KAYIT'
+       metin='Madde 16 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 17 – (Mülga: 22/7/1998-4369/82 md.) (Başlığı ile Birlikte Yeniden Düzenleme: 28/7/2024-7524/2 md.) Hizmet erbabına bedelsiz veya indirimli olarak verilen pay senetleri gelir vergisinden müstesnadır.'
+       bekle='m.17'; olmali=$true }
+    @{ ad='Gumruk Yon. m.574 "(Mülga ...)(16) (Yeniden düzenleme ...)" dipnot numarasi arada -> YURURLUKTE'
+       metin='MADDE 573 – (1) Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. MADDE 574 – (Mülga :RG-30/6/2015-29402)(16) (Yeniden düzenleme:RG-7/10/2016-29850) (27) (1) Yetkilendirilmiş gümrük müşaviri tespit işlemlerini yapar.'
+       bekle='m.574'; olmali=$true }
+    @{ ad='GVK m.32 "(Mülga; Yeniden düzenleme) (Mülga: 2021)" -> eski kural AYNEN (yururluk karari degismez)'
+       metin='Madde 31 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 32 – (Mülga: 4/12/1985-3239/138 md.; Yeniden düzenleme: 28/3/2007-5615/2 md.) (Mülga:22/12/2021-7349/3 md.) Madde 33 - Bu madde de yururluktedir ve yeterince uzun bir govdeye sahiptir.'
+       bekle='m.32'; olmali=$true }
+    @{ ad='"(Mülga: ...) (Değişik: ...)" AYRI parantez, yeniden duzenleme YOK -> ATLANIR'
+       metin='Madde 16 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 17 – (Mülga: 22/7/1998-4369/82 md.) (Değişik: 1/1/2000-4369/1 md.) Madde 18 - Bu madde de yururluktedir ve yeterince uzun bir govdeye sahiptir, ayri kayit olur.'
+       bekle='m.17'; olmali=$false }
     @{ ad='Duz mulga "(Mülga: ...)" -> ATLANIR (eski davranis korunur)'
        metin='Madde 37 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 38 – (Mülga: 22/7/1998 – 4369/82 md.) Ödeme yeri: Madde 39 – Hususi kanunlarında ödeme yeri gösterilmemiş amme alacakları borçlunun ikametgahında ödenir.'
        bekle='m.38'; olmali=$false }
@@ -484,6 +521,23 @@ if($OzSinav){
     @{ ad='Sonraki madde MULGA -> kuyruk TASINMAZ (yerinde kalir)'
        metin='MADDE 37 – (1) Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, ayri kayit olur. Ödeme yeri MADDE 38 – (Mülga: 22/7/1998 – 4369/82 md.) MADDE 39 – (1) Hususi kanunlarında ödeme yeri gösterilmemiş amme alacakları ödenir.'
        kontrol={ param($c) $c[0].metin.EndsWith('Ödeme yeri') -and -not $c[1].baslik } }
+    # 31.10 - baslik cumle sonunu ASAMAZ (KDVK m.6/b vakasi)
+    @{ ad='KDVK m.6 -> m.7: "İfade eder." m.6da KALIR, m.7 adi yalniz "Uluslararası taşıma işleri"'
+       metin="Madde 6 – a) Mal, teslim anında Türkiye'de bulunuyorsa teslim Türkiye'de yapılmış sayılır. b) Hizmetin Türkiye'de yapılmasını veya hizmetten Türkiye'de faydalanılmasını, İfade eder. Uluslararası taşıma işleri: Madde 7 – Türkiye ile yabancı ülkeler arasında yapılan taşımacılık ile transit taşımacılık işlerinde hizmet Türkiye'de yapılmış sayılır."
+       kontrol={ param($c) $a=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.6' })[0]; $b=@($c | Where-Object { "$($_.kaynak_ad)" -like 'SINAV m.7*' })[0]
+                 $a.metin.EndsWith('faydalanılmasını, İfade eder.') -and $b.kaynak_ad -eq 'SINAV m.7 - Uluslararası taşıma işleri' -and $b.metin.StartsWith('Uluslararası taşıma işleri: Madde 7') } }
+    @{ ad='Anayasa m.60/61: numara "B." ONCEKI maddeye gecmez, m.61 basinda kalir'
+       metin='Madde 60 – Herkes, sosyal güvenlik hakkına sahiptir. Devlet, bu güvenliği sağlayacak gerekli tedbirleri alır ve teşkilatı kurar. B. Sosyal güvenlik bakımından özel olarak korunması gerekenler: Madde 61 – Devlet, harp ve vazife şehitlerinin dul ve yetimlerini korur.'
+       kontrol={ param($c) $c[0].metin.EndsWith('teşkilatı kurar.') -and $c[1].metin.StartsWith('B. Sosyal güvenlik') } }
+    @{ ad='Avukatlik m.38/39: ".)" cumle sonu sayilir, m.39 adi yalniz baslik'
+       metin='Madde 38 – Avukat, aşağıdaki hallerde işi reddetmek zorundadır ve bu yeterince uzun bir govdedir. (İptal: Anayasa Mahkemesi''nin 2/6/1977 tarihli ve E. 1977/43, K. 1977/84 sayılı Kararı ile.) Avukatın dosya saklaması ve hapis hakkı: Madde 39 – Avukat, kendisine tevdi olunan dosyaları saklar.'
+       kontrol={ param($c) $c[0].metin.EndsWith('Kararı ile.)') -and $c[1].kaynak_ad -eq 'SINAV m.39 - Avukatın dosya saklaması ve hapis hakkı' } }
+    @{ ad='FSEK m.13/14: "1." numarasi m.14 basinda kalir, ad numarasiz "m.14 - Umuma arz salahiyeti"'
+       metin='Madde 13 – Eser sahibinin hakları bu Kanunla korunur ve yönetmelikle belirlenir. II – Manevi haklar: 1. Umuma arz salahiyeti: Madde 14 – Bir eserin umuma arzedilip edilmemesini eser sahibi tayin eder.'
+       kontrol={ param($c) $c[0].metin.EndsWith('Manevi haklar:') -and $c[1].metin.StartsWith('1. Umuma arz') -and $c[1].kaynak_ad -eq 'SINAV m.14 - Umuma arz salahiyeti' -and $c[1].baslik -eq 'Umuma arz salahiyeti' } }
+    @{ ad='CMK ek hukumler: "(2) 5728 sayili..." parantezli numara BOLUNMEZ ("(" onceki maddede kalmaz)'
+       metin='GEÇİCİ MADDE 1- Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, bozma kararı verilemez. (2) 5728 sayılı Kanunun Geçici Maddeleri: GEÇİCİ MADDE 2- Bu Kanun hükümlerine göre dava dosyası mahkemeye gönderilir.'
+       kontrol={ param($c) $c[0].metin.EndsWith('verilemez. (2) 5728 sayılı') -and $c[1].metin.StartsWith('Kanunun Geçici Maddeleri: GEÇİCİ MADDE 2') } }
     @{ ad='Gelen baslik parca sayisini BOZMAZ: ~1.780 kr govde tek parca kalir, ad [1/2] almaz'
        metin=("MADDE 1 – (1) Kisa ama yeterince uzun bir ilk madde govdesi vardir ve ayri kayit olur. Uzun başlık burada yer alan bölüm hükümleri MADDE 2 – (1) $uzun")
        kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.2' }).Count -eq 1 -and $c[1].metin.StartsWith('Uzun başlık') } }

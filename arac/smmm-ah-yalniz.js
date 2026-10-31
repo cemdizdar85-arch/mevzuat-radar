@@ -127,6 +127,34 @@ async function adlaOku(io, ad) {
   for (const desen of [s + ' -*', s + ' [*']) { r = await io.dokuman(desen, 'like'); if (r.length) return r; }
   return [];
 }
+// 31.10 ÖLÇÜLDÜ (Ajan 18, thp 4 soru): kaynak_metin_ozet üretimde DONDURULMUŞ eski lafız. Ambara sonradan eklenen notlar (THP 122/137/322/
+//   337/422 "UYGULAMA NOTU", MSUGT Sıra No 2 652→657 ve 647) özette yok; özet tek kaynak sayılınca AH 4 soruda da 657/647'ye "yanlış" dedi
+//   (4'ü de yanlış alarm, madde_kaynak 'kayit'). KURAL: özet kullanılsa bile beyan dayanakları + kaydın dayanak/kaynak_adlar satırları
+//   ambardan okunur; özette OLMAYAN cümleler ve her "UYGULAMA NOTU" istemin RESMÎ MADDE METNİ bölümüne girer (madde_kaynak 'kayit+ambar').
+//   İlgisiz kaynak havuzu istemi doldurmasın: satır ancak (a) bir cümlesi özette geçiyorsa (özet ondan türemiş), (b) not taşıyorsa ya da
+//   (c) adı beyan/dayanak satırıysa sayılır. 🚫 GÖRMEZ: ambarda da olmayan güncelleme · 25 karakterden kısa değişen cümle.
+const cumleler = t => String(t || '').split(/(?<=[.;:!?])\s+|\n+/).map(x => x.trim()).filter(x => trKucuk(x).length >= 25);
+async function ozetFarki(io, ozet, dayanaklar, kayit, maxKr) {
+  const oz = trKucuk(ozet); const dAd = String((kayit && kayit.dayanak) || '').split(' - ')[0].trim();
+  const ilgiliAd = new Set([...(dayanaklar || []).map(d => d && String(d.kaynak_ad || '').trim()).filter(Boolean), ...(dAd ? [dAd] : [])]);
+  const adlar = [...ilgiliAd, ...((kayit && Array.isArray(kayit.kaynak_adlar)) ? kayit.kaynak_adlar.slice(0, 15).map(String) : [])].filter(a => a && !a.startsWith('('));
+  const satir = new Map(); const ilgili = new Set();
+  for (const ad of [...new Set(adlar)]) { const rows = await adlaOku(io, ad); for (const x of rows) { if (!satir.has(x.kaynak_ad)) satir.set(x.kaynak_ad, x.metin || ''); if (ilgiliAd.has(ad)) ilgili.add(x.kaynak_ad); } }
+  const parca = [];
+  for (const [ad, metin] of satir) {
+    const cs = cumleler(metin); const ozette = cs.filter(c => oz.includes(trKucuk(c)));
+    const ni = String(metin).search(/UYGULAMA\s+NOTU/i); const notMetni = ni >= 0 ? String(metin).slice(ni, ni + 900) : '';
+    if (!(ozette.length || notMetni || ilgili.has(ad))) continue;
+    const yeni = cs.filter(c => !oz.includes(trKucuk(c)) && !(notMetni && notMetni.includes(c)));
+    if (!notMetni && !yeni.length) continue;
+    parca.push({ ad, not: !!notMetni, t: [notMetni, ...yeni].filter(Boolean).join(' ') });
+  }
+  if (!parca.length) return null;
+  parca.sort((a, b) => b.not - a.not);
+  let kalan = maxKr; const bolum = [], out = [];
+  for (const p of parca) { if (kalan < 300) break; const t = p.t.length > Math.min(1500, kalan) ? p.t.slice(0, Math.min(1500, kalan)) + '…' : p.t; bolum.push('== ' + p.ad + ' (özette olmayan güncel lafız' + (p.not ? ' + UYGULAMA NOTU' : '') + ')\n' + t); out.push(p.ad); kalan -= t.length + p.ad.length + 50; }
+  return { metin: bolum.join('\n\n'), adlar: out, not_var: parca.some(p => p.not) };
+}
 // dayanak (kaynak_ad + alıntı) listesi → birleşik madde metni (en çok maxKr). Alıntının geçtiği parça önce, uzunsa alıntı çevresi.
 async function maddeMetni(io, dayanaklar, kayit, maxKr) {
   const PARCA = Math.max(1200, Math.floor(maxKr * 0.6));
@@ -146,10 +174,14 @@ async function maddeMetni(io, dayanaklar, kayit, maxKr) {
   const ozetHam = kayit && kayit.kaynak_metin_ozet; const ozet = ozetHam ? String(typeof ozetHam === 'string' ? ozetHam : JSON.stringify(ozetHam)).slice(0, 5000) : '';
   const beyanAl = (dayanaklar || []).map(d => d && d.alinti).filter(Boolean).map(String);
   if (ozet.trim()) { const bul = beyanAl.map(a => alintiYeri(ozet, a).bulundu);
-    if (!beyanAl.length || bul.every(Boolean)) return { kaynak: 'kayit', adlar: ['kaynak_metin_ozet'], metin: '', alinti_dogrulandi: beyanAl.length ? true : null }; }
+    if (!beyanAl.length || bul.every(Boolean)) { const f = await ozetFarki(io, ozet, dayanaklar, kayit, maxKr);
+      if (f) return { kaynak: 'kayit+ambar', adlar: ['kaynak_metin_ozet', ...f.adlar], metin: f.metin, alinti_dogrulandi: beyanAl.length ? true : null, uygulama_notu: f.not_var };
+      return { kaynak: 'kayit', adlar: ['kaynak_metin_ozet'], metin: '', alinti_dogrulandi: beyanAl.length ? true : null }; } }
   let kaynak = 'ambar'; let { satirlar, alintilar } = await dene((dayanaklar || []).filter(d => d && d.kaynak_ad && !String(d.kaynak_ad).trim().startsWith('(')));
   if (!satirlar.size) { kaynak = 'kart'; ({ satirlar, alintilar } = await dene(kartAdlari())); }
-  if (!satirlar.size && ozet.trim()) return { kaynak: 'kayit', adlar: ['kaynak_metin_ozet'], metin: '', alinti_dogrulandi: beyanAl.length ? false : null };
+  if (!satirlar.size && ozet.trim()) { const f = await ozetFarki(io, ozet, dayanaklar, kayit, maxKr);
+    if (f) return { kaynak: 'kayit+ambar', adlar: ['kaynak_metin_ozet', ...f.adlar], metin: f.metin, alinti_dogrulandi: beyanAl.length ? false : null, uygulama_notu: f.not_var };
+    return { kaynak: 'kayit', adlar: ['kaynak_metin_ozet'], metin: '', alinti_dogrulandi: beyanAl.length ? false : null }; }
   if (!satirlar.size) return { kaynak: 'kaynaksiz', adlar: [], metin: '', alinti_dogrulandi: null };
   const parcalar = [...satirlar.entries()].map(([ad, metin]) => { let yer = -1, bul = false; for (const a of alintilar) { const y = alintiYeri(metin, a); if (y.bulundu || y.yer >= 0) { bul = bul || y.bulundu; if (yer < 0) yer = y.yer; } } return { ad, metin, yer, bul }; })
     .sort((a, b) => (b.yer >= 0) - (a.yer >= 0) || (a.ad.replace(/\s*\[\d+\/\d+\]\s*$/, '') < b.ad.replace(/\s*\[\d+\/\d+\]\s*$/, '') ? -1 : a.ad.replace(/\s*\[\d+\/\d+\]\s*$/, '') > b.ad.replace(/\s*\[\d+\/\d+\]\s*$/, '') ? 1 : parcaNo(a.ad) - parcaNo(b.ad)));
@@ -286,6 +318,10 @@ async function oku(io, sid, opt = {}) {
   if (yeniAh.onceki_karar === undefined) yeniAh.onceki_karar = ah.karar;   // modelin kararı (ilk okumada sabitlenir)
   yeniAh.karar = karar; yeniAh.kaynak_okundu = true; yeniAh.incelenecek = false;
   yeniAh.okuma = { okuyan, dayanak, not: String(opt.not || '').trim(), tarih: opt.tarih || new Date().toISOString().slice(0, 10) };
+  // 31.10 (Ajan 18 thp vakası): dayanak AMBARDAKİ güncel metne karşı doğrulanır, dondurulmuş kaynak_metin_ozet'e değil. "<kaynak_ad>: <alıntı>"
+  //   biçiminde ad ambarda bulunursa alıntı o metinde aranır → okuma.dayanak_ambarda true/false; ad okunamazsa null. Reddetmez (iz bırakır).
+  { const i = dayanak.indexOf(':'); const ad = i > 0 ? dayanak.slice(0, i).trim() : ''; const al = i > 0 ? dayanak.slice(i + 1).trim().replace(/^["“'«]|["”'»]$/g, '') : '';
+    const rows = ad ? await adlaOku(io, ad) : []; yeniAh.okuma.dayanak_ambarda = rows.length && al ? rows.some(x => alintiYeri(x.metin, al).bulundu) : null; }
   yeniAh.elle_cevrildi = yeniAh.onceki_karar !== karar;
   delete yeniAh.not;
   const yeni = JSON.parse(JSON.stringify(A.icerik)); yeni[ka.kp].aciklama_hakem = yeniAh; if (MUT === 'oku-baska-alan') yeni[ka.kp].soru += ' ';
@@ -415,7 +451,7 @@ async function sinav() {
     S('girdi: kimlik + taslak_sha + dayanak (iç tutarlılık notu düşer), soru metni YOK', G.kimlikler.length === 1 && G.kimlikler[0].taslak_sha === icerikSha(taban()['kp-01']) && G.kimlikler[0].dayanaklar.length === 1 && !/Kök 1|b-YENİ/.test(JSON.stringify(G)));
   }
   { // 8) madde kaynağı sırası: özet alıntıyı içeriyorsa 'kayit' (ek okuma yok); içermiyorsa beyan dayanağı ambardan
-    const tb = taban(); tb['kp-01'].kaynak_metin_ozet = 'KDVK m.28: Katma değer vergisinin genel oranı yüzde yirmidir.'; tb['kp-02'].kaynak_metin_ozet = 'Başka bir konu özeti, oran geçmiyor.';
+    const tb = taban(); tb['kp-01'].kaynak_metin_ozet = 'KDVK m.28: Katma değer vergisinin genel oranı yüzde yirmidir. Cumhurbaşkanı bu oranı değiştirmeye yetkilidir.'; tb['kp-02'].kaynak_metin_ozet = 'Başka bir konu özeti, oran geçmiyor.';
     const t = kur('s8', { [e]: { icerik: tb, guncelleme: 'd1' } });
     const H = await hazirla({ ad: 's8', kimlikler: [g(e + '/kp-01'), g(e + '/kp-02')] }, {}, t.io);
     S('özet beyan alıntısını içeriyor → madde kaynağı kayit (kaynak_metin_ozet), ambar okunmaz', H.ogeler[0].madde.kaynak === 'kayit' && H.ogeler[0].madde.alinti_dogrulandi === true && !H.ogeler[0].madde.metin);
@@ -423,6 +459,18 @@ async function sinav() {
     const t2 = kur('s8b', { [e]: { icerik: tb, guncelleme: 'd1' } }, []);
     const H2 = await hazirla({ ad: 's8b', kimlikler: [g(e + '/kp-02')] }, {}, t2.io);
     S('özet alıntıyı içermiyor + ambarda madde yok → kayit (alıntı doğrulanamadı), kaynaksız DEĞİL', H2.ogeler[0].madde.kaynak === 'kayit' && H2.ogeler[0].madde.alinti_dogrulandi === false);
+  }
+  { // 8b) 31.10 thp vakası: özet ESKİ, ambarda sonradan UYGULAMA NOTU var → not RESMÎ MADDE METNİ'ne girer
+    const tb = taban(); tb['kp-02'].kaynak_metin_ozet = 'THP 122 Alıcı senetleri reeskontu hesabı alacak senetlerinin reeskontunu izler.'; tb['kp-02'].kaynak_adlar = ['THP SAHTE 122', 'İLGİSİZ HAVUZ m.9'];
+    const dok = [{ kaynak_ad: 'THP SAHTE 122', metin: 'THP 122 Alıcı senetleri reeskontu hesabı alacak senetlerinin reeskontunu izler. UYGULAMA NOTU: MSUGT Sıra No 2 ile bu işlem artık 657 hesapta izlenir, 647 kullanılmaz.' },
+      { kaynak_ad: 'İLGİSİZ HAVUZ m.9', metin: 'Bu kaynak sorunun özetiyle hiç ilgisi olmayan uzun bir havuz metnidir ve isteme girmemelidir.' }, { kaynak_ad: 'KDVK (3065 s.K.) m.28', metin: 'Katma değer vergisinin genel oranı yüzde yirmidir.' }];
+    const t = kur('s8n', { [e]: { icerik: tb, guncelleme: 'd1' } }, dok);
+    const H = await hazirla({ ad: 's8n', kimlikler: [{ soru_id: e + '/kp-02' }] }, {}, t.io); const md = H.ogeler[0].madde;
+    S('özet eski + ambarda UYGULAMA NOTU → madde_kaynak kayit+ambar, not metinde (657/647), uygulama_notu işareti', md.kaynak === 'kayit+ambar' && /UYGULAMA NOTU/.test(md.metin) && /657/.test(md.metin) && md.uygulama_notu === true && md.adlar.includes('THP SAHTE 122'));
+    S('özetle ilgisiz havuz satırı isteme GİRMEZ, özette zaten olan cümle tekrarlanmaz', !/İLGİSİZ|havuz metnidir/.test(md.metin) && !/reeskontunu izler/.test(md.metin));
+    const t2 = kur('s8m', { [e]: { icerik: (() => { const x = taban(); x['kp-02'].kaynak_metin_ozet = dok[0].metin; x['kp-02'].kaynak_adlar = ['THP SAHTE 122']; return x; })(), guncelleme: 'd1' } }, dok);
+    const H2 = await hazirla({ ad: 's8m', kimlikler: [{ soru_id: e + '/kp-02' }] }, {}, t2.io);
+    S('özet GÜNCEL ama ambarda not var → not yine RESMÎ MADDE METNİ\'ne girer (kayit+ambar)', H2.ogeler[0].madde.kaynak === 'kayit+ambar' && /UYGULAMA NOTU/.test(H2.ogeler[0].madde.metin));
   }
   { // 9) OKU: incelenecek kaydı resmî metinle kapatma
     const tb = taban(); tb['kp-01'].aciklama_hakem = { karar: 'KUSURLU', kusurlar: [{ alan: 'aciklama.A', neden: 'x' }], yol: YOL, icerik_sha: icerikSha(tb['kp-01']), kaynak_okundu: false, incelenecek: true, not: 'kesin değil' };
@@ -432,6 +480,7 @@ async function sinav() {
     const t = kur('s9', { [e]: { icerik: JSON.parse(JSON.stringify(tb)), guncelleme: 'd1' } });
     const r1 = await oku(t.io, e + '/kp-01', { ...O, karar: 'TEMIZ' }); const A1 = t.parti(e).icerik['kp-01'].aciklama_hakem;
     S('OKU yanlış alarm → TEMIZ, onceki_karar KUSURLU, elle_cevrildi, kaynak_okundu:true, okuyan+dayanak, kusurlar iz olarak kalır', r1.durum === 'yazildi' && A1.karar === 'TEMIZ' && A1.onceki_karar === 'KUSURLU' && A1.elle_cevrildi === true && A1.kaynak_okundu === true && A1.incelenecek === false && A1.okuma.okuyan === 'Ajan 9' && /m\.28/.test(A1.okuma.dayanak) && A1.kusurlar.length === 1);
+    S('OKU dayanak AMBARDAKİ metinde aranır: alıntı ambarda yok → okuma.dayanak_ambarda:false (iz, red değil)', A1.okuma.dayanak_ambarda === false);
     const fk = fark(tb, t.parti(e).icerik); S('OKU → yalnız kp-01.aciklama_hakem altı değişti', fk.length > 0 && fk.every(y => y.startsWith('kp-01.aciklama_hakem.')));
     const r2 = await oku(t.io, e + '/kp-02', { ...O, karar: 'KUSURLU' }); const A2 = t.parti(e).icerik['kp-02'].aciklama_hakem;
     S('OKU bulut-uretim kaydı (yol yok) → KUSURLU teyit, elle_cevrildi:false, kaynak_okundu:true', r2.durum === 'yazildi' && r2.yol === 'uretim' && A2.karar === 'KUSURLU' && A2.elle_cevrildi === false && A2.kaynak_okundu === true && A2.model === 'model-c');

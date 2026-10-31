@@ -1,0 +1,125 @@
+{
+ "ad": "ah25c",
+ "tarih": "2026-10-31T18:27:24.268Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41229216174",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.3,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 20,
+  "gonderilen": 3,
+  "temiz": 3,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 12,
+  "atlanan": 5,
+  "yazilan": 3,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.052
+ },
+ "kararlar": {
+  "smmm-4k-a-ydenetim-zor-r6/kp-15": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-4k-a-yvergi-kolay-r3/kp-15": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yvergi-zor-r3/kp-10": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-d1-yvergi-kolay-r2/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-gm5-6-yvergi-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w11-3-fmuh-cokzor/kp-02": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w13-3-fmuh-cokzor/kp-15": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w13-4-fmuh-zor/kp-08": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w13-4-fmuh-zor/kp-13": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w14-2-yspk-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w3-maliyet-zor/kp-27": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w3-yvergi-zor/kp-12": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w4-fmuh-kolay/kp-43": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w5-fmuh-kolay/kp-23": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-w8-3-fmuh-zor/kp-01": {
+   "karar": "TEMIZ",
+   "onceki": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {
+  "smmm-4k-a-yvergi-kolay-r10/kp-06": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-4k-a-yvergi-kolay-r10/kp-12": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-olc2-a-vergi/kp-23": "parti bulutta koşuyor (bulut-uretim) — sonra",
+  "smmm-w2-yhukuk-cokzor/kp-03": "ambar ≠ taslak (onarım teslimi bitmemiş ya da kayıt sonradan değişmiş) — eski metin hakemlenmez",
+  "smmm-w9-1-fmuh-zor/kp-08": "ambar ≠ taslak (onarım teslimi bitmemiş ya da kayıt sonradan değişmiş) — eski metin hakemlenmez"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}

@@ -71,6 +71,14 @@ try {
   $r = Kos @('-ButceUsd', '1', '-Calistir')
   $S2 = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText((Join-Path $T 'sonuc.json'), [Text.Encoding]::UTF8))
   Sina 'aynı içerik yeniden koşuldu → 0 gönderim (önceki 2), çıkış 0' ($r.kod -eq 0 -and $S2.sayim.onceki -eq 2 -and $S2.sayim.gonderilen -eq 0 -and $r.metin -match 'GÖNDERİLECEK: 0')
+  # 31.10 thp vakası (Ajan 18): özet ESKİ, ambarda sonradan UYGULAMA NOTU → istemin RESMÎ MADDE METNİ bölümünde not görünür
+  [IO.File]::WriteAllText((Join-Path $T 'ambar/smmm-sahte-not.json'), '{"icerik":{"kp-01":{"soru":"Sahte kök not","dogru":"A","siklar":{"A":"657","B":"647"},"aciklama":{"A":"a","B":"b"},"kaynak_metin_ozet":"THP 122 Alıcı senetleri reeskontu hesabı alacak senetlerinin reeskontunu izler.","kaynak_adlar":["THP SAHTE 122"]}},"guncelleme":"n1","sinav":"SMMM"}', $utf8)
+  [IO.File]::WriteAllText((Join-Path $T 'dokuman.json'), '[{"kaynak_ad":"THP SAHTE 122","metin":"THP 122 Alıcı senetleri reeskontu hesabı alacak senetlerinin reeskontunu izler. UYGULAMA NOTU: MSUGT Sıra No 2 ile bu işlem artık 657 hesapta izlenir. SAHTE-NOT-IZI"}]', $utf8)
+  [IO.File]::WriteAllText((Join-Path $T 'model.json'), '{"ah-smmm-sahte-not__kp-01":"{\"karar\":\"TEMIZ\",\"kusurlar\":[]}"}', $utf8)
+  [IO.File]::WriteAllText((Join-Path $T 'girdi.json'), '{"ad":"ps-sinav-not","kimlikler":[{"soru_id":"smmm-sahte-not/kp-01"}]}', $utf8)
+  $r = Kos @('-ButceUsd', '1', '-Calistir')
+  $ist3 = $(if (Test-Path (Join-Path $T 'istem-ah-smmm-sahte-not__kp-01.txt')) { [IO.File]::ReadAllText((Join-Path $T 'istem-ah-smmm-sahte-not__kp-01.txt'), [Text.Encoding]::UTF8) } else { '' })
+  Sina 'özet eski + ambarda UYGULAMA NOTU → istemde RESMÎ MADDE METNİ bölümünde not görünür (özet eskidir etiketiyle)' ($r.kod -eq 0 -and $ist3 -match 'RESMÎ MADDE METNİ' -and $ist3 -match 'UYGULAMA NOTU: MSUGT' -and $ist3 -match 'SAHTE-NOT-IZI' -and $ist3 -match 'özetinde OLMAYAN')
 }
 finally { if (Test-Path $T) { Remove-Item $T -Recurse -Force -ErrorAction SilentlyContinue } }
 

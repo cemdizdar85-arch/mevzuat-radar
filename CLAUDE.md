@@ -470,7 +470,7 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      `aciklama_hakem` alanına koşullu yazımla; KUSURLU = `kaynak_okundu:false` + sonuçta `incelenecek` (resmî metinle okunmadan kesinleşmez). Bulut
      `smmm-ah-yalniz.yml` (varsayılan KURU). **KUSURLU kapatma:** resmî metinle okuyan `node arac/smmm-ah-yalniz.js oku <etiket>/<kp> --karar TEMIZ|KUSURLU
      --okuyan "…" --dayanak "<kaynak_ad + ≤25 kelime>"` (dayanaksız RED; `kaynak_okundu:true` + `onceki_karar` + yanlış alarmda `elle_cevrildi`; bulut-uretim AH kaydında da, yalnız smmm-).
-     Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 40/40 + PS uçtan uca 15/15), `dogrula.yml`'de.
+     Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 44/44 + PS uçtan uca 16/16; 31.10 thp: özet eski lafızsa ambardaki fark + UYGULAMA NOTU da RESMÎ MADDE METNİ'ne girer, madde_kaynak `kayit+ambar`), `dogrula.yml`'de.
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,

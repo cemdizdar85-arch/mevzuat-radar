@@ -314,9 +314,9 @@
       "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-w3-yvergi-zor/kp-01",
+      "id": "smmm-gm5-12-yvergi-zor/kp-01",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "gelir tanımı",
+      "konu": "ticari kazanç matrahı",
       "zorluk": "zor",
       "son10": 1,
       "cikmis": 0,
@@ -341,10 +341,10 @@
       "son_soruldu": ""
     },
     {
-      "id": "smmm-w3-yvergi-zor/kp-23",
+      "id": "smmm-4k-a-yvergi-cokzor-r2/kp-02",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "menkul sermaye iradı",
-      "zorluk": "zor",
+      "konu": "ücret ve kira geliri beyani",
+      "zorluk": "cokzor",
       "son10": 1,
       "cikmis": 0,
       "son_soruldu": ""
@@ -441,6 +441,14 @@
         "Vergi Mevzuatı ve Uygulaması: smmm-w5-yvergi-zor/kp-01 [kurumlar vergisi matrahı/zor] -> smmm-w3-yvergi-zor/kp-01 [gelir tanımı/zor]",
         "Vergi Mevzuatı ve Uygulaması: smmm-gm12-1-yvergi-cokzor/kp-02 [gvk › gayrimenkul sermaye iradı/cokzor] -> smmm-w3-yvergi-cokzor/kp-11 [emsal bedel kdv hesaplama/cokzor]",
         "Vergi Mevzuatı ve Uygulaması: smmm-4k-a-yvergi-zor-r7/kp-02 [vergi sorumlusu/zor] -> smmm-w3-yvergi-zor/kp-23 [menkul sermaye iradı/zor]"
+      ]
+    },
+    {
+      "tarih": "2026-10-31T18:39:04.288Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Vergi Mevzuatı ve Uygulaması: smmm-w3-yvergi-zor/kp-01 [gelir tanımı/zor] -> smmm-gm5-12-yvergi-zor/kp-01 [ticari kazanç matrahı/zor]",
+        "Vergi Mevzuatı ve Uygulaması: smmm-w3-yvergi-zor/kp-23 [menkul sermaye iradı/zor] -> smmm-4k-a-yvergi-cokzor-r2/kp-02 [ücret ve kira geliri beyani/cokzor]"
       ]
     }
   ],
