@@ -48,8 +48,19 @@ runs:
         if [ "$adet" -eq 0 ]; then echo "::error title=B2::yuklenecek .enc yok"; exit 1; fi
         export AWS_DEFAULT_REGION=$(echo "$B2_ENDPOINT" | sed -E 's#https?://s3\.([^.]+)\..*#\1#')
         hedef="s3://$B2_BUCKET/$ONEK/$(date -u +%Y%m%d-%H%M)-${GITHUB_RUN_ID}"
-        aws s3 cp "$KLASOR" "$hedef/" --recursive --exclude '*' --include '*.enc' --endpoint-url "$B2_ENDPOINT" --only-show-errors
-        echo "B2: $adet dosya -> $ONEK/"
+        # 31.10 OLCULDU: 28-30.10 uc gece B2 adimi dustu - "Content-MD5 OR x-amz-checksum- HTTP header is required for Put Object
+        #   requests with Object Lock parameters". 27.10'a kadar 'aws s3 cp' calisiyordu; kosucudaki aws cli guncellenince
+        #   (when_required ayariyla) PutObject'e saglama basligi gitmez oldu, kilitli kova reddediyor. Cozum: dosya dosya
+        #   s3api put-object + acik --content-md5 (klasik baslik; B2 Object Lock bunu kabul eder). Dosyalar <=~110 MB, tek PUT yeter (5 GB alti).
+        kok_anahtar="${hedef#s3://$B2_BUCKET/}"; yuklenen=0
+        for f in "$KLASOR"/*.enc; do
+          md5=$(openssl dgst -md5 -binary "$f" | base64)
+          aws s3api put-object --bucket "$B2_BUCKET" --key "$kok_anahtar/$(basename "$f")" --body "$f" --content-md5 "$md5" \
+            --endpoint-url "$B2_ENDPOINT" --query ETag --output text >/dev/null
+          yuklenen=$((yuklenen+1))
+        done
+        if [ "$yuklenen" -ne "$adet" ]; then echo "::error title=B2::$adet dosyadan $yuklenen yuklendi"; exit 1; fi
+        echo "B2: $adet dosya -> $ONEK/ (dosya dosya, Content-MD5 ile)"
         ornek=$(find "$KLASOR" -maxdepth 1 -type f -name '*.enc' | head -1 | xargs basename)
         kilit=$(aws s3api head-object --bucket "$B2_BUCKET" --key "${hedef#s3://$B2_BUCKET/}/$ornek" --endpoint-url "$B2_ENDPOINT" --query '[ObjectLockMode,ObjectLockRetainUntilDate]' --output text || echo "OKUNAMADI")
         echo "B2 kilit ($ornek): $kilit"

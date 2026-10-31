@@ -454,6 +454,10 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
      `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js` · bitirme `arac/smmm-risk-tarama.ps1` (R1–R9, 30.09). Bulgu **çekilmez, onarım kuyruğuna gider**
      (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
+     ⛔ **Onarım teslimi YALNIZ DEĞİŞEN SORUYU yazar (Cem 31.10 "DUR"):** `teslim` önce yerel partiyi ambarla kayıt kayıt karşılaştırır; tek kayıt farklıysa
+     (yerel bayat) HİÇBİR ŞEY yazmadan durur. Ambara giden içerik = ambardaki parti + yalnız taslağın kayıtları; yazmadan önce damga yeniden okunur (yarış).
+     Teslimden önce `teslim <klasör> --kuru` (yalnız okuma). Ölçülen neden: 30.10 kd1 teslimi 19 partiyi bütünüyle yükledi; aynı gün kd2–kd6 etiketlerinin 12'sinde yerel ≠ ambar.
+     Öz-sınav `node arac/onarim-hatti.js --sinav` (sahte ambar 6 senaryo dahil).
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,

@@ -16,6 +16,8 @@ Vergi yıl (Oturum 2), kalıp dışı (Oturum 3) ve KALSIN-DUZELT soruları **ay
 3. Taslak biçimi ve teslim: `arac/onarim-hatti.js` başlığı — `<klasör>/<etiket>__<kp>.json` (beyan: yeni / degisen_alanlar / kok_degisti) +
    `<klasör>/_tam/<etiket>__<kp>.tam.json`; `node arac/onarim-hatti.js uygula <klasör>` (fark denetimi) → `teslim <klasör>`.
    ⚠ teslim Windows PowerShell betikleri çağırır → **yalnız Cem'in bilgisayarındaki oturumda** (bulutta değil). Klasör `veri/fabrika/onarim-<ad>/` (gitignore).
+   ⛔ (Cem 31.10) Teslimden ÖNCE `node arac/onarim-hatti.js teslim <klasör> --kuru`: yerel parti ambardan farklıysa teslim durur (hiçbir şey yazılmaz) —
+   `parti-senkron -Indir -Etiket <e>` ile tazele, taslağı tazelenmiş kayda göre yeniden kur. Teslim artık yalnız değişen soruyu yazar (taban: ambardaki parti).
 4. Kök/şık/anahtar değişen soruda onarım hattı model alanlarını siler ve soruyu **yeniden hakeme kadar elle rete** alır (kural, değişmez):
    soru, hakem bitene kadar sitede görünmez. Bu yüzden teslim PARTİ PARTİ yapılır ve hakem aynı gün koşar. Hakem ÜCRETLİ ve FRENDE:
    parti başına soru sayısı × birim bedel Cem'e yazılır (ölçülmüş örnek: 79 rehakem ≈ 11 USD → ≈0,14 USD/soru), onaysız gönderilmez.
