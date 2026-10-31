@@ -1,0 +1,509 @@
+{
+ "aciklama": "BITIRME (SMMM) SORU BASINA DERS DUZELTMESI - Cem 31.10 \"ders disi yerlesim: (a), dogru derse tasinsin\" + 6 oneri onayli. Kimlik -> hedef ders (ekran adi). Okuyan arac/smmm-ders-adi.ps1 SmmmSoruDersi (kasa yayini, ucretsiz secim, kapsama tablosu). YALNIZ durum=uygula uygulanir; hedef ders tanimsizsa yayin DURUR. Kimlik ve parti dosyasi DEGISMEZ. Olcut BITIRME-KONU-KARTLARI.md + standart D5; sitedeki 3.664 soru okundu (Ajan 17). Soru metni YOK. SGS esi: veri/sinav/sgs-ders-duzelt.json (dokunulmaz).",
+ "olcum": "2026-10-31",
+ "sayi": 61,
+ "duzelt": {
+  "smmm-4k-a-ydenetim-kolay-r10/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "VUK 323 karşılık tutarı hesabı; denetim yönü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r7/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "VUK 323 karşılık tutarı hesabı; denetim yönü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r1/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "VUK 323 karşılık tutarı hesabı; denetim yönü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r3/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "VUK 323 karşılık tutarı hesabı; denetim yönü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r5/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "VUK 323 karşılık tutarı hesabı; denetim yönü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r9/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "VUK 323 karşılık tutarı hesabı; denetim yönü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r3-2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Amortisman",
+   "gerekce": "730/257 amortisman yevmiye kaydı soruluyor",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r4-2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Amortisman",
+   "gerekce": "730/257 amortisman yevmiye kaydı soruluyor",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r1/kp-18": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "İştirakler ve bağlı ortaklıklar",
+   "gerekce": "THP 245 hesap seçimi; konu etiketi \"hile\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r4/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "İştirakler ve bağlı ortaklıklar",
+   "gerekce": "THP 245 hesap seçimi; konu etiketi \"hile\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w3-ydenetim-cokzor/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Maddi olmayan duran varlıklar ve özel maliyetler",
+   "gerekce": "TMS 23 ile 264 aktifleştirme tutarı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r10/kp-02": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "MSUGT temel kavramları soruluyor; etiket \"önemlilik\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r4/kp-03": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "MSUGT temel kavramları soruluyor; etiket \"önemlilik\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r4/kp-21": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "MSUGT temel kavramları soruluyor; etiket \"önemlilik\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r9/kp-04": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "MSUGT temel kavramları soruluyor; etiket \"önemlilik\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w3-ydenetim-cokzor/kp-18": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "MSUGT temel kavramları soruluyor; etiket \"önemlilik\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r5/kp-26": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "Kavramsal Çerçeve niteliksel özellikleri; Denetim kartı yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r6/kp-26": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "Kavramsal Çerçeve niteliksel özellikleri; Denetim kartı yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r8/kp-08": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "Kavramsal Çerçeve niteliksel özellikleri; Denetim kartı yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r9/kp-09": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "Kavramsal Çerçeve niteliksel özellikleri; Denetim kartı yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r7/kp-23": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Nakit akış tablosu",
+   "gerekce": "TMS 7 dolaylı yöntem nakit akışı hesabı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-cokzor-r3/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r10/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r2/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r5/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-kolay-r8/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r4/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r6/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r9/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel etik ilkeler",
+   "gerekce": "TÜRMOB Etik İlkeler Yönetmeliği; Denetim kartı KGK Etik Kurallar",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r2/kp-09": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Reklam yasağı ve reklam yoluyla haksız rekabet",
+   "gerekce": "TÜRMOB Reklam Yasağı Yön. m.14-15 tabela/unvan",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-ydenetim-zor-r5/kp-10": {
+   "ders": "Meslek Hukuku",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Reklam yasağı ve reklam yoluyla haksız rekabet",
+   "gerekce": "TÜRMOB Reklam Yasağı Yön. m.14-15 tabela/evrak",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-yvergi-cokzor-r4/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Ticari mal alış ve satış kayıtları",
+   "gerekce": "ithalatta 153 hesabına aktarılacak maliyet",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-yvergi-zor-r6/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Ticari mal alış ve satış kayıtları",
+   "gerekce": "ithalatta 153 hesabına borç tutarı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-olc2-a-vergi/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Malzeme ve diğer stoklar",
+   "gerekce": "ithalatta 150 hesabına borç tutarı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-yvergi-zor-r2/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Kâr dağıtımı",
+   "gerekce": "331 Ortaklara Borçlar tutarı soruluyor",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-dog1-vergi/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Kâr dağıtımı",
+   "gerekce": "331 Ortaklara Borçlar tutarı soruluyor",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w4-yvergi-zor/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Kâr dağıtımı",
+   "gerekce": "331 Ortaklara Borçlar net tutarı soruluyor",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-olc2-a-vergi/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Gelecek dönemlere ait gelir-giderler ve tahakkuklar",
+   "gerekce": "dönemsellikle net kâr düzeltmesi; vergi hükmü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-olc2-b-vergi/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Gelecek dönemlere ait gelir-giderler ve tahakkuklar",
+   "gerekce": "dönemsellikle net kâr düzeltmesi; vergi hükmü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w7-1-yvergi-zor/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Gelecek dönemlere ait gelir-giderler ve tahakkuklar",
+   "gerekce": "dönemsellikle net kâr düzeltmesi; vergi hükmü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-yvergi-kolay-r9/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Stok değer düşüklüğü ve stok kayıpları",
+   "gerekce": "muhasebe teorisinde net gerçekleşebilir değer",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w5-yvergi-kolay/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Senet reeskontu",
+   "gerekce": "muhasebe teorisinde bugünkü değer; VUK hükmü yok",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-olc2-b-vergi/kp-62": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Dönem kârı vergi karşılığı ve peşin ödenen vergiler",
+   "gerekce": "TMS 12 ertelenmiş vergi; vergi kanunu sorusu değil",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w3-yfta-zor/kp-29": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Tablolar ve Analizi",
+   "kart": "Ortak (birleşik) mamul maliyeti",
+   "gerekce": "ortak maliyet dağıtımı; etiket \"kâr dağıtım tablosu\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w4-yfta-zor/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Tablolar ve Analizi",
+   "kart": "Ortak (birleşik) mamul maliyeti",
+   "gerekce": "ortak maliyet dağıtımı; etiket \"halka arz\" yanlış",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w3-yfta-cokzor/kp-15": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Tablolar ve Analizi",
+   "kart": "Tekdüzen hesap planı 7 grubu ve MSUGT esasları",
+   "gerekce": "781/782 standart finansman gideri farkı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-gm4-5-yfta-cokzor/kp-01": {
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "eski": "Finansal Tablolar ve Analizi",
+   "kart": "Kayıtlı sermaye sistemi",
+   "gerekce": "kayıtlı sermaye tavanı hesabı (II-18.1)",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w14-11-yspk-cokzor/kp-01": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Sermaye Piyasası Mevzuatı",
+   "kart": "Nakit akış tablosu",
+   "gerekce": "TMS 7 finansman faaliyeti nakit akışı hesabı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w1-maliyet-zor/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "kart": "Şüpheli ve değersiz alacaklar",
+   "gerekce": "128/129/644 şüpheli alacak kaydı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w1-maliyet-cokzor/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "kart": "Ücret tahakkuku ve bordro",
+   "gerekce": "770 brüt ücret ve personel avansı mahsubu",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-maliyet-zor-r2/kp-26": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Maliyet Muhasebesi",
+   "kart": "Bilanço ve gelir tablosunun düzenlenmesi",
+   "gerekce": "olağan kâr hesabı; Maliyet kartı brüt kârda biter",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-maliyet-zor-r3/kp-24": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Maliyet Muhasebesi",
+   "kart": "Bilanço ve gelir tablosunun düzenlenmesi",
+   "gerekce": "olağan kâr hesabı; Maliyet kartı brüt kârda biter",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-4k-a-maliyet-zor-r6/kp-16": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Maliyet Muhasebesi",
+   "kart": "Bilanço ve gelir tablosunun düzenlenmesi",
+   "gerekce": "olağan kâr hesabı; Maliyet kartı brüt kârda biter",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w1-yhukuk-kolay/kp-07": {
+   "ders": "Meslek Hukuku",
+   "eski": "Hukuk",
+   "kart": "Disiplin usulü (soruşturma, tedbir, itiraz)",
+   "gerekce": "SMMM Disiplin Yönetmeliği m.19 soruşturma süresi",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w3-yhukuk-kolay/kp-03": {
+   "ders": "Meslek Hukuku",
+   "eski": "Hukuk",
+   "kart": "Disiplin cezaları ve gerektiren haller",
+   "gerekce": "SMMM Disiplin Yönetmeliği m.6/g asgari ücret altı",
+   "durum": "uygula",
+   "tur": "kesin"
+  },
+  "smmm-w5-fmuh-zor/kp-11": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "kart": "Sipariş (parti) maliyet sistemi",
+   "gerekce": "sipariş maliyeti ve tahmini GÜG yükleme oranı",
+   "durum": "uygula",
+   "tur": "sinirda-onayli"
+  },
+  "smmm-w3-maliyet-cokzor/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "kart": "Ücret tahakkuku ve bordro",
+   "gerekce": "7/B bağlamında net ücret hesabı",
+   "durum": "uygula",
+   "tur": "sinirda-onayli"
+  },
+  "smmm-w4-fmuh-zor-2/kp-37": {
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "eski": "Finansal Muhasebe",
+   "kart": "VUK › Vergi cezaları",
+   "gerekce": "VUK mük. m.355 özel usulsüzlük cezası",
+   "durum": "uygula",
+   "tur": "elle retten donunce (sitede degil)"
+  },
+  "smmm-4k-a-ydenetim-zor-r1/kp-20": {
+   "ders": "Finansal Tablolar ve Analizi",
+   "eski": "Muhasebe Denetimi",
+   "kart": "Temel muhasebe kavramları",
+   "gerekce": "sitede değil; taşınan zor-r9/kp-09 ile klasik ikiz",
+   "durum": "uygula",
+   "tur": "ikiz-esi (sitede degil)"
+  },
+  "smmm-4k-a-yvergi-zor-r8/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Kâr dağıtımı",
+   "gerekce": "sitede değil; taşınan zor-r2/kp-04 ile klasik ikiz",
+   "durum": "uygula",
+   "tur": "ikiz-esi (sitede degil)"
+  },
+  "smmm-olc2-a-vergi/kp-13": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Mevzuatı ve Uygulaması",
+   "kart": "Kâr dağıtımı",
+   "gerekce": "331 Ortaklara Borçlar tutarı; taşınan 331 sorusunun sayı ikizi (yeni soru), şu an KAPI-IK ile dışarıda",
+   "durum": "uygula",
+   "tur": "ikiz-esi (sitede degil; prova 31.10 buldu)"
+  }
+ },
+ "cikarilan": [
+  {
+   "id": "smmm-4k-a-ydenetim-cokzor-r8/kp-01",
+   "neden": "Ajan 10 e343 (31.10 21:15) kokunu yeniden yazdi; yeni hali kendi dersinin kartina uyuyor (BDS 450 / VUK 323) - tasinmaz, rehakemi e343-d1b"
+  },
+  {
+   "id": "smmm-4k-a-yvergi-kolay-r8/kp-04",
+   "neden": "Ajan 10 e343 (31.10 21:15) kokunu yeniden yazdi; yeni hali kendi dersinin kartina uyuyor (BDS 450 / VUK 323) - tasinmaz, rehakemi e343-d1b"
+  },
+  {
+   "id": "smmm-w3-ydenetim-kolay/kp-06",
+   "neden": "Ajan 10 e343 (31.10 21:15) kokunu yeniden yazdi; yeni hali kendi dersinin kartina uyuyor (BDS 450 / VUK 323) - tasinmaz, rehakemi e343-d1b"
+  }
+ ]
+}

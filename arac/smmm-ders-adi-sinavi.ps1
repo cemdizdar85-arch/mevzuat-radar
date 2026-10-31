@@ -58,6 +58,37 @@ else { $kalan.Add("parti ders alanindan cozemedi: '$c2'") }
 if ((SmmmDersSlug 'Vergi Mevzuatı ve Uygulaması') -eq 'vergi') { $gecen++; if (-not $Sessiz) { '  OK    slug dogru' } }
 else { $kalan.Add('slug yanlis') }
 
+# --- 31.10.2026 SORU BASINA DERS DUZELTMESI (veri/sinav/smmm-ders-duzelt.json) ---
+$ekVaka = 0
+function DzTest([string]$ad, [bool]$kosul) {
+  $script:ekVaka++
+  if ($kosul) { $script:gecen++; if (-not $Sessiz) { "  OK    $ad" } } else { $script:kalan.Add("ders duzeltmesi: $ad") }
+}
+$eskiKapali = $env:SMMM_DERS_DUZELT_KAPALI; $env:SMMM_DERS_DUZELT_KAPALI = ''
+$script:SMMM_DERS_DUZELT = $null
+$hz = SmmmDersDuzeltOku
+DzTest 'gercek harita okunur ve bos degil' ($hz.Count -gt 0)
+DzTest 'haritadaki soru hedef dersine gider (Denetim -> Meslek)' ((SmmmSoruDersi 'smmm-4k-a-ydenetim-kolay-r10' 'kp-02' $null) -eq 'Meslek Hukuku')
+DzTest 'ayni partideki haritasiz soru etiket dersinde kalir' ((SmmmSoruDersi 'smmm-4k-a-ydenetim-kolay-r10' 'kp-03' $null) -eq 'Muhasebe Denetimi')
+DzTest 'haritasiz parti SmmmDersAdi ile birebir' ((SmmmSoruDersi 'smmm-w6-ymeslek-zor' 'kp-01' $null) -eq (SmmmDersAdi 'smmm-w6-ymeslek-zor' $null))
+DzTest 'SmmmDersDuzeltildiMi dogru' ((SmmmDersDuzeltildiMi 'smmm-4k-a-ydenetim-kolay-r10' 'kp-02') -and -not (SmmmDersDuzeltildiMi 'smmm-4k-a-ydenetim-kolay-r10' 'kp-03'))
+# prova anahtari: harita kapali -> etiket dersi
+$env:SMMM_DERS_DUZELT_KAPALI = '1'; $script:SMMM_DERS_DUZELT = $null
+DzTest 'SMMM_DERS_DUZELT_KAPALI=1 haritayi kapatir' ((SmmmSoruDersi 'smmm-4k-a-ydenetim-kolay-r10' 'kp-02' $null) -eq 'Muhasebe Denetimi')
+$env:SMMM_DERS_DUZELT_KAPALI = ''
+# KAPI: tanimsiz hedef ders DURDURUR; durum=uygula olmayan kayit uygulanmaz
+$gercekYol = $script:SMMM_DERS_DUZELT_YOL
+$gecici = Join-Path ([IO.Path]::GetTempPath()) ("dz-sinav-{0}.json" -f [guid]::NewGuid().ToString('N'))
+try {
+  [IO.File]::WriteAllText($gecici, '{"duzelt":{"smmm-x-ydenetim-kolay/kp-01":{"ders":"Muhasebe Denetim","durum":"uygula"}}}', (New-Object Text.UTF8Encoding $false))
+  $script:SMMM_DERS_DUZELT_YOL = $gecici; $script:SMMM_DERS_DUZELT = $null
+  $durdu = $false; try { [void](SmmmDersDuzeltOku) } catch { $durdu = $true }
+  DzTest 'tanimsiz hedef ders yayini DURDURUR' $durdu
+  [IO.File]::WriteAllText($gecici, '{"duzelt":{"smmm-x-ydenetim-kolay/kp-01":{"ders":"Hukuk","durum":"bekle"}}}', (New-Object Text.UTF8Encoding $false))
+  $script:SMMM_DERS_DUZELT = $null
+  DzTest "durum='bekle' uygulanmaz" ((SmmmSoruDersi 'smmm-x-ydenetim-kolay' 'kp-01' $null) -eq 'Muhasebe Denetimi')
+} finally { Remove-Item -LiteralPath $gecici -Force -ErrorAction SilentlyContinue; $script:SMMM_DERS_DUZELT_YOL = $gercekYol; $script:SMMM_DERS_DUZELT = $null; $env:SMMM_DERS_DUZELT_KAPALI = $eskiKapali }
+
 # --- KAPSAM OLCUSU: ambardaki GERCEK etiketlerin kaci cozulemiyor ---
 $depoKok = Split-Path -Parent $buDizin
 $fab = Join-Path $depoKok 'veri\fabrika'
@@ -82,7 +113,7 @@ if ($bakilan) {
 else { 'KAPSAM: yerel parti dosyasi YOK - kapsam olculmedi (KOR)' }
 
 ''
-"SMMM DERS ADI OZ-SINAVI: {0}/{1} gecti" -f $gecen, ($vaka.Count + 2)
+"SMMM DERS ADI OZ-SINAVI: {0}/{1} gecti" -f $gecen, ($vaka.Count + 2 + $ekVaka)
 if ($kalan.Count) { foreach ($k in $kalan) { Write-Host "  KIRMIZI: $k" -ForegroundColor Red }; exit 1 }
 Write-Host 'YESIL' -ForegroundColor Green
 exit 0

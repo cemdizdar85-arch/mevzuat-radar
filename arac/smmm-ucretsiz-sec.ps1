@@ -28,6 +28,9 @@ $haric = @{}
 $hy = Join-Path $kok 'arac\vitrin-haric.json'
 if (Test-Path $hy) { foreach ($p in (Get-Content $hy -Raw -Encoding UTF8 | ConvertFrom-Json).haric.PSObject.Properties) { $haric[$p.Name] = "$($p.Value)" } }
 $secilen = New-Object System.Collections.Generic.List[object]; $dersSay = @{}
+# 31.10.2026 (Cem "(a) doğru derse taşınsın", madde 5): veri/sinav/smmm-ders-duzelt.json'daki TAŞINAN soru ücretsiz seçilmez
+#   (hedef dersin 5'i bozulmasın; kaynak derse sıradaki soru girer). Öteki vitrin satırının dersi aynen vitrindeki derstir.
+$vitrin = @($vitrin | Where-Object { -not (SmmmDersDuzeltildiMi "$($_.etiket)" "$($_.id)") })
 foreach ($g in ($vitrin | Group-Object ders | Sort-Object Name)) {
   $konuGorulen = @{}
   foreach ($s in ($g.Group | Sort-Object @{e = { [int]$_.donem }; Descending = $true }, etiket, id)) {
@@ -43,7 +46,9 @@ foreach ($e in @($Ek | ForEach-Object { "$_" -split ';' } | Where-Object { "$_".
   $par = "$e" -split '\|', 3   # 'etiket/kp-XX|Ders|konu'
   if ($haric.ContainsKey($par[0])) { throw "ek kimlik hariç listesinde: $($par[0])" }
   if (@($secilen | Where-Object { $_.id -eq $par[0] }).Count) { continue }
-  $ders = $(if ($par.Count -gt 1 -and $par[1]) { $par[1] } else { SmmmDersAdi (($par[0] -split '/')[0]) $null })
+  $kp0 = ($par[0] -split '/', 2)
+  if (SmmmDersDuzeltildiMi $kp0[0] $kp0[1]) { throw "ek kimlik ders düzeltmesinde (taşınan soru ücretsiz seçilmez): $($par[0])" }
+  $ders = $(if ($par.Count -gt 1 -and $par[1]) { $par[1] } else { SmmmSoruDersi $kp0[0] $kp0[1] $null })
   $secilen.Add([pscustomobject][ordered]@{ id = $par[0]; ders = $ders; konu = $(if ($par.Count -gt 2) { $par[2] } else { '' }); kaynak = 'ek (GM elle okudu)' })
   $dersSay[$ders] = 1 + [int]$dersSay[$ders]
 }

@@ -162,6 +162,8 @@ foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'kalip-par
   foreach ($o in $j.PSObject.Properties) {
     if ($o.Name -notlike 'kp-*') { continue }
     $v = $o.Value; if (-not $v -or -not $v.soru) { continue }
+    # 31.10.2026: ders kimlikle çözülür (veri/sinav/smmm-ders-duzelt.json'daki taşınan soru hedef dersinde; öteki etiketten, aynı)
+    $dersEt = SmmmSoruDersi $et $o.Name $null
     $n = Nrm "$($v.konu)"; if (-not $n) { continue }
     if ($es.ContainsKey($n)) { $n = $es[$n] }
     $yazdik[$n] = 1 + [int]$yazdik[$n]
