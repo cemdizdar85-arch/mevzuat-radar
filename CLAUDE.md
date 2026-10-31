@@ -468,7 +468,9 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      `node arac/smmm-ah-yalniz.js girdi <onarım klasörü> --ad <ad>` (kimlik + taslak parmak izi; ambar ≠ taslak → kayıt atlanır), madde metni ambardan
      (özet beyan alıntısını içermiyorsa beyan dayanağı okunur — 31.10 ölçüldü: 13 kaydın 10'unda özet ilgili maddeyi taşımıyordu), karar yalnız o kaydın
      `aciklama_hakem` alanına koşullu yazımla; KUSURLU = `kaynak_okundu:false` + sonuçta `incelenecek` (resmî metinle okunmadan kesinleşmez). Bulut
-     `smmm-ah-yalniz.yml` (varsayılan KURU). Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 26/26 + PS uçtan uca 15/15).
+     `smmm-ah-yalniz.yml` (varsayılan KURU). **KUSURLU kapatma:** resmî metinle okuyan `node arac/smmm-ah-yalniz.js oku <etiket>/<kp> --karar TEMIZ|KUSURLU
+     --okuyan "…" --dayanak "<kaynak_ad + ≤25 kelime>"` (dayanaksız RED; `kaynak_okundu:true` + `onceki_karar` + yanlış alarmda `elle_cevrildi`; bulut-uretim AH kaydında da, yalnız smmm-).
+     Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 40/40 + PS uçtan uca 15/15), `dogrula.yml`'de.
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
