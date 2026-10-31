@@ -90,6 +90,13 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
 .kart.acilis{border:2px solid var(--amber-dolgu,#f3a52a);background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 9%,var(--kagit,#fff))}
 .kart.acilis h2{margin:0 0 4px}.kart.acilis p{margin:0}.kart.acilis .gun{color:var(--amber,#9a6400);font-weight:800}
 .dip{font-size:12.5px;color:var(--dim);margin-top:26px}
+.akis h2{margin:0 0 10px}.akis .not{margin:10px 0 0}
+.akis-s{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:a}
+.akis-s li{position:relative;display:flex;gap:10px;align-items:flex-start}
+.akis-s li>b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;font-weight:800}
+.akis-s li>span{font-weight:700;line-height:1.3}.akis-s small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:3px}
+.akis-s li:not(:last-child)::after{content:"→";position:absolute;right:-18px;top:4px;color:var(--amber,#9a6400);font-weight:800}
+@media(max-width:640px){ .akis-s{grid-template-columns:1fr;gap:16px} .akis-s li:not(:last-child)::after{content:"↓";right:auto;left:9px;top:auto;bottom:-17px} }
 @media(max-width:640px){ .soz-s{grid-template-columns:1fr 1fr 1fr;gap:6px} .soz-s b{font-size:20px} .skor{grid-template-columns:1fr 1fr}
   .dersler li{flex-wrap:wrap} .soru{font-size:16px} }
 </style>
@@ -106,6 +113,17 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     <p class="alt" id="s20Alt">SMMM Staja Giriş · 21 Kasım 2026. Her deneme ders ders testlerden oluşur; bir dersin testini bitirdiğinde sonucun ve açıklamalar açılır.</p>
     <!-- 28.10 Cem ("giremiyorsun deme, 1 Kasım açılacak orası"): açılıştan önce sayfa ne zaman açılacağını söyler, "hazırlanıyor" demez -->
     <div class="kart acilis" id="acilisKart" hidden></div>
+    <!-- 31.10 Cem ("anlatımı çizimle anlatabiliyor muyuz"): deneme → sonuç → görev → sonraki deneme akışı, yanlış anlaşılmasın -->
+    <div class="kart akis" id="akis">
+      <h2>Nasıl ilerler?</h2>
+      <ol class="akis-s">
+        <li><b>1</b><span>Denemeyi çöz<small>Ders ders testler; sınavdaki soru sayısı kadar (130 soru)</small></span></li>
+        <li><b>2</b><span>Sonucunu gör<small>Her testin sonunda doğrular ve her sorunun açıklaması</small></span></li>
+        <li><b>3</b><span>Eksiğini kapat<small>Yanlış yaptığın konulardan 4'er yeni soru; 3'ü doğru olunca konu tamam</small></span></li>
+        <li><b>4</b><span>Sonraki deneme açılır<small>Deneme bitmeden ve görevler tamamlanmadan sonraki açılmaz</small></span></li>
+      </ol>
+      <p class="not">7 deneme boyunca aynı sıra: çöz → gör → öğren → sonrakine geç.</p>
+    </div>
     <div class="kart soz" id="soz" aria-live="polite">
       <h2>Söz sayacın</h2>
       <div class="soz-s">
@@ -176,6 +194,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     if(/S20_PAKET/.test(m)) return 'Bu deneme Sadece 7 Deneme ya da Staja Giriş Tam Paket üyelerine açık.';
     if(/S20_KAPALI/.test(m)) return 'Bu deneme henüz açılmadı.';
     if(/S20_GOREV/.test(m) && !/S20_GOREV_/.test(m)) return 'Önce çalışma görevlerini bitir; görevler tamamlanınca sonraki denemeye başlayabilirsin.';
+    if(/S20_ONCEKI/.test(m)) return 'Önce bir önceki denemenin bütün ders testlerini bitir; sonra bu denemeye başlayabilirsin.';
     if(/KASA_TAVAN/.test(m)) return 'Kısa sürede çok soru açıldı; biraz sonra yeniden dene.';
     return 'Bağlantı kurulamadı, sayfayı yenileyip yeniden dene.'; }
   function puan(d){ var top=0,dog=0,bitti=d.dersler.length>0; d.dersler.forEach(function(x){ if(!x.sonuc) bitti=false; else { dog+=x.sonuc.dogru; top+=x.sonuc.toplam; } });
@@ -201,19 +220,22 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     if(!L.oturum){ k.hidden=false; k.innerHTML='<h2>Giriş yap, denemelerine başla</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a></div>'; }
     else if(!L.erisim){ k.hidden=false; k.innerHTML='<h2>Denemeler paketinde yok</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a></div>'; }
     else k.hidden=true;
-    var h='';
+    var h='', eksik=null;   /* 31.10 önceki deneme kilidi (sunucu _s20_gorev_kapi ile aynı): açılmış bir önceki denemede bitmemiş ders varsa */
     for(var no=1; no<=DENEME_SAYI; no++){
-      var d=byNo[no];
+      var d=byNo[no], onceki=eksik;
+      if(d&&d.acik&&!eksik){ var kal=d.dersler.filter(function(x){ return !x.sonuc; }).map(function(x){ return x.ders; }); if(kal.length) eksik={no:no, kal:kal}; }
       h+='<article class="kart dn" id="d'+no+'"><h2>Deneme '+no;
       if(!d){ h+='</h2><p class="not">'+(Date.now()<ACILIS?'1 Kasım 2026\'da açılır.':'Bugün içinde açılır.')+'</p></article>'; continue; }
       var p=puan(d);
       if(p.bitti) h+=' <span class="puan '+(p.puan>=60?'ok':'no')+'">'+'%'+p.puan.toLocaleString('tr-TR')+' doğru'+(p.puan>=60?' ✓':'')+'</span>';
       h+=' <small>'+d.toplam+' soru</small></h2>';
       if(!d.acik){ h+='<p class="not">'+(d.acilis&&new Date(d.acilis)>new Date()? esc(tarih(d.acilis))+'\'da açılır.' : Date.now()<ACILIS? '1 Kasım 2026\'da açılır.' : 'Bugün içinde açılır.')+'</p></article>'; continue; }
-      if(!p.bitti) h+='<p class="not">Doğru oranı, bütün ders testleri bitince çıkar: toplam doğru / '+d.toplam+'.</p>';
+      if(onceki&&L.oturum) h+='<p class="not"><b>Deneme '+onceki.no+' bitince açılır.</b> Deneme '+onceki.no+'\'de kalan '+onceki.kal.length+' ders: '+onceki.kal.map(esc).join(', ')+'.</p>';
+      else if(!p.bitti) h+='<p class="not">Doğru oranı, bütün ders testleri bitince çıkar: toplam doğru / '+d.toplam+'.</p>';
       h+='<ul class="dersler">'+d.dersler.map(function(x){
         var s=x.sonuc, sag=s? '<span class="sonuc-rozet">'+s.dogru+'/'+s.toplam+' doğru</span><button type="button" class="dg iki" data-no="'+no+'" data-ders="'+esc(x.ders)+'">Yeniden çöz</button>'
                             : gAcik.length? '<span class="sonuc-rozet">Önce görevler</span>'
+                            : (onceki&&L.oturum)? '<span class="sonuc-rozet">Önce Deneme '+onceki.no+'</span>'
                             : '<button type="button" class="dg" data-no="'+no+'" data-ders="'+esc(x.ders)+'"'+(L.erisim?'':' disabled')+'>'+(kayit(no,x.ders)?'Devam et':'Başla')+'</button>';
         return '<li><span class="ad">'+esc(x.ders)+'<small>'+x.adet+' soru · '+Math.round(x.adet*d.sure_dk/(d.toplam||130))+' dk</small></span><span>'+sag+'</span></li>'; }).join('')+'</ul>';
       h+='</article>';
@@ -348,7 +370,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     'Vergi Mevzuatı ve Uygulaması','Hukuk','Meslek Hukuku','Sermaye Piyasası Mevzuatı'];
   function yetCiz(){
     document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';
-    $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik';
+    $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true;
     $('s20Alt').textContent='SMMM Yeterlilik · 28 Kasım 2026. Her dersin 5 denemesi var (20 soru, 45 dakika); bir denemeyi bitirdiğinde sonucun ve açıklamalar açılır.';
     var ko=document.querySelector('.ust a[href="kampanya-son-20-gun.html"]'); if(ko) ko.href='kampanya-son-20-gun.html#yeterlilik';
     $('soz').querySelector('.soz-s').innerHTML='<div><b>0/8</b><span>şartı tamam ders</span></div><div><b>5</b><span>deneme her derste</span></div><div><b>3/5</b><span>%60 ve üstü gerekir</span></div>';
