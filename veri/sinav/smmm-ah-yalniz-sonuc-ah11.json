@@ -1,0 +1,67 @@
+{
+ "ad": "ah11",
+ "tarih": "2026-10-31T23:19:30.148Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41251861870",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 2,
+  "temiz": 2,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 2,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.041
+ },
+ "kararlar": {
+  "smmm-gm5-5-fmuh-zor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 780 - Finansman Giderleri Hesabı"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-gm5-9-fmuh-zor/kp-07": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 642 - Faiz Gelirleri",
+    "THP 645 - MENKUL KIYMET SATIŞ KARLARI",
+    "THP 646 - KAMBİYO KÂRLARI",
+    "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+    "THP 648 - ENFLASYON DÜZELTMESİ KÂRLARI"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}

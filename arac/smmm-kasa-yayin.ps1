@@ -90,7 +90,10 @@ foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
     $korOnay = ("$($ret[$anah])" -like 'KAPI-KOR*' -and "$($sart.neden)" -match 'Cem onay')
     if ($ret.ContainsKey($anah) -and -not $korOnay) { $dusen['ret kütüğü'] = 1 + [int]$dusen['ret kütüğü']; continue }
     if ($korOnay) { $dusen['(bilgi) Cem onayıyla KAPI-KOR aşıldı'] = 1 + [int]$dusen['(bilgi) Cem onayıyla KAPI-KOR aşıldı'] }
-    $ders = DersBul $et $v
+    # 31.10.2026 (Cem "(a) doğru derse taşınsın"): ders artık KİMLİKLE çözülür — veri/sinav/smmm-ders-duzelt.json'daki soru hedef
+    #   dersine, öteki her soru etiketinden (DersBul ile birebir aynı). Kimlik değişmez. Hedef ders tanımsızsa SmmmDersDuzeltOku DURDURUR.
+    $ders = SmmmSoruDersi $et $p.Name $v
+    if (SmmmDersDuzeltildiMi $et $p.Name) { $dusen['(bilgi) ders düzeltmesi uygulandı'] = 1 + [int]$dusen['(bilgi) ders düzeltmesi uygulandı'] }
     if (-not $ders) { $dusen['ders çözülemedi'] = 1 + [int]$dusen['ders çözülemedi']; continue }
     $aday.Add([pscustomobject]@{ etiket = $et; id = $p.Name; ders = $ders; konu = "$($v.konu)"; donem = [int]$v.donem; boy = "$($v.soru)".Length
         uc = (Ucluler (Katla "$($v.soru)")); ucD = (Ucluler (Katla "$($v.siklar.$("$($v.dogru)".Trim().ToUpperInvariant()))"))
@@ -129,6 +132,8 @@ if ($sayiEski.Count) { $dusen['(bilgi) eski-eski sayı ikizi çifti, düşmedi']
 if ($SadeceSecim) {
   # prova: seçilen kimlikler (soru metni YOK) → eşdeğerlik kıyası için
   $env:SMMM_SECIM_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
+  # 31.10: ders düzeltmesi provası — kimlik|ders (haritalı/haritasız kıyas: küme aynı, ders farkı yalnız taşınanlar)
+  $env:SMMM_SECIM_DERS_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)|$($_.ders)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
   # 05.10: eski-eski sayı ikizi çiftleri (kimlik~kimlik, uzun olan solda) → onarım kuyruğu listesi
   $env:SMMM_SAYI_IKIZ_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($sayiEski.Keys) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
   "SADECE SEÇİM: yazım yok, çıkılıyor"; exit 0

@@ -69,3 +69,45 @@ function SmmmDersAdi([string]$etiket, $v) {
   return ''
 }
 function SmmmDersSlug([string]$dersAdi) { return "$($script:SMMM_DERS_SLUG[$dersAdi])" }
+
+<#
+  31.10.2026 SORU BASINA DERS DUZELTMESI (Cem 31.10 "ders disi yerlesim: (a), dogru derse tasinsin"; 6 oneri onayli)
+  NEDEN: ders yalniz PARTI ETIKETINDEN cozuluyordu -> Denetim partisinde yazilmis TURMOB etik sorusu, Vergi partisinde
+    yazilmis 331 kar dagitimi kaydi kalici olarak yanlis sayfada kaliyordu. Sitedeki 3.664 soru okundu (Ajan 17, liste
+    veri/fabrika/temizlik/tasi-liste-3110.json): 60 soru baska dersin konu kartina uyuyor. Hakemin ders_uyum alani bunu
+    gormemisti (3.664'un hicbiri DERS-DISI degil).
+  NASIL: veri/sinav/smmm-ders-duzelt.json "<etiket>/<kp-NN>" -> { ders = hedef ekran adi, durum }. YALNIZ durum='uygula'
+    uygulanir. Kimlik AYNI kalir (cevap gecmisi, Cem onayi parmak izi, kaldigin yer, elle ret anahtarlari bozulmaz);
+    parti dosyasina ve ambara DOKUNULMAZ. SGS'deki esi veri/sinav/sgs-ders-duzelt.json (arac/havuz-kur.ps1) - ona dokunmaz.
+  KAPI: hedef ders SMMM_DERS_SLUG'da yoksa (yanlis yazilmis ad) DUR - yanlis sayfa acilmasin.
+  PROVA: $env:SMMM_DERS_DUZELT_KAPALI = '1' haritayi kapatir (esdegerlik provasi icindir; gunluk yayinda bos).
+  GORMEZ: haritadaki kimligin hala ambarda/yayin sartinda olup olmadigini (uygulanmayan kayit sessizce etkisiz kalir;
+    cagiran sayar) - hedef dersin hakem kararini (yeniden hakem ayri is: veri/sinav/plan-smmm-bt-tasi-3110-onarim-hakem.json).
+  CAGIRANLAR: arac/smmm-kasa-yayin.ps1 - arac/smmm-ucretsiz-sec.ps1 - arac/smmm-kapsama-tablosu.ps1 - arac/smmm-plan-kur.ps1
+  OZ-SINAV: arac/smmm-ders-adi-sinavi.ps1
+#>
+$script:SMMM_DERS_DUZELT = $null
+$script:SMMM_DERS_DUZELT_YOL = Join-Path (Join-Path (Join-Path (Split-Path -Parent $PSScriptRoot) 'veri') 'sinav') 'smmm-ders-duzelt.json'
+function SmmmDersDuzeltOku() {
+  if ($null -ne $script:SMMM_DERS_DUZELT) { return $script:SMMM_DERS_DUZELT }
+  $h = @{}
+  if ("$env:SMMM_DERS_DUZELT_KAPALI" -ne '1' -and (Test-Path $script:SMMM_DERS_DUZELT_YOL)) {
+    $dosya = Get-Content $script:SMMM_DERS_DUZELT_YOL -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($k in @($dosya.duzelt.PSObject.Properties)) {
+      if ("$($k.Value.durum)" -ne 'uygula') { continue }
+      $hedef = "$($k.Value.ders)"
+      if (-not $script:SMMM_DERS_SLUG.ContainsKey($hedef)) { throw "smmm-ders-duzelt.json: '$($k.Name)' hedef ders '$hedef' tanimsiz (SMMM_DERS_SLUG) - yayin DURDU" }
+      $h["$($k.Name)"] = $hedef
+    }
+  }
+  $script:SMMM_DERS_DUZELT = $h
+  return $h
+}
+# Soru kimligiyle ders: haritada varsa hedef ders, yoksa etiketten (SmmmDersAdi) - oteki her sey BIREBIR ayni
+function SmmmSoruDersi([string]$etiket, [string]$id, $v) {
+  $h = SmmmDersDuzeltOku
+  $an = "$etiket/$id"
+  if ($h.ContainsKey($an)) { return $h[$an] }
+  return (SmmmDersAdi $etiket $v)
+}
+function SmmmDersDuzeltildiMi([string]$etiket, [string]$id) { return (SmmmDersDuzeltOku).ContainsKey("$etiket/$id") }
