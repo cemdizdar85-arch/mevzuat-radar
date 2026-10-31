@@ -427,6 +427,27 @@
           <!-- 18.10 GM3: her yerde aynı iki düğme (ana sayfa paketli üye ile aynı hedefler; panoCiz sınava göre tazeler) -->
           <div class="op-iki-dug og-gizli"><a class="og-btn" id="opDevamBtn" href="sorular.html">Kaldığın yerden devam</a><a class="og-btn ana" id="opCozBtn" href="sorular.html">Soru çöz</a></div></div>
       </div>
+    <!-- 31.10 Cem ("yanlışlarım sekmesini bulmak çok zor", "rakiplere bak"): UWorld/Becker panosunda olduğu gibi başlığın hemen
+         altında sabit kısa yollar: Soru çöz · Yanlışlarım · Son 20 Gün · Deneme. Telefonda 2×2. Son 20 Gün seçili sınava göre. -->
+    <nav class="op-yol" aria-label="Kısa yollar">
+      <a href="sorular.html"><b>Soru çöz</b><small>Ders ders, kaldığın yerden</small></a>
+      <a href="yanlislarim.html"><b>Yanlışlarım</b><small>Yanlış yaptıkların, tekrar sırası</small></a>
+      <a href="son-20-gun.html" id="opYolS20"><b>Son 20 Gün</b><small>Denemeler ve takvimin</small></a>
+      <a href="sinav-gibi.html"><b>Sınav gibi deneme</b><small>Süreli, karışık sorular</small></a>
+    </nav>
+    <style>
+    .op-yol{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:4px 0 16px}
+    .op-yol a{display:block;padding:12px 14px;border:1.5px solid var(--line2,#d8ccb8);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--kagit,var(--panel))}
+    .op-yol a:hover,.op-yol a:focus-visible{border-color:var(--amber-dolgu,#f3a52a)}.op-yol a[hidden]{display:none}
+    .op-yol b{display:block;font-size:15.5px}.op-yol small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+    @media(max-width:640px){ .op-yol{grid-template-columns:1fr 1fr} }
+    </style>
+    <script>
+    (function(){ var g=document.getElementById('ogSinavSec'), a=document.getElementById('opYolS20'); if(!g||!a) return;
+      function yaz(){ var b=g.querySelector('[aria-pressed="true"]'), s=b?b.getAttribute('data-sinav'):'sgs';
+        a.href=s==='yeterlilik'?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html'; a.hidden=s==='kgk'; }
+      g.addEventListener('click',function(){ setTimeout(yaz,0); }); window.addEventListener('load',yaz); yaz(); })();
+    </script>
     <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())
          + son durum sayıları + Yanlışlarım bağlantısı. Kaynak bu tarayıcıdaki son 500 cevap ve yanlış kutusu.
          18.10: kart yeni panonun (#ogPano) içine taşındı - betik (simdiCiz) aynen. -->
@@ -1061,6 +1082,9 @@
     $('ogKim').textContent=user.email||''; $('ogAyarEposta').textContent=user.email||'';
     /* 04.10 Cem: girişten sonra üst şerit de "Hesabım · Soru çöz" olsun (menu.js açılışta girişsiz kurmuştu) */
     try{ var nl=document.querySelector('#ttUst a.nl[href$="ogrenci.html"]'); if(nl) nl.textContent='Hesabım';
+      /* 31.10: menü girişsiz kurulduysa üyeye Yanlışlarım bağlantısı da eklenir (menu.js ile aynı yer: Sınavlar'ın yanı) */
+      var sn=document.querySelector('#ttUst a.nl[href$="sorular.html"]');
+      if(sn&&!document.querySelector('#ttUst a.nl-yan')){ var y=document.createElement('a'); y.className='nl nl-yan'; y.href=sn.getAttribute('href').replace(/sorular\.html$/,'yanlislarim.html'); y.textContent='Yanlışlarım'; sn.insertAdjacentElement('afterend',y); }
       var ct=document.querySelector('#ttUst a.ust-cta'); if(ct){ ct.textContent='Soru çöz'; ct.setAttribute('href', ct.getAttribute('href').replace(/seviye-testi\.html$/,'sorular.html')); } }catch(e){}
     /* 04.10 Cem "yönetimi buradan görmem gerekmez mi": yönetim bağlantısı YALNIZ yöneticide. Yetki sunucuda
        (yonetim_ozet yönetici değilse YETKI_YOK döner); bağlantı yalnız kolaylık, bilen başkası açsa da veri görmez. */

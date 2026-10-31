@@ -533,13 +533,15 @@ function ustSeritKur(){
     /* 21.10 kontrast kapisi: koyu temada bant zemini var(--ink) = acik renk; amber yazi 1.43-1.85 kaliyordu. Koyuda yazi bant yazisi rengi, amber nokta kalir. */
     'html[data-theme="dark"] body #ttUlas a.ulas-wp{color:var(--bg)!important}'+
     '#ttUlas .ulas-wp::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber-dolgu)}'+
-    '@media(max-width:620px){#ttUlas .ulas-not,#ttUlas .ulas-ep{display:none}#ttUlas .ic{justify-content:center}}';
+    '@media(max-width:620px){#ttUlas .ulas-not,#ttUlas .ulas-ep{display:none}#ttUlas .ic{justify-content:center}}'+
+    /* 31.10 Cem ("yanlışlarım sekmesini bulmak çok zor"): üyede bilgisayar menüsünde Yanlışlarım; telefonda alt menüde zaten var */
+    '@media(max-width:759px){#ttUst .nl-yan{display:none}}';
   document.head.appendChild(st);
   var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
   function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
   /* 17.10 Cem: logo üyede Hesabım'a (ana sayfa da üyeyi oraya yönlendirir; burada ara yükleme olmasın) */
   n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+(uye?'index.html?ana=1':'index.html')+'" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
-    bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
+    bag('sorular.html','Sınavlar')+(uye?bag('yanlislarim.html','Yanlışlarım').replace('class="nl"','class="nl nl-yan"'):'')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
     /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ziyaretçinin "Ücretsiz başla"sı 5 örnek soruya */
     /* 17.10 Cem ("ücretsiz başla kısmına üye ol desek, oraya basınca soru geçiyor"): ziyaretçinin düğmesi "Üye ol" → üyelik formu */

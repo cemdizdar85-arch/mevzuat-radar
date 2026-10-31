@@ -687,7 +687,10 @@ function ozetCiz(){
   var oran = (typeof KDV_ORAN === 'number') ? KDV_ORAN : 0.2, iki = function(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}); };
   var kdvGoster = !!(secili && typeof KDV_HARIC_GOSTER !== 'undefined' && KDV_HARIC_GOSTER[secili.id]);
   document.getElementById('ozKdvSatir').style.display = kdvGoster ? '' : 'none';
-  if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran)); document.getElementById('ozKdv').textContent = '= ' + tl(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + tl(secili.fiyat - net) + ' TL) · fiyat sayfasındaki tutar'; }
+  /* 31.10 denetim: Math.round 999'u "833 + 166" yazıyordu (fiyat-motoru.js kdvHaric: 832,50 + 166,50); kuruşlu döküm + etiket "liste fiyatı"
+     (erken kayıtta fiyat sayfası indirimli tutarı gösterdiği için "fiyat sayfasındaki tutar" yanlıştı) */
+  if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran) * 100) / 100, kd = Math.round((secili.fiyat - net) * 100) / 100, yaz = function(n){ return n % 1 ? iki(n) : tl(n); };
+    document.getElementById('ozKdv').textContent = '= ' + yaz(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + yaz(kd) + ' TL) · liste fiyatı'; }
   document.getElementById('ozFatSatir').style.display = (secili && (ind > 0 || tk > 0)) ? '' : 'none';
   if(secili && (ind > 0 || tk > 0)){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
     document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : (otoKod ? 'Normalde ' + tl(secili.fiyat) + ' TL; erken kayıtla ' + tl(ind) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind))) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
