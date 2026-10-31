@@ -57,11 +57,16 @@
   .op-hos b{color:var(--ink)}
   .op-tek{align-items:center}
   .op-baska{font-size:14px;font-weight:700}
-  .op-s20{margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid var(--line)}
+  /* 31.10 Cem ("bu sınav çok önemli, adamın hemen gözüne çarpsın"): Son 20 Gün satırı sarı çerçeveli vurgulu kutu, büyük başlık,
+     ana düğme her zaman sarı; altında takvim satırı */
+  .op-s20{margin:0 0 16px;padding:14px 16px;border:2px solid var(--amber-dolgu,#f3a52a);border-radius:14px;
+    background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 10%,var(--kagit,var(--panel)))}
   .op-s20.og-gizli{display:none}
-  .op-s20 b{display:block;font-size:17px;color:var(--ink);margin:4px 0 2px}
+  .op-s20 .og-paket-et{color:var(--amber,#9a6400);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:12.5px}
+  .op-s20 b{display:block;font-size:21px;line-height:1.25;color:var(--ink);margin:4px 0 4px}
   .op-s20 p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
-  .op-s20 .og-btnler{margin-top:10px}
+  .op-s20 .op-s20-tk{margin-top:6px;color:var(--ink);font-weight:600}
+  .op-s20 .og-btnler{margin-top:12px}
   .op-plan{margin:12px 0 0;border-top:1px solid var(--line);padding-top:10px}
   .op-plan summary{cursor:pointer;font-size:13.5px;font-weight:700;color:var(--muted);min-height:32px;display:flex;align-items:center}
   .op-plan .og-hedef{margin-top:8px}
@@ -1325,10 +1330,11 @@
   function s20Uygula(k){
     var el=$('opS20'), btn=$('ogSimdiBtn'); if(!el) return;
     if(!k){ el.classList.add('og-gizli'); el.innerHTML=''; if(btn) btn.classList.add('ana'); return; }
-    el.innerHTML='<span class="og-paket-et">'+esc(k.baslik)+'</span><b>'+esc(k.metin)+'</b><p>'+esc(k.kural)+'</p>'
-      +'<div class="og-btnler"><a class="og-btn'+(k.acik?' ana':'')+'" href="'+esc(k.adres)+'">'+esc(k.dugme)+'</a></div>';
+    var tk=k.tur==='sgs'?'<p class="op-s20-tk">Takvim: 3 günde 1 deneme · Deneme 1 → 1–3 Kasım … Deneme 7 → 19–20 Kasım · 21 Kasım sınav</p>':'';
+    el.innerHTML='<span class="og-paket-et">'+esc(k.baslik)+'</span><b>'+esc(k.metin)+'</b><p>'+esc(k.kural)+'</p>'+tk
+      +'<div class="og-btnler"><a class="og-btn ana" href="'+esc(k.adres)+'">'+esc(k.once?'Denemeleri ve takvimi gör →':k.dugme)+'</a></div>';
     el.classList.remove('og-gizli');
-    if(btn) btn.classList.toggle('ana',!k.acik);   /* tek büyük düğme: denemeler açıkken Son 20 Gün */
+    if(btn) btn.classList.remove('ana');   /* 31.10: Son 20 Gün döneminde ana (sarı) düğme her zaman Son 20 Gün */
   }
   function s20Ciz(s){
     if(!window.ttSon20) return;
