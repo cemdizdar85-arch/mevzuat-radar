@@ -91,6 +91,16 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
 .kart.acilis h2{margin:0 0 4px}.kart.acilis p{margin:0}.kart.acilis .gun{color:var(--amber,#9a6400);font-weight:800}
 .dip{font-size:12.5px;color:var(--dim);margin-top:26px}
 .akis h2{margin:0 0 10px}.akis .not{margin:10px 0 0}
+.takvim h2{margin:0 0 4px}.takvim .ust{margin:0 0 10px}.takvim ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.takvim li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--cizgi,#e6dccb);border-radius:10px}
+.takvim li b{white-space:nowrap}.takvim li span{color:var(--muted);font-size:14px;text-align:right}
+.takvim li.bugun{border:2px solid var(--amber-dolgu,#f3a52a);background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 9%,var(--kagit,#fff))}
+.takvim li.gun-gun{display:block;border:0;padding:0 0 4px 14px}
+.takvim li.gun-gun ul{gap:4px;border-left:3px solid var(--amber-dolgu,#f3a52a);padding-left:10px}
+.takvim li.gun-gun li{padding:6px 10px;font-size:14px;align-items:flex-start}.takvim li.gun-gun li span{color:var(--ink,#1a1a1a);text-align:left;flex:1}
+.takvim li.gun-gun li b{min-width:70px}.takvim li.gun-gun small{display:block;color:var(--muted);margin:6px 0 0 13px;font-size:13px}
+@media(max-width:640px){ .takvim li.gun-gun li{flex-direction:column;gap:2px} }
+.takvim li.bitti span{color:var(--green,#1e7a3c);font-weight:700}.takvim li.geri span{color:var(--red,#b42318);font-weight:700}
 .akis-s{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:a}
 .akis-s li{position:relative;display:flex;gap:10px;align-items:flex-start}
 .akis-s li>b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--amber-dolgu,#f3a52a);color:#1a1a1a;font-weight:800}
@@ -133,6 +143,8 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
       </div>
       <p id="sozNot">Şart: 7 denemeyi bitir, en az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla. Görevler denemelerden sonra açılır. <a href="kampanya-son-20-gun.html">Koşullar</a></p>
     </div>
+    <!-- 31.10 Cem ("Evet, ekle"; Becker Study Planner / Kaplan Study Calendar: "her gün ne yapacağını bil"): 3 günde 1 deneme takvimi -->
+    <div class="kart takvim" id="takvim" hidden></div>
     <div class="kart kapi" id="kapi" hidden></div>
     <div class="kart gorev" id="gorevKart" hidden></div>
     <div id="denemeler"><p class="alt">Denemeler yükleniyor…</p></div>
@@ -200,11 +212,50 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
   function puan(d){ var top=0,dog=0,bitti=d.dersler.length>0; d.dersler.forEach(function(x){ if(!x.sonuc) bitti=false; else { dog+=x.sonuc.dogru; top+=x.sonuc.toplam; } });
     return { bitti:bitti, puan: bitti&&top? Math.round(dog*1000/top)/10 : null }; }
 
+  /* 31.10 tempo takvimi: 1–20 Kasım'a 7 deneme, 3 günde 1 (21 Kasım sınav günü). Gün İstanbul saatiyle. Üyede deneme başına biten ders. */
+  var TAKVIM=[[1,3],[4,6],[7,9],[10,12],[13,15],[16,18],[19,20]];
+  function istGun(){ try{ var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Istanbul',day:'numeric',month:'numeric',year:'numeric'}).formatToParts(new Date()), o={};
+      p.forEach(function(x){ o[x.type]=+x.value; }); return o; }catch(e){ var d=new Date(); return {day:d.getDate(),month:d.getMonth()+1,year:d.getFullYear()}; } }
+  /* 31.10 Cem ("buna gün gün verelim mi"): denemenin dersleri sınavdaki sırayla, soru sayısına göre günlere eşit yakın bölünür
+     (3 günlük denemede ≈43 soru/gün; Deneme 7 iki gün). Üyede biten ders ✓. */
+  function gunBol(d, t, uye){
+    var gunSay=t[1]-t[0]+1, top=d.dersler.reduce(function(s,x){ return s+x.adet; },0), hedefS=top/gunSay, parca=[[]], say=0;
+    d.dersler.forEach(function(x){ if(parca.length<gunSay && say>=hedefS*parca.length-x.adet/2 && parca[parca.length-1].length) parca.push([]);
+      parca[parca.length-1].push(x); say+=x.adet; });
+    return '<li class="gun-gun"><ul>'+parca.map(function(p,j){
+      var s=p.reduce(function(a,x){ return a+x.adet; },0), hepsi=uye&&p.every(function(x){ return !!x.sonuc; });
+      return '<li'+(hepsi?' class="bitti"':'')+'><b>'+(t[0]+j)+' Kasım</b><span>'+p.map(function(x){ return esc(x.ders)+(uye&&x.sonuc?' ✓':''); }).join(' · ')+' · '+s+' soru</span></li>'; }).join('')
+      +'</ul><small>Deneme bitince çalışma görevin açılır; onu da aynı gün bitir, sonraki deneme açılsın.</small></li>';
+  }
+  function takvimCiz(L, byNo){
+    var k=$('takvim'); if(!k||YET) return;
+    var g=istGun(), kasim=g.year===2026&&g.month===11, gun=kasim?g.day:(g.year===2026&&g.month===10?0:99);
+    if(gun>21){ k.hidden=true; return; }
+    var hedef=-1; TAKVIM.forEach(function(t,i){ if(gun>=t[0]&&gun<=t[1]) hedef=i; });
+    var odak=hedef>=0?hedef:(gun<1?0:-1);   /* gün gün dökümü: bugünün denemesi (açılıştan önce Deneme 1) */
+    var uye=!!(L&&L.oturum&&L.erisim), satir=TAKVIM.map(function(t,i){
+      var no=i+1, d=byNo&&byNo[no], top=d?d.dersler.length:0, bit=d?d.dersler.filter(function(x){ return !!x.sonuc; }).length:0, tam=top>0&&bit===top;
+      var cls=tam?'bitti':(i===hedef?'bugun':(uye&&gun>t[1]&&!tam?'geri':'')), sag;
+      if(uye&&tam) sag='Bitti ✓';
+      else if(uye&&gun>t[1]) sag='Geride · '+bit+'/'+top+' ders';
+      else if(i===hedef) sag='Bugünün hedefi'+(uye&&top?' · '+bit+'/'+top+' ders':'');
+      else sag=uye&&bit?bit+'/'+top+' ders':'';
+      var gunluk=(i===odak&&d&&!tam)? gunBol(d, t, uye) : '';
+      return '<li class="'+cls+'"><b>Deneme '+no+' · '+t[0]+(t[1]!==t[0]?'–'+t[1]:'')+' Kasım</b><span>'+sag+'</span></li>'+gunluk; }).join('');
+    var ust;
+    if(gun<1) ust='Önerilen tempo: 3 günde 1 deneme. 1 Kasım\'da Deneme 1 ile başla; 20 Kasım\'da 7\'si biter, 21 Kasım sınav günü.';
+    else if(gun===21) ust='Bugün sınav günü. Başarılar!';
+    else { var t=TAKVIM[hedef]; ust='Bugün '+gun+' Kasım · hedefin <b>Deneme '+(hedef+1)+'</b> (son gün '+t[1]+' Kasım).'; }
+    k.innerHTML='<h2>Takvimin</h2><p class="ust">'+ust+'</p><ul>'+satir+'</ul>';
+    k.hidden=false;
+  }
+
   function listeCiz(){
     var L=LISTE||{denemeler:[]}, byNo={}; L.denemeler.forEach(function(d){ byNo[d.no]=d; });
     var biten=0, alt=0;
     L.denemeler.forEach(function(d){ var p=puan(d); if(p.bitti){ biten++; if(p.puan>=60) alt++; } });
     $('sozBiten').textContent=biten+'/7'; $('soz60').textContent=Math.min(alt,5)+'/5';
+    takvimCiz(L, byNo);
     /* 28.10 çalışma görevleri: her deneme bitince yanlış konulardan kurulur (31.10 Cem "herkese"; sunucu); açık görev varken çözülmemiş test başlatılmaz */
     var G=L.gorevler||[], gAcik=G.filter(function(g){ return !g.tamam; });
     $('sozGorev').textContent=G.length? (G.length-gAcik.length)+'/'+G.length : (biten?'yok':'—');
@@ -370,7 +421,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     'Vergi Mevzuatı ve Uygulaması','Hukuk','Meslek Hukuku','Sermaye Piyasası Mevzuatı'];
   function yetCiz(){
     document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';
-    $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true;
+    $('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true; $('takvim').hidden=true;
     $('s20Alt').textContent='SMMM Yeterlilik · 28 Kasım 2026. Her dersin 5 denemesi var (20 soru, 45 dakika); bir denemeyi bitirdiğinde sonucun ve açıklamalar açılır.';
     var ko=document.querySelector('.ust a[href="kampanya-son-20-gun.html"]'); if(ko) ko.href='kampanya-son-20-gun.html#yeterlilik';
     $('soz').querySelector('.soz-s').innerHTML='<div><b>0/8</b><span>şartı tamam ders</span></div><div><b>5</b><span>deneme her derste</span></div><div><b>3/5</b><span>%60 ve üstü gerekir</span></div>';
