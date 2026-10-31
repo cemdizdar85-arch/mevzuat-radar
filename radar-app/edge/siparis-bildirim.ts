@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "c75a753db3e8e75d";
+const KOD_IMZA = "0f00f2fd49084aef";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -116,7 +116,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 // 21.10 (Cem "iki kere mail gitmesin, günde binlerce sipariş alanlar ne yapıyorsa onu yap"): kartla ödeyene 'alindi' (IBAN)
 // maili GİTMEZ; tek mail budur → tekMail=true iken sipariş özeti (no, paket, tutar, ödeme) + sözleşme ekleri de burada.
 // Havale seçene 'alindi' (ödeme bilgisi) gitmiştir; bu mail o zaman yalnız "ödemen geldi, paketin açıldı" der.
-export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; paket_bitis: string | null; tutar?: number; odeme?: string | null }, hesapVar: boolean, tekMail = false) {
+export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; paket_bitis: string | null; tutar?: number; odeme?: string | null }, hesapVar: boolean, tekMail = false, yeniHesap = false) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   // 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme ön satış — "paketin açıldı, hemen başla" YAZILMAZ; denemeler 1 Kasım'da
   // son-20-gun.html'de açılır. Öteki paketlerin maili birebir aynı.
@@ -129,7 +129,11 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
   const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
   const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : onSiparis ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
-  const giris = onSiparis
+  // 31.10: hesabı ödeme anında biz açtıysak (yeniHesap) alıcı "üye ol" demez; Google ya da şifre belirleyerek girer.
+  const yeniGiris = `Hesabın bu e-postayla açıldı, ayrıca üye olman gerekmiyor. tetikte.com → Giriş → "Google ile gir" deyip bu e-postanın Google hesabını seç; Google kullanmıyorsan bu e-postayı yazıp "Şifremi unuttum" ile kendine şifre belirle.`;
+  const giris = yeniHesap
+    ? (onSiparis ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. ${yeniGiris}` : `Paketin hesabında hazır. ${yeniGiris}`)
+    : onSiparis
     ? (hesapVar
       ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından başla.`
       : `Son 20 Gün denemelerin ${acilisG}'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.`)
@@ -196,7 +200,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
 
   const sb = (yol: string, sec?: RequestInit) => fetch(`${SB_URL}/rest/v1/${yol}`, Object.assign({
     headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" } }, sec || {}));
-  const r = await sb(`siparisler?select=id,siparis_no,ad_soyad,email,paket,paket_ad,tutar,odeme,durum,olusturma,paket_bitis,alindi_mail,acildi_mail&siparis_no=eq.${encodeURIComponent(no)}&limit=1`);
+  const r = await sb(`siparisler?select=id,siparis_no,ad_soyad,email,paket,paket_ad,tutar,odeme,durum,olusturma,paket_bitis,alindi_mail,acildi_mail,bagli_kullanici&siparis_no=eq.${encodeURIComponent(no)}&limit=1`);
   if (!r.ok) return cevap(502, { hata: "siparis okunamadi" });
   const s = (await r.json())[0];
   if (!s) return cevap(404, { hata: "siparis yok" });
@@ -236,8 +240,24 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     try {
       const u = await fetch(`${SB_URL}/auth/v1/admin/users?page=1&per_page=1000`, { headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` } });
       const j = await u.json(); hesapVar = (j.users || []).some((x: { email?: string }) => String(x.email || "").toLowerCase() === String(s.email).toLowerCase());
-    } catch { /* bilinmiyorsa "hesap aç" metni gider - zararsız */ }
-    m = acildiMail(s, hesapVar, tekMail); damga = "acildi_mail";
+    } catch { /* bilinmiyorsa aşağıdaki açma denemesi söyler */ }
+    // 31.10 (Cem "google girene girdiği mail adresi ile üyelik açalım"): aynı gün iki alıcı (44CF, X5XF) kartla ödedi ama siteye
+    // hiç üye olmadı → paket "hiçbir hesapta açılmadı" listesinde bekledi. Ödenmiş siparişin e-postasıyla hesap yoksa hesabı
+    // BURADA açarız (onaylı e-posta, şifresiz): yeni üye tetikleyicisi (yeni_uye_paket_bagla) paketi o an bağlar. Alıcı Google'la
+    // aynı adresten girince Supabase onaylı e-postayı aynı hesaba bağlar; e-postayla girecekse "Şifremi unuttum" ile şifre koyar.
+    // Yalnız ödenmiş + başka hesaba bağlanmamış siparişte; hesap zaten varsa (liste 1000'i aşmış olabilir) Supabase 422 döner → hesapVar.
+    // 🚫 GÖRMEZ: alıcı forma yanlış/yabancı adres yazdıysa hesap o adrese açılır (paket orada; panelden yeniden bağlanır).
+    let yeniHesap = false;
+    if (!hesapVar && !s.bagli_kullanici) {
+      try {
+        const h = await fetch(`${SB_URL}/auth/v1/admin/users`, { method: "POST",
+          headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ email: String(s.email).trim().toLowerCase(), email_confirm: true, user_metadata: { full_name: s.ad_soyad || "", kaynak: "siparis" } }) });
+        if (h.ok) yeniHesap = true; else if (h.status === 422) hesapVar = true;
+        console.log(`siparis-bildirim ${no} hesap ${h.ok ? "acildi" : "acilmadi " + h.status}`);
+      } catch { /* açılamazsa eski "hesap aç" metni gider */ }
+    }
+    m = acildiMail(s, hesapVar || yeniHesap, tekMail, yeniHesap); damga = "acildi_mail";
   }
 
   // önce damga (iki eşzamanlı istekte iki mail gitmesin): yalnız damga boşsa yazılır
