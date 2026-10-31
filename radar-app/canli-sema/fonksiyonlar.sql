@@ -166,13 +166,12 @@ CREATE OR REPLACE FUNCTION public._s20_gorev_kur(p_uid uuid, p_deneme integer)
  SECURITY DEFINER
  SET search_path TO 'public'
 AS $function$
-declare n int := 0; dersSay int; sonucSay int; dog int; top int; r record; ids text[];
+declare n int := 0; dersSay int; sonucSay int; r record; ids text[];
 begin
   if exists (select 1 from public.s20_gorev g where g.user_id = p_uid and g.deneme = p_deneme) then return 0; end if;
   select count(distinct s.ders) into dersSay from public.s20_soru s where s.deneme = p_deneme;
-  select count(*), coalesce(sum(x.dogru),0), coalesce(sum(x.toplam),0) into sonucSay, dog, top
-    from public.s20_sonuc x where x.user_id = p_uid and x.deneme = p_deneme;
-  if dersSay = 0 or sonucSay < dersSay or top = 0 or dog * 100 >= top * 60 then return 0; end if;
+  select count(*) into sonucSay from public.s20_sonuc x where x.user_id = p_uid and x.deneme = p_deneme;
+  if dersSay = 0 or sonucSay < dersSay then return 0; end if;
   for r in
     select s.ders, s.konu, count(*) as k
       from public.s20_soru s join public.s20_sonuc x on x.user_id = p_uid and x.deneme = s.deneme and x.ders = s.ders
