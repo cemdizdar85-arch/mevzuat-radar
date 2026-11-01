@@ -474,7 +474,11 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      `aciklama_hakem` alanına koşullu yazımla; KUSURLU = `kaynak_okundu:false` + sonuçta `incelenecek` (resmî metinle okunmadan kesinleşmez). Bulut
      `smmm-ah-yalniz.yml` (varsayılan KURU). **KUSURLU kapatma:** resmî metinle okuyan `node arac/smmm-ah-yalniz.js oku <etiket>/<kp> --karar TEMIZ|KUSURLU
      --okuyan "…" --dayanak "<kaynak_ad + ≤25 kelime>"` (dayanaksız RED; `kaynak_okundu:true` + `onceki_karar` + yanlış alarmda `elle_cevrildi`; bulut-uretim AH kaydında da, yalnız smmm-).
-     Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 44/44 + PS uçtan uca 16/16; 31.10 thp: özet eski lafızsa ambardaki fark + UYGULAMA NOTU da RESMÎ MADDE METNİ'ne girer, madde_kaynak `kayit+ambar`), `dogrula.yml`'de.
+     Öz-sınav `powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1` (node 51/51 + PS uçtan uca 24/24; 31.10 thp: özet eski lafızsa ambardaki fark + UYGULAMA NOTU da RESMÎ MADDE METNİ'ne girer, madde_kaynak `kayit+ambar`), `dogrula.yml`'de.
+     ⛔ **Onarım hattının koruduğu TEMIZ AH yeniden hakemlenir (01.11, Ajan 26 ölçtü: 7 onarılmış açıklama AH'den hiç geçmedi):** yalnız açıklama
+     onarımında önceki TEMIZ karar ONARIM_AH_SIL=1 olsa bile korunur (`onarim_sonrasi` izi, karar onarımdan ÖNCEKİ metne ait); `uygula`/`teslim`
+     bunu "AH TEMIZ korundu (onarım öncesi metin) — smmm-ah-yalniz ustune_yaz gerekir" diye yazar. O kayıtlar `smmm-ah-yalniz.yml` **`ustune_yaz=true`**
+     ile koşulur (betik `-UstuneYaz`); üstüne yazma YALNIZ `onarim_sonrasi` izli kararda geçer, izsiz başka kaynaklı TEMIZ yine korunur. Mutasyon `-Mutasyon` (3/3 KIRMIZI, dogrula.yml).
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,

@@ -27,6 +27,10 @@
 //     kayıt ATLANIR (onarım teslimi bitmemiş ya da sonradan değişmiş — eski metin hakemlenmez).
 //   · Önceki karar: aynı yolun aynı içeriğe kararı varsa yeniden gönderilmez (0 USD; --yeniden ile zorla). Başka kaynaklı (üretim)
 //     aciklama_hakem varsa üstüne YAZILMAZ (YENİ soruda yayın şartıdır; --ustune-yaz ile bilerek).
+//     01.11 (Ajan 26 ölçtü): --ustune-yaz YALNIZ önceki kararında onarim_sonrasi izi olan kayıtta geçer — onarım hattı (07.10) yalnız
+//     açıklama onarımında TEMIZ kararı korur, "karar onarımdan ÖNCEKİ metne ait" izini düşer; o karar bugünkü metni denetlemedi.
+//     İzsiz başka kaynaklı karar (üretimin YENİ soru yayın şartı) --ustune-yaz verilse de KORUNUR. Üstüne yazılan kayıtta önceki kararın
+//     izi 'ustune_yazilan' alanında kalır. Ölçülen neden: 7 onarılmış açıklama "başka kaynaklı TEMIZ" diye atlandı, AH'den hiç geçmedi.
 //   · MADDE METNİ (sıra): (1) kayıttaki kaynak_metin_ozet — yalnız beyan alıntılarının tamamını içeriyorsa; (2) girdinin dayanakları
 //     → ambar dokumanlar; (3) kaydın kendi dayanağı / kaynak_adlar (kart); okunamazsa özet varsa 'kayit', yoksa 'kaynaksiz' işaretlenir, soru yine koşar.
 //   · YAZIM (onarım hattı teslim disiplini): parti satırı ambardan okunur; damga hazırlıktaki damgayla aynı değilse HİÇBİR ŞEY yazılmaz
@@ -239,7 +243,13 @@ async function hazirla(girdi, opt = {}, io = ioSec()) {
     o.taslak_denetimi = x.taslak_sha ? 'esit' : 'yok';
     const ah = k.aciklama_hakem;
     if (ah && ah.yol === YOL && ah.icerik_sha === sha && /^(TEMIZ|KUSURLU)$/.test(String(ah.karar)) && !opt.yeniden) { o.durum = 'onceki'; o.neden = 'bu yolun aynı içeriğe kararı var (' + ah.karar + ') — yeniden gönderilmez'; o.onceki = { karar: ah.karar }; continue; }
-    if (ah && ah.yol !== YOL && !opt.ustuneYaz) { o.neden = 'kayıtta başka kaynaklı aciklama_hakem var (' + (ah.karar || '?') + ') — üstüne yazılmaz (--ustune-yaz)'; continue; }
+    if (ah && ah.yol !== YOL) {
+      const izli = !!(ah.onarim_sonrasi && typeof ah.onarim_sonrasi === 'object');
+      const ustune = MUT === 'ustune-hep' ? true : MUT === 'ustune-yok' ? false : !!opt.ustuneYaz;
+      if (!ustune) { o.neden = 'kayıtta başka kaynaklı aciklama_hakem var (' + (ah.karar || '?') + ') — üstüne yazılmaz' + (izli ? ' · onarım sonrası izli (karar onarımdan ÖNCEKİ metne ait): --ustune-yaz / bulut ustune_yaz=true ile yenilenir' : ' (--ustune-yaz yalnız onarım sonrası izli kararda geçer)'); continue; }
+      if (!izli && MUT !== 'ustune-sinirsiz') { o.neden = 'kayıtta başka kaynaklı aciklama_hakem var (' + (ah.karar || '?') + ') — onarim_sonrasi izi YOK, --ustune-yaz verilse de KORUNUR (yalnız onarım sonrası izli karar yenilenir)'; continue; }
+      o.ustune_yaz = { karar: ah.karar || null, model: ah.model || null, tarih: ah.tarih || null, onarim_sonrasi: ah.onarim_sonrasi || null };
+    }
     o.madde = await maddeMetni(io, x.dayanaklar || [], k, maxKr);
     o.kayit = k; o.durum = 'hazir'; o.neden = '';
     o.yeni_soru = (() => { const t = [k.kor_cozum && k.kor_cozum.tarih, k.hakem2 && k.hakem2.tarih].filter(Boolean).map(String).sort().pop(); return !!t && t >= '2026-10-01'; })();
@@ -269,6 +279,7 @@ async function yaz(hazir, kararlar, meta = {}, io = ioSec()) {
       if (o.madde && o.madde.alinti_dogrulandi !== null && o.madde.alinti_dogrulandi !== undefined) ah.alinti_dogrulandi = o.madde.alinti_dogrulandi;
       if (kus) { ah.kaynak_okundu = false; ah.incelenecek = true; ah.not = 'KUSURLU kesin değil: resmî metinle okunmadan "geçmedi" sayılmaz (Cem 31.10)'; }
       if (ah.madde_kaynak === 'kaynaksiz') ah.kaynaksiz = true;
+      if (o.ustune_yaz) ah.ustune_yazilan = o.ustune_yaz;   // 01.11: üstüne yazılan (onarım sonrası izli) kararın izi
       k.aciklama_hakem = ah; if (MUT === 'baska-alan') k.soru = k.soru + ' '; kpler.push(o.kp);
     }
     if (!kpler.length) continue;
@@ -348,7 +359,7 @@ function sonucKur(hazir, kararlar, olculemedi, w, meta = {}) {
     const kus = String(kr.karar).toUpperCase() === 'KUSURLU'; if (kus) { sayim.kusurlu++; incelenecek.push(o.soru_id); if (mk === 'kaynaksiz') sayim.kaynaksiz_kusurlu++; } else sayim.temiz++;
     const yazildi = !!(w && (w.yazilan || []).includes(o.soru_id));
     K[o.soru_id] = { karar: kus ? 'KUSURLU' : 'TEMIZ', kusur_alanlari: (kr.kusurlar || []).map(x => String((x && x.alan) || '')).filter(Boolean), madde_kaynak: mk, madde_adlari: o.madde ? o.madde.adlar : [],
-      alinti_dogrulandi: o.madde ? o.madde.alinti_dogrulandi : null, kayda_yazildi: yazildi, ...(kus ? { kaynak_okundu: false } : {}) };
+      alinti_dogrulandi: o.madde ? o.madde.alinti_dogrulandi : null, kayda_yazildi: yazildi, ...(kus ? { kaynak_okundu: false } : {}), ...(o.ustune_yaz ? { ustune_yazildi: { onceki_karar: o.ustune_yaz.karar } } : {}) };
   }
   return { ad: meta.ad || hazir.girdi_ad, tarih: new Date().toISOString(), yol: YOL, kosu: meta.kosu || '', hakem: meta.hakem || {}, butce_usd: meta.butce_usd, yazim: w ? w.durum : 'yok',
     sayim, kararlar: K, incelenecek, kaynaksiz, kaynaksiz_kusurlu: incelenecek.filter(s => kaynaksiz.includes(s)), atlanan,
@@ -443,6 +454,24 @@ async function sinav() {
     try { const j = JSON.parse(r.stdout.trim().split('\n').pop()); dur = j.d === 'hata' && j.y === 0; } catch (x) { dur = false; }
     S('MUTASYON: başka alanı (soru) değiştiren yazım DURDURULUR, 0 yazma', dur && !t2.parti(e).icerik['kp-01'].aciklama_hakem);
   }
+  { // 6b) 01.11 --ustune-yaz SINIRI: yalnız onarim_sonrasi izli başka kaynaklı karar yenilenir (Ajan 26: 7 onarılmış açıklama AH'den geçmedi)
+    //     Mutasyon (SMMM_AH_MUTASYON): ustune-sinirsiz (iz bakılmaz) · ustune-yok (bayrak yok sayılır) · ustune-hep (bayrak hep açık) → KIRMIZI
+    const izli = { karar: 'TEMIZ', model: 'model-c', tarih: '2026-10-20', onarim_sonrasi: { tarih: '2026-10-31', not: 'karar onarımdan ÖNCEKİ metne ait; onarım yalnız açıklama katmanı' } };
+    const izsiz = { karar: 'TEMIZ', model: 'model-c', tarih: '2026-10-20' };
+    const tb = () => { const x = taban(); x['kp-01'].aciklama_hakem = JSON.parse(JSON.stringify(izli)); x['kp-02'].aciklama_hakem = JSON.parse(JSON.stringify(izsiz)); return x; };
+    const t = kur('s6u', { [e]: { icerik: tb(), guncelleme: 'd1' } });
+    const Hu = await hazirla({ ad: 's6u', kimlikler: [g(e + '/kp-01'), g(e + '/kp-02')] }, { ustuneYaz: true }, t.io);
+    S('ÜSTÜNE YAZ: iz var + ustune_yaz → HAZIR (gönderilir)', Hu.ogeler[0].durum === 'hazir' && !!Hu.ogeler[0].ustune_yaz && Hu.ogeler[0].ustune_yaz.karar === 'TEMIZ');
+    S('ÜSTÜNE YAZ: iz YOK + ustune_yaz → ATLANIR (öteki TEMIZ korunur)', Hu.ogeler[1].durum === 'atla' && /izi YOK/.test(Hu.ogeler[1].neden));
+    const wu = await yaz(Hu, { [e + '/kp-01']: krK, [e + '/kp-02']: krK }, { ad: 's6u' }, t.io); const P = t.parti(e).icerik;
+    S('ÜSTÜNE YAZ: izli kayda yeni karar YAZILDI (yol smmm-ah-yalniz, bugünkü içerik izi, önceki karar ustune_yazilan\'da)', wu.durum === 'yazildi' && wu.yazilan.join() === e + '/kp-01' && P['kp-01'].aciklama_hakem.karar === 'KUSURLU' && P['kp-01'].aciklama_hakem.yol === YOL && P['kp-01'].aciklama_hakem.icerik_sha === icerikSha(tb()['kp-01']) && !!P['kp-01'].aciklama_hakem.ustune_yazilan && P['kp-01'].aciklama_hakem.ustune_yazilan.karar === 'TEMIZ' && !!P['kp-01'].aciklama_hakem.ustune_yazilan.onarim_sonrasi);
+    S('ÜSTÜNE YAZ: izsiz kayıt BAYT BAYT aynı (karar gelse de yazılmaz)', esit(P['kp-02'], tb()['kp-02']));
+    const sn = sonucKur(Hu, { [e + '/kp-01']: krK }, [], wu, {}); S('ÜSTÜNE YAZ: sonuçta ustune_yazildi izi, izsiz kayıt atlananda', !!(sn.kararlar[e + '/kp-01'] || {}).ustune_yazildi &&!!sn.atlanan[e + '/kp-02']);
+    const t2 = kur('s6v', { [e]: { icerik: tb(), guncelleme: 'd1' } });
+    const Hn = await hazirla({ ad: 's6v', kimlikler: [g(e + '/kp-01'), g(e + '/kp-02')] }, {}, t2.io);
+    S('ÜSTÜNE YAZ YOK: iz var → ATLANIR, neden ustune_yaz yolunu söyler', Hn.ogeler[0].durum === 'atla' && /ustune_yaz=true/.test(Hn.ogeler[0].neden));
+    S('ÜSTÜNE YAZ YOK: iz yok → ATLANIR', Hn.ogeler[1].durum === 'atla' && /üstüne yazılmaz/.test(Hn.ogeler[1].neden));
+  }
   { // 7) girdi kurucu: onarım klasöründen kimlik + taslak parmak izi + dayanak; soru metni dosyaya girmez
     const K = path.join(T, 'onarim'); fs.mkdirSync(path.join(K, '_tam'), { recursive: true });
     fs.writeFileSync(path.join(K, '_tam', e + '__kp-01.tam.json'), JSON.stringify(taban()['kp-01']));
@@ -521,9 +550,9 @@ if (require.main === module) {
       const H = await hazirla(G, { maddeKr: +(bayrak('--madde-kr') || 4000), kosan: kos && fs.existsSync(kos) ? fs.readFileSync(kos, 'utf8').split(/\s+/).filter(Boolean) : [], yeniden: a.includes('--yeniden'), ustuneYaz: a.includes('--ustune-yaz') });
       yazJson(path.resolve(a[2]), H);
       const say = d => H.ogeler.filter(o => o.durum === d).length; const mk = k => H.ogeler.filter(o => o.durum === 'hazir' && o.madde && o.madde.kaynak === k).length;
-      console.log(`HAZIRLA: istenen ${H.ogeler.length} · hazır ${say('hazir')} (madde ambar ${mk('ambar')} · kart ${mk('kart')} · KAYNAKSIZ ${mk('kaynaksiz')}) · önceki ${say('onceki')} · atlanan ${say('atla')} · parti ${Object.keys(H.damgalar).length}`);
+      console.log(`HAZIRLA: istenen ${H.ogeler.length} · hazır ${say('hazir')} (üstüne yaz ${H.ogeler.filter(o => o.durum === 'hazir' && o.ustune_yaz).length}) (madde ambar ${mk('ambar')} · kart ${mk('kart')} · KAYNAKSIZ ${mk('kaynaksiz')}) · önceki ${say('onceki')} · atlanan ${say('atla')} · parti ${Object.keys(H.damgalar).length}`);
       for (const o of H.ogeler) if (o.durum !== 'hazir') console.log(`  ${o.durum.toUpperCase()} ${o.soru_id}: ${o.neden}`);
-      for (const o of H.ogeler) if (o.durum === 'hazir') console.log(`  hazır ${o.soru_id}: taslak ${o.taslak_denetimi} · madde ${o.madde.kaynak} (${o.madde.adlar.length} parça, ${o.madde.metin.length} kr${o.madde.alinti_dogrulandi === false ? ', ALINTI METİNDE BULUNAMADI' : ''})${o.yeni_soru ? ' · YENİ soru' : ''}`);
+      for (const o of H.ogeler) if (o.durum === 'hazir') console.log(`  hazır ${o.soru_id}: taslak ${o.taslak_denetimi} · madde ${o.madde.kaynak} (${o.madde.adlar.length} parça, ${o.madde.metin.length} kr${o.madde.alinti_dogrulandi === false ? ', ALINTI METİNDE BULUNAMADI' : ''})${o.yeni_soru ? ' · YENİ soru' : ''}${o.ustune_yaz ? ' · ÜSTÜNE YAZ (önceki ' + o.ustune_yaz.karar + ', onarım sonrası izli)' : ''}`);
       return; }
     if (kmt === 'yaz') {
       const H = okuJson(path.resolve(a[1])); const KR = okuJson(path.resolve(a[2])); const meta = bayrak('--meta') ? okuJson(path.resolve(bayrak('--meta'))) : {};

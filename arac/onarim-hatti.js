@@ -85,7 +85,9 @@ function karar(eski, tam, bey) {
   if (MUT !== 'ah-hep-sil' && eski.aciklama_hakem && String(eski.aciklama_hakem.karar || '').toUpperCase() === 'TEMIZ') {
     for (const m of MODEL) { if (eski[m] !== undefined && !HER_ONARIMDA_SIL.includes(m)) yeni[m] = eski[m]; else delete yeni[m]; }
     yeni.aciklama_hakem = { ...eski.aciklama_hakem, onarim_sonrasi: { tarih: new Date().toISOString().slice(0, 10), not: 'karar onarımdan ÖNCEKİ metne ait; onarım yalnız açıklama katmanı' } };
-    return { durum: 'aciklama', yeni: ozetKoy(yeni) };
+    // 01.11 (Ajan 26 ölçtü): bu koruma ONARIM_AH_SIL=1 verilse de geçerli; korunan karar bugünkü metni denetlemedi. Uygula/teslim çıktısı
+    //   bunu açıkça yazar (ahKorunduSatir) — SMMM'de karar smmm-ah-yalniz ustune_yaz=true ile yenilenir (7 kayıt sessizce AH'siz kaldı).
+    return { durum: 'aciklama', yeni: ozetKoy(yeni), ...(MUT === 'ah-korundu-sessiz' ? {} : { ah_korundu: { yol: String(eski.aciklama_hakem.yol || 'uretim') } }) };
   }
   // 06.10 (SGS oturumu uyardı, sınav oturumu ölçtü): YENİ soruda (kör/hakem2 ≥ 2026-10-01) aciklama_hakem YAYIN ŞARTI; silinirse soru
   //   sonraki kasa yayınında siteden düşer (06.10'da 1 SGS sorusu böyle düştü). Böyle bir kayda mekanik açıklama onarımı REDDEDİLİR;
@@ -100,7 +102,7 @@ function yeniSoruMu(k) { const t = [k && k.kor_cozum && k.kor_cozum.tarih, k && 
 const okuJ = p => { const h = fs.readFileSync(p, 'utf8'); return { bom: h.charCodeAt(0) === 0xfeff, j: JSON.parse(h.replace(/^﻿/, '')) }; };
 function uygula(K, yaz, atla = new Set(), fab = path.join(KOK, 'veri', 'fabrika')) {
   const tamDir = path.join(K, '_tam'); if (!fs.existsSync(tamDir)) throw new Error('_tam yok: ' + K);
-  const s = { aciklama: [], rehakem: [], red: [], onarilamadi: [], atlanan: [], onceden: [] }; const partiler = new Map();
+  const s = { aciklama: [], rehakem: [], red: [], onarilamadi: [], atlanan: [], onceden: [], ah_korundu: {} }; const partiler = new Map();
   // DEFTER: bu klasörden daha önce uygulanan kayıt YENİDEN uygulanmaz (30.09 ölçüldü: grup-D yeniden koşulsa, sonra kalite-ek'in
   //   düzelttiği 2 kaydı eski taslakla geri alacaktı). Defter <klasör>/_uygulanan.json.
   const defterYol = path.join(K, '_uygulanan.json'); const defter = fs.existsSync(defterYol) ? JSON.parse(fs.readFileSync(defterYol, 'utf8')) : {};
@@ -116,12 +118,26 @@ function uygula(K, yaz, atla = new Set(), fab = path.join(KOK, 'veri', 'fabrika'
     if (r.durum === 'red') { s.red.push(ad + ' (' + r.neden + ')'); continue; }
     if (r.durum === 'onarilamadi') { s.onarilamadi.push(ad + ': ' + r.neden); continue; }
     P.j[kp] = r.yeni; P.degisti = true; s[r.durum].push(ad);
+    if (r.ah_korundu) s.ah_korundu[ad] = r.ah_korundu.yol;
   }
   const etiketler = [...partiler.entries()].filter(([, p]) => p.degisti).map(([e]) => e);
   if (yaz) { for (const p of partiler.values()) if (p.degisti) fs.writeFileSync(p.pf, (p.bom ? '﻿' : '') + JSON.stringify(p.j, null, 4));
     const z = new Date().toISOString(); for (const ad of [...s.aciklama, ...s.rehakem]) defter[ad] = z; fs.writeFileSync(defterYol, JSON.stringify(defter, null, 1)); }
   const out = { zaman: new Date().toISOString(), yazildi: !!yaz, etiketler, ...s };
   fs.writeFileSync(path.join(K, `_uygulama-${out.zaman.replace(/[:.]/g, '')}.json`), JSON.stringify(out, null, 1));
+  return out;
+}
+// 01.11 (Ajan 26 ölçtü): 07.10 kuralı yalnız açıklama onarımında önceki TEMIZ AH kararını ONARIM_AH_SIL=1 olsa bile korur; korunan karar
+//   onarımdan ÖNCEKİ metne ait. Sessiz kaldığı için 7 onarılmış SMMM açıklaması smmm-ah-yalniz'de "başka kaynaklı TEMIZ" diye atlandı.
+//   Bu satır uygula/teslim çıktısında korunan her kaydı ve gereken adımı açıkça yazar.
+function ahKorunduSatir(u) {
+  const ah = (u && u.ah_korundu) || {}; const L = Object.keys(ah).sort(); if (!L.length) return [];
+  const sil = process.env.ONARIM_AH_SIL === '1' ? ' · ONARIM_AH_SIL=1 bu kararları SİLMEDİ (07.10 kuralı)' : '';
+  const ust = L.filter(a => /^smmm-/.test(a) && ah[a] !== 'smmm-ah-yalniz'), ayni = L.filter(a => /^smmm-/.test(a) && ah[a] === 'smmm-ah-yalniz'), obur = L.filter(a => !/^smmm-/.test(a));
+  const out = [];
+  if (ust.length) out.push(`  ⚠ AH TEMIZ korundu (onarım öncesi metin) — smmm-ah-yalniz ustune_yaz gerekir (${ust.length})${sil}: ${ust.join(', ')}`);
+  if (ayni.length) out.push(`  ⚠ AH TEMIZ korundu (onarım öncesi metin) — smmm-ah-yalniz gerekir, aynı yolun kararı (ustune_yaz gerekmez) (${ayni.length})${sil}: ${ayni.join(', ')}`);
+  if (obur.length) out.push(`  ⚠ AH TEMIZ korundu (onarım öncesi metin) — açıklama hakemi yeniden gerekir (${obur.length})${sil}: ${obur.join(', ')}`);
   return out;
 }
 const ps = (args, env) => cp.spawnSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', ...args], { cwd: KOK, encoding: 'utf8', env: { ...process.env, ...(env || {}) } });
@@ -213,7 +229,7 @@ async function teslim(K, opt = {}) {
     if (f.length) bayat.push(`${e}: ${f.length} kayıt farklı (${f.slice(0, 8).join(',')}${f.length > 8 ? ',…' : ''})`);
   }
   if (bayat.length) { io.log(`⛔ TESLİM DURDU — YEREL PARTİ AMBARDAN FARKLI (bayat). HİÇBİR ŞEY YAZILMADI.\n  ${bayat.join('\n  ')}\n  Yol: parti-senkron -Indir -Etiket <e> ile tazele, taslağı tazelenmiş kayda göre yeniden kur, 'uygula' kuru koşusunu tekrarla.`); return { durum: 'bayat', bayat }; }
-  if (opt.kuru) { io.log(`KURU: tazelik kapısı GEÇTİ (${kuru.etiketler.length} parti). Yazılacak: ${Object.entries(degisen).map(([e, k]) => e + '[' + k.join(',') + ']').join(' ')} · ambara/ret listesine yazılmadı.`); return { durum: 'kuru', degisen }; }
+  if (opt.kuru) { io.log(`KURU: tazelik kapısı GEÇTİ (${kuru.etiketler.length} parti). Yazılacak: ${Object.entries(degisen).map(([e, k]) => e + '[' + k.join(',') + ']').join(' ')} · ambara/ret listesine yazılmadı.`); for (const l of ahKorunduSatir(kuru)) io.log(l); return { durum: 'kuru', degisen, ah_korundu: kuru.ah_korundu }; }
   // yedek: yerel + AMBAR kopyası (teslimden önceki ambar hâli artık her teslimde saklanır)
   const Y = path.join(io.yedekKok, `onarim-${ad}-${kuru.zaman.replace(/[:.]/g, '')}`); fs.mkdirSync(Y, { recursive: true });
   for (const e of kuru.etiketler) { fs.copyFileSync(pf(e), path.join(Y, 'kalip-parti-' + e + '.json')); fs.writeFileSync(path.join(Y, 'ambar-' + e + '.json'), JSON.stringify(amb[e], null, 1)); }
@@ -240,7 +256,8 @@ async function teslim(K, opt = {}) {
   io.log(`${ad}: aciklama ${u.aciklama.length} · rehakem ${u.rehakem.length} · red ${u.red.length} · atlanan ${u.atlanan.length} · parti ${u.etiketler.length} (yükleme hatası ${yuk.filter(x => x.cikis).length}) · YALNIZ DEĞİŞEN: ${yuk.map(x => x.e + '[' + x.kpler.join(',') + ']').join(' ')}`);
   io.log(`  ambar geri okuma ${dog.size}/${u.aciklama.length + u.rehakem.length}${uys.length ? ' · UYUŞMAZ ' + uys.join(',') : ''} · elle ret ${rr.once}→${rr.sonra} (çıkan ${rr.cikan}, eklenen ${rr.eklenen})`);
   for (const r of u.red) if (!/hic fark yok/.test(r)) io.log('  RED ' + r);
-  return { durum: 'yazildi', yuk, dog: [...dog], uys };
+  for (const l of ahKorunduSatir(u)) io.log(l);
+  return { durum: 'yazildi', yuk, dog: [...dog], uys, ah_korundu: u.ah_korundu };
 }
 
 // SAHTE DENEME (ağ yok, gerçek ambar/ret listesi/fabrika yok): geçici klasörde 3 kayıtlı sahte parti + 1 açıklama onarımı taslağı.
@@ -253,8 +270,8 @@ async function sahteDeneme(sessiz) {
     'kp-03': { soru: 'Kök 3', dogru: 'A', siklar: { A: 'm', B: 'n' }, aciklama: { A: 'r', B: 's' } } });
   const tam = taban()['kp-01']; tam.aciklama = { A: 'a-YENİ', B: 'b' };
   fs.writeFileSync(path.join(K, '_tam', e + '__kp-01.tam.json'), JSON.stringify(tam)); fs.writeFileSync(path.join(K, e + '__kp-01.json'), JSON.stringify({ degisen_alanlar: ['aciklama.A'] }));
-  const kur = (ambarIcerik, damgalar) => {
-    fs.writeFileSync(path.join(fab, 'kalip-parti-' + e + '.json'), JSON.stringify(taban(), null, 4)); try { fs.unlinkSync(path.join(K, '_uygulanan.json')); } catch (x) { }
+  const kur = (ambarIcerik, damgalar, yerelTaban = taban) => {
+    fs.writeFileSync(path.join(fab, 'kalip-parti-' + e + '.json'), JSON.stringify(yerelTaban(), null, 4)); try { fs.unlinkSync(path.join(K, '_uygulanan.json')); } catch (x) { }
     const giden = []; let n = 0; const ret = { kayitlar: {} };
     const io = { kosan: () => new Set(), anahtar: () => 'x', fabrika: fab, yedekKok: Y, log: sessiz ? () => { } : (...a) => console.log('    ' + a.join(' ')),
       ambarSatir: async () => ({ icerik: JSON.parse(JSON.stringify(giden.length ? giden[giden.length - 1] : ambarIcerik)), guncelleme: damgalar[Math.min(n++, damgalar.length - 1)] }),
@@ -277,6 +294,18 @@ async function sahteDeneme(sessiz) {
     const r = await teslim(K, { io: t.io }); S.push(['YARIŞ (damga değişti) → DURUR, ambara 0 yazma', r.durum === 'yaris' && t.giden.length === 0]); }
   { // 4) KURU (--kuru) → yazma yok
     const t = kur(taban(), ['d1']); const r = await teslim(K, { io: t.io, kuru: true }); S.push(['KURU → yazma yok, değişecek kp-01 raporlanır', r.durum === 'kuru' && t.giden.length === 0 && (r.degisen[e] || []).join() === 'kp-01']); }
+  { // 5) 01.11: kp-01'de üretimin AH TEMIZ kararı var, yalnız açıklama onarıldı, ONARIM_AH_SIL=1 → karar korunur; KURU ve gerçek teslim çıktısı bunu YAZAR
+    const tbA = () => { const x = taban(); x['kp-01'].aciklama_hakem = { karar: 'TEMIZ', model: 'model-c' }; return x; };
+    const es = process.env.ONARIM_AH_SIL; process.env.ONARIM_AH_SIL = '1';
+    try {
+      const t = kur(tbA(), ['d1'], tbA); const L = []; t.io.log = (...a) => L.push(a.join(' '));
+      const rk = await teslim(K, { io: t.io, kuru: true });
+      const t2 = kur(tbA(), ['d1'], tbA); const L2 = []; t2.io.log = (...a) => L2.push(a.join(' '));
+      const ry = await teslim(K, { io: t2.io }); const g = t2.giden[0] || {};
+      const satir = l => /AH TEMIZ korundu \(onarım öncesi metin\) — smmm-ah-yalniz ustune_yaz gerekir/.test(l) && l.includes(e + '/kp-01') && /ONARIM_AH_SIL=1/.test(l);
+      S.push(['01.11 KURU teslim → "AH TEMIZ korundu (onarım öncesi metin) — smmm-ah-yalniz ustune_yaz gerekir" satırı, ah_korundu kp-01', rk.durum === 'kuru' && L.some(satir) && rk.ah_korundu && rk.ah_korundu[e + '/kp-01'] === 'uretim']);
+      S.push(['01.11 gerçek teslim → aynı satır yazılır, ambara giden kp-01 kararı onarim_sonrasi izli', ry.durum === 'yazildi' && L2.some(satir) && g['kp-01'] && g['kp-01'].aciklama_hakem && g['kp-01'].aciklama_hakem.karar === 'TEMIZ' && !!g['kp-01'].aciklama_hakem.onarim_sonrasi]);
+    } finally { if (es === undefined) delete process.env.ONARIM_AH_SIL; else process.env.ONARIM_AH_SIL = es; } }
   fs.rmSync(T, { recursive: true, force: true });
   return S;
 }
@@ -332,6 +361,14 @@ function sinav() {
     ['yalnız açıklama → hakem korunur', karar(e, { ...e, aciklama: { A: 'a2', B: 'b' }, hakem: undefined }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.hakem && r.yeni.hakem.karar === 'EVET'],
     // 07.10: TEMIZ karar korunur + onarim_sonrasi izi; KUSURLU silinir; anahtar değişince silinir
     ['yalnız açıklama + AH TEMIZ → KORUNUR, onarim_sonrasi izi', karar({ ...e, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.aciklama_hakem && r.yeni.aciklama_hakem.karar === 'TEMIZ' && r.yeni.aciklama_hakem.onarim_sonrasi && r.yeni.hakem && r.yeni.hakem.karar === 'EVET'],
+    // 01.11: korunan TEMIZ çıktıda işaretlenir (ah_korundu) — ONARIM_AH_SIL=1 olsa bile korunduğu için sessiz kalmamalı
+    ['01.11 yalnız açıklama + AH TEMIZ → ah_korundu işareti (yol uretim)', karar({ ...e, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' } }, { degisen_alanlar: ['aciklama.A'] }), r => !!r.ah_korundu && r.ah_korundu.yol === 'uretim'],
+    ['01.11 AH TEMIZ smmm-ah-yalniz yolundan → ah_korundu yol smmm-ah-yalniz', karar({ ...e, aciklama_hakem: { karar: 'TEMIZ', yol: 'smmm-ah-yalniz' } }, { ...e, aciklama: { A: 'a2', B: 'b' } }, { degisen_alanlar: ['aciklama.A'] }), r => !!r.ah_korundu && r.ah_korundu.yol === 'smmm-ah-yalniz'],
+    ['01.11 AH KUSURLU silinir → ah_korundu YOK', karar({ ...e, aciklama_hakem: { karar: 'KUSURLU' } }, { ...e, aciklama: { A: 'a2', B: 'b' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && !r.ah_korundu],
+    ['01.11 çıktı satırı: smmm üretim kararı → "smmm-ah-yalniz ustune_yaz gerekir" + ONARIM_AH_SIL=1 notu; aynı yol ve SGS ayrı satır', { durum: (() => { const es = process.env.ONARIM_AH_SIL; process.env.ONARIM_AH_SIL = '1';
+        try { const L = ahKorunduSatir({ ah_korundu: { 'smmm-a/kp-01': 'uretim', 'smmm-a/kp-02': 'smmm-ah-yalniz', 'sgs-b/kp-03': 'uretim' } });
+          return L.length === 3 && /AH TEMIZ korundu \(onarım öncesi metin\) — smmm-ah-yalniz ustune_yaz gerekir \(1\).*ONARIM_AH_SIL=1 bu kararları SİLMEDİ.*smmm-a\/kp-01$/.test(L[0]) && /ustune_yaz gerekmez.*smmm-a\/kp-02$/.test(L[1]) && /yeniden gerekir.*sgs-b\/kp-03$/.test(L[2]) && ahKorunduSatir({ ah_korundu: {} }).length === 0 ? 'ok' : 'x'; }
+        finally { if (es === undefined) delete process.env.ONARIM_AH_SIL; else process.env.ONARIM_AH_SIL = es; } })() }, r => r.durum === 'ok'],
     ['yalnız açıklama + AH KUSURLU → SİLİNİR', karar({ ...e, aciklama_hakem: { karar: 'KUSURLU' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, aciklama_hakem: { karar: 'KUSURLU' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && !r.yeni.aciklama_hakem],
     ['anahtar değişti + AH TEMIZ → SİLİNİR (rehakem)', karar({ ...e, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, dogru: 'A', aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['dogru'] }), r => r.durum === 'rehakem' && !r.yeni.aciklama_hakem],
     ['YENİ soru (kör 10-02) + AH KUSURLU → açıklama onarımı REDDEDİLİR', karar({ ...e, kor_cozum: { tarih: '2026-10-02' }, aciklama_hakem: { karar: 'KUSURLU' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-10-02' }, aciklama_hakem: { karar: 'KUSURLU' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /YENİ soru/.test(r.neden)],
@@ -395,7 +432,7 @@ function sinav() {
   return { ok, toplam: V.length };
 }
 
-module.exports = { karar, fark, esit, retCikabilir, retSecim, hakemRetIsle, elleKilitli, gecmeNedeni, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
+module.exports = { karar, ahKorunduSatir, fark, esit, retCikabilir, retSecim, hakemRetIsle, elleKilitli, gecmeNedeni, yalnizModelIzi, retGuncelle, tazelikFarki, birlestir, notrModel, teslim, sahteDeneme };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
   if (kmt === '--sinav') (async () => {
@@ -405,7 +442,7 @@ if (require.main === module) {
     console.log(`ONARIM HATTI ÖZ-SINAVI ${ok === top ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${top})`); process.exit(ok === top ? 0 : 1);
   })();
   else if (kmt === '--sahte') sahteDeneme(false).then(s => { for (const [ad, g] of s) console.log((g ? '✓ ' : '✗ ') + ad); process.exit(s.every(x => x[1]) ? 0 : 1); });
-  else if (kmt === 'uygula') { const u = uygula(path.resolve(arg), yaz === '--yaz'); console.log(JSON.stringify({ aciklama: u.aciklama.length, rehakem: u.rehakem.length, red: u.red, atlanan: u.atlanan.length })); }
+  else if (kmt === 'uygula') { const u = uygula(path.resolve(arg), yaz === '--yaz'); console.log(JSON.stringify({ aciklama: u.aciklama.length, rehakem: u.rehakem.length, red: u.red, atlanan: u.atlanan.length, ah_korundu: Object.keys(u.ah_korundu).length })); for (const l of ahKorunduSatir(u)) console.log(l); }
   else if (kmt === 'teslim') teslim(path.resolve(arg), { kuru: yaz === '--kuru' }).then(r => process.exit(r && (r.durum === 'bayat' || r.durum === 'yaris') ? 3 : 0)).catch(e => { console.error(e.message); process.exit(1); });
   else if (kmt === 'hakem') hakem(process.argv.slice(3)).catch(e => { console.error(e.message); process.exit(1); });
   else { console.log('komut: uygula|teslim|hakem|--sinav'); process.exit(2); }
