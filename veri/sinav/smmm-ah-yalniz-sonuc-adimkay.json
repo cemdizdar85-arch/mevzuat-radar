@@ -1,0 +1,142 @@
+{
+ "ad": "adimkay",
+ "tarih": "2026-11-01T00:57:49.129Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41258806342",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.54,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 11,
+  "gonderilen": 6,
+  "temiz": 1,
+  "kusurlu": 5,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 5,
+  "yazilan": 6,
+  "kaynaksiz": 3,
+  "kaynaksiz_kusurlu": 3,
+  "usd": 0.13
+ },
+ "kararlar": {
+  "smmm-4k-a-yhukuk-kolay-r3/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "TBK (6098 s.K.) m.430",
+    "TBK (6098 s.K.) m.431",
+    "TBK (6098 s.K.) m.432"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yhukuk-zor-r9/kp-13": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.A",
+    "aciklama.A",
+    "teshis.A",
+    "aciklama.C",
+    "teshis.C"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "İş K. (4857 s.K.) m.4 [1/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-ymeslek-kolay-r5/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "aciklama.D",
+    "teshis.D",
+    "aciklama.E",
+    "teshis.E"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "SMMM K. (3568 s.K.) m.45 [1/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-gm3-3-yhukuk-kolay/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "dayanak"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-gm5-15-ydenetim-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.D"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w3-yspk-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[5].formul"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-yhukuk-zor-r9/kp-13",
+  "smmm-4k-a-ymeslek-kolay-r5/kp-03",
+  "smmm-gm3-3-yhukuk-kolay/kp-02",
+  "smmm-gm5-15-ydenetim-zor/kp-02",
+  "smmm-w3-yspk-zor/kp-01"
+ ],
+ "kaynaksiz": [
+  "smmm-gm3-3-yhukuk-kolay/kp-02",
+  "smmm-gm5-15-ydenetim-zor/kp-02",
+  "smmm-w3-yspk-zor/kp-01"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-gm3-3-yhukuk-kolay/kp-02",
+  "smmm-gm5-15-ydenetim-zor/kp-02",
+  "smmm-w3-yspk-zor/kp-01"
+ ],
+ "atlanan": {
+  "smmm-4k-a-ydenetim-kolay-r4/kp-05": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)",
+  "smmm-4k-a-yhukuk-kolay-r1/kp-14": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)",
+  "smmm-4k-a-yhukuk-kolay-r3/kp-16": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)",
+  "smmm-4k-a-yhukuk-kolay-r5/kp-14": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)",
+  "smmm-w12a-1-ymeslek-cokzor/kp-02": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
