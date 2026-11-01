@@ -1,0 +1,54 @@
+{
+ "ad": "a26ac2",
+ "tarih": "2026-11-01T01:02:06.715Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41259142994",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 1,
+  "temiz": 1,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 1,
+  "yazilan": 1,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.024
+ },
+ "kararlar": {
+  "smmm-dog1-vergi/kp-30": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.5 - Vergi mahremiyeti [2/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {
+  "smmm-4k-a-ymeslek-kolay-r6/kp-04": "parti bulutta koşuyor (bulut-uretim) — sonra"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
