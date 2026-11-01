@@ -64,7 +64,7 @@
     $('ecSatis').hidden=pk; $('ecSatisA').href=A.fiyat+K; $('ecOrnekA').href=A.ornek;
     /* 28.10 söz şeridi (Geçene Kadar Tetikte): yalnız Staja Giriş, paketsize, 21 Kasım 2026 sınavı başlayana kadar
        (söz o dönem içindir; koşullar kampanya-son-20-gun.html). Yeterlilik'te söz YOK (ölçüt Cem kararında). */
-    var sz=$('ecSoz'); if(sz) sz.hidden=!(s==='sgs'&&!pk&&Date.now()<Date.UTC(2026,10,20,21,0,0));
+    var sz=$('ecSoz'); if(sz) sz.hidden=!(s==='sgs'&&!pk&&Date.now()<=Date.UTC(2026,10,1,20,59,59));   /* 01.11 Cem: söz 23:59'da bitti */
     /* 28.10 iki paket kartı: paketsize, gkt.js'in sınav sonrası gizlemesine dokunmadan; ?k= satın al bağlantılarına taşınır */
     var gk=$('ecGkt'); if(gk&&Date.now()<Date.UTC(2026,10,21,21,0,0)){ gk.hidden=pk;
       if(K) gk.querySelectorAll('a.gkt-al').forEach(function(x){ var u=x.getAttribute('href'); if(u.indexOf('k=')<0) x.setAttribute('href', u+(u.indexOf('?')<0?'?':'&')+K.slice(1)); }); }

@@ -201,26 +201,26 @@ html.fy-bekle #paketler{visibility:hidden}
 </div>
 <!-- 27.10 Cem: GEÇENE KADAR TETİKTE iki paket (index.html ve kampanya-son-20-gun.html ile aynı kartlar; rakam gkt.js ← fiyat-motoru.js) -->
 <section class="gkt" data-sinav="sgs" data-gkt-bolum style="border-radius:20px;margin:0 0 22px;overflow:hidden" aria-labelledby="gktBas">
-  <div class="gkt-serit">Geçene Kadar Tetikte · <span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
+  <div class="gkt-serit"><span data-yk="once">Geçene Kadar Tetikte · </span><span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
   <div class="gkt-paket" style="padding-top:14px">
     <h2 class="gkt-h" id="gktBas">İki paket, tek söz: <span class="gkt-kutu">TETİKTE</span></h2>
     <div class="gkt-kartlar">
       <article class="gkt-k">
         <div class="gkt-k-ust"><h3>Sadece 7 Deneme</h3><p class="gkt-fy"><b data-gkt="yedi">999 TL</b><small data-gkt="yedi-haric">832,50 TL + KDV</small></p></div>
         <p class="gkt-icerik">7 deneme + konu görevleri</p>
-        <p class="gkt-yesil">✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar</p>
+        <p class="gkt-yesil" data-yk="once">✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar</p>
         <a class="gkt-al" href="satin-al.html?paket=son20-sgs">7 Deneme'yi al</a>
       </article>
       <article class="gkt-k tam">
         <span class="gkt-rozet" data-gkt-erken>1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</span>
         <div class="gkt-k-ust"><h3>Tam Paket</h3><p class="gkt-fy"><b data-gkt="tam">2.388 TL</b><small data-gkt-erken><span data-gkt="liste">2.988 TL</span> yerine</small><small data-gkt="tam-haric">1.990 TL + KDV</small></p></div>
         <p class="gkt-icerik">7 deneme + görevler + sitedeki bütün SGS soruları</p>
-        <p class="gkt-yesil">✓ Kalırsan bütün üyeliğin geçene kadar ücretsiz</p>
+        <p class="gkt-yesil" data-yk="once">✓ Kalırsan bütün üyeliğin geçene kadar ücretsiz</p>
         <a class="gkt-al" href="satin-al.html?paket=sgs">Tam Paketi al</a>
       </article>
     </div>
     <span class="gkt-iki-soz">Söz ikisinde de var.</span>
-    <p class="gkt-dip" data-yk="sonra" hidden>Şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · Fiyatlar KDV dahil · <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
+    <p class="gkt-dip" data-yk="sonra" hidden>Fiyatlar KDV dahil</p><!-- 01.11 Cem: söz 23:59'da bitti, şart satırı kalktı -->
     <p class="gkt-dip" data-yk="once"><b>Yönetim kurulu kararı: 1 Kasım 23:59'a kadar alana şart yok</b> · Sonra alanlarda şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · Fiyatlar KDV dahil · <a href="kampanya-son-20-gun.html#karar">Kampanya koşulları</a></p>
   </div>
 </section>
@@ -511,7 +511,7 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
 <script src="fiyat-motoru.js?v=20261028y5"></script>
-<script src="paket-kartlari.js?v=3"></script>
+<script src="paket-kartlari.js?v=4"></script>
 <script src="gkt.js?v=20261101yk" defer></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';

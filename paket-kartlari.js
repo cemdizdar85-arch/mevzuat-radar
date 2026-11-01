@@ -14,7 +14,7 @@
   + '<a class="pk-al" href="satin-al.html?paket=sgs">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart" data-paket="son20-sgs"><p class="pk-sinav">SMMM Staja Giriş · Son 20 Gün</p><h3>Sadece 7 Deneme</h3>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
-  + '<ul><li>7 deneme, ders ders testler</li><li>Konu görevleri ve açıklamalar</li><li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li></ul>'
+  + '<ul><li>7 deneme, ders ders testler</li><li>Konu görevleri ve açıklamalar</li>'+(Date.now()<=Date.UTC(2026,10,1,20,59,59)?'<li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li>':'')+'</ul>'   /* 01.11 Cem: söz 23:59'da bitti */
   + '<a class="pk-al" href="satin-al.html?paket=son20-sgs">Şimdi kaydol · 1 Kasım\'da başla</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart" data-paket="yeterlilik-1"><p class="pk-sinav">SMMM Yeterlilik</p><h3>Seçtiğin dersler</h3>'
   + '<div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>'
