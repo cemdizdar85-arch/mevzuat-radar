@@ -571,7 +571,10 @@ jobs:
           # vermisti (31'i saglam) - kapi DAR kuruldu: tutar had ifadesiyle dogrudan tanimli + ayni baglam ya da madde
           # aciktan aniliyor + varsayim degil. 11 vaka; butun SMMM (4.862) esdegerlik provasinda yalniz bilinen 2 kusur dustu.
           # Mutasyonla olculdu: varsayim / madde anilmasi / baglam sarti kaldirilinca KIRMIZI.
-          - { ad: "KAPI-HAD OZ-SINAVI (yanlis had tutari yayina girmesin)",
+          # 01.11.2026 SMMM D7 yolu (Ajan 43): had = veri/sinav/had-d7.json (2025 resmi listesi), madde = dayanak + kok,
+          # ibare maddeyi aniyorsa yalniz o madde; KGK yolu birebir eski. Mesru: w4-yvergi-kolay/kp-03 + 4k-a-yvergi-kolay-r10/kp-06,
+          # ihlal: ayni sorular 2026 tutariyla (1.200.000 / 870.000) DUSER. 6 mutasyon, her biri en az 1 vaka KIRMIZI.
+          - { ad: "KAPI-HAD OZ-SINAVI (yanlis had tutari yayina girmesin + SMMM D7 yolu + mutasyon)",
               kabuk: pwsh, komut: "./arac/had-kapisi-sinavi.ps1" }
 
           # 23.09.2026 - Model konu kontrolu dogru etiketlilerin %17'sine HAYIR dedi; yeniden etiketleme yalniz

@@ -30,11 +30,15 @@ $VAKALAR = @(
   @{ ad = 'yeni temiz soru, açıklama hakemi KUSURLU → DÜŞER'; bek = $true; s = (S $TEMIZ '2026-10-02' '' 'KUSURLU') }
   @{ ad = 'eski soru, açıklama hakemi kararı yok → GEÇER (çekilmez)'; bek = $false; s = (S $TEMIZ '2026-09-15' '' '') }
   @{ ad = 'yeni soru + THP''de yanlış hesap adı (252 Taşıtlar, KAPI-HK) → DÜŞER'; bek = $true; s = (S 'Kayıt: 252 TAŞITLAR hesabı borçlandırılır.' '2026-10-02' '') }
+  # 01.11 K1d (Cem 30.10 "TMS 1 kalsın"): TMS 1 atfı (EK9) bitirme anahtarında DÜŞÜRMEZ; KGK anahtarında eskisi gibi düşürür; bitirmede öteki eski kural yine düşürür
+  @{ ad = 'K1d: bitirme (smmm-) yeni soru + TMS 1 atfı → GEÇER'; an = 'smmm-w4-fmuh-kolay/kp-01'; bek = $false; s = (S 'TMS 1 uyarınca dönen varlık; 100.000 x 0,20 = 20.000.' '2026-10-02' '') }
+  @{ ad = 'K1d: KGK (kgk-) yeni soru + TMS 1 atfı → DÜŞER (değişmedi)'; an = 'kgk-t1-fmuh/kp-01'; bek = $true; s = (S 'TMS 1 uyarınca dönen varlık; 100.000 x 0,20 = 20.000.' '2026-10-02' '') }
+  @{ ad = 'K1d: bitirme yeni soru + eski KDV %18 → yine DÜŞER'; an = 'smmm-w4-yvergi-kolay/kp-01'; bek = $true; s = (S $ESKI '2026-10-02' '') }
 )
 
 function VakaKos([string]$blokKaynak) {
   $sb = [scriptblock]::Create("param(`$vakalar, `$kopru)`n. `$kopru`n" + $blokKaynak + "`n" + @'
-foreach ($v in $vakalar) { $n = SmmmKaliteNeden 'sinav' $v.s; $b = [bool]$n; [pscustomobject]@{ ad = $v.ad; bek = $v.bek; bulundu = $b; tamam = ($b -eq $v.bek) } }
+foreach ($v in $vakalar) { $n = SmmmKaliteNeden $(if ($v.an) { $v.an } else { 'sinav' }) $v.s; $b = [bool]$n; [pscustomobject]@{ ad = $v.ad; bek = $v.bek; bulundu = $b; tamam = ($b -eq $v.bek) } }
 '@)
   return @(& $sb $VAKALAR $kopruYol 3>$null)
 }
@@ -51,6 +55,7 @@ $MUTASYONLAR = @(
   @{ ad = 'en yeni tarih yerine en eski'; eski = 'Sort-Object -Descending'; yeni = 'Sort-Object' }
   @{ ad = 'başlangıç geri çekildi (eski soru da düşer)'; eski = "else { '2026-10-01' }"; yeni = "else { '2000-01-01' }" }
   @{ ad = 'açıklama hakemi denetimi kapalı'; eski = 'if (AhSecilemez $soruNesne)'; yeni = 'if ($false)' }
+  @{ ad = 'K1d: etiket Node''a gitmiyor'; eski = '-Etiket ("$anahtar" -split ''/'')[0]'; yeni = '-Etiket ''sinav''' }
 )
 foreach ($m in $MUTASYONLAR) {
   if (-not $blok.Contains($m.eski)) { $kirmizi++; Write-Host "  KIRMIZI mutasyon kurulamadı (kapı metni değişmiş): $($m.ad)" -ForegroundColor Red; continue }
