@@ -1,13 +1,13 @@
 # MEVZUAT DEĞİŞTİ — ENGEL DOĞRULAMASI
 
-> Türetilmiştir (`arac/mevzuat-degisti-dogrula.ps1`), elle düzenlenmez. 01.11.2026 04:11 · taban `b6293b4e^` (20.10.2026) · bedel 0 · soru metni YOK
+> Türetilmiştir (`arac/mevzuat-degisti-dogrula.ps1`), elle düzenlenmez. 01.11.2026 10:13 · taban `b6293b4e^` (20.10.2026) · bedel 0 · soru metni YOK
 
-**DOĞRULAMA: engel 406 · kanıtlı 1 · SMMM için kalkan 1 · başka sınav kanıtlı (dokunulmadı) 0 · kalan engel 405**
+**DOĞRULAMA: engel 401 · kanıtlı 1 · SMMM için kalkan 1 · başka sınav kanıtlı (dokunulmadı) 0 · kalan engel 400**
 
 | madde | kaynak | tür | soru | sınav | sonuç | kanıt / neden |
 |---|---|---|---:|---|---|---|
 | ad|TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu | TEORI:TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu | degisti | 65 | SGS 16 · SMMM 49 | KANITSIZ — engel kalır | ÖLÇÜLEMEDİ: ambarda 0 parça bulundu, damga dosyası 1 diyor (anahtar aynası ayrışmış olabilir) |
-| ad|TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü | TEORI:TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü | degisti | 47 | SGS 16 · SMMM 31 | KANITSIZ — engel kalır | ÖLÇÜLEMEDİ: ambarda 0 parça bulundu, damga dosyası 1 diyor (anahtar aynası ayrışmış olabilir) |
+| ad|TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü | TEORI:TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü | degisti | 46 | SGS 16 · SMMM 30 | KANITSIZ — engel kalır | ÖLÇÜLEMEDİ: ambarda 0 parça bulundu, damga dosyası 1 diyor (anahtar aynası ayrışmış olabilir) |
 | ad|TEORI - Alacak senedi iskontosu: senet iskonto ettirme kaydı (121 Alacak Senetleri, 102 Bankalar, 780 Finansman Giderleri) ve iskonto tutarı hesabı | TEORI:TEORI - Alacak senedi iskontosu: senet iskonto ettirme kaydı (121 Alacak Senetleri, 102 Bankalar, 780 Finansman Giderleri) ve iskonto tutarı hesabı | degisti | 45 | SGS 6 · SMMM 39 | KANITSIZ — engel kalır | ÖLÇÜLEMEDİ: ambarda 0 parça bulundu, damga dosyası 1 diyor (anahtar aynası ayrışmış olabilir) |
 | ad|TEORI - Kollektif sirkette kar dagitimi | TEORI:TEORI - Kollektif sirkette kar dagitimi | degisti | 35 | KGK 1 · SGS 5 · SMMM 29 | KANITSIZ — engel kalır | ÖLÇÜLEMEDİ: ambarda 0 parça bulundu, damga dosyası 1 diyor (anahtar aynası ayrışmış olabilir) |
 | ad|TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter) | TEORI:TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter) | degisti | 33 | SGS 3 · SMMM 30 | KANITSIZ — engel kalır | ÖLÇÜLEMEDİ: ambarda 0 parça bulundu, damga dosyası 1 diyor (anahtar aynası ayrışmış olabilir) |
