@@ -43,7 +43,8 @@ function SmmmKaliteNeden([string]$anahtar, $soruNesne, [switch]$AnlatimOncesi) {
   $ahBeklet = ($AnlatimOncesi -and -not $ahKaydiVar)
   if (AhSecilemez $soruNesne) { if (-not $ahBeklet) { return "AÇIKLAMA HAKEMİ: yeni soru TEMIZ değil ($(if ($soruNesne.PSObject.Properties['aciklama_hakem'] -and $soruNesne.aciklama_hakem) { "$($soruNesne.aciklama_hakem.karar)" } else { 'karar yok' }))" } }
   if (-not (SmmmYeniSoruMu $soruNesne)) { return $null }
-  $kq = @(SoruKaliteKapisi $soruNesne)
+  # 01.11 K1d (Cem 30.10 "TMS 1 kalsın"): etiket Node'a gider; 'smmm-' etiketinde EK9 (TMS 1 atfı) DURDURMAZ, NOT-EK olur
+  $kq = @(SoruKaliteKapisi $soruNesne -Etiket ("$anahtar" -split '/')[0])
   if ($script:SORU_KALITE_KOR) { Write-Warning "KAPI-KALITE KÖR: $anahtar | $($script:SORU_KALITE_KOR)"; $script:SORU_KALITE_KOR = $null; return $null }
   if ($kq.Count) { return "KAPI-KALITE $($kq -join ' · ')" }
   return $null
@@ -140,8 +141,9 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita, [switch]$Anla
   $mdE = MdEngel $script:MD_LISTE $anahtar $v
   if ($mdE) { return [pscustomobject]@{ gecer = $false; neden = "mevzuat değişti: $($mdE.kaynak) ($($mdE.tur), $($mdE.tarih))" } }
   # 23.09 KAPI-HAD (arac/had-kapisi.ps1): dayandığı maddenin güncel haddinden farklı tutarı GERÇEK diye veren soru geçmez
-  if ($null -eq $script:HAD_HARITA) { $script:HAD_HARITA = HadHaritaOku (Split-Path -Parent $PSScriptRoot) }
-  $hadI = HadIddiasi $v $script:HAD_HARITA @(@($v.kaynak_adlar) | ForEach-Object { MdAnahtar "$_" })
+  # 01.11 (Ajan 38 ölçümü, D7): 'smmm-' anahtarında had = D7 yılı listesi (veri/sinav/had-d7.json), madde = dayanak + kök;
+  #   öteki anahtar (KGK, kgk-yayin-sarti.ps1 bu işlevi çağırır) 23.09 yolundan BİREBİR geçer. Ayrıntı had-kapisi.ps1 başlığında.
+  $hadI = HadYayinNeden $anahtar $v $(if ($PSScriptRoot) { Split-Path -Parent $PSScriptRoot } else { '' })   # AST'den kurulan işlevde (öz-sınav) $PSScriptRoot boş: önbellek önceden dolu olmalı
   if ($hadI) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-HAD yanlış had tutarı: $hadI" } }
   # 27.09 KAPI-OM (Cem "1.2.3"): özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralını anlatan soru geçmez (VUK m.327: kira süresine göre).
   #   Eşdeğerlik 27.09: yayındaki kusurlu 5 soru ÖNCE onarıldı (kc-alan-tamamla), sonra kapı bağlandı → yayından düşen 0 (ölçüm commit mesajında).

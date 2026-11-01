@@ -8,12 +8,13 @@ $script:SORU_KALITE_KOR = $null
 $script:SORU_KALITE_JS = Join-Path (Split-Path -Parent $PSCommandPath) 'soru-kalite-kapisi.js'
 if (-not $PSCommandPath) { $script:SORU_KALITE_JS = Join-Path $PSScriptRoot 'soru-kalite-kapisi.js' }
 
-function SoruKaliteKapisi($nesne) {
+# 01.11 -Etiket (K1d): parti etiketi Node'a gider ('smmm-' → EK9 TMS 1 atfı NOT-EK, durdurmaz). Boşsa davranış eskisi gibi.
+function SoruKaliteKapisi($nesne, [string]$Etiket = '') {
   $gecici = $null
   try {
     $gecici = [IO.Path]::GetTempFileName()
     [IO.File]::WriteAllText($gecici, (ConvertTo-Json -InputObject $nesne -Depth 14 -Compress), [Text.UTF8Encoding]::new($false))
-    $cikti = @(& node $script:SORU_KALITE_JS --tek $gecici)
+    $cikti = @($(if ($Etiket) { & node $script:SORU_KALITE_JS --tek $gecici --etiket $Etiket } else { & node $script:SORU_KALITE_JS --tek $gecici }))
     if ($LASTEXITCODE -ne 0) { $script:SORU_KALITE_KOR = "node çıkış ${LASTEXITCODE}: $(@($cikti) -join ' ')"; return @() }
     # NOT-* durdurmaz (30.09 ölçümü: AS1 alarmlarının %54–76'sı yanlış). HK 30.09 eklendi (SMMM oturumu bildirdi: tek-soru yolu süzüyordu).
     # 03.10 YENİ2: KAPI-YY / KAPI-ADIM / KAPI-TR (+ KAPI-BOS BOS-KALIP) yalnız YENİ2 soruda (kör/hakem2 ≥ 2026-10-04 ya da tarihsiz üretim

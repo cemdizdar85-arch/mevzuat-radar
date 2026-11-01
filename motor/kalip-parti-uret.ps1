@@ -4329,7 +4329,7 @@ if($HazirSoru -and -not $SadeceHtml){
     foreach($x in @(MulgaKapisi $cvp)){ $kus.Add("KAPI-M: $x") }
     foreach($x in @(SureKapisi $cvp)){ $kus.Add("KAPI-S: $x") }
     $omH=@(OzelMaliyetKapisi $e); if($omH.Count){ $kus.Add("KAPI-OM: $($omH.Count) cümlede eski 'kira 5 yıldan uzunsa 5 yılda' kuralı (VUK m.327: kira süresine göre)") }   # 27.09: hazır dosyanın TAMAMI (teşhis, sade, konu girişi, adımlar dahil); cümle günlüğe basılmaz (depo/günlük public)
-    foreach($x in @(SoruKaliteKapisi $e)){ $kus.Add($x) }; if($script:SORU_KALITE_KOR){ $rapor.Add("KAPI-KALITE KÖR: $id | $($script:SORU_KALITE_KOR)"); $script:SORU_KALITE_KOR=$null }   # 30.09 Cem "kural koy": hazır dosyanın TAMAMI (sade, teşhis, adımlar, ikiz dahil)
+    foreach($x in @(SoruKaliteKapisi $e -Etiket $Etiket)){ $kus.Add($x) }; if($script:SORU_KALITE_KOR){ $rapor.Add("KAPI-KALITE KÖR: $id | $($script:SORU_KALITE_KOR)"); $script:SORU_KALITE_KOR=$null }   # 30.09 Cem "kural koy": hazır dosyanın TAMAMI (sade, teşhis, adımlar, ikiz dahil)
     $cbGm=CikmisCumleKapisi $cvp $SB; foreach($x in @($cbGm.kusur)){ $kus.Add("KAPI-CB: $x") }; foreach($x in @($cbGm.not)){ $rapor.Add("KAPI-CB NOTU: $id | $x") }; if($cbGm.kor){ $rapor.Add("KAPI-CB KÖR: $id | $($cbGm.kor)") }
     foreach($x in @(GunTabaniKapisi $cvp $(if($e.PSObject.Properties['adimlar']){ $e.adimlar } else { @() }))){ $kus.Add("KAPI-GT: $x") }
     $yilH=@([regex]::Matches("$($cvp.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yilH.Count -and (($yilH | Measure-Object -Maximum).Maximum -lt (Get-Date).Year)){ $kus.Add("KAPI-Y: sorudaki en yeni yıl $(($yilH | Measure-Object -Maximum).Maximum)") }
