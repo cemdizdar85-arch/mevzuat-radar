@@ -7,7 +7,7 @@
    ✕ gerektirmez: bildirim/katman değil, sayfa bölümü. */
 (function(){
   if (typeof FIYAT === 'undefined') return;
-  var YK_BITIS = Date.UTC(2026, 10, 1, 20, 59, 59); // 1 Kasım 2026 23:59:59 TR — erken kayıtla aynı an (ERKEN_KAYIT.bitis)
+  var YK_BITIS = Date.UTC(2026, 10, 1, 21, 4, 59); // 1 Kasım 2026 23:59:59 TR — erken kayıtla aynı an (ERKEN_KAYIT.bitis)
   var SINAV_SONU = Date.UTC(2026, 10, 21, 21, 0, 0);
   function yaz(sec, metin){ var L = document.querySelectorAll(sec); for (var i = 0; i < L.length; i++) L[i].textContent = metin; }
   function gizle(sec, gizli){ var L = document.querySelectorAll(sec); for (var i = 0; i < L.length; i++) L[i].hidden = gizli; }

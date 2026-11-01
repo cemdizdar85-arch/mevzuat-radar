@@ -15,7 +15,7 @@
 name: Erken Kayit Kodlarini Kapat (1 Kasim 2026 23:59 TR)
 on:
   schedule:
-    - cron: '59 20 1 11 *'
+    - cron: '5 21 1 11 *'
     - cron: '20 21 1 11 *'
     - cron: '0 22 1 11 *'
   workflow_dispatch:

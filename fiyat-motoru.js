@@ -107,7 +107,7 @@ var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':
    kodları 600 TL indirir (ERKEN600 · INSTA600 · GOOGLE600 · TELEGRAM600; eski ...400 kodları da 600). Sunucu: elci_indirim
    sgs = 600 (radar-app/sql/2026-10-27-gecene-kadar-tetikte.sql); süre bitince erken-kayit-kapat.yml kodları kapatır, sgs
    satırını 400'e (elçi sözleşmesi Madde 5) geri yazar. Yukarıdaki ELCI.indirim sözleşme tutarıdır, değişmedi. */
-var ERKEN_KAYIT = { bitis:Date.UTC(2026, 10, 1, 20, 59, 59), indirim:600, kod:'ERKEN600' };
+var ERKEN_KAYIT = { bitis:Date.UTC(2026, 10, 1, 21, 4, 59), indirim:600, kod:'ERKEN600' };
 function erkenKayitAcik(){ return Date.now() < ERKEN_KAYIT.bitis; }
 if(erkenKayitAcik()){ ELCI.indirim.sgs = ERKEN_KAYIT.indirim; }
 /* 28.10.2026 YETERLİLİK ERKEN KAYIT (Cem: "Tüm dersler 3.468 yerine 2.868 TL, kodsuz, 7 Kasım 23:59'a kadar, SGS'deki gibi her
