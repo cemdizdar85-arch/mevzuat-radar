@@ -130,8 +130,8 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       <div class="kutu"><b id="sPaketli">0</b><span>aktif paketli</span></div>
       <div class="kutu"><b id="sOdenen">0</b><span>ödenmiş sipariş (iade hariç)</span></div>
       <!-- 02.11 Cem ("sözü 1 Kasım 23:59'a kadar alanları ayrıca işaretleyelim, yönetimde göreyim; açılıştan sonra hep açıkta tutacağız") -->
-      <div class="kutu"><b id="sSoz">0</b><span>söz hakkı olan üye — 1 Kasım'a kadar ödeyen <small id="sSozAyr"></small></span></div>
-      <div class="kutu"><b id="sHediye">0</b><span>hediye verilen üye (söz listesinde değil)</span></div>
+      <div class="kutu"><b id="sSoz">0</b><span>Geçene kadar — 1 Kasım'a kadar ödeyen üye <small id="sSozAyr"></small></span></div>
+      <div class="kutu"><b id="sHediye">0</b><span>hediye verilen üye (Geçene kadar listesinde değil)</span></div>
     </div>
 
     <h2>Kim nereden geldi, hangi sınava</h2>
@@ -231,7 +231,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       <input id="fAra" type="search" placeholder="Ad, e-posta ya da elçi kodu ara" aria-label="Ara">
       <select id="fSinav" aria-label="Sınava göre süz"><option value="">Tüm sınavlar</option><option>Staja Giriş</option><option>Yeterlilik</option><option>Tümü (tam paket)</option><option>Belirsiz</option></select>
       <select id="fKaynak" aria-label="Kaynağa göre süz"><option value="">Tüm kaynaklar</option><option>Ücretli</option><option>Elçi ile ücretli</option><option>Hediye</option><option>Elle verilmiş</option><option>Ücretsiz üye</option></select>
-      <select id="fDurum" aria-label="Duruma göre süz"><option value="">Tüm hesaplar</option><option value="paketli">Paketi açık</option><option value="sessiz">Paketi açık, 7 gündür çözmüyor</option><option value="cozen">Son 7 günde çözen</option><option value="engelli">Girişi engelli</option><option value="soz">Söz hakkı olan (1 Kasım'a kadar alan)</option></select>
+      <select id="fDurum" aria-label="Duruma göre süz"><option value="">Tüm hesaplar</option><option value="paketli">Paketi açık</option><option value="sessiz">Paketi açık, 7 gündür çözmüyor</option><option value="cozen">Son 7 günde çözen</option><option value="engelli">Girişi engelli</option><option value="soz">Geçene kadar (1 Kasım'a kadar alan)</option></select>
     </div>
     <div class="kaydir"><table id="tUye"></table></div>
     <p class="not" id="uSay"></p>
@@ -438,7 +438,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       var k=kul(u), cozH=k.cevap ? '<b>'+k.cevap+'</b> <span class="not" style="margin:0">(7 gün: '+k.cevap7+' · doğru %'+Math.round(100*k.dogru/k.cevap)+')</span>' : (KUL_HATA?'<span class="not" style="margin:0">'+KUL_HATA+'</span>':'<span class="not" style="margin:0">hiç çözmedi</span>');
       var aktif=u.kaynak!=='Ücretsiz üye';
       var durumH=(u.engel?'<span class="etiket e-engel">Girişi engelli</span>':(aktif?'<span class="etiket e-ucretli">Paketi açık</span>':'<span class="etiket e-bos">Paketsiz</span>'))
-        +(u.soz?' <span class="etiket e-soz" title="1 Kasım 23:59\'a kadar aldı: '+esc(u.soz_paket||'')+'">Söz hakkı</span>':'');
+        +(u.soz?' <span class="etiket e-soz" title="1 Kasım 23:59\'a kadar aldı: '+esc(u.soz_paket||'')+'">Geçene kadar</span>':'');
       var isl='<span style="display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">'+((u.kaynak==='Hediye'||u.kaynak==='Elle verilmiş')?'<button class="btn" data-kapat="'+esc(u.eposta)+'" data-hediye="'+(u.kaynak==='Hediye'?1:0)+'">Paketi kapat</button> ':'')
         +(u.engel?'<button class="btn" data-engelkaldir="'+esc(u.eposta)+'">Engeli kaldır</button>'
                  :'<button class="btn tehlike" data-uyeiptal="'+esc(u.eposta)+'">Üyeliği iptal et</button>')+'</span>';
@@ -468,7 +468,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       var odenen=s.durum==='odendi'||s.durum==='iade';
       if(odenen) nOd++; else nBek++;
       if(s.durum==='odendi'&&s.paket_durum&&s.paket_durum!=='acik') nKapali++;
-      var satir='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+(s.soz&&s.durum==='odendi'?' <span class="etiket e-soz">Söz</span>':'')+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (otomatik, ödeme gelmedi)':({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum)))+'</td><td>'+pDurum(s)+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'<button class="btn" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Havale geç geldi, paketi aç</button>':'')))+'</td></tr>';   /* 29.10: otomatik iptal (motor/siparis-son-hatirlatma.mjs) sonrası gelen havale panelden açılır - 2026-10-29-otomatik-iptal.sql */
+      var satir='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+(s.soz&&s.durum==='odendi'?' <span class="etiket e-soz">Geçene kadar</span>':'')+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'iptal (otomatik, ödeme gelmedi)':({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum)))+'</td><td>'+pDurum(s)+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':(s.durum==='iptal'&&s.iptal_neden==='otomatik'?'<button class="btn" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Havale geç geldi, paketi aç</button>':'')))+'</td></tr>';   /* 29.10: otomatik iptal (motor/siparis-son-hatirlatma.mjs) sonrası gelen havale panelden açılır - 2026-10-29-otomatik-iptal.sql */
       if(odenen) sh+=satir; else bh+=satir;
     });
     if(nKapali) sh=sBas.replace('</tr>','</tr><tr><td colspan="11"><b style="color:var(--red)">⚠ Ödenmiş '+nKapali+' siparişin paketi sitede KAPALI</b> - "Sitede paket" sütununa bak.</td></tr>')+sh.slice(sBas.length);
