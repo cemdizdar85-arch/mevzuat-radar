@@ -76,13 +76,14 @@ function ThpSozluk{
       (ConvertFrom-Json (Invoke-WebRequest -Uri $u -Headers $BASLIK -UseBasicParsing -TimeoutSec 120).Content) | ForEach-Object { $m=[regex]::Match("$($_.kaynak_ad)",'^THP\s+(\d{3})\s*-\s*(.+)$'); if($m.Success){ $d[$m.Groups[1].Value]=$m.Groups[2].Value.Trim() } }; break }catch{ Write-Host "THP sözlüğü çekilemedi (deneme $dn): $($_.Exception.Message)" -ForegroundColor DarkYellow; if($dn -lt 3){ Start-Sleep -Seconds (5*$dn) } } } }
   $script:THP=$d; return $d
 }
+# 01.11.2026: kanun/tebliğ numarası ('193 sayılı', '213 s.K.', 'Sıra No: 588') hesap kodu sayılmaz; parçalar arac/kimlik-ayikla.ps1 KIMLIK_NUMARA_* ile AYNI
 function HesapKodKusur($c){
   $d=ThpSozluk; if(-not $d.Count){ return $null }
   $metinler=New-Object System.Collections.Generic.List[string]; foreach($h in 'A','B','C','D','E'){ $metinler.Add("$($c.siklar.$h)") }
   if($c.sema){ $kyt=@(); if($c.sema.PSObject.Properties['kayitlar']){ $kyt=@($c.sema.kayitlar) } elseif($c.sema.PSObject.Properties['ogeler']){ $kyt=@($c.sema) }
     foreach($ky in $kyt){ if($ky -and $ky.ogeler){ foreach($og in @($ky.ogeler.borc)+@($ky.ogeler.alacak)){ if($og){ $metinler.Add("$($og.hesap)") } } } } }
   $kusur=New-Object System.Collections.Generic.List[string]; $gor=@{}
-  foreach($t in $metinler){ foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])(?!\s*(?:TL|₺|lira|adet|kg|ton|gün|yıl|ay|saat|birim|kişi|%|puan|metre|litre))\s+([^\d]{3,90})')){ $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
+  foreach($t in $metinler){ foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})(?<!\b[Nn][Oo]\s?[:.]?\s?)([1-7]\d{2})(?![\d.,])(?!\s*(?:[Ss][Aa][Yy][ıiIİ][Ll][ıiIİ]|[Ss]\.\s?[Kk]\b|[Ss][ıiIİ][Rr][Aa]\s+[Nn][Oo]\b))(?!\s*(?:TL|₺|lira|adet|kg|ton|gün|yıl|ay|saat|birim|kişi|%|puan|metre|litre))\s+([^\d]{3,90})')){ $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
       $yazHam=$m.Groups[2].Value.Trim(); $yaz=Katla $yazHam; $res=Katla $d[$kod]; $resK=@(($res -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|veya|ile|hesabi|hs)$' }); if(-not $resK.Count){ continue }
       $eksik=@($resK | Where-Object { $w=$_; $on=$(if($w.Length -gt 5){ $w.Substring(0,5) } else { $w }); $yaz -notmatch ('\b'+[regex]::Escape($on)) })
       $an="$kod|$yaz"; if($gor[$an]){ continue }; $gor[$an]=1

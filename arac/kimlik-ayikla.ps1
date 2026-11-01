@@ -26,10 +26,25 @@
 #    11.09 ölçümü: BDS 705 dört soruda doğru kullanılmıştı; ön ek istisnası
 #    olmadan kapı o dört soruyu "onaylı küme dışı" diye reddederdi.
 # ⛔ Madde numarası da hesap kodu değildir: "m.482", "madde 516".
+# ⛔ Kanun / tebliğ numarası da hesap kodu değildir (01.11.2026, Ajan 41 ölçtü):
+#    "193 sayılı", "213 s.K.", "486 Sıra No.lu", "Sıra No: 588", "Seri No: 329".
+#    Ölçüldü: 6.960 SMMM sorusunun 381'inde tek "hesap kodu" bir "N sayılı" kanun
+#    numarasıydı; KAPI-HG o sorulara 19x/21x/48x… THP grubunu ekledi, hakem ilgisiz
+#    paketle karar verdi (smmm-w6-yvergi-zor/kp-03 iki kez HAYIR: "kaynak THP 190-199").
+#    "No" ÖNCESİ: "Sıra No: 588" / "Seri No: 329". "sayılı" / "s.K." / "Sıra No" SONRASI.
+#    Büyük/küçük harf elle yazıldı: (?i) makinenin kültürüne bağlı (tr-TR'de I≠i).
+#    🚫 GÖRMEZ: "401 nolu sipariş", "417 numaralı sipariş" (sipariş/fatura no) — bunlar
+#    "257 numaralı hesap" ile aynı kalıpta; ayırmak ayrı iş, burada dışlanmaz.
+#    ⚠ Aynı iki parça şu kopyalarda ELLE yazılı (onlar bu dosyayı yüklemeden AST ile
+#    alınıyor): motor/kalip-parti-uret.ps1 SikHesaplari + HesapKodKapisi,
+#    motor/soru-karnesi.ps1 HesapKodKusur, arac/hazir-soru-denetle.ps1 KAPI-HG riski.
+#    Kopya sapmasını arac/kimlik-ayikla-sinavi.ps1 yakalar.
+$script:KIMLIK_NUMARA_ONCE  = '(?<!\b[Nn][Oo]\s?[:.]?\s?)'
+$script:KIMLIK_NUMARA_SONRA = '(?!\s*(?:[Ss][Aa][Yy][ıiIİ][Ll][ıiIİ]|[Ss]\.\s?[Kk]\b|[Ss][ıiIİ][Rr][Aa]\s+[Nn][Oo]\b))'
 $script:KIMLIK_HESAP_DESENI =
   '(?<!(?:BDS|TMS|TFRS|TSRS|KKS|BOBİ FRS|KÜMİ FRS|BOBI FRS|KUMI FRS)\s)' +
-  '(?<!\bm\.\s?)(?<!\bmadde\s)' +
-  '(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])'
+  '(?<!\bm\.\s?)(?<!\bmadde\s)' + $script:KIMLIK_NUMARA_ONCE +
+  '(?<![\d.,])([1-7]\d{2})(?![\d.,])' + $script:KIMLIK_NUMARA_SONRA + '\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])'
 
 $script:KIMLIK_STD_DESENI = '(?i)\b(BDS|TMS|TFRS|TSRS|KKS)\s*(\d{1,4})'
 

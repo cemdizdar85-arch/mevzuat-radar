@@ -2567,10 +2567,11 @@ function HesapKalibi([string]$ders,[string]$konu){
   return $null
 }
 # Dogru sikkin kullandigi hesap kodlari (kod + ardindan ad geliyorsa hesap kodudur)
+# 01.11.2026: kanun/teblig numarasi ('193 sayili', '213 s.K.', 'Sira No: 588') kod sayilmaz; parcalar arac/kimlik-ayikla.ps1 KIMLIK_NUMARA_* ile AYNI (kopya sapmasi: arac/kimlik-ayikla-sinavi.ps1)
 function SikHesaplari($c){
   if(-not $c -or -not $c.dogru){ return @() }
   $m="$($c.siklar.$($c.dogru))"
-  return @([regex]::Matches($m,'(?<!(?:BDS|TMS|TFRS|TSRS|KKS|BOBİ FRS|KÜMİ FRS|BOBI FRS|KUMI FRS)\s)(?<![\d.,])([1-7]\d{2})(?![\d.,])\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') |
+  return @([regex]::Matches($m,'(?<!(?:BDS|TMS|TFRS|TSRS|KKS|BOBİ FRS|KÜMİ FRS|BOBI FRS|KUMI FRS)\s)(?<!\b[Nn][Oo]\s?[:.]?\s?)(?<![\d.,])([1-7]\d{2})(?![\d.,])(?!\s*(?:[Ss][Aa][Yy][ıiIİ][Ll][ıiIİ]|[Ss]\.\s?[Kk]\b|[Ss][ıiIİ][Rr][Aa]\s+[Nn][Oo]\b))\s+(?=[A-ZÇĞİÖŞÜa-zçğıöşü])') |
            ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
 }
 function HesapSetiKapisi($c,[string]$ders,[string]$konu){
@@ -2889,8 +2890,9 @@ function HesapKodKapisi($aday){
   $kusur=New-Object System.Collections.Generic.List[string]; $gorulen=@{}
   foreach($t in $metinler){
     # standart/madde numaraları hesap kodu değildir ("BDS 260", "TMS 240", "m. 523") — 06.09 karne ölçümünde 3 sahte alarm
+    # 01.11.2026: kanun/tebliğ numarası da değildir ("193 sayılı Gelir Vergisi Kanunu" → resmî "Peşin Ödenen Vergiler" ≠ yazılan → sahte düşürme); parçalar arac/kimlik-ayikla.ps1 KIMLIK_NUMARA_* ile AYNI
     # "400 TL olumlu sapma" bir tutardır, hesap kodu değil (06.09 fmuh-k10 sahte alarmı): birim/para sözcüğü izleyen sayı atlanır
-    foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})([1-7]\d{2})(?![\d.,])(?!\s*(?:TL|₺|lira|adet|kg|ton|gün|yıl|ay|saat|birim|kişi|%|puan|metre|litre))\s+([^\d]{3,90})')){
+    foreach($m in [regex]::Matches($t,'(?<![\d.,])(?<!(?:BDS|TMS|TFRS|GDS|KKS|UMS|UFRS|IFRS|ISA|ISQM|KGK|Sıra No|No|madde|m\.|md\.|p\.)\s{0,2})(?<!\b[Nn][Oo]\s?[:.]?\s?)([1-7]\d{2})(?![\d.,])(?!\s*(?:[Ss][Aa][Yy][ıiIİ][Ll][ıiIİ]|[Ss]\.\s?[Kk]\b|[Ss][ıiIİ][Rr][Aa]\s+[Nn][Oo]\b))(?!\s*(?:TL|₺|lira|adet|kg|ton|gün|yıl|ay|saat|birim|kişi|%|puan|metre|litre))\s+([^\d]{3,90})')){
       $kod=$m.Groups[1].Value; if(-not $d.ContainsKey($kod)){ continue }
       $yazHam=$m.Groups[2].Value.Trim(); $yaz=Katla2 $yazHam; $res=Katla2 $d[$kod]
       $resK=@(($res -split '\s+') | Where-Object { $_.Length -ge 3 -and $_ -notmatch '^(ve|veya|ile|hesabi|hs)$' }); if(-not $resK.Count){ continue }

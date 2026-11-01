@@ -764,7 +764,8 @@ foreach($q in $liste){
   if($Ders -and $Ders -notmatch 'Finansal|Maliyet|Mali Tablo|Denetim|Vergi|Muhasebe|Matematik|Atat'){
     $hgM="$($q.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($q.siklar.$_)" }) -join ' ')
     $hgB='(?:TL|YTL|TRY|USD|EUR|₺|lira|kuruş|kurus|adet|kg|gram|ton|km|cm|mm|metre|litre|gün|gun|ay|yıl|yil|saat|dakika|saniye|kişi|kisi)'
-    $hgS=@([regex]::Matches($hgM,"(?<![\d.,%$])([1-7]\d\d)(?![\d.,%])\s+(?!$hgB(?![A-Za-zÇĞİÖŞÜçğıöşü]))") | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+    # 01.11.2026: kanun/tebliğ numarası ('193 sayılı', '213 s.K.', 'Sıra No: 588') üreticide artık kod sayılmıyor → burada da uyarılmaz (parçalar arac/kimlik-ayikla.ps1 KIMLIK_NUMARA_* ile AYNI)
+    $hgS=@([regex]::Matches($hgM,"(?<![\d.,%$])(?<!\b[Nn][Oo]\s?[:.]?\s?)([1-7]\d\d)(?![\d.,%])(?!\s*(?:[Ss][Aa][Yy][ıiIİ][Ll][ıiIİ]|[Ss]\.\s?[Kk]\b|[Ss][ıiIİ][Rr][Aa]\s+[Nn][Oo]\b))\s+(?!$hgB(?![A-Za-zÇĞİÖŞÜçğıöşü]))") | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
     if($hgS.Count){ $k.Add("KAPI-HG riski: '$($hgS -join ', ')' hesap kodu sanılır, hakem paketine THP girer (sayıyı yazıyla yaz ya da birim/% ekle)") }
   }
   foreach($x in @(OzelMaliyetKapisi $q)){ $k.Add("KAPI-OM: $x") }   # 27.09: üretici FAZ GM'de aynı işlevle ÜCRETSİZ düşürür
