@@ -5,6 +5,15 @@
 > sorular çalışma anında kilitli kasadan (`paket_soru`, RLS) gelir. Yeni soru, düzeltme,
 > yeni ders → mağaza incelemesi YOK.
 
+## 🔜 SONRAKİ SÜRÜMDE (tek başına sürüm çıkarılmaz; başka işle birlikte)
+- **Ölü sayfa paketten çıkar** (Cem 02.11 "evet, sonraki sürümde"): `hazirla.js` SITE_SAYFALARI'ndaki
+  `en-cok-cikan-sorular.html` uygulamada bozuk — `en-cok-cikan.js`, `en-cok-cikan.css`, `fiyat-motoru.js`
+  pakete girmiyor (3 × 404, "Dersler yükleniyor…"da kalır). Uygulamada bu sayfaya bağ YOK (yalnız katalog.js
+  `sayfalar` listesinde; o liste yalnız son-20-gun.html varlığına bakılıyor), kullanıcı görmüyor. Satırı sil +
+  `hazirla-sinavi.js` sahte depo listesinden (satır ~90 `en-cok-cikan-sorular.html`) çıkar + sınavı koş.
+  02.11 ölçümü: paketleme 1.9.1'den (31.10) beri değişmemiş, bozukluk 1.9.1'de de var.
+- **App Store destek adresi**: sayfada `info@dizdardenetim.com`, Play'de `destek@tetikte.com` → App Store Connect'te eşitle.
+
 ## Ne var, ne yapıyor
 
 | Parça | Görev |
