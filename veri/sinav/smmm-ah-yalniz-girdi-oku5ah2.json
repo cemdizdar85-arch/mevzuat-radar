@@ -1,0 +1,154 @@
+{
+ "ad": "oku5ah2",
+ "olusturma": "2026-11-01T00:50:39.256Z",
+ "kaynak_klasor": "veri/fabrika/temizlik/onarim-oku5-ah2",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK.",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r8/kp-05",
+   "taslak_sha": "deed1157d30f06b463f6229b6087a659e9b5c5352b4c28cdf05237ce2c2f1d73",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.285 - Borçlar",
+     "alinti": "Vadesi gelmemiş olan senede bağlı borçlar değerleme günü kıymetine irca olunabilir. Bu takdirde senette faiz nispeti açıklanmışsa bu nispet, açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddinde bir faiz uygulanır."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.285 - Borçlar",
+     "alinti": "Alacak senetlerini değerleme gününün kıymetine irca eden mükellefler, borç senetlerini de aynı şekilde işleme tabi tutmak zorundadırlar."
+    },
+    {
+     "kaynak_ad": "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli borçların tasarruf değeri ile değerlemesini sağlamak üzere borç senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi : Hesaplanan reeskont tutarları bu hesaba borç, \"64-Diğer Faaliyetlerden Olağan Gelir ve Kârlar\" grubundaki \"642- Faiz Gelirleri Hesabı\"na gelir, kaydedilir. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Gider ve Zararla"
+    },
+    {
+     "kaynak_ad": "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli alacakların tasarruf değeri ile değerlenmesini sağlamak üzere alacak senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi: Hesaplanan reeskont tutarları bu hesaba alacak, \"65- Diğer Faaliyetlerden Olağan Gider ve Zararlar\" grubundaki \"652- Reeskont Faiz Giderleri Hesabı\"na gider yazılır. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Ge"
+    },
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": "İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+     "alinti": "İşletmenin senetli alacaklarının dönem sonu itibariyle yapılan reeskont faiz giderleri ile borç senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz giderlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü",
+     "alinti": "KURAL (borç senetleri): Dönem sonunda hesaplanan reeskont tutarı 322 BORÇ SENETLERİ REESKONTU (-) hesabına BORÇ, 647 REESKONT FAİZ GELİRLERİ hesabına ALACAK kaydedilir (THP 322 metninin ilk sürümü 642 Faiz Gelirleri'ni anar; 647 hesabı sonradan açılmıştır ve güncel uygulama 647"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-zor-r2/kp-18",
+   "taslak_sha": "88add62e8c3588f93a433dad4030718d2250c23be024aa5432703f71c3de9a12",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.281 - Alacaklar",
+     "alinti": "Vadesi gelmemiş olan senede bağlı alacaklar değerleme gününün kıymetine irca olunabilir. Bu takdirde, senette faiz nispeti açıklanmış ise bu nispet, açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddi uygulanır."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.285 - Borçlar",
+     "alinti": "Vadesi gelmemiş olan senede bağlı borçlar değerleme günü kıymetine irca olunabilir. Bu takdirde senette faiz nispeti açıklanmışsa bu nispet, açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddinde bir faiz uygulanır."
+    },
+    {
+     "kaynak_ad": "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli alacakların tasarruf değeri ile değerlenmesini sağlamak üzere alacak senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi: Hesaplanan reeskont tutarları bu hesaba alacak, \"65- Diğer Faaliyetlerden Olağan Gider ve Zararlar\" grubundaki \"652- Reeskont Faiz Giderleri Hesabı\"na gider yazılır. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Ge"
+    },
+    {
+     "kaynak_ad": "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli borçların tasarruf değeri ile değerlemesini sağlamak üzere borç senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi : Hesaplanan reeskont tutarları bu hesaba borç, \"64-Diğer Faaliyetlerden Olağan Gelir ve Kârlar\" grubundaki \"642- Faiz Gelirleri Hesabı\"na gelir, kaydedilir. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Gider ve Zararla"
+    },
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": "İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+     "alinti": "İşletmenin senetli alacaklarının dönem sonu itibariyle yapılan reeskont faiz giderleri ile borç senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz giderlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)",
+     "alinti": "KAYIT (dönem sonu): 657 REESKONT FAİZ GİDERLERİ BORÇ / 122 ALACAK SENETLERİ REESKONTU (−) ALACAK. İzleyen dönem başında ters kayıt: 122 borç / 647 REESKONT FAİZ GELİRLERİ alacak. Alacak senetlerini reeskonta tabi tutan işletme BORÇ SENETLERİNİ de reeskonta tabi tutmak zorundadır: 322 BORÇ SENETLERİ REESKONTU (−) borç / 647 Reeskont Faiz Gelirleri alacak; izleyen dönem ters kayıt 657 borç / 322 ala"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w4-fmuh-zor-2/kp-31",
+   "taslak_sha": "003d9a95a49945b554d4838512dfc61768ffe40eca7e3613cc75cbf549e75a18",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) gec. m.4",
+     "alinti": "Geçici Madde 4 – Bu kanunun yürürlüğe girdiği tarihte veya sonraki yıllarda bilanço esasına göre Gelir ve Kurumlar Vergisi mükellefiyetine girecek olanlar açılış bilanço ve envanterini tanzim ederken işletmeye dahil iktisadi kıymetleri bu kanunun üçüncü kitabında yazılı hükümler dairesinde değerlendirirler."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.281 - Alacaklar",
+     "alinti": "Vadesi gelmemiş olan senede bağlı alacaklar değerleme gününün kıymetine irca olunabilir. Bu takdirde, senette faiz nispeti açıklanmış ise bu nispet, açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddi uygulanır."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+     "alinti": "Yukarıda yazılı şüpheli alacaklar için değerleme gününün tasarruf değerine göre pasifte karşılık ayrılabilir. Bu karşılığın hangi alacaklara ait olduğu karşılık hesabında gösterilir. Teminatlı alacaklarda bu karşılık teminattan geri kalan miktara inhisar eder."
+    },
+    {
+     "kaynak_ad": "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli alacakların tasarruf değeri ile değerlenmesini sağlamak üzere alacak senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi: Hesaplanan reeskont tutarları bu hesaba alacak, \"65- Diğer Faaliyetlerden Olağan Gider ve Zararlar\" grubundaki \"652- Reeskont Faiz Giderleri Hesabı\"na gider yazılır. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Ge"
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Teminatlı alacaklarda karşılık, teminatı aşan kısım için ayrılır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w7-2-fmuh-cokzor/kp-04",
+   "taslak_sha": "e3ae666643e14a1de898a50fec5d9c15f83771f79a8a2b8382431f061fd631a7",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.285 - Borçlar",
+     "alinti": "Vadesi gelmemiş olan senede bağlı borçlar değerleme günü kıymetine irca olunabilir. Bu takdirde senette faiz nispeti açıklanmışsa bu nispet, açıklanmamışsa Cumhuriyet Merkez Bankasının resmi iskonto haddinde bir faiz uygulanır."
+    },
+    {
+     "kaynak_ad": "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli borçların tasarruf değeri ile değerlemesini sağlamak üzere borç senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi : Hesaplanan reeskont tutarları bu hesaba borç, \"64-Diğer Faaliyetlerden Olağan Gelir ve Kârlar\" grubundaki \"642- Faiz Gelirleri Hesabı\"na gelir, kaydedilir. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Gider ve Zararla"
+    },
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": "İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+     "alinti": "İşletmenin senetli alacaklarının dönem sonu itibariyle yapılan reeskont faiz giderleri ile borç senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz giderlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü",
+     "alinti": "KURAL (borç senetleri): Dönem sonunda hesaplanan reeskont tutarı 322 BORÇ SENETLERİ REESKONTU (-) hesabına BORÇ, 647 REESKONT FAİZ GELİRLERİ hesabına ALACAK kaydedilir (THP 322 metninin ilk sürümü 642 Faiz Gelirleri'ni anar; 647 hesabı sonradan açılmıştır ve güncel uygulama 647"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w9-2-fmuh-cokzor/kp-02",
+   "taslak_sha": "0f50342d16e0e6cc9e1d5b8307d1ec623d0133ababbeb171b84c01282364f8c8",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+     "alinti": "Ticari ve zirai kazancın elde edilmesi ve idame ettirilmesi ile ilgili olmak şartıyla; 1. (Değişik: 1/5/1981-2455/3 md.) Dava veya icra safhasında bulunan alacaklar;"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+     "alinti": "Yukarıda yazılı şüpheli alacaklar için değerleme gününün tasarruf değerine göre pasifte karşılık ayrılabilir. Bu karşılığın hangi alacaklara ait olduğu karşılık hesabında gösterilir. Teminatlı alacaklarda bu karşılık teminattan geri kalan miktara inhisar eder."
+    },
+    {
+     "kaynak_ad": "THP 128 - Şüpheli Ticari Alacaklar",
+     "alinti": "Ödeme süresi geçmiş bu nedenle vadesi bir kaç defa uzatılmış veya protesto edilmiş, yazı ile birden fazla istenmiş ya da dava veya icra safhasına aktarılmış senetli ve senetsiz alacakları kapsar. İşleyişi : Tahsili şüpheli hale gelmiş olan alacaklar ilgili hesapların alacağı karşılığında bu hesaba borç yazılarak bu durumdaki alacaklar normal alacaklardan çıkarılır."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "İşleyişi: Hesaplanan karşılık tutarı bu hesaba alacak, \"654- Karşılık Giderleri\" hesabına borç kaydedilir."
+    },
+    {
+     "kaynak_ad": "THP 654 - KARŞILIK GİDERLERİ (-)",
+     "alinti": "Aktifle ilgili olarak ayrılan karşılık giderlerinin izlendiği hesaptır."
+    }
+   ]
+  }
+ ]
+}
