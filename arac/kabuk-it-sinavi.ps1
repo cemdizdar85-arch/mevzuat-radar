@@ -6,9 +6,10 @@
   VAKALAR: 1) araya giren başka dosya → rebase + itilir, iki değişiklik de uzakta · 2) bizim üretim dosyasında
     (veri/deneme) çakışma → bizimki kazanır, b'nin öteki değişikliği korunur · 3) desen dışı dosyada (arac/kasa-modu.json)
     çakışma → çıkış 1, uzaktaki b'nin hâli EZİLMEZ, klon rebase ortasında kalmaz · 4) değişiklik yok → çıkış 0, commit yok ·
-    5) uzak her itmeyi reddeder (pre-receive) → 3 denemede çıkış 1 · 6) STATİK: smmm-kasa-yayin.yml "Bitirme kabuklarini it"
+    5) uzak her itmeyi reddeder (pre-receive) → 3 denemede çıkış 1 · 7) kirli çalışma ağacı (izlenen, commit dışı dosya) + itme reddi → itilir,
+    kirli dosya commit'e girmez ve yerinde kalır · 6) STATİK: smmm-kasa-yayin.yml "Bitirme kabuklarini it"
     adımı bu betiği çağırır, çıkış kodunu geçirir, eski merge döngüsü kalmamıştır.
-  -Mutasyon: 4 bozma (çakışma çözümü yok · her dosya bizim · tek deneme · değişiklik yok denetimi yok), her biri KIRMIZI.
+  -Mutasyon: 5 bozma (çakışma çözümü yok · her dosya bizim · tek deneme · değişiklik yok denetimi yok · autostash yok), her biri KIRMIZI.
   🚫 GÖRMEZ: GitHub'ın gerçek itme yarışı (yerel çıplak depo) · iş akışındaki "KABUK DEGIL" denetimi (betikten önce).
 ================================================================================
 #>
@@ -83,6 +84,13 @@ function SinavKos([string]$metin) {
     Yaz $a 'veri/deneme/set.json' "a 5`n"
     $r = Kos $betik $a
     V '5 uzak hep reddeder → 3 denemede çıkış 1' ($r.kod -eq 1 -and $r.cikti -match '3 denemede itilemedi') "$($r.kod) | $($r.cikti)"
+    # 7) KİRLİ ÇALIŞMA AĞACI + itme reddi (01.11 yayın 41279967041: had-tutar-tarama izlenen dosyayı kirli bırakıyordu, rebase başlamadı)
+    $k7 = Join-Path $kok 'v7'; $uz = Kur $k7; $a = Join-Path $k7 'a'; $b = Join-Path $k7 'b'
+    Yaz $b 'veri/deneme/diger.json' "b diger`n"; G $b add -A | Out-Null; G $b commit -q -m b | Out-Null; G $b push -q origin main | Out-Null
+    Yaz $a 'README' "a kirli`n"; Yaz $a 'veri/deneme/set.json' "a 7`n"
+    $r = Kos $betik $a
+    $aReadme = [IO.File]::ReadAllText((Join-Path $a 'README'))
+    V '7 kirli ağaç + itme reddi → itildi, kirli dosya commit''e girmedi ve yerinde kaldı' ($r.kod -eq 0 -and (UzakDosya $uz 'veri/deneme/set.json') -eq 'a 7' -and (UzakDosya $uz 'veri/deneme/diger.json') -eq 'b diger' -and (UzakDosya $uz 'README') -eq 'ilk' -and $aReadme.Trim() -eq 'a kirli') "$($r.kod) | README uzak '$(UzakDosya $uz 'README')' yerel '$($aReadme.Trim())' | $($r.cikti)"
     # 6) STATİK: iş akışı bağı
     $yml = [IO.File]::ReadAllText($ymlYol, [Text.Encoding]::UTF8)
     $adim = [regex]::Match($yml, '(?s)- name: Bitirme kabuklarini it\r?\n(.*?)(\r?\n\s*\r?\n|\r?\n\s+- name:)').Groups[1].Value
@@ -96,6 +104,7 @@ $MUTASYONLAR = @(
   @{ ad = 'M1 çakışma çözümü yok (her çakışmada dur)'; eski = 'if (-not $cakisma.Count -or $yabanci.Count) {'; yeni = 'if ($true) {' }
   @{ ad = 'M2 her dosya bizim sayılıyor'; eski = 'function BizimMi([string]$yol) {'; yeni = 'function BizimMi([string]$yol) { return $true;' }
   @{ ad = 'M3 tek deneme (rebase sonrası itme yok)'; eski = 'for ($i = 1; $i -le $Deneme; $i++) {'; yeni = 'for ($i = 1; $i -le 1; $i++) {' }
+  @{ ad = 'M5 autostash yok (kirli ağaçta rebase başlamaz)'; eski = 'git rebase -q --autostash origin/main'; yeni = 'git rebase -q origin/main' }
   @{ ad = 'M4 değişiklik yok denetimi yok'; eski = "if (-not `$degisen.Count) { 'kabuklarda degisiklik yok - commit ATILMADI'; exit 0 }"; yeni = '' }
 )
 if (-not $Mutasyon) {

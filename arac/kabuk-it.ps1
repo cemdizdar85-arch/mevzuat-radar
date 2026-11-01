@@ -37,13 +37,16 @@ for ($i = 1; $i -le $Deneme; $i++) {
   git push -q origin HEAD:main 2>&1 | Out-Null
   if ($LASTEXITCODE -eq 0) { "itildi (deneme $i)"; exit 0 }
   git fetch -q origin main 2>&1 | Out-Null
-  git rebase -q origin/main 2>&1 | Out-Null
+  # 01.11 (yayın 41279967041): önceki adımlar izlenen dosyaları KİRLİ bırakıyor (had-tutar-tarama.ps1 -> veri/sinav/had-guncel.json,
+  #   HAD-TUTAR-TARAMASI.md; her koşuda tarih değişir). Kirli ağaçta rebase HİÇ başlamıyordu. --autostash: kirli dosyalar rebase
+  #   süresince saklanır, sonra geri konur; commit'e GİRMEZ (yalnız $Yollar eklendi). Git çıktısı hata satırına yazılır.
+  $rbCikti = @(git rebase -q --autostash origin/main 2>&1 | ForEach-Object { "$_" })
   if ($LASTEXITCODE) {
     $cakisma = @(git diff --name-only --diff-filter=U)
     $yabanci = @($cakisma | Where-Object { -not (BizimMi $_) })
     if (-not $cakisma.Count -or $yabanci.Count) {
       git rebase --abort 2>&1 | Out-Null
-      "::error::itme cakismasi (bizim uretim disi): $(@($(if ($yabanci.Count) { $yabanci } else { '(rebase dustu, cakisan dosya yok)' })) -join ', ') - elle bakilmali"; exit 1
+      "::error::itme cakismasi (bizim uretim disi): $(@($(if ($yabanci.Count) { $yabanci } else { "(rebase dustu, cakisan dosya yok; git: $((@($rbCikti) | Select-Object -Last 3) -join ' / '))" })) -join ', ') - elle bakilmali"; exit 1
     }
     foreach ($f in $cakisma) { git checkout $bizim -- $f 2>&1 | Out-Null; git add -- $f 2>&1 | Out-Null }
     git -c core.editor=true rebase --continue 2>&1 | Out-Null

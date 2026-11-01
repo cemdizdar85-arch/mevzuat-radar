@@ -164,10 +164,10 @@ jobs:
           - { ad: "Bitirme konu basligi MUTASYON (14 bozma, her biri KIRMIZI)",
               kabuk: pwsh, komut: "./arac/smmm-konu-baslik-sinavi.ps1 -Mutasyon" }
           # 01.11.2026 - Bitirme kabuk itme (arac/kabuk-it.ps1): red -> fetch + rebase, 3 deneme; veri/deneme + kaydir/smmm cakismasinda
-          # bizimki, desen disi cakismada KIRMIZI. Gecici ciplak depo + iki klon; 6 vaka (1 statik is akisi bagi) + 4 mutasyon.
+          # bizimki, desen disi cakismada KIRMIZI; kirli agacta --autostash. Gecici ciplak depo + iki klon; 7 vaka (1 statik) + 5 mutasyon.
           - { ad: "Bitirme kabuk itme OZ-SINAVI (rebase + 3 deneme, cakisma kurali)",
               kabuk: pwsh, komut: "./arac/kabuk-it-sinavi.ps1" }
-          - { ad: "Bitirme kabuk itme MUTASYON (4 bozma, her biri KIRMIZI)",
+          - { ad: "Bitirme kabuk itme MUTASYON (5 bozma, her biri KIRMIZI)",
               kabuk: pwsh, komut: "./arac/kabuk-it-sinavi.ps1 -Mutasyon" }
           # 01.11.2026 - Hesap kodu deseni "193 sayili" / "213 s.K." / "Sira No: 588" kanun-teblig numarasini THP kodu
           # saniyordu; KAPI-HG Vergi sorularinin hakem/kor paketine 19x/21x grubu ekledi. Tek kaynak arac/kimlik-ayikla.ps1 +
