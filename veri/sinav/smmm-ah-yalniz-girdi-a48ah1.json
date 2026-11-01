@@ -1,0 +1,646 @@
+{
+ "ad": "a48ah1",
+ "olusturma": "2026-11-01T06:18:31.686Z",
+ "kaynak_klasor": "birden çok (Ajan 48 a48 ah-girdi: kimlik başına ambarla eşit taslak klasörü)",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (ambarla eşit taslak varsa; bulut planı kaydı yeniden yazdıysa taslak_sha yok, ambardaki hâl denetlenir) + dayanak adı/resmî alıntı. Soru metni YOK. | 5 kayıtta (olc2-a-vergi/kp-18, ymeslek-kolay-r6/kp-10, yvergi-kolay-r1/kp-21, yvergi-zor-r2/kp-04, w13-1-fmuh-zor/kp-10) dayanak kaydın kaynak_adlar satırlarından ambar dokumanlarıyla kuruldu (alıntı aynen).",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-4k-a-yvergi-zor-r6/kp-09",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "AATUHK (6183 s.K.) m.58 - Ödeme emrine itiraz",
+     "alinti": "Kendisine ödeme emri tebliğ olunan şahıs, böyle bir borcu olmadığı veya kısmen ödediği veya zamanaşımına uğradığı hakkında tebliğ tarihinden itibaren 15 gün içinde alacaklı tahsil dairesine ait itiraz işlerine bakan vergi itiraz komisyonu nezdinde itirazda bulunabilir."
+    },
+    {
+     "kaynak_ad": "AATUHK (6183 s.K.) m.58 - Ödeme emrine itiraz",
+     "alinti": "İtiraz komisyonu bu itirazları en geç 7 gün içinde karara bağlamak mecburiyetindedir."
+    },
+    {
+     "kaynak_ad": "AATUHK (6183 s.K.) m.58 - Ödeme emrine itiraz",
+     "alinti": "Borcun tamamına bu madde gereğince vakı itirazların tamamen veya kısmen reddi halinde, borçlu ret kararının kendisine tebliği tarihinden itibaren 15 gün içinde mal bildiriminde bulunmak mecburiyetindedir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yvergi-zor-r6/kp-17",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.41 - Beyanname verme zamanı",
+     "alinti": "Beyanname verme zamanı: Madde 41 – 1. Mükellefler (…)99 Katma Değer Vergisi beyannamelerini, vergilendirme dönemini takibeden ayın yirmidördüncü günü akşamına kadar, vergi kesintisi yapmakla sorumlu tutulanlar Katma Değer Vergisi beyannamelerini, vergilendirme dönemini takibeden ayın yirmibirinci günü akşamına kadar ilgili vergi dairesine vermekle yükümlüdürler."
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.46 - DÖRDÜNCÜ BÖLÜM Verginin Ödenmesi Verginin Ödenmesi",
+     "alinti": "1. Beyanname vermek mecburiyetinde olan mükellefler (…)102 bir vergilendirme dönemine ait katma değer vergilerini beyanname verecekleri ayın yirmialtıncı günü akşamına kadar, vergi kesintisi yapmakla sorumlu tutulanlar bir vergilendirme dönemine ait katma değer vergilerini beyanname verecekleri ayın yirmiüçüncü günü akşamına kadar ödemeye mecburdurlar."
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.46 - DÖRDÜNCÜ BÖLÜM Verginin Ödenmesi Verginin Ödenmesi",
+     "alinti": "5. Maliye Bakanlığı, Vergi Usul Kanunu uyarınca işletme hesabı esasına göre defter tutan mükelleflerin ödeme zamanını, beyannamenin verildiği ayı takip eden ikinci ayın sonuna kadar uzatmaya, işlemin mahiyetini göz önünde tutarak Katma Değer Vergisinin işlemden önce ödenmiş olması şartını koymaya yetkilidir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yvergi-zor-r8/kp-10",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.1 - BİRİNCİ BÖLÜM Verginin Konusu Verginin konusunu teşkil eden işlemler [1/2]",
+     "alinti": "Türkiye'de yapılan aşağıdaki işlemler katma değer vergisine tabidir: 1. Ticari, sınai, zirai faaliyet ve serbest meslek faaliyeti çerçevesinde yapılan teslim ve hizmetler,"
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.8 - İKİNCİ BÖLÜM Mükellef ve Vergi Sorumlusu Mükellef",
+     "alinti": "2. (Değişik : 3/6/1986 - 3297/2 md.) Vergiye tabi bir işlem sözkonusu olmadığı veya katma değer vergisini fatura veya benzeri vesikalarda göstermeye hakkı bulunmadığı halde; düzenlediği bu tür vesikalarda katma değer vergisi gösterenler, bu vergiyi ödemekle mükelleftirler."
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.29 [2/5]",
+     "alinti": "ç) (Ek:27/12/2023-7491/30 md.) Vergi kesintisi yapmakla sorumlu tutulanlar tarafından sorumlu sıfatıyla beyan edilerek ödenen katma değer vergisi,"
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.29 [2/5]",
+     "alinti": "2. (Değişik: 25/12/2003-5035/9 md.) Bir vergilendirme döneminde indirilecek katma değer vergisi toplamı, mükellefin vergiye tâbi işlemleri dolayısıyla hesaplanan katma değer vergisi toplamından fazla olduğu takdirde, aradaki fark sonraki dönemlere devrolunur ve iade edilmez."
+    },
+    {
+     "kaynak_ad": "KDV GUT bolum 1103",
+     "alinti": "Ancak, 3065 sayılı Kanunun (29/5) maddesinde Bakanlığımıza verilen yetki çerçevesinde, vergi kesintisi yapmakla sorumlu tutulanlar tarafından tevkif edilen ve tevkifatın yapıldığı döneme ait 1 No.lu KDV Beyannamesinden önce verilen aynı döneme ait 2 No.lu KDV Beyannamesiyle süresinde beyan edilerek süresinde ödenen KDV’nin, 2 No.lu KDV Beyannamesinin ait olduğu dönemin 1 No.lu KDV Beyannamesinde i"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-olc2-a-vergi/kp-18",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.370 [2/3]",
+     "alinti": "Şu kadar ki, sahte veya muhteviyatı itibarıyla yanıltıcı belge kullanma fiilinin işlenmiş olabileceğine dair yapılan ön tespitlerde, kullanılan sahte veya muhteviyatı itibarıyla yanıltıcı belge tutarı, bir takvim yılında 100 bin (870.000 TL) Türk lirasını geçmeyen veya bu tutarı geçse bile ilgili yı"
+    },
+    {
+     "kaynak_ad": "VUK GT 577 EK (1.1.2025 had ve tutarlari listesi) m.370",
+     "alinti": "MADDE 370 - İzaha davet Kullanılan sahte veya muhteviyatı itibarıyla yanıltıcı belge tutarı:"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.370 [3/3]",
+     "alinti": "hiç verilmemiş olan vergi beyannamelerinin verilmesi, eksik veya yanlış yapılan vergi beyanının tamamlanması veya düzeltilmesi ve ödeme süresi geçmiş bulunan vergilerin, ödemenin geciktiği her ay ve kesri için, 6183 sayılı Kanunun 51 inci maddesinde belirtilen nispette uygulanacak gecikme zammı oran"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-olc2-a-vergi/kp-44",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.11 - KISIM İstisnalar BİRİNCİ BÖLÜM İhracat İstisnası Mal ve hizmet ihracatı [3/3]",
+     "alinti": "imalatçılara iade edilecek Katma Değer Vergisi, ihraç edilen mala ilişkin imalatçı satış bedeline göre hesaplanan vergiden imalatçı aleyhine matrahta meydana gelen değişikliğe ilişkin verginin düşülmesinden sonra kalan tutardan fazla olamaz."
+    },
+    {
+     "kaynak_ad": "KDV GUT bolum 348",
+     "alinti": "İmalatçı aleyhine ortaya çıkan kur farkları için ihracatçılar tarafından düzenlenecek faturada KDV hesaplanmaz."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-olc2-a-vergi/kp-60",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.9 - Vergi sorumlusu [1/2]",
+     "alinti": "1. Mükellefin Türkiye içinde ikametgahının, işyerinin, kanuni merkezi ve iş merkezinin bulunmaması hallerinde ve gerekli görülen diğer hallerde Maliye Bakanlığı, vergi alacağının emniyet altına alınması amacıyla, vergiye tabi işlemlere taraf olanları verginin ödenmesinden sorumlu tutabilir."
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.29 [2/5]",
+     "alinti": "ç) (Ek:27/12/2023-7491/30 md.) Vergi kesintisi yapmakla sorumlu tutulanlar tarafından sorumlu sıfatıyla beyan edilerek ödenen katma değer vergisi,"
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.29 [2/5]",
+     "alinti": "2. (Değişik: 25/12/2003-5035/9 md.) Bir vergilendirme döneminde indirilecek katma değer vergisi toplamı, mükellefin vergiye tâbi işlemleri dolayısıyla hesaplanan katma değer vergisi toplamından fazla olduğu takdirde, aradaki fark sonraki dönemlere devrolunur ve iade edilmez."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-olc2-a-vergi/kp-64",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "ÖTV K. (4760 s.K.) gec. m.3 - EYEN HÜKÜMLER 1-18/2/2009 tarihli ve 5838 sayılı Kanunun geçici maddesi [12/35]",
+     "alinti": "-- Motor silindir geçmeyenler54 hacmi 1400 cm³'ü 14/10/2021 tarihli ve 7338 sayılı Kanunun 57 nci maddesiyle 87.03 G.T.İ.P. numaralı sıranın “Diğerleri” satırından önce gelmek üzere karşılarında gösterilen oranlarıyla birlikte bu satırlar eklenmiştir."
+    },
+    {
+     "kaynak_ad": "ÖTV K. (4760 s.K.) gec. m.3 - EYEN HÜKÜMLER 1-18/2/2009 tarihli ve 5838 sayılı Kanunun geçici maddesi [13/35]",
+     "alinti": "24/7/2025 tarihli ve 10115 sayılı Cumhurbaşkanı Kararı eki karar ile bu satırlarda yer alan bazı mallar için farklı matrah grupları ile bu matrah gruplarına ilişkin oranlar oluşturulmuş ve malların özel tüketim 53 --- Özel tüketim vergisi matrahı 650.000 TL’yi aşmayanlar54 7054 --- Özel tüketim vergisi matrahı 650.000 TL’yi aşıp, 900.000 TL’yi aşmayanlar54 7554 --- Özel tüketim vergisi matrahı 900"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w5-fmuh-zor/kp-23",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+     "alinti": "İşletmenin senetli alacaklarının dönem sonu itibariyle yapılan reeskont faiz giderleri ile borç senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz giderlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": "İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w5-fmuh-zor/kp-27",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.285 - Borçlar",
+     "alinti": "Alacak senetlerini değerleme gününün kıymetine irca eden mükellefler, borç senetlerini de aynı şekilde işleme tabi tutmak zorundadırlar."
+    },
+    {
+     "kaynak_ad": "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli borçların tasarruf değeri ile değerlemesini sağlamak üzere borç senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi : Hesaplanan reeskont tutarları bu hesaba borç, \"64-Diğer Faaliyetlerden Olağan Gelir ve Kârlar\" grubundaki \"642- Faiz Gelirleri Hesabı\"na gelir, kaydedilir. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Gider ve Zararla"
+    },
+    {
+     "kaynak_ad": "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+     "alinti": "Bilanço gününde, senetli alacakların tasarruf değeri ile değerlenmesini sağlamak üzere alacak senetleri için ayrılan reeskont tutarlarının izlenmesinde kullanılır. İşleyişi: Hesaplanan reeskont tutarları bu hesaba alacak, \"65- Diğer Faaliyetlerden Olağan Gider ve Zararlar\" grubundaki \"652- Reeskont Faiz Giderleri Hesabı\"na gider yazılır. İzleyen dönemde bu hesap \"65- Diğer Faaliyetlerden Olağan Ge"
+    },
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": "İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır."
+    },
+    {
+     "kaynak_ad": "TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)",
+     "alinti": "KAYIT (dönem sonu): 657 REESKONT FAİZ GİDERLERİ BORÇ / 122 ALACAK SENETLERİ REESKONTU (−) ALACAK. İzleyen dönem başında ters kayıt: 122 borç / 647 REESKONT FAİZ GELİRLERİ alacak. Alacak senetlerini reeskonta tabi tutan işletme BORÇ SENETLERİNİ de reeskonta tabi tutmak zorundadır: 322 BORÇ SENETLERİ REESKONTU (−) borç / 647 Reeskont Faiz Gelirleri alacak; izleyen dönem ters kayıt 657 borç / 322 ala"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-cokzor-r9/kp-01",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir. Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise \"681- Önceki Dönem Gider ve Zararları\" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r4/kp-15",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    },
+    {
+     "kaynak_ad": "MSUGT 1 ilke - Gelir Tablosu İlkeleri e",
+     "alinti": "Arızi ve olağanüstü niteliğe sahip kar ve zararlar meydana geldikleri dönemde tahakkuk ettirilmeli, fakat normal faaliyet sonuçlarından ayrı olarak gösterilmelidir."
+    },
+    {
+     "kaynak_ad": "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_01)",
+     "alinti": "SORU 7: İşletme cari dönemde daha önce 7.000 ₺ karşılık ayırdığı 12.000 ₺’lik şüpheli ticari alacağının tahsilinin mümkün olmadığını saptamıştır. Bu durumda yapılacak günlük defter kaydı aşağıdakilerden hangisidir?\r\n  A) 129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 689 DİĞER OLAĞANDIŞI GİDER VE ZARARLAR 128 ŞÜPHELİ TİCARİ ALACAKLAR 7.000 5.000 12.000"
+    },
+    {
+     "kaynak_ad": "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_01)",
+     "alinti": "Finansal Muhasebe Cevap Anahtarı A Kitapçığı Soru No 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 B Kitapçığı Soru No 17 13 5 15 12 3 9 2 10 4 7 16 1 11 14 8 6 19 20 18 C Kitapçığı Soru No 13 17 14 11 10 9 5 4 7 1 15 8 12 6 16 3 2 18 19 20 D Kitapçığı Soru No 3 4 6 9 14 13 17 10 1 8 16 11 15 12 5 2 7 19 20 18 Doğru Cevap Şıkkı A C D A B B A"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-zor-r6/kp-05",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Teminatlı alacaklarda karşılık, teminatı aşan kısım için ayrılır."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    },
+    {
+     "kaynak_ad": "MSUGT 1 ilke - Gelir Tablosu İlkeleri e",
+     "alinti": "Arızi ve olağanüstü niteliğe sahip kar ve zararlar meydana geldikleri dönemde tahakkuk ettirilmeli, fakat normal faaliyet sonuçlarından ayrı olarak gösterilmelidir."
+    },
+    {
+     "kaynak_ad": "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_01)",
+     "alinti": "SORU 7: İşletme cari dönemde daha önce 7.000 ₺ karşılık ayırdığı 12.000 ₺’lik şüpheli ticari alacağının tahsilinin mümkün olmadığını saptamıştır. Bu durumda yapılacak günlük defter kaydı aşağıdakilerden hangisidir?\r\n  A) 129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 689 DİĞER OLAĞANDIŞI GİDER VE ZARARLAR 128 ŞÜPHELİ TİCARİ ALACAKLAR 7.000 5.000 12.000"
+    },
+    {
+     "kaynak_ad": "CIKMIS SINAV - SMMM 2026/1 (smmm_2026_1_01)",
+     "alinti": "Finansal Muhasebe Cevap Anahtarı A Kitapçığı Soru No 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 B Kitapçığı Soru No 17 13 5 15 12 3 9 2 10 4 7 16 1 11 14 8 6 19 20 18 C Kitapçığı Soru No 13 17 14 11 10 9 5 4 7 1 15 8 12 6 16 3 2 18 19 20 D Kitapçığı Soru No 3 4 6 9 14 13 17 10 1 8 16 11 15 12 5 2 7 19 20 18 Doğru Cevap Şıkkı A C D A B B A"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w14-13-fmuh-zor/kp-02",
+   "taslak_sha": "0702a6de662ed555e4a7061840319af7780a18cacb9e6661b8bad2786ad8d75d",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "perakende satış yöntemi kullanarak bilanço gününden önceki iki hesap döneminde vadesinde tahsil edilemeyen alacakların ilgili dönemlerdeki toplam vadeli satışlara oranlarının ortalamasının değerleme dönemindeki vadeli satışlara uygulanması suretiyle bulunacak şüpheli alacaklar için ayrılan karşılıkları kapsar."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Perakende satış yönteminin uygulanması sonucunda bulunan, dönemin karşılık tutarının o tarihteki şüpheli alacaklar karşılığı tutarından az olması durumunda, aradaki fark \"644- Konusu Kalmayan Karşılıklar Hesabı\"na aktarılmak üzere bu hesaba borç yazılır."
+    },
+    {
+     "kaynak_ad": "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+     "alinti": "Aktifle ilgili olarak ayrılan karşılıklardan iptal edilen tutarlar bu hesapta izlenir."
+    },
+    {
+     "kaynak_ad": "THP 654 - KARŞILIK GİDERLERİ (-)",
+     "alinti": "Aktifle ilgili olarak ayrılan karşılık giderlerinin izlendiği hesaptır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w4-fmuh-cokzor/kp-16",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Teminatlı alacaklarda karşılık, teminatı aşan kısım için ayrılır."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir. Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise \"681- Önceki Dönem Gider ve Zararları\" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w7-1-fmuh-zor/kp-01",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Teminatlı alacaklarda karşılık, teminatı aşan kısım için ayrılır."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir. Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise \"681- Önceki Dönem Gider ve Zararları\" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w8-3-fmuh-cokzor/kp-06",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir. Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise \"681- Önceki Dönem Gider ve Zararları\" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w8-3-fmuh-zor/kp-07",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir. Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise \"681- Önceki Dönem Gider ve Zararları\" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w9-2-fmuh-zor/kp-09",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Teminatlı alacaklarda karşılık, teminatı aşan kısım için ayrılır."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "Şüpheli alacağın tahsilinin imkansız olduğu kesinleştiği takdirde bu hesaba borç, ilgili hesaba da alacak kaydedilir. Gerçekleşen zararın ayrılan karşılıklardan fazla olması halinde, ayrılan karşılık kadar bu hesaba borç, zarar fazlası ise \"681- Önceki Dönem Gider ve Zararları\" hesabına borç, tahsil edilemeyen tutar, ilgili alacak hesabına alacak kaydolunur."
+    },
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    },
+    {
+     "kaynak_ad": "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+     "alinti": "Yukarıda tanımlanan hesaplar kapsamı dışında kalan diğer olağan dışı gider ve zararlardan oluşur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm4-5-fmuh-zor/kp-02",
+   "taslak_sha": "4739d6a0d0965f0172aada4f632f7f3a07fa6731fb6ef3d11f5e27fadcb287e8",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-zor-r5/kp-11",
+   "taslak_sha": "5e36897cef7931dcf9e357ad37e5dc398d79ea6bbf021494238f0d4e5d017ddf",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-olc2-a-vergi/kp-10",
+   "taslak_sha": "6e079b427fe62077b5ab0e178c7d4b3cbc5edc7bfba979e83ed455e7d92a0d37",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.46 - DÖRDÜNCÜ BÖLÜM Verginin Ödenmesi Verginin Ödenmesi",
+     "alinti": "2. İthalde alınan katma değer vergisi, gümrük vergisi ile birlikte ve aynı zamanda ödenir."
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.29 [2/5]",
+     "alinti": "b) İthal olunan mal ve hizmetler dolayısıyla ödenen katma değer vergisi,"
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.21 - İthalatta matrah",
+     "alinti": "İthalatta, verginin matrahı aşağıda gösterilen unsurların toplamıdır: a) İthal edilen malın gümrük vergisi tarhına esas olan kıymeti, gümrük vergisinin kıymet esasına göre alınmaması veya malın gümrük vergisinden muaf olması halinde sigorta ve navlun bedelleri dahil (CIF) değeri, bunun belli olmadığı hallerde malın gümrükçe tespit edilecek değeri, b) İthalat sırasında ödenen her türlü vergi, resim"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w9-1-fmuh-zor/kp-06",
+   "taslak_sha": "e2e0d4d2c5aafe0f7e967166dc2651bac0fe81a1f3a626e6d875d8bde2f9f632",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-4k-a-yvergi-kolay-r8/kp-04",
+   "taslak_sha": "4c07220aa398d7e1d041dfb56dd3a5e6e3cf67631c086684c501256f70e48feb",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-gm5-15-ydenetim-zor/kp-02",
+   "taslak_sha": "705a2bc2262ccdb16bedb819c52460f8bb74cb4322808efb9f09b3f113a18cf9",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.400 [1/2]",
+     "alinti": "Aşağıdaki hâllerden birinin varlığında, yeminli mali müşavir, serbest muhasebeci mali müşavir ve/veya sermaye şirketi ve bunların ortaklarından biri ve bunların ortaklarının yanında çalışan veya bu cümlede anılan kişilerin mesleği birlikte yaptıkları kişi veya kişiler, ilgili şirkette denetçi olamaz. Şöyle ki, önceki cümlede sayılanlardan biri; a) Denetlenecek şirkette pay sahibiyse, b) Denetlenec"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.400 [1/2]",
+     "alinti": "yahut denetlenecek şirketin yönetim kurulu üyesinin veya bir yöneticisinin alt veya üst soyundan biri, eşi veya üçüncü derece dâhil, üçüncü dereceye kadar kan veya kayın hısmıysa,"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.400 [1/2]",
+     "alinti": "e) Denetlenecek şirketin defterlerinin tutulmasında veya finansal tablolarının düzenlenmesinde denetleme dışında faaliyette veya katkıda bulunmuşsa,"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.400 [2/2]",
+     "alinti": "h) Son beş yıl içinde denetçiliğe ilişkin meslekî faaliyetinden kaynaklanan gelirinin tamamının yüzde otuzundan fazlasını denetlenecek şirkete veya ona yüzde yirmiden fazla pay ile iştirak etmiş bulunan şirketlere verilen denetleme ve danışmanlık faaliyetinden elde etmişse ve bunu cari yılda da elde etmesi bekleniyorsa, denetçi olamaz."
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.400 [2/2]",
+     "alinti": "(3) Denetçi, denetleme yaptığı şirkete, vergi danışmanlığı ve vergi denetimi dışında, danışmanlık veya hizmet veremez, bunu bir yavru şirketi aracılığıyla yapamaz."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w12a-5-yhukuk-zor/kp-01",
+   "taslak_sha": "5944459f27f55aafa3888c00ca1e8e57bcf53e7026c5cbe42e561bcd08653773",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "İYUK (2577 s.K.) m.20/B - Merkezî ve ortak sınavlara ilişkin yargılama usulü [1/2]",
+     "alinti": "1. Millî Eğitim Bakanlığı ile Ölçme, Seçme ve Yerleştirme Merkezi tarafından yapılan merkezî ve ortak sınavlar, bu sınavlara ilişkin iş ve işlemler ile sınav sonuçları hakkında açılan davalara ilişkin yargılama usulünde: a) Dava açma süresi on gündür."
+    },
+    {
+     "kaynak_ad": "İYUK (2577 s.K.) m.20/B - Merkezî ve ortak sınavlara ilişkin yargılama usulü [1/2]",
+     "alinti": "c) Yedi gün içinde ilk inceleme yapılır ve dava dilekçesi ile ekleri tebliğe çıkarılır."
+    },
+    {
+     "kaynak_ad": "İYUK (2577 s.K.) m.20/B - Merkezî ve ortak sınavlara ilişkin yargılama usulü [1/2]",
+     "alinti": "e) Bu davalar dosyanın tekemmülünden itibaren en geç on beş gün içinde karara bağlanır."
+    },
+    {
+     "kaynak_ad": "İYUK (2577 s.K.) m.7 - Dava açma süresi",
+     "alinti": "1. Dava açma süresi, özel kanunlarında ayrı süre gösterilmeyen hallerde Danıştayda ve idare mahkemelerinde altmış ve vergi mahkemelerinde otuz gündür."
+    },
+    {
+     "kaynak_ad": "İYUK (2577 s.K.) m.7 - Dava açma süresi",
+     "alinti": "2. Bu süreler; a) İdari uyuşmazlıklarda; yazılı bildirimin yapıldığı"
+    },
+    {
+     "kaynak_ad": "İYUK (2577 s.K.) m.7 - Dava açma süresi",
+     "alinti": "Tarihi izleyen günden başlar."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w14-10-yvergi-zor/kp-01",
+   "taslak_sha": "e56adfd3a2aed7a7787943ed424331038e3e6206c46e1396b8d8a01962dd671f",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w14-10-yvergi-zor/kp-02",
+   "taslak_sha": "cc97be73a3acea483e1ff8bd6e21fc576e1abccb35ab7109e8abf25c3e5d7c8f",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w4-fmuh-zor-2/kp-31",
+   "taslak_sha": "06ece64c3583df6e9287f59ca59221dc6d6f54bc6ac5d7d4bb3ce24d22bad782",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w5-yvergi-cokzor/kp-02",
+   "taslak_sha": "5ee7900f90a30f09ed253ad08b787f88e4786c833517957ca616d09008ce2661",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w7-2-fmuh-cokzor/kp-04",
+   "taslak_sha": "49157a9f09164b0404a2b1433202583e5be066cfc5e27abe85b5e3aef7e62f7c",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w9-2-fmuh-cokzor/kp-02",
+   "taslak_sha": "9cefef62760fb7a0186d0c418ae45c38deabb0dd35dc8db8f1cf0fa14e8beea1",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)",
+     "alinti": "Cari dönemden önceki döneme ait olan ve bu dönemlerin mali tablolarına hata yada unutulma nedeni ile yansıtılmayan veya sonradan ortaya çıkan tutarların gösterildiği hesaptır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-olc2-b-vergi/kp-10",
+   "taslak_sha": "752c183ae94cca0e644d40a289a740605b220095a5d4e7a96477c48ffb849fac",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.21 - İthalatta matrah",
+     "alinti": "İthalatta, verginin matrahı aşağıda gösterilen unsurların toplamıdır: … b) İthalat sırasında ödenen her türlü vergi, resim, harç ve paylar"
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.29 [2/5]",
+     "alinti": "b) İthal olunan mal ve hizmetler dolayısıyla ödenen katma değer vergisi"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r1-2/kp-23",
+   "taslak_sha": "e908775fc8b09539986f7a508d25eba92170396273fb8006d2219ba386ad2b28",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-4k-a-ydenetim-cokzor-r3/kp-01",
+   "taslak_sha": "c28718be8159ccec68b0f438c12a2ec08453303660a0d9187ab86e1f5419ffae",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-4k-a-ydenetim-zor-r6/kp-01",
+   "taslak_sha": "0d9ee24fc13baef6cfa954b4a74b89b7e6eb6720a81289b7e0c831538c20fcbc",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-4k-a-ymeslek-kolay-r6/kp-10",
+   "taslak_sha": "128c69b7864b1dbd7bc9167130924ab81903336630d6ddda75f1bca053b6819e",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.43",
+     "alinti": "Adli veya idari her türlü inceleme veya soruşturma birinci fıkra hükmünün dışındadır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yvergi-kolay-r1/kp-21",
+   "taslak_sha": "fcbd1148ff1ddda479d64f6a6a228bf86b3b5d2946279d7beedb643f94f7e3db",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.11 - KISIM İstisnalar BİRİNCİ BÖLÜM İhracat İstisnası Mal ve hizmet ihracatı [2/3]",
+     "alinti": "Söz konusu malların, ihracatçıya teslim tarihini takip eden ay başından itibaren 3 ay içinde ihraç edilmesi halinde, tecil edilen vergi terkin olunur."
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.11 - KISIM İstisnalar BİRİNCİ BÖLÜM İhracat İstisnası Mal ve hizmet ihracatı [3/3]",
+     "alinti": "İhracatçılara mal teslim eden imalatçılara iade edilecek Katma Değer Vergisi, ihraç edilen mala ilişkin imalatçı satış bedeline göre hesaplanan vergiden imalatçı aleyhine matrahta meydana gelen değişikliğe ilişkin verginin düşülmesinden sonra kalan tutardan fazla olamaz.7 İhracatçılara mal teslim ed"
+    },
+    {
+     "kaynak_ad": "KDVK (3065 s.K.) m.11 - KISIM İstisnalar BİRİNCİ BÖLÜM İhracat İstisnası Mal ve hizmet ihracatı [1/3]",
+     "alinti": "Ancak gümrükten malın çıkışı anında fatura veya belgenin ibrazında tahsil edilen Katma Değer Vergisi iade olunur."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yvergi-zor-r2/kp-04",
+   "taslak_sha": "ebae23cff88ce75ce65a752f6511d3b58857a8619ba8d80cec083ca08adf794e",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.94 [3/14]",
+     "alinti": "tam mükellef gerçek kişilere, gelir ve kurumlar vergisi mükellefi olmayanlara ve bu vergilerden muaf olanlara dağıtılan, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr paylarından (kârın sermayeye eklenmesi kâr dağıtımı sayılmaz.), ii) Tam mükellef kurumlar tarafı"
+    },
+    {
+     "kaynak_ad": "TEORI - Kâr payı dağıtımı ve vergi kesintisi kaydı: 570 Geçmiş Yıllar Kârları ve 590 Dönem Net Kârı'ndan dağıtım, 331 Ortaklara Borçlar, 360 Ödenecek Vergi ve Fonlar, sorumlu sıfatıyla stopaj",
+     "alinti": "tam mükellef kurum ortaklara dağıtılan kâr payında kesinti yapılmaz (iştirak kazancı), gerçek kişi ortaklarda yapılır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm4-10-fmuh-zor/kp-02",
+   "taslak_sha": "22fcbe218fb09a88e6d74e489ee9d58b34c865d6dfdf604be19de514bdfdb4c2",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-gm5-23-fmuh-zor/kp-01",
+   "taslak_sha": "0b0197d411aeefb54345efcfeb7b92e5012a301f43f9ab08980eeeaed28a6797",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w1-maliyet-cokzor/kp-01",
+   "taslak_sha": "bee2ccf00bcc9268055f90d8672253fef8048040f5f833d22e024663a10b57c6",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w11-3-fmuh-cokzor/kp-15",
+   "taslak_sha": "1bfd325c02e2f2fba93aec695200f36fd2a7cbddcb9fc60351e40fd799e4e50f",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w13-1-fmuh-zor/kp-10",
+   "taslak_sha": "15fb9bd2f4f23a849b3e1b092b3edca227cae46baa9b1f970af5fe94a6310d91",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Döviz kredisi ve dövizli borçların kur farkı (kur değerlemesi, 656 Kambiyo Zararları, 646 Kambiyo Kârları, VUK m.280)",
+     "alinti": "ticari borçta 656 KAMBİYO ZARARLARI BORÇ;"
+    },
+    {
+     "kaynak_ad": "THP 656 - KAMBİYO ZARARLARI (-)",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 656 KAMBİYO ZARARLARI (-):"
+    },
+    {
+     "kaynak_ad": "THP 780 - Finansman Giderleri Hesabı",
+     "alinti": "İşletme faaliyetlerinin aksamadan yürütülebilmesi amacıyla borçlanılan tutarlarla ilgili faiz, kur farkları, komisyon ve benzeri giderler bu hesaba borç kaydedilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w13-2-fmuh-cokzor/kp-08",
+   "taslak_sha": "cccdba9603ea5be2463a01f332407a560ca25084d3bd73f48cea3d6060c57383",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w3-ydenetim-cokzor/kp-10",
+   "taslak_sha": "aa6f9ad58ec56272e3f2f4433ed55d8281b7e87a7a13512426ba118d23e9ad5d",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w3-yfta-zor/kp-29",
+   "taslak_sha": "5a3de2567bcdb3c0d6f63fe28bb90339386ea8a466b84da0baf12815f462253b",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w3-yhukuk-kolay/kp-03",
+   "taslak_sha": "20582433a90b14a8bff7830ff2293de8d4095bae867a112f7e8b2c03dfcb956a",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w6-fmuh-cokzor/kp-19",
+   "taslak_sha": "ee2430c406feddcee965f693df36eb838d01259e371cca7320bef1b1216ea27d",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w9-1-fmuh-kolay/kp-08",
+   "taslak_sha": "7f995f88d987b9817b9d05be401eeea8c3582203d6239f89074d2e20a5db7b4e",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w9-4-fmuh-cokzor/kp-10",
+   "taslak_sha": "50e8ef9ef78a38b561486ff56ef12ccd83ed1b4cdd74c485cdbe36c5a9f4e841",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-w9-4-fmuh-kolay/kp-10",
+   "taslak_sha": "9d5c535f7df8cd74c4447e1f18940091cf2fb3f24834bb9dd7c59167609500b8",
+   "dayanaklar": []
+  },
+  {
+   "soru_id": "smmm-4k-a-ymeslek-kolay-r6/kp-04",
+   "taslak_sha": "f02118c1773eaa9af14d835db76fc9fccb4d6b48bd3fc6088100c60439f2e05c",
+   "dayanaklar": []
+  }
+ ]
+}
