@@ -81,7 +81,7 @@ html[data-theme="dark"] .gkt{border-radius:18px;margin:10px}
 .gkt-fy{text-align:left;white-space:normal;margin:0}
 .gkt-fy b{font-size:clamp(30px,7vw,36px);letter-spacing:-.8px;margin:0 0 4px}
 .gkt-fy small{display:inline;font-size:13px;margin:0}
-.gkt-fy small+small::before{content:" · "}
+.gkt-fy small:not([hidden])+small::before{content:" · "}   /* 02.11: erken satırı gizliyken baştaki " · " kalmasın */
 .gkt-al{order:2;margin:16px 0 14px;font-size:16px;padding:12px 14px;border-radius:12px}
 .gkt-k.tam .gkt-al{box-shadow:none}
 .gkt-icerik{order:3;font-size:15px;font-weight:700;color:var(--gk-ink);margin:0 0 4px}
