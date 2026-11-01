@@ -11,7 +11,7 @@
   VAKALAR: kart var · kart var ama durum≠uygula · kart var ama soru hedef derste değil (ders düzeltmesi kapalı) ·
     eşleme var (konular[0]) · eşleme başka derste · eşleme konular boş · ikisi de yok · prova anahtarı KAPALI ·
     kasa yayını: ikiz grubu (IkizAnlamGrup) ambar konusu, seçim dosyası başlık, SmmmKonuBaslik ambar konusuyla çağrılır.
-  -Mutasyon: 8 bozma, her biri sınavı KIRMIZI düşürmeli.
+  -Mutasyon: 14 bozma, her biri sınavı KIRMIZI düşürmeli. (01.11 EK: kart adı eşlemesi, ASCII onarımı, konuHam → kaydir-coz)
   🚫 GÖRMEZ: kartın doğruluğu (okuma işi) · kaydir-coz'un başlığa uyguladığı TurkceOnar (arac/turkce-onar-sinavi.ps1) ·
     ambarın tamamında eşdeğerlik (ayrı prova: -SadeceSecim + SMMM_SECIM_KONU_CIKTI / SMMM_IKIZ_CIKTI).
   KULLANIM: powershell -NoProfile -File arac/smmm-konu-baslik-sinavi.ps1 [-Mutasyon] [-Sessiz]
@@ -25,6 +25,7 @@ $baslikYol = Join-Path $buDizin 'smmm-konu-baslik.ps1'
 $yayinYol = Join-Path $buDizin 'smmm-kasa-yayin.ps1'
 $baslikMetin = [IO.File]::ReadAllText($baslikYol, [Text.Encoding]::UTF8)
 $yayinMetin = [IO.File]::ReadAllText($yayinYol, [Text.Encoding]::UTF8)
+$kcMetin = [IO.File]::ReadAllText((Join-Path (Join-Path $depoKok 'motor') 'kaydir-coz.ps1'), [Text.Encoding]::UTF8)
 
 # --- sahte veri (geçici klasör) ---
 $gecici = Join-Path ([IO.Path]::GetTempPath()) ("konu-baslik-sinavi-" + [guid]::NewGuid().ToString('N').Substring(0, 8))
@@ -36,6 +37,12 @@ $u8 = New-Object Text.UTF8Encoding($false)
       'smmm-x-fmuh/kp-03' = @{ ders = 'Meslek Hukuku'; kart = 'Disiplin cezaları ve gerektiren haller'; durum = 'uygula' }
       'smmm-x-fmuh/kp-09' = @{ ders = 'Finansal Muhasebe'; kart = '  '; durum = 'uygula' }
     } } | ConvertTo-Json -Depth 5), $u8)
+# 01.11 EK: kart adı sözlüğü — GERÇEK dosyanın biçimi: ders -> { "<kart adı>": "<tanım>" } (ilk sürüm [[ad, tanım]] sanıp
+#   gerçek dosyada 0 eşleşme verdi; eşdeğerlik provası yakaladı). Yedek biçim (dizi) ayrı derste.
+[IO.File]::WriteAllText((Join-Path $gecici 'smmm-konu-okuma.json'), (@{ konular = [ordered]@{
+      'Finansal Muhasebe' = [ordered]@{ 'Stok değer düşüklüğü ve stok kayıpları' = 'tanım'; 'Amortisman' = 'tanım' }
+      'Maliyet Muhasebesi' = @(, @('Safha (evre) maliyet sistemi', 'tanım'))
+    } } | ConvertTo-Json -Depth 6), $u8)
 [IO.File]::WriteAllText((Join-Path $gecici 'smmm-banka-esleme.json'), (@{ sorular = [ordered]@{
       'smmm-x-fmuh/kp-01' = @{ ders = 'Finansal Muhasebe'; konular = @('Çek ve senet işlemleri') }
       'smmm-x-fmuh/kp-02' = @{ ders = 'Finansal Muhasebe'; konular = @('Malzeme ve diğer stoklar', 'Amortisman') }
@@ -68,7 +75,7 @@ function SecimKonuDegeri([string]$metin) {
   return "$((@($h[0].KeyValuePairs | Where-Object { "$($_.Item1.Extent.Text)" -eq 'konu' })[0]).Item2.Extent.Text)"
 }
 
-function SinavKos([string]$bMetin, [string]$yMetin) {
+function SinavKos([string]$bMetin, [string]$yMetin, [string]$kMetin) {
   $kalan = New-Object System.Collections.Generic.List[string]
   function V([string]$ad, [bool]$kosul, [string]$ek) { if ($kosul) { $script:okSay++; if (-not $Sessiz -and -not $Mutasyon) { "  OK    $ad" | Write-Host } } else { $kalan.Add("$ad ($ek)"); if (-not $Sessiz -and -not $Mutasyon) { Write-Host "  DÜŞTÜ $ad ($ek)" -ForegroundColor Red } } }
   $script:okSay = 0
@@ -95,10 +102,23 @@ function SinavKos([string]$bMetin, [string]$yMetin) {
     V 'ikisi de yok → ambar konusu AYNEN' ($r.konu -eq 'genel yönetim gideri' -and $r.kaynak -eq 'ambar') "$($r.konu) | $($r.kaynak)"
     $r = SmmmKonuBaslik 'smmm-y-fmuh' 'kp-01' 'Finansal Muhasebe' 'x'
     V 'kimlik etiket+id ile eşlenir (başka etiketin kp-01i değil)' ($r.kaynak -eq 'ambar') "$($r.konu) | $($r.kaynak)"
+    # 01.11 EK: kart adına eşit ASCII ambar konusu · başka dersin kart adı · 9 kelimelik ASCII onarımı · ham bayrağı
+    $r = SmmmKonuBaslik 'smmm-s20-fmuh' 'kp-01' 'Finansal Muhasebe' 'stok deger dusuklugu ve  stok kayiplari'
+    V 'kart adına katlanınca eşit → kart adı (kart-adi, ham)' ($r.konu -eq 'Stok değer düşüklüğü ve stok kayıpları' -and $r.kaynak -eq 'kart-adi' -and $r.ham) "$($r.konu) | $($r.kaynak) | $($r.ham)"
+    $r = SmmmKonuBaslik 'smmm-s20-fmuh' 'kp-02' 'Finansal Muhasebe' 'safha (evre) maliyet sistemi'
+    V 'başka dersin kart adı → ambar konusu' ($r.konu -eq 'safha (evre) maliyet sistemi' -and $r.kaynak -eq 'ambar' -and -not $r.ham) "$($r.konu) | $($r.kaynak) | $($r.ham)"
+    $r = SmmmKonuBaslik 'smmm-s20-fmuh' 'kp-03' 'Finansal Muhasebe' 'banka mutabakati ve kayda alinmamis islemler'
+    V 'ambar konusu: sözlükteki ASCII kelime onarılır, öteki kelimeye dokunulmaz' ($r.konu -eq 'banka mutabakatı ve kayda alinmamis islemler' -and $r.kaynak -eq 'ambar' -and -not $r.ham) "$($r.konu) | $($r.kaynak)"
+    $r = SmmmKonuBaslik 'smmm-s20-fmuh' 'kp-04' 'Finansal Muhasebe' 'MUTABAKATI kontrol'
+    V 'büyük harfli kelimeye dokunulmaz' ($r.konu -ceq 'MUTABAKATI kontrol') "$($r.konu)"
+    $r = SmmmKonuBaslik 'smmm-x-fmuh' 'kp-04' 'Finansal Muhasebe' 'x'
+    V 'eşleme kaynaklı başlık ham=true (TurkceOnar''dan geçmez)' ([bool]$r.ham) "$($r.ham)"
     # prova anahtarı
     $env:SMMM_KONU_KART_KAPALI = '1'; Sifirla $gecici
     $r = SmmmKonuBaslik 'smmm-x-fmuh' 'kp-01' 'Finansal Muhasebe' 'donem ici yevmiye kayitlari'
     V 'SMMM_KONU_KART_KAPALI=1 → ambar konusu (eski davranış)' ($r.konu -eq 'donem ici yevmiye kayitlari' -and $r.kaynak -eq 'ambar') "$($r.konu) | $($r.kaynak)"
+    $r = SmmmKonuBaslik 'smmm-s20-fmuh' 'kp-01' 'Finansal Muhasebe' 'stok deger dusuklugu ve stok kayiplari'
+    V 'SMMM_KONU_KART_KAPALI=1 → kart adı eşlemesi ve ASCII onarımı da kapalı' ($r.konu -eq 'stok deger dusuklugu ve stok kayiplari' -and -not $r.ham) "$($r.konu) | $($r.ham)"
     $env:SMMM_KONU_KART_KAPALI = ''
     # gerçek veri dosyalarıyla duman (yalnız biçim: dosyalar okunur, bilinen bir kayıt kartını verir)
     Sifirla (Join-Path (Join-Path $depoKok 'veri') 'sinav')
@@ -110,6 +130,8 @@ function SinavKos([string]$bMetin, [string]$yMetin) {
     $gEt, $gId = "$($gEs.Name)" -split '/', 2
     $r = SmmmKonuBaslik $gEt $gId "$($gEs.Value.ders)" 'ambar'
     V 'GERÇEK banka eşlemesi: ilk kaydı konular[0]' ($r.konu -eq "$(@($gEs.Value.konular)[0])".Trim() -and $r.kaynak -eq 'esleme') "$($gEs.Name): $($r.konu) | $($r.kaynak)"
+    $r = SmmmKonuBaslik 'smmm-yok-fmuh' 'kp-99' 'Finansal Muhasebe' 'stok deger dusuklugu ve stok kayiplari'
+    V 'GERÇEK kart sözlüğü (smmm-konu-okuma.json): ASCII konu kart adına döner' ($r.kaynak -eq 'kart-adi' -and $r.konu -ceq 'Stok değer düşüklüğü ve stok kayıpları') "$($r.konu) | $($r.kaynak)"
     # kasa yayını bağı (AST): ikiz grubu ambar konusuyla, seçim dosyası başlıkla, başlık işlevi ambar konusuyla çağrılır
     $a = YayinKomutArg $yMetin 'IkizAnlamGrup' 2
     V 'kasa yayını: IkizAnlamGrup ambar konusunu alır ("$($v.konu)")' ($a -eq '"$($v.konu)"') $a
@@ -120,6 +142,10 @@ function SinavKos([string]$bMetin, [string]$yMetin) {
     $a = SecimKonuDegeri $yMetin
     V 'kasa yayını: seçim dosyasının konu alanı başlık ($_.baslik)' ($a -eq '$_.baslik') $a
     V 'kasa yayını: aday satırında konu = ambar konusu kalır' ($yMetin -match 'konu = "\$\(\$v\.konu\)"; baslik = "\$\(\$baslik\.konu\)"') 'aday satırı bulunamadı'
+    V 'kasa yayını: seçim satırı konuHam = başlığın ham bayrağı' ($yMetin.Contains('konu = $_.baslik; konuHam = $_.baslikHam;') -and $yMetin.Contains('baslikHam = [bool]$baslik.ham;')) 'konuHam alanı yok'
+    # kaydir-coz: konuHam=true + konuSecim → başlık TurkceOnar'dan GEÇMEZ; alan yoksa (SGS/KGK) eski yol AYNEN
+    V 'kaydir-coz: seçim satırından konuHam okunur (yalnız açık true)' ($kMetin.Contains('konuHam=($l.PSObject.Properties[''konuHam''] -and $l.konuHam -eq $true)')) 'okuma yok'
+    V 'kaydir-coz: konuHam ise başlık ham, değilse TurkceOnar (eski ifade aynen)' ($kMetin.Contains('konu=$(if($x.PSObject.Properties[''konuHam''] -and $x.konuHam -and $x.konuSecim){ "$($x.konuSecim)" } else { (TurkceOnar $(if($x.PSObject.Properties[''konuSecim''] -and $x.konuSecim){ "$($x.konuSecim)" } else { "$($v.konu)" })) });')) 'ifade yok'
   } finally { $env:SMMM_KONU_KART_KAPALI = $eskiKapali }
   $script:vakaSay = $script:okSay + $kalan.Count
   return , $kalan
@@ -131,13 +157,19 @@ $MUTASYONLAR = @(
   @{ ad = 'M3 eşleme ders şartı yok'; d = 'b'; eski = 'if ($es -and $es.ders -eq $yayinDersi)'; yeni = 'if ($es)' }
   @{ ad = 'M4 durum=uygula süzgeci yok'; d = 'b'; eski = '"$($k.Value.durum)" -ne ''uygula'' -or '; yeni = '' }
   @{ ad = 'M5 prova anahtarı okunmuyor'; d = 'b'; eski = 'if ("$env:SMMM_KONU_KART_KAPALI" -ne ''1'')'; yeni = 'if ($true)' }
-  @{ ad = 'M6 yedek ambar konusu yerine boş'; d = 'b'; eski = "return @{ konu = `$ambarKonu; kaynak = 'ambar' }"; yeni = "return @{ konu = ''; kaynak = 'ambar' }" }
+  @{ ad = 'M6 yedek ambar konusu yerine boş'; d = 'b'; eski = 'konu = (SmmmKonuAsciiOnar $ambarKonu)'; yeni = "konu = ''" }
   @{ ad = 'M7 yayın: ikiz grubu başlıkla kuruluyor'; d = 'y'; eski = '(IkizAnlamGrup $ders "$($v.konu)" $v.kaynak_adlar)'; yeni = '(IkizAnlamGrup $ders "$($baslik.konu)" $v.kaynak_adlar)' }
-  @{ ad = 'M8 yayın: seçim dosyası ambar konusunu yazıyor'; d = 'y'; eski = 'konu = $_.baslik; donem = $_.donem'; yeni = 'konu = $_.konu; donem = $_.donem' }
+  @{ ad = 'M8 yayın: seçim dosyası ambar konusunu yazıyor'; d = 'y'; eski = 'konu = $_.baslik; konuHam'; yeni = 'konu = $_.konu; konuHam' }
+  @{ ad = 'M9 kart adı eşlemesi kapalı'; d = 'b'; eski = 'if ($dh -and $katlanmis -and $dh.ContainsKey($katlanmis))'; yeni = 'if ($false)' }
+  @{ ad = 'M10 kart adı ders şartı yok (her dersin adı)'; d = 'b'; eski = '$dh = $script:SMMM_KONU_KARTADI[$yayinDersi]'; yeni = '$dh = @{}; foreach ($x0 in $script:SMMM_KONU_KARTADI.Values) { foreach ($y0 in $x0.Keys) { $dh[$y0] = $x0[$y0] } }' }
+  @{ ad = 'M11 ASCII onarımı kapalı'; d = 'b'; eski = 'konu = (SmmmKonuAsciiOnar $ambarKonu)'; yeni = 'konu = $ambarKonu' }
+  @{ ad = 'M12 eşleme kaynaklı başlık ham değil'; d = 'b'; eski = "kaynak = 'esleme'; ham = `$true"; yeni = "kaynak = 'esleme'; ham = `$false" }
+  @{ ad = 'M13 yayın: konuHam yazılmıyor'; d = 'y'; eski = 'konuHam = $_.baslikHam;'; yeni = 'konuHam = $false;' }
+  @{ ad = 'M14 kaydir-coz: konuHam yok sayılıyor'; d = 'k'; eski = 'konu=$(if($x.PSObject.Properties[''konuHam''] -and $x.konuHam -and $x.konuSecim)'; yeni = 'konu=$(if($false)' }
 )
 try {
   if (-not $Mutasyon) {
-    $kalan = SinavKos $baslikMetin $yayinMetin
+    $kalan = SinavKos $baslikMetin $yayinMetin $kcMetin
     ''
     "KONU BAŞLIĞI ÖZ-SINAVI: $($script:vakaSay - $kalan.Count)/$($script:vakaSay) geçti"
     if ($kalan.Count) { foreach ($k in $kalan) { Write-Host "  KIRMIZI: $k" -ForegroundColor Red }; exit 1 }
@@ -146,10 +178,11 @@ try {
   }
   $kirmizi = 0
   foreach ($m in $MUTASYONLAR) {
-    $bM = $baslikMetin; $yM = $yayinMetin
+    $bM = $baslikMetin; $yM = $yayinMetin; $kM = $kcMetin
     if ($m.d -eq 'b') { if (-not $bM.Contains($m.eski)) { throw "mutasyon hedefi yok: $($m.ad)" }; $bM = $bM.Replace($m.eski, $m.yeni) }
+    elseif ($m.d -eq 'k') { if (-not $kM.Contains($m.eski)) { throw "mutasyon hedefi yok: $($m.ad)" }; $kM = $kM.Replace($m.eski, $m.yeni) }
     else { if (-not $yM.Contains($m.eski)) { throw "mutasyon hedefi yok: $($m.ad)" }; $yM = $yM.Replace($m.eski, $m.yeni) }
-    $k = SinavKos $bM $yM
+    $k = SinavKos $bM $yM $kM
     if ($k.Count) { $kirmizi++; "  KIRMIZI (beklenen) $($m.ad) → $($k.Count) vaka düştü: $($k[0])" } else { Write-Host "  YEŞİL KALDI (SINAV EKSİK) $($m.ad)" -ForegroundColor Red }
   }
   "MUTASYON: $kirmizi/$($MUTASYONLAR.Count) bozma KIRMIZI düşürdü"

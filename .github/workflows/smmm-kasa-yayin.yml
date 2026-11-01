@@ -110,21 +110,13 @@ jobs:
             $ham = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
             if($f.Name -ne 'index.html' -and ($ham -notmatch 'data-kasa-sayfa=' -or $ham -match 'const SORULAR=\[\{')){ "::error::KABUK DEGIL: $($f.Name) - soru icerigi depoya gitmesin diye ITILMEDI"; exit 1 }
           }
-          git add kaydir/smmm arac/kasa-modu.json veri/deneme
-          $degisen = @(git diff --cached --name-only)
-          if(-not $degisen.Count){ "kabuklarda degisiklik yok - commit ATILMADI"; exit 0 }
-          "degisen dosya: $($degisen.Count)"
-          git commit -m "Bitirme kabuklari yeni kaliple (smmm-kasa-yayin kosusu ${{ github.run_number }})"
-          for($i=1; $i -le 5; $i++){
-            git push origin HEAD:main | Out-Null
-            if($LASTEXITCODE -eq 0){ "itildi (deneme $i)"; exit 0 }
-            git fetch origin main -q
-            git merge origin/main --no-edit -q
-            $cakisma = @(git diff --name-only --diff-filter=U)
-            if($cakisma.Count){ "::error::itme cakismasi: $($cakisma -join ', ') - elle bakilmali"; exit 1 }
-            Start-Sleep -Seconds (5 * $i)
-          }
-          "::error::5 denemede itilemedi"; exit 1
+          # 01.11.2026 (koordinator onayi): commit + itme arac/kabuk-it.ps1'de - red gelirse fetch + rebase, 3 deneme (depodaki
+          #   "git pull --rebase" + 3 deneme kalibi). Rebase cakismasinda veri/deneme/** ve kaydir/smmm/*.html BIZIM uretimdir (bu
+          #   kosunun kasasindan), bizimki alinir; desen disi dosya (arac/kasa-modu.json) cakisirsa KIRMIZI, ustune yazilmaz.
+          #   Eskiden merge + "elle bakilmali" ile dusuyordu (01.11 kosu 41260611845: kasa yazildi, deneme setleri itilemedi).
+          #   Oz-sinav: arac/kabuk-it-sinavi.ps1 (dogrula.yml).
+          & powershell -NoProfile -File ./arac/kabuk-it.ps1 -Mesaj "Bitirme kabuklari yeni kaliple (smmm-kasa-yayin kosusu ${{ github.run_number }})"
+          exit $LASTEXITCODE
 
       # 07.10.2026 (Cem "1.2.3" madde 1): Yeterlilik seviye testi SABIT 30 soruluk set (veri/seviye/smmm-set.json). Onarim/ret
       #   bir soruyu kasadan cikarinca test "Sorular hazirlaniyor"da kaliyordu (04.10 ve 07.10, ikisini de Cem yakaladi).
