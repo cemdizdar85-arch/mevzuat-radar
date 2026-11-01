@@ -280,6 +280,16 @@
     <span class="akd-degis">Değiştir</span>
   </button>
   <div class="akd-govde" id="akd2g"><div class="akd-ic">
+  <!-- 01.11 Cem ("kurumsallar nasıl yapıyor ... senin fikrin yok mu"): ÖNCE HESAP, SONRA ÖDEME. Misafir ödemede paket
+       e-postaya bağlanıyor, alıcı başka adresle/hiç girmeyince paket açıkta kalıyordu (31.10–01.11 üç vaka). Girişsiz
+       alıcıya bilgi formu yerine bu kapı görünür; giriş/üyelikten sonra ?sonra= ile bu sayfaya döner, e-posta hesaptan gelir. -->
+  <div id="girisKapi" hidden style="text-align:center;padding:6px 0 4px">
+    <p style="margin:0 0 6px;font-weight:800;font-size:17px">Önce hesabına gir</p>
+    <p class="kucuk" style="margin:0 0 14px">Paketin hesabına açılır; ödeme bitince doğrudan soru çözmeye başlarsın. Üye olmak 30 saniye, onay maili yok. Google ile tek dokunuş.</p>
+    <a class="btn" id="girisKapiUye" style="text-decoration:none;margin:0 6px 8px;display:inline-block" href="ogrenci.html#uye-ol">Üye ol</a>
+    <a class="btn" id="girisKapiGiris" style="text-decoration:none;margin:0 6px 8px;display:inline-block;background:transparent;color:var(--ink);border:1.5px solid var(--line2)" href="ogrenci.html">Giriş yap</a>
+  </div>
+  <style>#akd2g.giris-yok .akd-ic > :not(#girisKapi):not(style){display:none!important}</style>
   <div class="satir">
     <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
     <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"><div class="kucuk" id="oturumNot" hidden style="margin-top:4px;color:var(--green)"></div>
@@ -1487,8 +1497,15 @@ if(!KURULUM_TAMAM){
   try{ window.sb.auth.getSession().then(function(r){
     var u = r && r.data && r.data.session && r.data.session.user; window.ttOturumEposta = (u && u.email) || '';
     try{ teklifYukle(u || null); }catch(e){}   /* 12.10 anlık teklif: hesaba bağlı belirteç */
-    if(!u || !u.email) return;
-    var m = document.getElementById('mail'); if(m && !m.value.trim()) m.value = u.email;
+    /* 01.11 önce hesap: girişsizde bilgi formu yerine giriş kapısı; dönüş bu sayfanın kendisi (paket seçimi adreste) */
+    if(!u || !u.email){
+      var geri = encodeURIComponent((location.pathname.split('/').pop() || 'satin-al.html') + location.search);
+      document.getElementById('girisKapiUye').href = 'ogrenci.html?sonra=' + geri + '#uye-ol';
+      document.getElementById('girisKapiGiris').href = 'ogrenci.html?sonra=' + geri;
+      document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok');
+      return;
+    }
+    var m = document.getElementById('mail'); if(m){ m.value = u.email; m.readOnly = true; m.style.opacity = '.75'; }   /* sipariş e-postası = hesap e-postası */
     var md = u.user_metadata || {}, ad = md.full_name || md.name || ''; var a = document.getElementById('ad'); if(a && !a.value.trim() && ad) a.value = ad;
     var n = document.getElementById('oturumNot'); if(n){ n.textContent = '✓ Giriş yaptın: paketin ' + u.email + ' hesabına açılır.'; n.hidden = false; }
     /* 12.10: girişli alıcı e-postayı başka adrese çevirirse paket o adrese gider, bu hesapta görünmez → açık uyarı */
