@@ -1,0 +1,888 @@
+{
+ "ad": "ustune52",
+ "olusturma": "2026-11-01T01:30:45.908Z",
+ "kaynak_klasor": "ambar taraması 01.11 (kalip_parti SMMM, aciklama_hakem.onarim_sonrasi izli + bugünkü içerikle smmm-ah-yalniz kararı yok)",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç; ambardaki BUGÜNKÜ içerik) + dayanak adı/resmî alıntı (alıntılar ambar dokumanlar metninden aynen). Soru metni YOK. ustune_yaz=true ile koşulur. 4 kayıtta dayanak elle okundu, 48 kayıtta kaydın kendi kaynak_adlar/dayanak satırlarından açıklamayla en çok örtüşen ≤3 parça seçildi.",
+ "kimlikler": [
+  {
+   "soru_id": "smmm-4k-a-fmuh-kolay-r1/kp-03",
+   "taslak_sha": "0e5b875fd7348fd57bb43227b5cfbdddf48feae15afb54db5524ecf60e140865",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 128 - Şüpheli Ticari Alacaklar",
+     "alinti": "Alacağın tahsili veya tahsil edilemeyeceğinin kesinleşmesi durumunda bu hesaba alacak kaydedilir."
+    },
+    {
+     "kaynak_ad": "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+     "alinti": "gerçekleşmeyen kısım \"644- Konusu Kalmayan Karşılıklar Hesabı\" alacağına devredilerek bu hesaba borç kaydedilir"
+    },
+    {
+     "kaynak_ad": "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+     "alinti": "Aktifle ilgili olarak ayrılan karşılıklardan iptal edilen tutarlar bu hesapta izlenir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-ydenetim-cokzor-r8/kp-01",
+   "taslak_sha": "8857a6f1a9284df30cbb1ecaefaafb77045883d6edd1e7abb07a7ab471ce84d3",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "BDS 450 p.8 - Yanlışlıkların Bildirilmesi ve Düzeltilmesi",
+     "alinti": "Denetçi, yönetimden söz konusu yanlışlıkları düzeltmesini talep eder"
+    },
+    {
+     "kaynak_ad": "BDS 450 p.9 - Yanlışlıkların Bildirilmesi ve Düzeltilmesi",
+     "alinti": "yönetimin düzeltme yapmama gerekçeleri hakkında bir kanaate ulaşır ve bir bütün olarak finansal tabloların önemli bir yanlışlık içerip içermediğini değerlendirirken bu kanaatini dikkate alır"
+    },
+    {
+     "kaynak_ad": "BDS 450 p.4 - Tanımlar",
+     "alinti": "Düzeltilmemiş yanlışlıklar: Denetim boyunca denetçi tarafından biriktirilmiş (bir araya getirilmiş) ve düzeltilmemiş yanlışlıklardır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-ydenetim-kolay-r4/kp-05",
+   "taslak_sha": "0aa88caf3d9213b8932b08f67fb4f36a6adeab3eb5be699a2adb945083d73bc1",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "BDS 501 p.4 - Stoklar",
+     "alinti": "Yönetimin sayıma ilişkin prosedürlerinin uygulanmasını gözlemlemek"
+    },
+    {
+     "kaynak_ad": "BDS 501 p.4 - Stoklar",
+     "alinti": "Stokları tetkik etmek (Bakınız: A6 paragrafı), (iv) Test sayımlarını yapmak"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yhukuk-kolay-r1/kp-14",
+   "taslak_sha": "bf6f0b802c84a19eef5ad8a192601f39b826f8b652c2e151c88f53b21b7520cf",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.19",
+     "alinti": "Ancak, gerçek kişi olan bir tacir, işlemi yaptığı anda bunun ticari işletmesiyle ilgili olmadığını diğer tarafa açıkça bildirdiği veya işin ticari sayılmasına durum elverişli olmadığı takdirde borç adi sayılır."
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.3",
+     "alinti": "III - Ticari işler MADDE 3- (1) Bu Kanunda düzenlenen hususlarla bir ticari işletmeyi ilgilendiren bütün işlem ve fiiller ticari işlerdendir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yhukuk-kolay-r3/kp-16",
+   "taslak_sha": "4c86d2ad426d5f7f36c1c30d11cc1aadc41d7f42b87b174896d097cd0273cdf5",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.127",
+     "alinti": "e) Kişisel emek, f) Ticari itibar"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.127",
+     "alinti": "Kanunun 307 nci maddesinin ikinci, 342 nci maddesinin birinci ve 581 inci maddesinin birinci fıkra hükümleri saklıdır."
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.307",
+     "alinti": "Bir komanditer kişisel emeğini ve ticari itibarını sermaye olarak koyamaz."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yhukuk-kolay-r5/kp-14",
+   "taslak_sha": "2a7e49bc9ccce6a9f70477ce0dd85aa0ea92aaf863343f3915e68e20a5c3f0f8",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TBK (6098 s.K.) m.154",
+     "alinti": "Borçlu borcu ikrar etmişse, özellikle faiz ödemiş veya kısmen ifada bulunmuşsa ya da rehin vermiş veya kefil göstermişse."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-ymeslek-zor-r1/kp-20",
+   "taslak_sha": "4d3ab75d789954cfe2f3107687063edc50c6d6de47a3da832f7123b8e6bb75ca",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.46",
+     "alinti": "Yeni tarifenin tasdikine kadar mevcut tarife hükmü uygulanır."
+    },
+    {
+     "kaynak_ad": "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.46",
+     "alinti": "Enaz ücretin Altında İş Kabul Edememe Madde 46 - Meslek mensuplarının hizmetlerine karşılık alacakları ücretin enaz miktarının tesbitine dair usul ve esaslar ayrı bir yönetmelikle belirlenir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-ymeslek-zor-r9/kp-08",
+   "taslak_sha": "f32595eef885524d0a5d38b2cfa725e22a76db26ffb608691dba149360ae39d0",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Haksız Rekabet ve Reklam Yasağı Yön. m.6",
+     "alinti": "Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Mesleklerine İlişkin Haksız Rekabet ve Reklam Yasağı Yönetmeliği (RG 21.11.2007, Sayı 26707;"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yspk-kolay-r4-2/kp-02",
+   "taslak_sha": "e06425134bdaab51c3dc6980115901960b5593ce6b8e08e11e0c12d44fbbb1a9",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Sermaye Piyasası K. (6362 s.K.) m.91 [2/3]",
+     "alinti": "(4) Kurulca yapılan yazılı ihbar tarihinden itibaren bir yıl içinde bu Kanuna aykırı ihracın doğurduğu sonuçlar tamamen ortadan kaldırılmazsa, Kurul, nakit ve diğer varlıkların hak sahiplerine iadesi veya ortaklığın tasfiyesi için dava açmaya yetkilidir."
+    },
+    {
+     "kaynak_ad": "Sermaye Piyasası K. (6362 s.K.) m.91 [1/3]",
+     "alinti": "İKİNCİ BÖLÜM Tedbirler Kanuna aykırı ihraçlar ile izahnamede yer alan bilgi ve açıklamalara aykırılık hâlinde uygulanacak tedbirler9 MADDE 91 – (1) Bu Kanuna aykırı şekilde sermaye piyasası aracı ihraç ettiği veya buna teşebbüs ettiği tespit edilenler hakkında, her türlü hukuki ve cezai sorumluluk s"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.61",
+     "alinti": "(4) Gümrük idarelerindeki tedbir veya el koyma kararının tebliğinden itibaren on gün içinde, esas hakkında ilgili mahkemede dava açılmaz veya mahkemeden tedbir niteliğinde karar alınmazsa idarenin el koyma kararı ortadan kalkar."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-4k-a-yvergi-kolay-r3-2/kp-01",
+   "taslak_sha": "d1b1ce13d40aeca00788ab2170de71b4c741195ee26f69ffad080958b1453533",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.116 - ÜÇÜNCÜ BÖLÜM Vergi Hatalarını Düzeltme ve Reddiyat31 Vergi hatası",
+     "alinti": "Madde 116 – Vergi hatası, vergiye mütaallik hesaplarda veya vergilendirmede yapılan hatalar yüzünden haksız yere fazla veya eksik vergi istenmesi veya alınmasıdır."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.118 - Vergilendirme hataları",
+     "alinti": "Açık olarak vergiye tabi olmıyan veya vergiden muaf bulunan kimselerden vergi istenmesi veya alınmasıdır;"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.112 - Özel ödeme zamanları [3/3]",
+     "alinti": "31/5/2012-6322/14 md.) Fazla veya yersiz olarak tahsil edilen vergiler, fazla veya yersiz tahsilatın mükelleften kaynaklanması halinde düzeltmeye dair müracaat tarihi, diğer hallerde verginin tahsili tarihinden düzeltme fişinin mükellefe tebliğ edildiği tarihe kadar geçen süre için aynı dönemde 6183"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-dog1-vergi/kp-24",
+   "taslak_sha": "32c93ac6667ddc800ccb1c9edca6afc9f11c1b287d04d1b2236b279f49742e79",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.33 [1/3]",
+     "alinti": "Bu sınır dahilinde, ilgili bulunduğu kazancın Türkiye’de genel sonuç hesaplarına intikal ettirildiği hesap döneminde tamamen veya kısmen indirilemeyen vergiler, bu dönemi izleyen üçüncü hesap dönemi sonuna kadar indirim konusu yapılabilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-cokzor/kp-01",
+   "taslak_sha": "cf2bae8f5abf49d86983bafc72372b10a84713ca58edab606e79214c94d2d4f2",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.320 - Süre bakımından [1/2]",
+     "alinti": "25/5/1995-4108/6 md.) Faaliyetleri kısmen veya tamamen binek otomobillerinin kiralanması veya çeşitli şekillerde işletilmesi olanların bu amaçla kullandıkları binek otomobilleri hariç olmak üzere, işletmelere ait binek otomobillerinin aktife girdiği hesap dönemi için ay kesri tam ay sayılmak suretiy"
+    },
+    {
+     "kaynak_ad": "TEORI - Amortisman yöntemleri ve hurda değer: normal, azalan bakiyeler, kıst amortisman (VUK ile TMS 16 farkı)",
+     "alinti": "'Azalan bakiyeler yöntemine göre ikinci yıl amortisman gideri kaç TL'dir?' ya da 'VUK'a göre amortisman uygulamasıyla ilgili aşağıdakilerden hangisi yanlıştır?'"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) muk. m.315 - Azalan bakiyeler usulüyle amortisman",
+     "alinti": "Bu sürenin son yılına devreden bakıye değer, o yıl tamamen yok edilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-cokzor/kp-02",
+   "taslak_sha": "44ac1cd9167499f22e6ef71b2f154a357a85d4b7067ed504a9c1dffa4e4ae295",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 153 - Ticari Mallar",
+     "alinti": "Satın alınan ticari mallar (emtia) maliyet bedeli ile bu hesaba borç, satılması veya herhangi bir nedenle ambardan çekilmesinde ise maliyet bedeli ile alacak kaydedilir."
+    },
+    {
+     "kaynak_ad": "THP 621 - Satılan Ticari Mallar Maliyeti (-)",
+     "alinti": "Satılan ticari malların maliyet tutarı \"153- Ticari Mallar Hesabı\"na alacak, bu hesaba borç kaydedilir."
+    },
+    {
+     "kaynak_ad": "TEORI - Stok maliyeti: satın alma maliyeti unsurları (TMS 2 ve VUK m.274), alış giderlerinin 153'e eklenmesi",
+     "alinti": "Alış giderleri 153 TİCARİ MALLAR hesabına borç eklenir, gider hesabına yazılmaz."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-cokzor/kp-04",
+   "taslak_sha": "9880761588aab40c4859939229815a2e013aa297376568bdf2f8dcfd63486013",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+     "alinti": "Vergi tahakkukunun kesinleşmesi durumunda borç kaydı suretiyle hesap kapatılır ve ilgili tutar \"371- Dönem Kârının Peşin Ödenen Vergi ve Diğer Yükümlülükleri\" ile mahsup edilerek kalan tutar \"360- Ödenecek Vergi ve Fonlar\" hesabına aktarılır."
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.5 [1/14]",
+     "alinti": "1) Tam mükellefiyete tabi başka bir kurumun sermayesine katılımlarından elde ettikleri kazançlar, 2) Tam mükellefiyete tabi başka bir kurumun kârına katılma imkânı veren kurucu senetleri ile diğer intifa senetlerinden elde ettikleri kâr payları, 3) Tam mükellefiyete tabi girişim sermayesi yatırım fo"
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.34 [1/2]",
+     "alinti": "(4) Geçici vergilendirme dönemi içinde elde edilen gelirler üzerinden kesinti yoluyla ödenmiş vergilerin bulunması halinde bu vergiler, o dönem için hesaplanan geçici vergi tutarından da mahsup edilebilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-cokzor/kp-05",
+   "taslak_sha": "18aad067a5ca60b3130a45a10421cf654d9aea683ea9d154deb890fa9f908d7f",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 656 - KAMBİYO ZARARLARI (-)",
+     "alinti": "Borçlanma ile ilgili kur farkları bu hesaba alınmaz, finansman gideri olarak muhasebeleştirilir."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.280",
+     "alinti": "22/7/1998-4369/7 md.) Bu madde hükmü yabancı para ile olan senetli veya senetsiz alacaklar ve borçlar hakkında da caridir."
+    },
+    {
+     "kaynak_ad": "TEORI - Döviz kredisi ve dövizli borçların kur farkı (kur değerlemesi, 656 Kambiyo Zararları, 646 Kambiyo Kârları, VUK m.280)",
+     "alinti": "BANKA KREDİSİNDE kur farkı borçlanmayla ilgili olduğundan 656'ya alınmaz (THP 656), 780 FİNANSMAN GİDERLERİ BORÇ / 300 (veya 400) BANKA KREDİLERİ ALACAK (THP 780);"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-cokzor/kp-07",
+   "taslak_sha": "4744f2b39c679e235c8095f1be85ca04877225bce226e156fef95a477b153d37",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 397 - SAYIM VE TESELLÜM FAZLALARI",
+     "alinti": "Maddi duran varlık fazlasının tespitinde, fazlalar emsal değerleriyle ilgili duran varlık hesabı karşılığında bu hesaba alacak yazılır, sayım dönemi içinde kâr kaydı gerektiği belgelenenler \"679- Diğer Olağandışı Gelir ve Karlar Hesabı\" karşılığında bu hesaba borç yazılır."
+    },
+    {
+     "kaynak_ad": "THP 671 - ÖNCEKİ DÖNEM GELİR VE KARLARI",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 671 ÖNCEKİ DÖNEM GELİR VE KARLARI:"
+    },
+    {
+     "kaynak_ad": "THP 679 - DİĞER OLAĞANDIŞI GELİR VE KARLAR",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 679 DİĞER OLAĞANDIŞI GELİR VE KARLAR:"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-kolay/kp-01",
+   "taslak_sha": "89a740081618f696673bc1b065ae403a7f14baf3de3f9f506402c3a1f7ee5813",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.313",
+     "alinti": "30/12/1980-2365/54 md.) Değeri 50.000.000 (12.000 TL) lirayı aşmayan peştemallıklar ile işletmede kullanılan ve değeri 50.000.000 (12.000 TL) lirayı aşmayan alet, edavat, mefruşat ve demirbaşlar amortismana tabi tutulmayarak doğrudan doğruya gider yazılabilir."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.320 - Süre bakımından [1/2]",
+     "alinti": "Sürenin gün olarak hesaplanması için Hazine ve Maliye Bakanlığınca tespit ve ilan edilen faydalı ömür süreleri üçyüzaltmışbeş ile çarpılır."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) muk. m.315 - Azalan bakiyeler usulüyle amortisman",
+     "alinti": "Bu usulde amortisman süresi normal amortisman nispetlerine göre hesaplanır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-kolay/kp-03",
+   "taslak_sha": "0935611988d73a4755036f41dddeb02706272cedd49d1d4e2e39ceca71491fc4",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 391 - HESAPLANAN KDV",
+     "alinti": "Yapılan karşılaştırmada bu hesabın bakiyesi 191- No.lu hesabın bakiyesinden fazla olduğu takdirde vadesinde ödenmek üzere \"360- Ödenecek Vergi ve Fonlar Hesabına\" aktarılarak kapatılır."
+    },
+    {
+     "kaynak_ad": "THP 360 - ÖDENECEK VERGİ VE FONLAR",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 360 ÖDENECEK VERGİ VE FONLAR:"
+    },
+    {
+     "kaynak_ad": "THP 191 - İNDİRİLECEK KDV",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 191 İNDİRİLECEK KDV:"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-kolay/kp-04",
+   "taslak_sha": "ed40ded06396a8d00ee394b55d278400363d70229d2c0a9033d2f475c1593d88",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.5 [1/14]",
+     "alinti": "1) Tam mükellefiyete tabi başka bir kurumun sermayesine katılımlarından elde ettikleri kazançlar, 2) Tam mükellefiyete tabi başka bir kurumun kârına katılma imkânı veren kurucu senetleri ile diğer intifa senetlerinden elde ettikleri kâr payları, 3) Tam mükellefiyete tabi girişim sermayesi yatırım fo"
+    },
+    {
+     "kaynak_ad": "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+     "alinti": "Vergi tahakkukunun kesinleşmesi durumunda borç kaydı suretiyle hesap kapatılır ve ilgili tutar \"371- Dönem Kârının Peşin Ödenen Vergi ve Diğer Yükümlülükleri\" ile mahsup edilerek kalan tutar \"360- Ödenecek Vergi ve Fonlar\" hesabına aktarılır."
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.32 [1/4]",
+     "alinti": "MADDE 32- (1) (Değişik:8/4/2022-7394/25 md.) Kurumlar vergisi, kurum kazancı üzerinden %25 oranında alınır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-zor/kp-03",
+   "taslak_sha": "ae4a3f4876c929a92a6034e8a43ff3d38f872cb622e7289edde38d1fba815510",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 360 - ÖDENECEK VERGİ VE FONLAR",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 360 ÖDENECEK VERGİ VE FONLAR:"
+    },
+    {
+     "kaynak_ad": "THP 191 - İNDİRİLECEK KDV",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 191 İNDİRİLECEK KDV:"
+    },
+    {
+     "kaynak_ad": "THP 391 - HESAPLANAN KDV",
+     "alinti": "MSUGT Sira No:1 Tekduzen Hesap Plani - 391 HESAPLANAN KDV:"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-zor/kp-04",
+   "taslak_sha": "1a7fbb7b1a4d79fa230e839e7e53e3b2266b682823f2b982319add43658c4485",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+     "alinti": "Vergi tahakkukunun kesinleşmesi durumunda borç kaydı suretiyle hesap kapatılır ve ilgili tutar \"371- Dönem Kârının Peşin Ödenen Vergi ve Diğer Yükümlülükleri\" ile mahsup edilerek kalan tutar \"360- Ödenecek Vergi ve Fonlar\" hesabına aktarılır."
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.34 [1/2]",
+     "alinti": "İlgili hesap dönemine ilişkin tahakkuk ettirilen geçici verginin sadece ödenen kısmı yıllık kurumlar vergisi beyannamesi üzerinden hesaplanan kurumlar vergisinden mahsup edilir."
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.11 [1/2]",
+     "alinti": "ç) Her ne şekilde ve ne isimle olursa olsun ayrılan yedek akçeler (Türk Ticaret Kanununa, kurumların kuruluş kanunlarına, Cumhurbaşkanlığı kararnamelerine, tüzüklerine, ana statülerine veya sözleşmelerine göre safî kazançlardan ayırdıkları tüm yedek akçeler ile Bankacılık Kanununa göre bankaların ay"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm11-1-fmuh-zor/kp-07",
+   "taslak_sha": "98dff2a5fc4ec7a3e13b17d362a69a70f5b099d43e942be365b7c3fc13509aa0",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 197 - SAYIM VE TESELLÜM NOKSANLARI",
+     "alinti": "Noksanlığın ortaya çıkması ile hesaba borç, sorumlularından tahsili veya zarar kaydedilmesi halinde ise alacak kaydedilir."
+    },
+    {
+     "kaynak_ad": "TEORI - Sigortalı varlık kaybı (yangın, çalınma) ve sigorta tazminatı kaydı (197 Sayım ve Tesellüm Noksanları, 679, 689, 136 Diğer Çeşitli Alacaklar)",
+     "alinti": "Sigorta şirketinden alacak kesinleşince 136 DİĞER ÇEŞİTLİ ALACAKLAR BORÇ (tahsil edilince 102 Bankalar borç / 136 alacak);"
+    },
+    {
+     "kaynak_ad": "THP 135 - PERSONELDEN ALACAKLAR",
+     "alinti": "Bu hesaba, alacağın doğması halinde borç, tahsili halinde ise alacak kaydedilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-cokzor/kp-01",
+   "taslak_sha": "c312ba474f3877d18c087474aedf572fb26510c990a0b4a545b35c23c5e265db",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.88 - EĞİŞİKLİKLER CETVELİ\"ne bakınız. 86 Zararların karlara takas ve mahsubu [1/2]",
+     "alinti": "24/12/1980-2361/63 md.) Gelirin (...)89 toplanmasında gelir kaynaklarının bir kısmından hasıl olan zararlar (80 inci maddede yazılı diğer kazanç ve iratlardan doğanlar hariç) diğer kaynakların kazanç ve iratlarına mahsup edilir.90 (Değişik:"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.103",
+     "alinti": "500.000 TL’nin (5.300.000 TL) 98.000 TL’si (1.000.000 TL) için 22.760 TL (232.500 TL) (ücret gelirlerinde 500.000 TL’nin (5.300.000 TL) 148.000 TL’si (1.500.000 TL) için 36.260 TL (367.500 TL)), fazlası % 35;"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-cokzor/kp-02",
+   "taslak_sha": "0ed19afc9058f2352e2126302122274d3a2a1a75a586568dbf39638362fdfed6",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.72 - Gayrisafi hasılat",
+     "alinti": "Madde 72 – Gayrimenkul sermaye iratlarında, gayrisafi hasılat, 70 inci maddede yazılı mal ve hakların kiraya verilmesinden bir takvim yılı içinde o yıla veya geçmiş yıllara ait olarak nakten veya aynen tahsil edilen kira bedellerinin tutarıdır."
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 329) m.3 [3/3]",
+     "alinti": "158.000 TL’ye kadar % 15 330.000 TL’nin 158.000 TL’si için 23.700 TL, fazlası % 20 800.000 TL’nin 330.000 TL’si için 58.100 TL (ücret gelirlerinde 1.200.000 TL’nin 330.000 TL’si için 58.100 TL), fazlası % 27 4.300.000 TL’nin 800.000 TL’si için 185.000 TL (ücret gelirlerinde 4.300.000 TL’nin 1.200.00"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "birden fazla işverenden elde edilen ücretler, menkul sermaye iratları ve gayrimenkul sermaye iratları, d) Bir takvim yılı içinde elde edilen ve toplamı 600 milyon lirayı (22.000 TL) aşmayan, tevkifata ve istisna uygulamasına konu olmayan menkul ve gayrimenkul sermaye iratları.88 2."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-cokzor/kp-03",
+   "taslak_sha": "d7b23b681d8d1971d0e37389d91ba0f4de75fb4cb47578eb931be8070f94d797",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "İstisna edilen tutar üzerinden 94 üncü madde uyarınca tevkifat yapılır ve tevkif edilen verginin tamamı, kâr payının yıllık beyanname ile beyan edilmesi durumunda yıllık beyanname üzerinden hesaplanan vergiden mahsup edilir."
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.94 [3/14]",
+     "alinti": "tam mükellef gerçek kişilere, gelir ve kurumlar vergisi mükellefi olmayanlara ve bu vergilerden muaf olanlara dağıtılan, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr paylarından (kârın sermayeye eklenmesi kâr dağıtımı sayılmaz.), ii) Tam mükellef kurumlar tarafı"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-cokzor/kp-06",
+   "taslak_sha": "b6d35a6e15d6145e6222361e683a86f782ebca198b69525b82ca5ac9c0ac99a5",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.221 - Tasdik zamanı",
+     "alinti": "vergi muafiyeti kalkanlar, muaflıktan çıkma tarihinden başlayarak on gün içinde;"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.220 - ONUNCU BÖLÜM Defterlerin Tasdıki Tasdike tabi defterler",
+     "alinti": "Yevmiye ve envanter defterleri:"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.222 - Tasdiki yenileme",
+     "alinti": "Madde 222 – Defterlerini ertesi yılda da kullanmak isteyenler Ocak ayı, hesap dönemleri Maliye Bakanlığınca tesbit edilenler bu dönemin ilk ayı içinde tasdiki yeniletmeye mecburdurlar."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-kolay/kp-03",
+   "taslak_sha": "81ab77e7058bbc089825a0fd9a9fa6887cffac6a4b3d98b63bf5566d04e7a041",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "a) Gerçek usulde vergilendirilmeyen ziraî kazançlar, bu Kanunun 75 inci maddesinin (15) ve (16) numaralı bentlerinde yazılı menkul sermaye iratları, kazanç ve iratların istisna hadleri içinde kalan kısmı,86 b) (Değişik:5/12/2019-7194/15 md.) Tek işverenden alınmış ve tevkif suretiyle vergilendirilmi"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.75 - ALTINCI BÖLÜM Menkul Sermaye İradı Tarifi [1/6]",
+     "alinti": "21/2/2007-5582/28 md.) Her nevi hisse senetlerinin kâr payları (kurucu hisse senetleri ve diğer intifa hisse senetlerine verilen kâr payları ve pay sahiplerine hazırlık dönemi için faiz olarak veya başka adlarla yapılan her türlü ödemeler ile Sermaye Piyasası Kanununa göre kurulan yatırım fonları ka"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "31/5/2012 tarihli ve 6322 sayılı Kanunun 5 inci maddesiyle, bu fıkrada yer alan “gelirleri bunlar tarafından bildirilecek olanlar” ibaresi “istisna haddinin üzerinde hasılat elde edenlerden, beyanı gerekip gerekmediğine bakılmaksızın ayrı ayrı veya birlikte elde ettiği ücret, menkul sermaye iradı, g"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-kolay/kp-04",
+   "taslak_sha": "16affc9c0da5a7ba0fa3cf4cf34f2b13e9254b0ae1d7a598771f7fbe55474824",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.61 - ÜÇÜNCÜ BÖLÜM Ücretler Ücretin tarifi [1/2]",
+     "alinti": "24/12/1980-2361/43 md.) Ücret, işverene tabi belirli bir işyerine bağlı olarak çalışanlara hizmet karşılığı verilen para ve ayınlar ile sağlanan ve para ile temsil edilebilen menfaatlerdir."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.75 - ALTINCI BÖLÜM Menkul Sermaye İradı Tarifi [1/6]",
+     "alinti": "21/2/2007-5582/28 md.) Her nevi hisse senetlerinin kâr payları (kurucu hisse senetleri ve diğer intifa hisse senetlerine verilen kâr payları ve pay sahiplerine hazırlık dönemi için faiz olarak veya başka adlarla yapılan her türlü ödemeler ile Sermaye Piyasası Kanununa göre kurulan yatırım fonları ka"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.75 - ALTINCI BÖLÜM Menkul Sermaye İradı Tarifi [5/6]",
+     "alinti": "31/5/2012 tarihli ve 6322 sayılı Kanunun 8 inci maddesiyle bu bentte yer alan “Bu maddenin ikinci fıkrasının 5 numaralı bendinde yer alan menkul” ibaresi “Menkul” şeklinde değiştirilmiştir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-kolay/kp-06",
+   "taslak_sha": "0908fa629a23e1834a3da63bbd862142c749aeaddeffdf090c238b7df76980a6",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.234 - Gider pusulası [1/2]",
+     "alinti": "Madde 234 – (Değişik fıkra:14/10/2021-7338/23 md.) Birinci ve ikinci sınıf tüccarlar, kazancı basit usulde tespit edilenlerle defter tutmak mecburiyetinde olan serbest meslek erbabı ve çiftçiler, bu Kanun kapsamındaki belgeleri düzenleme zorunluluğu bulunmayanlara yaptırdıkları işler veya onlardan s"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.235 - Hazine ve Maliye Bakanlığı yetkilidir. Müstahsil makbuzu",
+     "alinti": "Madde 235 – Birinci ve ikinci sınıf tüccarlar ile kazancı basit usulde tespit edilenler ve defter tutmak mecburiyetinde olan çiftçiler gerçek usulde vergiye tabi olmayan çiftçilerden satın aldıkları malların bedelini ödedikleri sırada iki nüsha makbuz tanzim etmeye ve bunlardan birini imzalıyarak sa"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.234 - Gider pusulası [2/2]",
+     "alinti": "19/10/2005 tarihli ve 5411 sayılı Bankacılık Kanununda tanımlanan banka, 20/6/2013 tarihli ve 6493 sayılı Ödeme ve Menkul Kıymet Mutabakat Sistemleri, Ödeme Hizmetleri ve Elektronik Para Kuruluşları Hakkında Kanun kapsamında yetkilendirilmiş ödeme kuruluşları veya 9/5/2013 tarihli ve 6475 sayılı Pos"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-zor/kp-02",
+   "taslak_sha": "68fcb773e06a959b7e059ae4cebc3a5c849d4eff86082453a0ea60f43e234a37",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.72 - Gayrisafi hasılat",
+     "alinti": "Gelecek yıllara ait olup peşin tahsil olunan kiralar, ilgili bulundukları yılların hasılatı sayılır."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.21 - BEŞİNCİ BÖLÜM Sermaye İratlarında İstisnalar Gayrimenkuller ve haklarda",
+     "alinti": "22/7/1998-4369/27 md.) Binaların mesken olarak kiraya verilmesinden bir takvim yılı içinde elde edilen hasılatın 1.500.000.000 lirası (58.000 TL) Gelir Vergisinden müstesnadır."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.74 - Giderler [3/3]",
+     "alinti": "Götürü gider usulünü kabul edenler iki yıl geçmedikçe bu usulden dönemezler.77 Bu madde hükmünün uygulanmasında para cezaları ve vergi cezaları hasılattan gider olarak indirilemez."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-zor/kp-03",
+   "taslak_sha": "c821f0e5b530139d6a41ab2faf9d51ec2fc04e07e6602395a4adbbbdff4eb76a",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.75 - ALTINCI BÖLÜM Menkul Sermaye İradı Tarifi [1/6]",
+     "alinti": "24/12/1980-2361/52 md.) Sahibinin ticari, zirai veya mesleki faaliyeti dışında nakdi sermaye veya para ile temsil edilen değerlerden müteşekkil sermaye dolayısıyla elde ettiği kar payı, faiz, kira ve benzeri iratlar menkul sermaye iradıdır."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "birden fazla işverenden elde edilen ücretler, menkul sermaye iratları ve gayrimenkul sermaye iratları, d) Bir takvim yılı içinde elde edilen ve toplamı 600 milyon lirayı (22.000 TL) aşmayan, tevkifata ve istisna uygulamasına konu olmayan menkul ve gayrimenkul sermaye iratları.88 2."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "Tam mükellef kurumlardan elde edilen, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr paylarının yarısı gelir vergisinden müstesnadır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-zor/kp-05",
+   "taslak_sha": "3d5b984dccaa10e56b0eedb4ff0cf4f33ecd5bc94e55e904fc672321cf1cdfd1",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.42 - Birden fazla takvim yılına sirayet eden inşaat ve onarma işleri",
+     "alinti": "24/12/1980-2361/30 md.) Birden fazla takvim yılına sirayet eden inşaat (dekapaj işleri de inşaat işi sayılır) ve onarma işlerinde kar veya zarar işin bittiği yıl kati olarak tespit edilir ve tamamı o yılın geliri sayılarak, mezkûr yıl beyannamesinde gösterilir.46 Mükellefler bu madde kapsamına giren"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.44 - İnşaat ve onarma işlerinde işin bitimi",
+     "alinti": "diğer hallerde işin fiilen tamamlandığı veya fiilen bırakıldığı tarih bitim tarihi olarak kabul edilir.48 Bitim tarihinden sonra bu işlerle ilgili olarak yapılan giderler ve her nam ile olursa olsun elde edilen hasılat, bu giderlerin yapıldığı veya hasılatın elde edildiği yılın kar veya zararının te"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm12-1-yvergi-zor/kp-07",
+   "taslak_sha": "6eefeb78ab5722cde84b95818f0276c064f53129452da0a84136488478fb8bf8",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [2/10]",
+     "alinti": "Genel ve özel bütçeli kamu idareleri, il özel idareleri, belediyeler, köyler ile kamu yararına çalışan dernekler ve Cumhurbaşkanınca vergi muafiyeti tanınan vakıflara yıllık toplamı beyan edilecek gelirin % 5’ini (kalkınmada öncelikli yöreler için % 10’unu) aşmamak üzere, makbuz karşılığında yapılan"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [6/10]",
+     "alinti": "16/6/2009-5904/3 md.) İktisadi işletmeleri hariç, Darülacezeye, Türkiye Kızılay Derneğine ve Türkiye Yeşilay Cemiyetine makbuz karşılığı yapılan nakdi bağış ve yardımların tamamı.102103 12."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [3/10]",
+     "alinti": "Fakirlere yardım amacıyla gıda bankacılığı faaliyetinde bulunan Darülacezeye, dernek ve vakıflara Maliye Bakanlığınca belirlenen usul ve esaslar çerçevesinde bağışlanan gıda, temizlik, giyecek ve yakacak maddelerinin maliyet bedelinin tamamı.9899 7."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm3-2-ymeslek-zor/kp-01",
+   "taslak_sha": "a7f8a9c52cb123c5121df6c49619c07cf43a3796175e7e15d959d1fcc873b46d",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) muk. m.227 - Beyannamelerinin İmzalanması ve Yeminli Mali Müşavir Tasdik Raporları [1/2]",
+     "alinti": "Yukarıdaki fıkra hükümlerine göre beyannameyi imzalayan veya tasdik raporunu düzenleyen meslek mensupları, imzaladıkları beyannamelerde veya düzenledikleri tasdik raporlarında yer alan bilgilerin defter kayıtlarına ve bu kayıtların dayanağını teşkil eden belgelere uygun olmamasından dolayı ortaya çı"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) muk. m.227 - Beyannamelerinin İmzalanması ve Yeminli Mali Müşavir Tasdik Raporları [2/2]",
+     "alinti": "25/5/1995-4108/5 md.) 233 Sayılı Kanun Hükmünde Kararname hükümlerine tabi olan Kamu İktisadi Teşebbüsleri ile bunlara ait müesseseler hakkında bu madde hükümleri uygulanmaz."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm4-12-yvergi-cokzor/kp-01",
+   "taslak_sha": "4095f8ade2f19f701e2e821c91520266f6e2ecd64b151b5459fad32fb1bfba4f",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) gec. m.67 [7/14]",
+     "alinti": "174 bentleri kapsamına giren kurumlar ile Sermaye Piyasası Kanununa göre kurulan borsa yatırım fonları ve emeklilik yatırım fonlarının elde ettikleri kazançlar üzerinden (1) ve (4) numaralı fıkralar uyarınca tevkifat yapılmaz.175176177 6) Bu maddenin (1), (2), (3) ve (4) numaralı fıkralarında belirt"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) gec. m.67 [6/14]",
+     "alinti": "5) Gelir sahibinin gerçek veya tüzel kişi ya da dar veya tam mükellef olması, vergi mükellefiyeti bulunup bulunmaması, vergiden muaf olup olmaması ve elde edilen kazancın vergiden istisna olup olmaması (1), (2), (3) ve (4) numaralı fıkra hükümleri uyarınca yapılacak tevkifatı etkilemez."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) gec. m.68 [2/2]",
+     "alinti": "198 11/12/2025 tarihli ve 33104 sayılı Resmî Gazete’de yayımlanan 10680 sayılı Cumhurbaşkanı Kararı ile bu fıkrada yer alan süre 31/12/2030 tarihine kadar uzatılmıştır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm5-18-yfta-zor/kp-02",
+   "taslak_sha": "0023b7b873774aeccc810e2c91c4981f10e387d3f4da1984bfdcb70e2dd5bbf4",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Cari oran ve asit-test (likidite) oranının birlikte yorumlanması: stok ağırlığı, ölçütler ve sapma nedenleri",
+     "alinti": "Cari oran yüksek ama asit-test düşükse dönen varlıklar STOK AĞIRLIKLIDIR (stoklar satılmadan borç ödenemez;"
+    },
+    {
+     "kaynak_ad": "TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu",
+     "alinti": "Asit-test oranı = (Dönen Varlıklar − Stoklar) / Kısa Vadeli Yabancı Kaynaklar."
+    },
+    {
+     "kaynak_ad": "TEORI - Mali Tablolar Analizi: standart oranlar ve karsilastirma olcutleri",
+     "alinti": "bir oran tek başına anlam taşımaz;"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm7-1-yvergi-zor/kp-04",
+   "taslak_sha": "e8cc3f21e03a6bb8bd1f5690866cc1e722c47726d527af526244b9a61b0e61eb",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 329) m.3 [3/3]",
+     "alinti": "158.000 TL’ye kadar % 15 330.000 TL’nin 158.000 TL’si için 23.700 TL, fazlası % 20 800.000 TL’nin 330.000 TL’si için 58.100 TL (ücret gelirlerinde 1.200.000 TL’nin 330.000 TL’si için 58.100 TL), fazlası % 27 4.300.000 TL’nin 800.000 TL’si için 185.000 TL (ücret gelirlerinde 4.300.000 TL’nin 1.200.00"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "a) Gerçek usulde vergilendirilmeyen ziraî kazançlar, bu Kanunun 75 inci maddesinin (15) ve (16) numaralı bentlerinde yazılı menkul sermaye iratları, kazanç ve iratların istisna hadleri içinde kalan kısmı,86 b) (Değişik:5/12/2019-7194/15 md.) Tek işverenden alınmış ve tevkif suretiyle vergilendirilmi"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.85",
+     "alinti": "İKİNCİ BÖLÜM Gelirin Toplanması ve Yıllık Beyanname Gelirin toplanması ve beyan Madde 85 – (Değişik:"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm8-1-yvergi-cokzor/kp-03",
+   "taslak_sha": "47af7f9c2a6a7b1626246469286d3def7046f6b7431467b7da44c9ccbaadb638",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "İstisna edilen tutar üzerinden 94 üncü madde uyarınca tevkifat yapılır ve tevkif edilen verginin tamamı, kâr payının yıllık beyanname ile beyan edilmesi durumunda yıllık beyanname üzerinden hesaplanan vergiden mahsup edilir."
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.103",
+     "alinti": "98.000 TL’nin (1.000.000 TL) 40.000 TL’si (400.000 TL) için 7.100 TL (70.500 TL) (ücret gelirlerinde 148.000 TL’nin (1.500.000 TL) 40.000 TL’si (400.000 TL) için 7.100 TL (70.500 TL)), fazlası % 27;"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm8-1-yvergi-kolay/kp-01",
+   "taslak_sha": "900bae29c6044970eeb7b7bda860cec0fba4c3887fffc36a81f2ef9be292eeda",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.85",
+     "alinti": "Bu Kanuna göre beyanı gereken gelirlerin yıllık beyannamede toplanması zorunludur."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.88 - EĞİŞİKLİKLER CETVELİ\"ne bakınız. 86 Zararların karlara takas ve mahsubu [1/2]",
+     "alinti": "24/12/1980-2361/63 md.) Gelirin (...)89 toplanmasında gelir kaynaklarının bir kısmından hasıl olan zararlar (80 inci maddede yazılı diğer kazanç ve iratlardan doğanlar hariç) diğer kaynakların kazanç ve iratlarına mahsup edilir.90 (Değişik:"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm8-1-yvergi-kolay/kp-03",
+   "taslak_sha": "d79c02be4427bbf0916d5d8720ab4397510a89025a147aaa2e2afd41b5796cdb",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "birden fazla işverenden elde edilen ücretler, menkul sermaye iratları ve gayrimenkul sermaye iratları, d) Bir takvim yılı içinde elde edilen ve toplamı 600 milyon lirayı (22.000 TL) aşmayan, tevkifata ve istisna uygulamasına konu olmayan menkul ve gayrimenkul sermaye iratları.88 2."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "Tam mükellef kurumlardan elde edilen, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr paylarının yarısı gelir vergisinden müstesnadır."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.75 - ALTINCI BÖLÜM Menkul Sermaye İradı Tarifi [1/6]",
+     "alinti": "24/12/1980-2361/52 md.) Sahibinin ticari, zirai veya mesleki faaliyeti dışında nakdi sermaye veya para ile temsil edilen değerlerden müteşekkil sermaye dolayısıyla elde ettiği kar payı, faiz, kira ve benzeri iratlar menkul sermaye iradıdır."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm8-1-yvergi-kolay/kp-05",
+   "taslak_sha": "8632f50d799e65e20b867aff66aac1be1f27fc9683ef74e23801eb3ce6bdbd54",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.230 - Faturanın şekli",
+     "alinti": "Şu kadar ki nihai tüketicilerin tüketim amacıyla perakende olarak satın aldıkları malları kendilerinin taşıması veya taşıttırması halinde bu mallara ait fatura veya perakende satış fişinin bulunması şartıyla sevk irsaliyesi aranmaz.)"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.240 - ÖLÜM Diğer Evrak ve Vesikalar Taşıma ve otel işletmelerine ait belgeler [1/2]",
+     "alinti": "Yolcu taşıma biletlerinin komisyoncu veya acenteler tarafından kesilmesi halinde yolcu listeleri 3 nüsha olarak düzenlenir ve bir nüshası bu kimseler tarafından saklanır."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.240 - ÖLÜM Diğer Evrak ve Vesikalar Taşıma ve otel işletmelerine ait belgeler [2/2]",
+     "alinti": "Taşıtı işleten mükellefin adı, soyadı varsa unvanı, adresi, vergi dairesi ve hesap numarası."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm8-1-yvergi-zor/kp-02",
+   "taslak_sha": "770157c4977e80cbb314a2b5f060f7f4a0a08e323cde682c16d66ef4bd3a708b",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.21 - BEŞİNCİ BÖLÜM Sermaye İratlarında İstisnalar Gayrimenkuller ve haklarda",
+     "alinti": "İstisna haddi üzerinde hasılat elde edilip beyan edilmemesi veya eksik beyan edilmesi halinde, bu istisnadan yararlanılamaz.15 Ticari, zirai veya mesleki kazancının yıllık beyanname ile bildirmek mecburiyetinde olanlar ile istisna haddinin üzerinde hasılat elde edenlerden, beyanı gerekip gerekmediği"
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "a) Gerçek usulde vergilendirilmeyen ziraî kazançlar, bu Kanunun 75 inci maddesinin (15) ve (16) numaralı bentlerinde yazılı menkul sermaye iratları, kazanç ve iratların istisna hadleri içinde kalan kısmı,86 b) (Değişik:5/12/2019-7194/15 md.) Tek işverenden alınmış ve tevkif suretiyle vergilendirilmi"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm8-1-yvergi-zor/kp-03",
+   "taslak_sha": "b1b9cbc70b4c14251e206cd214a4fdaf483f39e6077e5836c3971af44b09e272",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "Tam mükellef kurumlardan elde edilen, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr paylarının yarısı gelir vergisinden müstesnadır."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.94 [3/14]",
+     "alinti": "dar mükellef gerçek kişilere, dar mükellef kurumlara (Türkiye'de bir işyeri veya daimi temsilci aracılığıyla kâr payı elde edenler hariç) ve gelir ve kurumlar vergisinden muaf olan dar mükelleflere dağıtılan, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr payların"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller",
+     "alinti": "a) Gerçek usulde vergilendirilmeyen ziraî kazançlar, bu Kanunun 75 inci maddesinin (15) ve (16) numaralı bentlerinde yazılı menkul sermaye iratları, kazanç ve iratların istisna hadleri içinde kalan kısmı,86 b) (Değişik:5/12/2019-7194/15 md.) Tek işverenden alınmış ve tevkif suretiyle vergilendirilmi"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm9-1-yvergi-cokzor/kp-08",
+   "taslak_sha": "a46c51fde50a6013876da2acf5af1b53d1fa3a229976e92fa2d4c38ec43df636",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.339",
+     "alinti": "Madde 339 – (Değişik:14/10/2021-7338/38 md.) Vergi ziyaına sebebiyet vermekten veya usulsüzlükten dolayı ceza kesilen ve cezası kesinleşenlere, vergi ziyaı cezasında cezanın kesinleştiği tarihi izleyen günden itibaren beşinci yılın isabet ettiği takvim yılının sonuna kadar, usulsüzlükte cezanın kesi"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.376",
+     "alinti": "İkmalen, resen veya idarece tarh edilen vergiyi veya vergi farkını ve vergi ziyaı, usulsüzlük ve özel usulsüzlük cezalarının yarısını ihbarnamelerin tebliğ tarihinden itibaren otuz gün içinde ilgili vergi dairesine başvurarak vadesinde veya 6183 sayılı Kanunda belirtilen türden teminat göstererek va"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.344",
+     "alinti": "23/1/2008-5728/275 md.) 341 inci maddede yazılı hallerde vergi ziyaına sebebiyet verildiği takdirde, mükellef veya sorumlu hakkında ziyaa uğratılan verginin bir katı tutarında vergi ziyaı cezası kesilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm9-1-yvergi-cokzor/kp-09",
+   "taslak_sha": "42cee141f31fa4c82cbaffb55df16d4b92a485914e3195b3b9cd12768ba15cb8",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.67 - Serbest meslek kazancının tesbiti [1/2]",
+     "alinti": "Madde 67 – Serbest meslek kazancı bir hesap dönemi içinde serbest meslek faaliyeti karşılığı olarak tahsil edilen para ve ayınlar ve diğer suretlerle sağlanan ve para ile temsil edilebilen menfaatlerden bu faaliyet dolayısiyle yapılan giderler indirildikten sonra kalan farktır."
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.103",
+     "alinti": "98.000 TL’nin (1.000.000 TL) 40.000 TL’si (400.000 TL) için 7.100 TL (70.500 TL) (ücret gelirlerinde 148.000 TL’nin (1.500.000 TL) 40.000 TL’si (400.000 TL) için 7.100 TL (70.500 TL)), fazlası % 27;"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm9-1-yvergi-kolay/kp-06",
+   "taslak_sha": "c7222a33902526a6adcd587d2fe834f4ba8cc3e78f35fbd9802c1352e000de1a",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.231 - Fatura nizamı [1/2]",
+     "alinti": "4/12/1985-3239/20 md.) Fatura, malın teslimi veya hizmetin yapıldığı tarihten itibaren azami yedi gün içinde düzenlenir."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.231 - Fatura nizamı [2/2]",
+     "alinti": "29/4/2021 tarihli ve 7318 sayılı Kanunun 1 inci maddesiyle, bu bendin son cümlesinde yer alan “süre” ibaresi “süreler” şeklinde değiştirilmiştir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm9-1-yvergi-zor/kp-07",
+   "taslak_sha": "df541606d678bb4df575caee882642b76bf3f6b4bfd3c1202ed42c9fb7b2c3c9",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.89 [6/10]",
+     "alinti": "31/5/2012-6322/9 md.) Vergi Usul Kanununun 325/A maddesine göre girişim sermayesi fonu olarak ayrılan tutarların beyan edilen gelirin %10’unu aşmayan kısmı."
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.325/A - Girişim sermayesi fonu",
+     "alinti": "31/5/2012-6322/15 md.) Sermaye Piyasası Kurulunun düzenleme ve denetimine tabi olarak Türkiye’de kurulmuş veya kurulacak olan girişim sermayesi yatırım ortaklıklarına sermaye olarak konulması veya girişim sermayesi yatırım fonu paylarının satın alınması amacıyla, ilgili dönem kazancından veya beyan "
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-gm9-1-yvergi-zor/kp-09",
+   "taslak_sha": "492ea49f01a7ae735185eab4969117d8553f1a56f2b9aa473bbc2dc461503975",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.10 - Kanuni temsilcilerin ödevi [1/2]",
+     "alinti": "21/3/2018-7103/9 md.) Tasfiye edilerek tüzel kişiliği ticaret sicilinden silinmiş olan mükelleflerin, tasfiye öncesi ve tasfiye dönemlerine ilişkin her türlü vergi tarhiyatı ve ceza kesme işlemi, müteselsilen sorumlu olmak üzere, tasfiye öncesi dönemler için kanuni temsilcilerden, tasfiye dönemi içi"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.10 - Kanuni temsilcilerin ödevi [2/2]",
+     "alinti": "21/3/2018-7103/9 md.) Beşinci fıkra kapsamına girmeyen tüzel kişilerin tüzel kişiliklerinin veya tüzel kişiliği olmayan teşekküllerin sona ermesi halinde, sona erme tarihinden önceki dönemlere ilişkin her türlü vergi tarhiyatı ve ceza kesme işlemi, müteselsilen sorumlu olmak üzere, tüzel kişiliği ol"
+    },
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.335",
+     "alinti": "30/12/1980-2365/61 md.) Vergi ziyaı cezasında cezayı istilzam eden tek bir fiil ile başka neviden birkaç vergi ziyaa uğramış olursa her vergi bakımından ayrı ayrı ceza kesilir."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-olc2-b-vergi/kp-31",
+   "taslak_sha": "a36e3fd31e449ba9e0fc66471600f146910596eebe82589e932319c2554eff5b",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.22 [2/3]",
+     "alinti": "İstisna edilen tutar üzerinden 94 üncü madde uyarınca tevkifat yapılır ve tevkif edilen verginin tamamı, kâr payının yıllık beyanname ile beyan edilmesi durumunda yıllık beyanname üzerinden hesaplanan vergiden mahsup edilir."
+    },
+    {
+     "kaynak_ad": "TEORI - Maliye: vergi entegrasyon yontemleri kurumlar ve gelir vergisi",
+     "alinti": "tam mükellef kurumlardan elde edilen kâr paylarının yarısı gelir vergisinden istisnadır (GVK m.22);"
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.3 [3/3]",
+     "alinti": "190.000 TL'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin 1.000.000 TL'si için 232.500 TL, (ücret gelirlerinde 5.300.000 TL'nin 1."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w12a-1-ymeslek-cokzor/kp-02",
+   "taslak_sha": "074bb3d5c5f5a7323dab975ac077aafddfe08ad540400ed89b6526479e66aeb3",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.43",
+     "alinti": "Meslek sırları Madde 43 – Meslek mensupları ve bunların yanlarında çalışanlar, işleri dolayısıyla öğrendikleri bilgi ve sırları ifşa edemezler, çeşitli kanunlarla muhbirlere tanınan hak ve menfaatlerden faydalanamazlar."
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w14-6-yvergi-cokzor/kp-02",
+   "taslak_sha": "11e6c216d63eb206db38b64d572fb1be9190a146b712a278af0a8417ed178772",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.68 [2/3]",
+     "alinti": "(Ek parantez içi hüküm:5/12/2019-7194/14 md.) (Şu kadar ki binek otomobillerine ilişkin giderlerin en fazla %70’i ve kiralama yoluyla edinilen binek otomobillerinin her birine ilişkin aylık kira bedelinin 5.500 (46.000 TL) Türk lirasına kadarlık kısmı ile binek otomobillerinin iktisabında ödenen öze"
+    },
+    {
+     "kaynak_ad": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 329) m.3 [2/3]",
+     "alinti": "özel tüketim vergisi ve katma değer vergisi hariç 1.100.000 TL, vergilerin maliyet bedeline eklendiği veya binek otomobilin ikinci el olarak iktisap edildiği hallerde 2.100.000 TL, - (5) numaralı bendinde yer alan kiralama yoluyla edinilen binek otomobillerinin her birine ilişkin aylık kira bedeli 3"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.68 [1/3]",
+     "alinti": "25/12/2003-5035/13 md.) Serbest meslek kazancının tespitinde aşağıda yazılı giderler hasılattan indirilir:"
+    }
+   ]
+  },
+  {
+   "soru_id": "smmm-w4-yvergi-zor/kp-04",
+   "taslak_sha": "4efecc7d07167dc28cce00daf251a6c57041b85bd8aa10aa6ff92bf2bf62812c",
+   "dayanaklar": [
+    {
+     "kaynak_ad": "VUK (213 s.K.) m.8 - İKİNCİ BÖLÜM Vergi Sorumluluğu Mükellef ve vergi sorumlusu",
+     "alinti": "Vergi sorumlusu, verginin ödenmesi bakımından, alacaklı vergi dairesine karşı muhatap olan kişidir."
+    },
+    {
+     "kaynak_ad": "TEORI - Kâr payı dağıtımı ve vergi kesintisi kaydı: 570 Geçmiş Yıllar Kârları ve 590 Dönem Net Kârı'ndan dağıtım, 331 Ortaklara Borçlar, 360 Ödenecek Vergi ve Fonlar, sorumlu sıfatıyla stopaj",
+     "alinti": "brüt tutar 570'in borcuna, kesinti 360 ÖDENECEK VERGİ VE FONLAR hesabının alacağına, ortaklara ödenecek NET tutar 331 ORTAKLARA BORÇLAR hesabının alacağına yazılır (THP 331:"
+    },
+    {
+     "kaynak_ad": "GVK (193 s.K.) m.94 [3/14]",
+     "alinti": "tam mükellef gerçek kişilere, gelir ve kurumlar vergisi mükellefi olmayanlara ve bu vergilerden muaf olanlara dağıtılan, 75 inci maddenin ikinci fıkrasının (1), (2) ve (3) numaralı bentlerinde yazılı kâr paylarından (kârın sermayeye eklenmesi kâr dağıtımı sayılmaz.), ii) Tam mükellef kurumlar tarafı"
+    }
+   ]
+  }
+ ]
+}
