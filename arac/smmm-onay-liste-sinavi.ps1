@@ -25,7 +25,7 @@ $sartYol = Join-Path $buDizin 'smmm-yayin-sarti.ps1'
 $onayYolu = Join-Path $buDizin 'smmm-onay.ps1'
 . $sartYol   # gerçek yardımcılar (KH, MD, HAD, MA, OM, AH, kalite) yüklensin
 # AST'den yeniden kurulan işlevde $PSScriptRoot boş → gerçek listeler burada (aynı okuyucularla) önceden yüklenir
-$script:MD_LISTE = MdListeOku (Split-Path -Parent $buDizin); $script:HAD_HARITA = HadHaritaOku (Split-Path -Parent $buDizin)
+$script:MD_LISTE = MdListeOku (Split-Path -Parent $buDizin); $script:HAD_HARITA = HadHaritaOku (Split-Path -Parent $buDizin); $script:HAD_D7 = HadD7HaritaOku (Split-Path -Parent $buDizin)   # 01.11 SMMM D7 yolu
 
 function IslevMetni([string]$kaynakMetin, [string[]]$adlar) {
   $tk = $null; $hata = $null

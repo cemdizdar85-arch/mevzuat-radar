@@ -39,11 +39,16 @@ function yeni2Mi(k) {
 /* 30.09 ölçümü (onarımcılar 93 AS1 alarmını elle okudu): AS1 alarmlarının SGS'de %54'ü, SMMM'de %76'sı YANLIŞ → AS1 soru DURDURMAZ,
    "NOT-AS1" satırı olarak günlüğe düşer. DURDURANLAR: AS2 (açıklama kayması, yapısal) + EK (onarımda 101 soruda 4 yanlış alarm, hepsi
    bilerek konmuş "eski oran" çeldiricisi — arac/eski-kurallar.json haric'i genişletildi). */
-function satirlar(k) {
+// 01.11 K1d (BITIRME-SORU-STANDARDI.md, Cem 30.10 "TMS 1 kalsın"): 2026 sınavı TMS 1 soruyor, TFRS 18 1.1.2027'de yürürlüğe girer →
+//   'smmm-' etiketli (bitirme) soruda EK9 (TMS 1 atfı) DURDURMAZ, NOT-EK satırıdır. Öteki etiket (SGS/KGK/etiketsiz) eskisi gibi KAPI-EK.
+//   Etiket: --tek … --etiket <etiket> · --parti dosya adından (kalip-parti-<etiket>.json). Etiketsiz çağrı davranışı DEĞİŞMEDİ.
+function bitirmeMi(etiket) { return MUT !== 'ek9-bitirme-yok' && /^smmm-/.test(String(etiket || '')); }
+function satirlar(k, etiket) {
   const c = [];
   const y2 = yeni2Mi(k);
+  const bit = bitirmeMi(etiket);
   AS.denetle(k).forEach(b => c.push(b.kod === 'AS2' ? 'KAPI-AS2: ' + b.not : 'NOT-AS1: ' + b.alan + ' ' + b.sik + ' şıkkı yerine ' + b.diger + ' şıkkının sayısını sonuç diye anlatıyor olabilir'));
-  EK.denetle(k).forEach(b => c.push('KAPI-EK: ' + b.kod + ' ' + b.alan + ' (' + b.kural + ')'));
+  EK.denetle(k).forEach(b => c.push((b.kod === 'EK9' && (bit || MUT === 'ek9-hep-not') ? 'NOT-EK: ' : 'KAPI-EK: ') + b.kod + ' ' + b.alan + ' (' + b.kural + ')'));
   // 30.09 KAPI-HK (Cem "1.2.3, bu kural olsun her sınavda"): THP'de olmayan kod / kodun yanında yanlış hesap adı → DURDURUR.
   //   Adsız "(hesap bağlamı)" bulgusu gürültülü (SGS bankasında 19 bulgunun bir kısmı tutar/gün) → yalnız NOT-HK.
   //   Satır soru metni taşımaz: tür + kod + alan.
@@ -116,6 +121,13 @@ function sinav() {
   const hepDogru = () => karneSoru(['doğru', 'doğru', 'doğru', 'doğru', 'doğru']);
   V.push(['KAPI-KARNE: YENİ2 soruda beşi "doğru" → DURUR', () => dur(tarihli(hepDogru(), '2026-10-05'), 'KARNE'), true]);
   V.push(['KAPI-KARNE: eski soruda aynı kusur → yalnız NOT-KARNE', () => { const k = tarihli(hepDogru(), '2026-10-02'); return !dur(k, 'KARNE') && satirlar(k).some(s => s.startsWith('NOT-KARNE: KARNE-ANAHTAR')); }, true]);
+  // 01.11 K1d: TMS 1 atfı (EK9) bitirmede NOT-EK, KGK/etiketsiz soruda KAPI-EK; bitirmede öteki eski kural yine durur
+  const tms1 = () => { const k = tarihli(temel(), '2026-10-05'); k.aciklama.C = 'Ne soruluyor: payın tutarı. Kural: TMS 1 uyarınca dönen varlık sınıflaması. Doğrusu: 150.000.'; return k; };
+  V.push(['K1d: bitirme (smmm-) soruda TMS 1 atfı → DURMAZ, NOT-EK EK9', () => { const s = satirlar(tms1(), 'smmm-w4-fmuh-kolay'); return !s.some(x => x.startsWith('KAPI-EK:')) && s.some(x => x.startsWith('NOT-EK: EK9')); }, true]);
+  V.push(['K1d: KGK (kgk-) soruda TMS 1 atfı → KAPI-EK EK9 (değişmedi)', () => satirlar(tms1(), 'kgk-t1-fmuh').some(x => x.startsWith('KAPI-EK: EK9')), true]);
+  V.push(['K1d: etiketsiz çağrıda TMS 1 atfı → KAPI-EK EK9 (değişmedi)', () => satirlar(tms1()).some(x => x.startsWith('KAPI-EK: EK9')), true]);
+  V.push(['K1d: bitirme soruda öteki eski kural (KDV %18, EK1) → yine KAPI-EK', () => { const k = tarihli(temel(), '2026-10-05'); k.aciklama.C = 'Ne soruluyor: KDV. Kural: KDV oranı %18 uygulanır. Doğrusu: 150.000.'; return satirlar(k, 'smmm-w4-yvergi-kolay').some(x => x.startsWith('KAPI-EK: EK1')); }, true]);
+  V.push(['K1d: --parti etiketi dosya adından okunur', () => partiEtiketi('/x/veri/fabrika/kalip-parti-smmm-w4-fmuh-kolay.json') === 'smmm-w4-fmuh-kolay' && partiEtiketi('C:\\x\\kalip-parti-kgk-t1.json') === 'kgk-t1' && partiEtiketi('baska.json') === '', true]);
   V.push(['KAPI-KARNE: YENİ2 soruda tek yeşil = anahtar C → satır yok', () => !satirlar(tarihli(karneSoru(['yanlış', 'yanlış', 'doğru', 'yanlış', 'yanlış']), '2026-10-05')).some(s => /KARNE/.test(s)), true]);
   let ok = 0;
   for (const [ad, f, bek] of V) { let g; try { g = f(); } catch (e) { g = 'HATA ' + e.message; } const t = g === bek; if (t) ok++; console.log((t ? '  ✓ ' : '  ✗ ') + ad); }
@@ -123,14 +135,16 @@ function sinav() {
   return ok === V.length;
 }
 
-module.exports = { satirlar, yeni2Mi };
+// --parti dosya adı → etiket ('…/kalip-parti-smmm-w4-fmuh-kolay.json' → 'smmm-w4-fmuh-kolay'); kalıp tutmazsa '' (etiketsiz = eski davranış)
+function partiEtiketi(yol) { if (MUT === 'parti-etiket-yok') return ''; const m = /(?:^|[\\/])kalip-parti-(.+)\.json$/.exec(String(yol || '')); return m ? m[1] : ''; }
+module.exports = { satirlar, yeni2Mi, partiEtiketi };
 if (require.main === module) {
   const a = process.argv.slice(2);
   if (a[0] === '--sinav') {
     if (a.includes('--mutasyon')) {
       if (!sinav()) { console.log('MUTASYON koşulmadı: bozulmamış öz-sınav zaten KIRMIZI'); process.exit(1); }
       const { spawnSync } = require('child_process');
-      const ler = ['yeni2-hep-eski', 'yeni2-hep-yeni', 'tarihsiz-eski', 'yy-bagsiz', 'adim-bagsiz', 'tr-bagsiz', 'bos-bagsiz', 'yt-bagsiz', 'karne-bagsiz'];
+      const ler = ['yeni2-hep-eski', 'yeni2-hep-yeni', 'tarihsiz-eski', 'yy-bagsiz', 'adim-bagsiz', 'tr-bagsiz', 'bos-bagsiz', 'yt-bagsiz', 'karne-bagsiz', 'ek9-bitirme-yok', 'ek9-hep-not', 'parti-etiket-yok'];
       let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, KALITE_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' mutasyon KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
@@ -138,10 +152,11 @@ if (require.main === module) {
     process.exit(sinav() ? 0 : 1);
   }
   try {
-    if (a[0] === '--tek') { satirlar(JSON.parse(fs.readFileSync(a[1], 'utf8').replace(/^﻿/, ''))).forEach(s => console.log(s)); process.exit(0); }
+    if (a[0] === '--tek') { const ei = a.indexOf('--etiket'); satirlar(JSON.parse(fs.readFileSync(a[1], 'utf8').replace(/^﻿/, '')), ei > 0 ? a[ei + 1] : '').forEach(s => console.log(s)); process.exit(0); }
     if (a[0] === '--parti') {
       const p = JSON.parse(fs.readFileSync(a[1], 'utf8').replace(/^﻿/, '')), o = {};
-      for (const kp of Object.keys(p)) { if (!/^kp-/.test(kp)) continue; const s = satirlar(p[kp]).filter(x => /^KAPI-/.test(x)); if (s.length) o[kp] = s; }   // yalnız DURDURAN bulgular (NOT-* hariç)
+      const et = partiEtiketi(a[1]);
+      for (const kp of Object.keys(p)) { if (!/^kp-/.test(kp)) continue; const s = satirlar(p[kp], et).filter(x => /^KAPI-/.test(x)); if (s.length) o[kp] = s; }   // yalnız DURDURAN bulgular (NOT-* hariç)
       console.log(JSON.stringify(o)); process.exit(0);
     }
   } catch (e) { console.log('KAPI-KALITE KÖR: ' + String(e.message).slice(0, 120)); process.exit(2); }
