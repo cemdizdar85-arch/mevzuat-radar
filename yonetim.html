@@ -130,7 +130,8 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       <div class="kutu"><b id="sPaketli">0</b><span>aktif paketli</span></div>
       <div class="kutu"><b id="sOdenen">0</b><span>ödenmiş sipariş (iade hariç)</span></div>
       <!-- 02.11 Cem ("sözü 1 Kasım 23:59'a kadar alanları ayrıca işaretleyelim, yönetimde göreyim; açılıştan sonra hep açıkta tutacağız") -->
-      <div class="kutu"><b id="sSoz">0</b><span>söz hakkı olan üye <small id="sSozAyr"></small></span></div>
+      <div class="kutu"><b id="sSoz">0</b><span>söz hakkı olan üye — 1 Kasım'a kadar ödeyen <small id="sSozAyr"></small></span></div>
+      <div class="kutu"><b id="sHediye">0</b><span>hediye verilen üye (söz listesinde değil)</span></div>
     </div>
 
     <h2>Kim nereden geldi, hangi sınava</h2>
@@ -400,6 +401,8 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     var sozlu=uyeler.filter(function(u){ return u.soz; }), sozP=function(r){ return sozlu.filter(function(u){ return r.test(u.soz_paket||''); }).length; };
     $('sSoz').textContent=sozlu.length;
     $('sSozAyr').textContent='(Staja Giriş '+sozP(/sgs/)+' · Yeterlilik '+sozP(/yeterlilik|son20-yet/)+')';
+    /* 02.11 Cem ("hediye verdiklerimiz hediye olarak görünsün, onlar ayrı"): hediye/elle verilmiş paketli hesaplar ayrı sayılır */
+    $('sHediye').textContent=uyeler.filter(function(u){ return u.kaynak==='Hediye'||u.kaynak==='Elle verilmiş'; }).length;
 
     /* çapraz tablo: satır = kaynak, sütun = sınav */
     var SIN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'], KAY=['Ücretli','Elçi ile ücretli','Hediye','Elle verilmiş','Ücretsiz üye'];
