@@ -526,13 +526,30 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   </div>
 </section>
 
+<!-- 28.10 Cem ("bunu eski ekranda büyük şekilde SMMM giriş paketi üstüne koyuyordun, hem burada kalsın hem dediğim yere de koy"):
+     büyük sınav düğmeleri kahramanın hemen altında, Son 20 Gün kartının üstünde (02.11 Cem: "aşağıdaki üste görünüyordu"; açılış ekranındaki küçük sekmelerle aynı seçim). -->
+<section class="secim-bolum" aria-labelledby="secimBas2">
+  <div class="ic">
+      <p class="secim-bas" id="secimBas2">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas2">
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
+             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
+             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
+        <span class="sinav kapali" id="kgkKapali2" aria-disabled="true" >KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik2" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+      </div>
+  </div>
+</section>
+
 <!-- 31.10 Cem ("ana sayfamıza 20 günlük sgs sınav testi ve üyelerin gördüğü yere koyalım, insanlar kolay görsün"): kahramanın hemen
      altında Son 20 Gün bölümü. Seçili sınava göre (SGS 1 Kasım · Yeterlilik 8 Kasım; KGK'da gizli). Üyede son20-kart.js'in kişisel
      satırı + "Denemelerime git". Fiyat yazılmaz (fiyat tek yerden: paket kartları). Akış son-20-gun.html "Nasıl ilerler?" ile aynı. -->
 <style>
 /* 31.10 Cem ("biraz daha yukarı kaldır, denemeler 1 Kasım açılır görünsün"): bilgisayarda kart ilk ekrana sığsın diye sıkı:
    solda başlık + tek satır özet + üye satırı, sağda düğmeler, altta tek satır adım şeridi (ayrıntı son-20-gun.html'de). */
-.s20b{padding:0 0 18px;margin-top:-18px}.s20b .kutu{border:2px solid var(--amber-dolgu,#f3a52a);border-radius:16px;padding:14px 18px;
+.s20b{padding:0 0 18px;margin-top:0}.s20b .kutu{border:2px solid var(--amber-dolgu,#f3a52a);border-radius:16px;padding:14px 18px;
   background:color-mix(in srgb,var(--amber-dolgu,#f3a52a) 8%,var(--kagit,#fff));display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center}
 .s20b .et{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--amber,#9a6400);margin:0}
 .s20b h2{margin:2px 0 4px;font-size:22px;line-height:1.2}.s20b .ozet{margin:0;color:var(--muted);font-size:15px}
@@ -593,22 +610,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 })();
 </script>
 
-<!-- 28.10 Cem ("bunu eski ekranda büyük şekilde SMMM giriş paketi üstüne koyuyordun, hem burada kalsın hem dediğim yere de koy"):
-     büyük sınav düğmeleri paketlerin hemen üstünde (açılış ekranındaki küçük sekmelerle aynı seçim). -->
-<section class="secim-bolum" aria-labelledby="secimBas2">
-  <div class="ic">
-      <p class="secim-bas" id="secimBas2">Sınavını seç</p>
-      <div class="secim" role="group" aria-labelledby="secimBas2">
-        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
-        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
-        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
-             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
-             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
-        <span class="sinav kapali" id="kgkKapali2" aria-disabled="true" >KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
-        <button class="sinav" type="button" id="kgkAcik2" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
-      </div>
-  </div>
-</section>
 
 <!-- 17.10 Cem ("paketleri gör büyük olsun ve SGS tüm paket ve yanında hemen tek paket ... kurumsal görünsün, aşağıya kayan şekilde
      olmasın"): üç paket kartı yan yana, sınav haplarının hemen altında. Rakam YALNIZ fiyat-motoru.js'ten (paketBul), biçim fiyat.html
