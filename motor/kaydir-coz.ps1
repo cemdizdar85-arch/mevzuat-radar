@@ -168,16 +168,34 @@ function TurkceOnar([string]$t){
 #   taşıyan ama olumsuz bitmeyen kök, Türkçe/yabancı dil dersi) karar alanı AYNEN kullanılır, günlüğe NOT düşer.
 # ÖLÇÜLDÜ 31.10 (ambar, şık adımlı 4.098 soru): ilk kalıp 87 soruda etiket değiştirdi; okununca 4'ü yanlış alarmdı ("kaç yıl
 #   geçmedikçe … seçilemez?" ×3, "girdisidir; … olmaz?" ×1), 7'si Türkçe dersiydi ("yazım yanlışı yoktur" — şık bir cümle) → belirsiz; kalan 76.
+# 01.11 (Ajan 37 ölçtü, Ajan 40 düzeltti) İKİ YANLIŞ ALARM DAHA → belirsiz:
+#   (1) ŞIKLAR ROMA RAKAMLI ÖNCÜL KÜMESİ ("Yalnız II", "I ve III"; 5 şıktan en az 4'ü): KURAL2710_ONCUL (motor/kalip-parti-uret.ps1)
+#       şık adımını "Şık C (I ve II): doğru öncüllerin tamamı bu mu?" diye kurdurur — karar "bu küme cevap mı?" sorusunun cevabıdır,
+#       kökün "yanlıştır"ı öncüllere aittir, şık kümesine değil. Ör. sgs-e16-ekonomi-zor/kp-08 ("Yukarıdakilerden hangisi yanlıştır?",
+#       adım "Yanlış olan yalnız II mi?" → B doğru) eski kalıpla B'yi "YANLIŞ ifade" basıyordu. Karar AYNEN.
+#   (2) "henüz … -mamıştır / -memiştir / -maz / -mayan … hangisi?" kökü: sorulan bir DURUM ("süresi henüz dolmamış"); şık o durumu
+#       taşıyan şeydir, yanlış ifade değildir. Ambarın tamamında (18.983 soru) son cümlesi bu kalıpta 3 kök, 1'i şık adımlı
+#       (smmm-olc2-b-vergi/kp-30, üretici anahtarı "doğru" yazmış). Tek vakadan yön (olumlu) çıkarılmaz → belirsiz, karar AYNEN.
 # 🚫 GÖRMEZ: anlamca olumsuz ama eki olmayan kök ("hangisi istisnadır?") olumlu sayılır · kökün son cümlesi dışındaki olumsuzluk ·
-#   adım ANLATIMININ kendisi (rozet düzelir, "bu ifade doğrudur" diyen metin aynen kalır) · karar alanı boş şık ('?' kalır).
+#   adım ANLATIMININ kendisi (rozet düzelir, "bu ifade doğrudur" diyen metin aynen kalır) · karar alanı boş şık ('?' kalır) ·
+#   öncül kümesi sorusunda karar HİÇ denetlenmez (ters yazılmış küme kararı da aynen basılır) · "henüz"süz anlamca olumlu
+#   olumsuz kök ("hangisinin süresi dolmamıştır?") olumsuz sayılır.
 $SIK_KOK_BELIRSIZ=@(
   '(aykırı|yasak)',                                                   # aykırıdır / yasaktır / aykırı olduğu: yön belirsiz
   '(değil|değildir|\S+m[ae]z|\S+m[ae]y[ae]n|\S+m[ae]d[ıi]ğ\S*|yanlış\S*)\s*,',   # iki yönlü: "… değil, … -dır?" / "SAYILMAYAN, … hangisidir?"
   'hangileri', 'kaç\s', 'kaçı',                                          # öncül birleşimi / sayma ("kaç yıl geçmedikçe … seçilemez?"): şık bir ifade değil
   ';',                                                                   # iki yönlü: "… girdisidir; hiçbir aşamanın çıktısı olmaz?" (31.10 eşdeğerlikte ölçüldü)
   '(yanlışı|yanlışlığı|bozukluğ|hatası)',                                # hata soruluyor ("yazım yanlışı yoktur", "anlatım bozukluğu"): şık bir cümle, ifade değil
-  'doğru.*yanlış', 'yanlış.*doğru'                                       # iki yön birden
+  'doğru.*yanlış', 'yanlış.*doğru',                                      # iki yön birden
+  'henüz\s.*?\S+m[ae](m[ıiuü]şt[ıiuü]r|m[ae]kt[ae]d[ıi]r|z|y[ae]n\s+(\S+\s+){0,3}hangisi(dir)?)\s*\?$'   # 01.11: "henüz dolmamıştır?" — sorulan bir durum, olumsuz kök değil
 )
+# 01.11: şık metni Roma rakamlı öncül kümesi mi ("Yalnız I", "I ve II", "I, II ve III"; büyük harf duyarlı — "V. Murat" gibi ad tutmaz)
+$SIK_ONCUL_KUME='^\s*(?:[Yy]aln[ıi]z\s+)?[IVX]+(?:\s*(?:,|ve|ile|-|–)\s*[IVX]+)*\s*\.?\s*$'
+function SikOnculKumesi($sikMetin){
+  if($null -eq $sikMetin){ return $false }; $n=0
+  foreach($h in 'A','B','C','D','E'){ $t=$(if($sikMetin -is [Collections.IDictionary]){ $sikMetin[$h] } else { $sikMetin.$h }); if("$t" -cmatch $SIK_ONCUL_KUME){ $n++ } }
+  return ($n -ge 4)
+}
 $SIK_DIL_DERSI='(^|-)(genel-)?(turkce|ingilizce|yabanci|yabancidil)(-|$)'   # dil dersinde şık bir CÜMLEDİR; "doğru/yanlış ifade" cümlenin kendisiyle karışır → belirsiz
 $SIK_KOK_OLUMSUZ=@(
   '(değildir|değil midir|yanlıştır|hatalıdır|söylenemez|olamaz|yoktur|sayılmaz|\S+m[ae]z|\S+m[ae]m[ıi]şt[ıi]r|\S+m[ae]m[uü]şt[uü]r|\S+m[ae]mektedir|\S+m[ae]maktadır)\s*\?$',
@@ -196,13 +214,15 @@ function SikKokYonu([string]$soru){
   return 'belirsiz'
 }
 # Şık adımlarının kararını kök yönü + anahtara göre denetler; çelişen kararı (yalnız sayfaya giden kopyada) anahtara göre yazar.
-# Dönüş: @{ yon; sik (karar taşıyan şık adımı); celiski (yeniden yazılan şık) }. Yön belirsizse hiçbir şeye dokunmaz.
-function SikKarneDuzelt($adimlar,[string]$dogru,[string]$soru,[string]$etiket=''){
-  $sonuc=@{ yon=''; sik=0; celiski=0 }
+# Dönüş: @{ yon; sik (karar taşıyan şık adımı); celiski (yeniden yazılan şık); oncul }. Yön belirsizse hiçbir şeye dokunmaz.
+# $sikMetin: şık metinleri (A–E; hashtable ya da nesne). Roma rakamlı öncül kümesiyse yön belirsiz (01.11).
+function SikKarneDuzelt($adimlar,[string]$dogru,[string]$soru,[string]$etiket='',$sikMetin=$null){
+  $sonuc=@{ yon=''; sik=0; celiski=0; oncul=$false }
   $sikA=@($adimlar | Where-Object { $_ -is [hashtable] -and $_.ContainsKey('sik') -and "$($_.sik)".Trim() -match '^[A-Ea-e]$' -and $_.ContainsKey('karar') -and "$($_.karar)".Trim() })
   $d="$dogru".Trim().ToUpperInvariant()
   if(-not $sikA.Count -or $d -notmatch '^[A-E]$'){ return $sonuc }
-  $sonuc.sik=$sikA.Count; $yon=$(if("$etiket" -match $SIK_DIL_DERSI){ 'belirsiz' } else { SikKokYonu $soru }); $sonuc.yon=$yon
+  $sonuc.sik=$sikA.Count; $sonuc.oncul=(SikOnculKumesi $sikMetin)
+  $yon=$(if("$etiket" -match $SIK_DIL_DERSI){ 'belirsiz' } elseif($sonuc.oncul){ 'belirsiz' } else { SikKokYonu $soru }); $sonuc.yon=$yon
   if($yon -eq 'belirsiz'){ return $sonuc }
   foreach($a in $sikA){ $h="$($a.sik)".Trim().ToUpperInvariant()
     $beklenenDogru=$(if($yon -eq 'olumsuz'){ $h -ne $d } else { $h -eq $d }); $simdiDogru=-not ("$($a.karar)" -match '^(?i)y')
@@ -339,7 +359,7 @@ foreach($x in $sec){
     foreach($fx in 'sik','karar','paragraf'){ if($a.PSObject.Properties[$fx] -and "$($a.$fx)".Trim()){ $adimH[$fx]="$($a.$fx)".Trim() } }   # 07.09 Ö56: teori dersi şık adımları
     $adimlar+=$adimH }
   # 31.10 ŞIK KARNESİ YÖNÜ (# ---- sik-karne): kök yönü kesinse şık kararı anahtarla denetlenir; çelişen karar sayfaya anahtara göre gider
-  $skd=SikKarneDuzelt $adimlar $d "$($v.soru)" "$($x.et)"
+  $skd=SikKarneDuzelt $adimlar $d "$($v.soru)" "$($x.et)" $siklar
   if($skd.celiski){ [void]$script:SIK_CELISKI.Add("$($x.et)/$($x.id) ($($skd.celiski) şık, kök $($skd.yon))"); "    şık karnesi karar anahtarla çelişti [$($x.id)]: $($skd.celiski) şık anahtara göre basıldı (kök $($skd.yon))" }
   elseif($skd.sik -and $skd.yon -eq 'belirsiz'){ [void]$script:SIK_BELIRSIZ.Add("$($x.et)/$($x.id)") }
   # 04.09 FAZ S: sade Doğrusu + sınav dili + yanlış şık sade nedeni + anahtar kavramlar (üretici cache'inden; yoksa null)
