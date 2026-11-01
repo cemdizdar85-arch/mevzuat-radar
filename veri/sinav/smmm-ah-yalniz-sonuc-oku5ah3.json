@@ -1,0 +1,138 @@
+{
+ "ad": "oku5ah3",
+ "tarih": "2026-11-01T01:11:32.028Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41259693583",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.3,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 5,
+  "gonderilen": 5,
+  "temiz": 1,
+  "kusurlu": 4,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 5,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.146
+ },
+ "kararlar": {
+  "smmm-4k-a-fmuh-kolay-r8/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.D",
+    "adimlar[7]"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) m.285 - Borçlar",
+    "THP 647 - REESKONT FAİZ GELİRLERİ",
+    "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+    "TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-fmuh-zor-r2/kp-18": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) m.281 - Alacaklar",
+    "VUK (213 s.K.) m.285 - Borçlar",
+    "THP 647 - REESKONT FAİZ GELİRLERİ",
+    "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+    "TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true
+  },
+  "smmm-w4-fmuh-zor-2/kp-31": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[4].formul",
+    "adimlar[6]"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) gec. m.4",
+    "VUK (213 s.K.) m.281 - Alacaklar",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w7-2-fmuh-cokzor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "adimlar[0]",
+    "adimlar[3]"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 322 - BORÇ SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) m.285 - Borçlar",
+    "THP 647 - REESKONT FAİZ GELİRLERİ",
+    "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+    "TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w9-2-fmuh-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.D"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+    "THP 128 - Şüpheli Ticari Alacaklar",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+    "THP 654 - KARŞILIK GİDERLERİ (-)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-fmuh-kolay-r8/kp-05",
+  "smmm-w4-fmuh-zor-2/kp-31",
+  "smmm-w7-2-fmuh-cokzor/kp-04",
+  "smmm-w9-2-fmuh-cokzor/kp-02"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
