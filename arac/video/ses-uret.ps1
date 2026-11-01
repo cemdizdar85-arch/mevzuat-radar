@@ -16,7 +16,10 @@ $anahtar = (Get-Content (Join-Path $kasa 'elevenlabs.key') -Raw).Trim()
 $B = Join-Path $kasa 'instagram-seviye'
 $metin = [IO.File]::ReadAllText((Join-Path $B $MetinDosya), [Text.Encoding]::UTF8) | ConvertFrom-Json
 
-$S1 = 'fg8pljYEn5ahwjyOQaro'   # maskot - Mustafa Silici (kilitli ses kimligi)
+# 02.11.2026 Cem "tamam mark yapalim": maskot sesi Mark'a (cizgi film, genc; ElevenLabs paylasilan ses, hesaba eklendi).
+# Neden: Mustafa kalin yetiskin sesiydi, ogrenci sesi (G03) ile karisiyordu; karakter sesi insandan ayrismali.
+# Eski: fg8pljYEn5ahwjyOQaro (Mustafa Silici) - 01.11 ve oncesi videolar bu sesle.
+$S1 = 'DUnzBkwtjRWXPr6wRbmL'   # maskot - Mark, Cartoonish/Funny/Cheerful (kilitli ses kimligi, 02.11)
 $G03 = 'dDcfsSsiSzmphdMGCECb'  # aday - G03 Umit Dogan Energetic (kilitli)
 $H = @{ 'xi-api-key' = $anahtar; 'Content-Type' = 'application/json'; 'Accept' = 'audio/mpeg' }
 New-Item -ItemType Directory -Force (Join-Path $B 'diyalog') | Out-Null
