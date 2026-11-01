@@ -157,6 +157,12 @@ jobs:
           # cozulemeyeni KOR diye bildirir (kapsam olcusu).
           - { ad: "SMMM ders adi OZ-SINAVI (etiket -> ders, kapsam dahil)",
               kabuk: pwsh, komut: "./arac/smmm-ders-adi-sinavi.ps1" }
+          # 01.11.2026 - Bitirme kart ustu konu basligi karttan (arac/smmm-konu-baslik.ps1): ders duzeltmesi karti -> banka eslemesi
+          # konular[0] -> ambar konusu; ikiz grubu (IkizAnlamGrup) ambar konusuyla kalir. 18 vaka + 8 mutasyon (01.11 olculdu).
+          - { ad: "Bitirme konu basligi OZ-SINAVI (kart > esleme > ambar, ikiz ambar konusu)",
+              kabuk: pwsh, komut: "./arac/smmm-konu-baslik-sinavi.ps1" }
+          - { ad: "Bitirme konu basligi MUTASYON (8 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/smmm-konu-baslik-sinavi.ps1 -Mutasyon" }
           # 27.09 (KGK oturumu; SGS oturumu onayli): standart yutucunun BDS dipnot/baslik kurallari + KGK yayin yolu oz-sinavlari.
           - { ad: "Standart yutucu OZ-SINAVI (BDS dipnot/baslik; TMS/TFRS kipi degismesin)",
               kabuk: pwsh, komut: "./motor/standart-yut.ps1 -standart 'BDS 200' -YalnizSinav" }

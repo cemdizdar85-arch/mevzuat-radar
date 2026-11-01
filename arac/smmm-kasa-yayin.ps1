@@ -34,6 +34,10 @@ $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $PSScriptRoot 'smmm-yayin-sarti.ps1')
 . (Join-Path $PSScriptRoot 'onay-yayin-durumu.ps1')   # 22.10 ONAY YAYIN KAPISI sınıflaması
+# ⭐ 01.11.2026 KART ÜSTÜ BAŞLIK KARTTAN (Ajan 30 ölçümü: 3.584 eşlemeli sorunun 1.054'ünde başlık kartla uyumsuz, 288 ASCII):
+#   ekrana giden `konu` = ders düzeltmesi kartı → banka eşlemesi konular[0] → ambar konusu. Ambara dokunulmaz; ikiz kapısı
+#   (IkizAnlamGrup) ambar konusunu kullanmaya DEVAM EDER. Ayrıntı + prova anahtarı (SMMM_KONU_KART_KAPALI) arac/smmm-konu-baslik.ps1.
+. (Join-Path $PSScriptRoot 'smmm-konu-baslik.ps1')
 
 if (-not $IndirmeYok) {
   & powershell -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Yaz -OnEk 'smmm-' | Select-Object -Last 3
@@ -95,7 +99,8 @@ foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
     $ders = SmmmSoruDersi $et $p.Name $v
     if (SmmmDersDuzeltildiMi $et $p.Name) { $dusen['(bilgi) ders düzeltmesi uygulandı'] = 1 + [int]$dusen['(bilgi) ders düzeltmesi uygulandı'] }
     if (-not $ders) { $dusen['ders çözülemedi'] = 1 + [int]$dusen['ders çözülemedi']; continue }
-    $aday.Add([pscustomobject]@{ etiket = $et; id = $p.Name; ders = $ders; konu = "$($v.konu)"; donem = [int]$v.donem; boy = "$($v.soru)".Length
+    $baslik = SmmmKonuBaslik $et $p.Name $ders "$($v.konu)"
+    $aday.Add([pscustomobject]@{ etiket = $et; id = $p.Name; ders = $ders; konu = "$($v.konu)"; baslik = "$($baslik.konu)"; baslikKaynak = "$($baslik.kaynak)"; donem = [int]$v.donem; boy = "$($v.soru)".Length
         uc = (Ucluler (Katla "$($v.soru)")); ucD = (Ucluler (Katla "$($v.siklar.$("$($v.dogru)".Trim().ToUpperInvariant()))"))
         ai = (IkizAnlamIz (IkizAnlamGrup $ders "$($v.konu)" $v.kaynak_adlar) "$($v.soru)" (IkizDogruMetin $v))
         si = (IkizSayiIz "$($v.soru)" (IkizDogruMetin $v)); yeni = (SmmmYeniSoruMu $v) })
@@ -129,11 +134,16 @@ if ($ikizDisi.Count) { $dusen['KAPI-IK ikiz'] = $ikizDisi.Count - $anlamIkiz.Cou
 if ($sayiIkiz.Count) { $dusen['KAPI-IK sayı ikizi (yeni soru)'] = $sayiIkiz.Count }
 if ($sayiEski.Count) { $dusen['(bilgi) eski-eski sayı ikizi çifti, düşmedi'] = $sayiEski.Count }
 "SMMM KASA SEÇİMİ: aday $($aday.Count) · seçilen $($secim.Count) · düşen: $(($dusen.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ' · ')"
+"KONU BAŞLIĞI (seçilen): " + ((@($secim | Group-Object baslikKaynak | Sort-Object Name) | ForEach-Object { "$($_.Name) $($_.Count)" }) -join ' · ') + $(if ("$env:SMMM_KONU_KART_KAPALI" -eq '1') { ' · ⚠ KART KAPALI (prova)' } else { '' })
 if ($SadeceSecim) {
   # prova: seçilen kimlikler (soru metni YOK) → eşdeğerlik kıyası için
   $env:SMMM_SECIM_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
   # 31.10: ders düzeltmesi provası — kimlik|ders (haritalı/haritasız kıyas: küme aynı, ders farkı yalnız taşınanlar)
   $env:SMMM_SECIM_DERS_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)|$($_.ders)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
+  # 01.11: başlık provası — kimlik|ders|ekran başlığı|kaynak (kart açık/kapalı kıyas: küme ve ders aynı, fark yalnız başlık)
+  $env:SMMM_SECIM_KONU_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)|$($_.ders)|$($_.baslik)|$($_.baslikKaynak)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
+  # 01.11: ikiz kapısında düşenler (düşen>kalan) — başlık değişince ikiz kümesi DEĞİŞMEMELİ
+  $env:SMMM_IKIZ_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($ikizDisi.Keys | ForEach-Object { "$_>$($ikizDisi[$_])" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
   # 05.10: eski-eski sayı ikizi çiftleri (kimlik~kimlik, uzun olan solda) → onarım kuyruğu listesi
   $env:SMMM_SAYI_IKIZ_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($sayiEski.Keys) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
   "SADECE SEÇİM: yazım yok, çıkılıyor"; exit 0
@@ -172,7 +182,7 @@ try {
   foreach ($g in @($secim | Group-Object ders | Sort-Object Name)) {
     $slug = SmmmDersSlug $g.Name
     $secYol = Join-Path $calisma "secim-$slug.json"
-    [IO.File]::WriteAllText($secYol, (ConvertTo-Json -InputObject @($g.Group | Sort-Object etiket, id | ForEach-Object { [ordered]@{ etiket = $_.etiket; id = $_.id; ders = $_.ders; konu = $_.konu; donem = $_.donem } }) -Depth 3), [Text.UTF8Encoding]::new($false))
+    [IO.File]::WriteAllText($secYol, (ConvertTo-Json -InputObject @($g.Group | Sort-Object etiket, id | ForEach-Object { [ordered]@{ etiket = $_.etiket; id = $_.id; ders = $_.ders; konu = $_.baslik; donem = $_.donem } }) -Depth 3), [Text.UTF8Encoding]::new($false))
     # ⭐ 12.10.2026 SORU SIRASI: paket_soru.sira = sayfadaki dizin = bu dosyanın sırası. "etiket, id" sırası her sayfayı
     #   "-cokzor-" etiketli sorularla açıyordu (12.10 ölçüldü: ilk 7–18 soru çok zor; 3 paketli üyenin 3'ü orada bıraktı).
     #   motor/smmm-ders-sira.js dosyayı yerinde dizer: konu sırası smmm-ders-havuz.json ile aynı (sık konu önde, karışık),
