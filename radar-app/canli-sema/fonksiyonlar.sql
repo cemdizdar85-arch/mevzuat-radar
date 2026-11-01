@@ -3217,7 +3217,19 @@ AS $function$
   where soru_id = p_soru_id and length(p_soru_id) between 3 and 120
     and coalesce(oturum, '') not in (
       'pj0d61czmuy98c1i',     -- 08.10 site oturumunun canlı denetimi (ornek-sgs, 5 satır)
-      'os-muytfbpt-r64a4y'    -- 08.10 site oturumunun yerel denemesi (eski ornek-sorular.html, 1 satır)
+      'os-muytfbpt-r64a4y',   -- 08.10 site oturumunun yerel denemesi (eski ornek-sorular.html, 1 satır)
+      -- 01.11 ekran testleri, Ajan 30 (yerel kabuk denemeleri + dbg.js), 31.10 21:31–21:46 UTC, 37 satır
+      'ts9rf6ghmvwx21be', '2l0m30hvmvwx2ulq', 'u6ablfmzmvwx461b', 'o34av94emvwx63ul', '6994oef7mvwx6tud',   -- smmm-4k-a-yhukuk-kolay-r3/kp-02 A
+      'jygzmmsamvwx7u61', '9u4rgv6hmvwx8919', 'nj9z12x3mvwx902l',                                          -- smmm-w14-1-fmuh-zor/kp-09 A
+      '5xt77r8emvwxd0fj', '5wcch8mvmvwxddp6', 'yk8xn4xqmvwxe8qu', 'vqv94smrmvwxfhe1', 'oe3fklwnmvwxg62q',
+      '5okuh62emvwxgqtj', 'oki9op4zmvwxhovv', '71v21qy9mvwxil5v',                                          -- sgs-t1-fmuh-cokzor/kp-50 E
+      '4d22nw0bmvwxj0cz', '373tivukmvwxk3kv',                                                              -- smmm-4k-a-yhukuk-kolay-r3/kp-02 A
+      'v5l50k0lmvwxjg2j', 'dfardw2emvwxkhjs',                                                              -- sahte-yhukuk/kp-20 A (sahte test kimliği)
+      -- 01.11 ekran testleri, Ajan 30 (canlı kabuk: hukuk önce/sonra 22:02 + 23:29 UTC; taşıma 23:42–23:43 UTC), 10 satır
+      'rk8hkg95mvwy59xq', 'uwy828bgmvx18p02',                                                              -- smmm-4k-a-yhukuk-kolay-r3/kp-02 A
+      'xzwiojicmvx1q0hj', 'pic0nnrqmvx1qfw4', '4ffl6nwhmvx1qv66',                                          -- w3-yhukuk-kolay/kp-03, w5-yvergi-kolay/kp-04, 4k-a-ydenetim-zor-r10/kp-02 B
+      -- 01.11 ekran testleri, Ajan 53 (canlı kabuk, Finansal Muhasebe), 06:55–06:56 UTC, 6 satır
+      'rwji17jvmvxh6p98', 'rlcog5yomvxh7j4a', 'ztiuesjpmvxh8cvn'                                           -- smmm-gm5-24-fmuh-zor/kp-05 A
     )
   group by secim;
 $function$
