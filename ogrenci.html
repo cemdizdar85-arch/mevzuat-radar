@@ -1686,6 +1686,17 @@
       }
       try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:'hesap/kayit',title:'Üye oldu',event:true}); }catch(x){}
       if(r.data.session){ panel(r.data.user); return; }
+      /* 01.11: adres ZATEN KAYITLIYSA Supabase hata vermez, sahte başarı döner (identities boş) ve HİÇ mail göndermez.
+         31.10'dan beri ödeme anında hesap biz açıyoruz (siparis-bildirim) → alıcı "Üye ol" deyince "onay maili gönderdik"
+         görüp mail bekliyordu (TT-20261101-UF6A). Kayıtlı adreste şifre belirleme bağlantısını burada gönderip açıkça söyleriz. */
+      if(r.data.user && Array.isArray(r.data.user.identities) && r.data.user.identities.length===0){
+        var rs=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html',captchaToken:await captchaJeton()});
+        $('ogEposta').value=ep; $('ogSifre').value=''; ekranAc('giris');
+        hataYaz('ogHata', rs.error
+          ? 'Bu e-postayla hesabın zaten var (paket aldıysan ödemenle açıldı). "Şifremi unuttum"a basıp şifreni belirle ya da Google ile gir.'
+          : 'Bu e-postayla hesabın zaten var (paket aldıysan ödemenle açıldı). '+ep+' adresine şifre belirleme bağlantısı gönderdik; gelen kutunu ve gereksiz klasörünü kontrol et. Google kullanıyorsan "Google ile gir" de olur.');
+        return;
+      }
       /* e-posta doğrulaması açık (08.10'dan beri) ya da adres zaten kayıtlıysa Supabase oturumsuz döner */
       dogrulamaKutusu(ep);
     } finally { mesgul(b,false,'Hesabımı oluştur'); }
