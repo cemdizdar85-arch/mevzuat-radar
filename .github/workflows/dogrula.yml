@@ -157,6 +157,12 @@ jobs:
           # cozulemeyeni KOR diye bildirir (kapsam olcusu).
           - { ad: "SMMM ders adi OZ-SINAVI (etiket -> ders, kapsam dahil)",
               kabuk: pwsh, komut: "./arac/smmm-ders-adi-sinavi.ps1" }
+          # 01.11.2026 - Bitirme kart ustu konu basligi karttan (arac/smmm-konu-baslik.ps1): ders duzeltmesi karti -> banka eslemesi
+          # konular[0] -> ambar konusu; ikiz grubu (IkizAnlamGrup) ambar konusuyla kalir. 18 vaka + 8 mutasyon (01.11 olculdu).
+          - { ad: "Bitirme konu basligi OZ-SINAVI (kart > esleme > ambar, ikiz ambar konusu)",
+              kabuk: pwsh, komut: "./arac/smmm-konu-baslik-sinavi.ps1" }
+          - { ad: "Bitirme konu basligi MUTASYON (8 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/smmm-konu-baslik-sinavi.ps1 -Mutasyon" }
           # 27.09 (KGK oturumu; SGS oturumu onayli): standart yutucunun BDS dipnot/baslik kurallari + KGK yayin yolu oz-sinavlari.
           - { ad: "Standart yutucu OZ-SINAVI (BDS dipnot/baslik; TMS/TFRS kipi degismesin)",
               kabuk: pwsh, komut: "./motor/standart-yut.ps1 -standart 'BDS 200' -YalnizSinav" }
@@ -269,6 +275,10 @@ jobs:
           # kosullu yazim + geri okuma, KUSURLU = incelenecek, butce kapisi, madde metni sirasi, oku (incelenecek kapatma) + 2 mutasyon. Sahte ambar, ag yok.
           - { ad: "SMMM yalniz aciklama denetimi OZ-SINAVI (node + PS uctan uca, sahte ambar)",
               kabuk: pwsh, komut: "./arac/smmm-ah-yalniz-sinavi.ps1" }
+          # 01.11.2026 - ustune_yaz siniri (Ajan 26 olctu: 7 onarilmis aciklama 'baska kaynakli TEMIZ' diye AH'den gecmedi): yalniz onarim_sonrasi
+          # izli karar yenilenir, izsiz TEMIZ korunur, bayrak yoksa ikisi de atlanir. Bozmalar ustune-sinirsiz (4) / ustune-yok (4) / ustune-hep (3) KIRMIZI (01.11 olculdu).
+          - { ad: "SMMM yalniz aciklama ustune_yaz siniri MUTASYON (3 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/smmm-ah-yalniz-sinavi.ps1 -Mutasyon" }
 
           # 03.10.2026 - Sayfa basimindaki Turkce onarim (motor/kaydir-coz.ps1 TurkceOnar): sitede 'cocuk'tur -> 'cocuk'tur(u),
           # WHICH -> WHICH(I noktali), Esasi -> Esasi(ı) goruldu. Gercek bolge (# ---- turkce-onar) AYNEN yuklenir, sahte kucuk sozlukle
@@ -460,6 +470,8 @@ jobs:
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /
           # fark-yok reddi kapatilinca 5/5 KIRMIZI. Gercek veride 378 taslakta 4 cakismayi (ayni soruya iki parca) reddetti.
+          # 01.11.2026 - yalniz aciklama onariminda korunan AH TEMIZ (ONARIM_AH_SIL=1 olsa bile) uygula/teslim ciktisinda yazilir
+          # ("smmm-ah-yalniz ustune_yaz gerekir"). ONARIM_MUTASYON=ah-korundu-sessiz -> KIRMIZI 62/66 (01.11 olculdu).
           - { ad: "Onarim hatti karar OZ-SINAVI (beyansiz fark red, anahtar/kok degisince yeniden hakem)",
               kabuk: bash, komut: "node arac/onarim-hatti.js --sinav" }
           # 10.10.2026 - Ekibe sor haklı itiraz → elle ret (arac/ekip-hakli-aktar.js). 8 vaka; mutasyonla olculdu:

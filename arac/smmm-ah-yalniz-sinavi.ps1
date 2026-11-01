@@ -6,12 +6,31 @@
 #  2) PS uçtan uca, sahte ambar + sahte model (SMMM_AH_SAHTE): istem = çekirdek + RESMÎ MADDE METNİ · bütçe yetmez → BAŞLAMAZ (çıkış 4,
 #     0 yazma) · KURU → 0 yazma · paralı yol → TEMIZ + KUSURLU kayda, sonuç dosyası · aynı içerik yeniden → gönderilmez
 #  3) söz dizimi (Parser::ParseInput) — PS dosyaları
-#  KULLANIM: powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1
+#  4) 01.11 ÜSTÜNE YAZ sınırı (Ajan 26 ölçtü: 7 onarılmış açıklama "başka kaynaklı TEMIZ" diye atlandı): PS uçtan uca iz var + -UstuneYaz
+#     → yazılır · iz yok + -UstuneYaz → atlanır (bayt bayt aynı) · -UstuneYaz yok → atlanır; bulut akışı ustune_yaz girdisini betiğe geçirir.
+#  -Mutasyon: node öz-sınavı SMMM_AH_MUTASYON=ustune-sinirsiz|ustune-yok|ustune-hep ile koşar, her biri KIRMIZI düşmeli.
+#  KULLANIM: powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1 [-Mutasyon]
 # ============================================================================
+param([switch]$Mutasyon)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 $gecen = 0; $toplam = 0
 function Sina([string]$ad, [bool]$ok) { $script:toplam++; if ($ok) { $script:gecen++; Write-Host "  [+] $ad" } else { Write-Host "  [-] $ad" -ForegroundColor Red } }
+
+if ($Mutasyon) {
+  # her bozma node öz-sınavını KIRMIZI düşürmeli (düşürmüyorsa sınav o kuralı görmüyor demektir). Konsol kod sayfası simgeyi
+  # bozabilir → "(geçen/toplam)" sayılarıyla bakılır.
+  foreach ($m in @('ustune-sinirsiz', 'ustune-yok', 'ustune-hep')) {
+    $env:SMMM_AH_MUTASYON = $m
+    try { $mc = @(& node (Join-Path $depoKok 'arac/smmm-ah-yalniz.js') --sinav); $mk = $LASTEXITCODE }
+    finally { Remove-Item Env:SMMM_AH_MUTASYON -ErrorAction SilentlyContinue }
+    $ozet = "$(@($mc) -join ' ')"; $dusen = -1
+    if ($ozet -match 'SINAVI \S+ \((\d+)/(\d+)\)') { $dusen = [int]$Matches[2] - [int]$Matches[1] }
+    Sina "MUTASYON $m → KIRMIZI ($dusen vaka düştü)" ($mk -ne 0 -and $dusen -gt 0)
+  }
+  Write-Host ("SMMM-AH-YALNIZ MUTASYON {0} ({1}/{2} bozma KIRMIZI)" -f $(if ($gecen -eq $toplam) { 'TAMAM' } else { 'EKSİK' }), $gecen, $toplam)
+  exit $(if ($gecen -eq $toplam) { 0 } else { 1 })
+}
 
 # 1) node öz-sınavı
 $nodeCikti = @(& node (Join-Path $depoKok 'arac/smmm-ah-yalniz.js') --sinav)
@@ -79,6 +98,34 @@ try {
   $r = Kos @('-ButceUsd', '1', '-Calistir')
   $ist3 = $(if (Test-Path (Join-Path $T 'istem-ah-smmm-sahte-not__kp-01.txt')) { [IO.File]::ReadAllText((Join-Path $T 'istem-ah-smmm-sahte-not__kp-01.txt'), [Text.Encoding]::UTF8) } else { '' })
   Sina 'özet eski + ambarda UYGULAMA NOTU → istemde RESMÎ MADDE METNİ bölümünde not görünür (özet eskidir etiketiyle)' ($r.kod -eq 0 -and $ist3 -match 'RESMÎ MADDE METNİ' -and $ist3 -match 'UYGULAMA NOTU: MSUGT' -and $ist3 -match 'SAHTE-NOT-IZI' -and $ist3 -match 'özetinde OLMAYAN')
+
+  # 4) 01.11 ÜSTÜNE YAZ sınırı: kp-01 önceki TEMIZ + onarim_sonrasi izi (onarım hattının koruduğu karar) · kp-02 izsiz başka kaynaklı TEMIZ
+  $ustParti = '{"icerik":{"kp-01":{"soru":"Sahte kök ust 1","dogru":"A","siklar":{"A":"1","B":"2"},"aciklama":{"A":"onarildi","B":"b"},"dayanak":"KDVK (3065 s.K.) m.28","aciklama_hakem":{"karar":"TEMIZ","kusurlar":[],"model":"model-c","tarih":"2026-10-20","onarim_sonrasi":{"tarih":"2026-10-31","not":"karar onarımdan ÖNCEKİ metne ait; onarım yalnız açıklama katmanı"}}},"kp-02":{"soru":"Sahte kök ust 2","dogru":"B","siklar":{"A":"x","B":"y"},"aciklama":{"A":"p","B":"q"},"dayanak":"KDVK (3065 s.K.) m.28","aciklama_hakem":{"karar":"TEMIZ","kusurlar":[],"model":"model-c","tarih":"2026-10-20"}}},"guncelleme":"u1","sinav":"SMMM"}'
+  $ustYol = Join-Path $T 'ambar/smmm-sahte-ust.json'
+  $ustKur = { [IO.File]::WriteAllText($ustYol, $ustParti, $utf8); Remove-Item (Join-Path $T 'sonuc.json') -ErrorAction SilentlyContinue }
+  [IO.File]::WriteAllText((Join-Path $T 'dokuman.json'), '[{"kaynak_ad":"KDVK (3065 s.K.) m.28","metin":"Katma değer vergisinin genel oranı yüzde yirmidir."}]', $utf8)
+  [IO.File]::WriteAllText((Join-Path $T 'model.json'), '{"ah-smmm-sahte-ust__kp-01":"{\"karar\":\"KUSURLU\",\"kusurlar\":[{\"alan\":\"aciklama.A\",\"neden\":\"sahte\"}]}","ah-smmm-sahte-ust__kp-02":"{\"karar\":\"KUSURLU\",\"kusurlar\":[]}"}', $utf8)
+  [IO.File]::WriteAllText((Join-Path $T 'girdi.json'), '{"ad":"ps-sinav-ust","kimlikler":[{"soru_id":"smmm-sahte-ust/kp-01"},{"soru_id":"smmm-sahte-ust/kp-02"}]}', $utf8)
+  & $ustKur
+  $r = Kos @()
+  Sina 'ÜSTÜNE YAZ yok (KURU) → iz var/yok ikisi de atlanır: GÖNDERİLECEK 0, ambar bayt bayt aynı' ($r.kod -eq 0 -and $r.metin -match 'GÖNDERİLECEK: 0' -and [IO.File]::ReadAllText($ustYol) -ceq $ustParti)
+  $r = Kos @('-UstuneYaz')
+  Sina 'ÜSTÜNE YAZ (KURU) → yalnız izli kayıt gönderilir: GÖNDERİLECEK 1, ambar bayt bayt aynı' ($r.kod -eq 0 -and $r.metin -match 'GÖNDERİLECEK: 1' -and[IO.File]::ReadAllText($ustYol) -ceq $ustParti)
+  $r = Kos @('-ButceUsd', '1', '-Calistir')
+  Sina 'ÜSTÜNE YAZ yok (PARALI sahte) → 0 gönderim, ambar bayt bayt aynı' ($r.kod -eq 0 -and $r.metin -match 'GÖNDERİLECEK: 0' -and [IO.File]::ReadAllText($ustYol) -ceq $ustParti)
+  & $ustKur
+  $r = Kos @('-ButceUsd', '1', '-Calistir', '-UstuneYaz')
+  if ($r.kod -ne 0) { Write-Host $r.metin }
+  $U = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($ustYol, [Text.Encoding]::UTF8)); $O = ConvertFrom-Json -InputObject $ustParti
+  $a1 = $U.icerik.'kp-01'.aciklama_hakem
+  Sina 'iz var + ÜSTÜNE YAZ (PARALI sahte) → yeni karar YAZILDI (yol smmm-ah-yalniz, önceki TEMIZ ustune_yazilan''da)' ($r.kod -eq 0 -and "$($a1.karar)" -eq 'KUSURLU' -and "$($a1.yol)" -eq 'smmm-ah-yalniz' -and "$($a1.ustune_yazilan.karar)" -eq 'TEMIZ' -and $a1.ustune_yazilan.onarim_sonrasi)
+  Sina 'iz yok + ÜSTÜNE YAZ → izsiz TEMIZ KORUNDU (kayıt aynen)' ((ConvertTo-Json -InputObject $U.icerik.'kp-02' -Depth 12 -Compress) -ceq (ConvertTo-Json -InputObject $O.icerik.'kp-02' -Depth 12 -Compress))
+
+  # bulut akışı: ustune_yaz girdisi (varsayılan false) betiğe -UstuneYaz olarak geçer, zincir halkası da taşır
+  $yml = [IO.File]::ReadAllText((Join-Path $depoKok '.github/workflows/smmm-ah-yalniz.yml'), [Text.Encoding]::UTF8)
+  Sina 'bulut: ustune_yaz girdisi var, boolean, varsayılan false' ($yml -match '(?m)^\s+ustune_yaz:\s*\r?\n(\s+\S.*\r?\n)*?\s+default:\s*false\s*\r?\n\s+type:\s*boolean')
+  Sina 'bulut: KURU ve PARALI dalın ikisi de -UstuneYaz:$uy geçirir, $uy yalnız "true" ise açık' (([regex]::Matches($yml, '-UstuneYaz:\$uy')).Count -eq 2 -and $yml -match '\$uy = \("\$env:USTUNE" -eq ''true''\)' -and $yml -match 'USTUNE: \$\{\{ inputs\.ustune_yaz \}\}')
+  Sina 'bulut: yeniden tetikleme halkası ustune_yaz''ı taşır' ($yml -match '-f ustune_yaz="\$\{\{ inputs\.ustune_yaz \}\}"')
 }
 finally { if (Test-Path $T) { Remove-Item $T -Recurse -Force -ErrorAction SilentlyContinue } }
 

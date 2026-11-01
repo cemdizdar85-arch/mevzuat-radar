@@ -25,6 +25,8 @@
 #  KULLANIM:
 #    powershell -NoProfile -File arac/smmm-ah-yalniz.ps1 -Girdi veri/sinav/smmm-ah-yalniz-girdi-<ad>.json                 (KURU, 0 USD)
 #    powershell -NoProfile -File arac/smmm-ah-yalniz.ps1 -Girdi … -ButceUsd 0.70 -Calistir                                 (PARALI)
+#    -UstuneYaz (01.11): YALNIZ önceki kararında onarim_sonrasi izi olan (onarım hattının koruduğu, onarımdan ÖNCEKİ metne ait) başka
+#      kaynaklı kararı yeniler; izsiz başka kaynaklı karar yine KORUNUR (sınır arac/smmm-ah-yalniz.js hazirla'da). Bulut: ustune_yaz=true.
 #    bulut: .github/workflows/smmm-ah-yalniz.yml (workflow_dispatch: girdi, butce_usd, calistir)
 #  Öz-sınav: powershell -NoProfile -File arac/smmm-ah-yalniz-sinavi.ps1 (sahte ambar + sahte model, ağ yok)
 #  🚫 GÖRMEZ: kararın doğruluğu (KUSURLU elle okunur) · ambarda olmayan madde metni (kaynaksiz işaretlenir) · yayın (bu yol yayını

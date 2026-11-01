@@ -8,6 +8,10 @@
   gösterdi (sitede 25 SMMM sorusu, Ajan 22 ölçümü 31.10). Ayrıca THP tanımı 340 karakterde kesilirken sondaki
   "(31.10.2026 UYGULAMA NOTU: …)" düşüyordu (THP 122/137/322/337/422). Cem 31.10: "evet".
 
+  01.11 (Ajan 37 ölçtü, Ajan 40): iki yanlış alarm → yön belirsiz, karar AYNEN: (1) şıklar Roma rakamlı öncül kümesi
+  (KURAL2710_ONCUL; sgs-e16-ekonomi-zor/kp-08 B'yi "YANLIŞ ifade" basıyordu) · (2) "henüz … -mamıştır" kökü (smmm-olc2-b-vergi/kp-30).
+  Mutasyon artık BÜTÜN dosyaya uygulanır: çağrı yeri (bölge dışı) şık metnini geçirmezse 'cagri-sik' KIRMIZI düşer.
+
   ⛔ REPLİKA YASAK: kaydir-coz.ps1'in "# ---- sik-karne" … "# ---- /sik-karne" bölgesi AYNEN yüklenir.
 
   MUTASYON (KAPI KURMA KURALI 8): SK_MUTASYON=<ad> bölgedeki koşulu bilerek bozar; sınav KIRMIZI düşmelidir.
@@ -39,6 +43,13 @@ $MUTASYONLAR = [ordered]@{
   'noktali-virgul'  = @("  ';',", '')
   'not-ayir'        = @('if($nm.Success){ $not=', 'if($false){ $not=')
   'not-ekle'        = @('if($not){ $m=$m.TrimEnd()', 'if($false){ $m=$m.TrimEnd()')
+  # 01.11 (Ajan 40): öncül kümesi + "henüz" yanlış alarmları (Ajan 37 ölçümü: sgs-e16-ekonomi-zor/kp-08, smmm-olc2-b-vergi/kp-30)
+  'oncul-belirsiz'  = @('elseif($sonuc.oncul){ ''belirsiz'' }', 'elseif($false){ ''belirsiz'' }')
+  'oncul-esik'      = @('return ($n -ge 4)', 'return ($n -ge 3)')
+  'oncul-nesne'     = @('{ $sikMetin[$h] } else { $sikMetin.$h }', '{ $sikMetin[$h] } else { $sikMetin[$h] }')
+  'oncul-desen'     = @('$SIK_ONCUL_KUME=''^\s*(?:[Yy]aln[ıi]z\s+)?[IVX]+', '$SIK_ONCUL_KUME=''^\s*(?:[Yy]aln[ıi]z\s+)[IVX]+')
+  'henuz'           = @('''henüz\s.*?', '''HENUZYOK\s.*?')
+  'cagri-sik'       = @('"$($x.et)" $siklar', '"$($x.et)"')   # bölge DIŞI: çağrı yeri şık metnini geçirmezse öncül kapısı ölü
 }
 
 if ($Mutasyon) {
@@ -59,18 +70,18 @@ if ($Mutasyon) {
 
 # --- gerçek bölgeyi yükle ---
 $kaynak = [IO.File]::ReadAllText((Join-Path $depoKok 'motor/kaydir-coz.ps1'), [Text.Encoding]::UTF8)
+$M = "$env:SK_MUTASYON"
+if ($M) {   # 01.11: mutasyon BÜTÜN dosyaya uygulanır (çağrı yeri bölge dışında), sonra bölge kesilir
+  if (-not $MUTASYONLAR.Contains($M)) { Write-Host "bilinmeyen SK_MUTASYON=$M" -ForegroundColor Red; exit 3 }
+  $hedef = $MUTASYONLAR[$M][0]
+  if (-not $kaynak.Contains($hedef)) { Write-Host "mutasyon hedefi kaydir-coz.ps1'de yok: $hedef" -ForegroundColor Yellow; exit 3 }
+  $kaynak = $kaynak.Replace($hedef, $MUTASYONLAR[$M][1])
+}
 $bolge = [regex]::Match($kaynak, '(?s)# -+ sik-karne .*?\r?\n(.*?)# -+ /sik-karne')
 if (-not $bolge.Success) { Write-Host 'motor/kaydir-coz.ps1 sik-karne bölgesi BULUNAMADI — sınav KÖR' -ForegroundColor Red; exit 1 }
 $kod = $bolge.Groups[1].Value
-$M = "$env:SK_MUTASYON"
-if ($M) {
-  if (-not $MUTASYONLAR.Contains($M)) { Write-Host "bilinmeyen SK_MUTASYON=$M" -ForegroundColor Red; exit 3 }
-  $hedef = $MUTASYONLAR[$M][0]
-  if (-not $kod.Contains($hedef)) { Write-Host "mutasyon hedefi bölgede yok: $hedef" -ForegroundColor Yellow; exit 3 }
-  $kod = $kod.Replace($hedef, $MUTASYONLAR[$M][1])
-}
 . ([scriptblock]::Create($kod))
-foreach ($gerekli in 'SikKokYonu', 'SikKarneDuzelt', 'ThpTanimKes') { if (-not (Get-Command $gerekli -CommandType Function -ErrorAction SilentlyContinue)) { Write-Host "bölgede $gerekli yok — sınav KÖR" -ForegroundColor Red; exit 1 } }
+foreach ($gerekli in 'SikKokYonu', 'SikKarneDuzelt', 'SikOnculKumesi', 'ThpTanimKes') { if (-not (Get-Command $gerekli -CommandType Function -ErrorAction SilentlyContinue)) { Write-Host "bölgede $gerekli yok — sınav KÖR" -ForegroundColor Red; exit 1 } }
 
 $gecen = 0; $toplam = 0; $dusen = New-Object System.Collections.Generic.List[string]
 function Sonuc([string]$ad, [string]$beklenen, [string]$cikan) {
@@ -86,8 +97,8 @@ function Adimlar([string]$kararlar) {
   , $l
 }
 function Karne($adimlar) { ($adimlar | ForEach-Object { if ($_.ContainsKey('karar')) { if ("$($_.karar)" -match '^(?i)y') { 'Y' } else { 'D' } } else { '-' } }) -join '' }
-function Duzelt([string]$ad, [string]$kararlar, [string]$dogru, [string]$soru, [string]$etiket, [string]$beklenenKarne, [int]$beklenenCeliski) {
-  $a = Adimlar $kararlar; $r = SikKarneDuzelt $a $dogru $soru $etiket
+function Duzelt([string]$ad, [string]$kararlar, [string]$dogru, [string]$soru, [string]$etiket, [string]$beklenenKarne, [int]$beklenenCeliski, $sikKume = $null) {
+  $a = Adimlar $kararlar; $r = SikKarneDuzelt $a $dogru $soru $etiket $sikKume
   Sonuc "düzelt: $ad" "$beklenenKarne/$beklenenCeliski" "$(Karne $a)/$($r.celiski)"
 }
 
@@ -119,6 +130,15 @@ Yon 'sayma: kaç yıl … -emez'    'Denetçi kaç yıl geçmedikçe o şirkette
 Yon 'hata soruluyor: yazım yanlışı yoktur' 'Aşağıdaki cümlelerin hangisinde bir yazım yanlışı yoktur?' 'belirsiz'
 Yon 'olumsuzluk eki var, olumsuz bitmiyor' 'Beyannamesini vermeyen mükellef için aşağıdakilerden hangisi doğrudur?' 'belirsiz'
 Yon 'kök soru değil (boşluk doldurma)' 'Mükellef beyannamesini ____ gün içinde verir' 'belirsiz'
+# --- 01.11 "henüz" kalıbı (Ajan 37 ölçümü: smmm-olc2-b-vergi/kp-30) — sorulan bir DURUM, olumsuz kök değil → belirsiz ---
+Yon 'henüz dolmamıştır (kp-30)'  'Buna göre, 01.10.2026 tarihi itibarıyla, 213 sayılı VUK''un 253. maddesine göre yukarıdakilerden hangisinin muhafaza süresi henüz dolmamıştır?' 'belirsiz'
+Yon 'henüz yerine getirmemiştir' 'Buna göre aday, 3568 sayılı Kanun''un 5. maddesindeki özel şartlardan hangisini henüz yerine getirmemiştir?' 'belirsiz'
+Yon 'henüz … olmayan … hangisidir' 'Ara dönemde düzenlenen ve henüz mali tabloların dayanağı olmayan mizan aşağıdakilerden hangisidir?' 'belirsiz'
+Yon 'henüz -mamaktadır'           'Aşağıdaki şirketlerden hangisi henüz tescil edilmemektedir?' 'belirsiz'
+Yon 'henüz -maz'                  'Aşağıdaki alacaklardan hangisi henüz zamanaşımına uğramaz?' 'belirsiz'
+Yon 'henüz var ama kök yanlıştır → olumsuz kalır' 'Henüz kurulmuş bir girişim şirketine ilişkin olarak aşağıdakilerden hangisi yanlıştır?' 'olumsuz'
+Yon 'henüz önceki cümlede → son cümle olumsuz kalır' 'Şirketin denetimi henüz tamamlanmamıştır. Aşağıdakilerden hangisi ticari iş sayılmaz?' 'olumsuz'
+Yon '"henüz"süz -mamıştır → olumsuz kalır (GÖRMEZ: anlamca olumlu olabilir)' 'Yukarıdakilerden hangisinin muhafaza süresi dolmamıştır?' 'olumsuz'
 
 # --- KARAR DÜZELTME (anahtar C) ---
 $olumsuz = 'Aşağıdakilerden hangisi ticari iş sayılmaz?'; $olumlu = 'Aşağıdakilerden hangisi doğrudur?'; $belirsiz = 'Aşağıdakilerden hangisi kanuna aykırıdır?'
@@ -135,6 +155,30 @@ Duzelt 'karar alanı boş şık → dokunulmaz, - kalır'    'YY-YY' 'C' $olumsu
 Duzelt 'anahtar yok → dokunulmaz'                     'YYDYY' ''  $olumsuz 'smmm-x-yhukuk-kolay' 'YYDYY' 0
 $a0 = Adimlar 'YYDYY'; [void](SikKarneDuzelt $a0 'C' $olumsuz 'smmm-x'); Sonuc 'düzeltilen karar metni (doğru/doğru/yanlış)' 'doğru|doğru|yanlış' "$($a0[0].karar)|$($a0[1].karar)|$($a0[2].karar)"
 $bos = @(@{ anlatim = 'kayıt adımı'; formul = 'Kayıt' }); $rb = SikKarneDuzelt $bos 'C' $olumsuz 'smmm-x'; Sonuc 'şık adımı olmayan soru → yön bakılmaz' '/0/0' "$($rb.yon)/$($rb.sik)/$($rb.celiski)"
+
+# --- 01.11 ÖNCÜL KÜMESİ (KURAL2710_ONCUL: şık adımı "Şık B (Yalnız II): … bu mu?" — karar "bu küme cevap mı") → yön belirsiz, karar AYNEN ---
+$kp08 = 'I. Çekirdek enflasyon hesabında işlenmemiş gıda, enerji, alkol-tütün ve altın kalemleri sepetten çıkarılır. II. Çekirdek enflasyon her zaman manşet enflasyondan düşük çıkar. III. Enflasyon hedefi manşet enflasyon üzerinden ilan edilir. Yukarıdakilerden hangisi yanlıştır?'
+$oncul = @{ A = 'Yalnız I'; B = 'Yalnız II'; C = 'I ve II'; D = 'II ve III'; E = 'I, II ve III' }
+Duzelt 'öncül + "yanlıştır" (sgs-e16-ekonomi-zor/kp-08) → AYNEN' 'YDYYY' 'B' $kp08 'sgs-e16-ekonomi-zor' 'YDYYY' 0 $oncul
+Duzelt 'öncül + olumlu kök, ters yazılmış küme kararı → AYNEN (GÖRMEZ)' 'DYDDD' 'B' 'Yukarıdakilerden hangisi doğrudur?' 'smmm-x' 'DYDDD' 0 $oncul
+Duzelt 'öncül + olumsuz kök "sayılmaz" → AYNEN'        'YDYYY' 'B' $olumsuz 'smmm-x-yhukuk-kolay' 'YDYYY' 0 $oncul
+$onculNesne = [pscustomobject]@{ A = 'Yalnız I'; B = 'Yalnız II'; C = 'I ve III'; D = 'II ve III'; E = 'I, II ve III' }
+Duzelt 'öncül şıkları NESNE (ambar JSON) → AYNEN'      'YDYYY' 'B' $kp08 'sgs-e16-ekonomi-zor' 'YDYYY' 0 $onculNesne
+$onculDort = @{ A = 'Yalnız I'; B = 'I ve II'; C = 'I, II ve III'; D = 'II ve IV'; E = 'Hiçbiri' }
+Duzelt 'öncül 4/5 Roma (eşik) → AYNEN'                 'YDYYY' 'B' $kp08 'smmm-x' 'YDYYY' 0 $onculDort
+$ucRoma = @{ A = 'Yalnız I'; B = 'I ve II'; C = 'II ve III'; D = 'Hepsi'; E = 'Hiçbiri' }
+Duzelt '3/5 Roma (eşik altı) → öncül değil, düzelir'    'YDYYY' 'B' $kp08 'smmm-x' 'DYDDD' 5 $ucRoma
+$sultan = @{ A = 'Abdülaziz'; B = 'V. Murat'; C = 'II. Abdülhamit'; D = 'V. Mehmet Reşat'; E = 'VI. Mehmet Vahdettin' }
+Duzelt 'Roma rakamlı AD ("V. Murat") → öncül değil, düzelir' 'YYDYY' 'C' 'Aşağıdakilerden hangisi bu dönemde yaşanmamıştır?' 'sgs-t1-genel-inkilap-zor' 'DDYDD' 5 $sultan
+$onculSiz = @{ A = 'Vergi dairesi'; B = 'Mükellef'; C = 'Vergi sorumlusu'; D = 'Kefil'; E = 'Mirasçı' }
+Duzelt 'düz metin şıklar → eski davranış (düzelir)'     'YYDYY' 'C' $olumsuz 'smmm-x-yhukuk-kolay' 'DDYDD' 5 $onculSiz
+Duzelt 'şık metni verilmedi ($null) → eski davranış'   'YYDYY' 'C' $olumsuz 'smmm-x-yhukuk-kolay' 'DDYDD' 5
+Duzelt 'henüz dolmamıştır (kp-30), anahtar doğru → AYNEN' 'YYDYY' 'C' 'Buna göre yukarıdakilerden hangisinin muhafaza süresi henüz dolmamıştır?' 'smmm-olc2-b-vergi' 'YYDYY' 0 $onculSiz
+$ro = SikKarneDuzelt (Adimlar 'YDYYY') 'B' $kp08 'sgs-e16-ekonomi-zor' $oncul; Sonuc 'öncül sonucu işaretli (oncul/yon)' 'True/belirsiz' "$($ro.oncul)/$($ro.yon)"
+Sonuc 'öncül deseni: küçük harfli "yalnız i" değil, "Yalnız I" tutar' 'False/True' "$(SikOnculKumesi @{A='yalnız i';B='ii';C='iii';D='iv';E='v'})/$(SikOnculKumesi @{A='Yalnız I';B='Yalnız II';C='I ve II';D='I, II ve III';E='I-III'})"
+
+# --- ÇAĞRI YERİ (bölge DIŞI, motor/kaydir-coz.ps1): şık metni geçirilmezse öncül kapısı ölüdür ---
+Sonuc 'kaydir-coz.ps1 SikKarneDuzelt çağrısı şık metnini ($siklar) geçiriyor' 'True' "$($kaynak -match 'SikKarneDuzelt\s+\$adimlar\s+\$d\s+"\$\(\$v\.soru\)"\s+"\$\(\$x\.et\)"\s+\$siklar\b')"
 
 # --- THP UYGULAMA NOTU ---
 $not = '(31.10.2026 UYGULAMA NOTU: MSUGT Sıra No 2 (RG 16.12.1993/21790) ile 652→657 değişti, 647 Reeskont Faiz Gelirleri açıldı; uygulamada karşı hesap 647/657.)'
