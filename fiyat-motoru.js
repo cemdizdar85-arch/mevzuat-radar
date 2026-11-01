@@ -117,7 +117,8 @@ if(erkenKayitAcik()){ ELCI.indirim.sgs = ERKEN_KAYIT.indirim; }
 /* 28.10 Cem ("ders ders tam fiyatın altında kaldı, örnek 4 ders" → "ders başı 120 TL indir"): erken kayıtta 4 ders 2.988,
    tüm dersler 2.868'di. Ders merdiveni de ders başı 120 TL (KDV dahil) iner: 1.068 / 1.668 / 2.148 / 2.508 · tüm 2.868
    (+KDV 890 / 1.390 / 1.790 / 2.090 / 2.390). Sunucu: radar-app/sql/2026-10-28-yet-erken-ders.sql; kapanışta 50/100/150/200. */
-var ERKEN_YET = { bitis:Date.UTC(2026, 10, 7, 20, 59, 59), indirim:600, kod:'ERKENYET600', paket:'yeterlilik-tum',
+/* 02.11 Cem ("600 TL indirimleri iptal, bütün fiyatlar aynı olsun"): erken kayıt 7 Kasım yerine SGS'yle birlikte bitti. */
+var ERKEN_YET = { bitis:Date.UTC(2026, 10, 1, 21, 4, 59), indirim:600, kod:'ERKENYET600', paket:'yeterlilik-tum',
                   ders:{ 'yeterlilik-1':120, 'yeterlilik-2':240, 'yeterlilik-3':360, 'yeterlilik-4':480 } };
 function erkenYetAcik(){ return Date.now() < ERKEN_YET.bitis; }
 function erkenYetInd(id){ return !erkenYetAcik() ? 0 : id === ERKEN_YET.paket ? ERKEN_YET.indirim : (ERKEN_YET.ders[id] || 0); }

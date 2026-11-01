@@ -765,8 +765,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261101g5"></script>
-<script src="paket-kartlari.js?v=5"></script>
+<script src="fiyat-motoru.js?v=20261102y"></script>
+<script src="paket-kartlari.js?v=6"></script>
 <script src="gkt.js?v=20261101g5"></script>
 <script src="uye-durumu.js?v=20261028z"></script>
 <script src="son20-kart.js?v=20261028b"></script>
@@ -917,7 +917,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     /* 28.10 Cem şart onayı ("Yeterlilik sözünü önerdiğin şartlarla yaz"): Yeterlilik'te de "Geçemezsen" + kendi şart satırı (ders ders;
        kampanya-son-20-gun.html#yeterlilik, 5. madde). */
     try{ /* 01.11 Cem ("sözlerimiz bitiyor, geçemezsen geçene kadar sözünü kaldıralım"): SGS sözü 1 Kasım 23:59:59 TR'de biter */
-    var soz=(secili==='sgs'&&Date.now()<=Date.UTC(2026,10,1,21,4,59)), yetB=(secili==='yeterlilik'&&Date.now()<Date.UTC(2026,10,28,21,0,0)), hb=$('kahBas'), ha=$('kahAlt'), hs=$('kahSoz');
+    var soz=(secili==='sgs'&&Date.now()<=Date.UTC(2026,10,1,21,4,59)), yetB=(secili==='yeterlilik'&&Date.now()<Date.UTC(2026,10,1,21,4,59)),   /* 02.11 Cem: Yeterlilik sözü de kalktı */ hb=$('kahBas'), ha=$('kahAlt'), hs=$('kahSoz');
       if(!hb.getAttribute('data-ilk')){ hb.setAttribute('data-ilk',hb.innerHTML); ha.setAttribute('data-ilk',ha.innerHTML); hs.setAttribute('data-ilk',hs.innerHTML); }
       hb.innerHTML=(soz||yetB)?'Geçemezsen,<br>geçene kadar <span class="kah-kutu">Tetikte</span><em>.</em>':hb.getAttribute('data-ilk');
       ha.innerHTML=(soz||yetB)?'Soruyu çöz, konuyu öğren: cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.':ha.getAttribute('data-ilk');
