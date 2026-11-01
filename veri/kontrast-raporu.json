@@ -6,9 +6,9 @@
   "koyu_gecis": 83,
   "koyu_bekleyen": [],
   "temiz_sayfa": 245,
-  "denetlenen_metin": 25199,
-  "toplam_kirik": 10,
-  "denetlenen_sinir": 7061,
+  "denetlenen_metin": 25165,
+  "toplam_kirik": 7,
+  "denetlenen_sinir": 7041,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -21,7 +21,7 @@
   "kirik_sayfalar": [
     {
       "sayfa": "kampanya-son-20-gun.html [koyu]",
-      "adet": 8,
+      "adet": 5,
       "ornekler": [
         {
           "oge": "p.yk-ust",
@@ -30,52 +30,43 @@
           "esik": 4.5,
           "renk": "rgb(255, 194, 75)",
           "zemin": "rgb(251,246,234)",
-          "iz": "<p class=\"yk-ust\">Yönetim Kurulu Kararı · 29 Ekim 2026 · Son gün 1 Kasım 23:59</p>"
-        },
-        {
-          "oge": "p.yk-bas",
-          "yazi": "1 Kasım 23:59'a kadar paket alana şart y",
-          "oran": 1.04,
-          "esik": 3,
-          "renk": "rgb(238, 242, 247)",
-          "zemin": "rgb(251,246,234)",
-          "iz": "<p class=\"yk-bas\">1 Kasım 23:59'a kadar paket alana şart yok.</p>"
+          "iz": "<p class=\"yk-ust\">Yönetim Kurulu Kararı · 29 Ekim 2026 · Sona erdi</p>"
         },
         {
           "oge": "p",
-          "yazi": "1 Kasım 2026 saat 23:59'a kadar paket al",
+          "yazi": "Şartsız söz O saate kadar paket alan üye",
           "oran": 2.43,
           "esik": 4.5,
           "renk": "rgb(147, 161, 179)",
           "zemin": "rgb(251,246,234)",
-          "iz": "<p>1 Kasım 2026 saat 23:59'a kadar paket alan <b>herkes</b>, satın aldığı paketin kapsamındaki sınavı kazanana"
+          "iz": "<p>Şartsız söz <b>1 Kasım 2026 saat 23:59'da sona erdi.</b> O saate kadar paket alan üyelerimiz için aynen geç"
         },
         {
           "oge": "b",
-          "yazi": "herkes",
+          "yazi": "1 Kasım 2026 saat 23:59'da sona erdi.",
           "oran": 1.04,
           "esik": 4.5,
           "renk": "rgb(238, 242, 247)",
           "zemin": "rgb(251,246,234)",
-          "iz": "<b>herkes</b>"
-        },
-        {
-          "oge": "b",
-          "yazi": "Deneme barajı, görev şartı, süre sınırı ",
-          "oran": 1.04,
-          "esik": 4.5,
-          "renk": "rgb(238, 242, 247)",
-          "zemin": "rgb(251,246,234)",
-          "iz": "<b>Deneme barajı, görev şartı, süre sınırı yok;</b>"
+          "iz": "<b>1 Kasım 2026 saat 23:59'da sona erdi.</b>"
         },
         {
           "oge": "a",
-          "yazi": "Kararın ayrıntısı →",
+          "yazi": "Kararın metni →",
           "oran": 1.49,
           "esik": 4.5,
           "renk": "rgb(255, 194, 75)",
           "zemin": "rgb(251,246,234)",
-          "iz": "<a href=\"#karar\">Kararın ayrıntısı →</a>"
+          "iz": "<a href=\"#karar\">Kararın metni →</a>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Yeterlilik koşulları →",
+          "oran": 1.54,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<a href=\"#yeterlilik\">Yeterlilik koşulları →</a>"
         }
       ]
     },
