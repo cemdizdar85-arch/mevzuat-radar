@@ -6,6 +6,8 @@
 # Toplu kuyruk 290 dk'da bitmezse (çıkış 75): kayda bir şey yazılmaz, partiler ambara yazılır, iş kendini yeniden tetikler (en çok 5);
 #   sonraki halka kuyruktaki partiye BAĞLANIR ya da bitmişse BEDAVA hasat eder — aynı istek ikinci kez ödenmez.
 # Günlükte soru metni yok (yalnız kimlik + sayı). Sonuç dosyası veri/sinav/smmm-ah-yalniz-sonuc-<ad>.json depoya (gerekçesiz).
+# 01.11 ustune_yaz (varsayılan false): true → betiğe -UstuneYaz. YALNIZ önceki kararında onarim_sonrasi izi olan kayıt (onarım hattının
+#   koruduğu, onarımdan ÖNCEKİ metne ait TEMIZ) yeniden hakemlenir; izsiz başka kaynaklı karar yine KORUNUR (sınır betikte, öz-sınavlı).
 name: SMMM Aciklama Hakemi Yalniz (varsayilan KURU)
 on:
   workflow_dispatch:
@@ -24,6 +26,11 @@ on:
         required: false
         default: "hayir"
         type: string
+      ustune_yaz:
+        description: "true = onarim_sonrasi izli (onarimdan ONCEKI metne ait) AH kararinin ustune yaz; izsiz karar yine korunur"
+        required: false
+        default: false
+        type: boolean
       zincir:
         description: "Otomatik yeniden tetikleme sayaci (elle 0 birak). 5'e varinca durur."
         required: false
@@ -66,11 +73,14 @@ jobs:
           GIRDI: ${{ inputs.girdi }}
           BUTCE: ${{ inputs.butce_usd }}
           CALISTIR: ${{ inputs.calistir }}
+          USTUNE: ${{ inputs.ustune_yaz }}
         run: |
           if ("$env:GIRDI" -notmatch '^veri/sinav/smmm-ah-yalniz-girdi-[a-z0-9-]+\.json$') { throw "girdi yolu veri/sinav/smmm-ah-yalniz-girdi-<ad>.json olmali: $env:GIRDI" }
           $b = [double]::Parse(("$env:BUTCE" -replace ',', '.'), [Globalization.CultureInfo]::InvariantCulture)
-          if ("$env:CALISTIR" -eq 'evet') { ./arac/smmm-ah-yalniz.ps1 -Girdi "$env:GIRDI" -ButceUsd $b -Calistir -BeklemeDk 290 }
-          else { ./arac/smmm-ah-yalniz.ps1 -Girdi "$env:GIRDI" -ButceUsd $b }
+          $uy = ("$env:USTUNE" -eq 'true')
+          "ustune_yaz: $uy (yalniz onarim_sonrasi izli karar yenilenir)"
+          if ("$env:CALISTIR" -eq 'evet') { ./arac/smmm-ah-yalniz.ps1 -Girdi "$env:GIRDI" -ButceUsd $b -Calistir -BeklemeDk 290 -UstuneYaz:$uy }
+          else { ./arac/smmm-ah-yalniz.ps1 -Girdi "$env:GIRDI" -ButceUsd $b -UstuneYaz:$uy }
           $kod = $LASTEXITCODE
           "kod=$kod" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding ascii
           "cikis kodu: $kod (0 bitti · 3 yaris, yazilmadi · 4 butce yetmez, baslamadi · 75 toplu kuyruk bitmedi · 1 dustu)"
@@ -108,5 +118,5 @@ jobs:
         run: |
           z="${{ inputs.zincir }}"; z="${z:-0}"
           if [ "$z" -ge 5 ]; then echo "::error::5 halkada toplu kuyruk bitmedi - elle bak (partiler ambarda)"; exit 1; fi
-          gh workflow run smmm-ah-yalniz.yml --ref main -f girdi="${{ inputs.girdi }}" -f butce_usd="${{ inputs.butce_usd }}" -f calistir="${{ inputs.calistir }}" -f zincir="$((z+1))"
+          gh workflow run smmm-ah-yalniz.yml --ref main -f girdi="${{ inputs.girdi }}" -f butce_usd="${{ inputs.butce_usd }}" -f calistir="${{ inputs.calistir }}" -f ustune_yaz="${{ inputs.ustune_yaz }}" -f zincir="$((z+1))"
           echo "yeniden tetiklendi: halka $((z+1))"
