@@ -1,0 +1,41 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/auth-onay-maili.yml
+# NEDEN VAR (01.11.2026, Cem: "mail filan gitmesin, adamlar uye olup odemesi yapsin girsin" -> "ikisini de yap"):
+# "Uye ol"daki e-posta onay maili Supabase Auth ayaridir (mailer_autoconfirm). 08.10'da sahte kayitlara karsi
+# ACILMISTI (onay maili sart). Kapatinca kayit olan aninda girer; odenmis paket odeme aninda acilan hesaba
+# baglandigi icin (siparis-bildirim.ts 31.10) baskasinin adresiyle acilan hesap pakete ulasamaz.
+#  kip=oku    : yalniz okur (mailer_autoconfirm degeri).
+#  kip=kapat  : onay maili KAPANIR (mailer_autoconfirm=true), sonra okur.
+#  kip=ac     : onay maili geri ACILIR (mailer_autoconfirm=false), sonra okur.
+# Anahtar: secrets.SUPABASE_ACCESS_TOKEN (auth-mail-sablon.yml ile ayni). Gunluge anahtar basilmaz.
+name: Auth onay maili (oku / kapat / ac)
+on:
+  workflow_dispatch:
+    inputs:
+      kip:
+        description: "oku | kapat | ac"
+        required: true
+        default: "oku"
+permissions:
+  contents: read
+jobs:
+  onay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Yaz (kip=kapat | ac)
+        if: ${{ github.event.inputs.kip == 'kapat' || github.event.inputs.kip == 'ac' }}
+        env:
+          TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          KIP: ${{ github.event.inputs.kip }}
+        run: |
+          deger=false; [ "$KIP" = "kapat" ] && deger=true
+          kod=$(curl -s -o /tmp/yaz.out -w "%{http_code}" -X PATCH "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/config/auth" \
+            -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data "{\"mailer_autoconfirm\":$deger}")
+          echo "PATCH mailer_autoconfirm=$deger http $kod"; head -c 300 /tmp/yaz.out; echo
+          test "$kod" = "200"
+      - name: Oku
+        env:
+          TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          kod=$(curl -s -o /tmp/auth.json -w "%{http_code}" "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/config/auth" -H "Authorization: Bearer $TOKEN")
+          echo "GET http $kod"; test "$kod" = "200"
+          node -e 'const c=JSON.parse(require("fs").readFileSync("/tmp/auth.json","utf8")); console.log("mailer_autoconfirm: "+c.mailer_autoconfirm+" (true = onay maili YOK, kayit olan aninda girer) | google: "+c.external_google_enabled)'
