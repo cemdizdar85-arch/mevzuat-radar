@@ -473,6 +473,55 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
   if($m.Length -gt $tavan){ $atD=$null; $m=PaketKirp $m '' $tavan ([ref]$atD) }
   return @{ metin=$m; adlar=@($adlar); agHatasi=$script:AMBAR_AG_HATASI }
 }
+# --- KAPI-PT · PARÇALI MADDE TAMAMLAMA (01.11.2026, Ajan 50) ------------------
+# ÖLÇÜLDÜ: ambarda 4.063 madde parçalı yutulmuş ("GVK (193 s.K.) m.22 [1/3]" … "[3/3]"); 199'u altıdan fazla parça
+#   (GVK m.94 [14], KVK m.5 [14], KDVK m.17 [19], VUK muk. m.298 [16], 5510 m.102 [12]). Atıf genişletme her deseni
+#   AmbarCek'te limit=6 ile ve SIRASIZ çeker → dayanakta anılan uzun maddenin parçalarının bir kısmı pakete HİÇ
+#   girmez, hangisinin gireceği satır sırasına bağlıdır. Hakem "fıkra kaynakta yok" der (03.09 m.35/C dersinin eşi).
+# ParcaEksik saf işlevdir: paketteki her "<kök> [k/m]" adı için 1..m arasındaki eksik kardeş adlarını verir.
+# ParcaTamamla eksikleri ad eşitliğiyle (eq) çeker; KAPI-MM, Vergi güncellik ve KAPI-AILE süzgeçleri AmbarCek'teki gibi
+#   uygulanır; blok BÜTÜN girer ya da hiç (KAPI-KP ilkesi), tavan PaketTavani'dan (varsayılan tavansız, -EskiPaketTavani 7.000).
+# EŞDEĞERLİK: paketteki parçalı madde tamsa ya da hiç parçalı ad yoksa sonuç BİREBİR aynı nesnedir (ambar çağrısı yok).
+#   ÖLÇÜLDÜ (01.11, yerel partilerin tamamı, eski origin/main kodu <-> yeni, yazmadan): atıf paketi değişen SMMM 119/6.954
+#   (791 parça, soru başına en çok 13) · SGS 64/9.140 (465) · KGK 23/1.297 (365; 20'si Kurumsal Yön. Tebliği m.17, 24 parça).
+#   Değişenlerin TAMAMI pakette parçası olan maddenin eksik kardeşi; düşen ad 0, başka ad 0. Tavansız kipte sınır yok
+#   (ekleme ort. ~9.600 kr SMMM, en çok 30.491 kr KGK); -EskiPaketTavani'nda 7.000 aşılmaz.
+# 🚫 GÖRMEZ: ambarda hiç olmayan madde (05.10'a kadar GVK m.22 böyleydi: atif_ambarda_yok=true izi) — o kayıt yeniden
+#   hakeme sorulunca paket kendiliğinden düzelir · kaynak_metin_ozet (FAZ A paketi) ve kör/KK paketinin özet dalı.
+function ParcaEksik([string[]]$adlar){
+  $varP=New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($aP in @($adlar)){ if($aP){ [void]$varP.Add("$aP") } }
+  $eksikP=New-Object System.Collections.Generic.List[string]
+  $gorulenP=New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($aP in @($adlar)){
+    $pmP=[regex]::Match("$aP",'^(.+) \[(\d+)/(\d+)\]$')
+    if(-not $pmP.Success){ continue }
+    $kokP=$pmP.Groups[1].Value; $topP=[int]$pmP.Groups[3].Value
+    if($topP -lt 2 -or $topP -gt 60 -or -not $gorulenP.Add("$kokP|$topP")){ continue }
+    for($iP=1;$iP -le $topP;$iP++){ $adP="$kokP [$iP/$topP]"; if(-not $varP.Contains($adP) -and $eksikP -notcontains $adP){ $eksikP.Add($adP) } }
+  }
+  return @($eksikP)
+}
+function ParcaTamamla($sonuc,[int]$tavan=7000){
+  $eksikT=@(ParcaEksik @($sonuc.adlar))
+  if(-not $eksikT.Count){ return $sonuc }
+  $tavanT=PaketTavani $tavan
+  $adlarT=New-Object System.Collections.Generic.List[string]; foreach($aT in @($sonuc.adlar)){ $adlarT.Add("$aT") }
+  $metinT="$($sonuc.metin)"; $eklenenT=New-Object System.Collections.Generic.List[string]
+  foreach($adT in $eksikT){
+    if($script:MULGA_MADDE -and $script:MULGA_MADDE.Contains($adT)){ $script:KAPI_MM_SAY++; continue }
+    if($script:KGK_AILE_RX -and $adT -notmatch $script:KGK_AILE_RX){ continue }
+    $uT='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=eq.'+[uri]::EscapeDataString($adT)+'&limit=1'
+    $rT=$null
+    foreach($dnT in 1..3){ try{ $rT=@(Invoke-RestMethod -Uri $uT -Headers $SB -TimeoutSec 60); break }catch{ if($dnT -lt 3){ Start-Sleep -Seconds (4*$dnT) } else { $script:AMBAR_AG_HATASI=$_.Exception.Message } } }
+    if(-not $rT -or -not $rT.Count -or -not "$($rT[0].metin)"){ continue }
+    if($DersRegex -match 'Vergi' -and "$($rT[0].metin)" -match '5422 sayılı'){ continue }
+    $blokT="[$adT] $($rT[0].metin)"
+    if(($metinT.Length + 5 + $blokT.Length) -gt $tavanT){ continue }
+    $metinT=$(if($metinT){ $metinT + "`n---`n" + $blokT } else { $blokT }); $adlarT.Add($adT); $eklenenT.Add($adT)
+  }
+  return @{ metin=$metinT; adlar=@($adlarT); agHatasi=$(if($script:AMBAR_AG_HATASI){ $script:AMBAR_AG_HATASI } else { $sonuc.agHatasi }); parca_eklenen=@($eklenenT) }
+}
 # --- DAYANAK KARA LISTESI (02.09 Cem: "cop dayanaklari bosalt") --------------
 # Kopru dayanaklari Excel'den geliyor ve bir kismi cop: tek maddeye binlerce konu
 # baglanmis. AMA korlemesine bosaltmak ZARARLI - olculdu: VUK m.275'e 2.088 konu
@@ -5039,6 +5088,9 @@ foreach($id in @($don.Keys)){
       # 03.09 OLCULDU (SMMM SPK kp-11): m.35/C dort parca, 3.500 tavani [4/4]'u (f.7) kesti -> hakem
       # 'fikra 7 kaynakta yok' dedi. Atif paketi 7.000, toplam 12.000 (haiku 200k pencere; maliyet ihmal).
       $atif=AmbarCek $atifD 7000
+      # 01.11 KAPI-PT: anılan madde parçalıysa EKSİK kardeş parçaları da gelir (AmbarCek desen başına limit=6, sırasız)
+      $atif=ParcaTamamla $atif 7000
+      if($atif.ContainsKey('parca_eklenen') -and $atif.parca_eklenen.Count){ Write-Host "  KAPI-PT: $id <- $(@($atif.parca_eklenen).Count) eksik madde parçası eklendi ($(@($atif.parca_eklenen | Select-Object -First 2) -join ' ; '))" -ForegroundColor DarkCyan }
       if($atif.adlar.Count){
         $yeniAd=@($atif.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $atif.adlar -notcontains $_ })
         $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($yeniAd) -Force

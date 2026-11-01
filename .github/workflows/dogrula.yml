@@ -176,6 +176,12 @@ jobs:
               kabuk: pwsh, komut: "./arac/kimlik-ayikla-sinavi.ps1" }
           - { ad: "Kimlik ayiklayici MUTASYON (13 bozma, her biri KIRMIZI)",
               kabuk: pwsh, komut: "./arac/kimlik-ayikla-sinavi.ps1 -Mutasyon" }
+          # 01.11 KAPI-PT (sinav oturumu, Ajan 50): dayanakta anilan parcali madde hakem paketine BUTUN parcalariyla girer.
+          # Gercek ureticiden AST ile; sahte ambar, ag yok. 18 vaka + 8 mutasyon (01.11 olculdu).
+          - { ad: "Parcali madde tamamlama OZ-SINAVI (atif genisletme limit=6 / eksik kardes parca)",
+              kabuk: pwsh, komut: "./arac/parca-tamamla-sinavi.ps1" }
+          - { ad: "Parcali madde tamamlama MUTASYON (8 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/parca-tamamla-sinavi.ps1 -Mutasyon" }
           # 27.09 (KGK oturumu; SGS oturumu onayli): standart yutucunun BDS dipnot/baslik kurallari + KGK yayin yolu oz-sinavlari.
           - { ad: "Standart yutucu OZ-SINAVI (BDS dipnot/baslik; TMS/TFRS kipi degismesin)",
               kabuk: pwsh, komut: "./motor/standart-yut.ps1 -standart 'BDS 200' -YalnizSinav" }
