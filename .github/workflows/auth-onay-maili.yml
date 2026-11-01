@@ -30,7 +30,7 @@ jobs:
           deger=false; [ "$KIP" = "kapat" ] && deger=true
           kod=$(curl -s -o /tmp/yaz.out -w "%{http_code}" -X PATCH "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/config/auth" \
             -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data "{\"mailer_autoconfirm\":$deger}")
-          echo "PATCH mailer_autoconfirm=$deger http $kod"
+          echo "PATCH mailer_autoconfirm=$deger http $kod"; head -c 300 /tmp/yaz.out; echo
           test "$kod" = "200"
       - name: Oku
         env:
