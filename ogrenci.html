@@ -278,7 +278,9 @@
   <script>(function(){ try{ var q=new URLSearchParams(location.search), o=q.get('odeme'), e=document.getElementById('odemeSonuc'); if(!o||!e) return;
     var no=String(q.get('no')||'').replace(/[^A-Z0-9-]/g,''); window.__ttOdemeNo=no;
     /* 12.10: alıcı ödeme sonrası Google ile BAŞKA adresten girdi, paketi göremedi → hangi e-postayla gireceği açıkça yazılır */
-    e.innerHTML = o==='ok' ? '<b style="color:var(--green)">✓ Ödemen alındı.</b> Sipariş no <b>'+no+'</b>. Onay e-postan yolda.'
+    /* 01.11: ödeme dönüşünde #gb= giriş jetonu varsa kişi hesabına otomatik girer (aşağıdaki verifyOtp) */
+    e.innerHTML = (o==='ok' && /(?:^#|&)gb=/.test(location.hash||'')) ? '<b style="color:var(--green)">✓ Ödemen alındı, paketin açıldı.</b> Sipariş no <b>'+no+'</b>. Hesabına giriş yaptın; hemen soru çözmeye başlayabilirsin. Sonraki girişlerde aynı e-postayla "Google ile gir" ya da Hesabım\'dan şifre belirle.'
+      : o==='ok' ? '<b style="color:var(--green)">✓ Ödemen alındı.</b> Sipariş no <b>'+no+'</b>. Onay e-postan yolda.'
                            + '<br><b>Önemli:</b> paketin, <b>siparişte yazdığın e-postaya</b> tanımlandı. Siteye o e-postayla gir (Google ile gireceksen aynı adresli Google hesabını seç). Başka bir adresle girdiysen Hesabım\'da <b>"Ödedim ama paketim görünmüyor"</b>a bas; sipariş numaran orada hazır olacak.'
                            : '<b style="color:var(--amber)">Ödemen alındı, paketin açılışı kontrol ediliyor.</b> Sipariş no <b>'+no+'</b>. Birkaç dakika içinde açılmazsa <a href="iletisim.html">bize yaz</a>.';
     e.hidden=false; }catch(x){} })();</script>
@@ -626,6 +628,10 @@
 (function(){ var h=location.hash||'';
   window.__ttKurtarma = /(?:^#|&)type=recovery(?:&|$)/.test(h);
   window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\+?link|email%20link/i.test(h));
+  /* 01.11: kart ödemesi dönüşü #gb=<jeton> (iyzico-odeme.ts) — yakala, adresten hemen sil (geçmişte/paylaşımda kalmasın) */
+  var gb = /(?:^#|&)gb=([^&]+)/.exec(h);
+  window.__ttGb = gb ? decodeURIComponent(gb[1]) : '';
+  if(gb){ try{ history.replaceState(history.state,'',location.pathname+location.search); }catch(x){} }
 })();
 </script>
 <!-- 27.09: supabase istemcisinden ÖNCE - Google dönüşünde ?sonra= geri konur -->
@@ -1803,7 +1809,9 @@
   try{ var kEp=localStorage.getItem('tt_kayit_eposta')||''; if(kEp && EPOSTA_DESEN.test(kEp)){ ['ogEposta','ogKEposta','ogSEposta'].forEach(function(i){ if(!$(i).value.trim()) $(i).value=kEp; }); } }catch(e){}
   /* adresle gelen ekran: #uye-ol / #sifremi-unuttum */
   var hashEkran = /^#uye-ol$/.test(location.hash) ? 'kayit' : /^#sifremi-unuttum$/.test(location.hash) ? 'sifremi' : null;
-  sb.auth.getSession().then(function(r){
+  /* 01.11: ödeme dönüşü jetonu varsa önce oturumu aç (tek kullanımlık; düşerse kişi giriş ekranını görür) */
+  (window.__ttGb ? sb.auth.verifyOtp({ token_hash: window.__ttGb, type: 'magiclink' }).catch(function(){}) : Promise.resolve())
+  .then(function(){ return sb.auth.getSession(); }).then(function(r){
     var s=r.data&&r.data.session;
     if(kurtarmaModu){ if(s) yeniSifreEkrani(s.user); else { girisGoster(); ekranAc('sifremi'); hataYaz('ogSHata','Bağlantı açılamadı ya da süresi dolmuş. Yeni bir bağlantı iste.'); } return; }
     if(s){ panel(s.user); return; }

@@ -14,7 +14,7 @@
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit (kapalı, enabledInstallments [1]) · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "177d114a08b7932a";
+const KOD_IMZA = "7a593b5360950205";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -209,7 +209,25 @@ Deno.serve(async (req) => {
     if (o.ok) {
       try { await fetch(`${SB_URL}/functions/v1/siparis-bildirim`, { method: "POST", headers: { "Content-Type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` }, body: JSON.stringify({ tur: "acildi", no: k.siparis_no }) }); } catch { /* mail düşerse ödeme bozulmaz */ }
     }
-    return yonlen(`${SITE}/ogrenci.html?odeme=${o.ok ? "ok" : "kontrol"}&no=${encodeURIComponent(k.siparis_no)}`);
+    // 01.11 (Cem "adamlar ödemesi yapsın girsin, niye insanları zorluyoruz"): ödeyen tarayıcı hesabına GİRMİŞ döner.
+    // siparis-bildirim hesabı yukarıda açtı (yoksa); burada o e-postaya tek kullanımlık giriş jetonu (magiclink, mail
+    // GÖNDERİLMEZ) üretilir ve yalnız bu 303'ün #gb= parçasıyla verilir: parça sunucuya/Referer'a gitmez, ogrenci.html
+    // okur, verifyOtp ile oturum açar ve adresten siler. Jeton yalnız iyzico'nun doğruladığı başarılı ödemenin dönüşünde çıkar.
+    // 🚫 GÖRMEZ: ödeme sayfasını başka cihazda tamamlayan kişi o cihazda girmiş olur (jeton dönüşü kim alırsa onundur).
+    let gb = "";
+    if (o.ok) {
+      try {
+        const s = (await (await sb(`siparisler?select=email&siparis_no=eq.${encodeURIComponent(k.siparis_no)}&limit=1`)).json())[0];
+        if (s && s.email) {
+          const g = await fetch(`${SB_URL}/auth/v1/admin/generate_link`, { method: "POST", headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" },
+            body: JSON.stringify({ type: "magiclink", email: String(s.email).trim().toLowerCase() }) });
+          const j = g.ok ? await g.json() : {};
+          gb = String(j.hashed_token ?? j.properties?.hashed_token ?? "");
+          console.log(`iyzico-odeme ${k.siparis_no} giris jetonu ${gb ? "verildi" : "yok " + g.status}`);
+        }
+      } catch { /* jeton yoksa eski akış: kişi kendisi girer */ }
+    }
+    return yonlen(`${SITE}/ogrenci.html?odeme=${o.ok ? "ok" : "kontrol"}&no=${encodeURIComponent(k.siparis_no)}${gb ? "#gb=" + encodeURIComponent(gb) : ""}`);
   }
   return cevap(404, { hata: "bilinmeyen islem" });
 });
