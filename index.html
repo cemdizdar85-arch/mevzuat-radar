@@ -1125,11 +1125,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   function sigdir(){
     try{
       SINIF.forEach(function(c){ h.classList.remove(c); });
-      var b=document.querySelector('.secim-bolum .secim'); if(!b||innerWidth<901) return;
+      var b=document.querySelector('.secim-bolum .secim'), sb=document.querySelector('.secim-bolum'); if(sb) sb.style.paddingBottom='';
+      if(!b||innerWidth<901) return;
       for(var i=0;i<=SINIF.length;i++){
         if(i) h.classList.add(SINIF[i-1]);
-        if(b.getBoundingClientRect().bottom+scrollY<=innerHeight-10) return;
+        if(b.getBoundingClientRect().bottom+scrollY<=innerHeight-10) break;
       }
+      /* 02.11 Cem ("staja girişte altındaki çizgi görünüyor, bitirme gibi olsun"): ilk ekran büyük düğmelerle biter; Son 20 Gün
+         kartının ucu ekranın dibinde yarım görünüyorsa kart ilk ekranın altına itilir (en çok 220 px boşluk). */
+      var s=document.getElementById('s20Bolum');
+      if(s&&!s.hidden&&sb){ var t=s.getBoundingClientRect().top+scrollY, fark=innerHeight-t;
+        if(fark>0&&fark<=220) sb.style.paddingBottom=(parseFloat(getComputedStyle(sb).paddingBottom)+fark)+'px'; }
     }catch(e){}
   }
   var z; function sonra(){ clearTimeout(z); z=setTimeout(sigdir,60); }
