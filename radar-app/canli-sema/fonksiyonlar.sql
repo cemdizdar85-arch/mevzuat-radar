@@ -256,6 +256,24 @@ begin
 end $function$
 ;
 
+-- _soz_hakki_kapi()
+CREATE OR REPLACE FUNCTION public._soz_hakki_kapi()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SET search_path TO 'public'
+AS $function$
+begin
+  -- söz 02.11 00:04:59 TR'de bitti: sonradan oluşan siparişe söz yazılamaz; eski siparişin işareti değiştirilemez
+  if tg_op = 'INSERT' then
+    if coalesce(new.olusturma, now()) > timestamptz '2026-11-01 21:04:59+00' then new.soz_hakki := false; end if;
+  elsif new.soz_hakki is distinct from old.soz_hakki then
+    new.soz_hakki := old.soz_hakki;
+  end if;
+  return new;
+end
+$function$
+;
+
 -- alacak_abone_mi()
 CREATE OR REPLACE FUNCTION public.alacak_abone_mi()
  RETURNS boolean
@@ -4385,7 +4403,11 @@ begin
                           order by s.olusturma desc limit 1),
         'siparis_paket', (select s.paket from public.siparisler s
                            where lower(s.email) = lower(u.email) order by s.olusturma desc limit 1),
-        'cozdugu', (select string_agg(distinct o.sinav, ',') from public.ogrenci_sonuc o where o.user_id = u.id)
+        'cozdugu', (select string_agg(distinct o.sinav, ',') from public.ogrenci_sonuc o where o.user_id = u.id),
+        'soz', exists (select 1 from public.siparisler s where s.soz_hakki and s.durum = 'odendi'
+                        and (s.bagli_kullanici = u.id or lower(s.email) = lower(u.email))),
+        'soz_paket', (select string_agg(distinct s.paket, ',') from public.siparisler s where s.soz_hakki and s.durum = 'odendi'
+                        and (s.bagli_kullanici = u.id or lower(s.email) = lower(u.email)))
       ) order by u.created_at desc)
       from auth.users u
       left join public.paket_uyeler p on p.user_id = u.id
@@ -4406,7 +4428,8 @@ begin
             when pu.bitis is not null and pu.bitis < current_date then 'bitti'
             else 'acik' end,
         'paket_bitis', pu.bitis,
-        'paket_hesap', pu.paket
+        'paket_hesap', pu.paket,
+        'soz', s.soz_hakki
       ) order by s.olusturma desc)
       from public.siparisler s
       left join public.paket_uyeler pu on pu.user_id = s.bagli_kullanici
