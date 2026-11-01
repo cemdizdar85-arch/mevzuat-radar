@@ -1,0 +1,43 @@
+{
+ "ad": "masrafah",
+ "tarih": "2026-11-01T00:28:10.542Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh41256811752",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "bos",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 0,
+  "temiz": 0,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 2,
+  "yazilan": 0,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0
+ },
+ "kararlar": {},
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {
+  "smmm-4k-a-fmuh-kolay-r1/kp-03": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)",
+  "smmm-4k-a-ydenetim-cokzor-r8/kp-01": "kayıtta başka kaynaklı aciklama_hakem var (TEMIZ) — üstüne yazılmaz (--ustune-yaz)"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
