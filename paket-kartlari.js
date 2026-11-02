@@ -15,7 +15,7 @@
   + '<article class="pk-kart" data-paket="son20-sgs"><p class="pk-sinav">SMMM Staja Giriş · Son 20 Gün</p><h3>Sadece 7 Deneme</h3>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
   + '<ul><li>7 deneme, ders ders testler</li><li>Konu görevleri ve açıklamalar</li>'+(Date.now()<=Date.UTC(2026,10,1,21,4,59)?'<li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li>':'')+'</ul>'   /* 01.11 Cem: söz 23:59'da bitti */
-  + '<a class="pk-al" href="satin-al.html?paket=son20-sgs">Şimdi kaydol · 1 Kasım\'da başla</a><p class="pk-sonra" data-sonra></p></article>'
+  + '<a class="pk-al" href="satin-al.html?paket=son20-sgs">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart" data-paket="yeterlilik-1"><p class="pk-sinav">SMMM Yeterlilik</p><h3>Seçtiğin dersler</h3>'
   + '<div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
@@ -28,7 +28,7 @@
   + '<article class="pk-kart" data-paket="son20-yet"><p class="pk-sinav">SMMM Yeterlilik · Son 20 Gün</p><h3>Sadece Denemeler</h3>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
   + '<ul><li>8 dersin her birinde 5 deneme</li><li>Konu görevleri ve açıklamalar</li><li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li></ul>'
-  + '<a class="pk-al" href="satin-al.html?paket=son20-yet">Satın al · 8 Kasım\'da başla</a><p class="pk-sonra" data-yet20-gun></p></article>';
+  + '<a class="pk-al" href="satin-al.html?paket=son20-yet">Satın al</a><p class="pk-sonra" data-yet20-gun></p></article>';
 
   function tlx(n){ return typeof tl === 'function' ? tl(n) : String(n); }
 
@@ -38,7 +38,10 @@
     var hr = KDV_HARIC_GOSTER[p.id], a = k.querySelector('.pk-al');
     if(p.id === 'son20-sgs' || p.id === 'son20-yet'){   /* Son 20 Gün kartları KDV dahil (kampanya kartlarıyla aynı dil) */
       k.querySelector('[data-fiyat]').innerHTML = tlx(p.fiyat) + ' <small>TL</small>';
-      k.querySelector('[data-dahil]').textContent = 'KDV dahil · ' + kdvHaric(p.fiyat) + ' TL + KDV · denemeler ' + (p.id === 'son20-yet' ? '8' : '1') + ' Kasım\'da açılır';
+      /* 02.11 Cem ("açıldı, hâlâ 1 Kasım açılacak gibi duruyor"): açılış yazısı fiyat-motoru acilis gününe bağlı, geçince "açık" */
+      var once = p.acilis && Date.now() < Date.parse(p.acilis + 'T00:00:00+03:00'), gun = p.id === 'son20-yet' ? '8' : '1';
+      k.querySelector('[data-dahil]').textContent = 'KDV dahil · ' + kdvHaric(p.fiyat) + ' TL + KDV · ' + (once ? 'denemeler ' + gun + ' Kasım\'da açılır' : 'denemeler açık, hemen başla');
+      a.textContent = once ? 'Satın al · ' + gun + ' Kasım\'da başla' : 'Satın al · hemen başla';
       var ds = k.querySelector('[data-sonra]'); if(ds) ds.innerHTML = ''; return;
     }
     if(typeof erkenYetInd === 'function' && erkenYetInd(p.id)){   /* Yeterlilik erken kayıt (tüm + ders ders) */

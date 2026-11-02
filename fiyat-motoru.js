@@ -479,7 +479,7 @@ function paketler(){
      acilis: denemeler bu gün açılır; o güne kadar ön satış (arac/fiyat-urun-kapisi.js FU-ONSATIS). */
   L.push({ id:'son20-sgs', grup:'Staja Giriş (SGS)', ad:'Son 20 Gün — Sadece 7 Deneme',
            fiyat:FIYAT.son20Sgs.kurulus, liste:FIYAT.son20Sgs.liste, kota:null,
-           erisim:'21 Kasım 2026 sınavına kadar · denemeler 1 Kasım\'da açılır', sinav:'sgs', acilis:'2026-11-01',
+           erisim:'21 Kasım 2026 sınavına kadar · denemeler açık', sinav:'sgs', acilis:'2026-11-01',   /* 02.11: 1 Kasım'da açıldı */
            harcYazi:'7 deneme + konu görevleri · sitedeki diğer SGS soruları yok', acik:true });
   /* 28.10 Cem ("satın al diyeceğiz, 20 gün kala o gün açılacak diye yaz"): Yeterlilik Son 20 Gün ön satış. Kimlik bilerek
      'yeterlilik' ile BAŞLAMAZ (paket_erisim_var 'yeterlilik-%' bütün bankayı açar). Sunucu: radar-app/sql/2026-10-28-son20-yet.sql. */

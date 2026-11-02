@@ -122,13 +122,15 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   // son-20-gun.html'de açılır. Öteki paketlerin maili birebir aynı.
   // 28.10: Yeterlilik Son 20 Gün (son20-yet) de ön satış — denemeler 8 Kasım'da; sayfası henüz yok → adres Hesabım.
   const onYet = s.paket === "son20-yet";
-  const onSiparis = s.paket === "son20-sgs" || onYet;
+  // 02.11 Cem ("açıldı, hâlâ 1 Kasım açılacak gibi duruyor"): açılış günü geçince ön sipariş değil, "paketin açıldı" maili gider.
+  const s20 = s.paket === "son20-sgs" || onYet;
+  const onSiparis = s20 && Date.now() < Date.parse(onYet ? "2026-11-08T00:00:00+03:00" : "2026-11-01T00:00:00+03:00");
   const acilisG = onYet ? "8 Kasım 2026" : "1 Kasım 2026";
   const durumAd = onSiparis ? "ön siparişin kayda geçti" : "paketin açıldı";
   const konu = tekMail ? `Siparişin onaylandı: ${s.siparis_no} · ${durumAd}` : `Ödemen onaylandı, ${durumAd}: ${s.paket_ad || s.paket}`;
   const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
   const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
-  const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : onSiparis ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
+  const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : s20 ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
   // 31.10: hesabı ödeme anında biz açtıysak (yeniHesap) alıcı "üye ol" demez; Google ya da şifre belirleyerek girer.
   const yeniGiris = `Hesabın bu e-postayla açıldı, ayrıca üye olman gerekmiyor. tetikte.com → Giriş → "Google ile gir" deyip bu e-postanın Google hesabını seç; Google kullanmıyorsan bu e-postayı yazıp "Şifremi unuttum" ile kendine şifre belirle.`;
   const giris = yeniHesap
@@ -137,6 +139,8 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     ? (hesapVar
       ? `Son 20 Gün denemelerin ${acilisG}'da hesabında açılır. O gün tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından başla.`
       : `Son 20 Gün denemelerin ${acilisG}'da açılır. Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.`)
+    : s20 && hesapVar
+    ? "Son 20 Gün denemelerin açık. tetikte.com'a bu e-postayla giriş yap, Son 20 Gün sayfasından hemen başla."
     : hesapVar
     ? "tetikte.com'a bu e-postayla giriş yap; Hesabım'da paketin görünür, soru çözmeye hemen başlayabilirsin."
     : "Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.";
@@ -169,7 +173,7 @@ ${odemeAd ? satir("Ödeme", kacis(odemeAd)) : ""}
 <p><b>${kacis(IPHONE_SATIR)}</b></p>
 ${cayma ? `<p>${kacis(cayma)}</p>` : ""}
 <p style="color:#3d4b63">${kacis(baska)}</p>
-<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${onSiparis ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
+<p><a href="${adres}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${s20 && (onSiparis || hesapVar) ? "Son 20 Gün sayfası" : hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
 ${tekMail ? `<p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz. E-arşiv faturan da bu adrese gönderilir.</p>` : ""}
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };

@@ -568,7 +568,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <div class="ic"><div class="kutu">
     <div>
       <p class="et" id="s20bEt">SMMM Staja Giriş · Son 20 Gün</p>
-      <h2 id="s20bBas">7 deneme, 1 Kasım'da açılıyor</h2>
+      <h2 id="s20bBas">7 deneme açık</h2>
       <p class="ozet" id="s20bOzet">130'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.</p>
       <p class="uye" id="s20bUye" hidden></p>
     </div>
@@ -766,8 +766,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261102y"></script>
-<script src="paket-kartlari.js?v=6"></script>
+<script src="fiyat-motoru.js?v=20261102z"></script>
+<script src="paket-kartlari.js?v=7"></script>
 <script src="gkt.js?v=20261101g5"></script>
 <script src="uye-durumu.js?v=20261028z"></script>
 <script src="son20-kart.js?v=20261028b"></script>
@@ -876,7 +876,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     try{
       if(sec==='sgs'){ var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), y=paketBul('son20-sgs');
         /* 28.10 Cem ("7 deneme 1 Kasım'da gelecek, onu belli edelim; 1 Kasım sonraki fiyatları da yazsak"): sonraki fiyat + açılış günü */
-        h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · erken kayıt 1 Kasım 23:59\'a kadar, sonra Tam Paket '+tl(paketBul('sgs').fiyat)+' TL':'')+' · 7 deneme 1 Kasım\'da açılıyor</small>'; }
+        h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · erken kayıt 1 Kasım 23:59\'a kadar, sonra Tam Paket '+tl(paketBul('sgs').fiyat)+' TL':'')+(Date.now()<Date.parse('2026-11-01T00:00:00+03:00')?' · 7 deneme 1 Kasım\'da açılıyor':' · 7 deneme açık')+'</small>'; }   /* 02.11: açılış geçti */
       else if(sec==='yeterlilik'){ var a0=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0,
           a={fiyat:(typeof erkenNet==='function'&&erkenNet(a0))||a0.fiyat};   /* 28.10: ders merdiveni de erken kayıtta ders başı 120 TL */
         /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda.
