@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261102161918
+Start time: 20261102214343
 Username: runnervmnwato\runner
 RunAs User: runnervmnwato\runner
 Configuration Name: 
 Machine: runnervmnwato (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ce811c02-932b-47fc-8443-b136b7e73d1f.ps1'
-Process ID: 2455
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5db0f778-ffcb-4305-b89c-580ac6b1ea31.ps1'
+Process ID: 2477
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -17,12 +17,25 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 01-11-2026
-Kart sayisi  : 4
+RG gunu      : 03-11-2026
+Kart sayisi  : 2
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/vergi-sabitleri.json   (arac: coklu (asgari ucret, kidem tavani, SGK esikleri))
+      dayanak: Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani
+      hasat  : elle kurulmus
+      <- Orman köylülerine vahidi fiyatla çalışma karşılığı ayni nakdi dağıtım yönetmeliği
+      <- Avukatlık asgari ücret tarifesi yenilendi, mahkeme kararlarında uygulanacak
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261102161918
+End time: 20261102214343
 **********************

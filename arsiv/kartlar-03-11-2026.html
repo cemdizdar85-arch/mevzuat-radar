@@ -1,0 +1,85 @@
+<!doctype html><html lang="tr"><head><base href="../"><meta charset="utf-8"><script src="tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">
+<title>Günün Hap Kartları - 03.11.2026 | Tetikte</title>
+<meta name="description" content="Bugünün Resmî Gazete değişiklikleri hap bilgi kartları hâlinde: ne oldu, kimi ilgilendiriyor, ne yapmalı.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}.wrap{max-width:840px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-weight:800}
+.alt{color:var(--muted);font-size:13.5px;margin-bottom:8px}
+.uyari{font-size:12px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin:14px 0 24px}
+.kart{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.kart .etiket{font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--red)}
+.kart h3{margin:6px 0 8px;font-size:16.5px;letter-spacing:-.3px}
+.kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
+.gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
+.kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
+.meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
+.cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
+.cta h3{margin:0 0 6px;font-size:18px}.cta p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(245,165,36,.35)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+</style></head><body><a class="atla" href="#icerik">İçeriğe atla</a><div class="wrap" id="icerik" role="main">
+<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
+<h1>Günün Hap Kartları</h1>
+<div class='alt'>03.11.2026 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
+<div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
+<div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Orman köylülerine vahidi fiyatla çalışma karşılığı ayni nakdi dağıtım yönetmeliği</h3>
+<p><b>Ne oldu:</b> Orman Genel Müdürlüğü, ormancılık faaliyetlerinde vahidi fiyatla (birim fiyatla) çalışan orman köylülerine, kendi köylerinin sınırları içinde üretilen odun ürünlerinin satış gelirinden üretim giderleri düşüldükten sonra kalan tutarın %10'una kadarının ayni (araç, gereç, ekipman) veya nakdi (para) olarak dağıtılmasını düzenleyen bir yönetmelik yayımladı. Dağıtım, her yılın bilançosu çıktıktan sonra Bakanın onayıyla gerçekleştirilecek; her hak sahibi, yıllık asgari ücretin bir aylık tutarından fazlasını alamayacak.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Dağıtıma konu yılın 31 Aralık'ında orman köyü nüfusuna kayıtlı olanlar en az bir yıldır, başka köy nüfusundakiler en az üç yıldır kesintisiz ikamet etmiş olmalı (m.5/1-a, b).</div>
+<div class='kiymet'>• Hak sahibinin dağıtıma konu yıl içinde en az bir ormancılık faaliyetinde sözleşmeye dayalı vahidi fiyatla çalışması ve bu çalışmanın kayıtlarda belgelenmiş olması zorunlu (m.5/1-c).</div>
+<div class='kiymet'>• Dağıtıma konu yıl içinde orman suçu sebebiyle suç zaptı tanzim edilmemiş olması gerekir; suç zaptı olanlar hak sahibi olarak belirlenemez (m.5/1-ç, m.7/8).</div>
+<div class='kiymet'>• Dağıtım miktarının %50'si hak sahiplerine eşit paylaştırılır; kalan %50 dağıtıma konu yılda ormancılık faaliyetlerinde ödenen hakediş tutarları oranında dağıtılır (m.7/3).</div>
+<div class='kiymet'>• Her hak sahibinin yıllık toplam ayni ve nakdi dağıtımı, dağıtıma konu yılda geçerli aylık net asgari ücretin bir aylık miktarını geçemez (m.7/6).</div>
+<div class='kiymet'>• Dağıtımın ayni mi nakdi mi yapılacağı, Bakanın onayı alınarak her yıl ayrı ayrı belirlenir (m.7/1).</div>
+<div class='kiymet'>• Yanık sahalardan elde edilen odun ürünleri geliri dağıtıma konu edilemez (m.7/7).</div>
+<div class='kiymet'>• Ayni dağıtım yapılması halinde, hak sahibine verilecek araç gereç ve malzemelerin toplam bedeli, onun için hesaplanan nakdi tutarını geçemez (m.7/5).</div>
+<p><b>Ürün:</b> Devlet ormanlarında istihsal edilen oduna dayalı orman ürünleri (tomruk, tel direk, maden direk, sanayi odunu, kağıtlık odun, lif-yonga odunu, sırık, yakacak odun ve benzeri)</p>
+<p><b>Kimi ilgilendirir:</b> Orman köyleri nüfusuna kayıtlı ve orman köylerinde ikamet eden, ormancılık faaliyetlerinde vahidi fiyatla çalışan işçiler</p>
+<p><b>Ne yapmalısın:</b> Köyünüz orman köyü statüsündeyse ve vahidi fiyatla ormancılık işinde çalışıyorsanız, ikamet belgenizi ve çalışma sözleşmelerinizi hazırlayın; işletme şefliğinden hak sahipliği listesine alınıp alınmadığınızı öğrenin. Yıllık dağıtımın ne zaman ve hangi şekilde (para mı, araç mı) yapılacağını işletme müdürlüğüne sorun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261103-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Avukatlık asgari ücret tarifesi yenilendi, mahkeme kararlarında uygulanacak</h3>
+<p><b>Ne oldu:</b> Türkiye Barolar Birliği, yeni avukatlık asgari ücret tarifesini yayımladı. Tarife, mahkemelerde ve diğer hukuki yardım işlerinde avukatların alacağı ücretin alt sınırını belirlemekte olup, davalı veya karşı tarafa yükletilecek tüm mahkeme masraflarında bu tarifenin altında bir ücrete hükmedilemeyecektir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Mahkemece hükmedilen avukatlık ücreti tarifede yazılı miktardan az olamaz ve üç katından çok olamaz (m.3/1).</div>
+<div class='kiymet'>• Davayı kabul eden avukat, dava hangi aşamada olursa olsun tarifede belirtilen ücretin tamamına hak kazanır (m.5/1).</div>
+<div class='kiymet'>• Ön inceleme tutanağı imzalanmadan sulh, feragat veya dava konusuz kalırsa ücretin yarısı, imzalandıktan sonra giderilirse tamamı hükmedilir (m.6/1).</div>
+<div class='kiymet'>• İcra takiplerinde 78.125,00 TL'ye kadar olan miktarlar için maktu ücret uygulanır; ancak bu ücret kesinleşen miktarı geçemez (m.11/1).</div>
+<div class='kiymet'>• Temyiz veya istinaf sonrası bozma kararından sonra hükmolunan ücrette, hükmün verildiği tarihte yürürlükte olan tarife esas alınır (m.2/3).</div>
+<div class='kiymet'>• Arabuluculuk anlaşması imzalanırsa ücret tarifenin üçüncü kısma göre hesaplanıp dörtte bir fazlası uygulanır; 62.500,00 TL'ye kadar işlerde maktu ücretin dörtte bir fazlası hükmedilir (m.16/2-a).</div>
+<div class='kiymet'>• Seri davalar için ilk on dosyada tam ücret, sonraki kırk dosyada %50, sonraki elli dosyada %40, yüzden sonraki her dosyada %25 oranında ücret hükmedilir (m.22/1).</div>
+<div class='kiymet'>• Tarifenin uygulanmasında hukuki yardım tamamlandığı veya dava sonunda hüküm verildiği tarihte yürürlükte olan tarife esas alınır (m.21/1).</div>
+<div class='kiymet'>• Kötü niyetli veya haksız dava açan taraf, diğer tarafın avukatıyla kararlaştırılan vekâlet ücretinin tamamı veya bir kısmını ödemeye mahkûm edilebilir (m.23/1).</div>
+<p><b>Ürün:</b> Hukuki hizmetler - avukatlık ücretleri</p>
+<p><b>Kimi ilgilendirir:</b> Avukatlar, mahkeme mübaşirleri, taraf vekilleri, davacı ve davalılar, müvekkiller</p>
+<p><b>Ne yapmalısın:</b> Devam eden dava ve uyuşmazlıklarda avukatlık ücreti taleplerini bu tarifede öngörülen asgari tutarlarla karşılaştırın. İcra takiplerinde 78.125,00 TL eşiğinin altındaki işlerde maktu ücret düzenlemesine dikkat edin. Arabuluculuk aşamasındaki ücret tespitlerini yeni oranlar üzerinden yeniden hesaplayın. Temyiz veya istinaf sonrasında hüküm tarihi itibarıyla hangi tarifenin yürürlükte olduğunu kontrol edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Tarife, avukatlık hizmetinin maliyetine ilişkin öngörülebilir bir alt sınır getirerek dava masraflarının makul düzeyde kontrol altında tutulmasını amaçlamaktadır. Müvekkil açısından bir garanti aracı olmayıp, mahkemelerce re'sen uygulanacak yasal bir rehber niteliğindedir.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261103-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+
+<div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
+<p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
+<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
+<div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div><link rel="stylesheet" href="komut.css"><script src="komut.js" defer></script><script src="ayrinti.js" defer></script><link rel="stylesheet" href="stil-acik.css"></body></html>
