@@ -1,11 +1,11 @@
 {
-  "tarih": "01.11.2026 22:11",
+  "tarih": "02.11.2026 00:29",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 900,
   "riskli_madde": 1316,
   "sayfa": 82,
   "atifli_iddia": 316,
-  "dayanaksiz_iddia": 554,
+  "dayanaksiz_iddia": 555,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -1487,79 +1487,85 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 653,
+      "satir": 614,
+      "iddia": "20 Gün",
+      "metin": "iki tek sayfa görsel (SGS \"Bu sınava güveniyoruz\", Yeterlilik \"8 Kasım'da açılıyor\") Son 20 Gün kartının altında."
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 681,
       "iddia": "%97",
       "metin": "vitrin 5 örnek sorunun 5'inde. Panel cevaptan sonra açılır (\"📌 Konu\", \"🎬 Nöbetçi anlatsın\"). \"Her soruda\" denmez (SGS %97)."
     },
     {
       "sayfa": "index.html",
-      "satir": 688,
+      "satir": 716,
       "iddia": "10 yıl",
       "metin": "Son 10 yılın çıkmış sorularını tek tek okuduk; her dersin en çok sorulan konularından ders ders sorular. Bitince hangi konuda eksiğin olduğunu konu konu görürsün."
     },
     {
       "sayfa": "index.html",
-      "satir": 704,
+      "satir": 732,
       "iddia": "7 gün",
       "metin": "yanlış kutusu 2 / 7 gün · deneme (sinav-gibi 130 soru 165 dk 10 set; Yeterlilik Birebir Prova) · sınav provası yüzdelik (SQL + sayfa)."
     },
     {
       "sayfa": "index.html",
-      "satir": 705,
+      "satir": 733,
       "iddia": "10 yıl",
       "metin": "\"Sık çıkan konuya ağırlık\" 07.10 akşamı SGS için de ölçüldü (veri/sinav/SGS-KAPSAMA.md: hedef = son 10 yılda çıkan soru × 1)."
     },
     {
       "sayfa": "index.html",
-      "satir": 806,
+      "satir": 834,
       "iddia": "30 gün",
       "metin": "/* 13.10: Instagram/Facebook'tan gelen mi? menu.js'in kaynak etiketi (?k=, 30 gün cihazda) ya da yönlendiren adres. */"
     },
     {
       "sayfa": "index.html",
-      "satir": 886,
+      "satir": 914,
       "iddia": "20 Gün",
       "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, 8 Kasım\\'da açılır':'')+' '; }"
     },
     {
       "sayfa": "index.html",
-      "satir": 898,
+      "satir": 926,
       "iddia": "20 Gün",
       "metin": "else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){ /* 28.10: Yeterlilik Son 20 Gün ön kaydı */"
     },
     {
       "sayfa": "index.html",
-      "satir": 944,
+      "satir": 972,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek\"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */"
     },
     {
       "sayfa": "index.html",
-      "satir": 947,
+      "satir": 975,
       "iddia": "20 Gün",
       "metin": "$('uyeHosMetin').innerHTML='👋 Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'. '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\\'da açılır.':'Denemelerin seni bek"
     },
     {
       "sayfa": "index.html",
-      "satir": 956,
+      "satir": 984,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (GM önerisi 2 \"yap\"): Son 20 Gün denemeleri AÇIKKEN paketli üyenin karşılama şeridi Son 20 Gün olur (Hesabım ve Soru çöz"
     },
     {
       "sayfa": "index.html",
-      "satir": 1031,
+      "satir": 1059,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1096,
+      "satir": 1124,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
     {
       "sayfa": "index.html",
-      "satir": 1134,
+      "satir": 1162,
       "iddia": "20 Gün",
       "metin": "/* 02.11 Cem (\"staja girişte altındaki çizgi görünüyor, bitirme gibi olsun\"): ilk ekran büyük düğmelerle biter; Son 20 Gün"
     },
