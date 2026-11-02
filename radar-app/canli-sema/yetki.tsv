@@ -13,6 +13,7 @@ _s20_gorev_kur	p_uid uuid, p_deneme integer	SD	f	f	integer	depoda
 _s20_gorevler	p_uid uuid	SD	f	f	jsonb	depoda
 _s20_kapi	p_no integer	SD	f	f	void	depoda
 _siparis_isle	p_sid bigint, p_uid uuid, p_yol text	SD	f	f	text	depoda
+_son20_indirimsiz		inv	f	f	trigger	depoda
 _soz_hakki_kapi		inv	f	f	trigger	depoda
 alacak_abone_mi		SD	f	f	boolean	depoda
 alacak_ara	p_sorgu text	SD	t	t	record	depoda

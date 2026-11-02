@@ -59,6 +59,7 @@ AS $function$
   select case when o.indirim_paket is not null then (o.indirim_paket ->> p_paket)::int else o.indirim_tl end
     from ozel_kod o
    where o.kod = upper(regexp_replace(coalesce(p_kod, ''), '[^A-Za-z0-9]', '', 'g'))
+     and lower(btrim(coalesce(p_paket, ''))) not in ('son20-sgs', 'son20-yet')   -- 02.11: 999 TL tekliflerde kod yok
      and o.iptal is null
      and o.son > now()
      and p_paket = any (o.paketler)
@@ -254,6 +255,22 @@ begin
    where id = s.id and bagli_kullanici is null;
   return case when v_var and v_eski.paket = s.paket and v_eski.bitis >= v_bitis then 'ZATEN_ACIK' else 'ACILDI' end;
 end $function$
+;
+
+-- _son20_indirimsiz()
+CREATE OR REPLACE FUNCTION public._son20_indirimsiz()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SET search_path TO 'public'
+AS $function$
+begin
+  if lower(btrim(coalesce(new.paket, ''))) in ('son20-sgs', 'son20-yet')
+     and (coalesce(new.indirim_tl, 0) > 0 or coalesce(new.ozel_kod_tl, 0) > 0 or coalesce(new.anlik_teklif_tl, 0) > 0) then
+    raise exception 'INDIRIM_YOK_SON20' using hint = '999 TL Son 20 Gün paketlerinde indirim kodu kullanılamaz.';
+  end if;
+  return new;
+end
+$function$
 ;
 
 -- _soz_hakki_kapi()
@@ -1137,6 +1154,7 @@ AS $function$
       join elci_indirim i on i.paket = p_paket
      where e.kod = upper(regexp_replace(coalesce(p_kod, ''), '[^A-Za-z0-9]', '', 'g'))
        and e.aktif
+       and lower(btrim(coalesce(p_paket, ''))) not in ('son20-sgs', 'son20-yet')   -- 02.11: 999 TL tekliflerde kod yok
   ), 0);
 $function$
 ;
