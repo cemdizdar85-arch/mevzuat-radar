@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-11-01T00:00:24.436Z",
-  "gun": "2026-11-01",
+  "olcum": "2026-11-02T00:32:16.969Z",
+  "gun": "2026-11-02",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 4,
+      "sira": 5,
       "toplam": 10,
-      "id": "sgs-t1-mta-cokzor/kp-01",
-      "ders": "Mali Tablolar Analizi",
-      "konu": "dikey yüzde analizi",
-      "donem": 11,
-      "teori": false,
+      "id": "sgs-t1-genel-mat-cokzor/kp-01",
+      "ders": "Matematik",
+      "konu": "denklem cozme",
+      "donem": 7,
+      "teori": true,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı gelir tablosu dikey yüzde analizinde satılan malın maliyeti net satışların %65'i, faaliyet giderleri toplamı ise net satışların %20'sidir. Aynı döneme ait satılan malın maliyeti 520.000 TL, finansman gideri ise 30.000 TL olarak gerçekleşmiştir. Bu verilere göre işletmenin faaliyet karı kaç TL'dir?",
+      "soru": "x² − (2k + 2)x + (k² + k − 2) = 0 denkleminin iki farklı reel kökü x₁, x₂'dir. Köklerin çarpımı, köklerin toplamından 8 fazladır. Buna göre k kaçtır?",
       "siklar": {
-        "A": "50.700",
-        "B": "90.000",
-        "C": "120.000",
-        "D": "176.000",
-        "E": "640.000"
+        "A": "-3",
+        "B": "-2",
+        "C": "3",
+        "D": "4",
+        "E": "6"
       },
-      "dogru": "C",
+      "dogru": "D",
       "tuzak": {
-        "D": {
-          "ad": "Taban Karıştırma Tuzağı",
-          "metin": "Faaliyet giderleri yüzdesini net satış yerine SMM tutarı üzerinden uygularsın (520.000x0,20=104.000), böylece faaliyet karını olduğundan yüksek (176.000) bulursun. Doğrusu: Yüzdeler her zaman net satışlar tabanına uygul…"
+        "C": {
+          "ad": "İşaret Karıştırma Tuzağı",
+          "metin": "(k−4)(k+3) çarpanlarının işaretini karıştırıp (k−3)(k+4) yazarsın; bu k²+k−12 verir, orta terim uymaz, k=3 yanlış çıkar. Doğrusu: orta terim −k olduğundan çarpanlar (k−4) ve (k+3)'tür."
         },
         "E": {
-          "ad": "SMM'yi Dışlama Tuzağı",
-          "metin": "Faaliyet karını hesaplarken brüt satış karı adımını atlayıp doğrudan net satıştan yalnız faaliyet giderini düşersin, SMM'yi unutursun. Doğrusu: Faaliyet karına ulaşmadan önce SMM mutlaka net satıştan düşülüp brüt satış …"
+          "ad": "Yanlış Çarpanlama Tuzağı",
+          "metin": "aynı hatalı (k−6)(k+2)=0 çarpanlamasından bu kez öteki kökü, k=6'yı seçersin; bu çarpanlama zaten orijinal k²−k−12'yi vermez. Doğrusu: gerçek çarpanlar (k−4)(k+3)'tür, k=4 doğru köktür."
         },
         "A": {
-          "ad": "Ters Oran Tuzağı",
-          "metin": "Net satışı bulmak için SMM tutarını yüzdesine bölmen gerekirken yüzdesiyle çarparsın, böylece net satışı olduğundan küçük (338.000) hesaplarsın. Doğrusu: Net satış 520.000/0,65=800.000'dir, faaliyet karı da buradan 120.…"
+          "ad": "Çakışık Kök Tuzağı",
+          "metin": "k²−k−12=0 denklemini çözüp k=−3'ü de kabul edersin, ama bu k için Δx=0 olur; kökler çakışıktır, 'iki farklı reel kök' şartını sağlamaz. Doğrusu: Δx>0 kontrolü yapılmadan k=−3 elenmelidir."
         },
         "B": {
-          "ad": "Finansman Giderini Faaliyet Karına Dahil Etme Tuzağı",
-          "metin": "Finansman giderinin faaliyet karından sonra düşüldüğünü unutup 120.000'den 30.000'i çıkarırsın. Doğrusu: Finansman gideri faaliyet karı hesabına hiç girmez, olağan kâra geçişte düşülür."
+          "ad": "Yanlış Çarpanlama Tuzağı",
+          "metin": "k²−k−12=0 ifadesini orta terimi denetlemeden (k−6)(k+2) diye çarpanlarına ayırıp k=−2 bulursun; bu çarpım açıldığında k²−4k−12 verir, aslındaki denklemi karşılamaz. Doğrusu: doğru çarpanlama (k−4)(k+3)=0'dır."
         }
       },
-      "hap": "Dikey yüzde ve bir kalemin tutarı biliniyorsa net satış = tutar / (yüzde/100) ile bulunur, diğer tüm kalemler bu tabandan kendi yüzdeleriyle türetilir.",
+      "hap": "İkinci derece denklemde parametre bulunurken çıkan her kök için, sorunun istediği 'farklı reel kök' şartını Δ üzerinden mutlaka tekrar sına.",
       "satirlar": [
         [
-          "Net Satışlar (520.000 / 0,65)",
-          "800.000"
+          "Kurulan denklem (çarpım = toplam + 8)",
+          "K² + k − 2 = 2k + 10"
         ],
         [
-          "Satılan Malın Maliyeti",
-          "520.000"
+          "Sadeleştirilmiş k denklemi",
+          "K² − k − 12 = 0"
         ],
         [
-          "Brüt Satış Karı (800.000 - 520.000)",
-          "280.000"
+          "Çarpanlara ayırma",
+          "(k − 4)(k + 3) = 0 → k = 4 veya k = −3"
         ],
         [
-          "Faaliyet Giderleri (800.000 x 0,20)",
-          "160.000"
+          "Δx = 4k + 12 kontrolü (k=4)",
+          "Δx = 28 > 0 → GEÇERLİ"
         ],
         [
-          "Faaliyet Karı (280.000 - 160.000)",
-          "120.000"
+          "Δx = 4k + 12 kontrolü (k=−3)",
+          "Δx = 0 → GEÇERSİZ (çakışık kök)"
         ]
       ],
-      "dayanak": "TEORİ - Dikey yüzdelerden net satış ve gelir tablosu hesapları (net satış = kalem tutarı / (kalem yüzdesi / 100); faaliyet kârı = brüt satış kârı − faaliyet giderleri; finansman gideri faaliyet kârından sonra düşülür, f…",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=4",
+      "dayanak": "TESMER SGS Matematik-İstatistik Ders Notu - İkinci Derece Denklemler: Vieta bağıntıları (x1+x2=−b/a, x1·x2=c/a) ve diskriminant kuralı (Δ=b²−4ac; Δ>0 iki farklı gerçel kök)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=5",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -18,
+        "kalan_gun": -19,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,63 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 7,
+      "sira": 8,
       "toplam": 9,
-      "id": "smmm-w7-2-fmuh-kolay/kp-01",
-      "ders": "Finansal Muhasebe",
-      "konu": "bilanço düzenleme",
-      "donem": 30,
+      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "stok devir hızı",
+      "donem": 13,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı bilançosunun düzenlenmesinde, toplam anapara bakiyesi 640.000 ₺ olan uzun vadeli banka kredisinden, bilanço tarihinden itibaren bir yıl içinde ödenecek 185.000 ₺'lik taksit tutarı ile buna ilişkin tahakkuk etmiş ancak henüz ödenmemiş 12.500 ₺ faiz bulunmaktadır. Bu tutarların 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri hesabına aktarılacak toplamı kaç ₺'dir?",
+      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır?",
       "siklar": {
-        "A": "12.500",
-        "B": "185.000",
-        "C": "197.500",
-        "D": "640.000",
-        "E": "652.500"
+        "A": "4,5",
+        "B": "6,75",
+        "C": "9",
+        "D": "11",
+        "E": "13,5"
       },
       "dogru": "C",
       "tuzak": {
         "D": {
-          "ad": "Tümünü Aktarma Tuzağı",
-          "metin": "Öğrenci kredinin vade ayrımı yapmadan tamamını kısa vadeli hesaba taşır. Doğrusu: Sadece bir yıl içinde ödenecek 185.000 ₺'lik kısım ile faizi 303 hesabına aktarılır, kalan uzun vadeli olarak izlenir."
+          "ad": "Pay Karıştırma Tuzağı",
+          "metin": "pay (bölünen) olarak satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjı içerdiğinden kullanılmaz; payda ortalama s…"
         },
         "E": {
-          "ad": "Toplam Anaparaya Faiz Ekleme Tuzağı",
-          "metin": "Öğrenci kredinin tüm anaparasını kısa vadeye alır ve üstüne faizi ekler. Doğrusu: 303 hesabına aktarılacak tutar sadece bir yıl içinde ödenecek 185.000 ₺ ile faizin toplamı olan 197.500 ₺'dir."
+          "ad": "Dönem Başı Stok Tuzağı",
+          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
         },
         "A": {
-          "ad": "Yalnızca Faiz Tuzağı",
-          "metin": "Öğrenci sadece tahakkuk eden faizi 303 hesabına aktarır, anapara taksitini unutur. Doğrusu: 303 hesabı hem taksiti hem faizi kapsar, tutar 185.000+12.500=197.500 olmalıdır."
+          "ad": "Toplam Stok Tuzağı",
+          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
         },
         "B": {
-          "ad": "Yalnızca Anapara Tuzağı",
-          "metin": "Öğrenci taksit tutarını doğru bulur ama tahakkuk eden faizi 303 hesabına eklemeyi unutur. Doğrusu: 303 hesabı anapara taksiti ile faizin toplamını kapsar, 197.500 olmalıdır."
+          "ad": "Dönem Sonu Stok Tuzağı",
+          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: payda ortalama stok olmalıdır, dönem sonu tek bir andaki değerdir."
         }
       },
-      "hap": "Uzun vadeli kredinin bilanço tarihinden itibaren bir yıl içinde ödenecek anapara taksiti, buna ait tahakkuk etmiş ödenmemiş faiziyle birlikte 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri hesabına aktarılır.",
+      "hap": "Stok devir hızının paydası her zaman ORTALAMA stoktur, payı ise satılan malın maliyetidir; satış hasılatı ya da tek bir dönem ucundaki stok kullanılmaz.",
       "satirlar": [
         [
-          "Bir yıl içinde ödenecek anapara taksiti",
-          "185.000"
+          "Dönem Başı Stok",
+          "30.000"
         ],
         [
-          "Tahakkuk eden ödenmemiş faiz",
-          "12.500"
+          "Dönem Sonu Stok",
+          "60.000"
         ],
         [
-          "303 UZUN VADELİ KREDİLERİN ANAPARA TAKSİTLERİ VE FAİZLERİ hesabı aktarılacak toplam",
-          "197.500"
+          "Ortalama Stok",
+          "45.000"
+        ],
+        [
+          "Satılan Malın Maliyeti",
+          "405.000"
+        ],
+        [
+          "Stok Devir Hızı",
+          "9"
         ]
       ],
-      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=7",
+      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=8",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -12,
+        "kalan_gun": -13,
         "durum": "DONGU",
         "mail_gunu": false
       },
