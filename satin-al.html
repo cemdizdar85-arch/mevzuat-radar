@@ -815,6 +815,13 @@ function elciDenetle(){
   if(!elciAcik()) return;
   var ham = document.getElementById('elci').value, kod = elciTemizle(ham), sira = ++elciSira;
   elciIndirim = 0; kodTur = ''; otoKod = '';
+  /* 02.11 Cem ("999 TL tekliflerde hiçbir indirim kodu kullanılamasın"): Son 20 Gün paketlerinde kod kutusu yok, girilmiş kod
+     uygulanmaz (sunucu da reddeder: radar-app/sql/2026-11-02-son20-indirimsiz.sql) */
+  var s20 = !!(secili && /^son20-/.test(secili.id)), ka = document.getElementById('kodAc'), kk = document.getElementById('kodKutu');
+  if(ka) ka.hidden = s20 || (kk && !kk.hidden);
+  if(kk && s20) kk.hidden = true;
+  var kr = document.getElementById('kodRozet'); if(kr) kr.hidden = s20;
+  if(s20){ elciDurumYaz(ham.trim() ? '999 TL Son 20 Gün paketlerinde indirim kodu kullanılmaz.' : '', 'var(--amber)'); ozetCiz(); return; }
   if(!ham.trim()){
     var ek = (secili && typeof erkenKod === 'function') ? erkenKod(secili.id) : '';   /* 28.10: SGS Tam Paket + Yeterlilik tüm dersler */
     if(ek){ kod = otoKod = ek; }
