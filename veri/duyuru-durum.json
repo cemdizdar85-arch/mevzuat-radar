@@ -1,25 +1,25 @@
 {
-  "guncelleme": "02.11.2026 11:04",
+  "guncelleme": "02.11.2026 20:46",
   "kurumDurumlari": [
     {
       "kurum": "TESMER",
       "durum": "KIRMIZI",
       "linkSayisi": 0,
       "yeni": 0,
-      "hata": "Conversion from JSON failed with error: Unexpected character encountered while parsing value: <. Path '', line 0, position 0."
+      "hata": "Response status code does not indicate success: 403 (Forbidden)."
     },
     {
       "kurum": "KGK",
       "durum": "YESIL",
       "linkSayisi": 25,
-      "yeni": 1,
+      "yeni": 0,
       "hata": ""
     },
     {
       "kurum": "SGK",
       "durum": "YESIL",
       "linkSayisi": 6,
-      "yeni": 0,
+      "yeni": 1,
       "hata": ""
     },
     {
@@ -107,6 +107,7 @@
     "https://www.sgk.gov.tr/duyuru/detay/Bedeli-Odenecek-Ilaclar-Listesinde-Yapilan-Duzenlemeler-Hakkinda-Duyuru-202641-2026-10-21-04-46-33",
     "https://www.sgk.gov.tr/duyuru/detay/Bedeli-Odenecek-Ilaclar-Listesinde-Yapilan-Duzenlemeler-Hakkinda-Duyuru-202642-2026-10-28-08-31-43",
     "https://www.sgk.gov.tr/duyuru/detay/Danistay-Karari-Hakkinda-2026-08-10-01-52-37",
+    "https://www.sgk.gov.tr/duyuru/detay/Dinamik-Alim-Sisteminde-Kullanilacak-Munferit-Alim-Dokumani-Taslaklari-Hakkinda-2026-11-02-02-50-59",
     "https://www.sgk.gov.tr/duyuru/detay/e-Borcu-Yoktur-Sisteminin-Guncellenmesi-Hakkinda-Duyuru-2026-09-28-02-15-39",
     "https://www.sgk.gov.tr/duyuru/detay/Eczanelerden-Ilac-Teminine-Iliskin-Protokol-Hakkinda-2026-10-30-03-09-11",
     "https://www.sgk.gov.tr/duyuru/detay/Fatura-ve-Eki-Belgelerin-Is-ve-Islemleri-2026-09-21-04-22-33",
