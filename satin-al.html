@@ -644,14 +644,25 @@ function dersCiz(){
   kutu.style.display = 'block';
   dersSayacGuncelle();
 }
+var ACIK_DERS = [];   /* 03.11: girişli üyenin hesabında süren Yeterlilik dersleri (oturum okununca dolar) */
 function dersSayacGuncelle(){
-  var n = dersSayisi(secili), s = secilenDersler().length;
+  var n = dersSayisi(secili), kgk = !!(secili && secili.id.indexOf('kgk-') === 0);
   Array.prototype.forEach.call(document.querySelectorAll('#dersListe label'), function(l){
-    var i = l.querySelector('input');
+    var i = l.querySelector('input'), acik = !kgk && ACIK_DERS.indexOf(i.value) > -1;
+    if(acik && i.checked) i.checked = false;   /* zaten açık ders seçili gelmesin (?dersler= dahil) */
+    l.classList.toggle('acik-ders', acik);
+    var et = l.querySelector('.acik-et');
+    if(acik && !et){ et = document.createElement('small'); et.className = 'acik-et'; et.textContent = ' · ✓ zaten açık';
+      et.style.color = 'var(--green)'; et.style.fontWeight = '700'; l.querySelector('span').appendChild(et); }
+    if(!acik && et) et.remove();
+  });
+  var s = secilenDersler().length;
+  Array.prototype.forEach.call(document.querySelectorAll('#dersListe label'), function(l){
+    var i = l.querySelector('input'), acik = l.classList.contains('acik-ders');
     var dolu = (s >= n) && !i.checked;
-    l.classList.toggle('kapali', dolu);
+    l.classList.toggle('kapali', dolu || acik);
     l.classList.toggle('sec', i.checked);
-    i.disabled = dolu;                    /* tavana gelince digerleri kapanir */
+    i.disabled = dolu || acik;            /* tavana gelince digerleri kapanir · 03.11 açık ders seçilemez */
   });
   var sc = document.getElementById('dersSayac');
   if(sc){
@@ -1466,6 +1477,19 @@ btn.addEventListener('click', function(){
             '(siparişte yazdığın <b>' + esc(mail) + '</b> adresiyle giriş yap). Paketini göremiyorsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com.', false);
           return;
         }
+        /* 03.11 paket koruma (radar-app/sql/2026-11-03-paket-koruma.sql) */
+        if(kapiHatasi(r.error, 'DERS_ZATEN_ACIK')){
+          btn.disabled = false; adimSay('cift-ders');
+          goster('Sipariş verilmedi: <b>seçtiğin derslerden biri hesabında zaten açık</b>, onun için ikinci kez ödeme almıyoruz. ' +
+            'Listede "✓ zaten açık" yazan dersi bırakıp yalnız yeni dersi seç. Takılırsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com.', false);
+          return;
+        }
+        if(kapiHatasi(r.error, 'BASKA_SINAV_ACIK')){
+          btn.disabled = false; adimSay('baska-sinav');
+          goster('Sipariş verilmedi: <b>bu hesapta başka bir sınavın paketi açık</b>. Aynı hesapta iki sınav paketi şu an tutulamıyor; ödeme alırsak '
+            + 'açık paketin kapanırdı. Bu sınav için <b>başka bir e-postayla</b> hesap açıp alabilirsin ya da WhatsApp 0532 344 80 58 / destek@tetikte.com\'a yaz, birlikte çözelim.', false);
+          return;
+        }
         if(kapiHatasi(r.error, 'BEKLEYEN_SIPARIS')){
           adimSay('cift-bekleyen');
           var eski = bekleyenBul();
@@ -1517,6 +1541,13 @@ if(!KURULUM_TAMAM){
       document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok');
       return;
     }
+    /* 03.11 (Cem GM3): hesapta zaten açık Yeterlilik dersleri listede seçilemez ("✓ açık"); sunucu da DERS_ZATEN_ACIK ile reddeder */
+    try{ window.sb.from('paket_uyeler').select('paket,bitis,dersler').eq('user_id', u.id).then(function(p){
+      var bugun = new Date().toISOString().slice(0, 10);
+      ACIK_DERS = ((p && p.data) || []).filter(function(x){ return x.bitis >= bugun && /^yeterlilik-[1-7]$/.test(x.paket) && x.dersler && x.dersler.length; })
+        .reduce(function(a, x){ return a.concat(x.dersler); }, []);
+      if(ACIK_DERS.length) dersSayacGuncelle();
+    }, function(){}); }catch(e){}
     var m = document.getElementById('mail'); if(m){ m.value = u.email; m.readOnly = true; m.style.opacity = '.75'; }   /* sipariş e-postası = hesap e-postası */
     var md = u.user_metadata || {}, ad = md.full_name || md.name || ''; var a = document.getElementById('ad'); if(a && !a.value.trim() && ad) a.value = ad;
     var n = document.getElementById('oturumNot'); if(n){ n.textContent = '✓ Giriş yaptın: paketin ' + u.email + ' hesabına açılır.'; n.hidden = false; }
