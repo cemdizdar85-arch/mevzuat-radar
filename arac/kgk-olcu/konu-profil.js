@@ -102,7 +102,9 @@ function hedefTablo(grup, P) {
     sat.push(`      gerçek: ${h.ham} · bak: ${h.ornek} (cikmis-ara.js)`);
     // B30 kalıp karışımı (03.11): gerçekte bu konu hangi soru cümlesi kalıplarıyla soruldu · sitede hangileri var · önce hangisi yazılır
     const gk = kalipDag(P[k].sorular.map(x => x.kalip)), sk = (siteKalip().konu || {})[k] || {};
-    const eksik = Object.keys(gk).filter(x => gk[x] >= 2 && !sk[x]);  // tabloyla aynı tanım: gerçekte ≥2 kez (1 kez görülen kalıp hedef değil) const sTop = Object.entries(sk).sort((a, b) => b[1] - a[1])[0];
+    // tabloyla aynı tanım: gerçekte ≥2 kez görülen kalıp hedeftir (1 kez görülen değil)
+    const eksik = Object.keys(gk).filter(x => gk[x] >= 2 && !sk[x]);
+ const sTop = Object.entries(sk).sort((a, b) => b[1] - a[1])[0];
     sat.push(`      KALIP: gerçek ${kalipYaz(gk)} · sitede ${kalipYaz(sk) || '—'}${eksik.length ? ` · ÖNCE YAZ: ${eksik.map(x => KALIP_AD[x] || x).join(', ')}` : ''}${sTop && sTop[1] >= 3 ? ` · "${KALIP_AD[sTop[0]] || sTop[0]}" kalıbını EKLEME (sitede zaten ${sTop[1]})` : ''}`);
   }
   sat.push('', 'Kalıp harfleri: ' + Object.entries(KALIP_AD).map(([h, a]) => `${h} ${a}`).join(' · '));
