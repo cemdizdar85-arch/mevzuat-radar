@@ -1,8 +1,26 @@
 {
-  "tarih": "02.11.2026 01:30",
-  "rg_gun": "01-11-2026",
-  "kart": 4,
-  "etkilenen_dosya": 0,
+  "tarih": "03.11.2026 03:28",
+  "rg_gun": "03-11-2026",
+  "kart": 2,
+  "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": []
+  "uyarilar": [
+    {
+      "dosya": "veri/vergi-sabitleri.json",
+      "arac": "coklu (asgari ucret, kidem tavani, SGK esikleri)",
+      "kaynak_ad": "Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani",
+      "hasat": "elle kurulmus",
+      "eslesme_sayisi": 2,
+      "eslesmeler": [
+        {
+          "anahtar": "asgari ucret",
+          "kart_basligi": "Orman köylülerine vahidi fiyatla çalışma karşılığı ayni nakdi dağıtım yönetmeliği"
+        },
+        {
+          "anahtar": "asgari ucret",
+          "kart_basligi": "Avukatlık asgari ücret tarifesi yenilendi, mahkeme kararlarında uygulanacak"
+        }
+      ]
+    }
+  ]
 }

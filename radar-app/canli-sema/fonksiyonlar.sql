@@ -59,6 +59,7 @@ AS $function$
   select case when o.indirim_paket is not null then (o.indirim_paket ->> p_paket)::int else o.indirim_tl end
     from ozel_kod o
    where o.kod = upper(regexp_replace(coalesce(p_kod, ''), '[^A-Za-z0-9]', '', 'g'))
+     and lower(btrim(coalesce(p_paket, ''))) not in ('son20-sgs', 'son20-yet')   -- 02.11: 999 TL tekliflerde kod yok
      and o.iptal is null
      and o.son > now()
      and p_paket = any (o.paketler)
@@ -229,7 +230,11 @@ CREATE OR REPLACE FUNCTION public._siparis_isle(p_sid bigint, p_uid uuid, p_yol 
  SECURITY DEFINER
  SET search_path TO 'public'
 AS $function$
-declare s public.siparisler%rowtype; v_bitis date; v_eski public.paket_uyeler%rowtype; v_var boolean; v_ders text[];
+declare
+  tum_dersler constant text[] := array['Finansal Muhasebe', 'Maliyet Muhasebesi', 'Finansal Tablolar ve Analizi',
+    'Muhasebe Denetimi', 'Vergi Mevzuatı ve Uygulaması', 'Hukuk', 'Sermaye Piyasası Mevzuatı', 'Meslek Hukuku'];
+  s public.siparisler%rowtype; v_bitis date; v_eski public.paket_uyeler%rowtype; v_var boolean; v_ders text[];
+  v_birlesik text[]; v_paket text;
 begin
   if p_uid is null then return 'BOS'; end if;
   select * into s from public.siparisler where id = p_sid for update;
@@ -241,8 +246,25 @@ begin
   v_ders := case when s.paket ~ '^(yeterlilik-[1-4]|kgk-[1-3])$' then s.secilen_dersler else null end;
   -- KGK modül paketinde boş seçim = kasada "hepsi"; tek konu parasına dört konu açılmasın
   if s.paket ~ '^kgk-[1-3]$' and coalesce(array_length(v_ders, 1), 0) = 0 then return 'DERS_SECIMI_YOK'; end if;
-  select * into v_eski from public.paket_uyeler where user_id = p_uid;
+  select * into v_eski from public.paket_uyeler where user_id = p_uid for update;
   v_var := found;
+
+  -- 03.11: açık ders paketine yeni ders → birleştir (eski ders kapanmaz, yeni ders açılır)
+  if v_var and s.paket ~ '^yeterlilik-[1-4]$' and coalesce(array_length(v_ders, 1), 0) > 0
+     and v_eski.paket ~ '^yeterlilik-[1-7]$' and coalesce(array_length(v_eski.dersler, 1), 0) > 0
+     and v_eski.bitis >= current_date then
+    select array_agg(x order by coalesce(array_position(tum_dersler, x), 99), x) into v_birlesik
+      from (select distinct unnest(v_eski.dersler || v_ders) x) t;
+    if v_birlesik @> tum_dersler then v_paket := 'yeterlilik-tum'; v_birlesik := null;
+    else v_paket := 'yeterlilik-' || array_length(v_birlesik, 1); end if;
+    update public.paket_uyeler
+       set paket = v_paket, dersler = v_birlesik, bitis = greatest(v_eski.bitis, v_bitis)
+     where user_id = p_uid;
+    update public.siparisler set bagli_kullanici = p_uid, bagli_tarih = now(), bagli_yol = left(coalesce(p_yol, ''), 20)
+     where id = s.id and bagli_kullanici is null;
+    return case when v_ders <@ v_eski.dersler and v_eski.bitis >= v_bitis then 'ZATEN_ACIK' else 'ACILDI' end;
+  end if;
+
   if not (v_var and v_eski.paket = s.paket and v_eski.bitis >= v_bitis) then
     insert into public.paket_uyeler (user_id, paket, bitis, dersler)
       values (p_uid, s.paket, v_bitis, v_ders)
@@ -254,6 +276,22 @@ begin
    where id = s.id and bagli_kullanici is null;
   return case when v_var and v_eski.paket = s.paket and v_eski.bitis >= v_bitis then 'ZATEN_ACIK' else 'ACILDI' end;
 end $function$
+;
+
+-- _son20_indirimsiz()
+CREATE OR REPLACE FUNCTION public._son20_indirimsiz()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SET search_path TO 'public'
+AS $function$
+begin
+  if lower(btrim(coalesce(new.paket, ''))) in ('son20-sgs', 'son20-yet')
+     and (coalesce(new.indirim_tl, 0) > 0 or coalesce(new.ozel_kod_tl, 0) > 0 or coalesce(new.anlik_teklif_tl, 0) > 0) then
+    raise exception 'INDIRIM_YOK_SON20' using hint = '999 TL Son 20 Gün paketlerinde indirim kodu kullanılamaz.';
+  end if;
+  return new;
+end
+$function$
 ;
 
 -- _soz_hakki_kapi()
@@ -1137,6 +1175,7 @@ AS $function$
       join elci_indirim i on i.paket = p_paket
      where e.kod = upper(regexp_replace(coalesce(p_kod, ''), '[^A-Za-z0-9]', '', 'g'))
        and e.aktif
+       and lower(btrim(coalesce(p_paket, ''))) not in ('son20-sgs', 'son20-yet')   -- 02.11: 999 TL tekliflerde kod yok
   ), 0);
 $function$
 ;
