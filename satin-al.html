@@ -614,9 +614,14 @@ function dersCiz(){
     }).join('');
   })();
   document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : (n === 1 ? 'Hangi dersi açalım?' : 'Hangi sınav dersleri?');   /* 17.10: tek derste soru tekil */
-  document.getElementById('dersNot').innerHTML =
-    '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
-    + (kgk ? (n === 1 ? 'modüle' : 'modüllere') : (n === 1 ? 'derse' : 'derslere')) + ' açılır. <span id="dersSayac"></span>';
+  /* 03.11 (Cem "2 yap"): sitedeki kilitli dersten "paketine ekle" ile gelen üye (?ekle=1) — ödeme dersleri birleştirir
+     (radar-app/sql/2026-11-03-ders-ekle-birlestir.sql): eski dersler kapanmaz */
+  var ekle = !kgk && new URLSearchParams(location.search).get('ekle') === '1';
+  document.getElementById('dersNot').innerHTML = ekle
+    ? '<b>Paketine ekleniyor:</b> şu an açık derslerin kapanmaz, seçtiğin ' + (n === 1 ? 'ders onlara eklenir' : 'dersler onlara eklenir')
+      + '. Zaten açık bir dersi yeniden seçme. <span id="dersSayac"></span>'
+    : '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
+      + (kgk ? (n === 1 ? 'modüle' : 'modüllere') : (n === 1 ? 'derse' : 'derslere')) + ' açılır. <span id="dersSayac"></span>';
   /* 13.10: KGK modülü sitede birden çok ders sayfasına karşılık gelir (fiyat-motoru.js KGK_MODUL_DERS); alıcı hangi
      sayfaların açılacağını modülün altında görür. Değer (value) yine modül adıdır; siparişe giden ders adları gönderimde açılır. */
   document.getElementById('dersListe').innerHTML = havuz.map(function(d){

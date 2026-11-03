@@ -82,6 +82,8 @@
       var ns=s==='yeterlilik'?setSay[d]||0:0;
       return '<section class="ec-ders"><h2>'+esc(d)+'</h2>'+(ns?'<p class="ec-set">'+ns+' test · '+(ns*20)+' soru · sınavda daha çok puan getiren konu önde</p>':'')+'<ol>'+L.map(function(k){ return '<li>'+esc(k.konu)+' <small>· son 10 yılda '+(+k.donem||0)+' sınavda soruldu</small></li>'; }).join('')+'</ol>'
         +(ac?'<a class="ec-dug" href="'+esc(A.git(d))+'">Bu dersten sık konu sorularını çöz →</a>'
+            /* 03.11 Cem "2 yap": ders paketi olan Yeterlilik üyesi kilitli dersi doğrudan ekler (satın al o ders seçili gelir) */
+            :(pk&&s==='yeterlilik')?'<a class="ec-dug kilit" href="'+esc('satin-al.html?paket=yeterlilik-1&ekle=1&dersler='+encodeURIComponent(d)+K)+'">🔒 Bu ders paketinde yok · paketine ekle →</a>'
             :'<a class="ec-dug kilit" href="'+esc(A.fiyat+K)+'">🔒 Pakete dahil'+(pk?' · bu ders paketinde yok':'')+'</a>')+'</section>';
     }).join('');
     $('ecNot').innerHTML=esc(v.not||'')+' <a href="'+A.kanit+'">Konu listesi ve kanıtı: hangi sınav, kaçıncı soru →</a>';

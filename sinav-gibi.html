@@ -248,7 +248,8 @@
      ?v= öncesi açılmış eski setlerde cevaplanmamış soru (kimlik listesi 11.10'dan beri yazılır). */
   /* havuz + görülen + ilerleme tek kaynak: ders-ilerleme.js (sorular.html karşılama kartı da aynısını sayar) */
   var DI=window.ttDersIlerleme;
-  function havuzAl(){ return DI?DI.havuzAl():Promise.resolve(null); }
+  var HAVUZ_K=null;   /* 03.11 kısa sınav: bütün derslerin havuzu (havuzAl sonucu) */
+  function havuzAl(){ return DI?DI.havuzAl().then(function(h){ if(h&&h.dersler) HAVUZ_K=h; return h; }):Promise.resolve(null); }
   function gorulen(){ return DI?DI.gorulen():{}; }
   function havuzDers(ders){ return DI?DI.ders(ders):null; }
   function ilerleme(ders){ return DI?DI.ilerleme(ders):null; }
@@ -268,6 +269,58 @@
     return h;
   }
   function ozelListe(){ try{ return JSON.parse(localStorage.getItem('sg_ozel_liste')||'[]')||[]; }catch(e){ return []; } }
+  /* ---------- 03.11 KISA SINAV (Cem "1 yap": tek ya da iki ders alan da karışık kısa sınav çözebilsin; uygulamadaki
+     mobil/uygulama/uygulama-karma.js'in sitedeki karşılığı) ----------
+     Paketindeki derslerden KARIŞIK 10 ya da 20 soru: dersler arasında sırayla birer soru (dağılım dengeli), her derste önce
+     hiç görmediğin (havuz + görülen = sana özel denemeyle aynı kaynak), sonra en eski gördüğün. Süre soru başı 90 sn (uygulama
+     ile aynı). Karne ders ders; puan/baraj yazmaz (baraj ders başına, karışık sette anlamsız), Deneme karnesine girmez
+     (ozet.ders boş). Set yalnız kimlik; içerik kasadan, paketinde olmayan ders zaten gelmez (kasa kuralı).
+     🚫 GÖRMEZ: havuzda olmayan (sitede yayında olmayan) soru · başka cihazda çözülüp bu cihaza eşitlenmemiş ders sayfası cevabı. */
+  var KISA_SN=90;
+  function kisaDersler(){
+    var H=HAVUZ_K;
+    return (H&&H.dersler?Object.keys(H.dersler):[]).filter(function(d){ return dersVar(d)&&H.dersler[d].sorular&&H.dersler[d].sorular.length; });
+  }
+  function kisaBlok(){
+    if(TUR!=='ders'||SINAV!=='smmm'||PAKET_DERS===undefined) return '';
+    var L=kisaDersler(); if(!L.length) return '';
+    var h='<h3 class="sg-set-ders" id="kisa">⚡ Kısa sınav</h3><p class="sg-ilerleme">'+(L.length>1?'Paketindeki <b>'+L.length+' dersten</b> karışık sorular, dersler sırayla gelir':'Paketindeki dersten karışık konulardan sorular')
+      +'; önce hiç görmediklerin. Soru başı 90 saniye. Bitince ders ders karnen.</p>';
+    [10,20].forEach(function(n){ h+='<button type="button" class="sg-set sg-ozel" data-kisa="'+n+'"><b>⚡ Kısa sınav · '+n+' soru</b><small>'+n+' soru · '+Math.round(n*KISA_SN/60)+' dk</small>'
+      +'<span class="sg-durum">'+(L.length>1?L.length+' dersten karışık':esc(L[0]))+'</span></button>'; });
+    ozelListe().filter(function(x){ return x.kisa; }).slice(-2).forEach(function(x){
+      var d=oku(x.no), s=null; try{ s=JSON.parse(localStorage.getItem('sg_ozel_set_'+x.no)||'null'); }catch(e){} if(!s) return;
+      h+='<button type="button" class="sg-set" data-no="'+esc(x.no)+'"><b>Kısa sınav · '+new Date(x.t).toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+'</b><small>'+s.toplam+' soru · '+s.sure_dk+' dk</small>'
+        +(d&&d.bitti?'<span class="sg-durum bitti">Bitti · '+d.sonuc.dogru+' doğru</span>':d?'<span class="sg-durum">Devam et · '+Object.keys(d.cevap||{}).length+'/'+s.toplam+' · '+sure(d.kalanSn)+' kaldı</span>':'')+'</button>'; });
+    return h;
+  }
+  function kisaBaslat(adet){
+    Promise.all([havuzAl(), DI&&DI.hesapAl?DI.hesapAl():null]).then(function(){
+      var L=kisaDersler(); if(!L.length){ alert('Kısa sınav şu an kurulamadı. Sayfayı yenileyip yeniden dene.'); return; }
+      var g=gorulen(), kuyruk={};
+      L.forEach(function(ad){ var h=HAVUZ_K.dersler[ad];
+        var liste=h.sorular.map(function(r){ return {id:r[0], konu:h.konular[r[1]]||'', sira:r[2], ders:ad, sayfa:h.sayfa}; });
+        var y=liste.filter(function(q){ return !g[String(q.id)]; }), e=liste.filter(function(q){ return g[String(q.id)]; }).sort(function(a,b){ return g[String(a.id)]-g[String(b.id)]; });
+        for(var i=y.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=y[i]; y[i]=y[j]; y[j]=t; }   /* görülmemişler karışık */
+        kuyruk[ad]={q:y.concat(e), yeni:y.length}; });
+      var sira=L.slice(); for(var i=sira.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=sira[i]; sira[i]=sira[j]; sira[j]=t; }
+      var sec=[], yeni=0;
+      while(sec.length<adet&&sira.some(function(d){ return kuyruk[d].q.length; })){
+        sira.forEach(function(d){ if(sec.length<adet&&kuyruk[d].q.length){ var q=kuyruk[d].q.shift(); if(!g[String(q.id)]) yeni++; sec.push(q); } }); }
+      for(var k=sec.length-1;k>0;k--){ var m=Math.floor(Math.random()*(k+1)), u=sec[k]; sec[k]=sec[m]; sec[m]=u; }
+      if(!sec.length){ alert('Bu seçimle soru bulunamadı.'); return; }
+      var no='oz-'+Date.now().toString(36);
+      var set={ no:no, baslik:'Kısa sınav · '+(L.length>1?L.length+' ders':L[0]), sure_dk:Math.max(5,Math.round(sec.length*KISA_SN/60)), toplam:sec.length, ders:'', kisa:true,
+        ozel:{yeni:yeni, tekrar:false, kisa:true},
+        sorular:sec.map(function(q,i){ return {n:i+1, id:q.id, bolum:'Kısa sınav', ders:q.ders, konu:q.konu, sayfa:q.sayfa, sira:q.sira}; }) };
+      set.t=Date.now(); hesabaKuyruk('sg_ozel_set_'+no, set);
+      try{ window.ttSay&&window.ttSay('deneme/kisa/'+sec.length,'Sınav gibi: kısa sınav kuruldu'); }catch(e){}
+      try{ localStorage.setItem('sg_ozel_set_'+no, JSON.stringify(set));
+        var l=ozelListe().filter(function(x){ try{ return !!localStorage.getItem('sg_ozel_set_'+x.no); }catch(e){ return false; } });
+        l.push({no:no, ders:'', baslik:set.baslik, t:Date.now(), kisa:true}); localStorage.setItem('sg_ozel_liste', JSON.stringify(l.slice(-30))); }catch(e){}
+      setAc(no);
+    });
+  }
   /* sec: {ders, adet, konu?, ids?, baslik} → set kurulur, cihaza (yalnız kimlik) yazılır, açılır */
   function ozelBaslat(sec){
     Promise.all([havuzAl(), DI&&DI.hesapAl?DI.hesapAl():null]).then(function(){
@@ -366,7 +419,7 @@
           try{ yerel=JSON.parse(localStorage.getItem(k)||'null'); }catch(e){}
           if(!yerel||(+v.t||0)>(+yerel.t||0)){ try{ localStorage.setItem(k, JSON.stringify(v)); degisti=true; }catch(e){} }
           var oz=/^sg_ozel_set_(oz-[a-z0-9]+)$/.exec(k);
-          if(oz){ var l=ozelListe(); if(!l.some(function(x){ return x.no===oz[1]; })){ l.push({no:oz[1], ders:v.ders, baslik:v.baslik, t:+v.t||Date.now()});
+          if(oz){ var l=ozelListe(); if(!l.some(function(x){ return x.no===oz[1]; })){ l.push({no:oz[1], ders:v.ders, baslik:v.baslik, t:+v.t||Date.now(), kisa:!!v.kisa});
             try{ localStorage.setItem('sg_ozel_liste', JSON.stringify(l.slice(-30))); }catch(e){} degisti=true; } } });
         /* bu tarayıcıdaki yarım (ya da son 14 günde biten) kayıtlar hesapta yoksa / eskiyse hesaba */
         try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(!/^sg_(sgs|smmm|kgk|ozel_set)_/.test(k||'')) continue;
@@ -396,22 +449,29 @@
     /* 18.10 Cem ("üye olanlar toplu sınav bastığında gelsin"): toplu deneme ve ders denemesi listesinin en üstünde
        "en çok çıkan konulardan sorular" girişi (ayrı sayfa, ders ders). Sık konu sayfasının kendisinde çizilmez. */
     var sikTanit=TUR==='sik'?'':'<a class="sg-sik-tanit" href="en-cok-cikan-sorular.html?sinav='+(SINAV==='smmm'?'yeterlilik':'sgs')+'"><span aria-hidden="true">🎯</span><span><b>Sınavda en çok çıkan konulardan sorular</b><small>Ders ders 20 soru · son 10 yılın çıkmış soruları okunarak seçilen konular</small></span><em>Ders ders gör →</em></a>';
-    $('sgSetler').innerHTML=sikTanit+yarim+(TUR==='sik'&&SINAV==='sgs'?sikDersBlok():'')+liste.map(function(s){
+    /* 03.11: ders paketi olan üye (PAKET_DERS dizi) kilitli derse dokununca o ders seçili satın almaya gider (eklemeli) */
+    var ekle=Array.isArray(PAKET_DERS)&&PAKET_DERS.length>0;
+    var kisa=kisaBlok();
+    $('sgSetler').innerHTML=sikTanit+yarim+kisa+(TUR==='sik'&&SINAV==='sgs'?sikDersBlok():'')+liste.map(function(s){
       var top=s.toplam||DIZIN.toplam_soru, d=oku(s.no), durum='', alt=top+' soru · '+(s.sure_dk||DIZIN.sure_dk)+' dk', kilit=!dersVar(s.ders);
-      if(kilit){ durum='<span class="sg-durum kilit">🔒 Bu ders paketinde yok</span>'; }
+      if(kilit){ durum='<span class="sg-durum kilit">🔒 Bu ders paketinde yok'+(ekle?' · paketine ekle →':'')+'</span>'; }
       else if(d&&d.bitti){ durum='<span class="sg-durum bitti">Bitti · '+d.sonuc.dogru+' doğru</span>'; }
       else if(d){ var n=Object.keys(d.cevap||{}).length; durum='<span class="sg-durum">Devam et · '+n+'/'+top+' · '+sure(d.kalanSn)+' kaldı</span>'; }
       var bas=''; if(s.ders&&s.ders!==oncekiDers){ bas='<h3 class="sg-set-ders" data-ders="'+esc(trk(s.ders))+'">'+esc(s.ders)+'</h3>'; oncekiDers=s.ders;
         /* 11.10: ders denemesinde açık dersin başında ilerleme + sana özel deneme + yarım kalan özel setler */
         if(TUR==='ders'&&!kilit) bas+=ozelBlok(s.ders); }
       var ad=s.ders?String(s.baslik||'').replace(/^.* · /,''):'Set '+s.no;
-      return bas+'<button type="button" class="sg-set'+(kilit?' kilitli':'')+'" data-no="'+s.no+'"'+(kilit?' data-kilit="1"':'')+'><b>'+esc(ad)+'</b><small>'+alt+'</small>'+durum+'</button>';
+      return bas+'<button type="button" class="sg-set'+(kilit?' kilitli':'')+'" data-no="'+s.no+'"'+(kilit?' data-kilit="'+esc(s.ders||'1')+'"':'')+'><b>'+esc(ad)+'</b><small>'+alt+'</small>'+durum+'</button>';
     }).join('');
     $('sgSetler').querySelectorAll('.sg-set').forEach(function(b){ b.addEventListener('click',function(){
-      if(b.getAttribute('data-kilit')){ location.href='satin-al.html?paket=yeterlilik-1'; return; }
+      var kd=b.getAttribute('data-kilit');
+      if(kd){ location.href='satin-al.html?paket=yeterlilik-1'+(ekle&&kd!=='1'?'&ekle=1&dersler='+encodeURIComponent(kd):''); return; }
+      if(b.getAttribute('data-kisa')){ kisaBaslat(+b.getAttribute('data-kisa')); return; }
       if(b.getAttribute('data-sikders')){ sikDersBaslat(b.getAttribute('data-sikders')); return; }
       if(b.getAttribute('data-ozel')){ ozelBaslat({ders:b.getAttribute('data-ozel'), adet:20, baslik:b.getAttribute('data-ozel')+' · Sana özel deneme'}); return; }
       var no=b.getAttribute('data-no'); setAc(/^(oz|es)-/.test(no)?no:+no); }); });
+    /* 03.11: sorular.html "⚡ Kısa sınav" bağlantısı (#kisa) → blok çizilince bir kez oraya kaydır */
+    if(kisa&&location.hash==='#kisa'&&!setleriCiz.kisaGitti&&$('kisa')){ setleriCiz.kisaGitti=true; $('kisa').scrollIntoView({block:'start'}); }
     if(DIZIN.not){ $('sgNot').innerHTML=esc(DIZIN.not)+(DIZIN.liste_sayfa?' <a href="'+esc(DIZIN.liste_sayfa)+'">Konu listesi ve kanıtı →</a>':''); return; }
     $('sgNot').textContent='Sorular, sitedeki onaylı soru havuzundan resmî ders dağılımıyla ('+DIZIN.dagilim_ad+') seçildi; setler arasında aynı soru yok. '
       +DIZIN.sira_notu+' Süre: '+DIZIN.sure_kaynak+'. '+DIZIN.degerlendirme+' Bu yüzden burada puan değil doğru sayısı gösterilir.';
@@ -540,7 +600,8 @@
     DURUM.bitti=true; DURUM.sureDoldu=!!sureDoldu; DURUM.bitis=new Date().toISOString();
     DURUM.sonuc={dogru:dogru,yanlis:yanlis,bos:bos};
     /* 11.10: Hesabım "Deneme karnem" bu özeti hesaba aktarır (ogrenci.html cihazSonuclari) */
-    DURUM.ozet={tur:SET.ozel?'ozel':(TUR||'set'), ders:SET.ders||(SET.sorular[0]&&SET.sorular[0].ders)||'', baslik:SET.baslik||('Set '+SET.no),
+    /* 03.11: kısa sınav karışık → ders boş: Deneme karnesine / ogrenci_sonuc'a girmez (ders başı puan değil) */
+    DURUM.ozet={tur:SET.kisa?'kisa':SET.ozel?'ozel':(TUR||'set'), ders:SET.kisa?'':(SET.ders||(SET.sorular[0]&&SET.sorular[0].ders)||''), baslik:SET.baslik||('Set '+SET.no),
       toplam:SET.toplam, tekrar:!!(SET.ozel&&SET.ozel.tekrar), puanli:DIZIN.puan==='yeterlilik'};
     /* 11.10 (GM 1.2.3): en çok kaçırılan konu (eşitlikte setteki ilk geçiş) → Hesabım + haftalık karne maili */
     var kc={}, ks=[]; SET.sorular.forEach(function(q){ if(!q.konu) return; if(kc[q.konu]==null){ kc[q.konu]=0; ks.push(q.konu); } if(DURUM.cevap[q.id]!==q.dogru) kc[q.konu]++; });
@@ -585,11 +646,12 @@
   function sonucCiz(){
     var r=DURUM.sonuc, harc=SET.sure_dk*60-Math.max(0,DURUM.kalanSn);
     $('sgSonucBaslik').textContent=(SET.baslik||('Set '+SET.no))+' · sonuç';
-    $('sgSonucAlt').textContent=(DURUM.sureDoldu?'Süre doldu, sınav kendiliğinden bitti. ':'')+(DIZIN.sonuc_alt||'Staja Giriş\'te yanlış doğruyu götürmez ve puan bağıl hesaplanır; bu yüzden burada puan değil doğru sayısı var.');
+    $('sgSonucAlt').textContent=(DURUM.sureDoldu?'Süre doldu, sınav kendiliğinden bitti. ':'')+(SET.kisa?'Kısa sınavda dersler karışık; Yeterlilik puanı ve baraj ders başına hesaplandığı için burada doğru sayısı var.':DIZIN.sonuc_alt||'Staja Giriş\'te yanlış doğruyu götürmez ve puan bağıl hesaplanır; bu yüzden burada puan değil doğru sayısı var.');
     var puanKutu='';
-    if(DIZIN.puan==='yeterlilik'){ var pn=Math.max(0,(r.dogru-r.yanlis/4)*100/SET.toplam); puanKutu='<div><b>'+(Math.round(pn*100)/100).toLocaleString('tr-TR')+'</b><span>puan · baraj 50 '+(pn>=50?'✓':'✗')+'</span></div>'; }
+    if(DIZIN.puan==='yeterlilik'&&!SET.kisa){ var pn=Math.max(0,(r.dogru-r.yanlis/4)*100/SET.toplam); puanKutu='<div><b>'+(Math.round(pn*100)/100).toLocaleString('tr-TR')+'</b><span>puan · baraj 50 '+(pn>=50?'✓':'✗')+'</span></div>'; }
     $('sgSkor').innerHTML=puanKutu+'<div><b>'+r.dogru+'</b><span>doğru / '+SET.toplam+'</span></div><div><b>'+r.yanlis+'</b><span>yanlış</span></div><div><b>'+r.bos+'</b><span>boş</span></div><div><b>'+sure(harc)+'</b><span>kullanılan süre</span></div>';
-    var ders={}, sira=[], alan=DIZIN.karne==='konu'?'konu':'ders';
+    var ders={}, sira=[], alan=(DIZIN.karne==='konu'&&!SET.kisa)?'konu':'ders';   /* 03.11 kısa sınav: karışık set, karne ders ders */
+    $('sgKarneBaslik').textContent=alan==='konu'?'Konu konu':'Ders ders';
     SET.sorular.forEach(function(q){
       var a=q[alan]||q.ders;
       if(!ders[a]){ ders[a]={ad:a,soru:0,dogru:0,yanlis:0,bos:0}; sira.push(a); }
@@ -617,6 +679,18 @@
      yanlış + boşları yeniden çöz · yeni sana özel deneme. Puan baraja göre tek cümle. */
   function yonlendirCiz(satir, r){
     var el=$('sgYon'); el.innerHTML='';
+    /* 03.11 kısa sınav: en zayıf ders → o dersten sana özel deneme · yeni kısa sınav */
+    if(SET.kisa){
+      var zd=satir.filter(function(d){ return d.oran<100; }).sort(function(a,b){ return (a.oran-b.oran)||(b.soru-a.soru); })[0], n=SET.toplam;
+      el.innerHTML='<div class="sg-yon"><h2>🧭 Nöbetçi\'nin önerisi</h2>'
+        +(zd?'<p><b>'+esc(zd.ad)+'</b> dersinde zorlandın: '+zd.soru+' sorudan '+zd.dogru+' doğru. Şimdi bu dersten 20 soruluk sana özel deneme çöz; önce hiç görmediklerin gelir.</p>'
+            :'<p>Bu kısa sınavda yanlışın yok. Sıradaki adım: yeni bir kısa sınav ya da ders denemesi.</p>')
+        +'<div class="sg-dugmeler">'+(zd?'<button class="sg-btn ana" type="button" data-yon="ders">'+esc(zd.ad)+': sana özel deneme →</button>':'')
+        +'<button class="sg-btn'+(zd?'':' ana')+'" type="button" data-yon="kisa">Yeni kısa sınav ('+n+' soru) →</button></div></div>';
+      el.querySelectorAll('[data-yon]').forEach(function(b){ b.addEventListener('click',function(){
+        if(b.getAttribute('data-yon')==='ders') ozelBaslat({ders:zd.ad, adet:20, baslik:zd.ad+' · Sana özel deneme'}); else kisaBaslat(n); }); });
+      return;
+    }
     if(SINAV!=='smmm'||DIZIN.karne!=='konu') return;
     var ders=SET.ders||(SET.sorular[0]&&SET.sorular[0].ders); if(!ders) return;
     var setNo=SET.no;

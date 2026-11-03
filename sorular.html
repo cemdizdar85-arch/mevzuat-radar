@@ -424,7 +424,8 @@
        kart yalnız devam (ya da Son 20 Gün) olur. Ziyaretçide büyük kalır (paketin içini gösteren kanca). */
     if((s20Ana||PAKET[s.kod])&&sikKart) sikKart='<a class="sc-ince" href="en-cok-cikan-sorular.html?sinav='+sikSinav+'"><span>🎯 <b>Sınavda en çok çıkan konulardan sorular</b> · ders ders</span><span class="sc-ince-git">Gör →</span></a>';
     var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'+(sikSinav?'<a href="en-cok-cikan-sorular.html?sinav='+sikSinav+'">🎯 En çok çıkanlar</a>':'')
-      +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
+      +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')
+      +(s.kod==='smmm'&&PAKET[s.kod]?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm#kisa">⚡ Kısa sınav</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
     var kars=karsilamaKart(s, acik);   /* ders seçimli pakette karşılama devam + deneme kartının yerine geçer */
     /* 18.10 Cem ("sınava gir değil soru çöz diyelim, içinde sınav olsun; ders ders ve toplu sınavı aynı yerde görsün"):
        rakip kalıbı (konu konu çalış + tam deneme yan yana): solda dersler, sağda sabit DENEME PANELİ (setler tek bakışta).
@@ -513,7 +514,9 @@
         var L=grup[ders], ac=pk&&(!paketD||paketD.indexOf(trk(ders))>-1), bt=0, dv=null;
         L.forEach(function(x){ var d=sgOku('sg_smmm_ders_'+x.no+(dd.surum?'_'+dd.surum:'')); if(d&&d.bitti) bt++; else if(d&&!dv) dv=x.no; });
         return '<div class="sc-pders"><span><b>'+esc(ders)+'</b><small>'+L.length+' deneme'+(bt?' · '+bt+' bitti':'')+(dv?' · yarım var':'')+'</small></span>'
-          +(ac?'<a class="sc-pkucuk" href="sinav-gibi.html?tur=ders&amp;sinav=smmm&amp;ders='+encodeURIComponent(ders)+'">'+(dv?'Devam':bt?'Sıradaki':'Başla')+'</a>':'<span class="sc-pkilit">🔒</span>')+'</div>';
+          /* 03.11 Cem "2 yap": paketli üyede kilitli ders "paketine ekle" (satın al o ders seçili; ödeme dersleri birleştirir, 2026-11-03-ders-ekle-birlestir.sql) */
+          +(ac?'<a class="sc-pkucuk" href="sinav-gibi.html?tur=ders&amp;sinav=smmm&amp;ders='+encodeURIComponent(ders)+'">'+(dv?'Devam':bt?'Sıradaki':'Başla')+'</a>'
+            :pk?'<a class="sc-pkucuk" href="satin-al.html?paket=yeterlilik-1&amp;ekle=1&amp;dersler='+encodeURIComponent(ders)+'" title="Bu dersi paketine ekle">🔒 Ekle</a>':'<span class="sc-pkilit">🔒</span>')+'</div>';
       }).join('');
       /* Yeterlilik puanı: (D − Y÷4) × 100 ÷ soru (sinav-gibi ile aynı formül; baraj 50) */
       var puanH=function(d){ var t=(+d.sonuc.dogru||0)+(+d.sonuc.yanlis||0)+(+d.sonuc.bos||0)||20; return Math.max(0,Math.round(((+d.sonuc.dogru||0)-(+d.sonuc.yanlis||0)/4)*1000/t)/10); };
@@ -523,7 +526,8 @@
         +(S20D.yet?'<p class="sc-s20-not">Alıştırma denemesi, Son 20 Gün sözüne sayılmaz.</p>':'')+son2
         +'<div class="sc-cipler"><span>20 soru</span><span>45 dakika</span><span>baraj 50</span></div>'
         +'<p class="sc-palt" style="margin-top:0">Gerçek sınavda her ders ayrı bir oturum; burada da öyle. Yanlış doğrunun 0,25\'ini götürür.</p>'
-        +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" href="en-cok-cikan-sorular.html?sinav=yeterlilik">En çok çıkan konulardan sorular · ders ders →</a>':kilitA)+'</div>';
+        +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" style="display:block" href="sinav-gibi.html?tur=ders&amp;sinav=smmm#kisa">⚡ Kısa sınav: paketindeki derslerden karışık 10 ya da 20 soru →</a>'
+          +'<a class="sc-plink" href="en-cok-cikan-sorular.html?sinav=yeterlilik">En çok çıkan konulardan sorular · ders ders →</a>':kilitA)+'</div>';
     }
     return '';
   }
