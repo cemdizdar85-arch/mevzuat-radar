@@ -93,7 +93,7 @@ function hedef(konu, P) {
 }
 function hedefTablo(grup, P) {
   const konular = oku(path.join(IS, 'konu', grup + '.json')); const sat = [];
-  sat.push(`KONU PROFİLİ — ${grup} (konu-profil.js; gerçek = çıkmış KGK 2018+). Her konunun 3 sorusu (kolay/zor/çok zor) BU KARIŞIMI tutar:`);
+  sat.push(`KONU PROFİLİ — ${grup} (konu-profil.js; gerçek = çıkmış KGK 2016+, metin↔konu bağı içerikle, kalıp elle etiket). Her konunun 3 sorusu (kolay/zor/çok zor) BU KARIŞIMI tutar:`);
   for (const k of konular) {
     const h = hedef(k, P);
     if (!h) { sat.push(`  ${k} → çıkmışta <${ESIK_N} soru: ders hedefi (BRIF-BITIS §1) geçerli`); continue; }
@@ -102,7 +102,7 @@ function hedefTablo(grup, P) {
     sat.push(`      gerçek: ${h.ham} · bak: ${h.ornek} (cikmis-ara.js)`);
     // B30 kalıp karışımı (03.11): gerçekte bu konu hangi soru cümlesi kalıplarıyla soruldu · sitede hangileri var · önce hangisi yazılır
     const gk = kalipDag(P[k].sorular.map(x => x.kalip)), sk = (siteKalip().konu || {})[k] || {};
-    const eksik = Object.keys(gk).filter(x => !sk[x]); const sTop = Object.entries(sk).sort((a, b) => b[1] - a[1])[0];
+    const eksik = Object.keys(gk).filter(x => gk[x] >= 2 && !sk[x]);  // tabloyla aynı tanım: gerçekte ≥2 kez (1 kez görülen kalıp hedef değil) const sTop = Object.entries(sk).sort((a, b) => b[1] - a[1])[0];
     sat.push(`      KALIP: gerçek ${kalipYaz(gk)} · sitede ${kalipYaz(sk) || '—'}${eksik.length ? ` · ÖNCE YAZ: ${eksik.map(x => KALIP_AD[x] || x).join(', ')}` : ''}${sTop && sTop[1] >= 3 ? ` · "${KALIP_AD[sTop[0]] || sTop[0]}" kalıbını EKLEME (sitede zaten ${sTop[1]})` : ''}`);
   }
   sat.push('', 'Kalıp harfleri: ' + Object.entries(KALIP_AD).map(([h, a]) => `${h} ${a}`).join(' · '));
