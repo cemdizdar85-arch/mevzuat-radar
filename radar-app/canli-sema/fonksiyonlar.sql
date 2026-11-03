@@ -249,6 +249,13 @@ begin
   select * into v_eski from public.paket_uyeler where user_id = p_uid for update;
   v_var := found;
 
+  -- 03.11 (paket-koruma): başka sınavın süren paketi silinmez
+  if v_var and v_eski.bitis >= current_date and lower(v_eski.paket) not in ('tam', 'kurucu', 'yeterlilik-kgk')
+     and public._paket_sinavi(v_eski.paket) is not null and public._paket_sinavi(s.paket) is not null
+     and public._paket_sinavi(v_eski.paket) <> public._paket_sinavi(s.paket) then
+    return 'BASKA_SINAV_ACIK';
+  end if;
+
   -- 03.11: açık ders paketine yeni ders → birleştir (eski ders kapanmaz, yeni ders açılır)
   if v_var and s.paket ~ '^yeterlilik-[1-4]$' and coalesce(array_length(v_ders, 1), 0) > 0
      and v_eski.paket ~ '^yeterlilik-[1-7]$' and coalesce(array_length(v_eski.dersler, 1), 0) > 0
@@ -3299,12 +3306,30 @@ CREATE OR REPLACE FUNCTION public.siparis_cift_kapi()
  SECURITY DEFINER
  SET search_path TO 'public', 'auth'
 AS $function$
-declare v text;
+declare v text; v_ep text := lower(btrim(coalesce(new.email, ''))); v_aile text := public._paket_sinavi(new.paket); p record;
 begin
   v := public.siparis_cift_sebep(new.email, auth.uid(), new.paket, new.secilen_dersler, null);
   if v is not null then
     raise exception '%', v using hint = 'Bu paket hesabında zaten açık; ikinci kez ödeme alınmaz.';
   end if;
+  -- 03.11: hesabın süren paketi (uid ya da e-posta eşleşmesi)
+  for p in
+    select pu.paket, pu.dersler from public.paket_uyeler pu
+     where pu.bitis >= current_date
+       and (pu.user_id = auth.uid() or pu.user_id in (select u.id from auth.users u where v_ep <> '' and lower(u.email) = v_ep))
+  loop
+    if lower(p.paket) = 'yeterlilik-kgk' and v_aile in ('yeterlilik', 'kgk') then
+      raise exception 'PAKET_ZATEN_ACIK' using hint = 'Yeterlilik + KGK paketin açık; bu sınav zaten içinde.';
+    end if;
+    if v_aile is not null and lower(p.paket) not in ('tam', 'kurucu', 'yeterlilik-kgk')
+       and public._paket_sinavi(p.paket) is not null and public._paket_sinavi(p.paket) <> v_aile then
+      raise exception 'BASKA_SINAV_ACIK' using hint = 'Bu hesapta başka bir sınavın paketi açık; aynı hesapta iki sınav paketi şu an tutulamıyor.';
+    end if;
+    if new.paket ~ '^yeterlilik-[1-4]$' and p.paket ~ '^yeterlilik-[1-7]$'
+       and coalesce(array_length(p.dersler, 1), 0) > 0 and coalesce(new.secilen_dersler, array[]::text[]) && p.dersler then
+      raise exception 'DERS_ZATEN_ACIK' using hint = 'Seçtiğin derslerden biri hesabında zaten açık.';
+    end if;
+  end loop;
   if exists (
     select 1 from public.siparisler s
      where lower(s.email) = lower(btrim(coalesce(new.email, ''))) and s.durum = 'odeme_bekliyor'
