@@ -3,9 +3,9 @@
 > Türetilmiştir (`arac/kgk-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (24 sınav). Eski genel muhasebe konuları hedef dışı. Genel Hukuk (2022'den beri sınavda yok) sayılmaz.
 > Eşleme sözlüğü: `veri/sinav/kgk-konu-es.json`. Tam liste: `veri/fabrika/kgk-konu-kapsama.csv`.
 
-Sitede (paket_soru, sinav=kgk): **1.883** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
+Sitede (paket_soru, sinav=kgk): **1.829** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
 
-**TOPLAM: hedef 4.229 · sitede 1.883 · EKSİK 2.565** (1.893 konu)
+**TOPLAM: hedef 4.229 · sitede 1.829 · EKSİK 2.617** (1.893 konu)
 
 | Modül | Hedefli konu | Son 10 yılda çıkan | Hedef | Sitede | EKSİK | VAR | AZ | Hiç yok (2+ sınav) | Hiç yok (1 sınav) | Eski muhasebe konusu |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -13,7 +13,7 @@ Sitede (paket_soru, sinav=kgk): **1.883** soru · konu kümesi: 2.440 · sözlü
 | b) Türkiye Denetim Standartları | 355 | 830 | 830 | 427 | **415** | 51 | 66 | 49 | 189 | 0 |
 | c) Finansal Yönetim | 260 | 636 | 636 | 320 | **383** | 83 | 67 | 17 | 93 | 0 |
 | ç) Sermaye Piyasası Mevzuatı | 200 | 484 | 484 | 187 | **301** | 13 | 55 | 27 | 105 | 0 |
-| d) Bankacılık Mevzuatı | 198 | 465 | 465 | 159 | **311** | 7 | 41 | 44 | 106 | 0 |
+| d) Bankacılık Mevzuatı | 198 | 465 | 465 | 105 | **363** | 3 | 42 | 47 | 106 | 0 |
 | e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 124 | **300** | 15 | 25 | 46 | 145 | 0 |
 | c) Kurumsal Yönetim | 104 | 254 | 254 | 119 | **150** | 31 | 26 | 6 | 41 | 0 |
 | f) Sürdürülebilirlik Raporlaması | 139 | 226 | 226 | 69 | **164** | 15 | 13 | 15 | 96 | 0 |
@@ -25,8 +25,8 @@ Sitede (paket_soru, sinav=kgk): **1.883** soru · konu kümesi: 2.440 · sözlü
 
 ## Eksik — sıklık katmanı (plan bu sırayla kurulur)
 
-- Hedefi 5+ soru olan konular: **186 konu / 774 soru**
-- Hedefi 2–4 soru: 443 konu / 862 soru
+- Hedefi 5+ soru olan konular: **190 konu / 824 soru**
+- Hedefi 2–4 soru: 443 konu / 864 soru
 - Hedefi 1 soru: 929 konu / 929 soru
 
 ## En büyük 40 eksik
@@ -59,8 +59,11 @@ Sitede (paket_soru, sinav=kgk): **1.883** soru · konu kümesi: 2.440 · sözlü
 | a) Türkiye Muhasebe Standartları | tfrs 5 satis amacli varlik olcumu | 8 / 8 | 0 | 8 |
 | ç) Sermaye Piyasası Mevzuatı | sermaye piyasasi kurumlari | 12 / 12 | 5 | 7 |
 | a) Türkiye Muhasebe Standartları | tms 21 kur farki | 9 / 9 | 2 | 7 |
+| d) Bankacılık Mevzuatı | kredi sinirlari | 10 / 9 | 3 | 7 |
 | a) Türkiye Muhasebe Standartları | kavramsal çerçeve niteliksel özellikler | 9 / 8 | 2 | 7 |
 | c) Finansal Yönetim | tahvil degerleme | 10 / 8 | 3 | 7 |
+| d) Bankacılık Mevzuatı | banka bagimsiz denetimi | 8 / 8 | 1 | 7 |
+| d) Bankacılık Mevzuatı | kredi acma yetkisi | 8 / 8 | 1 | 7 |
 | a) Türkiye Muhasebe Standartları | tms 1 asgari kalemler | 7 / 7 | 0 | 7 |
 | a) Türkiye Muhasebe Standartları | tms 1 finansal tabloların sunuluşu | 7 / 7 | 0 | 7 |
 | c) Finansal Yönetim | likidite oranlari | 10 / 7 | 3 | 7 |
@@ -70,6 +73,3 @@ Sitede (paket_soru, sinav=kgk): **1.883** soru · konu kümesi: 2.440 · sözlü
 | c) Kurumsal Yönetim | denetimden sorumlu komite | 8 / 7 | 2 | 6 |
 | a) Türkiye Muhasebe Standartları | tfrs 10 grup içi satış eliminasyonu | 7 / 5 | 1 | 6 |
 | a) Türkiye Muhasebe Standartları | tms 1 kapsamli gelir | 6 / 5 | 0 | 6 |
-| ç) Sermaye Piyasası Mevzuatı | yatirimci tazmin merkezi | 11 / 10 | 6 | 5 |
-| a) Türkiye Muhasebe Standartları | tms 36 deger dusuklugu hesaplama | 8 / 8 | 3 | 5 |
-| c) Kurumsal Yönetim | menfaat sahipleri | 8 / 8 | 3 | 5 |
