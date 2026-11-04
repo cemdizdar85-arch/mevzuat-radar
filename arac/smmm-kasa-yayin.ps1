@@ -34,6 +34,7 @@ $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $PSScriptRoot 'smmm-yayin-sarti.ps1')
 . (Join-Path $PSScriptRoot 'onay-yayin-durumu.ps1')   # 22.10 ONAY YAYIN KAPISI sınıflaması
+. (Join-Path $PSScriptRoot 'smmm-s20-ayrim.ps1')      # 05.11 Son 20 Gün deneme partisi bankaya girmez
 # ⭐ 01.11.2026 KART ÜSTÜ BAŞLIK KARTTAN (Ajan 30 ölçümü: 3.584 eşlemeli sorunun 1.054'ünde başlık kartla uyumsuz, 288 ASCII):
 #   ekrana giden `konu` = ders düzeltmesi kartı → banka eşlemesi konular[0] → ambar konusu. Ambara dokunulmaz; ikiz kapısı
 #   (IkizAnlamGrup) ambar konusunu kullanmaya DEVAM EDER. Ayrıntı + prova anahtarı (SMMM_KONU_KART_KAPALI) arac/smmm-konu-baslik.ps1.
@@ -83,6 +84,9 @@ $sartDisi = @{}   # 22.10: yayın şartından düşenler - ONAY YAYIN KAPISI bun
 foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
   $et = $f.BaseName -replace '^kalip-parti-', ''
   if ($et -match '(^|-)pilot\d*(-|$)') { continue }
+  # ⛔ 05.11.2026 SON 20 GÜN YETERLİLİK DENEMESİ BANKAYA GİRMEZ (Cem 04.11 gece). Yalnız yeni deneme etiketi (smmm-s20-<ders>-dN-…);
+  #   dalga-1'in 86 sorusu (-gN-/-k-) bankada kalır. Kural + öz-sınav: arac/smmm-s20-ayrim.ps1.
+  if (SmmmS20DenemeMi $et) { $dusen['s20 deneme (bankaya girmez)'] = 1 + [int]$dusen['s20 deneme (bankaya girmez)']; continue }
   $c = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach ($p in $c.PSObject.Properties) {
     $v = $p.Value; if (-not $v -or -not $v.PSObject.Properties['soru'] -or -not $v.soru) { continue }

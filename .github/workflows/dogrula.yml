@@ -250,6 +250,10 @@ jobs:
           # 6 vaka (3 dusur / 3 gecir: yayindaki eski soru, tarihsiz, yeni temiz) + bag + 4 mutasyon (30.09 olculdu). Node ister.
           - { ad: "KAPI-KALITE bitirme yayin sarti bagi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-kalite-bag-sinavi.ps1" }
+          # 05.11.2026 - Son 20 Gun Yeterlilik deneme partisi (smmm-s20-<ders>-dN-) normal bankaya girmez; dalga-1 etiketleri (-gN-/-k-) bankada kalir.
+          #   10 vaka; bozmalar kapali (6/10) ve genis (7/10) KIRMIZI (05.11 olculdu).
+          - { ad: "S20 deneme partisi banka ayrimi OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/smmm-s20-ayrim.ps1 -Sinav" }
           # 22.10.2026 - ONAY YAYIN KAPISI siniflamasi: yayin sartindan dusen onayli soru, eski ret kutugu kaydi yuzunden
           # "onaya ragmen ret" sayilmaz (21-22.10 bitirme kasa yayini 2 gun KIRMIZI: fmuh-zor-r7/kp-03). 7 vaka + 3 mutasyon.
           - { ad: "ONAY YAYIN KAPISI siniflama OZ-SINAVI",
