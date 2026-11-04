@@ -1,6 +1,6 @@
 # TOPLU KUYRUK HIZI — gönderildiği saate göre bekleme
 
-> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-11-04 11:24 · son 7 gün · biten parti 4953 · bedel 0
+> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-11-04 19:58 · son 7 gün · biten parti 5124 · bedel 0
 > Kaynak: Anthropic toplu parti kaydı (created_at → ended_at). Saat = partinin gönderildiği **TR** saati.
 > 🚫 Parti büyüklüğünü ayırmaz; yalnız bizim hesabımızın partilerine bakar.
 
@@ -18,21 +18,21 @@
 | 09:00 | 27 | 282 | 1 | 2 | 14 |
 | 10:00 | 75 | 363 | 2 | 2 | 6 |
 | 11:00 | 186 | 612 | 2 | 2 | 40 |
-| 12:00 | 315 | 771 | 2 | 2 | 110 |
+| 12:00 | 316 | 777 | 2 | 2 | 140 |
 | 13:00 | 234 | 687 | 1 | 2 | 35 |
-| 14:00 | 49 | 399 | 2 | 2 | 9 |
-| 15:00 | 72 | 312 | 1 | 2 | 3 |
-| 16:00 | 196 | 969 | 2 | 2 | 14 |
-| 17:00 | 142 | 299 | 1 | 2 | 3 |
-| 18:00 | 200 | 436 | 1 | 2 | 18 |
-| 19:00 | 221 | 463 | 1 | 2 | 8 |
-| 20:00 | 354 | 580 | 1 | 2 | 7 |
-| 21:00 | 465 | 1563 | 1 | 2 | 3 |
-| 22:00 | 403 | 2631 | 1 | 2 | 7 |
+| 14:00 | 73 | 440 | 2 | 2 | 20 |
+| 15:00 | 72 | 312 | 1 | 2 | 9 |
+| 16:00 | 198 | 1017 | 2 | 2 | 14 |
+| 17:00 | 141 | 279 | 1 | 2 | 9 |
+| 18:00 | 198 | 396 | 1 | 2 | 18 |
+| 19:00 | 220 | 443 | 1 | 2 | 8 |
+| 20:00 | 354 | 580 | 1 | 2 | 9 |
+| 21:00 | 540 | 1712 | 2 | 2 | 15 |
+| 22:00 | 476 | 2753 | 1 | 2 | 18 |
 | 23:00 | 571 | 2308 | 2 | 2 | 7 |
 
-**Son 24 saat:** biten parti 302 · medyan 2 dk · %90 3 dk · **şu an bekleyen 5 parti, en eskisi 131 dk** (liste sınırı: son 60 sayfa)
-**Kuyruk durumu: YAVAŞ — en eski bekleyen 2 saati geçti; yeni dalga kuyruğu uzatır, süre belirsiz**
-**Genel:** medyan 2 dk · %90 2 dk · parti 4953
+**Son 24 saat:** biten parti 486 · medyan 2 dk · %90 6 dk · **şu an bekleyen 2 parti, en eskisi 0 dk** (liste sınırı: son 60 sayfa)
+**Kuyruk durumu: NORMAL**
+**Genel:** medyan 2 dk · %90 2 dk · parti 5124
 
 Kural koymak için: bir saat diliminin medyanı ötekilerden **belirgin ve birkaç gün üst üste** düşükse o saat "tercih" olur. Tek gecelik veri kural değildir.
