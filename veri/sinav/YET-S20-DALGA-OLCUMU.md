@@ -9,6 +9,10 @@ Araç: C:\TETIKTE-CALISMA\yet-s20-arac\d1\bulut-olc.js (kalip-kosucu SECIM şart
 |---|---|---|---|---|---|---|---|---|
 | D1 | FM | 20 | 13 (%65) | 7: KAPI-CB 2 · simülasyon 3 · açıklama hakemi 2 | 0,92 | 0,071 | DEVAM | 41904885424 |
 | D1 | Vergi | 20 | 16 (%80) | 4: açıklama hakemi 1 · hakem 1 · bulut kör 1 (6183 m.55 ezberden 7 gün) · simülasyon 1 | 1,20 | 0,075 | DEVAM | 41904892729 |
+| D2 | FM | 19 (+1 okumada CIKAR) | 11 (%58) | 8: simülasyon 3 + koşmadı 1 · hakem 2 · açıklama hakemi 1 · ücretsiz kapı 1 | 0,76 | 0,069 | DEVAM | 41922655463 |
 
-Kümülatif: 40 gönderildi · 29 geçti · 2,12 USD / 40 USD tavan.
+Kümülatif (05.11 02:00): 59 gönderildi · 40 geçti · 2,88 USD / 40 USD tavan. Koşan: D1 yedek (FM 6 + Vergi 3), Vergi D2 (18).
 Düşen 11 soru aynı konu/kalıp/zorluk/harfle, düşüş nedeni önlenerek yeniden yazılıyor (yedek dalgası d1-y) → D1 denemeleri 20'ye tamamlanır.
+
+Banka ayrımı eşdeğerlik provası (05.11): smmm-kasa-yayin -SadeceSecim eski/yeni, ambardaki bütün SMMM partileri → seçilen 3.811 / 3.811, fark 0. Bulut sonrası kasa yayını 41911583361: "s20 deneme (bankaya girmez) 6" parti; bankada D1 sorusu 0/40 (metinle ölçüldü).
+Simülasyon kuralı (05.11, bulut kodu okundu): kayıt sorusunda tablonun son satırı belirleyici tutar; K kalıbında şema/tablo yok. Yerel kontrol kart-olc SIM-I/SIM-TEORI: FM D1+D2 bulut simülasyon düşüşlerinin 7'sinden 3'ünü yakaladı.
