@@ -1,16 +1,9 @@
 {
-  "tarih": "03.11.2026 05:42",
+  "tarih": "04.11.2026 03:31",
   "deneme": false,
-  "denetlenen": 16,
-  "gecen": 15,
-  "red": 1,
-  "reddedilenler": [
-    {
-      "dosya": "veri/marka-yeni-basvurular.json",
-      "sebepler": [
-        "kayit 371 < asgari 20000"
-      ]
-    }
-  ],
+  "denetlenen": 1,
+  "gecen": 1,
+  "red": 0,
+  "reddedilenler": [],
   "not": "RED olan dosya COMMIT EDILMEZ; HEAD'deki son saglam surum geri konur. Site bozuk veri gormez, en kotu ihtimalle bir tur eski veri gorur."
 }
