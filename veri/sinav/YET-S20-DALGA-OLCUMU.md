@@ -74,3 +74,13 @@ Kümülatif (05.11 ~16:30): 17,62 USD / 40. **20/20 deneme: Denetim D1 · Hukuk 
 
 ⛔ **05.11 ~15:10 TR — ANTHROPIC BAKİYESİ BİTTİ (hesap düzeyi; bizim 40 USD tavanımız DEĞİL).** O andan beri bütün bulut koşuları KAPI-BAKIYE ile duruyor (KGK t9 koşuları dahil); açıklama hakemi "(400) Bad Request" de bundan. Yarım kalan s20 planları (kredi yüklenince AYNI plan yeniden koşar, ödenmiş partiler bedava hasat): plan-smmm-s20-yfta-d1-a (13) · plan-smmm-s20-maliyet-d1-a (11) · plan-smmm-s20-ymeslek-d1-y5-a (1) · plan-smmm-s20-fmuh-d1-y9-a (1) · plan-smmm-s20-yvergi-d0-onarim-hakem-0511 (2, AH + kp-55 eksik).
 Durum: **20/20 — Denetim D1 · Hukuk D1 · SPK D1.** 19/20 — Vergi (son slot yazımda: serbest meslek kazancı) · Meslek (son soru okumadan geçti, bulutta yarım) · FM (son soru okumadan geçti, bulutta yarım). FTA D1 13 + Maliyet D1 11 soru okumadan geçti, bulutta yarım; FTA 7 + Maliyet 9 yedek yazımda. Bedel ölçümü (bedel_kaydi): 17,78 USD / 40.
+
+05.11 akşam – 06.11 gece (FTA + Maliyet son yedekler):
+| dalga | ders | gönderilen | buluttan geçen | düşen (neden) | bedel USD |
+|---|---|---|---|---|---|
+| D1-y3 / y4 | FTA | 3 | 2 | 1 hakem HAYIR: NİS dolaylı yoldan (UVK − DV) kurulmuştu, hakem DV − KVYK tanımını uyguladı (altyapı A-5) → aynı konu, tanımla doğrudan + vergi karşılığı vadesi kökte | 0,12 |
+| D1-y5 | FTA | 1 | 1 | 0 | 0,06 |
+| D1-y4 / y5 / y6 | Maliyet | 4 | 3 | 1 hakem HAYIR: kökteki "520 ayar…" hesap kodu sanıldı, paket THP tanımlarıyla doldu (altyapı A-4) → aynı konu | 0,17 |
+| D1-y7 | Maliyet | 1 | 0 | 1 ücretsiz KAPI-Ş: çok değerli "sırasıyla" şıkta yalnız ilk tutar okunuyor (altyapı A-6), 0 USD → aynı konu (aday konu kalmadı), işaretli fark | 0 |
+| D1-y8 | Maliyet | 1 | 1 | 0 | 0,06 |
+Kümülatif (06.11 ~02:10 TR): **21,75 USD / 40** (bedel satırları geç yazılıyor; raporda yeniden okunur). **8 dersin 1. denemesi 20/20:** Denetim · Hukuk · SPK · Meslek · Vergi · FM · FTA · Maliyet. Kalite raporları `<S20>/kalite/<kod>-d1.md` (20 ölçü satırı + 5 örnek soru). Siteye/üyeye AÇILMADI — Cem bakacak, site koluna o açtıracak.
