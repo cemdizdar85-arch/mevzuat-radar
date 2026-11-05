@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-11-04T01:12:36.432Z",
-  "gun": "2026-11-04",
+  "olcum": "2026-11-05T01:25:22.524Z",
+  "gun": "2026-11-05",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 7,
+      "sira": 8,
       "toplam": 10,
-      "id": "sgs-t1-meslek-kolay/kp-01",
-      "ders": "Meslek Hukuku",
-      "konu": "disiplin cezaları",
-      "donem": 11,
+      "id": "sgs-t1-ticaret-kolay/kp-01",
+      "ders": "Ticaret Hukuku",
+      "konu": "genel işlem koşulları",
+      "donem": 9,
       "teori": true,
       "rakamSik": false,
-      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
+      "soru": "6098 sayılı Türk Borçlar Kanunu'na göre genel işlem koşulları hakkında aşağıdakilerden hangisi yanlıştır?",
       "siklar": {
-        "A": "Uyarma",
-        "B": "Kınama",
-        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
-        "D": "Yeminli sıfatını kaldırma",
-        "E": "Meslekten çıkarma"
+        "A": "Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyla önceden tek başına hazırlayıp karşı tarafa sunduğu sözleşme hükümleridir.",
+        "B": "Bu koşulların sözleşme metninde veya ekinde yer alması, kapsamı, yazı türü ve şekli, nitelendirmede önem taşımaz.",
+        "C": "Aynı amaçla düzenlenen sözleşmelerin metinlerinin özdeş olmaması, bu sözleşmelerin içerdiği hükümlerin genel işlem koşulu sayılmasını engellemez.",
+        "D": "Genel işlem koşulları içeren sözleşmeye konulan bu koşulların her birinin tartışılarak kabul edildiğine ilişkin kayıtlar, kural olarak onları genel işlem koşulu olmaktan çıkarır.",
+        "E": "Genel işlem koşullarıyla ilgili hükümler, sundukları hizmetleri kanun veya yetkili makamlar tarafından verilen izinle yürütmekte olan kişi ve kuruluşların hazırladıkları sözleşmelere de niteliklerine bakılmaksızın uygulanır."
       },
-      "dogru": "E",
+      "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Bağımsızlık İhlali Tuzağı",
-          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
+          "ad": "Metin Özdeşliği Tuzağı",
+          "metin": "Öğrenci, sözleşme metinlerinin birebir aynı olması gerektiğini, aksi hâlde genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması bu nitelendirmeyi engellemez, ifade doğrudur."
+        },
+        "E": {
+          "ad": "Kapsam Daraltma Tuzağı",
+          "metin": "Öğrenci, izinle faaliyet gösteren kuruluşların sözleşmelerinin niteliğine göre bu hükümlerden muaf tutulabileceğini sanır. Doğrusu: Kanun bu sözleşmelere niteliklerine bakılmaksızın uygulanacağını söyler, ifade doğrudur."
         },
         "A": {
-          "ad": "İlk Aşama Tuzağı",
-          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
-        },
-        "D": {
-          "ad": "Yeminli Sıfatı Tuzağı",
-          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
+          "ad": "Tanım Eksikliği Tuzağı",
+          "metin": "öğrenci genel işlem koşulu tanımında ayrıca yazılı şekil gibi bir şart arandığını sanıp bu ifadeyi yanlış sayar; oysa Türk Borçlar Kanunu m.20 genel işlem koşulunu, düzenleyenin ileride çok sayıda benzer sözleşmede kull…"
         },
         "B": {
-          "ad": "Tekerrür Tuzağı",
-          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
+          "ad": "Şekil Şartı Tuzağı",
+          "metin": "Öğrenci, koşulun sözleşme metninde mi ekinde mi yer aldığının ya da yazı türünün nitelendirmeyi etkileyeceğini sanır. Doğrusu: Kanun bu unsurların nitelendirmede önem taşımadığını açıkça belirtir, ifade doğrudur."
         }
       },
-      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
+      "hap": "Genel işlem koşullarında tartışılarak kabul edildiğine ilişkin kayıt, TEK BAŞINA o hükmü genel işlem koşulu olmaktan çıkarmaz.",
       "satirlar": [
         [
-          "A) Uyarma",
-          "3568 s.K. m.48"
+          "A) Genel işlem koşulları, düzenleyenin ileride çok sayıda b…",
+          "m.20/1"
         ],
         [
-          "B) Kınama",
-          "3568 s.K. m.48"
+          "B) Bu koşulların sözleşme metninde veya ekinde yer alması, …",
+          "m.20/2"
         ],
         [
-          "C) Geçici olarak mesleki faaliyetten alıkoyma",
-          "3568 s.K. m.48"
+          "C) Aynı amaçla düzenlenen sözleşmelerin metinlerinin özdeş …",
+          "m.20/3"
         ],
         [
-          "D) Yeminli sıfatını kaldırma",
-          "3568 s.K. m.48"
+          "D) Genel işlem koşulları içeren sözleşmeye konulan bu koşul…",
+          "m.20/3"
         ],
         [
-          "E) Meslekten çıkarma",
-          "3568 s.K. m.48"
+          "E) Genel işlem koşullarıyla ilgili hükümler, sundukları hiz…",
+          "m.20/4"
         ]
       ],
-      "dayanak": "3568 sayılı SMMM K. m.48",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=7",
+      "dayanak": "Türk Borçlar Kanunu (6098 s.K.) m.20",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=8",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -21,
+        "kalan_gun": -22,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +81,63 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 1,
+      "sira": 2,
       "toplam": 9,
-      "id": "smmm-4k-a-yfta-zor-r6/kp-01",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "dikey yüzde analizi",
-      "donem": 14,
+      "id": "smmm-4k-a-maliyet-cokzor-r9/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "satışların maliyeti tablosu",
+      "donem": 12,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletme, gelir tablosunun dikey yüzde analizinde net satışları taban almaktadır. Satılan malın maliyeti 720.000 ₺ ve net satışların %60'ı, brüt satış kârı net satışların %40'ı, faaliyet giderleri net satışların %25'idir. Faaliyet kârı kaç ₺'dir?",
+      "soru": "İşletme, dönem içinde 685.000 ₺ brüt satış gerçekleştirmiştir; satıştan iadeler 12.500 ₺, satış iskontoları 8.700 ₺'dir. Ticari mal dönem başı stoku 47.350 ₺, dönem sonu stoku 39.900 ₺'dir. Ayrıca dönem içinde 65.200 ₺ pazarlama ve genel yönetim gideri, 21.400 ₺ finansman gideri gerçekleşmiştir. Brüt satış kârı 210.150 ₺ olarak hesaplanmıştır. Bu bilgilere göre dönem içi net alışlar tutarı kaç ₺'dir?",
       "siklar": {
-        "A": "180.000",
-        "B": "270.000",
-        "C": "288.000",
-        "D": "300.000",
-        "E": "480.000"
+        "A": "202.700",
+        "B": "446.200",
+        "C": "454.900",
+        "D": "461.100",
+        "E": "467.400"
       },
-      "dogru": "A",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Kademe Atlama Tuzağı",
-          "metin": "SMM tutarını net satış sanıp doğrudan brüt kâr yüzdesiyle çarptın (720.000x0,40). Doğrusu: önce net satış 1.200.000 bulunur, faaliyet kârı bu tutarın %15'idir, yani 180.000 ₺'dir."
+          "ad": "İskonto Atlama Tuzağı",
+          "metin": "Satış iskontosunu net satışlar hesaplamasına dahil etmeyi unuttun. Doğrusu: Net satışlar, brüt satışlardan hem iadeler hem iskontolar düşülerek bulunur."
         },
         "E": {
-          "ad": "Katman Eksik Tuzağı",
-          "metin": "brüt satış kârını faaliyet giderlerini hiç düşmeden faaliyet kârı sandın (1.200.000x0,40). Doğrusu: faaliyet giderleri brüt kârdan düşülmeden faaliyet kârına ulaşılmaz; sonuç 180.000 ₺'dir."
+          "ad": "Net Satış Atlama Tuzağı",
+          "metin": "Satış indirimlerini hiç düşmeyip brüt satışları net satış olarak kullandın. Doğrusu: Net satışlar brüt satışlardan satıştan iadeler ve iskontolar düşülerek hesaplanır."
         },
         "D": {
-          "ad": "Yön Karıştırma Tuzağı",
-          "metin": "faaliyet giderleri tutarını brüt kârdan düşmeyi atlayıp onu tek başına faaliyet kârı sandın (1.200.000x0,25). Doğrusu: faaliyet kârı, brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek (%15) hesaplanan tutardır, 180…"
+          "ad": "Stok Karıştırma Tuzağı",
+          "metin": "Dönem başı ve dönem sonu ticari mal stoklarını birbirinin yerine kullandın. Doğrusu: Dönem sonu stok maliyetten çıkarılır, dönem başı stok maliyete eklenir."
         },
-        "B": {
-          "ad": "Taban Karıştırma Tuzağı",
-          "metin": "SMM tutarını net satış yerine (1-SMM yüzdesi) ile bölerek net satışı 1.800.000 buldun, halbuki doğru işlem tutarın kendi yüzdesine bölünmesidir. Doğrusu: net satış 720.000/0,60=1.200.000 olup faaliyet kârı 180.000 ₺'dir."
+        "A": {
+          "ad": "Brüt Kârı Maliyet Sanma Tuzağı",
+          "metin": "Brüt satış kârını doğrudan satılan ticari malların maliyeti gibi kullanıp alışları buldun. Doğrusu: Önce net satışlardan brüt kâr çıkarılarak satılan maliyet bulunmalıdır."
         }
       },
-      "hap": "Gelir tablosu dikey yüzdelerinde taban net satışlardır; bilinen bir kalemin tutarı kendi yüzdesine bölünerek net satış, faaliyet kârı yüzdesi ise brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek bulunur.",
+      "hap": "Brüt satış kârı net satışlardan hesaplanır; satılan malın maliyeti formülü ters çözülerek alış tutarına ulaşılabilir.",
       "satirlar": [
         [
-          "Net Satışlar",
-          "720.000/0,60"
+          "Net Satışlar (685.000-12.500-8.700)",
+          "663.800"
         ],
         [
-          "Brüt Satış Kârı",
-          "1.200.000x0,40"
+          "Satılan Ticari Malların Maliyeti (663.800-210.150)",
+          "453.650"
         ],
         [
-          "Faaliyet Giderleri",
-          "1.200.000x0,25"
-        ],
-        [
-          "Faaliyet Kârı Yüzdesi",
-          "%40-%25"
-        ],
-        [
-          "Faaliyet Kârı",
-          "1.200.000x0,15"
+          "Dönem İçi Net Alışlar (453.650-47.350+39.900)",
+          "446.200"
         ]
       ],
-      "dayanak": "Mali Tablolar Analizi - Dikey yüzde analizi: gelir tablosunda net satışlar taban (%100) alınır; faaliyet kârı = brüt satış kârı - faaliyet giderleri",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=1",
+      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Gelir Tablosu Düzeni (600-623 hesap grupları)",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=2",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -15,
+        "kalan_gun": -16,
         "durum": "DONGU",
         "mail_gunu": false
       },
