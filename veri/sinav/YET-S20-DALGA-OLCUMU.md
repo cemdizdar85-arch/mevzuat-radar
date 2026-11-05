@@ -46,7 +46,7 @@ Okuma verimi (05.11 sabah): FM D4 okumada 19 → 8 (11 ikiz: site, önceki denem
 | D1 | SPK | 19 (+1 okumada) | 14 (%74) | 5: hakem 2 · bulut kör 2 · simülasyon 1 | 1,04 | 0,074 | DEVAM | 41966015722 |
 | D1-y | Meslek | 6 (+3 okumada) | 2 (%33) | 4: bulut kör 3 · simülasyon 1 | 0,25 | 0,125 | ders toplamında DEVAM (Meslek 23 → 13, %57) | 41968316665 |
 
-Kümülatif (05.11 sabah, bedel_kaydi ölçümü): 261 gönderildi · 176 geçti (%67) · 22,00 USD / 40 USD tavan (Vergi 9,97 · FM 7,75 · Denetim 1,58 · SPK 1,04 · Meslek 0,90 · Hukuk 0,76).
+Kümülatif (05.11 sabah, bedel_kaydi ölçümü): 261 gönderildi · 176 geçti (%67) · 13,95 USD / 40 USD tavan (Vergi 5,43 · FM 4,24 · Denetim 1,58 · SPK 1,04 · Meslek 0,90 · Hukuk 0,76; yalnız bu gecenin d* partileri, 04.11 23:41 → 05.11 08:16 TR). Düzeltme: gece içi ara ölçümlerde (18,44 · 22,00) 28–31.10 eski g1–g4/k partilerinin 8,05 USD'si de sayılmıştı.
 Ders toplamı (gönderilen → geçen): FM 90 → 55 (%61) · Vergi 90 → 58 (%64) · Denetim 22 → 19 · Meslek 23 → 13 · Hukuk 17 → 17 · SPK 19 → 14. Maliyet ve FTA'ya başlanmadı.
 Deneme dolumu (geçen /20): FM D1 18 · D2 15 (+2 deneme dışı) · D3 16 · D4 4 · Vergi D1 19 · D2 17 · D3 14 · D4 8 · Denetim D1 19 · Meslek D1 13 · Hukuk D1 17 · SPK D1 14. 20/20 deneme: 0.
 Yerel KAPI-P (05.11 sabah): bulut ParametreKapisi (yıla bağlı had/oran adı geçen cümlede sayı yoksa düşer) d1/kapi-s.ps1'e AST ile eklendi; öz-sınav Vergi D4 1/1, buluttan geçen 17 soruda yanlış alarm 0. Yerelde hâlâ yok: KAPI-GT.
