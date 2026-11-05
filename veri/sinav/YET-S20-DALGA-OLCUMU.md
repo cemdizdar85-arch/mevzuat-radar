@@ -24,6 +24,7 @@ Araç: C:\TETIKTE-CALISMA\yet-s20-arac\d1\bulut-olc.js (kalip-kosucu SECIM şart
 | D3-y | Vergi | 6 (+2 okumada ikiz) | 3 (%50) | 3: ücretsiz kapı 2 (KAPI-S "2025 yılı tarife" · KAPI-M "YTL" — ikisi de gönderimden sonra kurulan yerel kapıda önceden görüldü) · AH 1 | 0,25 | 0,083 | DEVAM | 41953362869 |
 | D1 | Hukuk | 17 (+3 okumada: 2026 değişikliği · site ikizi · TBK/TTK çift cevap) | 17 (%100) | 0 | 0,76 | 0,045 | DEVAM | 41957812401 |
 | D1-y | Denetim | 6 | 5 (%83) | 1: bulut kör | 0,40 | 0,080 | DEVAM | 41957817013 |
+| D3-y | FM | 10 | 9 (%90) | 1: ücretsiz kapı KAPI-GT (gün tabanı 360/365 kökte yazılmamış) | 0,49 | 0,054 | DEVAM | 41950942382 |
 
 Kümülatif (05.11 04:50): 143 gönderildi · 96 geçti · 7,76 USD / 40 USD tavan. Eşik ders toplamında uygulanıyor (küçük yedek partide oran oynak): FM 69 → 42 (%61, ≈0,07 USD/geçen) · Vergi 61 → 40 (%66) · Denetim 16 → 14 (%88). Deneme dolumu: FM D1 18 · FM D2 15 · FM D3 7 · Vergi D1 18 · Vergi D2 11 · Vergi D3 11 · Denetim D1 14.
 Deneme dışı (buluttan geçti ama okumada geriye dönük kopya riski, soru yanlış değil): FM D2 slot 2 (2026/1 S8 kalıbı) ve slot 12 (2026/1 S11 kalıbı) — d1/deneme-disi.json.
@@ -36,3 +37,4 @@ Simülasyon kuralı (05.11, bulut kodu okundu): kayıt sorusunda tablonun son sa
 Yerel kapı onarımı (05.11 ~05:30): (1) ikiz havuzu önbellekti, bu gecenin s20 partileri yoktu → kapi.sh önce parti-senkron -Indir (tazelenince bulutun 2 KAPI-B düşüşü 2/2 yakalandı) · (2) KAPI-S yerelde yoktu → d1/kapi-s.ps1 bulut işlevini AST ile birebir koşar (öz-sınav 2/2). Vergi yıl ifadesi: "2025 yılında elde edilen gelirlere uygulanan …" geçer, "2025 yılı için tarife" düşer (7 biçim ölçüldü).
 Yerel KAPI-M (05.11 ~06:00): kapi-s.ps1 ilk sürümünde MulgaKapisi listesi ($MULGA_LISTE) alınmamıştı → boş koştu; liste AST ile eklendi, liste yoksa KOR verip durur. Öz-sınav: Meslek D1 KAPI-M 2/2.
 Yerel KAPI-D2 (05.11 ~06:30): bulut metni ToLowerInvariant ile küçültüyor → BÜYÜK HARFLİ "ZARARI" = "zarari" = ASCII Türkçe → FM kapanış sorusu iki kez bundan düştü (D2, D2-y). kapi-s.ps1 TurkceKapisi + $ASCII_TR_A; öz-sınav 2/2. Brif: hiçbir kelime büyük harfle yazılmaz.
+Okuma verimi (05.11 sabah): FM D4 okumada 19 → 8 (11 ikiz: site, önceki denemeler, eski s20 grup testleri g1–g4; site-sorular.js grup testlerini göstermiyordu → brife yazıldı). Vergi D4 r1 19 → 13 (4 ikiz + 2 kart dışı).
