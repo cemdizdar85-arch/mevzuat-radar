@@ -61,3 +61,13 @@ Yerel KAPI-P (05.11 sabah): bulut ParametreKapisi (yıla bağlı had/oran adı g
 | D1-y2 | Meslek | 4 (+3 okumada ikiz/tek cevap değil) | 2 | 2: bulut kör (staj, reklam öncülü) → yedek konuya | 0,17 | 41998277425 |
 | D1-y4 | FM | 2 | 0 | 2: açıklama hakemi (bulut ikizinde gün sayımı) · simülasyon koşmadı (teori sorusunda tablo) → yedek konuya | 0,16 | 41998290612 |
 Kümülatif (05.11 ~12:30): 15,82 USD / 40. **Denetim D1 20/20** (kalite raporu <S20>/kalite/ydenetim-d1.md: zorluk 6/8/6, harf 4×5, kalıp gerçek 2026 hedefiyle birebir). Hukuk 19 · Vergi 19 · FM 18 · Meslek 15 · SPK 14 (+5 bulutta).
+
+05.11 öğleden sonra (Cem: yerine konan konu çıkmış listesinden SIKLIK SIRASIYLA — d1/yedek-konu-sec.js):
+| dalga | ders | gönderilen | buluttan geçen | düşen (neden) | bedel USD |
+|---|---|---|---|---|---|
+| D1-y | SPK | 5 (+1 okumada site ikizi) | 4 | 1 bulut kör → sıradaki konu | 0,24 |
+| D1-y3 / y4 | Meslek | 5 | 4 | 1 simülasyon: olumsuz kökte teori ikizi kurulamadı (altyapı A-1 Tip C) → aynı konu, şıklar cümle | 0,28 |
+| D1-y2 / y3 | SPK | 2 | 2 | 0 | 0,11 |
+| D1-y2 | Hukuk | 1 | 1 | 0 | 0,04 |
+| D1-y4 | Vergi | 1 | 0 | 1 simülasyon "yetmedi" (adımlarda VUK m.267/3 yoktu) → aynı konu, kural zinciri tam | 0,05 |
+Kümülatif (05.11 ~16:30): 17,62 USD / 40. **20/20 deneme: Denetim D1 · Hukuk D1 · SPK D1** (kalite raporları <S20>/kalite/). Vergi 19 · Meslek 19 · FM 18 (+1 bulutta). FM'de 3 konu SIRA ATLANDI (örgüler doymuş / dayanak ambarda yok), 2 okumada çıktı (ters kalıp, kart dışı).
