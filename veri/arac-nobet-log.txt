@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261104194313
+Start time: 20261105022434
 Username: runnervmnwato\runner
 RunAs User: runnervmnwato\runner
 Configuration Name: 
 Machine: runnervmnwato (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/be963d81-6b4e-4360-a971-2e05b75b71d3.ps1'
-Process ID: 2667
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0d24ec28-15ba-4b94-9625-a652abdb76e6.ps1'
+Process ID: 2736
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -17,18 +17,17 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 03-11-2026
+RG gunu      : 05-11-2026
 Kart sayisi  : 2
 Izlenen dosya: 12
 
 ======================================================================
   RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
 ======================================================================
-  veri/vergi-sabitleri.json   (arac: coklu (asgari ucret, kidem tavani, SGK esikleri))
-      dayanak: Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani
-      hasat  : elle kurulmus
-      <- Orman köylülerine vahidi fiyatla çalışma karşılığı ayni nakdi dağıtım yönetmeliği
-      <- Avukatlık asgari ücret tarifesi yenilendi, mahkeme kararlarında uygulanacak
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Sivil havacılık haberleşme, seyrüsefer ve gözetim sistemleri yapı sınırlaması yönetmeliği
 
   YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
   yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
@@ -37,5 +36,5 @@ Izlenen dosya: 12
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261104194313
+End time: 20261105022434
 **********************

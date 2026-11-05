@@ -1,24 +1,20 @@
 {
-  "tarih": "04.11.2026 19:43",
-  "rg_gun": "03-11-2026",
+  "tarih": "05.11.2026 02:24",
+  "rg_gun": "05-11-2026",
   "kart": 2,
   "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
   "uyarilar": [
     {
-      "dosya": "veri/vergi-sabitleri.json",
-      "arac": "coklu (asgari ucret, kidem tavani, SGK esikleri)",
-      "kaynak_ad": "Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani",
-      "hasat": "elle kurulmus",
-      "eslesme_sayisi": 2,
+      "dosya": "veri/gtip-durum.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
+      "hasat": "motor/tablo-hasat.ps1",
+      "eslesme_sayisi": 1,
       "eslesmeler": [
         {
-          "anahtar": "asgari ucret",
-          "kart_basligi": "Orman köylülerine vahidi fiyatla çalışma karşılığı ayni nakdi dağıtım yönetmeliği"
-        },
-        {
-          "anahtar": "asgari ucret",
-          "kart_basligi": "Avukatlık asgari ücret tarifesi yenilendi, mahkeme kararlarında uygulanacak"
+          "anahtar": "gozetim",
+          "kart_basligi": "Sivil havacılık haberleşme, seyrüsefer ve gözetim sistemleri yapı sınırlaması yönetmeliği"
         }
       ]
     }
