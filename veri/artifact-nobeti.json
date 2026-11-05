@@ -1,12 +1,12 @@
 {
-  "olcum": "04.11.2026 14:50",
+  "olcum": "05.11.2026 14:55",
   "durum": "KIRMIZI",
   "neden": "12 artifact SIFRESIZ dosya tasiyor (public repoda herkes indirebilir): kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc. Silme komutlari raporda (veri/artifact-nobeti.json).",
   "aciklama": "Depodaki artifactler: github-pages kamu, izinli adlar kamu ilan verisi, gerisi yalniz .enc icermeli. ACIK = sifresiz dosya tasiyan artifact; public repoda herkes indirir.",
   "sayim": {
-    "toplam": 151,
+    "toplam": 152,
     "acik": 12,
-    "sifreli": 85,
+    "sifreli": 86,
     "kamu": 54
   },
   "acik": [
@@ -120,65 +120,173 @@
     }
   ],
   "hukumler": {
-    "13334611049": {
+    "13425995711": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13332220481": {
+    "13425675644": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13329234721": {
+    "13425245374": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13324743294": {
+    "13424922263": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13322960665": {
+    "13423468991": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13321777154": {
+    "13423192312": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13320337474": {
+    "13419881866": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13316279180": {
+    "13419385488": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13315245975": {
+    "13418820775": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13308851425": {
+    "13418620842": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13307380583": {
+    "13418556741": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13307236025": {
+    "13417778861": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
+    },
+    "13417396986": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13417297397": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13417271814": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13416647301": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13416394901": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13415866143": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13415770248": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13415180949": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13414749084": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13414735999": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13414712159": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13413922660": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13413716489": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13413258948": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13412682993": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13412604418": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13412362465": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13411594922": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13400230233": {
+      "ad": "soru-ambar-yedek-66",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "soru-ambar-20261105-0757-bedel_kaydi.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-ihale_kutuk.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-dokumanlar.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-elci_indirim.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-ihale_sonuc.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-konu_karti.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-kalip_parti.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-konu_koprusu.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-konu_semasi.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-kunye.json.gz.enc",
+        "soru-ambar-20261105-0757-marka_ayna.ndjson.gz.enc",
+        "soru-ambar-20261105-0757-marka_ayna_dilim.ndjson.gz.enc"
+      ]
     },
     "13305039188": {
       "ad": "soru-ambar-yedek-65",
@@ -197,96 +305,6 @@
         "soru-ambar-20261104-0735-marka_ayna.ndjson.gz.enc",
         "soru-ambar-20261104-0735-marka_ayna_dilim.ndjson.gz.enc"
       ]
-    },
-    "13303976562": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13303794518": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13302945055": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13302742492": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13293114066": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13292964216": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13289688400": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13288488944": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13287121335": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13285006541": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13284093961": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13282067959": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13280836168": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13277124120": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13276158820": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13275714303": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13275238967": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13272915759": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
     },
     "13216620879": {
       "ad": "soru-ambar-yedek-64",
