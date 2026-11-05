@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261104213458
-Username: runnervmwuk1x\runner
-RunAs User: runnervmwuk1x\runner
+Start time: 20261105072143
+Username: runnervmnwato\runner
+RunAs User: runnervmnwato\runner
 Configuration Name: 
-Machine: runnervmwuk1x (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c208da7a-e6af-4321-89f0-ebd2ebce25f2.ps1'
-Process ID: 2189
+Machine: runnervmnwato (Unix 7.0.0.1017)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8b6687c2-9434-4d00-9c25-7f3fe2363260.ps1'
+Process ID: 2166
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -170,7 +170,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      hesap plani (THP) : 1143
      toplam            : 4309
      standart+THP orani: %56.6
-  SITEDE (paket_soru): 10562 · KGK 1823 · SGS 4928 · SMMM 3811
+  SITEDE (paket_soru): 10405 · KGK 1666 · SGS 4928 · SMMM 3811
 
 -> veri/kasa-sayim.json
 -> arac sayimi: 0 kart tarandi, 0 calisan arac
@@ -180,5 +180,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20261104213645
+End time: 20261105072319
 **********************
