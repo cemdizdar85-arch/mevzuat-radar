@@ -489,7 +489,7 @@
 - **Ne sorar:** C: sürdürülebilirlik açıklamalarıyla finansal tablolarda AYNI olması gerekenler (raporlayan işletme p.20, raporlama zamanı ve raporlama dönemi p.64) ile yalnız "mümkün olduğu ölçüde tutarlı" olması gereken veri ve varsayımlar (p.23) ayrımı · önemli veri-varsayım farklılıklarının açıklanması (B42(c))
 - **Dayanak:** TSRS 1 p.20 · TSRS 1 p.B38 · TSRS 1 p.23 · TSRS 1 p.B42 · TSRS 1 p.64 · TSRS 1 p.E4 (ilk yıl zaman muafiyeti) · "sunum para birimi" hükmü ambarın TSRS 1 kayıtlarında bulunamadı
 - **Çeldirici:** "tutarlı olmalı" hükmünü "aynı olmalı" diye okuyup veri-varsayımı da özdeş saymak · ilk yıl geçiş muafiyeti (E4) yüzünden raporlama zamanını aynı olması gerekmeyen kalem sanmak · konsolide grupta bağlı ortaklığı ayrı raporlayan işletme saymak
-- **Yazım notu:** Kök "aynı olması gereken" der, "tutarlı" değil; ilk uygulama yılında E4 raporlama zamanını gevşettiği için kök geçiş yılını dışlamalı; ambarda bulunmayan "sunum para birimi" şıkkı kullanılmaz.
+- **Yazım notu:** Kök "aynı olması gereken" der, "tutarlı" değil; ilk uygulama yılında E4 raporlama zamanını gevşettiği için kök geçiş yılını dışlamalı; ambarda bulunmayan "sunum para birimi" şıkkı kullanılmaz. [kgkbasim 05.11: "sunum para birimi" hükmü ambarda VAR — TSRS 1 p.24; önceki "bulunamadı" notu yanlış.]
 
 ### tsrs 1 hedef aciklamalari
 - **Dönem:** 1 (son 21 Eylül 2024) · **Soru:** 1 · **Son 10 yıl:** 1 · **Sitede/hedef/eksik:** 0/1/1 · **Örnek:** 21 Eylül 2024 S26 · _modül yedeği_
