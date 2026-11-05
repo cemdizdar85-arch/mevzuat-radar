@@ -15,8 +15,11 @@ Araç: C:\TETIKTE-CALISMA\yet-s20-arac\d1\bulut-olc.js (kalip-kosucu SECIM şart
 | D3 | FM | 13 (+7 okumada ikiz/kopya) | 7 (%54) | 6: simülasyon 3 + koşmadı 1 · açıklama hakemi 2 (bulutun ikizi) | 0,62 | 0,089 | DEVAM | 41935084694 |
 | D1-y | FM | 6 (+1 okumada CIKAR) | 4 | 2: hakem 1 (kaynak paketinde 730 kaydı yok) · açıklama hakemi 1 (bulutun ikizi) | 0,27 | 0,068 | DEVAM | 41926658015 |
 | D3 | Vergi | 17 (+3 okumada kopya/ikiz) | 11 (%65) | 6: simülasyon 2 + koşmadı 1 · hakem2 1 · hakem 1 · bulut kör 1 | 0,99 | 0,090 | DEVAM | 41938164662 |
+| D1-y2 | FM | 3 | 1 | 2: hakem 1 · açıklama hakemi 1 (amortisman ve MDV slotları üçüncü kez düştü → yedek konuya) | 0,14 | 0,14 | ders toplamında DEVAM | 41945553803 |
+| D1 | Denetim | 16 (+4 okumada site ikizi) | 14 (%88) | 2: ücretsiz kapı 1 · hakem 1 | 1,18 | 0,084 | DEVAM | 41944574508 |
+| D2-y | FM | 8 (+1 okumada ikiz) | 6 (%75) | 2: simülasyon 1 · ücretsiz kapı 1 | 0,38 | 0,063 | DEVAM | 41943182918 |
 
-Kümülatif (05.11 04:20): 116 gönderildi · 75 geçti · 6,06 USD / 40 USD tavan. Koşan: FM D2 yedek (8), Denetim D1 (16), FM D1 ikinci yedek (3). Deneme dolumu: FM D1 17 · FM D2 9 · FM D3 7 · Vergi D1 18 · Vergi D2 11 · Vergi D3 11.
+Kümülatif (05.11 04:50): 143 gönderildi · 96 geçti · 7,76 USD / 40 USD tavan. Eşik ders toplamında uygulanıyor (küçük yedek partide oran oynak): FM 69 → 42 (%61, ≈0,07 USD/geçen) · Vergi 61 → 40 (%66) · Denetim 16 → 14 (%88). Deneme dolumu: FM D1 18 · FM D2 15 · FM D3 7 · Vergi D1 18 · Vergi D2 11 · Vergi D3 11 · Denetim D1 14.
 Deneme dışı (buluttan geçti ama okumada geriye dönük kopya riski, soru yanlış değil): FM D2 slot 2 (2026/1 S8 kalıbı) ve slot 12 (2026/1 S11 kalıbı) — d1/deneme-disi.json.
 FM verimi düşüyor (buluttan geçme %65 → %58 → %54; okumada ikiz D2 1 → D3 7): sitedeki FM bankası en sık konularda doymuş.
 Düşen 11 soru aynı konu/kalıp/zorluk/harfle, düşüş nedeni önlenerek yeniden yazılıyor (yedek dalgası d1-y) → D1 denemeleri 20'ye tamamlanır.
