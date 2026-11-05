@@ -38,3 +38,15 @@ Yerel kapı onarımı (05.11 ~05:30): (1) ikiz havuzu önbellekti, bu gecenin s2
 Yerel KAPI-M (05.11 ~06:00): kapi-s.ps1 ilk sürümünde MulgaKapisi listesi ($MULGA_LISTE) alınmamıştı → boş koştu; liste AST ile eklendi, liste yoksa KOR verip durur. Öz-sınav: Meslek D1 KAPI-M 2/2.
 Yerel KAPI-D2 (05.11 ~06:30): bulut metni ToLowerInvariant ile küçültüyor → BÜYÜK HARFLİ "ZARARI" = "zarari" = ASCII Türkçe → FM kapanış sorusu iki kez bundan düştü (D2, D2-y). kapi-s.ps1 TurkceKapisi + $ASCII_TR_A; öz-sınav 2/2. Brif: hiçbir kelime büyük harfle yazılmaz.
 Okuma verimi (05.11 sabah): FM D4 okumada 19 → 8 (11 ikiz: site, önceki denemeler, eski s20 grup testleri g1–g4; site-sorular.js grup testlerini göstermiyordu → brife yazıldı). Vergi D4 r1 19 → 13 (4 ikiz + 2 kart dışı).
+
+| D2-y2 | FM | 3 | 0 (%0) | 3: simülasyon 1 · hakem 1 · açıklama hakemi 1 (kapanış/amortisman slotları üçüncü kez düştü) | 0,11 | — | ders toplamında DEVAM; bu slotlar buluta bir daha gitmez | 41962720659 |
+| D4 | FM | 8 (+12 okumada ikiz/kart dışı) | 4 (%50) | 4: hakem 2 · simülasyon 2 | 0,36 | 0,090 | DEVAM (sınırda) | 41965192954 |
+| D4 | Vergi | 12 (+8 okumada) | 8 (%67) | 4: açıklama hakemi 3 · ücretsiz kapı 1 (KAPI-P: "asgari ücret" geçiyor, tutarı soruda yok) | 0,78 | 0,098 | DEVAM | 41965482191 |
+| D2-y2 | Vergi | 4 (+2 okumada) | 3 (%75) | 1: bulut kör | 0,37 | 0,123 | DEVAM | 41965929495 |
+| D1 | SPK | 19 (+1 okumada) | 14 (%74) | 5: hakem 2 · bulut kör 2 · simülasyon 1 | 1,04 | 0,074 | DEVAM | 41966015722 |
+| D1-y | Meslek | 6 (+3 okumada) | 2 (%33) | 4: bulut kör 3 · simülasyon 1 | 0,25 | 0,125 | ders toplamında DEVAM (Meslek 23 → 13, %57) | 41968316665 |
+
+Kümülatif (05.11 sabah, bedel_kaydi ölçümü): 261 gönderildi · 176 geçti (%67) · 22,00 USD / 40 USD tavan (Vergi 9,97 · FM 7,75 · Denetim 1,58 · SPK 1,04 · Meslek 0,90 · Hukuk 0,76).
+Ders toplamı (gönderilen → geçen): FM 90 → 55 (%61) · Vergi 90 → 58 (%64) · Denetim 22 → 19 · Meslek 23 → 13 · Hukuk 17 → 17 · SPK 19 → 14. Maliyet ve FTA'ya başlanmadı.
+Deneme dolumu (geçen /20): FM D1 18 · D2 15 (+2 deneme dışı) · D3 16 · D4 4 · Vergi D1 19 · D2 17 · D3 14 · D4 8 · Denetim D1 19 · Meslek D1 13 · Hukuk D1 17 · SPK D1 14. 20/20 deneme: 0.
+Yerel KAPI-P (05.11 sabah): bulut ParametreKapisi (yıla bağlı had/oran adı geçen cümlede sayı yoksa düşer) d1/kapi-s.ps1'e AST ile eklendi; öz-sınav Vergi D4 1/1, buluttan geçen 17 soruda yanlış alarm 0. Yerelde hâlâ yok: KAPI-GT.
