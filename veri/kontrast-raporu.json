@@ -1,7 +1,98 @@
 {
-  "durum": "KOR",
-  "sebep": "devtools-portu-acilmadi",
+  "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "chrome_stderr": "[2214:2241:1105/005607.213554:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2214:2241:1105/005610.817396:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2214:2241:1105/005610.817433:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2214:2241:1105/005611.590798:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2214:2241:1105/005612.795422:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
+  "sayfa": 247,
+  "koyu_gecis": 83,
+  "koyu_bekleyen": [],
+  "temiz_sayfa": 245,
+  "denetlenen_metin": 25165,
+  "toplam_kirik": 7,
+  "denetlenen_sinir": 7041,
+  "toplam_gorunmez_sinir": 0,
+  "olculemeyen": 0,
+  "esik": {
+    "normal": 4.5,
+    "buyuk": 3,
+    "sinir": 1.12
+  },
+  "gorunmez_sinir_sayfalar": [],
+  "olculemeyenler": [],
+  "kirik_sayfalar": [
+    {
+      "sayfa": "kampanya-son-20-gun.html [koyu]",
+      "adet": 5,
+      "ornekler": [
+        {
+          "oge": "p.yk-ust",
+          "yazi": "Yönetim Kurulu Kararı · 29 Ekim 2026 · S",
+          "oran": 1.49,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p class=\"yk-ust\">Yönetim Kurulu Kararı · 29 Ekim 2026 · Sona erdi</p>"
+        },
+        {
+          "oge": "p",
+          "yazi": "Şartsız söz O saate kadar paket alan üye",
+          "oran": 2.43,
+          "esik": 4.5,
+          "renk": "rgb(147, 161, 179)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<p>Şartsız söz <b>1 Kasım 2026 saat 23:59'da sona erdi.</b> O saate kadar paket alan üyelerimiz için aynen geç"
+        },
+        {
+          "oge": "b",
+          "yazi": "1 Kasım 2026 saat 23:59'da sona erdi.",
+          "oran": 1.04,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<b>1 Kasım 2026 saat 23:59'da sona erdi.</b>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Kararın metni →",
+          "oran": 1.49,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,246,234)",
+          "iz": "<a href=\"#karar\">Kararın metni →</a>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Yeterlilik koşulları →",
+          "oran": 1.54,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(251,250,248)",
+          "iz": "<a href=\"#yeterlilik\">Yeterlilik koşulları →</a>"
+        }
+      ]
+    },
+    {
+      "sayfa": "sgs-sifirdan-hazirlik.html [koyu]",
+      "adet": 2,
+      "ornekler": [
+        {
+          "oge": "a.ana",
+          "yazi": "5 örnek soru çöz",
+          "oran": 1.43,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<a class=\"ana\" href=\"kaydir/vitrin/ornek-sgs.html?k=sifirdan\">5 örnek soru çöz</a>"
+        },
+        {
+          "oge": "a.ana",
+          "yazi": "5 örnek soru çöz",
+          "oran": 1.43,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<a class=\"ana\" href=\"kaydir/vitrin/ornek-sgs.html?k=sifirdan\">5 örnek soru çöz</a>"
+        }
+      ]
+    }
+  ]
 }
