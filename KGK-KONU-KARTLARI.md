@@ -9,8 +9,8 @@
 |---|---:|---:|---:|
 | TSRS | 139 | 139 | 37 |
 | GDS | 47 | 47 | 6 |
-| SIGORTA | 228 | 79 | 21 |
-| BANKA | 193 | 88 | 12 |
+| SIGORTA | 228 | 79 | 10 |
+| BANKA | 193 | 88 | 1 |
 | SPK | 201 | 87 | 1 |
 | KY | 98 | 50 | 6 |
 | FY | 230 | 113 | 25 |
@@ -1642,10 +1642,10 @@
 ### sigorta policesi
 - **Dönem:** 4 (son 8 Temmuz 2023) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 2/4/2 · **Örnek:** 8 Temmuz 2023 S8, 13 Mayıs 2018 S37, 12 Kasım 2017 S36
 - **Kalıp:** B yanlıştır ×3 / C değildir/sayılmaz ×1 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 85–141 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) / kısa kalem/terim (~126 kr)
-- **Ne sorar:** B (3): poliçe verme süresi (sözleşmeyi sigortacı ya da acentesi yaptıysa 24 saat, diğer hallerde 15 gün), geç vermeden doğan zarardan sorumluluk, kaybedilen poliçede gideri sigorta ettirene ait yeni poliçe, poliçe verilmezse ispatın GENEL hükümlere tabi olması (sözleşme hükümsüz olmaz) · poliçe ve zeyilname eklerinde teklifnameden farklı ve sigorta ettiren, sigortalı ya da lehtar ALEYHİNE hükümlerin geçersizliği; lehe genel şart değişikliğinin hemen uygulanması ve ek prim için sekiz günlük süre · C (1): poliçede yer alacak unsurlar
-- **Dayanak:** TTK (6102 s.K.) m.1424 · TTK (6102 s.K.) m.1425 · AMBARDA YOK: poliçe içerik unsurlarının tek tek listesi (Sigorta Sözleşmelerinde Bilgilendirme Yönetmeliği)
-- **Çeldirici:** poliçe verilmezse sözleşmenin kesin hükümsüz olduğunu sanmak · ispatın "özel hükümlere" tabi olduğunu yazmak · aleyhe hükümlerde yalnız sigorta ettireni koruyup sigortalı/lehtarı dışarıda bırakmak (ya da aleyhe hükmü geçerli saymak) · süreleri 48 saat/30 gün yazmak
-- **Yazım notu:** Poliçe unsurları listesi ambarda yok (BRIF-BITIS §3, Bilgilendirme Yönetmeliği) → "poliçede yer almaz" kalıbını yazma; B kalıbını yalnız TTK m.1424–1425 hükümleriyle kur.
+- **Ne sorar:** B: poliçe teslim süresi (sigortacı ya da acentesi yaptıysa 24 saat, diğer hâllerde 15 gün) ve geç teslimden doğan zarardan sigortacının sorumluluğu · B: poliçe verilmezse sözleşme hükümsüz olmaz, ispat genel hükümlere tabidir · B: teklifnameden farklı olup sigorta ettiren, sigortalı ve lehtar aleyhine olan hükümlerin geçersizliği; lehe genel şart değişikliğinde 8 gün içinde prim farkı · B: kaybolan poliçenin gideri sigorta ettirene ait olmak üzere yenilenmesi · C: poliçede yer alması gereken unsurlar (yer almayan: rizikonun gerçekleşme zamanı)
+- **Dayanak:** TTK (6102 s.K.) m.1424 · TTK (6102 s.K.) m.1425 · AMBARDA YOK: poliçede yer alacak unsurların tek tek listesi (C kalıbı; SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) bu listeyi içermiyor)
+- **Çeldirici:** poliçe verilmeyince sözleşmenin kesin hükümsüz olacağını sanmak · ispatı "özel hükümlere" bağlamak (doğrusu genel hükümler) · teklifnameden farklı hükümlerden yalnız sigorta ettiren aleyhine olanları geçersiz, sigortalı ve lehtar aleyhine olanları geçerli sanmak · 24 saat ile 15 gün sürelerini karıştırmak, acentenin yaptığı sözleşmeyi 15 güne bağlamak · teminattaki rizikoların "gerçekleşme zamanını" poliçe unsuru saymak
+- **Yazım notu:** Kök "TTK'ya göre" kurulsun; B şıkları m.1424-1425'ten yazılır. C kalıbının (poliçe unsurları) ambarda dayanağı yok, bu kalıp yazılmaz. Makam gerekirse "Kurum (SEDDK)" yaz, m.1423/3'teki "Hazine Müsteşarlığı" ibaresini kopyalama.
 
 ### ttk hayat sigortalari
 - **Dönem:** 4 (son 22 Kasım 2025) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 2/4/2 · **Örnek:** 22 Kasım 2025 S28, 28 Haziran 2025 S35, 19 Kasım 2023 S4
@@ -1690,10 +1690,10 @@
 ### aktif azaltici islem yasagi
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 3/3/0 · **Örnek:** 27 Haziran 2026 S27, 28 Haziran 2025 S7, 13 Kasım 2016 S6
 - **Kalıp:** C değildir/sayılmaz ×1 / M tanım↔terim ×1 / U sayılır/kapsam ×1 · **Olumsuz/öncüllü/hesap:** %67/%0/%0 · **Kök:** 174–290 kr · **Şık:** kısa kalem/terim / aynı aileden 5 terim/tanım (~71 kr)
-- **Ne sorar:** C (1): ortak, YK üyesi, denetçi ve çalışanlar için yasak — şirket kaynaklarını dolaylı/dolaysız kullanma, iyiniyete aykırı aktifi düşürme, örtülü kazanç aktarımı; ana sözleşme, GK ya da YK kararıyla personele yapılan ödeme, yardım ve avanslar istisna · M (1): şirketin kendi borçları ve sigorta işlemlerinden doğanlar dışında personel, ortak, iştirak ya da başkası lehine teminat gösterme, kefil olma ve kredi sağlama yasağının adı · U (1): hangi işlemin yasak olduğu (ortağın borcuna kefalet yasak; kendi sigorta borcu için teminat serbest)
-- **Dayanak:** Sigortacılık K. (5684 s.K.) m.19 · Sigortacılık K. (5684 s.K.) m.18 [2/2] · AMBARDA YOK: Sigorta ve Reasürans ile Emeklilik Şirketlerinin Mali Bünyelerine İlişkin Yönetmelik
-- **Çeldirici:** şirketin kendi borcu ya da sigorta işleminden doğan teminatı da yasak saymak · kararla belirlenmiş personel avansını yasak saymak · personel lehine kefaleti serbest sanmak · yasağın adını "üçüncü kişi lehine işlem / şirketle işlem / rekabet yasağı" koymak
-- **Yazım notu:** Soruyu yalnız 5684 m.19 metniyle yaz; Mali Bünye Yönetmeliği ambarda yok — 2026 S27'deki piyasa rayici, topluluk içi sigorta, %10 iştirak gibi yönetmelik ayrıntısına dayanan şık kurma.
+- **Ne sorar:** C: yasak kapsamına girmeyen işlem (ana sözleşme, GK ya da YK kararıyla personele yapılan ödeme, yardım ve avans istisnası; şirketin kendi borcu için teminat) · M: "kendi borçları veya sigorta işlemlerinden doğanlar hariç teminat gösteremez, kefil olamaz, kredi sağlayamaz" hükmünün adı (aktif azaltıcı işlem yasağı) · U: Mali Bünye Yön. m.14'e göre yasak olan işlemi seçmek (ortağın borcuna kefalet); topluluk içi sigortayı piyasa rayicinde yapmak, kendi sigorta borcu için teminat göstermek ve borsadaki şirkete %10'a kadar iştirak serbesttir
+- **Dayanak:** Sigortacılık K. (5684 s.K.) m.19 · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik m.14 [1/2] → f.1, f.4, f.5 · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik m.14 [2/2] → f.6-7
+- **Çeldirici:** mevzuata uygun personel avansını yasak saymak · kendi sigorta işlemlerinden doğan borç için teminat göstermeyi de yasak sanmak · yasağı "üçüncü kişi lehine işlem" ya da "şirketle işlem yapma" yasağı adıyla karıştırmak · topluluk içi sigortayı piyasa rayicinde yapmayı yasak sanmak (yasak olan, rayicin altında primle yapmak) · borsadaki şirkette %10'a kadar iştirak istisnasını gözden kaçırmak
+- **Yazım notu:** Kanun m.19 ile Yönetmelik m.14 aynı yasağı farklı sözle anlatır; kök hangi metni anıyorsa şıkları o metnin ifadesiyle kur. Yönetmelik metni "Müsteşarlık" der; makamı "Kurum (SEDDK)" yaz.
 
 ### emeklilik sirketi sartlari
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 1/3/2 · **Örnek:** 27 Haziran 2026 S12, 19 Kasım 2023 S2, 15 Mayıs 2016 S7
@@ -1706,10 +1706,10 @@
 ### mali bunye zayiflamasi
 - **Dönem:** 3 (son 29 Haziran 2024) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 29 Haziran 2024 S20, 12 Kasım 2022 S11, 15 Mayıs 2016 S9
 - **Kalıp:** M tanım↔terim ×1 / C değildir/sayılmaz ×1 / D öncüllü ×1 · **Olumsuz/öncüllü/hesap:** %33/%33/%0 · **Kök:** 176–293 kr · **Şık:** aynı aileden 5 terim/tanım / kısa kalem/terim / "Yalnız I", "I ve II"… (~99 kr)
-- **Ne sorar:** D (1): 5684 m.20/1'de güçlendirme tedbirini gerektiren haller — MGF'nin karşılanamaması, teminatın tesis edilememesi, teknik karşılıklara yeterli ya da uygun varlık bulunmaması, sözleşme yükümlülüklerinin yerine getirilememesi, mali bünyenin sigortalı hak ve menfaatlerini tehlikeye düşürecek ölçüde zayıflaması — "üst üste iki dönem zarar" sayılmaz · istenebilecek tedbirler (iyileştirme planı, sermaye artırımı, kâr dağıtımını durdurma, varlık satışı, olağanüstü genel kurul) ve ikinci aşama yetkiler (portföy devri, yönetime atama/kayyım, yetki kaldırma) · C (1): Yönetmelikteki zaafiyet göstergeleri · not: M işaretli 2016 S9 kaydı temettü teorisi sorusu, konuya yanlış bağlanmış
-- **Dayanak:** Sigortacılık K. (5684 s.K.) m.20 [1/3] · Sigortacılık K. (5684 s.K.) m.20 [2/3] · Sigortacılık K. (5684 s.K.) m.20 [3/3] · SEDDK Teskilat ve Gorevleri Hakkinda CBK (47 s.) m.19 · AMBARDA YOK: Mali Bünyelere İlişkin Yönetmelik (zaafiyet kriterleri, 5684 m.20/5)
-- **Çeldirici:** üst üste zarar açıklamayı kanuni hal saymak · MGF'yi karşılayamamayı listeden çıkarmak · yetki kaldırma ve ruhsat iptalini (m.20/3) ilk aşama tedbir sanmak · tedbir makamını SPK ya da BDDK sanmak
-- **Yazım notu:** m.20 metnindeki "Bakan" bugün SEDDK Kurulu (CBK 47 m.19) — "Bakan isteyebilir" yazma; zaafiyet kriterleri yönetmeliği ambarda yok, C kalıbını yazma, D kalıbını yalnız Kanun m.20 ile kur.
+- **Ne sorar:** C: Mali Bünye Yön. m.11'deki zayıflama hâllerinden olmayanı bulmak ("poliçelerin %30'unda prim temerrüdü" listede yok; teminat ve teknik karşılık açığı, iç denetim yokluğu, bilgi işlem altyapısının yetersizliği, kayıt dışı poliçe listede var) · D: 5684 m.20/1'e göre güçlendirme gerektiren durumlar (minimum garanti fonu, teminat, teknik karşılığa uygun varlık, sözleşme yükümlülükleri, zayıflamanın tespiti; "üst üste iki dönem zarar" listede yok) · M: güçlendirme tedbirleri (iyileştirme planı, sermaye artırımı, kâr dağıtımının durdurulması, ilave teminat). Örnekteki 2016 S9 konu dışı (temettü), M kalıbı örneğine güvenme
+- **Dayanak:** Sigortacılık K. (5684 s.K.) m.20 [1/3] · Sigortacılık K. (5684 s.K.) m.20 [2/3] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik m.10 · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik m.11 [1/2] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik m.11 [2/2] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik m.12 [1/2] · SEDDK Teskilat ve Gorevleri Hakkinda CBK (47 s.) m.19
+- **Çeldirici:** "%30 poliçede prim temerrüdü" gibi listede olmayan sayısal ölçütü zayıflama hâli sanmak · "üst üste iki dönem zarar"ı kanuni güçlendirme sebebi saymak · Yönetmelik m.11'deki iç denetim ya da bilgi işlem eksikliğini zayıflama hâli saymamak · tedbiri isteyen makamı metindeki gibi Bakan ya da Müsteşarlık yazmak
+- **Yazım notu:** 5684 m.20 "Bakan", Yönetmelik "Müsteşarlık" der; bugün yetkili makam Kurum (SEDDK), CBK 47 m.19'a dayanarak "Kurum" yaz. Kök Kanunu mu Yönetmeliği mi andığını açıkça söylesin: Kanun m.20/1 dört sebep ve zayıflamayı sayar, Yönetmelik m.11 listesi daha geniştir.
 
 ### kooperatif sigorta ortak sayisi
 - **Dönem:** 3 (son 14 Kasım 2020) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 2/3/1 · **Örnek:** 14 Kasım 2020 S39, 24 Kasım 2019 S37, 15 Mayıs 2016 S13
@@ -1738,18 +1738,18 @@
 ### matematik karsilik
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 27 Haziran 2026 S2, 12 Kasım 2022 S13, 13 Haziran 2021 S27
 - **Kalıp:** M tanım↔terim ×2 / B yanlıştır ×1 · **Olumsuz/öncüllü/hesap:** %33/%0/%0 · **Kök:** 206–344 kr · **Şık:** aynı aileden 5 terim/tanım / hüküm cümlesi (biri tek noktası bozuk) (~28 kr)
-- **Ne sorar:** M (2): tanım — bir yıldan uzun hayat, sağlık, hastalık ve ferdi kaza sözleşmelerinde istatistiksel ve aktüeryal yöntemle hesaplanan karşılıklar ile taahhüt edilmişse yatırım gelirinden sigortalılara ayrılan pay karşılıklarının toplamı · B (1): Yönetmelik ilkeleri — aktüeryal matematik karşılık primler ile yükümlülüklerin peşin değeri farkı, prospektif yöntem ve retrospektif alt sınır, negatif sonucun sıfır sayılması, ayrı ve ihtiyatlı hesaplama, yöntem ve varsayımların sözleşme süresince aleyhe değiştirilememesi · not: 2022 S13 kaydının dayandığı 2022/8 Genelge ambarda yok
-- **Dayanak:** Sigortacılık K. (5684 s.K.) m.16 [2/3] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.8 [1/2] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.8 [2/2] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.14 [1/2] · AMBARDA YOK: Matematik Karşılıkların Hesabına İlişkin 2022/8 sayılı Genelge
-- **Çeldirici:** matematik karşılığı KPK ya da devam eden riskler karşılığıyla karıştırmak · bir yıldan kısa sözleşmelere uygulamak · kâr payı karşılığını toplamdan çıkarmak · yöntemin sigorta ettiren aleyhine değiştirilebileceğini sanmak
-- **Yazım notu:** 2022/8 Genelge ambarda yok (BRIF-BITIS §3) — mortalite deneyimi, iştira hesabı gibi genelge hükümlerini sorma; Kanun m.16/5 "hayat, sağlık, hastalık ve ferdî kaza", Yönetmelik m.8/1 "hayat, sağlık ve ferdi kaza" der — tanımı kökte Kanuna göre ver.
+- **Ne sorar:** M: bir yıldan uzun hayat, sağlık, hastalık ve ferdi kaza sözleşmeleri için aktüeryal yöntemlerle ayrılan karşılık ile yatırım gelirinden sigortalılara ayrılan payın toplamının adı (matematik karşılık); komşu terimler muallak tazminat, devam eden riskler, kazanılmamış primler ve dengeleme karşılığı · B: 2022/8 Genelgeye göre aktüeryal matematik karşılığın tanımı, ihtiyatlılık ilkesi, olumlu ve olumsuz mortalite deneyiminin hesaba yansıtılması, iştirada üretim komisyonu ve gider paylarının dikkate alınması
+- **Dayanak:** Sigortacılık K. (5684 s.K.) m.16 [2/3] → f.5 · SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.3 · SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.4 [1/2] · SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.4 [2/2] · Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.8 [1/2]
+- **Çeldirici:** tanımı muallak tazminat ya da devam eden riskler karşılığına bağlamak · kazanılmamış primler karşılığını uzun vadeli hayat karşılığı sanmak · dengeleme karşılığını yatırım geliri payıyla karıştırmak · iştira iadesinde üretim komisyonu ve gider paylarının dikkate alınmadığını sanmak · olumlu mortalite deneyiminin de hesaba yansıtıldığını sanmak
+- **Yazım notu:** M tanımını Kanun m.16/5'ten kur ("bir yıldan uzun süreli" ve dört branş); "hayat ve benzeri" gibi gevşek ifade kullanma. Genelgeye dayanan şıkta kök "2022/8 sayılı Genelge" desin.
 
 ### zorunlu finansal tablolar
 - **Dönem:** 3 (son 19 Kasım 2023) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 2/3/1 · **Örnek:** 19 Kasım 2023 S7, 12 Kasım 2022 S22, 13 Mayıs 2018 S35
 - **Kalıp:** A doğrudur ×2 / C değildir/sayılmaz ×1 · **Olumsuz/öncüllü/hesap:** %33/%0/%0 · **Kök:** 193–321 kr · **Şık:** hüküm cümlesi / kısa kalem/terim (~213 kr)
-- **Ne sorar:** A (2): zorunlu finansal tablo seti (bilanço, gelir tablosu, özsermaye değişim, nakit akış ve kâr dağıtım tabloları) ve dipnotların ayrılmaz parça olması · C (1): zorunlu sayılmayan tablo (katılımcı fon dağıtım tablosu)
-- **Dayanak:** AMBARDA YOK: Sigorta ve Reasürans Şirketleri ile Emeklilik Şirketlerinin Finansal Raporlamaları Hakkında Yönetmelik (zorunlu tablo listesi) · Sigortacılık K. (5684 s.K.) m.18 [1/2] yalnız genel düzenleme ve bağımsız denetim yükümlülüğü
-- **Çeldirici:** kâr dağıtım tablosunu listeden çıkarmak · dipnotları ihtiyari ya da yönetim takdirine bağlı saymak · yalnız bilanço ve gelir tablosunu zorunlu saymak · uydurma "katılımcı fon dağıtım tablosu"nu zorunlu saymak
-- **Yazım notu:** Kaynak ambara girene kadar soru yazılmaz (K1b); TFRS/TMS tablo setinden dolaylı dayanak kurma.
+- **Ne sorar:** A: zorunlu tablolar listesi ve dipnotların "ayrılmaz parça" olması (yanlış şıklar dipnotu "ihtiyari" ya da "yönetimin kararına bağlı" gösterir, ya da kâr dağıtım tablosunu düşürür) · C: zorunlu olmayan tablo (katılımcı fon dağıtım tablosu yok; bilanço, gelir tablosu, özsermaye değişim, nakit akış ve kâr dağıtım tablosu var)
+- **Dayanak:** Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.5 · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik gec. m.1 · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.10 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.6
+- **Çeldirici:** kâr dağıtım tablosunu listeden düşürmek · dipnot ve açıklamaları ihtiyari ya da yönetimin takdirine bağlı sanmak · yalnız bilanço ile gelir tablosunu zorunlu, diğerlerini ihtiyari saymak · BES'e özgü bir "katılımcı fon dağıtım tablosu"nu zorunlu tablo sanmak
+- **Yazım notu:** Ambardaki Yönetmelik m.5 2023 değişikliğiyle "diğer kapsamlı gelir tablosu"nu da sayar, ama gec. m.1 bu hükmü 01.01.2027'ye kadar uygulatmaz. Bugün beş tablo geçerli (2008/1 Tebliğ m.6 ile aynı); 2027 öncesine ait soruda diğer kapsamlı gelir tablosunu zorunlu sayma.
 
 ### sigorta sermaye yeterliligi
 - **Dönem:** 3 (son 19 Kasım 2023) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 2/3/1 · **Örnek:** 19 Kasım 2023 S19, 8 Temmuz 2023 S15, 12 Kasım 2022 S27
@@ -1786,10 +1786,10 @@
 ### bes kismen odeme
 - **Dönem:** 3 (son 22 Kasım 2025) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 2/3/1 · **Örnek:** 22 Kasım 2025 S20, 28 Haziran 2025 S25, 29 Haziran 2024 S6
 - **Kalıp:** C değildir/sayılmaz ×1 / D öncüllü ×1 / B yanlıştır ×1 · **Olumsuz/öncüllü/hesap:** %67/%0/%0 · **Kök:** 104–173 kr · **Şık:** kısa kalem/terim / "Yalnız I", "I ve II"… / hüküm cümlesi (biri tek noktası bozuk) (~81 kr)
-- **Ne sorar:** C (1)/B (1): Yönetmelikteki kısmen ödeme halleri ve şartları (konut, evlilik, eğitim, afet, hastalık/engellilik; asgari sözleşme süresi, yaş ve başvuru süresi) · D (1): Genelgedeki hesaplama ve ödeme kuralları · Kanun düzeyi: sistemden ayrılmadan, devlet katkısı hariç birikimin %50'sine kadar kısmen ödeme ve kısmen ödeme tutarının %25'ini aşmamak üzere devlet katkısından ödeme
-- **Dayanak:** AMBARDA YOK: Bireysel Emeklilik Sisteminde Kısmen Ödeme Hakkında Yönetmelik ve 2024/13 sayılı Genelge · yalnız çerçeve oranlar: BES K. (4632 s.K.) m.6 [2/3]
-- **Çeldirici:** devlet katkısından ödeme sınırını %50 sanmak · %50 sınırına devlet katkısı tutarını dahil etmek · kısmen ödemeyi sistemden ayrılma saymak
-- **Yazım notu:** Haller ve süreler Yönetmelik/Genelgededir, ambarda yok → yalnız 4632 m.6/3 oranlarıyla soru kurulabilir; konut, evlilik, eğitim gibi halleri ve süreleri soru yapma.
+- **Ne sorar:** C: kısmen ödeme hâllerinden (konut alımı, evlilik, eğitim, doğal afet) olmayanı bulmak (ağır hastalık ve engellilik yok) · B: süre, yaş ve oran şartları (en az 5 yıl yürürlükteki sözleşme; eğitimde 21 yaşını aşmamak ve örgün lisansa kayıt; afette 6 ay içinde başvuru; birikimin en çok %50'si) · D: 2024/13 Genelgeye göre tutar hesabı (başvuru tarihindeki fon pay adedi esas alınır; bekleyen alım talimatları dikkate alınmaz; devam eden dağılım ve plan değişikliği önce tamamlanır; tutar nakde dönüşü izleyen ilk iş günü ödenir)
+- **Dayanak:** SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) m.5 [1/2] · SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) m.5 [2/2] · SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) m.6 · SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) m.7 · SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) m.8 · SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) m.9 · SEDDK Genelge (2024/13) Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Genelge m.4 [1/2] · BES K. (4632 s.K.) m.6 [2/3]
+- **Çeldirici:** "hayati önem taşıyan hastalık" ya da "%70 engellilik" gibi listede olmayan hâli kısmen ödeme sebebi sanmak · eğitim hâlinde 5 yıllık sözleşme şartını unutmak ya da 21 yaş sınırını atlamak · bekleyen fon alım talimatlarının önce gerçekleştirildiğini sanmak (dikkate alınmaz) · devam eden fon dağılım ya da plan değişikliğinin hesaba katılmadığını sanmak (önce tamamlanır) · afet başvuru süresini 6 aydan farklı yazmak
+- **Yazım notu:** Yönetmelik 01.07.2024'te yürürlüğe girdi (m.13). Devlet katkısı payı hâle göre %20 (konut, evlilik) ve %25 (eğitim, afet); Kanun m.6'daki "en çok %25" üst sınırıyla karıştırma. Genelgeye dayanan şıkta kök "2024/13 sayılı Genelge" desin.
 
 ### ttk sigorta primi odenmesi
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 27 Haziran 2026 S8, 22 Kasım 2025 S29, 22 Ağustos 2020 S38
@@ -1802,18 +1802,18 @@
 ### sigorta finansal raporlama yonetmeligi
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 27 Haziran 2026 S34, 22 Kasım 2025 S33, 8 Temmuz 2023 S18
 - **Kalıp:** B yanlıştır ×3 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 110–183 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) (~192 kr)
-- **Ne sorar:** B (3): Yönetmelikteki muhasebe ilkeleri — aktif ve pasifin mahsup edilmemesi, gelir-giderin netleştirilmemesi, tahakkuk esası, tutarı belirsiz alacak için tahakkuk yapılmaması, bütün yabancı kaynakların gösterilmesi · raporların internet sitesinde en az beş yıl erişimde tutulması, ara dönem raporunun kâr dağıtım tablosu hariç içeriği, yıl sonu raporlarının Kurum'a gönderim süreleri · bilanço dışı hesapların karşılaştırılmaması
-- **Dayanak:** AMBARDA YOK: Sigorta ve Reasürans Şirketleri ile Emeklilik Şirketlerinin Finansal Raporlamaları Hakkında Yönetmelik
-- **Çeldirici:** gelir-gider netleştirmesine izin verildiğini sanmak · ara dönem raporuna kâr dağıtım tablosunu eklemek · konsolide ve konsolide olmayan raporların gönderim sürelerini yer değiştirmek · erişim süresini üç yıl yazmak
-- **Yazım notu:** Yönetmelik ambarda yok (Finansal Raporlama sunum Tebliği de yok, BRIF-BITIS §3) → soru yazılmaz; 5684 m.18'in genel hükmünden Yönetmelik ayrıntısı türetme.
+- **Ne sorar:** B: bilanço ilkeleri (aktif ve pasif hesaplar mahsup edilemez; tutarı kesin olmayan alacağa tahakkuk yapılmaz, dipnotta gösterilir; bilanço dışı hesaplar karşılaştırılmaz) · B: gelir tablosu ilkeleri (tahakkuk esası; gelir ile gider netleştirilemez; dönem başı ve sonunda hesap kesimi) · B: gönderim ve yayım (ara dönem 1 ay, konsolide 2 ay; yıl sonu konsolide olmayan 2 ay, konsolide 3 ay; internet sitesinde en az 5 yıl kesintisiz erişim) · B: hatalı tablonun sonucu (aktif toplamı %5, defteri kebir kalemi %20, vergi sonrası kâr ya da zarar özsermayeye göre %10 sapmada düzeltilmiş tablo 10 gün içinde yeniden yayımlanır, faaliyet durdurulmaz); gözetim raporları SGS ile ya da matbu verilir
+- **Dayanak:** Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.6 [1/2] · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.6 [2/2] · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.7 [1/2] · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.11 · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.14 · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.15 · Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik m.16
+- **Çeldirici:** gelir kalemini ilgili giderle netleştirerek göstermeyi serbest sanmak · eşik aşımının yaptırımını "faaliyet durdurma" sanmak (doğrusu yeniden yayım) · konsolide ve konsolide olmayan yıl sonu sürelerini (3 ay, 2 ay) ters çevirmek · ara dönem raporuna kâr dağıtım tablosunu da katmak · tutarı kesin olmayan alacağa tahakkuk yapılabileceğini sanmak
+- **Yazım notu:** Metin 2023'te "Müsteşarlık" yerine "Kurum" diye değişti; raporlar "Kuruma ve Birliğe" gönderilir (m.14), reasürans şirketlerinde süreler iki katıdır. m.4/2, m.5 ve m.7/A değişiklikleri 01.01.2027'ye kadar uygulanmaz (gec. m.1).
 
 ### bireysel emeklilik sistemi
 - **Dönem:** 3 (son 22 Kasım 2025) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 3/3/0 · **Örnek:** 22 Kasım 2025 S18, 12 Kasım 2022 S16, 22 Ağustos 2020 S39
 - **Kalıp:** B yanlıştır ×2 / D öncüllü ×1 · **Olumsuz/öncüllü/hesap:** %100/%33/%0 · **Kök:** 85–141 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) / "Yalnız I", "I ve II"… (~145 kr)
-- **Ne sorar:** B (2): 4632 düzeyinde — emeklilik hakkı (sisteme girişten en az on yıl + 56 yaş), emeklilikte programlı ödeme / toplu ödeme / yıllık gelir sigortası seçenekleri, emekli olmadan ayrılmada yirmi iş günü içinde ödeme, aktarım hakkı (şirkette en az bir yıl, on iş günü), Bireysel Emeklilik Danışma Kurulu, bireysel emeklilik hesabı tanımı, plan ve yıllık gelir tarife esaslarının serbestçe belirlenmesi · D (1): BES Yönetmeliği ayrıntıları (işveren grup sözleşmesine katkı, seçenek tercihi, gecikme zararı) — gecikmede parasal kaybın şirketçe ödenmesi Kanunda da var
-- **Dayanak:** BES K. (4632 s.K.) m.2 [2/2] · BES K. (4632 s.K.) m.3 · BES K. (4632 s.K.) m.4 · BES K. (4632 s.K.) m.5 [1/2] · BES K. (4632 s.K.) m.6 [1/3] · BES K. (4632 s.K.) m.6 [2/3] · BES K. (4632 s.K.) m.6 [3/3] · AMBARDA YOK: Bireysel Emeklilik Sistemi Hakkında Yönetmelik
-- **Çeldirici:** emeklilik yaşını 50/60 yazmak · ayrılmada ödeme süresini on iş günü sanmak (emeklilik ödemesi/aktarım süresiyle karıştırma) · "fiil ehliyeti olan herkes katılabilir" cümlesini geçerli saymak · aktarım için bir yıllık bekleme şartını atlamak · tarifelerin kural olarak Kurum onayına bağlı olduğunu sanmak
-- **Yazım notu:** 4632 m.4'ün katılım cümlesi 20/5/2021-7319 ile mülga — "fiil ehliyeti" şıkkını doğru yapma; yaş 56 (m.6/1), eski "elli yaş" metnine dayanma; Yönetmelik ambarda yok, öncülleri yalnız Kanundan kur.
+- **Ne sorar:** B: Kanuna göre emeklilik şartı (10 yıl sistemde kalmak ve 56 yaş), sistemden ayrılmada 20 iş günü içinde ödeme, vefat ve maluliyette birikimin ödenmesi, birikimin başka şirkete aktarılabilmesi · D: Yönetmeliğe göre işveren grup emeklilik sözleşmesine yalnız işveren sıfatıyla katkı payı ödenmesi, emeklilikte toplu para, programlı geri ödeme ve yıllık gelir sigortası arasında paylaştırma yapılabilmesi, ayrılma işlemi gecikirse fon getiri kaybının şirketçe karşılanması
+- **Dayanak:** BES K. (4632 s.K.) m.2 [2/2] · BES K. (4632 s.K.) m.3 · BES K. (4632 s.K.) m.6 [1/3] · BES K. (4632 s.K.) m.6 [2/3] · SEDDK Bireysel Emeklilik Sistemi Hakkinda Yonetmelik (2012) m.15 [3/3] · SEDDK Bireysel Emeklilik Sistemi Hakkinda Yonetmelik (2012) m.16 [1/4] · SEDDK Bireysel Emeklilik Sistemi Hakkinda Yonetmelik (2012) m.17 · AMBARDA YOK: Bireysel Emeklilik Sistemi Hakkında Yönetmelik m.3 Tanımlar (parçalayıcı hatası)
+- **Çeldirici:** emeklilik yaşını 50 ya da 65 yazmak (Kanun 56 der) · emeklilik seçeneklerinden yalnız birinin seçilebileceğini sanmak (paylaştırılabilir) · ayrılmadaki 20 iş günü ile emeklilikteki 10 iş günü süresini karıştırmak · işveren grup sözleşmesine çalışanın da katkı payı ödeyebileceğini sanmak · fon getiri kaybını katılımcının üstlendiğini sanmak
+- **Yazım notu:** Kök Kanunu mu Yönetmeliği mi andığını açıkça söylesin; emeklilik yaşı 6327 s.K. ile 56 oldu (m.6 değişik). Yönetmelik m.3 tanımları ambarda yok, tanım (M) kalıbı yazma. Makam Kurum (SEDDK).
 
 ### sigortacilik hesap plani
 - **Dönem:** 2 (son 19 Kasım 2023) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 19 Kasım 2023 S10, 19 Kasım 2023 S38, 12 Kasım 2022 S24
@@ -1930,10 +1930,10 @@
 ### mesleki sorumluluk sigortasi
 - **Dönem:** 2 (son 22 Kasım 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 22 Kasım 2025 S15, 19 Kasım 2023 S17 · _modül yedeği_
 - **Kalıp:** B yanlıştır ×2 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 86–144 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) (~133 kr)
-- **Ne sorar:** B: Genel Şartlara göre teminat kapsamı — temsilcinin sorumluluğunun (aksine hüküm yoksa) kapsanması, idari para cezaları ile teslim edilen belgenin kötüye kullanılmasının teminat dışı olması, kasıt istisnası, rizikonun derhal bildirimi, istemlerde iki yıllık zamanaşımı, sır saklama sorumluluğu
-- **Dayanak:** AMBARDA YOK: Bağımsız Denetçilik Mesleki Sorumluluk Sigortası Genel Şartları · ambarda yalnız yaptırma zorunluluğu: Bagimsiz Denetim Yonetmeligi m.33, poliçe bildirimi: Bagimsiz Denetim Yonetmeligi m.34; genel zamanaşımı: TTK (6102 s.K.) m.1420
-- **Çeldirici:** idari para cezasını teminat içinde sanmak · teslim edilen belgenin kötüye kullanılmasını teminat içinde sanmak · kasıtlı davranışı kapsamda saymak · iki yıllık zamanaşımını sorumluluk sigortasının on yılı (TTK m.1482) sanmak
-- **Yazım notu:** Genel Şartlar ambarda yok → teminat kapsamı sorusu YAZILMAZ (K1b); BD Yön. m.33/2'deki "Hazine Müsteşarlığı" bugün SEDDK.
+- **Ne sorar:** B: sözleşmede aksine hüküm yoksa temsilcinin ve çalışanların sorumluluğunun da kapsama girmesi · B: kasıtlı olay ve davranışlar teminat dışı; idari ve adli para cezaları aksine sözleşme yoksa teminat dışı · B: teslim edilen belgenin kaybı ya da kötüye kullanılması teminat dışı · B: zamanaşımı (muacceliyetten 2 yıl, her hâlde 10 yıl); sır saklanmamasından doğan zarardan sigortacının sorumlu olması; rizikonun derhal ihbarı
+- **Dayanak:** SEDDK Mesleki Sorumluluk Sigortasi Genel Sartlari (2013) bolum 1 · SEDDK Mesleki Sorumluluk Sigortasi Genel Sartlari (2013) bolum 2 · SEDDK Mesleki Sorumluluk Sigortasi Genel Sartlari (2013) bolum 3 · SEDDK Mesleki Sorumluluk Sigortasi Genel Sartlari (2013) bolum 5 · SEDDK Mesleki Sorumluluk Sigortasi Genel Sartlari (2013) bolum 12 · AMBARDA YOK: Bağımsız Denetçilik Mesleki Sorumluluk Sigortası Genel Şartları (ambarda yalnız genel MSS Genel Şartları var; bağımsız denetçiye özgü kapsam ve teminat dışı hükümler yok)
+- **Çeldirici:** idari para cezalarını teminat kapsamında sanmak · teslim edilen belgenin kötüye kullanılmasını teminat kapsamında sanmak · zamanaşımını 10 yıllık üst sınırla ya da başka bir süreyle karıştırmak · sigortacının sır saklama sorumluluğunu yok saymak · kasıtlı davranışın aksine sözleşmeyle teminata alınabileceğini sanmak
+- **Yazım notu:** Soru kökü "Bağımsız Denetçilik MSS Genel Şartları" der, ambarda yalnız genel MSS Genel Şartları (2013) var. Bağımsız denetçiye özgü hüküm gerektiren şık yazma (K1b). Denetçinin sigorta yaptırma zorunluluğu ayrı konudur (Bagimsiz Denetim Yonetmeligi m.33).
 
 ### tfrs 17 esaslari
 - **Dönem:** 2 (son 29 Haziran 2024) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 3/2/0 · **Örnek:** 29 Haziran 2024 S8, 19 Kasım 2023 S20 · _modül yedeği_
@@ -1946,10 +1946,10 @@
 ### matematik karsiliklar genelgesi
 - **Dönem:** 2 (son 22 Kasım 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 2/2/0 · **Örnek:** 22 Kasım 2025 S34, 19 Kasım 2023 S25 · _modül yedeği_
 - **Kalıp:** B yanlıştır ×1 / D öncüllü ×1 · **Olumsuz/öncüllü/hesap:** %50/%50/%0 · **Kök:** 115–191 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) / "Yalnız I", "I ve II"… (~112 kr)
-- **Ne sorar:** B/D: 2022/8 Genelgede aktüeryal matematik karşılığın tanımı, prospektif/retrospektif yöntem, olumsuz mortalite deneyiminin hemen yansıtılması, iade gerektiren giderlerin ertelenememesi, TFRS 17'yi tam uygulayanların genelge hesabından muafiyeti
-- **Dayanak:** AMBARDA YOK: Matematik Karşılıklar Hesabına İlişkin 2022/8 sayılı Genelge (BRIF-BITIS §3) · yalnız ilke düzeyinde komşu kayıt: Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.14 [1/2] (genelge hükmünün yerine geçmez)
-- **Çeldirici:** TFRS 17'yi tam uygulayanın ayrıca genelge hesabı yapmak zorunda olduğunu sanmak · iade gerektiren üretim komisyonu/gider payının ertelenebileceğini sanmak · olumsuz mortalite deneyiminin sonraki döneme bırakılabileceğini sanmak
-- **Yazım notu:** Genelge ambarda yok → soru YAZILMAZ (K1b); Teknik Karş. Yön. m.14 ilkeleri genelge sorusuna dayanak yapılmaz.
+- **Ne sorar:** B: olumsuz mortalite deneyimi hemen yansıtılır, olumlusu yansıtılmaz ama dipnotta açıklanır · B: TFRS 17'yi tamamen uygulayan şirket ayrıca Genelgeye göre hesap yapmak zorunda değildir · B/D: iadesi gereken üretim komisyonu ve gider payları ertelenebilir (karşılık tutarını aşamaz; aracının kesin hak ettiği komisyon ertelenmez) · D: prospektif, retrospektif ya da Kurumca kabul edilen yöntemler; prim ödemesinden muaf (tenzil) poliçelerde iştira hesabı
+- **Dayanak:** SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.4 [1/2] · SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.4 [2/2] · SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.5 · SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge m.8
+- **Çeldirici:** TFRS 17'yi tamamen uygulayana da Genelge hesabını zorunlu sanmak · olumlu mortalite deneyiminin de hemen yansıtıldığını sanmak · iştira iadesinde üretim komisyonu ve gider payının dikkate alınmadığını sanmak · ertelenen giderin karşılık tutarını aşabileceğini ya da aracının kesin hak ettiği komisyonun da ertelenebileceğini sanmak · yöntemi yalnız prospektife indirmek
+- **Yazım notu:** Genelge 01.01.2022'den geçerlidir; m.6'daki 01.10.2022 erteleme tarihi geçti, bugünkü kural gibi yazma. Makam "Kurum (SEDDK)".
 
 ### sigorta sozlesmesinde temsil
 - **Dönem:** 2 (son 29 Haziran 2024) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 29 Haziran 2024 S4, 12 Kasım 2022 S2 · _modül yedeği_
@@ -1962,26 +1962,26 @@
 ### hayat grubu sigortalari
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 28 Haziran 2025 S31, 29 Haziran 2024 S10 · _modül yedeği_
 - **Kalıp:** B yanlıştır ×2 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 86–144 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) (~133 kr)
-- **Ne sorar:** B: Hayat Grubu Sigortaları Yönetmeliğindeki branş sayımı, birikim primli ürünlerde teknik faiz garantisi, tarife eki içeriği, kâr payı oranlarının ilanı, aracı komisyonu; tanımlar (işletme masrafı, komütasyon tablosu, teknik faiz, birikim primi, tarife primi)
+- **Ne sorar:** B: hayat grubu branşları ve birikim primli ürünlerde teknik faiz garantisi · B: tarife ekinin içeriği, kâr payı oranlarının ilanı ve bildirimi, aracı komisyonu · B: tanımlar (işletme masrafı, komütasyon tablosu ve ölüm tablosu ayrımı, teknik faiz, birikim primi, tarife primi)
 - **Dayanak:** AMBARDA YOK: Hayat Grubu Sigortaları Yönetmeliği
-- **Çeldirici:** teknik faiz garantisini ihtiyari sanmak · yaşam (mortalite) tablosunu komütasyon tablosuyla karıştırmak · birikim primini risk primine bağlamak · tarife primine aracı komisyonunu katmamak
-- **Yazım notu:** Yönetmelik ambarda yok → soru YAZILMAZ (K1b).
+- **Çeldirici:** birikim primli üründe teknik faiz garantisini ihtiyari sanmak · ölüm tablosu tanımını komütasyon tablosuna vermek · risk primi ile birikim primini karıştırmak · tarife primine giren kalemlerden birini düşürmek
+- **Yazım notu:** Kaynak ambarda yok, bu karta soru yazılmaz (K1b). Kaynak yüklenince tanımları ve teknik faiz garantisini metinden doğrula.
 
 ### enflasyon muhasebesi gecisi
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 28 Haziran 2025 S30, 29 Haziran 2024 S13 · _modül yedeği_
 - **Kalıp:** G süre/oran/eşik ezberi ×2 · **Olumsuz/öncüllü/hesap:** %0/%0/%100 · **Kök:** 164–274 kr · **Şık:** sıralı sayı/süre/oran (~3 kr)
-- **Ne sorar:** G: sigorta, reasürans ve emeklilik şirketlerinin enflasyon muhasebesine geçiş tarihi — cevap genelge numarasına göre değişir (2024/10 ile 2024/32 farklı sonuç; sonrakinde "henüz belirleme yok")
-- **Dayanak:** AMBARDA YOK: Sigortacılık Sektöründe Enflasyon Muhasebesi Uygulaması Hakkında 2024/10 ve 2024/32 sayılı Genelgeler
-- **Çeldirici:** önceki genelgenin tarihini sonraki genelgeye taşımak · TMS 29'un genel uygulama tarihini sigorta sektörüne uygulamak · "henüz belirlenmedi" şıkkını gözden kaçırmak
-- **Yazım notu:** Cevap genelge sürümüne bağlı ve hiçbiri ambarda yok → soru YAZILMAZ (K1b); ambara girerse kök genelge numarasını açık yazar.
+- **Ne sorar:** G: köke göre Genelgedeki geçiş tarihi: 2024/10 → 01.01.2025 · 2024/32 → 2025'te uygulanmaz, 2024/10 yürürlükten kalktı (doğru şık "henüz belirleme yapılmamıştır") · 2025/33 → uygulanmamasına karar, tarih yok
+- **Dayanak:** SEDDK Genelge (2024/10) Sigortacilik Sektorunde Enflasyon Muhasebesi Uygulamasi bolum 1 → mülga · SEDDK Genelge (2024/32) Sigortacilik Sektorunde Enflasyon Muhasebesi Uygulamasi bolum 1 · SEDDK Genelge (2025/33) Sigortacilik Sektorunde Enflasyon Muhasebesi Uygulamasi bolum 1
+- **Çeldirici:** mülga 2024/10'daki 01.01.2025'i bugünkü geçiş tarihi sanmak · KGK duyurusundaki genel geçişi sigortacılık için de geçerli sanmak · 2024/32'yi bir yıllık erteleme sanıp 01.01.2026 cevabını seçmek · 2025/33 sonrası belirli bir tarih varmış gibi davranmak
+- **Yazım notu:** Kök hangi Genelgeyi anıyorsa cevabı o Genelgeden ver: 2024/10 → 01/01/2025; 2024/32 ve 2025/33 → belirleme yok, uygulanmaz. Bugün 2025/33 yürürlükte, 2024/10 mülga. "Yürürlükteki" diye kurulan kökte 2024/10 tarihi cevap olamaz.
 
 ### sigorta finansal tablolarin sunumu tebligi
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 28 Haziran 2025 S38, 29 Haziran 2024 S14 · _modül yedeği_
 - **Kalıp:** B yanlıştır ×2 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 86–144 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) (~133 kr)
-- **Ne sorar:** B: Sunum Tebliğinde finansal tabloların kapsamı ve başlık bilgileri, birden çok tabloyu ilgilendiren dipnot atfı, özet tabloların finansal tablo sayılmaması, değerleme ilkelerinin açıklanması, sıfır bakiyeli kalemler, dipnot açıklama zorunluluğu
-- **Dayanak:** AMBARDA YOK: Sigorta ve Reasürans ile Emeklilik Şirketlerinin Finansal Tablolarının Sunumu Hakkında Tebliğ (BRIF-BITIS §3)
-- **Çeldirici:** özet tabloları finansal tablo saymak · dipnot açıklamasını ihtiyari sanmak · bağımsız denetim bilgisini başlık bilgilerinden çıkarmak
-- **Yazım notu:** Tebliğ ambarda yok → soru YAZILMAZ (K1b).
+- **Ne sorar:** B: finansal tabloların kapsamı; ayrıntı içermeyen özet tablolar finansal tablo sayılmaz · B: tablonun üstüne yazılacak bilgiler (ad, unvan, konsolide olup olmadığı, cari satın alma gücü, tarih ya da dönem, para birimi, bağımsız denetimden geçip geçmediği) · B: dipnot kuralları (birden fazla tabloyu ilgilendiren bilgi ilk tablonun dipnotunda verilir; değerleme ilkeleri her varlık ve yükümlülük grubu için ayrıca açıklanır; gerçeği yansıtmak için gerekli diğer bilgiler dipnotta yer alır) · B: Tebliğe tam uymayan tablolar standartlara uygun sayılmaz
+- **Dayanak:** SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.5 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.6 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.7 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.8 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.9 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.10 · SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) m.11
+- **Çeldirici:** özet tabloları finansal tablo saymak · gerçeği yansıtmak için gerekli diğer bilgilerin dipnotta açıklanmasını zorunlu değil sanmak · birden fazla tabloyu ilgilendiren bilgiyi her tabloda tekrarlamak gerektiğini sanmak · değerleme ilkelerinin yalnız toplu olarak açıklandığını sanmak
+- **Yazım notu:** Dayanak 2008/1 Tebliğidir (01.01.2027'ye kadar yürürlükte). Aynı adlı 2023 Tebliği 01.01.2027'de yürürlüğe girer, dayanak yapılmaz. 2008/1 "Müsteşarlık" der, makamı "Kurum (SEDDK)" yaz. 2025 S38'deki "TFRS doğrultusunda" ve "sıfır bakiyeli kalem" ifadeleri 2008/1'de yok, o şıkları kopyalama.
 
 ### tfrs 17 kapsami
 - **Dönem:** 2 (son 27 Haziran 2026) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 27 Haziran 2026 S15, 29 Haziran 2024 S15 · _modül yedeği_
@@ -1994,10 +1994,10 @@
 ### tfrs 17 raporlama genelgesi
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 28 Haziran 2025 S10, 29 Haziran 2024 S17 · _modül yedeği_
 - **Kalıp:** D öncüllü ×2 · **Olumsuz/öncüllü/hesap:** %0/%50/%0 · **Kök:** 408–680 kr · **Şık:** "Yalnız I", "I ve II"… (~8 kr)
-- **Ne sorar:** D: TFRS 17 geçiş yıllarında sunulacak tabloların kapsamı (yalnız yıl sonu mu, karşılaştırmalı mı, konsolide tablolar, Kuruma gönderim ve süresi, geçiş bilançosu tarihi) — yıla göre değişen genelge hükümleri
-- **Dayanak:** AMBARDA YOK: TFRS 17 Kapsamında Sunulacak Raporlara İlişkin 2024-1 ve 2025/5 sayılı Genelgeler
-- **Çeldirici:** bir yılın genelgesindeki kuralı ertesi yıla taşımak · geçiş bilançosu tarihini Standardın genel yürürlük tarihiyle karıştırmak · karşılaştırmalı sunumu her durumda zorunlu sanmak
-- **Yazım notu:** Yıla bağlı genelgeler ambarda yok → soru YAZILMAZ (K1b).
+- **Ne sorar:** D: 2024/1'e göre 2024 raporlaması (çeyrek bazında gönderim takvimi; tüm tablolar yalnız yıl sonunda önceki yılla karşılaştırmalı sunulup denetlenir; konsolidasyona tabi şirket yalnız yıl sonu konsolide tablo sunar; Tebliğ ekindeki tablolar Kuruma gönderilir) · D: 2025/5'e göre geçiş bilançosu tarihi 01.01.2025; ara dönem tabloları ve yıl sonu kâr veya zarar tablosu karşılaştırmalı sunulmaz; yıl sonu tabloları 2026 Mart sonuna kadar, ara dönem tabloları ikişer ay içinde Kuruma gönderilir
+- **Dayanak:** SEDDK Genelge (2024/1) TFRS 17 Kapsaminda Sunulacak Raporlara Iliskin Genelge m.3 [1/3] · SEDDK Genelge (2024/1) TFRS 17 Kapsaminda Sunulacak Raporlara Iliskin Genelge m.3 [2/3] · SEDDK Genelge (2024/1) TFRS 17 Kapsaminda Sunulacak Raporlara Iliskin Genelge m.3 [3/3] · SEDDK Genelge (2024/16) 2024/1 Sayili TFRS 17 Genelgesinde Degisiklik bolum 1 · SEDDK Genelge (2025/4) 2024/1 Sayili TFRS 17 Genelgesinde Degisiklik bolum 1 · SEDDK Genelge (2025/5) TFRS 17 Kapsaminda 2025 Yilinda Sunulacak Raporlar m.3
+- **Çeldirici:** 2024/1 m.3/2'nin ilk metnini değişikliklerden (2024/16, 2025/4) sonra da geçerli sanmak, ya da tersini · geçiş bilançosu tarihini 2024 ve 2025 Genelgeleri arasında karıştırmak · 2024 yıl sonu gönderim tarihini Mart sonu sanmak (2025/4 ile 15.05.2025'e uzadı) · konsolide tabloların ara dönemlerde de sunulduğunu sanmak
+- **Yazım notu:** Hangi yılın raporu soruluyorsa o yılın Genelgesinden oku: 2024 için 2024/1 ve değişiklikleri (2024/16 m.3/2'yi; 2025/4 m.3/1-d ile m.3/2'yi değiştirdi), 2025 için 2025/5. Ambardaki 2024/1 m.3 [3/3] değişiklik öncesi metindir; 2024 S17'nin cevabı (E) bu ilk metne göredir. Değişik hükmü değişiklik Genelgesinden al.
 
 ### rizikonun sigortalanabilirligi
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 28 Haziran 2025 S4, 29 Haziran 2024 S23 · _modül yedeği_
@@ -2106,10 +2106,10 @@
 ### sigorta bilgilendirme yukumlulugu
 - **Dönem:** 1 (son 19 Kasım 2023) · **Soru:** 1 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 19 Kasım 2023 S33 · _modül yedeği_
 - **Kalıp:** B yanlıştır ×1 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 86–144 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) (~133 kr)
-- **Ne sorar:** B: Bilgilendirme Yönetmeliğine göre kurumsal internet sitesi zorunluluğu, bilgilendirme eksikliğinde fesih hakkı, yazılı bilgi taleplerinin on beş iş gününde cevaplanması, ispat yükünün sigortacıda olması, yükümlülüğün sözleşme öncesinde başlaması
-- **Dayanak:** AMBARDA YOK: Sigorta Sözleşmelerinde Bilgilendirmeye İlişkin Yönetmelik (BRIF-BITIS §3) · ambarda yalnız kanun düzeyi: Sigortacılık K. (5684 s.K.) m.11 [1/2] (fıkra 3), TTK (6102 s.K.) m.1423
-- **Çeldirici:** bilgilendirmenin sözleşme kurulduktan sonra başladığını sanmak · ispat yükünü sigorta ettirene vermek · iş gününü takvim günü yapmak
-- **Yazım notu:** Yönetmelik ambarda yok → yönetmelik hükmü sorusu YAZILMAZ (K1b); TTK m.1423 aydınlatma kuralı ancak kanun düzeyinde ayrı bir kartta sorulur.
+- **Ne sorar:** B: yükümlülüğün zamanı (sözleşme kurulmadan önce başlar, sözleşme süresince devam eder) · B: bilgilendirmenin ispatı sigortacıya aittir · B: bilgilendirme gereği gibi yapılmamışsa ve sigorta ettirenin kararına etkili olmuşsa fesih ve tazminat hakkı · B: kurumsal internet sitesi zorunluluğu; bilgi taleplerine 15 iş günü içinde cevap; değişikliklerin 10 iş günü içinde bildirilmesi
+- **Dayanak:** SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) m.5 · SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) m.7 · SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) m.10 · SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) m.12 · SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) m.13 [1/2] · TTK (6102 s.K.) m.1423 · Sigortacılık K. (5684 s.K.) m.11 [1/2]
+- **Çeldirici:** yükümlülüğün sözleşme kurulduktan sonra başladığını sanmak · ispat yükünü sigorta ettirene vermek · bilgi talebine cevap süresini (15 iş günü) değişiklik bildirim süresiyle (10 iş günü) karıştırmak · feshi her eksik bilgilendirmeye bağlamak (karara etkili olması şartını atlamak)
+- **Yazım notu:** Yönetmelik "Bakanlık" ve "Hazine ve Maliye Bakanı" der; bugün makam Kurum (SEDDK). TTK m.1423'teki 14 günlük itiraz süresi ayrı bir kuraldır, Yönetmelik şıklarıyla karıştırma.
 
 ### sigorta belge turleri
 - **Dönem:** 1 (son 19 Kasım 2023) · **Soru:** 1 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 19 Kasım 2023 S34 · _modül yedeği_
@@ -3085,10 +3085,10 @@
 ### banka faaliyet raporu
 - **Dönem:** 5 (son 29 Haziran 2024) · **Soru:** 5 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 29 Haziran 2024 S35, 19 Kasım 2023 S40, 13 Haziran 2021 S31
 - **Kalıp:** C değildir/sayılmaz ×2 / D öncüllü ×1 / B yanlıştır ×1 / U sayılır/kapsam ×1 · **Olumsuz/öncüllü/hesap:** %80/%20/%0 · **Kök:** 162–270 kr · **Şık:** kısa kalem/terim / "Yalnız I", "I ve II"… / hüküm cümlesi (biri tek noktası bozuk) (~70 kr)
-- **Ne sorar:** C/U: yıllık faaliyet raporu bölümlerinde yer alan/almayan bilgiler · D: raporun bölümleri · B: yayım ve sunum hükümleri — bunların tamamı Bankalarca Yıllık Faaliyet Raporunun Hazırlanmasına ve Yayımlanmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik'ten
-- **Dayanak:** AMBARDA YOK: Bankalarca Yıllık Faaliyet Raporunun Hazırlanmasına ve Yayımlanmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik (RG 1/11/2006) · ambarda yalnız çerçeve: Bankacılık K. (5411 s.K.) m.40 · Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.21
-- **Çeldirici:** risk grubu işlemlerini yanlış bölüme koymak · raporun dört bölümlü olduğunu sanmak · denetçi görüşünün rapora girmediğini sanmak
-- **Yazım notu:** Kaynak yönetmelik ambarda yok (BRIF-BITIS §3) — bu karta soru yazılmaz; yalnız 5411 m.40 içerik çerçevesi ve BDY m.21 denetim zorunluluğu ambarda.
+- **Ne sorar:** D: raporun bölümleri (sunuş; yönetim ve kurumsal yönetim; finansal bilgiler ve risk yönetimi; konsolide tablo hazırlayanlarda m.7'deki dördüncü bölüm). Ayrı bir "bağımsız denetçi görüşü bölümü" yok · C/U: üçüncü bölümün içeriği (denetim komitesi değerlendirmesi, bağımsız denetim raporu, finansal tablolar ve mali bünye, risk yönetimi politikaları, derecelendirme, 5 yıllık özet finansal bilgi); risk grubu işlemleri ikinci bölümdedir · C: zorunlu olmayan bilgi (son 15 yıllık sürdürülebilirlik bilgisi Yönetmelikte yok) · B: genel kuruldan en az 15 gün önce ortakların incelemesine sunulması, yayımın en geç Mayıs sonuna kadar yapılması, finansal bilgilerin bağımsız denetçilerce uygunluk denetimi, faaliyetlerin doğru ve eksiksiz yansıtılması
+- **Dayanak:** BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.5 · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.6 [1/3] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.6 [2/3] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.6 [3/3] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.7 · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.8 · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.9 [1/2] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.10 [1/2]
+- **Çeldirici:** risk grubu işlemlerini üçüncü bölüme koymak · yayım sınırını Mart sonu sanmak (doğrusu Mayıs sonu) · "bağımsız denetçi görüşleri bölümü"nü zorunlu dördüncü bölüm saymak · özet finansal bilgi dönemini 5 yıldan farklı yazmak (ör. 15 yıllık sürdürülebilirlik bilgisi) · denetçilerin görev süresini finansal bölümün bilgisi sanmak
+- **Yazım notu:** Ambardaki metin 2015 değişikliğinden sonraki hâldir: yayım sınırı "Mayıs ayı sonu" (2021 S31'de Mart yanlış şıktı). m.6/1-c-1 hâlâ mülga 6762 TTK m.347 denetçi raporunu sayar, bu kalemi şık yapma. Makam BDDK (Kurum, Kurul).
 
 ### mevduat sigortasi
 - **Dönem:** 5 (son 28 Haziran 2025) · **Soru:** 5 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 28 Haziran 2025 S11, 8 Temmuz 2023 S9, 24 Kasım 2019 S23
@@ -3141,18 +3141,18 @@
 ### denetim orneklemesi
 - **Dönem:** 4 (son 27 Haziran 2026) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 27 Haziran 2026 S30, 29 Haziran 2024 S24, 19 Kasım 2023 S22
 - **Kalıp:** M tanım↔terim ×1 / D öncüllü ×1 / B yanlıştır ×1 / A doğrudur ×1 · **Olumsuz/öncüllü/hesap:** %25/%25/%0 · **Kök:** 230–383 kr · **Şık:** aynı aileden 5 terim/tanım / "Yalnız I", "I ve II"… / hüküm cümlesi (biri tek noktası bozuk) / hüküm cümlesi (~116 kr)
-- **Ne sorar:** M/A/B/D: bankalarda bilgi sistemleri ve iş süreçleri bağımsız denetiminde denetim örneklemesi tanımı ve kuralları (istatistiki/istatistiki olmayan yaklaşım, kabul edilen risk ile örneklem büyüklüğü ilişkisi, tüm birimlerin seçilme şansı) · kaynak BDDK Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Hakkında Yönetmelik
-- **Dayanak:** AMBARDA YOK: Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Hakkında Yönetmelik (BDDK) · yalnız genel tanım ambarda: BDS 530 p.5 - Tanımlar (Denetim modülü)
-- **Çeldirici:** kabul edilebilir risk düştükçe örneklemin küçüldüğünü sanmak · istatistiki olmayan yaklaşımın yasak olduğunu sanmak · örneklemeyi anakitlenin yüzde yüzüne uygulama sanmak
-- **Yazım notu:** BDDK yönetmeliği ambarda yok — bu karta bankacılık sorusu yazılmaz; BDS 530 tanımı Denetim modülüne aittir, bankacılık kökünde dayanak yapma.
+- **Ne sorar:** M: tanım (tüm kalemlerin seçilme şansı olacak şekilde tekniğin anakitlenin %100'ünden azına uygulanması) · D/B/A: istatistiki ya da istatistiki olmayan yaklaşım kullanılabilir; örneklem kurulurken tekniğin amacı ve anakitlenin nitelikleri gözetilir; örneklem büyüklüğü kabul edilebilir denetim riskinden etkilenir, risk düştükçe örneklem büyür · A: tüm örnekleme birimlerinin seçilme şansı beklentisi, temsil edici ve önyargısız seçim; yüksek riskli alanda örneklem hacmi genişletilir (m.28/4)
+- **Dayanak:** BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.29 · BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.28 → f.4 · BDS 530 p.5 - Tanımlar
+- **Çeldirici:** risk düştükçe örneklemin küçüldüğünü sanmak (ilişki terstir) · istatistiki yaklaşımı zorunlu sanmak · örneklemeyi anakitlenin %100'üne uygulama sanmak · yüksek riskli alanda örneklem hacminin azaltıldığını sanmak · tanımı maddi doğrulama ya da gruplandırmayla karıştırmak
+- **Yazım notu:** Kök BDDK BSD Yönetmeliğini (2021) anıyorsa dayanak m.29'dur. BDS 530 dili ("örnekleme riski") ile Yönetmelik dili ("kabul edebileceği denetim riski") farklıdır; şık kökteki kaynağın diliyle yazılsın.
 
 ### banka kurumsal yonetim
 - **Dönem:** 4 (son 12 Kasım 2022) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 12 Kasım 2022 S5, 13 Haziran 2021 S28, 22 Ağustos 2020 S28
 - **Kalıp:** B yanlıştır ×2 / C değildir/sayılmaz ×2 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 71–119 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) / kısa kalem/terim (~121 kr)
-- **Ne sorar:** C/B: bankaların kurumsal yönetim ilkelerinden olan/olmayan (kurumsal değerler ve stratejik hedefler, yetki-sorumluluk belirliliği, müfettiş ve bağımsız denetimden yararlanma, şeffaflık) — Kurumsal Yönetim İlkeleri Yönetmeliği'nden · B: 5411 kurumsal yönetim hükümleri (m.23 yönetim kurulu, m.10 faaliyete geçişte kurumsal yönetime uygunluk, ilkeleri Kurul'un belirlemesi)
-- **Dayanak:** AMBARDA YOK: Bankaların Kurumsal Yönetim İlkelerine İlişkin Yönetmelik (ilke listesi) · ambarda: Bankacılık K. (5411 s.K.) m.22 · Bankacılık K. (5411 s.K.) m.23 · Bankacılık K. (5411 s.K.) m.10 [1/2]
-- **Çeldirici:** stratejik hedef belirlenmemesini ilke sanmak · iç sistemlerin tesisini genel kurula vermek · yönetim kurulu bildirim süresini yedi iş gününden farklı yazmak
-- **Yazım notu:** İlke listesi soruları ambarda kaynaksız (yazma); yalnız 5411 m.22–23 ve m.10 kaynaklı hüküm cümlesi yazılabilir — ilkeleri SPK II-17.1 ilkeleriyle doldurma.
+- **Ne sorar:** C: Yönetmelik ekindeki 7 ilkeden olmayanı bulmak (kurumsal değerler ve stratejik hedefler; yetki ve sorumluluk; YK üyelerinin nitelikleri; üst düzey yönetimin nitelikleri; müfettişlerden ve bağımsız denetimden yararlanma; ücret politikasının etik değerler ve stratejiyle uyumu; şeffaflık) · B: ilke içeriğinin bozulduğu şık (ör. "stratejik hedef belirlenmemeli") · B: 5411'e göre YK (genel müdür dahil en az 5 kişi; genel müdürlük ve YK başkanlığı ayrı kişilerde; yarıdan bir fazlasında GM şartı; 7 iş günü içinde Kuruma bildirim; iç sistemlerden YK sorumlu)
+- **Dayanak:** Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.4 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [1/8] → Ek İlke 1 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [2/8] → İlke 2 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [3/8] → İlke 3 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [4/8] → İlke 4 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [5/8] → İlke 5 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [6/8] → İlke 6 · Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik m.6 [8/8] → İlke 7 · Bankacılık K. (5411 s.K.) m.23
+- **Çeldirici:** "kusursuz sorumluluk" gibi uydurma bir ilkeyi ilke sanmak · ücret ilkesini "üst seviyede tutmak" diye bozmak (doğrusu etik değer ve stratejiyle uyum) · stratejik hedeflerin baskı yarattığı için belirlenmemesi gerektiğini sanmak · iç sistemlerin kurulmasını genel kurula ya da denetim komitesine yüklemek · YK asgari sayısını genel müdür hariç hesaplamak
+- **Yazım notu:** İlkeler Yönetmelik m.4'ün atıf yaptığı EK'tedir. Ambarda parçalayıcı EK'i "m.6 Yürütme" kaydına yapıştırmış (m.6 [1/8]–[8/8]); dayanakta İlke numarasını da yaz. Bankalar ilkeleri "esas alarak belirleyebilirler" (m.4), ilke metnini kanuni emir kipine çevirme.
 
 ### banka kredi komitesi
 - **Dönem:** 4 (son 27 Haziran 2026) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 1/4/3 · **Örnek:** 27 Haziran 2026 S21, 29 Haziran 2024 S19, 19 Kasım 2023 S15
@@ -3165,10 +3165,10 @@
 ### bilgi sistemleri denetim teknikleri
 - **Dönem:** 4 (son 27 Haziran 2026) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 27 Haziran 2026 S31, 28 Haziran 2025 S30, 29 Haziran 2024 S23
 - **Kalıp:** C değildir/sayılmaz ×3 / B yanlıştır ×1 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 129–215 kr · **Şık:** kısa kalem/terim / hüküm cümlesi (biri tek noktası bozuk) (~9 kr)
-- **Ne sorar:** C/B: BDDK Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Yönetmeliği'nde sayılan denetim teknikleri (tetkik, gözlem, sorgulama, yeniden uygulama, yeniden hesaplama, analitik prosedür — dış teyit yok) ve kontrol testi kuralları
-- **Dayanak:** AMBARDA YOK: Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Hakkında Yönetmelik (BDDK); SPK Bilgi Sistemleri Bağımsız Denetim Tebliği (III-62.2) başka düzenleme, bankacılık dayanağı olamaz
-- **Çeldirici:** dış teyidi teknik saymak · yalnız bilgi toplama tekniğiyle görüş oluşturulabileceğini sanmak · yüksek riskli alanda örneklemi daraltmak
-- **Yazım notu:** Kaynak ambarda yok — bu karta soru yazılmaz; SPK III-62.2 metnini BDDK yönetmeliği yerine koyma.
+- **Ne sorar:** C: m.28/1'deki altı teknikten olmayanı bulmak (tetkik, gözlem, sorgulama, yeniden uygulama, yeniden hesaplama, analitik prosedür; "dış teyit" listede yok) · B: kontrol testi kuralları (test kapsamı önemlilik gözetilerek belirlenir; tüm kontrollerin tasarım ve işletim etkinliği test edilir; yüksek riskli alanda test ayrıntılandırılır ve örneklem genişler; uygulanma sıklığı, güvenilen süre ve sapma beklentisi dikkate alınır; yalnız bilgi toplama tekniğiyle görüş oluşturulamaz)
+- **Dayanak:** BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.28
+- **Çeldirici:** BDS'deki "dış teyit"i Yönetmelik tekniği sanmak · "analitik prosedür"ü listede yok sanmak · yalnız bilgi toplamayla kontrol etkinliğine görüş verilebileceğini sanmak · yüksek riskli alanda örneklemin daraltıldığını sanmak
+- **Yazım notu:** Liste BDDK BSD Yönetmeliği (2021) m.28/1'den alınır; SPK BS bağımsız denetim tebliği ya da BDS listeleriyle karıştırma. Bu Yönetmelikte "dış teyit" yoktur.
 
 ### teminat degerlemesi
 - **Dönem:** 4 (son 27 Haziran 2026) · **Soru:** 4 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 27 Haziran 2026 S35, 28 Haziran 2025 S17, 29 Haziran 2024 S30
@@ -3205,10 +3205,10 @@
 ### banka yillik faaliyet raporu yayimi
 - **Dönem:** 3 (son 28 Haziran 2025) · **Soru:** 3 · **Son 10 yıl:** 4 · **Sitede/hedef/eksik:** 0/4/4 · **Örnek:** 28 Haziran 2025 S36, 8 Temmuz 2023 S26, 12 Kasım 2022 S39
 - **Kalıp:** E boşluk ×1 / D öncüllü ×1 / G süre/oran/eşik ezberi ×1 · **Olumsuz/öncüllü/hesap:** %0/%33/%33 · **Kök:** 412–686 kr · **Şık:** boşluğa gelecek ifade(ler) / "Yalnız I", "I ve II"… / sıralı sayı/süre/oran (~5 kr)
-- **Ne sorar:** E/G/D: yıllık faaliyet raporunun yayım süresi (izleyen yılın ayı), BDDK'ya gönderim süresi (gün), ibra edilmeme halinin rapordaki yeri — tamamı Yıllık Faaliyet Raporu Yönetmeliği'nden
-- **Dayanak:** AMBARDA YOK: Bankalarca Yıllık Faaliyet Raporunun Hazırlanmasına ve Yayımlanmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik (RG 1/11/2006) · ambarda yalnız Bankacılık K. (5411 s.K.) m.40 (usul ve esasları Kurul belirler)
-- **Çeldirici:** yayım ayını kaydırmak · BDDK'ya gönderim gününü kaydırmak · ibra edilmeme bilgisinin yerini yanlış bölüme koymak
-- **Yazım notu:** Süreler kaynak yönetmelikte ve ambarda yok (BRIF-BITIS §3) — bu karta soru yazılmaz; hafızadan ay/gün yazma.
+- **Ne sorar:** E/G: yayım sınırı (izleyen yılın Mayıs sonu; matbu olarak ve internet sitesinde) · G: matbu raporun bir örneği yayım tarihinden itibaren 7 gün içinde elektronik ortamda Kuruma gönderilir · D: genel kurulda ibra edilmezse gerekçesiyle sunuş bölümünde belirtilir; uyuşmazlık görüşü 7 gün içinde Kuruma gönderilir; rapor genel kuruldan en az 15 gün önce ortakların incelemesine sunulur
+- **Dayanak:** BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.10 [1/2] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.10 [2/2] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.8 · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.9 [2/2]
+- **Çeldirici:** yayım sınırını Mart sonu sanmak · Kuruma gönderme süresini 5, 10 ya da 15 gün yazmak · ibra edilmeme durumunun ayrı bir bölümde verildiğini sanmak · ortaklara sunum süresini 15 günden farklı yazmak
+- **Yazım notu:** m.10/4 2013 değişikliğiyle "yedi gün içinde elektronik ortamda" oldu; m.10/1 "Mayıs ayı sonu" der (2022 S39'da Mart diyen I öncülü yanlıştı). Arızi hâllerde ek süre yetkisi Kurumdadır (m.10/5).
 
 ### kiyi bankaciligi tanimi
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 27 Haziran 2026 S1, 29 Haziran 2024 S2, 13 Kasım 2016 S23
@@ -3253,10 +3253,10 @@
 ### yabanci para net pozisyon
 - **Dönem:** 3 (son 24 Kasım 2019) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 24 Kasım 2019 S21, 29 Haziran 2019 S25, 13 Mayıs 2018 S25
 - **Kalıp:** M tanım↔terim ×3 · **Olumsuz/öncüllü/hesap:** %0/%0/%0 · **Kök:** 96–160 kr · **Şık:** aynı aileden 5 terim/tanım (~27 kr)
-- **Ne sorar:** M: döviz varlıkları ile döviz yükümlülüklerinin TL karşılıkları arasındaki farkın adı (yabancı para net genel pozisyon) · çeldiriciler aynı yönetmeliğin komşu terimleri (konsolide döviz yükümlülüğü, YP özkaynak standart oranı)
-- **Dayanak:** AMBARDA YOK: Yabancı Para Net Genel Pozisyon/Özkaynak Standart Oranının Konsolide ve Konsolide Olmayan Bazda Hesaplanması ve Uygulanması Hakkında Yönetmelik (tanım ambarda bulunamadı)
-- **Çeldirici:** konsolide döviz yükümlülüğünü (yalnız pasif taraf) fark sanmak · kur riskini ölçülen tutar sanmak · YP özkaynak standart oranını (oran) farkın adı sanmak · uydurma "döviz finansman endeksi"ni seçmek
-- **Yazım notu:** Kaynak ambarda yok: K1b gereği bu karta soru YAZILMAZ; ambara yönetmelik alınınca tanım birebir oradan okunur.
+- **Ne sorar:** M: tanım eşleştirme. Döviz varlıkları toplamı ile döviz yükümlülükleri toplamının TL karşılıkları arasındaki fark yabancı para net genel pozisyondur; bu tutarın özkaynağa bölümü YP net genel pozisyon/özkaynak standart oranıdır · komşu terimler: döviz varlıkları ve yükümlülükleri, dövize endeksli varlık ve yükümlülük, vadeli döviz alım ve satım taahhütleri
+- **Dayanak:** BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.3 [1/3] · BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.3 [2/3] · BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.4 [1/2] · BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.6 [1/2]
+- **Çeldirici:** farkı "kur riski" ya da "kambiyo açığı" gibi genel bir terimle adlandırmak · tanımı oran terimiyle (özkaynağa bölünmüş tutar) karıştırmak · konsolide döviz yükümlülüğünü solo pozisyon sanmak · "döviz finansman endeksi" gibi Yönetmelikte olmayan terime kaymak
+- **Yazım notu:** Ambardaki ad "Yabancı Para Net Genel Pozisyon/Özkaynak Standart Oranı Yönetmeliği (2006)"; önceki yönetmelik m.7 ile yürürlükten kalktı. Oran sınırı (haftalık ortalama mutlak değer %5; Kurul dört katına kadar artırabilir, dörtte birine kadar indirebilir) yalnız m.4 ve m.5/A'dan yazılır.
 
 ### kalkinma yatirim bankalari
 - **Dönem:** 3 (son 29 Haziran 2024) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 2/3/1 · **Örnek:** 29 Haziran 2024 S1, 22 Ağustos 2020 S23, 24 Kasım 2019 S28
@@ -3285,10 +3285,10 @@
 ### banka faaliyet raporu icerigi
 - **Dönem:** 3 (son 27 Haziran 2026) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 0/3/3 · **Örnek:** 27 Haziran 2026 S27, 22 Kasım 2025 S31, 8 Temmuz 2023 S27
 - **Kalıp:** U sayılır/kapsam ×2 / C değildir/sayılmaz ×1 · **Olumsuz/öncüllü/hesap:** %33/%0/%0 · **Kök:** 210–350 kr · **Şık:** kısa kalem/terim (~71 kr)
-- **Ne sorar:** U: yönetim ve kurumsal yönetim bölümünde hangi bilgi yer alır (risk grubu işlemleri vb.) · C: bu bölümde hangisi yer almaz (bağımsız denetim raporu, finansal tablolar, mali durum değerlendirmesi başka bölümde)
-- **Dayanak:** AMBARDA YOK: Bankalarca Yıllık Faaliyet Raporunun Hazırlanmasına ve Yayımlanmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik (BRIF-BITIS §3 bilinen boşluk). Ambarda yalnız genel çerçeve: Bankacılık K. (5411 s.K.) m.40
-- **Çeldirici:** bağımsız denetim raporunu yönetim bölümüne koymak · mali durum, kârlılık ve borç ödeme gücü değerlendirmesini yönetim bölümü sanmak · yönetim kurulu başkanı ile genel müdürün değerlendirmelerini (genel bilgiler bölümü) yönetim bölümü sanmak · tarihsel gelişim ve ana sözleşme değişikliklerini yanlış bölüme koymak
-- **Yazım notu:** Bölüm içeriği ambarda yok: K1b gereği soru YAZILMAZ. 5411 m.40 yalnız raporun genel kapsamını verir; bölüm ayrımı ona dayanarak sorulamaz.
+- **Ne sorar:** U: ikinci bölümde (yönetim ve kurumsal yönetim) yer alan bilgiyi seçmek (yöneticilerin bilgileri, denetçilerin görev süresi ve deneyimi, komiteler, toplantılara katılım, özet YK raporu, insan kaynakları, risk grubu işlemleri, destek hizmetleri) · C: ikinci bölümde yer almayanı bulmak (bağımsız denetim raporu üçüncü bölümdedir) · ayırt edilecek sunuş bölümü kalemleri: özet finansal bilgi, tarihçe ve ana sözleşme değişiklikleri, ortaklık yapısı, yöneticilerin payları, YK başkanı ve GM değerlendirmesi
+- **Dayanak:** BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.6 [1/3] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.6 [2/3] · BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) m.6 [3/3]
+- **Çeldirici:** yöneticilerin sahip olduğu payları ya da YK başkanı ve GM değerlendirmesini ikinci bölüme koymak (sunuş bölümündedir) · mali durum ve kârlılık değerlendirmesini ikinci bölüme koymak (üçüncü bölümdedir) · bağımsız denetim raporunu yönetim bölümüne koymak · risk grubu işlemlerini üçüncü bölüme koymak
+- **Yazım notu:** Bölüm adlarını Yönetmelikteki gibi yaz ("sunuş", "yönetime ve kurumsal yönetim uygulamalarına ilişkin bilgiler", "finansal bilgiler ve risk yönetimine ilişkin değerlendirmeler"). Şıklar aynı aileden olsun ve her kalem tek bir bölüme ait olsun.
 
 ### banka tekduzen hesap gruplari
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 3 · **Son 10 yıl:** 3 · **Sitede/hedef/eksik:** 1/3/2 · **Örnek:** 28 Haziran 2025 S39, 28 Haziran 2025 S40, 19 Kasım 2023 S34
@@ -3373,10 +3373,10 @@
 ### banka birlesme devir
 - **Dönem:** 2 (son 12 Kasım 2017) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 12 Kasım 2017 S29, 14 Mayıs 2017 S17 · _modül yedeği_
 - **Kalıp:** B yanlıştır ×2 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 93–155 kr · **Şık:** hüküm cümlesi (biri tek noktası bozuk) (~145 kr)
-- **Ne sorar:** B: birleşme, devir, bölünme, hisse değişimi Kurul iznine bağlı · izin tarihinden itibaren üç ay içinde yetkili organ kararıyla işlemlere geçilmezse izin geçersiz · bankalar banka VEYA finansal kuruluşla birleşebilir · kesinleşince aktif-pasif devralan bankaya geçer, devredilenin tüzel kişiliği sona erer · TTK ve (sektör payı yüzde yirmiyi geçmezse) Rekabet K. m.7, 10, 11 uygulanmaz
-- **Dayanak:** Bankacılık K. (5411 s.K.) m.19
-- **Çeldirici:** "bankalar yalnız bankalarla birleşebilir" demek · üç aylık süreyi altı ay ya da bir yıl sanmak · kesinleşme için borçların önceden ödenmesini şart sanmak · Rekabet K. istisnasını sınırsız saymak · izni Kurum (Başkanlık) vermiş gibi yazmak
-- **Yazım notu:** Yalnız 5411 m.19 metnine dayan; banka birleşme/devir yönetmeliği ambarda bulunamadı (imtiyazlı pay sahipleri onayı, muacceliyet gibi şıklar yazılmaz). Rekabet istisnasının sektör payı şartını kesmeden yaz.
+- **Ne sorar:** B: işlemler Kurul iznine bağlıdır; izinden itibaren 3 ay içinde genel kurul kararıyla işleme geçilmezse izin geçersiz olur · B: kesinleşmek için borçların ödenmiş ya da teminata bağlanmış olması gerekmez; aksine sözleşme yoksa borç ve alacaklar muaccel olmaz · B: imtiyazlı pay sahiplerinin haklarını etkileyen kararlar imtiyazlı pay sahipleri genel kurulunca da onaylanır · B: Kanuna göre banka, banka ya da finansal kuruluşla birleşebilir; TTK hükümleri uygulanmaz; devirde aktif ve pasif devralana geçer
+- **Dayanak:** Bankacılık K. (5411 s.K.) m.19 · Bankalarin Birlesme, Devir, Bolunme ve Hisse Degisimi Hakkinda Yonetmelik m.4 [1/2] · Bankalarin Birlesme, Devir, Bolunme ve Hisse Degisimi Hakkinda Yonetmelik m.5 · Bankalarin Birlesme, Devir, Bolunme ve Hisse Degisimi Hakkinda Yonetmelik m.6 · Bankalarin Birlesme, Devir, Bolunme ve Hisse Degisimi Hakkinda Yonetmelik m.23 · Bankalarin Birlesme, Devir, Bolunme ve Hisse Degisimi Hakkinda Yonetmelik m.25
+- **Çeldirici:** borçların ödenmesini ya da teminata bağlanmasını kesinleşme şartı sanmak · bankaların yalnız bankalarla birleşebileceğini sanmak (finansal kuruluşla da birleşebilir) · 3 aylık süreyi farklı yazmak ya da işlemlere "geçme" yerine işlemlerin "tamamlanması"na bağlamak · imtiyazlı pay sahiplerinin onayını gereksiz sanmak
+- **Yazım notu:** 5411 m.19 hâlâ mülga "6762 sayılı TTK" ve Rekabet K. m.7, 10, 11'in (aktif payı %20'yi geçmemek kaydıyla) uygulanmayacağını söyler; şıkta TTK numarası verme ya da metindeki gibi yaz. İzin makamı BDDK Kurulu.
 
 ### banka finansal raporlama yukumlulukleri
 - **Dönem:** 2 (son 28 Haziran 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 28 Haziran 2025 S14, 14 Mayıs 2017 S21 · _modül yedeği_
@@ -3413,10 +3413,10 @@
 ### konsolide doviz yukumlulukleri
 - **Dönem:** 2 (son 13 Haziran 2021) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 13 Haziran 2021 S30, 14 Kasım 2020 S24 · _modül yedeği_
 - **Kalıp:** M tanım↔terim ×2 · **Olumsuz/öncüllü/hesap:** %0/%0/%0 · **Kök:** 194–324 kr · **Şık:** aynı aileden 5 terim/tanım (~20 kr)
-- **Ne sorar:** M: ana ortaklık bankanın konsolide edilen tüm YP pasif hesapları, dövize endeksli yükümlülükleri ve vadeli döviz satım taahhütlerinin adı · ayna terim: konsolide döviz varlıkları (aktif, alım taahhüdü)
-- **Dayanak:** AMBARDA YOK: Yabancı Para Net Genel Pozisyon/Özkaynak Standart Oranının Konsolide ve Konsolide Olmayan Bazda Hesaplanması ve Uygulanması Hakkında Yönetmelik (konsolide döviz varlık/yükümlülük tanımları ambarda bulunamadı)
-- **Çeldirici:** pasif/satım taahhüdünü varlık sanıp "konsolide döviz varlıkları"nı seçmek · net pozisyonu (fark) seçmek · oranı (net pozisyon/özkaynak) seçmek · dövize endeksli varlık ve yükümlülüğü seçmek
-- **Yazım notu:** K1b: kaynak ambarda yok, soru YAZILMAZ.
+- **Ne sorar:** M: konsolide döviz varlıkları (konsolide edilen YP aktif hesaplar, dövize endeksli varlıklar, vadeli döviz alım taahhütleri) ile konsolide döviz yükümlülüklerini (YP pasif hesaplar, dövize endeksli yükümlülükler, vadeli döviz satım taahhütleri) ayırt etmek · komşu terimler: konsolide YP net genel pozisyon, konsolide oran, dövize endeksli varlık ve yükümlülük
+- **Dayanak:** BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.3 [1/3] · BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.3 [2/3] · BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) m.5 [1/2]
+- **Çeldirici:** aktif ve alım taahhüdü ile pasif ve satım taahhüdünü ters eşlemek · farkı (net pozisyonu) varlık ya da yükümlülük toplamı sanmak · "konsolide döviz pozisyonu" ya da "konsolide döviz riski" gibi Yönetmelikte olmayan terime kaymak · oranı tanım terimi sanmak
+- **Yazım notu:** 2022 değişikliğinden sonra tanım "finansal kurumlar topluluğuna dahil ortaklıklar" yerine "kredi kuruluşu ve/veya finansal kuruluş niteliğindeki ortaklıklar" der (m.3/1-d, e). Eski sınav kökünü kopyalama, güncel ibareyi kullan.
 
 ### bankacilik tanimlari
 - **Dönem:** 2 (son 14 Kasım 2020) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 14 Kasım 2020 S26, 22 Ağustos 2020 S17 · _modül yedeği_
@@ -3429,10 +3429,10 @@
 ### bilgi sistemleri kontrol tanimi
 - **Dönem:** 2 (son 8 Temmuz 2023) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 8 Temmuz 2023 S17, 13 Haziran 2021 S21 · _modül yedeği_
 - **Kalıp:** M tanım↔terim ×2 · **Olumsuz/öncüllü/hesap:** %0/%0/%0 · **Kök:** 194–324 kr · **Şık:** aynı aileden 5 terim/tanım (~20 kr)
-- **Ne sorar:** M: 5411'e göre "kontrol" (yüzde ellibir şartı aranmaksızın sermaye çoğunluğu, imtiyazlı pay, oy anlaşması ya da yönetim kurulu çoğunluğunu atama/görevden alma gücü) · M: BS düzenlemesine göre "kontrol" (iş hedefleri, istenmeyen olayları engelleme-belirleme-düzeltme konusunda güvence amaçlı politika, prosedür, uygulama, yapıların tamamı) · komşu: kontrol hedefi, önemli etki, nitelikli pay
-- **Dayanak:** Bankacılık K. (5411 s.K.) m.3 [3/4] · Bankalarin Bilgi Sistemleri ve Elektronik Bankacilik Hizmetleri Hakkinda Yonetmelik m.3 [4/6] · AMBARDA YOK: Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Hakkında Yönetmelik (sınavın andığı yönetmelik)
-- **Çeldirici:** 5411'deki kontrolü önemli etki ya da nitelikli pay sanmak · kontrolü yüzde ellibir pay şartına bağlamak · BS tanımında "kontrol" yerine "kontrol hedefi"ni seçmek · ana ortaklığı seçmek
-- **Yazım notu:** BS "kontrol" sorusu yalnız ambardaki Bilgi Sistemleri ve Elektronik Bankacılık Hizmetleri Yönetmeliği m.3(y) ile kurulur ve kök bu yönetmeliği anar; İş Süreçleri Bağımsız Denetimi Yönetmeliği ambarda yok.
+- **Ne sorar:** M: BSD Yönetmeliği m.4'teki "kontrol" tanımı (iş hedeflerinin gerçekleşmesi ve istenmeyen olayların engellenmesi, belirlenmesi, düzeltilmesi için güvence amaçlı politika, prosedür, uygulama ve organizasyon yapılarının tamamı) ve komşusu "kontrol hedefi" · M: 5411 m.3'teki "kontrol" (sermaye çoğunluğu, imtiyazlı pay, oy anlaşması, YK çoğunluğunu atama ya da görevden alma gücü); önemli etki, nitelikli pay ve ana ortaklıktan ayırt etmek
+- **Dayanak:** BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.4 [3/3] · Bankacılık K. (5411 s.K.) m.3 [3/4] · Bankalarin Bilgi Sistemleri ve Elektronik Bankacilik Hizmetleri Hakkinda Yonetmelik m.3 [4/6]
+- **Çeldirici:** BSD Yönetmeliğindeki "kontrol"ü "kontrol hedefi" ile karıştırmak · 5411'deki "kontrol"ü "önemli etki" ya da "nitelikli pay" sanmak · kontrolün %51 sahiplik şartına bağlı olduğunu sanmak · teftiş ya da iş süreci tanımına kaymak
+- **Yazım notu:** Aynı terim iki kaynakta ayrı anlam taşır; kök kaynağı (5411 mi, BSD Yönetmeliği mi) açıkça yazsın, şıklar o kaynağın tanım ailesinden gelsin.
 
 ### banka risk grubu
 - **Dönem:** 2 (son 19 Kasım 2023) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 19 Kasım 2023 S13, 14 Kasım 2021 S23 · _modül yedeği_
@@ -3477,10 +3477,10 @@
 ### bilgi sistemleri denetim surecleri
 - **Dönem:** 2 (son 27 Haziran 2026) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 27 Haziran 2026 S32, 29 Haziran 2024 S22 · _modül yedeği_
 - **Kalıp:** C değildir/sayılmaz ×2 · **Olumsuz/öncüllü/hesap:** %100/%0/%0 · **Kök:** 107–178 kr · **Şık:** kısa kalem/terim (~35 kr)
-- **Ne sorar:** C: BS ve iş süreçleri bağımsız denetiminde denetçinin önemlilik ile inceleyeceği iş süreçleri listesinde hangisi yoktur (insan kaynakları, müşteri kabul süreci gibi)
-- **Dayanak:** AMBARDA YOK: Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Hakkında Yönetmelik (iş süreçleri listesi ambarda bulunamadı)
-- **Çeldirici:** temel bankacılık süreçlerinden (mevduat, kredi, muhasebe, kartlar, ödeme sistemleri, finansal raporlama) birini listede yok sanmak · insan kaynakları sürecini listede sanmak
-- **Yazım notu:** K1b: kaynak ambarda yok, soru YAZILMAZ.
+- **Ne sorar:** C: m.25/2'de sayılan banka iş süreçlerinden olmayanı bulmak (mevduat, bireysel ve kurumsal kredi, muhasebe, banka ve kredi kartları, finansal raporlama, ödeme sistemleri, hazine/menkul kıymetler ve fon yönetimi sayılır; insan kaynakları ve müşteri kabul sayılmaz) · ayrıca: denetlenecek süreçleri belirleme yetkisi Kurumdadır; iş süreci kontrollerinin etkinliği BS genel kontrollerine bağlıdır
+- **Dayanak:** BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.25 [1/4] · BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.25 [2/4] · BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.25 [3/4] · BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.25 [4/4]
+- **Çeldirici:** insan kaynakları sürecini sayılan süreç sanmak · müşteri kabul sürecini listede sanmak · finansal raporlama ya da ödeme sistemleri sürecini listede yok sanmak · "gerekli görülen diğer süreçler" ibaresi yüzünden her süreci sayılmış kabul etmek
+- **Yazım notu:** Kök "sayılan süreçlerden biri değildir" diye kurulsun. m.25/2 "gerekli görülen diğer süreçler"i de andığı için "denetlenemez" kipini kullanma.
 
 ### kredi karsiliklari tanimlari
 - **Dönem:** 2 (son 29 Haziran 2024) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 29 Haziran 2024 S26, 8 Temmuz 2023 S32 · _modül yedeği_
@@ -3573,10 +3573,10 @@
 ### bilgi sistemleri denetim yetkisi iptali
 - **Dönem:** 2 (son 22 Kasım 2025) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 22 Kasım 2025 S36, 8 Temmuz 2023 S15 · _modül yedeği_
 - **Kalıp:** U sayılır/kapsam ×1 / O ceza/suç ×1 · **Olumsuz/öncüllü/hesap:** %0/%0/%0 · **Kök:** 126–210 kr · **Şık:** kısa kalem/terim / ceza/suç adı (~64 kr)
-- **Ne sorar:** U: BS bağımsız denetim yetkisinin SÜRESİZ kaldırılmasını gerektiren hal (yanıltıcı/gerçeğe aykırı rapor) · O: iki yıla kadar GEÇİCİ kaldırmayı gerektiren hal (yeterli kanıt olmadan olumlu görüş vb.)
-- **Dayanak:** AMBARDA YOK: Bilgi Sistemleri ve İş Süreçleri Bağımsız Denetimi Hakkında Yönetmelik (yetki kaldırma halleri ambarda bulunamadı). Ambardaki Bankacılık K. (5411 s.K.) m.15 yalnız yetkilendirme ve yetki kaldırma kararının Kurulca verileceğini söyler
-- **Çeldirici:** geçici kaldırma halini süresiz kaldırma sanmak · bağımsızlık kaybı ile yanıltıcı raporu aynı yaptırıma bağlamak · bilgi belge vermeme ya da önceden bildirmeden ekip değiştirmeyi süresiz kaldırma sanmak
-- **Yazım notu:** K1b: yaptırım listesi ambarda yok, soru YAZILMAZ; 5411 m.15 yalnız kararı Kurulun verdiğini destekler.
+- **Ne sorar:** O: iki yıla kadar geçici kaldırma hâlleri (unvanların m.18'e aykırılığı; denetçilerin önceden bilgi verilmeden değiştirilmesi; uyarı gerektiren hususun üç denetim döneminde tekrarı; yeterli kanıt yokken olumlu görüş; istenen bilgi ve belgenin verilmemesi) · U: sürekli kaldırma hâlleri (bağımsızlık ve tarafsızlık kaybı; birden fazla kez MSS yaptırmama; önemli hususların raporda yer almaması; yetkinin birden fazla geçici kaldırılması; sözleşme yokluğu; m.9 şartlarının kaybı; yanıltıcı ve gerçeğe aykırı rapor; 5 yıl fiilen BSD yapmama) · ayrıca: 1 ay içinde savunma; BSD yetkisinin kaldırılması bağımsız denetim yetkisini kaldırmaz
+- **Dayanak:** BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.12 [1/3] · BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) m.12 [2/3]
+- **Çeldirici:** yanıltıcı rapor düzenlemeyi geçici kaldırma hâli sanmak (süreklidir) · yetersiz kanıta rağmen olumlu görüşü sürekli kaldırma hâli sanmak (geçicidir) · bağımsızlık kaybını geçici hâl saymak · şartların kaybını geçici hâl sanmak · "iki yıla kadar" süresini sabit bir süre gibi yazmak
+- **Yazım notu:** Geçici (m.12/1) ve sürekli (m.12/2) listeleri karıştırmadan şık yaz. Yetkiyi kaldıran Kurul, denetçiye faaliyet yasağı getiren Kurumdur (m.12/3); makam adını fıkraya göre yaz.
 
 ### bddk kurulu
 - **Dönem:** 2 (son 14 Kasım 2021) · **Soru:** 2 · **Son 10 yıl:** 2 · **Sitede/hedef/eksik:** 0/2/2 · **Örnek:** 14 Kasım 2021 S29, 22 Ağustos 2020 S26 · _modül yedeği_
