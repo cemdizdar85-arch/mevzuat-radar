@@ -12,8 +12,10 @@ Araç: C:\TETIKTE-CALISMA\yet-s20-arac\d1\bulut-olc.js (kalip-kosucu SECIM şart
 | D2 | FM | 19 (+1 okumada CIKAR) | 11 (%58) | 8: simülasyon 3 + koşmadı 1 · hakem 2 · açıklama hakemi 1 · ücretsiz kapı 1 | 0,76 | 0,069 | DEVAM | 41922655463 |
 | D2 | Vergi | 18 (+2 okumada CIKAR) | 11 (%61) | 7: simülasyon (teori, anlatım yetmedi) 3 · hakem 1 (2026 tutarı uyguladı) · AH 1 (2026 tutarı) · hakem2 1 · bulut kör 1 | 1,01 | 0,092 | DEVAM | 41930114421 |
 | D1-y | Vergi | 3 | 2 | 1: bulut kör (yurt içi asgari KV) | 0,17 | 0,085 | DEVAM | 41926664397 |
+| D3 | FM | 13 (+7 okumada ikiz/kopya) | 7 (%54) | 6: simülasyon 3 + koşmadı 1 · açıklama hakemi 2 (bulutun ikizi) | 0,62 | 0,089 | DEVAM | 41935084694 |
 
-Kümülatif (05.11 03:00): 80 gönderildi · 53 geçti · 4,06 USD / 40 USD tavan. Koşan: FM D1 yedek (6), FM D3 (13). Deneme dolumu: FM D1 13/20 · FM D2 11/20 · Vergi D1 18/20 · Vergi D2 11/20.
+Kümülatif (05.11 03:30): 93 gönderildi · 60 geçti · 4,80 USD / 40 USD tavan (FM D1 yedeği hâlâ bulutta). Deneme dolumu: FM D1 13 · FM D2 11 · FM D3 7 · Vergi D1 18 · Vergi D2 11 (Vergi D3 bulutta).
+FM verimi düşüyor (buluttan geçme %65 → %58 → %54; okumada ikiz D2 1 → D3 7): sitedeki FM bankası en sık konularda doymuş.
 Düşen 11 soru aynı konu/kalıp/zorluk/harfle, düşüş nedeni önlenerek yeniden yazılıyor (yedek dalgası d1-y) → D1 denemeleri 20'ye tamamlanır.
 
 Banka ayrımı eşdeğerlik provası (05.11): smmm-kasa-yayin -SadeceSecim eski/yeni, ambardaki bütün SMMM partileri → seçilen 3.811 / 3.811, fark 0. Bulut sonrası kasa yayını 41911583361: "s20 deneme (bankaya girmez) 6" parti; bankada D1 sorusu 0/40 (metinle ölçüldü).
