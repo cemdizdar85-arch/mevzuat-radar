@@ -20,6 +20,7 @@ Araç: C:\TETIKTE-CALISMA\yet-s20-arac\d1\bulut-olc.js (kalip-kosucu SECIM şart
 | D2-y | FM | 8 (+1 okumada ikiz) | 6 (%75) | 2: simülasyon 1 · ücretsiz kapı 1 | 0,38 | 0,063 | DEVAM | 41943182918 |
 | D1-y2 | Vergi | 1 | 1 | 0 | 0,08 | 0,08 | DEVAM | 41948905536 |
 | D2-y | Vergi | 9 | 3 (%33) | 6: ücretsiz kapı 4 (KAPI-S 2: kökte "2025 yılı için tarife" eski yıl verisi sayıldı · KAPI-B 2: bu gecenin D1/D2 partisiyle Jaccard ≥0,60) · AH 1 · hakem 1 | 0,31 | 0,103 | ders toplamında DEVAM (Vergi 71 → 47, %66); iki ücretsiz kapı yerelde kuruldu | 41948900929 |
+| D1 | Meslek | 17 (+3 okumada ikiz/şık) | 11 (%65) | 6: bulut kör 3 · ücretsiz kapı 2 (KAPI-M: "mülga/eski-yeni kanun" ifadesi) · AH 1 | 0,65 | 0,059 | DEVAM | 41952463736 |
 
 Kümülatif (05.11 04:50): 143 gönderildi · 96 geçti · 7,76 USD / 40 USD tavan. Eşik ders toplamında uygulanıyor (küçük yedek partide oran oynak): FM 69 → 42 (%61, ≈0,07 USD/geçen) · Vergi 61 → 40 (%66) · Denetim 16 → 14 (%88). Deneme dolumu: FM D1 18 · FM D2 15 · FM D3 7 · Vergi D1 18 · Vergi D2 11 · Vergi D3 11 · Denetim D1 14.
 Deneme dışı (buluttan geçti ama okumada geriye dönük kopya riski, soru yanlış değil): FM D2 slot 2 (2026/1 S8 kalıbı) ve slot 12 (2026/1 S11 kalıbı) — d1/deneme-disi.json.
@@ -30,3 +31,4 @@ Banka ayrımı eşdeğerlik provası (05.11): smmm-kasa-yayin -SadeceSecim eski/
 Simülasyon kuralı (05.11, bulut kodu okundu): kayıt sorusunda tablonun son satırı belirleyici tutar; K kalıbında şema/tablo yok. Yerel kontrol kart-olc SIM-I/SIM-TEORI: FM D1+D2 bulut simülasyon düşüşlerinin 7'sinden 3'ünü yakaladı.
 
 Yerel kapı onarımı (05.11 ~05:30): (1) ikiz havuzu önbellekti, bu gecenin s20 partileri yoktu → kapi.sh önce parti-senkron -Indir (tazelenince bulutun 2 KAPI-B düşüşü 2/2 yakalandı) · (2) KAPI-S yerelde yoktu → d1/kapi-s.ps1 bulut işlevini AST ile birebir koşar (öz-sınav 2/2). Vergi yıl ifadesi: "2025 yılında elde edilen gelirlere uygulanan …" geçer, "2025 yılı için tarife" düşer (7 biçim ölçüldü).
+Yerel KAPI-M (05.11 ~06:00): kapi-s.ps1 ilk sürümünde MulgaKapisi listesi ($MULGA_LISTE) alınmamıştı → boş koştu; liste AST ile eklendi, liste yoksa KOR verip durur. Öz-sınav: Meslek D1 KAPI-M 2/2.
