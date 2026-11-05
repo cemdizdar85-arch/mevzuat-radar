@@ -9,3 +9,6 @@ Bedel etkisi: 4 doğru soru × ≈0,08 USD + yerine yazım/okuma emeği. Öneri 
 ## A-2 · Plan adının fren istisnasına uymadığı rehakem koşusu sabah raporunu KIRMIZI yaptı
 05.11 koşu 41988213004 (plan-smmm-s20vergi-0511-onarim-hakem.json) ACIL FREN'de 0 USD durdu → sabah raporu "kirmizi: Bulut Uretim …". Bilgi: fren doğru çalıştı; sabah raporu frende duran 0 USD koşuyu da kırmızı sayıyor.
 - **Tip C — olumsuz kökte ("değildir/sayılmaz") teori ikizi kurulamıyor (1 vaka, 05.11: smmm-s20-ymeslek-d1-y3-zor/kp-01).** Kayıt: `simulasyon.eksik` = "teori ikizi 3 denemede tutarlı üretilemedi (yanlis_ifade cevap şıkkında yok)". Şıklar tek kelimelik terim ("bankacılık" vb.) olunca üretici ikizdeki yanlış ifadeyi cevap şıkkında aynen bulamıyor → sim YANLIŞ yazılıyor, doğru soru düşüyor (kod ≈satır 6255–6272). Yazar tarafında: C/olumsuz kalıpta şıklar tam cümle.
+
+## A-3 · Açıklama hakemi BULUTUN kendi kurduğu sayısal ikizi kusurlu bulunca asıl doğru soru düşüyor (05.11, FTA 2 vaka)
+smmm-s20-yfta-d1-y-cokzor/kp-01 ve -zor2/kp-01: AH kusurları yalnız `ikiz.hedef_cumle` ("hedef cümle yalnız talimat veriyor") ve `ikiz.tablo` (46,923 → 46,92 yuvarlama) alanlarında — bu alanları üretici (simülasyon için) kendisi yazıyor; yazarın sorusu, şıkları ve açıklaması temiz. Öneri: AH'nin `ikiz.*` kusurlarını soru kusurundan ayır (ikizi yeniden kur, soruyu düşürme).
