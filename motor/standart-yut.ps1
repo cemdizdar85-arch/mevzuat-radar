@@ -1858,6 +1858,10 @@ $suzgec = 'or=(kaynak_ad.eq.' + [uri]::EscapeDataString($standart) + ',kaynak_ad
 # "degisiklik" gecen paragraf basliklari (TMS 8, BDS 320 p.12, TFRS 14 p.13...) ETKILENMEZ.
 # Olcum 16.09: ambarda bu kalipta 9 kayit var, hepsi TSRS 2 (bkz. veri/KGK-KAYNAK-OLCUMU.md).
 $suzgec += '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$standart Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$standart Değişiklikleri*")
+# 05.11 — ESKİ SÜRÜM de ayrı yayındır: "<std> (TFRS 18 oncesi, 2026'da yururlukte) p.N" kayıtları (2026 Mavi Kitap,
+# arac/kgk-tfrs18-oncesi-yut-20261105.ps1; TMS 7/8/10/29/34, TFRS 16) "<std> *" önekine girer. Dışlanmazsa Kırmızı Kitap
+# yeniden yutmasında kuruma freni sahte "eski büyük" der, -kucultmeyeOnayVer ile geçilirse eski sürüm SİLİNİR.
+$suzgec += '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$standart (TFRS 18 oncesi*")
 
 function SY_Cek([string]$adres){
   $y=Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $basliklar -TimeoutSec 240

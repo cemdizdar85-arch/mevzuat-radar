@@ -51,7 +51,8 @@ function AmbarMetni([string]$std){
   if($std -eq 'ETIK'){ $suzgec = 'kaynak_ad=like.' + [uri]::EscapeDataString('Etik Kurallar*') }
   else {
     $suzgec = 'or=(kaynak_ad.eq.' + [uri]::EscapeDataString($std) + ',kaynak_ad.like.' + [uri]::EscapeDataString("$std *") + ')' +
-              '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Değişiklikleri*")
+              '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Değişiklikleri*") +
+              '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std (TFRS 18 oncesi*")   # 05.11: eski sürüm ayrı yayın (standart-yut süzgeciyle aynı)
   }
   $parcalar = New-Object System.Collections.Generic.List[string]; $atla = 0
   do {

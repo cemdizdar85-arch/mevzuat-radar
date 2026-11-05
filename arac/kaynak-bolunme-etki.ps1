@@ -48,7 +48,8 @@ $depoKok = Split-Path -Parent $PSScriptRoot
 function OrDeger([string]$x){ return '"' + ($x -replace '\\','\\' -replace '"','\"') + '"' }
 function YeniSuzgec([string]$std){
   return 'or=' + [uri]::EscapeDataString('(kaynak_ad.eq.' + (OrDeger $std) + ',kaynak_ad.like.' + (OrDeger "$std *") + ')') +
-         '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Değişiklikleri*")
+         '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Değişiklikleri*") +
+         '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std (TFRS 18 oncesi*")   # 05.11: eski sürüm ayrı yayın (standart-yut süzgeciyle aynı)
 }
 function KopusFreni([int]$eskiSayi, [int]$yeniSayi, [int]$kopanSayi){
   if($eskiSayi -gt 0 -and $yeniSayi -eq 0){ return "yeni kayıt 0 (süzgeç bozuk ya da kaynak ambarda yok)" }
