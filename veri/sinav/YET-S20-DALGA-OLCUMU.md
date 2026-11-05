@@ -50,3 +50,14 @@ Kümülatif (05.11 sabah, bedel_kaydi ölçümü): 261 gönderildi · 176 geçti
 Ders toplamı (gönderilen → geçen): FM 90 → 55 (%61) · Vergi 90 → 58 (%64) · Denetim 22 → 19 · Meslek 23 → 13 · Hukuk 17 → 17 · SPK 19 → 14. Maliyet ve FTA'ya başlanmadı.
 Deneme dolumu (geçen /20): FM D1 18 · D2 15 (+2 deneme dışı) · D3 16 · D4 4 · Vergi D1 19 · D2 17 · D3 14 · D4 8 · Denetim D1 19 · Meslek D1 13 · Hukuk D1 17 · SPK D1 14. 20/20 deneme: 0.
 Yerel KAPI-P (05.11 sabah): bulut ParametreKapisi (yıla bağlı had/oran adı geçen cümlede sayı yoksa düşer) d1/kapi-s.ps1'e AST ile eklendi; öz-sınav Vergi D4 1/1, buluttan geçen 17 soruda yanlış alarm 0. Yerelde hâlâ yok: KAPI-GT.
+
+**Düzeltme (05.11 öğlen):** gece bedeli 13,95 değil **15,13 USD** — gece koşularının 11 bedel satırı ambara sabah ölçümünden SONRA yazıldı (zaman damgası koşu saatini taşıyor). Bedel her ölçümde yeniden okunur.
+
+05.11 gündüz (Cem: ilk denemeler 20/20; yerel kapıya KAPI-YIL eklendi; her yedek iki kör + okuyucudan geçti):
+| dalga | ders | gönderilen | buluttan geçen | düşen (neden) | bedel USD | koşu |
+|---|---|---|---|---|---|---|
+| D1-y | Hukuk | 2 (+1 okumada site ikizi) | 2 | 0 | 0,12 | 41994048011 |
+| D1-y2 | Denetim | 1 | 1 | 0 | 0,08 | 41994053661 |
+| D1-y2 | Meslek | 4 (+3 okumada ikiz/tek cevap değil) | 2 | 2: bulut kör (staj, reklam öncülü) → yedek konuya | 0,17 | 41998277425 |
+| D1-y4 | FM | 2 | 0 | 2: açıklama hakemi (bulut ikizinde gün sayımı) · simülasyon koşmadı (teori sorusunda tablo) → yedek konuya | 0,16 | 41998290612 |
+Kümülatif (05.11 ~12:30): 15,82 USD / 40. **Denetim D1 20/20** (kalite raporu <S20>/kalite/ydenetim-d1.md: zorluk 6/8/6, harf 4×5, kalıp gerçek 2026 hedefiyle birebir). Hukuk 19 · Vergi 19 · FM 18 · Meslek 15 · SPK 14 (+5 bulutta).
