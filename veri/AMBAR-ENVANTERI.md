@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **04.11.2026 16:10** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **05.11.2026 12:44** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 51076 parça · 2800 tekil kaynak | Bütünlük ölçülen: 2800 (delikli: 408; son ölçüm: 04.11.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 04.11.2026 16:08)
+**ÖZET:** 51951 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 413; son ölçüm: 05.11.2026) | Sürüm ölçülen: 50 (sorunlu: 1; son ölçüm: 05.11.2026 12:42)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -69,15 +69,19 @@
 | Bankacılık K. (5411 s.K.) | kanun-madde | 298 | DELİK-İNCELE(par:3239/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik | kanun-madde | 37 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Bilgi Sistemleri ve Elektronik Bankacilik Hizmetleri Hakkinda Yonetmelik | kanun-madde | 98 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Bankalarin Birlesme, Devir, Bolunme ve Hisse Degisimi Hakkinda Yonetmelik | kanun-madde | 33 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Ic Sistemleri ve Icsel Sermaye Yeterliligi Degerlendirme Sureci Hakkinda Yonetmelik | kanun-madde | 101 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Kredi Islemlerine Iliskin Yonetmelik | kanun-madde | 27 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Bankalarin Kurumsal Yonetim Ilkelerine Iliskin Yonetmelik | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Muhasebe Uygulamalarina Iliskin Yonetmelik | kanun-madde | 24 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Sermaye Yeterliliginin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik | kanun-madde | 97 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Tekduzen Hesap Plani Hakkinda Yonetmelik | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bankalarin Yesil Varlik Orani Hesaplamasi Hakkinda Teblig | kanun-madde | 17 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BD Tabi Sirketler Kararinda Degisiklik (CB Karari 11066, RG 17.03.2026/33199) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDDK Bankalarca Yillik Faaliyet Raporu Usul ve Esaslari Yonetmeligi (2006) | kanun-madde | 16 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Bankalarin Kredi Yonetimine Iliskin Rehber par.151-153 (kredi turevleri ve artik riskler) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Bankalarin Ozkaynaklari Yonetmeligi (2013) | kanun-madde | 41 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDDK Bilgi Sistemleri ve Is Surecleri Bagimsiz Denetimi Yonetmeligi (2021) | kanun-madde | 69 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Derecelendirme Kuruluslarinin Yetkilendirilmesi ve Faaliyetleri Yonetmeligi (2012) | kanun-madde | 74 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Kredilerin Siniflandirilmasi ve Karsiliklar Yonetmeligi (2016) | kanun-madde | 43 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Sermaye Koruma ve Dongusel Sermaye Tamponlari Yonetmeligi (2013) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -326,6 +330,7 @@
 | BDDK THP izahname hesap 988 - REPO VE TERS REPO İŞLEMLERDEN BORÇLAR–TÜRK PARASI | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK THP izahname hesap 992 - SINIRLAMALARA TABİ OLMAYAN KREDİLERDEN ALACAKLAR - TÜRK PARASI | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK THP izahname hesap 996 - DİĞER FİNANSAL DURUM TABLOSU DIŞI HESAPLARDAN ALACAKLAR - TÜRK PARASI | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDDK Yabanci Para Net Genel Pozisyon/Ozkaynak Standart Orani Yonetmeligi (2006) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 200 | standart-madde | 108 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 210 | standart-madde | 61 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 210 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1813,6 +1818,20 @@
 | SBDS 2400 | standart-madde | 246 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SBDS 2410 | standart-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SBDS 2410 - on bolum | standart-madde | 31 | DELİK-İNCELE(par:0/kesik:26/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Bireysel Emeklilik Sistemi Hakkinda Yonetmelik (2012) | kanun-madde | 76 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Yonetmelik (2023) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Finansal Tablolarin Sunumu Hakkinda Teblig (2008/1) | kanun-madde | 14 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2022/8) Matematik Karsiliklar Hesabina Iliskin Genelge | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2024/1) TFRS 17 Kapsaminda Sunulacak Raporlara Iliskin Genelge | kanun-madde | 7 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2024/10) Sigortacilik Sektorunde Enflasyon Muhasebesi Uygulamasi | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2024/13) Bireysel Emeklilik Sisteminde Kismen Odeme Hakkinda Genelge | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2024/16) 2024/1 Sayili TFRS 17 Genelgesinde Degisiklik | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2024/32) Sigortacilik Sektorunde Enflasyon Muhasebesi Uygulamasi | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2025/33) Sigortacilik Sektorunde Enflasyon Muhasebesi Uygulamasi | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2025/4) 2024/1 Sayili TFRS 17 Genelgesinde Degisiklik | kanun-madde | 2 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Genelge (2025/5) TFRS 17 Kapsaminda 2025 Yilinda Sunulacak Raporlar | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Mesleki Sorumluluk Sigortasi Genel Sartlari (2013) | kanun-madde | 18 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SEDDK Sigorta Sozlesmelerinde Bilgilendirmeye Iliskin Yonetmelik (2020) | kanun-madde | 18 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SEDDK Teskilat ve Gorevleri Hakkinda CBK (47 s.) | kanun-madde | 32 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sendikalar ve TİS K. (6356 s.K.) | kanun-madde | 102 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Serbest Bölgeler K. (3218 s.K.) | kanun-madde | 33 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1837,8 +1856,11 @@
 | Sigorta Acenteleri Yonetmeligi | kanun-madde | 38 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta Eksperleri Yonetmeligi | kanun-madde | 36 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta ve Reasurans Brokerleri Yonetmeligi | kanun-madde | 30 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Sigorta ve Reasurans ile Emeklilik Sirketlerinin Mali Bunyelerine Iliskin Yonetmelik | kanun-madde | 39 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta ve Reasurans ile Emeklilik Sirketlerinin Sermaye Yeterliliklerinin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik | kanun-madde | 22 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik | kanun-madde | 39 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Sigorta ve Reasurans Sirketleri ile Emeklilik Sirketlerinin Finansal Raporlamalari Hakkinda Yonetmelik | kanun-madde | 25 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Sigortacilik Finansal Tablolarin Sunumu Hakkinda Teblig (2023, YURURLUK 01.01.2027) | kanun-madde | 14 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacilik Tekduzen Hesap Plani ve Izahnamesi Hakkinda Teblig | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacilik ve Ozel Emeklilik Sektorlerinde Ic Sistemlere Dair Yonetmelik | kanun-madde | 91 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacılık K. (5684 s.K.) | kanun-madde | 134 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2265,6 +2287,7 @@
 | TFRS 14 | standart-madde | 70 | TAM | TUTARLI |
 | TFRS 15 | standart-madde | 242 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 16 | standart-madde | 210 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 16 (TFRS 18 oncesi, 2026'da yururlukte) | standart-madde | 206 | TAM | TUTARLI |
 | TFRS 17 | standart-madde | 370 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TFRS 18 | standart-madde | 288 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 19 | standart-madde | 288 | TAM(set-birebir; kapı notu: par:21/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
@@ -2549,6 +2572,7 @@
 | TMK (4721 s.K.) | kanun-madde | 1023 | DELİK-İNCELE(par:11/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TMS 1 | standart-madde | 158 | DELİK-İNCELE(par:10/kesik:0/oksuz:0) | INCELE |
 | TMS 10 | standart-madde | 28 | TAM | TUTARLI |
+| TMS 10 (TFRS 18 oncesi, 2026'da yururlukte) | standart-madde | 27 | TAM | TUTARLI |
 | TMS 12 | standart-madde | 131 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
 | TMS 16 | standart-madde | 101 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 19 | standart-madde | 186 | TAM(set-birebir; kapı notu: par:495/kesik:0/oksuz:7 resmî metinde de yok) | TUTARLI |
@@ -2562,17 +2586,21 @@
 | TMS 28 | standart-madde | 65 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 28 Degisiklikleri - Istiraklerde Gercege Uygun Deger Secenegi (RG 31.07.2026-33326) | kanun-madde | 3 | TAM | TUTARLI |
 | TMS 29 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 29 (TFRS 18 oncesi, 2026'da yururlukte) | standart-madde | 40 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 32 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:48/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 32 Ek | standart-madde | 56 | TAM | TUTARLI |
 | TMS 33 | standart-madde | 101 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 34 | standart-madde | 61 | TAM(set-birebir; kapı notu: par:6/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 34 (TFRS 18 oncesi, 2026'da yururlukte) | standart-madde | 60 | TAM(set-birebir; kapı notu: par:6/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 36 | standart-madde | 171 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 37 | standart-madde | 102 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 38 | standart-madde | 146 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 40 | standart-madde | 90 | TAM(set-birebir; kapı notu: par:18/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 41 | standart-madde | 59 | TAM(set-birebir; kapı notu: par:11/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 7 | standart-madde | 78 | TAM(set-birebir; kapı notu: par:3/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 7 (TFRS 18 oncesi, 2026'da yururlukte) | standart-madde | 74 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 8 | standart-madde | 92 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TMS 8 (TFRS 18 oncesi, 2026'da yururlukte) | standart-madde | 63 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TOBB/Odalar K. (5174 s.K.) | kanun-madde | 162 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TPKK (1567 s.K.) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSPB Sermaye Piyasasi Calisanlari Etik Ilkeleri ve Davranis Kurallari (Genelge 191) | kanun-madde | 79 | DELİK-İNCELE(par:0/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
