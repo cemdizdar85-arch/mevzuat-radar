@@ -28,6 +28,7 @@
 | Konu × kalıp tablosu | `kalip/konu-kalip-tablo.js` → `veri/sinav/kgk-duzeltme/konu-konu-kalip.md` | dalga planı "ÖNCE YAZ" kalıplarına göre |
 | **Soru başı ölçü satırı (B31)** | `olcu-satiri.js` (kapı 4) → `olcu/<dalga>-<grup>.tsv`: kimlik · konu · kalıp · konuda/modülde gerçek mi · kök/hedef/tavan · şık türü · oku1/oku2/anahtar · kaynak sayısı · ek kapı · yıl · tek harf · şık oranı · DURUM | her soru GEÇER |
 | Adet (konu başına soru) | `arac/kgk-konu-kapsama.js` → `veri/sinav/KGK-KAPSAMA.md` (son 10 yılda çıkan × 1) | plan konu sırası eksik/sıklık sırası |
+| **K1 kartlı soru** (BITIRME-SORU-STANDARDI K1, 05.11) | sorunun `konu` ↔ `veri/sinav/kgk-konu-kartlari.json` (`KGK-KONU-KARTLARI.md`; üretim `arac/kgk-kart/`) — kartın 4 alanı dolu olmalı; dayanak "AMBARDA YOK/BOZUK" ise soru YAZILMAZ (K1b) | konu dolu bir kartla birebir eşleşir |
 | Bulut | hakem (karar+ders+konu+tek anlam) · sim · kör · hakem2 · açıklama hakemi · kalite · ikiz · ret kütüğü | yayın şartı |
 
 ## ÖLÇÜLMÜYOR
