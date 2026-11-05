@@ -22,6 +22,8 @@ Araç: C:\TETIKTE-CALISMA\yet-s20-arac\d1\bulut-olc.js (kalip-kosucu SECIM şart
 | D2-y | Vergi | 9 | 3 (%33) | 6: ücretsiz kapı 4 (KAPI-S 2: kökte "2025 yılı için tarife" eski yıl verisi sayıldı · KAPI-B 2: bu gecenin D1/D2 partisiyle Jaccard ≥0,60) · AH 1 · hakem 1 | 0,31 | 0,103 | ders toplamında DEVAM (Vergi 71 → 47, %66); iki ücretsiz kapı yerelde kuruldu | 41948900929 |
 | D1 | Meslek | 17 (+3 okumada ikiz/şık) | 11 (%65) | 6: bulut kör 3 · ücretsiz kapı 2 (KAPI-M: "mülga/eski-yeni kanun" ifadesi) · AH 1 | 0,65 | 0,059 | DEVAM | 41952463736 |
 | D3-y | Vergi | 6 (+2 okumada ikiz) | 3 (%50) | 3: ücretsiz kapı 2 (KAPI-S "2025 yılı tarife" · KAPI-M "YTL" — ikisi de gönderimden sonra kurulan yerel kapıda önceden görüldü) · AH 1 | 0,25 | 0,083 | DEVAM | 41953362869 |
+| D1 | Hukuk | 17 (+3 okumada: 2026 değişikliği · site ikizi · TBK/TTK çift cevap) | 17 (%100) | 0 | 0,76 | 0,045 | DEVAM | 41957812401 |
+| D1-y | Denetim | 6 | 5 (%83) | 1: bulut kör | 0,40 | 0,080 | DEVAM | 41957817013 |
 
 Kümülatif (05.11 04:50): 143 gönderildi · 96 geçti · 7,76 USD / 40 USD tavan. Eşik ders toplamında uygulanıyor (küçük yedek partide oran oynak): FM 69 → 42 (%61, ≈0,07 USD/geçen) · Vergi 61 → 40 (%66) · Denetim 16 → 14 (%88). Deneme dolumu: FM D1 18 · FM D2 15 · FM D3 7 · Vergi D1 18 · Vergi D2 11 · Vergi D3 11 · Denetim D1 14.
 Deneme dışı (buluttan geçti ama okumada geriye dönük kopya riski, soru yanlış değil): FM D2 slot 2 (2026/1 S8 kalıbı) ve slot 12 (2026/1 S11 kalıbı) — d1/deneme-disi.json.
