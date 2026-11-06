@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261105195346
-Username: runnervmnwato\runner
-RunAs User: runnervmnwato\runner
+Start time: 20261106022445
+Username: runnervmwuk1x\runner
+RunAs User: runnervmwuk1x\runner
 Configuration Name: 
-Machine: runnervmnwato (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/49ca5593-5d92-4653-b04f-6fc92d2bec7d.ps1'
-Process ID: 2422
+Machine: runnervmwuk1x (Unix 7.0.0.1019)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/f12f40ec-9df9-4803-acfc-10c5de5759cf.ps1'
+Process ID: 2710
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -17,24 +17,12 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 05-11-2026
-Kart sayisi  : 2
+RG gunu      : 06-11-2026
+Kart sayisi  : 1
 Izlenen dosya: 12
 
-======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
-======================================================================
-  veri/gtip-durum.json   (arac: gtip.html)
-      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
-      hasat  : motor/tablo-hasat.ps1
-      <- Sivil havacılık haberleşme, seyrüsefer ve gözetim sistemleri yapı sınırlaması yönetmeliği
-
-  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
-  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
-  -> veri/arac-uyari.json
-
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
 **********************
 PowerShell transcript end
-End time: 20261105195346
+End time: 20261106022445
 **********************
