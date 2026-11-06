@@ -26,9 +26,21 @@ SMMM STAJA GİRİŞ · SINAV 21 KASIM
 İçimde 7 deneme var. 130 soru, her denemede. Çöz beni!
 Denemeler açık. Sadece 7 Deneme 999 TL · tetikte.com
 
+## 2. tur (06.11 Cem: "başka birşey yap dikkat çeksin")
+
+kaynak2.html · korku dili [Cem 05.11 onaylı]: 77/130 = 59,23 · 78/130 = 60 (hesaplandı).
+
+### Bitirme
+Maskotun yakın plan gözleri, göz bebeklerinde 8 · Gözümüz 8 Kasım'da. · Son 20 Gün açılıyor.
+
+### SGS
+Yine mi 59'da kalacaksın? · 130 soruda 77 doğru 59,23 KALDIN · 130 soruda 78 doğru 60 GEÇTİN · Fark: 1 soru · 7 deneme açık.
+
 ## Açıklama metni (Instagram)
 
-Bitirme: reklam-8-kasim-sgs/aciklama-bitirme.txt
-SGS: reklam-8-kasim-sgs/aciklama-sgs.txt
+1. tur Bitirme: reklam-8-kasim-sgs/aciklama-bitirme.txt
+1. tur SGS: reklam-8-kasim-sgs/aciklama-sgs.txt
+2. tur Bitirme: reklam-8-kasim-sgs/aciklama-bitirme-goz.txt
+2. tur SGS: reklam-8-kasim-sgs/aciklama-sgs-59.txt
 
 #reklam
