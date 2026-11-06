@@ -36,6 +36,12 @@ Maskotun yakın plan gözleri, göz bebeklerinde 8 · Gözümüz 8 Kasım'da. ·
 ### SGS
 Yine mi 59'da kalacaksın? · 130 soruda 77 doğru 59,23 KALDIN · 130 soruda 78 doğru 60 GEÇTİN · Fark: 1 soru · 7 deneme açık.
 
+## 3. tur afişler (06.11)
+
+Mektup (kaynak4) Cem reddetti: "bu iyi değil". Sade sürüm kaynak3.
+kaynak5.html: maskot filmlerinden kare, bedel 0. Bitirme B2a 20. sn "Gözümüz 8 Kasım'da." · SGS B3b 8. sn kırmızı ışık "Yine mi 59'da kalacaksın?"
+Açıklamalar 2. turla aynı.
+
 ## Açıklama metni (Instagram)
 
 1. tur Bitirme: reklam-8-kasim-sgs/aciklama-bitirme.txt
