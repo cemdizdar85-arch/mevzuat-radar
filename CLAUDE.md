@@ -415,6 +415,8 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      koşucu seçimine ve `arac/havuz-kur.ps1` yayınına GİRMEZ (eşdeğerlik 30.09: bugünkü tarihle SGS seçimi aynı 4.902; başlangıç geri çekilince
      4.902'nin tamamı düşüyor). SMMM yayın şartı (`arac/smmm-yayin-sarti.ps1`) ve onarım hattının model alanı listesi ayrıca bağlanmalı
      (SMMM ve SGS oturumlarına bildirildi). Model/effort kısılmaz (TASARRUF = YALNIZ İSRAF).
+     **KONU ÖZETİ DE HAKEMDEN GEÇER** (06.11, Cem "kural olarak ekleyelim"): hakem istemine `konu_giris` + `sinav_taktigi` + `notlandirici` ve kural 5 eklendi; özet doğru çözümle çelişirse KUSUR (`SORU-URETIM-SOZLESMESI.md` B32).
+     Öncesinde özeti hiçbir hakem görmüyordu; üye doğru cevaba bu yüzden itiraz etti. Yakalama oranı ÖLÇÜLMEDİ, mevcut banka TAZELEME BEKLİYOR.
      **PLAN BÜTÇESİNE HAKEM PAYI EKLENİR** (01.10): fren EN KÖTÜ durumu sayar (maxTok 3.200) → yeni soru başı ≈0,04 USD
      `butce_usd`'ye eklenmezse üretim biter, hakem "bütçe yetmedi" der ve planın yeni sorularının HİÇBİRİ seçilmez (para gider, soru gelmez).
      **B dalgası (01.10, yayındaki kasadan eşit aralıklı 250 soru, 6,01 USD):** SGS 125'in 59'u (%47), SMMM 125'in 86'sı (%69) KUSURLU;

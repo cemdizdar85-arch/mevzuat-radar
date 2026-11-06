@@ -5,13 +5,24 @@
 #   AciklamaHakemBedelYaz $etiket                       → Get-BedelOzet satırını bedel defterine (veri/fabrika/bedel-kayit.jsonl) yazar
 # ÖLÇÜLDÜ (30.09, 50 etiketli SGS sorusu, claude-opus-5-5 medium, toplu): elle kusurlu 25'in 20'si yakalandı; elle temiz 25'in 12'sinde alarm,
 #   okunan gerekçelerin çoğu gerçek kusur. Soru başı ≈0,017 USD (giriş ≈4.700 · çıkış ≈720 jeton).
-# 🚫 GÖRMEZ: yazım/üslup (bilerek) · kaynak paketinde olmayan kuralın doğruluğu · hakemin kendi hatası (kaçırdığı 5/25 hafif kusur).
+# 🚫 GÖRMEZ: yazım/üslup (bilerek) · kaynak paketinde olmayan kuralın doğruluğu · hakemin kendi hatası (kaçırdığı 5/25 hafif kusur) ·
+#   06.11'den önce TEMIZ almış soruların konu özeti (o kararlar özeti görmeden verildi) · 01.10'dan eski sorular (AhAday dışı).
 
 $script:AH_MODEL_ALAN = @('hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'aciklama_hakem')
 function AhKisalt($v, [int]$n) { if ($null -eq $v) { return $null }; $s = $(if ($v -is [string]) { $v } else { ConvertTo-Json -InputObject $v -Depth 12 -Compress }); if ($s.Length -gt $n) { $s.Substring(0, $n) + ' …(kısaltıldı)' } else { $s } }
 
+# 06.11.2026 (Cem "bu hatayı yeni soru basımında kontrol olarak kural olarak ekleyelim"): konu özeti de öğrenciye gösterilir ama hakeme gitmiyordu.
+#   ÖLÇÜLDÜ: smmm-w3-yvergi-kolay/kp-03 (özet "zammı en sona ayrı ekle", doğru cevap zamsız 17.350) · smmm-w8-1-fmuh-kolay/kp-02 · kgk-t4-tms-g3-cokzor/kp-04.
+#   Üye doğru cevaba itiraz etti, çünkü özet yanlış şıkkın yolunu öğretiyordu. Kural 5 + konu_ozeti alanı bu boşluğu kapatmak için eklendi; yakalama oranı ÖLÇÜLMEDİ.
+function AhKonuOzeti($k) {
+  if ($env:AHS_MUTASYON -eq 'ozet-yok' -or -not $k.PSObject.Properties['konu_giris'] -or $null -eq $k.konu_giris) { return $null }
+  $g = $k.konu_giris; if ($g -is [string]) { return $g }
+  return [ordered]@{ nedir = $g.nedir; desen = $g.desen; sinavda = $g.sinavda; harita = $g.harita; yontemler = $g.yontemler; ornek = $g.ornek; panel_ornek = $g.panel_ornek }
+}
+
 function AciklamaHakemIs([string]$id, $k, [string]$model = 'claude-opus-5-5', [string]$effort = 'medium', [int]$maxTok = 1600) {
   $gorunen = [ordered]@{
+    konu_ozeti = (AhKonuOzeti $k); sinav_taktigi = $k.sinav_taktigi; notlandirici = $k.notlandirici
     soru = $k.soru; siklar = $k.siklar; dogru = $k.dogru; aciklama = $k.aciklama
     sade = $(if ($k.sade) { [ordered]@{ dogru = $k.sade.dogru; siklar = $k.sade.siklar } } else { $null })
     teshis = $k.teshis; celdirici_yol = $k.celdirici_yol
@@ -28,6 +39,7 @@ Denetle:
 2. DOĞRU şıkkın anlatımı (aciklama.<doğru>, sade.dogru, adimlar): kural doğru mu, her ara rakam ve sonuç tutuyor mu? Her hesabı kendin yeniden yap.
 3. İkiz soru: ikiz_soru ile tablo tutarlı mı, sonuç doğru mu, hedef_cumle cevabı açıkça veriyor mu?
 4. Hesap kodu, kanun maddesi, oran: yanlışsa ya da güncel değilse (ör. KDV genel oranı %20, kurumlar vergisi %25, kâr payı stopajı %15) KUSUR. Kuralı yalnız aşağıdaki KAYNAK metne ve bu listeye dayanarak değerlendir; emin değilsen kusur deme.
+5. konu_ozeti, hap, sinav_taktigi, notlandirici: doğru cevabın çözüm yoluyla çelişiyor mu? Doğru çözümün dışarıda bıraktığı bir kalemi eklemeyi ya da yanlış şıkkın hesabını doğru yol gibi öğretiyorsa, doğru çözümün yaptığı şeyi "tuzak" diye gösteriyorsa, yanlış madde ya da paragraf numarası veriyorsa KUSUR. Tuzağı doğru tarif eden cümle kusur değildir.
 Yazım, noktalama ve üslup kusurlarını SAYMA. Yalnız somut, gösterilebilir hata kusurdur; şüphe kusur değildir.
 
 YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
@@ -40,6 +52,7 @@ KAYNAK (sorunun dayandığı metin özeti):
 $(if ($kaynak) { $kaynak } else { '(yok)' })
 "@
   $istem = $istem -replace "`r`n", "`n"
+  if ($env:AHS_MUTASYON -eq 'kural5-yok') { $istem = $istem -replace '(?m)^5\. konu_ozeti.*\n', '' }
   return @{ id = $id; model = $model; maxTok = $maxTok; effort = $effort; icerik = @(@{ type = 'text'; text = $istem }) }
 }
 

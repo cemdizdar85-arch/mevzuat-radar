@@ -9,11 +9,12 @@ $depoKok = Split-Path -Parent $PSScriptRoot
 if ($Mutasyon) {
   # 02.10: CI (Linux) runner'da 'powershell' YOK, 'pwsh' var - mutasyon isi bu yuzden hep KIRMIZI dusuyordu
   $psExe = if (Get-Command powershell -ErrorAction SilentlyContinue) { 'powershell' } else { 'pwsh' }
-  $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok', 'iz-yok'   # 13.10 iz-yok: AH bütçesiz izi yazılmaz → sınav KIRMIZI düşmeli
+  $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok', 'iz-yok', 'ozet-yok', 'kural5-yok'   # 13.10 iz-yok: AH bütçesiz izi yazılmaz → sınav KIRMIZI düşmeli · 06.11 ozet-yok/kural5-yok: konu özeti hakeme gitmez
   foreach ($m in $ler) { $env:AHS_MUTASYON = $m; & $psExe -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath | Out-Null; $d = $LASTEXITCODE -ne 0; if ($d) { $tut++ }; "  mutasyon $m $(if($d){'KIRMIZI (doğru)'}else{'YESIL (YANLIŞ)'})" }
   $env:AHS_MUTASYON = $null; "MUTASYON: $tut/$($ler.Count) → KIRMIZI"; if ($tut -ne $ler.Count) { exit 1 }; exit 0
 }
 . (Join-Path $depoKok 'arac\aciklama-hakemi-uretim.ps1')
+. (Join-Path $depoKok 'arac\aciklama-hakemi-cekirdek.ps1')   # 06.11: istem sınavı AciklamaHakemIs'i doğrudan çağırır
 $M = "$env:AHS_MUTASYON"
 if ($M -eq 'yeni-hep') { function AhYeniMi($v) { return $true } }
 if ($M -eq 'karar-yok') { function AhSecilemez($v) { return $false } }
@@ -32,6 +33,13 @@ T 'eski soru seçimden düşmez (yayındaki çekilmez)' (-not (AhSecilemez $eski
 T 'kararsız yeni soru seçilmez' (AhSecilemez $yeni)
 T 'KUSURLU yeni soru seçilmez' (AhSecilemez (K '2026-10-02' @{ aciklama_hakem = [pscustomobject]@{ karar = 'KUSURLU' } }))
 T 'TEMIZ yeni soru seçilir' (-not (AhSecilemez (K '2026-10-02' @{ aciklama_hakem = [pscustomobject]@{ karar = 'TEMIZ' } })))
+# 06.11 KURAL: konu özeti ve taktik notları hakem istemine girer + kural 5 istemde durur; özetsiz kayıt patlamaz
+$ozetli = K '2026-10-02' @{ konu_giris = [pscustomobject]@{ desen = 'OZETDESENI'; harita = 'OZETHARITA'; yontemler = 'OZETYONTEM'; ornek = 'OZETORNEK' }; sinav_taktigi = 'OZETTAKTIK'; notlandirici = 'OZETNOT' }
+$ist = "$((AciklamaHakemIs 'x1' $ozetli).icerik[0].text)"
+T 'özet alanları istemde' (('OZETDESENI', 'OZETHARITA', 'OZETYONTEM', 'OZETORNEK', 'OZETTAKTIK', 'OZETNOT' | Where-Object { $ist -notmatch $_ }).Count -eq 0)
+T 'kural 5 istemde' ($ist -match '(?m)^5\. konu_ozeti')
+$istY = "$((AciklamaHakemIs 'x2' $yeni).icerik[0].text)"
+T 'özetsiz kayıtta istem kurulur, konu_ozeti boş' ($istY -match '"konu_ozeti":null')
 # bütçe freni: geçici fabrika, 1 aday, bütçe 0,001 USD → gönderilmez
 $d = Join-Path ([IO.Path]::GetTempPath()) ("ahs-" + [guid]::NewGuid().ToString('N')); New-Item -ItemType Directory $d | Out-Null
 $parti = [ordered]@{ 'kp-01' = $yeni; 'kp-02' = $eski }
