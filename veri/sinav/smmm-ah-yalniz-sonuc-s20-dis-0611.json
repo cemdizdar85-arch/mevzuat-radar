@@ -1,0 +1,569 @@
+{
+ "ad": "s20-dis-0611",
+ "tarih": "2026-11-06T18:18:20.521Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42268660218",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 1.7,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 34,
+  "gonderilen": 34,
+  "temiz": 33,
+  "kusurlu": 1,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 34,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.628
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d1-cokzor/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Aralikli envanter yontemi",
+    "TEORI - Brüt satış kârı hesaplama ve gelir tablosu akışı (net satışlar, satışların maliyeti, brüt satış kârı, faaliyet kârı)",
+    "THP 153 - Ticari Mallar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-fmuh-d1-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+    "THP 647 - REESKONT FAİZ GELİRLERİ",
+    "THP 657 - REESKONT FAİZ GİDERLERİ (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-fmuh-d1-zor/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter)",
+    "THP 120 - Alıcılar",
+    "THP 153 - Ticari Mallar",
+    "THP 610 - Satıştan İadeler (-)",
+    "THP 621 - Satılan Ticari Mallar Maliyeti (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-maliyet-d1-zor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 622 - SATILAN HİZMET MALİYETİ (-)",
+    "THP 740 - HİZMET ÜRETİM MALİYETİ",
+    "THP 741 - HİZMET ÜRETİM MALİYETİ YANSITMA HESABI",
+    "THP 742 - HİZMET ÜRETİM MALİYETİ FARK HESAPLARI"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ydenetim-d1-cokzor/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 500 p.A21 - Gözlem",
+    "BDS 500 p.A22 - Dış Teyit",
+    "BDS 500 p.A23 - Yeniden Hesaplama",
+    "BDS 500 p.A24 - Yeniden Uygulama",
+    "BDS 500 p.A25 - Analitik Prosedürler",
+    "BDS 500 p.A26 - Sorgulama",
+    "BDS 501 p.11 - Dava ve İddialar",
+    "BDS 501 p.5 - A5 paragrafı),"
+   ],
+   "alinti_dogrulandi": false,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ydenetim-d1-y-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 320 p.10 - Ana Hükümler",
+    "BDS 320 p.11 - Ana Hükümler",
+    "BDS 320 p.13 - Denetim Yürütülürken Değişiklik Yapılması",
+    "BDS 320 p.14 - Belgelendirme",
+    "BDS 320 p.A1 - Önemlilik ve Denetim Riski (Bkz.: 5 inci paragraf)",
+    "BDS 320 p.A12 - Kamu Sektörü İşletmelerine Özgü Hususlar"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ydenetim-d1-zor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 500 p.7 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+    "BDS 500 p.8 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+    "BDS 500 p.9 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+    "BDS 500 p.5 - Tanımlar"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ydenetim-d1-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.B.paragraf"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "KYS 1 p.53 - Kalite Yönetim Sisteminin Değerlendirilmesi",
+    "Bagimsiz Denetim Yonetmeligi m.26 [1/2]",
+    "Bagimsiz Denetim Yonetmeligi m.36 [2/2]",
+    "KYS 1 p.1 - Kapsam",
+    "KYS 1 p.A166 - Tespit Edilen Eksikliklerin Kök Nedeni (Bkz.: 41(a) paragrafı)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Dikey yuzdelerden oran hesaplama teknigi",
+    "TEORI - Finansal yapı (kaldıraç) oranları: kaldıraç oranı, özkaynak oranı, kısa vadeli yabancı kaynak oranı, borç-özkaynak oranı ve yorumu"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-cokzor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Asit-test (likidite) oranlari",
+    "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+    "TEORI - Dikey yuzdelerden oran hesaplama teknigi"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-cokzor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+    "TEORI - Dikey yuzdelerden net satis ve gelir tablosu hesaplari",
+    "TEORI - Faaliyet kar marji ve faaliyet kari hesabi"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-cokzor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+    "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-kolay/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+    "TEORI - Karşılaştırmalı (yatay) analiz ve yüzde değişim: iki dönemin kalem kalem karşılaştırılması, artış oranının hesaplanması, trend analizi ve yorum kuralları"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Finansal yapı (kaldıraç) oranları: kaldıraç oranı, özkaynak oranı, kısa vadeli yabancı kaynak oranı, borç-özkaynak oranı ve yorumu",
+    "TEORI - Surekli sermaye ve devamli sermaye oranlari"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y-kolay/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Asit-test (likidite) oranlari",
+    "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+    "TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y-kolay/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+    "TEORI - Dikey yüzde analizi uygulaması: bilançoda aktif ve pasif yapısının okunması, gelir tablosunda net satışın taban alınması, sektörle karşılaştırma"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y-kolay/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+    "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Teori Notu - kaldirac ve basabas"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y2-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Kârlılık oranları ve piyasa oranları: brüt kâr marjı, net kâr marjı, aktif kârlılığı, özsermaye kârlılığı, fiyat-kazanç oranı",
+    "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y3-zor2/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TMS 1 p.69 - Cari Yükümlülükler",
+    "TMS 1 p.71 - Cari Yükümlülükler",
+    "TMS 1 p.72 - Cari Yükümlülükler",
+    "TMS 1 p.74 - Cari Yükümlülükler",
+    "TMS 1 p.75 - Cari Yükümlülükler",
+    "TFRS 9 p.7.2.49 - Değişiklikler için Geçiş"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-y4-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "MSUGT 1 kavram - Tam Açıklama Kavramı",
+    "MSUGT 1 kavram - Tutarlılık Kavramı",
+    "MSUGT 1 kavram - Önemlilik Kavramı",
+    "MSUGT 1 kavram - İhtiyatlılık Kavramı",
+    "MSUGT 1 kavram - İşletmenin Sürekliliği Kavramı",
+    "TEORI - Donemsellik kavrami ve muhasebenin temel kavramlari (MSUGT)"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+    "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-zor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+    "TEORI - Faaliyet kar marji ve faaliyet kari hesabi",
+    "TEORI - Kârlılık oranları ve piyasa oranları: brüt kâr marjı, net kâr marjı, aktif kârlılığı, özsermaye kârlılığı, fiyat-kazanç oranı"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yfta-d1-zor/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali",
+    "TEORI - ticari borc devir hizi"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yhukuk-d1-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İş K. (4857 s.K.) m.29 [1/2]",
+    "İş K. (4857 s.K.) m.29 [2/2]",
+    "İş K. (4857 s.K.) m.42",
+    "İş K. (4857 s.K.) m.43",
+    "İş K. (4857 s.K.) m.63"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yhukuk-d1-zor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TTK (6102 s.K.) m.647",
+    "TTK (6102 s.K.) m.650",
+    "TTK (6102 s.K.) m.651"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ymeslek-d1-cokzor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Mal Bildirimi K. (3628 s.K.) m.2 [1/2]",
+    "SMMM K. (3568 s.K.) m.47",
+    "Mal Bildirimi K. (3628 s.K.) m.2 [2/2]",
+    "SMMM K. (3568 s.K.) m.12 [1/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ymeslek-d1-cokzor/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.13",
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.21",
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.14",
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.20"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ymeslek-d1-kolay/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.45 [1/2]",
+    "SMMM K. (3568 s.K.) m.45 [2/2]",
+    "TMK (4721 s.K.) m.17",
+    "TMK (4721 s.K.) m.18"
+   ],
+   "alinti_dogrulandi": false,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-ymeslek-d1-zor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM Odalari Yonetmeligi m.10",
+    "SMMM Odalari Yonetmeligi m.19"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yspk-d1-kolay/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) m.13",
+    "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) m.18 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yspk-d1-y2-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Borclanma Araclari Tebligi (VII-128.8) m.17",
+    "Borclanma Araclari Tebligi (VII-128.8) m.24"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yspk-d1-y3-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Kar Payi Tebligi (II-19.1) m.12",
+    "Kar Payi Tebligi (II-19.1) m.3",
+    "Kar Payi Tebligi (II-19.1) m.7"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yvergi-d1-y2-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "KVK (5520 s.K.) m.11 [1/2]",
+    "KVK (5520 s.K.) m.9 [1/2]",
+    "KVK (5520 s.K.) m.11 [2/2]"
+   ],
+   "alinti_dogrulandi": true,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-ydenetim-d1-zor/kp-04"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
