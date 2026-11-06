@@ -1,0 +1,62 @@
+{
+ "ad": "s20-cari-0611",
+ "tarih": "2026-11-06T19:06:22.070Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42276160558",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 1,
+  "gonderilen": 1,
+  "temiz": 1,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 1,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.023
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d3-y-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "MSUGT 1 ilke - Bilanço İlkeleri Yabancı Kaynaklara İlişkin İlkeler - 1",
+    "MSUGT 1 ilke - Bilanço İlkeleri Yabancı Kaynaklara İlişkin İlkeler - 2",
+    "MSUGT 1 ilke - Bilanço İlkeleri Yabancı Kaynaklara İlişkin İlkeler - 4",
+    "THP 300 - BANKA KREDİLERİ",
+    "THP 303 - UZUN VADELİ KREDİLERİN ANAPARA TAKSİTLERİ VE FAİZLERİ",
+    "THP 320 - Satıcılar",
+    "THP 340 - ALINAN SİPARİŞ AVANSLARI",
+    "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+    "THP 371 - DÖNEM KÂRININ PEŞİN ÖDENEN VERGİ VE DİĞER YÜKÜMLÜLÜKLERİ (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
