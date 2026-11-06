@@ -467,6 +467,21 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 <script src="fiyat-motoru.js?v=20261102z"></script>
 <script>
+/* 06.11 (Cem "alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın"): fiyat dosyası 503 alınca paket listesi boş kalıyor, alıcı
+   nedenini görmüyordu (06.11 canlıda bir yüklemede ölçüldü). İki kez kendiliğinden yenilenir; olmazsa yol gösteren kutu çıkar. */
+(function(){ var A = 'tt_fiyat_tekrar', n = 9;
+  if(typeof ODEME_BANKA !== 'undefined'){ try{ sessionStorage.removeItem(A); }catch(e){} return; }
+  try{ n = +sessionStorage.getItem(A) || 0; sessionStorage.setItem(A, n + 1); }catch(e){}
+  if(n < 2){ setTimeout(function(){ location.reload(); }, 1200); return; }
+  var d = document.createElement('div'); d.className = 'kutu'; d.id = 'yukHata'; d.style.borderColor = 'var(--red)';
+  d.innerHTML = '<b>Sayfa tam yüklenemedi.</b> Bağlantı kısa süreliğine kesilmiş olabilir. <a href="#" id="yukYenile">Sayfayı yenile</a>; '
+    + 'olmazsa <a href="https://wa.me/905323448058">WhatsApp 0532 344 80 58</a>\'ten yaz, ödemeni birlikte tamamlayalım.';
+  var h1 = document.querySelector('h1'); if(h1) h1.parentNode.insertBefore(d, h1.nextSibling);
+  var y = document.getElementById('yukYenile'); if(y) y.onclick = function(e){ e.preventDefault(); location.reload(); };
+  var z = document.getElementById('duzen'); if(z) z.style.display = 'none';
+})();
+</script>
+<script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
 var BANKA = ODEME_BANKA;
@@ -1173,6 +1188,8 @@ function kartHazirla(no){
     }catch(e){ h.textContent = 'Bağlantı hatası. Aşağıdaki hesaba havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
     b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın';
   };
+  /* 06.11: iyzico'dan geri tuşuyla dönen alıcıda tarayıcı sayfayı önbellekten açar; düğme "açılıyor…" diye kilitli kalıyordu */
+  window.addEventListener('pageshow', function(e){ if(e.persisted){ KART_GITTI = false; b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın'; } });
 }
 /* 21.10 (Cem "iki kere mail gitmesin; günde binlerce sipariş alanlar ne yapıyorsa"): ödeme yolu seçilmeden mail gitmez.
    Kart → tek mail (ödeme onayı + sözleşme ekleri, sunucuda). Havale → "Havale/EFT ile ödeyeceğim" basılınca IBAN + ödeme
@@ -1285,7 +1302,8 @@ function havaleKur(no){
     var j = {};
     try{ var r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=baslat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ siparis_no:no }) });
       j = await r.json().catch(function(){ return {}; }); }catch(e){}
-    if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
+    /* 06.11: replace - geri tuşu bu ara sayfaya düşüp alıcıyı yeniden iyzico'ya atmasın (her dönüş yeni bir yarım deneme açıyordu) */
+    if(j.odemeSayfasi){ location.replace(j.odemeSayfasi); return; }
     d.style.borderColor = 'var(--red)';
     if(j.hata === 'paket zaten acik'){ d.innerHTML = '<b>Bu paket hesabında zaten açık.</b> İkinci kez ödeme almıyoruz; <a href="ogrenci.html">Hesabım</a> sayfasından devam et. Paketini göremiyorsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com (sipariş no: <b>' + no + '</b>).'; return; }
     d.innerHTML = '<b style="color:var(--red)">Kart ödemesi başlatılamadı.</b> Sipariş ödenmiş ya da güncel değil olabilir. Bize WhatsApp\'tan (0532 344 80 58) ya da destek@tetikte.com\'a sipariş numaranla yaz: <b>' + no + '</b>. İstersen aşağıdan yeniden sipariş verebilirsin.';
@@ -1494,9 +1512,18 @@ btn.addEventListener('click', function(){
           adimSay('cift-bekleyen');
           var eski = bekleyenBul();
           if(eski){ no = eski.no; bitir(true); return; }
-          btn.disabled = false;
-          goster('Sipariş verilmedi: bu e-postayla son 24 saatte <b>aynı paket için ödeme bekleyen bir siparişin var</b>; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +
-            '"Siparişin alındı" e-postandaki bilgilerle ödeyebilir ya da WhatsApp 0532 344 80 58 / destek@tetikte.com\'a yazabilirsin.', false);
+          /* 06.11 (Mert vakası, Cem "Evet, düzelt"): başka cihazda tarayıcının sipariş kaydı yok ve 'alindi' maili 29.10'dan beri gitmiyor;
+             alıcı ödeme düğmesiz kalıyordu. Sunucu üyenin kendi bekleyen siparişini verir → "Siparişini tamamla" ekranı. */
+          var bekleyenYok = function(){
+            btn.disabled = false;
+            goster('Sipariş verilmedi: bu e-postayla son 24 saatte <b>aynı paket için ödeme bekleyen bir siparişin var</b>; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +
+              'Ödemeyi tamamlaman için WhatsApp 0532 344 80 58 ya da destek@tetikte.com\'a yaz, bağlantını hemen gönderelim.', false);
+          };
+          window.sb.rpc('siparis_bekleyen_no', { p_paket:secili.id, p_tutar:tutar, p_dersler:kayit.secilen_dersler }).then(function(y){
+            var bNo = y && !y.error && y.data;
+            if(bNo && /^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(bNo)){ location.href = 'satin-al.html?ode=' + bNo + '&t=' + tutar; return; }
+            bekleyenYok();
+          }, bekleyenYok);
           return;
         }
         if(kendiKodu(r.error)){
@@ -1541,6 +1568,23 @@ if(!KURULUM_TAMAM){
       document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok');
       return;
     }
+    /* 06.11 (Cem "alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın"): son 14 günde 80 kart siparişinin 18'inde kart geçmedi, 16'sı
+       iyzico sayfasında kaldı. Yarım siparişi olan üye, hangi cihazdan gelirse gelsin formu doldurup "siparişin var" uyarısı görmeden
+       en üstte devam düğmesini görür. Sunucu sonradan ödenmiş siparişi saymaz (radar-app/sql/2026-11-06-yarim-siparis.sql). */
+    try{ if(!/[?&](ode|kartla|odeme)=/.test(location.search)) window.sb.rpc('siparis_yarim_benim').then(function(y){
+      var s = y && !y.error && y.data && y.data[0]; if(!s || !/^TT-[0-9]{8}-[A-Z0-9]{4}$/.test(s.siparis_no)) return;
+      try{ if(sessionStorage.getItem('tt_yarim_kapat') === s.siparis_no) return; }catch(e){}
+      var d = document.createElement('div'); d.className = 'kutu'; d.id = 'yarimKutu'; d.style.position = 'relative'; d.style.borderColor = 'var(--amber)';
+      var t = document.createElement('p'); t.style.cssText = 'margin:0 0 10px;padding-right:30px;font-size:15px'; t.innerHTML = '<b>Yarım kalan bir siparişin var.</b> ';
+      t.appendChild(document.createTextNode((s.paket_ad || 'Paketin') + ' · ' + tl(s.tutar) + ' TL. Yeniden sipariş vermene gerek yok.'));
+      var a = document.createElement('a'); a.className = 'btn'; a.style.cssText = 'display:block;text-align:center;text-decoration:none;font-weight:800';
+      a.href = 'satin-al.html?ode=' + s.siparis_no + '&t=' + s.tutar; a.textContent = 'Ödemeyi tamamla →'; a.onclick = function(){ adimSay('yarim-devam'); };
+      var x = document.createElement('button'); x.type = 'button'; x.setAttribute('aria-label', 'Kapat'); x.textContent = '✕';
+      x.style.cssText = 'position:absolute;top:6px;right:6px;width:40px;height:40px;background:none;border:0;color:var(--ink);font-size:18px;cursor:pointer';
+      x.onclick = function(){ d.remove(); try{ sessionStorage.setItem('tt_yarim_kapat', s.siparis_no); }catch(e){} };
+      d.appendChild(x); d.appendChild(t); d.appendChild(a);
+      var h1 = document.querySelector('h1'); if(h1){ h1.parentNode.insertBefore(d, h1.nextSibling); adimSay('yarim-gorundu'); }
+    }, function(){}); }catch(e){}
     /* 03.11 (Cem GM3): hesapta zaten açık Yeterlilik dersleri listede seçilemez ("✓ açık"); sunucu da DERS_ZATEN_ACIK ile reddeder */
     try{ window.sb.from('paket_uyeler').select('paket,bitis,dersler').eq('user_id', u.id).then(function(p){
       var bugun = new Date().toISOString().slice(0, 10);

@@ -1,11 +1,11 @@
 {
-  "tarih": "05.11.2026 11:25",
+  "tarih": "06.11.2026 16:45",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 922,
   "riskli_madde": 1321,
   "sayfa": 82,
-  "atifli_iddia": 316,
-  "dayanaksiz_iddia": 556,
+  "atifli_iddia": 317,
+  "dayanaksiz_iddia": 555,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1853,33 +1853,21 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 233,
-      "iddia": "7.000 TL",
-      "metin": "Ne oldu: Türk Mühendis ve Mimar Odaları Birliği'nin bilirkişilik, eksperlik, hakemlik ve teknik müşavirlik yönetmeliğinde değişikliğe gidildi. Şehir planlama mesleği, mühendislik v"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 249,
-      "iddia": "7.000 TL",
-      "metin": "Ne yapmalısın: TMMOB'ye başvuru yapacaksanız dilekçenin yeni koşullarını (şehir planlama dahil) ve 7.000 TL'lik başvuru ücretini kontrol edin. Şehir planlama alanında hakem veya bi"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 257,
+      "satir": 260,
       "iddia": "2020 yıl",
       "metin": "Ne oldu: Enerji Piyasası Düzenleme Kurumu, elektrik dağıtım tarifesine ilişkin tebliğde yer alan gözetim oranını artırmıştır. 2020 yılında yayımlanan ana tebliğin 9. maddesinde yer"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 280,
-      "iddia": "20 dekar",
-      "metin": "BBMD desteğinde minimum alan koşulu (8. madde g bendi) 20 dekar → 20 dekar (2026), 2027 yılında en az 10 dekar"
+      "satir": 276,
+      "iddia": "7.000 TL",
+      "metin": "Ne oldu: Türk Mühendis ve Mimar Odaları Birliği'nin bilirkişilik, eksperlik, hakemlik ve teknik müşavirlik yönetmeliğinde değişikliğe gidildi. Şehir planlama mesleği, mühendislik v"
     },
     {
       "sayfa": "kartlar.html",
       "satir": 292,
-      "iddia": "2027 yıl",
-      "metin": "Ne yapmalısın: Mevcut destekleme başvurularında kontrol tutanağı gerekliliklerini (Ek-40/41) gözden geçirin. 2027 yılı için geçerli olacak minimum alan koşullarını güncelleyin. Biy"
+      "iddia": "7.000 TL",
+      "metin": "Ne yapmalısın: TMMOB'ye başvuru yapacaksanız dilekçenin yeni koşullarını (şehir planlama dahil) ve 7.000 TL'lik başvuru ücretini kontrol edin. Şehir planlama alanında hakem veya bi"
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -2669,99 +2657,105 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 510,
+      "satir": 525,
       "iddia": "20 Gün",
       "metin": "(paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 513,
+      "satir": 528,
       "iddia": "20 Gün",
       "metin": "/* 28.10 görüntü turu: erken kayıt ve Son 20 Gün kartında \"açılış fiyatı · ilk 1.000 üye\" / \"sabit fiyat\" notu kalabalık yapıyordu */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 834,
+      "satir": 849,
       "iddia": "20 Gün",
       "metin": "/* 02.11 Cem (\"999 TL tekliflerde hiçbir indirim kodu kullanılamasın\"): Son 20 Gün paketlerinde kod kutusu yok, girilmiş kod"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 840,
+      "satir": 855,
       "iddia": "20 Gün",
       "metin": "if(s20){ elciDurumYaz(ham.trim() ? '999 TL Son 20 Gün paketlerinde indirim kodu kullanılmaz.' : '', 'var(--amber)'); ozetCiz(); return; }"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 920,
+      "satir": 935,
       "iddia": "20 Gün",
       "metin": "tüm dersler ↔ Son 20 Gün. Öteki paketler yine \"Başka paket seç\" ile açılır. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 922,
+      "satir": 937,
       "iddia": "20 Gün",
       "metin": "1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 953,
+      "satir": 968,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1191,
+      "satir": 1208,
       "iddia": "2 saat",
       "metin": "2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1193,
+      "satir": 1210,
       "iddia": "7 gün",
       "metin": "gönderiyoruz … üye olduğunda göndereceksek göndermesek de olur\"): son 7 günde kartla 30 kişi ödedi, havaleyle 2; havalede 13"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1196,
+      "satir": 1213,
       "iddia": "3 saat",
       "metin": "(özet + sözleşme ekleri; siparis-bildirim.ts tekMail - kartla ödeyenle aynı). 3 saatlik havale hatırlatması ve"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1211,
+      "satir": 1228,
       "iddia": "3 saat",
       "metin": "kişinin elinde 3 saatlik hatırlatmaya kadar hiçbir şey yoktu, sayfa tek satır kırmızı yazı gösteriyordu (\"yeniden dene\" düğmesi bile yoktu)."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1213,
+      "satir": 1230,
       "iddia": "2 saat",
       "metin": "aynı: ödeme bekleyen, 2 saatten yeni, siparişte bir kez) + spam notu yalnız mail gerçekten kabul edildiyse. SMS hattımız YOK. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1373,
+      "satir": 1391,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1375,
+      "satir": 1393,
       "iddia": "90 gün",
       "metin": "/* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1434,
+      "satir": 1452,
       "iddia": "24 saat",
       "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1498,
+      "satir": 1519,
       "iddia": "24 saat",
       "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 1571,
+      "iddia": "14 gün",
+      "metin": "/* 06.11 (Cem \"alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın\"): son 14 günde 80 kart siparişinin 18'inde kart geçmedi, 16'sı"
     },
     {
       "sayfa": "senaryo-raporu.html",

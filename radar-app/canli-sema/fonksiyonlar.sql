@@ -3299,6 +3299,26 @@ AS $function$
 $function$
 ;
 
+-- siparis_bekleyen_no(text,numeric,text[])
+CREATE OR REPLACE FUNCTION public.siparis_bekleyen_no(p_paket text, p_tutar numeric, p_dersler text[] DEFAULT NULL::text[])
+ RETURNS text
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+  select s.siparis_no
+    from public.siparisler s
+    join auth.users u on u.id = auth.uid()
+   where lower(s.email) = lower(btrim(u.email)) and s.durum = 'odeme_bekliyor'
+     and s.paket = p_paket and s.tutar = p_tutar
+     and coalesce(s.secilen_dersler, array[]::text[]) @> coalesce(p_dersler, array[]::text[])
+     and coalesce(s.secilen_dersler, array[]::text[]) <@ coalesce(p_dersler, array[]::text[])
+     and s.olusturma > now() - interval '24 hours'
+   order by s.olusturma desc
+   limit 1
+$function$
+;
+
 -- siparis_cift_kapi()
 CREATE OR REPLACE FUNCTION public.siparis_cift_kapi()
  RETURNS trigger
@@ -3572,6 +3592,25 @@ begin
                              else 'yok' end;
   return new;
 end $function$
+;
+
+-- siparis_yarim_benim()
+CREATE OR REPLACE FUNCTION public.siparis_yarim_benim()
+ RETURNS TABLE(siparis_no text, tutar numeric, paket_ad text)
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+  select s.siparis_no::text, s.tutar::numeric, s.paket_ad::text
+    from public.siparisler s
+    join auth.users u on u.id = auth.uid()
+   where lower(s.email) = lower(btrim(u.email)) and s.durum = 'odeme_bekliyor'
+     and s.olusturma > now() - interval '72 hours'
+     and not exists (select 1 from public.siparisler o
+                      where lower(o.email) = lower(s.email) and o.durum = 'odendi' and o.olusturma >= s.olusturma)
+   order by s.olusturma desc
+   limit 1
+$function$
 ;
 
 -- tr_fold(text)
