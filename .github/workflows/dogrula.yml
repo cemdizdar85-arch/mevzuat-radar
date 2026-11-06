@@ -867,6 +867,9 @@ jobs:
           # (2026-11-08) yeni soruda DURDURUR, eskide NOT. 19 vaka (9 yakalama + 10 yanlis alarm/eksik alan); 5 mutasyon KIRMIZI. Ag yok.
           - { ad: "Terim notu kapisi OZ-SINAVI + MUTASYON (KAPI-TERIM)",
               kabuk: bash, komut: "node arac/terim-kim-kapisi.js --sinav --mutasyon" }
+          # 07.11: KAPI-KALIP (B34) olumsuz kokte sablon anlatim + tutar terimine "kanun sabitler". Ayni esik. 12 vaka; 5 mutasyon KIRMIZI. Ag yok.
+          - { ad: "Kalip anlatim kapisi OZ-SINAVI + MUTASYON (KAPI-KALIP)",
+              kabuk: bash, komut: "node arac/kalip-anlatim-kapisi.js --sinav --mutasyon" }
           # 27.10: sik-kaydir.ps1 harf takasi korumasi (17.09 kosusu 17 sorunun adimini eski harfte birakmisti): harf anan desen
           # harf duyarsiz, sik alanli adimli soru kaydirilmaz, takas karneyi bozarsa yazilmaz. 7 vaka; 3 mutasyon KIRMIZI. Ag yok.
           - { ad: "Sik kaydirma korumasi OZ-SINAVI + MUTASYON",

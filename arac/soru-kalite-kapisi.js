@@ -25,7 +25,7 @@
 'use strict';
 const fs = require('fs');
 const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js'), BP = require('./bds-atif-kapisi.js'), BOS = require('./bos-alan-kapisi.js'), ADIM = require('./adim-atif-kapisi.js');
-const YY = require('./yanlis-yol-kapisi.js'), TR = require('./turkce-karakter-kapisi.js'), YT = require('./yillik-tutar-kapisi.js'), KARNE = require('./karne-kapisi.js'), TERIM = require('./terim-kim-kapisi.js');
+const YY = require('./yanlis-yol-kapisi.js'), TR = require('./turkce-karakter-kapisi.js'), YT = require('./yillik-tutar-kapisi.js'), KARNE = require('./karne-kapisi.js'), TERIM = require('./terim-kim-kapisi.js'); const KALIP = require('./kalip-anlatim-kapisi.js');
 const MUT = process.env.KALITE_MUTASYON || '';
 function yeni2Baslangic() { return String(process.env.KALITE_BASLANGIC_YENI2 || '2026-10-04').trim(); }
 // Soru YENİ2 mi? (tarih biçimi "YYYY-MM-DD" ya da "YYYY-MM-DD HH:mm"; dize kıyası yeter)
@@ -82,7 +82,9 @@ function satirlar(k, etiket) {
   //   Tarih ≥ 2026-11-08 ya da tarihsiz üretim girdisi durur, eskisi NOT-TERIM.
   { const t3 = [k && k.kor_cozum && k.kor_cozum.tarih, k && k.hakem2 && k.hakem2.tarih].filter(Boolean).map(String).sort().pop();
     const y3 = t3 ? t3 >= '2026-11-08' : y2;
-    TERIM.kusurlar(k).forEach(b => c.push((y3 && MUT !== 'terim-bagsiz' ? 'KAPI-TERIM: ' : 'NOT-TERIM: ') + b.tur + ' ' + b.not)); }
+    TERIM.kusurlar(k).forEach(b => c.push((y3 && MUT !== 'terim-bagsiz' ? 'KAPI-TERIM: ' : 'NOT-TERIM: ') + b.tur + ' ' + b.not));
+    // 07.11 KAPI-KALIP (B34): ayni esik; yayindaki soru dusmez, 2026-11-08 sonrasi durur
+    KALIP.kusurlar(k).forEach(b => c.push((y3 && MUT !== 'kalip-bagsiz' ? 'KAPI-KALIP: ' : 'NOT-KALIP: ') + b.tur + ' ' + b.not)); }
   // 27.10 KAPI-KARNE (Cem "karne-anahtar tutarlılık kapısını kur"): şık karnesi tek yeşil/tek kırmızı = anahtar değil, harf çift ya da
   //   A–E dışı → YENİ2'de DURDURUR, eskide NOT-KARNE. KARNE-EKSIK (bir şıkkın adımı yok) her zaman NOT. Kasa 24–27.10'da 155 çelişkili
   //   soru elle okunup onarıldı/çekildi; yayındaki kasada çelişki 0 (arac/karne-kapisi.js başlığı).
