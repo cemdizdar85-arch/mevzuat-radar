@@ -1494,9 +1494,18 @@ btn.addEventListener('click', function(){
           adimSay('cift-bekleyen');
           var eski = bekleyenBul();
           if(eski){ no = eski.no; bitir(true); return; }
-          btn.disabled = false;
-          goster('Sipariş verilmedi: bu e-postayla son 24 saatte <b>aynı paket için ödeme bekleyen bir siparişin var</b>; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +
-            '"Siparişin alındı" e-postandaki bilgilerle ödeyebilir ya da WhatsApp 0532 344 80 58 / destek@tetikte.com\'a yazabilirsin.', false);
+          /* 06.11 (Mert vakası, Cem "Evet, düzelt"): başka cihazda tarayıcının sipariş kaydı yok ve 'alindi' maili 29.10'dan beri gitmiyor;
+             alıcı ödeme düğmesiz kalıyordu. Sunucu üyenin kendi bekleyen siparişini verir → "Siparişini tamamla" ekranı. */
+          var bekleyenYok = function(){
+            btn.disabled = false;
+            goster('Sipariş verilmedi: bu e-postayla son 24 saatte <b>aynı paket için ödeme bekleyen bir siparişin var</b>; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +
+              'Ödemeyi tamamlaman için WhatsApp 0532 344 80 58 ya da destek@tetikte.com\'a yaz, bağlantını hemen gönderelim.', false);
+          };
+          window.sb.rpc('siparis_bekleyen_no', { p_paket:secili.id, p_tutar:tutar, p_dersler:kayit.secilen_dersler }).then(function(y){
+            var bNo = y && !y.error && y.data;
+            if(bNo && /^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(bNo)){ location.href = 'satin-al.html?ode=' + bNo + '&t=' + tutar; return; }
+            bekleyenYok();
+          }, bekleyenYok);
           return;
         }
         if(kendiKodu(r.error)){
