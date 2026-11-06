@@ -3594,6 +3594,25 @@ begin
 end $function$
 ;
 
+-- siparis_yarim_benim()
+CREATE OR REPLACE FUNCTION public.siparis_yarim_benim()
+ RETURNS TABLE(siparis_no text, tutar numeric, paket_ad text)
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+  select s.siparis_no::text, s.tutar::numeric, s.paket_ad::text
+    from public.siparisler s
+    join auth.users u on u.id = auth.uid()
+   where lower(s.email) = lower(btrim(u.email)) and s.durum = 'odeme_bekliyor'
+     and s.olusturma > now() - interval '72 hours'
+     and not exists (select 1 from public.siparisler o
+                      where lower(o.email) = lower(s.email) and o.durum = 'odendi' and o.olusturma >= s.olusturma)
+   order by s.olusturma desc
+   limit 1
+$function$
+;
+
 -- tr_fold(text)
 CREATE OR REPLACE FUNCTION public.tr_fold(t text)
  RETURNS text
