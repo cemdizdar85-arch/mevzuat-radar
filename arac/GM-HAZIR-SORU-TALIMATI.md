@@ -215,6 +215,12 @@ yeniden koşar. Kapıların GÖRMEDİĞİ sınıflar (madde/fıkra atfı, uydurm
 - Okuyucu talimatı (`IKINCI-GOZ.md`) okuyucuya bu ölçütle verilir; ambar örnek komutu `"%<desen>%"` biçimindedir.
 
 ## Teslimden önce (zorunlu)
+**B32 · B33 · B34 — her ders, her soru (Cem 07.11):** Yazmadan önce `SORU-URETIM-SOZLESMESI.md` B32–B34 okunur, teslimden önce her soruda tek tek bakılır:
+- Konu özeti, hap, taktik doğru çözümle çelişmez; yanlış şıkkın yolunu öğretmez (B32).
+- Terim notunda `kim` gerçeği söyler, gerekirse boş kalır. Taraflarca belirlenen tutara "kanun sabitler", soruda geçmeyen kaleme "soruda verilir" yazılmaz (B33, B34).
+- Ekranda görünen her alan yazarın sorumluluğundadır: adımlar, teşhis, yöntem, verilenler, sade kavramlar, sınav dili, yevmiye (B34).
+- Olumsuz kökte öteki şıklar kurala UYDUKLARI için elenir; "şartı eksik" ya da "başka hükmü uyguluyor" yazılmaz. Soruda olmayan sözcük, hesap ya da tutardan söz edilmez. Soruyu anmayan kalıp cümle kullanılmaz (B34).
+
 `powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya <dosya> -IkizEtiket smmm-<etiket>`
 Çıktıda KAPI-Y / KAPI-K DUSER / KAPI-KALITE / ADIM YOK / SADE YOK / KAPI-A1 kalmaz. KAPI-A1 (29.10): çıkmış sorudan ≥15 kelime
 aynı dizi ya da sorunun %60'ı tek çıkmış belgede → soruyu kendi cümlenle yeniden kur (kanun/standart lafzı, hesap adı, kök kalıbı muaf). (KAPI-S'in bir türünü ön denetim görmeyebilir — gm7'de 1 vaka.)
