@@ -1,12 +1,12 @@
 {
-  "guncelleme": "06.11.2026 00:16",
+  "guncelleme": "06.11.2026 10:51",
   "kurumDurumlari": [
     {
       "kurum": "TESMER",
       "durum": "KIRMIZI",
       "linkSayisi": 0,
       "yeni": 0,
-      "hata": "Response status code does not indicate success: 403 (Forbidden)."
+      "hata": "Conversion from JSON failed with error: Unexpected character encountered while parsing value: <. Path '', line 0, position 0."
     },
     {
       "kurum": "KGK",
@@ -19,7 +19,7 @@
       "kurum": "SGK",
       "durum": "YESIL",
       "linkSayisi": 6,
-      "yeni": 0,
+      "yeni": 1,
       "hata": ""
     },
     {
@@ -123,6 +123,7 @@
     "https://www.sgk.gov.tr/duyuru/detay/Planli-Altyapi-Calismasi-2026-08-21-09-58-02",
     "https://www.sgk.gov.tr/duyuru/detay/Recete-Teslim-Suresinin-Uzatilmasi-2026-10-16-10-33-39",
     "https://www.sgk.gov.tr/duyuru/detay/Sistem-Altyapi-Iyilestirme-Calismasi-Hakkinda-2026-08-07-02-19-53",
+    "https://www.sgk.gov.tr/duyuru/detay/Sosyal-Guvenlik-Denetmen-Yardimciligi-Giris-Sinavi-Duyurusu-2026-11-06-09-28-41",
     "https://www.sgk.gov.tr/duyuru/detay/Sosyal-Guvenlik-Denetmen-Yardimciligi-Giris-Sinavi-Sonuclarina-Iliskin-Duyuru-2026-09-09-05-07-25",
     "https://www.sgk.gov.tr/duyuru/detay/Sosyal-Guvenlik-Denetmen-Yardimcisi-Kadrosuna-Yerlesen-Adaylardan-Istenen-Belgelere-Iliskin-Duyuru-2026-10-02-11-53-57",
     "https://www.sgk.gov.tr/duyuru/detay/Sosyal-Guvenlik-Kurumu--Ilac-Geri-Odeme-Basvurularina-Iliskin-Usul-ve-Esaslar-Hakkinda-2026-09-15-09-57-47",
