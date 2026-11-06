@@ -9,7 +9,7 @@ $depoKok = Split-Path -Parent $PSScriptRoot
 if ($Mutasyon) {
   # 02.10: CI (Linux) runner'da 'powershell' YOK, 'pwsh' var - mutasyon isi bu yuzden hep KIRMIZI dusuyordu
   $psExe = if (Get-Command powershell -ErrorAction SilentlyContinue) { 'powershell' } else { 'pwsh' }
-  $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok', 'iz-yok', 'ozet-yok', 'kural5-yok', 'terim-yok', 'kural6-yok'   # 13.10 iz-yok: AH bütçesiz izi yazılmaz → sınav KIRMIZI düşmeli · 06.11 ozet-yok/kural5-yok: konu özeti hakeme gitmez
+  $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok', 'iz-yok', 'ozet-yok', 'kural5-yok', 'terim-yok', 'kural6-yok', 'kural7-yok', 'kural8-yok', 'alan-yok'   # 13.10 iz-yok: AH bütçesiz izi yazılmaz → sınav KIRMIZI düşmeli · 06.11 ozet-yok/kural5-yok: konu özeti hakeme gitmez
   foreach ($m in $ler) { $env:AHS_MUTASYON = $m; & $psExe -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath | Out-Null; $d = $LASTEXITCODE -ne 0; if ($d) { $tut++ }; "  mutasyon $m $(if($d){'KIRMIZI (doğru)'}else{'YESIL (YANLIŞ)'})" }
   $env:AHS_MUTASYON = $null; "MUTASYON: $tut/$($ler.Count) → KIRMIZI"; if ($tut -ne $ler.Count) { exit 1 }; exit 0
 }
@@ -42,6 +42,12 @@ T 'kural 5 istemde' ($ist -match '(?m)^5\. konu_ozeti')
 $terimli = K '2026-10-02' @{ konu_giris = [pscustomobject]@{ terimler = @([pscustomobject]@{ ad = 'OZETTERIM'; kim = 'piyasa fiyatlar' }) } }
 T 'terimler istemde' ("$((AciklamaHakemIs 'x3' $terimli).icerik[0].text)" -match 'OZETTERIM')
 T 'kural 6 istemde' ($ist -match '(?m)^6\. konu_ozeti')
+# 07.11 B34: kural 7-8 istemde + ekrandaki alanlar hakeme gider (vaka smmm-4k-a-yvergi-kolay-r4/kp-19)
+T 'kural 7 istemde' ($ist -match '(?m)^7\. teshis')
+T 'kural 8 istemde' ($ist -match '(?m)^8\. verilenler')
+$alanli = K '2026-10-02' @{ verilenler = @([pscustomobject]@{ ad = 'OZETVERILEN'; deger = '1'; anlam = 'x' }); sade = [pscustomobject]@{ dogru = 'd'; sinav = 'OZETSINAVDILI'; siklar = [pscustomobject]@{ A = 'a' }; kavramlar = @([pscustomobject]@{ ad = 'OZETKAVRAM'; tanim = 't' }) }; sema = [pscustomobject]@{ tur = 'yevmiye'; ogeler = 'OZETYEVMIYE' }; teshis = [pscustomobject]@{ D = [pscustomobject]@{ ayirt = 'OZETTESHIS' } }; adimlar = @([pscustomobject]@{ anlatim = 'OZETADIM'; formul = 'f' }) }
+$istA = "$((AciklamaHakemIs 'x4' $alanli).icerik[0].text)"
+T 'ekrandaki alanlar istemde' (('OZETVERILEN', 'OZETSINAVDILI', 'OZETKAVRAM', 'OZETYEVMIYE', 'OZETTESHIS', 'OZETADIM' | Where-Object { $istA -notmatch $_ }).Count -eq 0)
 $istY = "$((AciklamaHakemIs 'x2' $yeni).icerik[0].text)"
 T 'özetsiz kayıtta istem kurulur, konu_ozeti boş' ($istY -match '"konu_ozeti":null')
 # bütçe freni: geçici fabrika, 1 aday, bütçe 0,001 USD → gönderilmez

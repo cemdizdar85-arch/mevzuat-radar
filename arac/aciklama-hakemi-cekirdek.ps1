@@ -26,7 +26,10 @@ function AciklamaHakemIs([string]$id, $k, [string]$model = 'claude-opus-5-5', [s
   $gorunen = [ordered]@{
     konu_ozeti = (AhKonuOzeti $k); sinav_taktigi = $k.sinav_taktigi; notlandirici = $k.notlandirici
     soru = $k.soru; siklar = $k.siklar; dogru = $k.dogru; aciklama = $k.aciklama
-    sade = $(if ($k.sade) { [ordered]@{ dogru = $k.sade.dogru; siklar = $k.sade.siklar } } else { $null })
+    # 07.11 B34: öğrencinin gördüğü ama hakeme gitmeyen alanlar (verilenler, sade.sinav, sade.kavramlar, yevmiye) eklendi. Yakalama oranı ÖLÇÜLMEDİ.
+    sade = $(if ($k.sade) { if ($env:AHS_MUTASYON -eq 'alan-yok') { [ordered]@{ dogru = $k.sade.dogru; siklar = $k.sade.siklar } } else { [ordered]@{ dogru = $k.sade.dogru; sinav = $k.sade.sinav; siklar = $k.sade.siklar; kavramlar = $k.sade.kavramlar } } } else { $null })
+    verilenler = $(if ($env:AHS_MUTASYON -eq 'alan-yok') { $null } else { $k.verilenler })
+    yevmiye = $(if ($env:AHS_MUTASYON -eq 'alan-yok' -or -not $k.sema -or "$($k.sema.tur)" -ne 'yevmiye') { $null } else { $k.sema })
     teshis = $k.teshis; celdirici_yol = $k.celdirici_yol
     adimlar = $(if ($k.adimlar) { @($k.adimlar | ForEach-Object { [ordered]@{ anlatim = $_.anlatim; formul = $_.formul } }) } else { $null })
     ikiz = $(if ($k.ikiz) { [ordered]@{ ikiz_soru = $k.ikiz.ikiz_soru; tablo = $k.ikiz.tablo; hedef_cumle = $k.ikiz.hedef_cumle } } else { $null })
@@ -42,7 +45,9 @@ Denetle:
 3. İkiz soru: ikiz_soru ile tablo tutarlı mı, sonuç doğru mu, hedef_cumle cevabı açıkça veriyor mu?
 4. Hesap kodu, kanun maddesi, oran: yanlışsa ya da güncel değilse (ör. KDV genel oranı %20, kurumlar vergisi %25, kâr payı stopajı %15) KUSUR. Kuralı yalnız aşağıdaki KAYNAK metne ve bu listeye dayanarak değerlendir; emin değilsen kusur deme.
 5. konu_ozeti, hap, sinav_taktigi, notlandirici: doğru cevabın çözüm yoluyla çelişiyor mu? Doğru çözümün dışarıda bıraktığı bir kalemi eklemeyi ya da yanlış şıkkın hesabını doğru yol gibi öğretiyorsa, doğru çözümün yaptığı şeyi "tuzak" diye gösteriyorsa, yanlış madde ya da paragraf numarası veriyorsa KUSUR. Tuzağı doğru tarif eden cümle kusur değildir.
-6. konu_ozeti.terimler: her terimin tanim'ı doğru mu, kim ve kaynak alanı gerçeği söylüyor mu? kim, o değeri gerçek hayatta koyan kişi ya da kurumdur ve boş olabilir. Kayıttan gelen ya da formülle çıkan kaleme (dönem stoku, ortalama stok, devir hızı, finansal oran) "piyasa fiyatlar" ya da "işletme yönetimi belirler" yazılmışsa, soruda verilen değere "sen hesaplarsın" denmişse KUSUR.
+6. konu_ozeti.terimler: her terimin tanim'ı doğru mu, kim ve kaynak alanı gerçeği söylüyor mu? kim, o değeri gerçek hayatta koyan kişi ya da kurumdur ve boş olabilir. Kayıttan gelen ya da formülle çıkan kaleme (dönem stoku, ortalama stok, devir hızı, finansal oran) "piyasa fiyatlar" ya da "işletme yönetimi belirler" yazılmışsa, soruda verilen değere "sen hesaplarsın" denmişse KUSUR. Kanun yalnız kalemin işleyişini söylüyor, tutarı ya da oranı taraflar koyuyorsa (vade farkı, iskonto, taşıma gideri gibi) "kanun sabitler" yazmak KUSUR. Soruda değeri geçmeyen kaleme "soruda verilir" yazmak KUSUR.
+7. teshis.<doğru>, adimlar, konu_ozeti.yontemler, sinav_taktigi: BU sorunun kökünü ve şıklarını doğru anlatıyor mu? Olumsuz kökte (hangisi değildir, girmez, yanlıştır) öteki şıklar kurala UYDUKLARI için elenir; onları "şartı eksik", "kuralı düşürüyor", "başka hükmü uyguluyor" diye anlatmak KUSUR. Soruda bulunmayan bir şeyden (olmayan sözcük farkı, hesap, tutar) söz etmek KUSUR. Soruyu ve şıkları hiç anmayan, her soruya yapışabilecek kalıp cümle bu soruyu yanlış anlatıyorsa KUSUR.
+8. verilenler, sade.sinav, sade.kavramlar, yevmiye: değer ve tutar soruyla aynı mı, anlam ve tanım doğru mu, verinin çözümdeki rolü doğru çözümle uyuşuyor mu, yevmiye doğru çözümün tutarlarını veriyor mu? Tutmuyorsa KUSUR.
 Yazım, noktalama ve üslup kusurlarını SAYMA. Yalnız somut, gösterilebilir hata kusurdur; şüphe kusur değildir.
 
 YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
@@ -57,6 +62,8 @@ $(if ($kaynak) { $kaynak } else { '(yok)' })
   $istem = $istem -replace "`r`n", "`n"
   if ($env:AHS_MUTASYON -eq 'kural5-yok') { $istem = $istem -replace '(?m)^5\. konu_ozeti.*\n', '' }
   if ($env:AHS_MUTASYON -eq 'kural6-yok') { $istem = $istem -replace '(?m)^6\. konu_ozeti.*\n', '' }
+  if ($env:AHS_MUTASYON -eq 'kural7-yok') { $istem = $istem -replace '(?m)^7\. teshis.*\n', '' }
+  if ($env:AHS_MUTASYON -eq 'kural8-yok') { $istem = $istem -replace '(?m)^8\. verilenler.*\n', '' }
   return @{ id = $id; model = $model; maxTok = $maxTok; effort = $effort; icerik = @(@{ type = 'text'; text = $istem }) }
 }
 
