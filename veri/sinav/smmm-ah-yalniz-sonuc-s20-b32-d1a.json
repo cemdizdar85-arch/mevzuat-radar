@@ -1,0 +1,1399 @@
+{
+ "ad": "s20-b32-d1a",
+ "tarih": "2026-11-06T21:39:55.395Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42298034575",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 4.3,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 80,
+  "gonderilen": 80,
+  "temiz": 15,
+  "kusurlu": 65,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 80,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 2.184
+ },
+ "kararlar": {
+  "__sinama/smmm-ah-yalniz/kp-001": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 210 p.1 - Kapsam",
+    "BDS 210 p.13 - Müteakip Denetimler",
+    "BDS 210 p.2 - Yürürlük Tarihi",
+    "BDS 210 p.3 - Amaç",
+    "BDS 210 p.4 - Tanımlar",
+    "BDS 210 p.5 - Tanımlar",
+    "BDS 210 p.6 - Denetimin Ön Şartları",
+    "BDS 210 p.A30 - Müteakip Denetimler (Bkz.: 13 üncü paragraf)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-002": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.İlave açıklama"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 210 p.1 - Kapsam",
+    "BDS 210 p.19 - Mevzuatla Belirlenen Finansal Raporlama Çerçevesi - Kabulü Etkileyen Diğer Hususlar",
+    "BDS 210 p.2 - Yürürlük Tarihi",
+    "BDS 210 p.3 - Amaç",
+    "BDS 210 p.4 - Tanımlar",
+    "BDS 210 p.5 - Tanımlar",
+    "BDS 210 p.6 - Denetimin Ön Şartları"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-003": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Tespit edememe riski",
+    "konu_ozeti.terimler.Yapısal risk",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 200 p.A38 - Denetim Riski",
+    "BDS 200 p.A41 - Denetim Riski",
+    "BDS 200 p.A42 - Denetim Riski",
+    "BDS 200 p.A47 - Tespit Edememe Riski",
+    "BDS 200 p.A48 - Tespit Edememe Riski",
+    "BDS 200 p.A74 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-004": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Sorumlu denetçi",
+    "konu_ozeti.terimler.Kıdemli denetçi",
+    "konu_ozeti.terimler.Başdenetçi",
+    "konu_ozeti.terimler.Denetim ekibi",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.27 [1/2]",
+    "Bagimsiz Denetim Yonetmeligi m.27 [2/2]",
+    "Bagimsiz Denetim Yonetmeligi m.28 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-005": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kontrol riski"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 315 p.1 - Kapsam",
+    "BDS 315 p.12 - Tanımlar",
+    "BDS 315 p.2 - Temel Kavramlar",
+    "BDS 315 p.3 - Temel Kavramlar",
+    "BDS 315 p.4 - Temel Kavramlar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-006": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler.Önemli yanlışlık"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 200 p.11 - Denetçinin Genel Amaçları",
+    "BDS 200 p.A74 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)",
+    "BDS 200 p.A75 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)",
+    "BDS 200 p.A76 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)",
+    "BDS 200 p.A77 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-007": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Görüş vermekten kaçınma",
+    "konu_ozeti.terimler.Önemlilik ve yaygınlık"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 705 p.10 - Görüş Vermekten Kaçınma",
+    "BDS 705 p.23 - Kaçınmanın Dayanağı” başlıklarını kullanarak değiştirir ve",
+    "BDS 705 p.24 - Kaçınmanın Dayanağı” başlıklarını kullanarak değiştirir ve",
+    "BDS 705 p.25 - Kaçınmanın Dayanağı” başlıklarını kullanarak değiştirir ve",
+    "BDS 705 p.26 - Kaçınmanın Dayanağı” başlıklarını kullanarak değiştirir ve",
+    "BDS 705 p.27 - Kaçınmanın Dayanağı” başlıklarını kullanarak değiştirir ve",
+    "BDS 705 p.28 - Görüş Vermekten Kaçınması Durumunda Denetçinin Finansal Tabloların Denetimine İlişkin Sorumluluklarının Açıklanması (Tanımı)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-008": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kaynak"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 500 p.5 - Tanımlar",
+    "BDS 500 p.7 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+    "BDS 500 p.8 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+    "BDS 500 p.9 - Denetim Kanıtı Olarak Kullanılacak Bilgiler"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-009": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.26 [1/2]",
+    "Bagimsiz Denetim Yonetmeligi m.36 [2/2]",
+    "KYS 1 p.1 - Kapsam",
+    "KYS 1 p.53 - Kalite Yönetim Sisteminin Değerlendirilmesi",
+    "KYS 1 p.A166 - Tespit Edilen Eksikliklerin Kök Nedeni (Bkz.: 41(a) paragrafı)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-010": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Önemli yanlışlık riski",
+    "konu_ozeti.terimler.İç denetim fonksiyonu"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 610 p.11 - Denetim Açısından Dış Denetçinin Sorumluluğu",
+    "BDS 610 p.14 - Tanımlar",
+    "BDS 610 p.A18 - Denetim prosedürlerinin planlanması ile uygulanması ve sonuçların değerlendirilmesinde yapılan muhakemeler (Bakınız: 18(a) ve 30(a) paragrafları",
+    "BDS 610 p.A19 - Denetim prosedürlerinin planlanması ile uygulanması ve sonuçların değerlendirilmesinde yapılan muhakemeler (Bakınız: 18(a) ve 30(a) paragrafları",
+    "BDS 610 p.A20 - Değerlendirilmiş “önemli yanlışlık” riski (Bakınız: 18(b) paragrafı)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-011": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 240 p.1 - Kapsam",
+    "BDS 240 p.12 - Tanımlar",
+    "BDS 240 p.2 - Hilenin Ayırt Edici Özellikleri",
+    "BDS 240 p.3 - Hilenin Ayırt Edici Özellikleri",
+    "BDS 240 p.4 - Hilenin Önlenmesi ve Tespit Edilmesine İlişkin Sorumluluk",
+    "BDS 240 p.5 - Denetçinin Sorumlulukları",
+    "BDS 240 p.6 - Denetçinin Sorumlulukları"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-012": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kıyaslama noktası"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 320 p.10 - Ana Hükümler",
+    "BDS 320 p.11 - Ana Hükümler",
+    "BDS 320 p.13 - Denetim Yürütülürken Değişiklik Yapılması",
+    "BDS 320 p.14 - Belgelendirme",
+    "BDS 320 p.A1 - Önemlilik ve Denetim Riski (Bkz.: 5 inci paragraf)",
+    "BDS 320 p.A12 - Kamu Sektörü İşletmelerine Özgü Hususlar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-013": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Makul güvence",
+    "konu_ozeti.terimler.Hile ihtimali göstergesi",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 200 p.13 - Tanımlar",
+    "BDS 200 p.15 - Mesleki Şüphecilik",
+    "BDS 200 p.24 - Denetçinin İlgili BDS’de Belirtilen Bir Amaca Ulaşamaması",
+    "BDS 200 p.A24 - Mesleki Şüphecilik (Bkz.: 15 inci paragraf)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-014": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim",
+    "konu_ozeti.terimler[0].kim",
+    "konu_ozeti.terimler[2].tanim",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.4 [2/4]",
+    "Bagimsiz Denetim Yonetmeligi m.4 [4/4]",
+    "Bagimsiz Denetim Yonetmeligi m.8"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-015": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[0].kim",
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.terimler[2].kim",
+    "konu_ozeti.terimler[3].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.23"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-016": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Rotasyon süresi.kim",
+    "konu_ozeti.terimler.Denetim ağı.kim",
+    "konu_ozeti.terimler.Kilit yönetici yasağı.kim",
+    "konu_ozeti.terimler.Denetim dışı hizmet yasağı.kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.22 [3/3]",
+    "Bagimsiz Denetim Yonetmeligi m.26 [1/2]",
+    "Bagimsiz Denetim Yonetmeligi m.26 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-017": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.Kontrol testi",
+    "konu_ozeti.terimler.Maddi doğrulama prosedürü",
+    "konu_ozeti.terimler.Ciddi risk"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 330 p.1 - Kapsam",
+    "BDS 330 p.14 - Önceki denetimlerden elde edilen denetim kanıtlarının kullanılması",
+    "BDS 330 p.15 - Ciddi risklere yönelik kontroller",
+    "BDS 330 p.18 - Maddi Doğrulama Prosedürleri",
+    "BDS 330 p.2 - Yürürlük Tarihi",
+    "BDS 330 p.3 - Amaç",
+    "BDS 330 p.4 - Tanımlar",
+    "BDS 330 p.5 - Yapılacak Genel İşler",
+    "BDS 330 p.7 - Yönetim Beyanı Düzeyinde “Önemli Yanlışlık” Riski Olarak Değerlendirilen Risklere Karşı Uygulanan Denetim Prosedürleri"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-018": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kurum onayı.kim",
+    "konu_ozeti.terimler.KAYİK.kim",
+    "konu_ozeti.terimler.KAYİK listesi.kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.36 [1/2]",
+    "Bagimsiz Denetim Yonetmeligi m.36 [2/2]",
+    "Bagimsiz Denetim Yonetmeligi m.4 [3/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-019": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.terimler.Dış teyit",
+    "konu_ozeti.terimler.Tetkik",
+    "konu_ozeti.terimler.Alternatif prosedür"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 500 p.A21 - Gözlem",
+    "BDS 500 p.A22 - Dış Teyit",
+    "BDS 500 p.A23 - Yeniden Hesaplama",
+    "BDS 500 p.A24 - Yeniden Uygulama",
+    "BDS 500 p.A25 - Analitik Prosedürler",
+    "BDS 500 p.A26 - Sorgulama",
+    "BDS 501 p.11 - Dava ve İddialar",
+    "BDS 501 p.5 - A5 paragrafı),"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-020": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Denetçi raporu tarihi",
+    "konu_ozeti.terimler.Olumlu görüş dışında görüş",
+    "konu_ozeti.terimler.Finansal tabloların yayımlandığı tarih"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 560 p.1 - Kapsam",
+    "BDS 560 p.10 - Denetçinin, Denetçi Raporu Tarihinden Sonra Finansal Tabloların Yayımlandığı Tarihten Önce Haberdar Olduğu Durumlar",
+    "BDS 560 p.13 - Denetçinin, Denetçi Raporu Tarihinden Sonra Finansal Tabloların Yayımlandığı Tarihten Önce Haberdar Olduğu Durumlar",
+    "BDS 560 p.2 - Bilanço Tarihinden Sonraki Olaylar",
+    "BDS 560 p.3 - Yürürlük Tarihi",
+    "BDS 560 p.4 - Amaçlar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-021": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TBK (6098 s.K.) m.117",
+    "TBK (6098 s.K.) m.149",
+    "TBK (6098 s.K.) m.154",
+    "TBK (6098 s.K.) m.156"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-022": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler",
+    "konu_ozeti.terimler.müteselsil borçluluk"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TBK (6098 s.K.) m.162",
+    "TBK (6098 s.K.) m.166",
+    "TBK (6098 s.K.) m.85",
+    "TBK (6098 s.K.) m.86",
+    "TBK (6098 s.K.) m.87"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-023": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Son tutanak"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İş K. (4857 s.K.) m.20",
+    "İş K. (4857 s.K.) m.29 [1/2]",
+    "İş K. (4857 s.K.) m.29 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-024": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TMK (4721 s.K.) m.950",
+    "TTK (6102 s.K.) m.11",
+    "TTK (6102 s.K.) m.15",
+    "TTK (6102 s.K.) m.18",
+    "TTK (6102 s.K.) m.20",
+    "TTK (6102 s.K.) m.53",
+    "TTK (6102 s.K.) m.950"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-025": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.ilan tarihi",
+    "konu_ozeti.terimler.uygulama işlemi"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İYUK (2577 s.K.) m.11 - Üst makamlara başvurma",
+    "İYUK (2577 s.K.) m.7 - Dava açma süresi"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-026": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TTK (6102 s.K.) m.18"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-027": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TTK (6102 s.K.) m.30",
+    "TTK (6102 s.K.) m.32",
+    "TTK (6102 s.K.) m.34"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-028": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.Ticari vekil"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TBK (6098 s.K.) m.448",
+    "TBK (6098 s.K.) m.532",
+    "TBK (6098 s.K.) m.547",
+    "TBK (6098 s.K.) m.551",
+    "TTK (6102 s.K.) m.102"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-029": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İYUK (2577 s.K.) m.26 - Tarafların kişilik veya niteliğinde değişiklik",
+    "İYUK (2577 s.K.) m.27 [1/3]",
+    "İYUK (2577 s.K.) m.27 [2/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-030": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Belgeleme koşulu"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İş K. (4857 s.K.) ek m.2",
+    "İş K. (4857 s.K.) m.2 [1/3]",
+    "İş K. (4857 s.K.) m.2 [2/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-031": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.muvafakat"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TTK (6102 s.K.) m.647",
+    "TTK (6102 s.K.) m.650",
+    "TTK (6102 s.K.) m.651"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-032": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İş K. (4857 s.K.) m.29 [1/2]",
+    "İş K. (4857 s.K.) m.29 [2/2]",
+    "İş K. (4857 s.K.) m.42",
+    "İş K. (4857 s.K.) m.43",
+    "İş K. (4857 s.K.) m.63"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-033": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.harita",
+    "konu_ozeti.terimler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İş K. (4857 s.K.) m.8"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-034": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TBK (6098 s.K.) m.259",
+    "TBK (6098 s.K.) m.260"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-035": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.harita",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TBK (6098 s.K.) m.299",
+    "TTK (6102 s.K.) m.3",
+    "TTK (6102 s.K.) m.671",
+    "TTK (6102 s.K.) m.700",
+    "TTK (6102 s.K.) m.776",
+    "TTK (6102 s.K.) m.780 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-036": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.vazgeçme hakkı",
+    "konu_ozeti.terimler.birleşme raporu"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TTK (6102 s.K.) m.144",
+    "TTK (6102 s.K.) m.149",
+    "TTK (6102 s.K.) m.1530 [2/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-037": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler.Çek hesabı numarası",
+    "konu_ozeti.terimler.Vergi kimlik numarası",
+    "konu_ozeti.terimler.MERSİS numarası",
+    "konu_ozeti.terimler.Türkiye Cumhuriyeti kimlik numarası"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Çek K. (5941 s.K.) m.2 [3/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-038": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Yerindelik denetimi.kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İYUK (2577 s.K.) m.2 - İdari dava türleri ve idari yargı yetkisinin sınırı"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-039": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "5510 s. SGK Kanunu m.101",
+    "5510 s. SGK Kanunu m.102 [1/12]",
+    "5510 s. SGK Kanunu m.102 [2/12]",
+    "5510 s. SGK Kanunu m.102 [3/12]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-040": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.harita",
+    "konu_ozeti.terimler.ceza parası hesabı"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "İş K. (4857 s.K.) m.21 [1/2]",
+    "İş K. (4857 s.K.) m.21 [2/2]",
+    "İş K. (4857 s.K.) m.32 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-041": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.Kurucu payı",
+    "konu_ozeti.terimler.Net aktif değer"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.50 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.50 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-042": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.yatırımcı payı",
+    "konu_ozeti.terimler.net aktif değer"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.50 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.50 [2/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.51"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-043": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim",
+    "konu_ozeti.terimler[2].kaynak",
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.106",
+    "Sermaye Piyasası K. (6362 s.K.) m.107",
+    "Sermaye Piyasası K. (6362 s.K.) m.114",
+    "Sermaye Piyasası K. (6362 s.K.) m.115"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-044": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.39 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.39 [2/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.40"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-045": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Arama kararı"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.88",
+    "Sermaye Piyasası K. (6362 s.K.) m.89",
+    "Sermaye Piyasası K. (6362 s.K.) m.90",
+    "Sermaye Piyasası K. (6362 s.K.) m.95",
+    "Sermaye Piyasası K. (6362 s.K.) m.99"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-046": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim",
+    "teshis.B.paragraf"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.3 [1/5]",
+    "Sermaye Piyasası K. (6362 s.K.) m.3 [2/5]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-047": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) m.13",
+    "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) m.18 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-048": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kaynak",
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.terimler[0].kim",
+    "konu_ozeti.terimler[2].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Kar Payi Tebligi (II-19.1) m.12",
+    "Kar Payi Tebligi (II-19.1) m.3",
+    "Kar Payi Tebligi (II-19.1) m.7"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-049": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.terimler[2].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.78 [1/4]",
+    "Sermaye Piyasası K. (6362 s.K.) m.78 [2/4]",
+    "Sermaye Piyasası K. (6362 s.K.) m.78 [3/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-050": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.istisna hâller",
+    "konu_ozeti.terimler.fiyat istikrarı işlemi"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.107",
+    "Sermaye Piyasası K. (6362 s.K.) m.108"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-051": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.terimler[0].kaynak",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SPK Tebliğ (II-18.1) - Kayıtlı Sermaye Sistemi Tebliği (II-18.1) m.11",
+    "SPK Tebliğ (II-18.1) - Kayıtlı Sermaye Sistemi Tebliği (II-18.1) m.9"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-052": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kuruluş izni",
+    "konu_ozeti.terimler.Mali denetim",
+    "sade.siklar.E"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.65 [1/4]",
+    "Sermaye Piyasası K. (6362 s.K.) m.65 [2/4]",
+    "Sermaye Piyasası K. (6362 s.K.) m.65 [3/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-053": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler.Yönetim kurulu sorumluluğu.kim",
+    "konu_ozeti.terimler.Derecelendirme ve değerleme kuruluşu sorumluluğu.kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.14 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.14 [2/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.62",
+    "Sermaye Piyasası K. (6362 s.K.) m.63"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-054": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Merkezî takas kuruluşu.kim",
+    "konu_ozeti.terimler.Merkezî saklama kuruluşu.kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.55 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.55 [2/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.65 [1/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-055": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.10",
+    "Sermaye Piyasası K. (6362 s.K.) m.32 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.32 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-056": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.97 [1/3]",
+    "Sermaye Piyasası K. (6362 s.K.) m.99/A [1/3]",
+    "Sermaye Piyasası K. (6362 s.K.) m.99/A [2/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-057": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.İşlemiş faiz"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Borclanma Araclari Tebligi (VII-128.8) m.17",
+    "Borclanma Araclari Tebligi (VII-128.8) m.24"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-058": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.85 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.85 [2/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.86 [1/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-059": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Güvence raporu",
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) m.3 [1/4]",
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) m.3 [2/4]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-060": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Birlikte hareket eden kişiler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Sermaye Piyasası K. (6362 s.K.) m.23",
+    "Sermaye Piyasası K. (6362 s.K.) m.25",
+    "Sermaye Piyasası K. (6362 s.K.) m.26 [1/2]",
+    "Sermaye Piyasası K. (6362 s.K.) m.26 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-061": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.35",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.62",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.63",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.63/A"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-062": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kesinleşme",
+    "konu_ozeti.terimler.Tebliğ"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.48 [1/2]",
+    "SMMM K. (3568 s.K.) m.48 [2/2]",
+    "SMMM ve YMM K. Disiplin Yonetmeligi m.12 [1/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-063": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Dikkat noktaları"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TÜRMOB Etik İlkeler Yön. EK bolum 4",
+    "TÜRMOB Etik İlkeler Yön. EK bolum 5"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-064": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.51",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.52 [1/2]",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.52 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-065": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.45 [1/2]",
+    "SMMM K. (3568 s.K.) m.45 [2/2]",
+    "TMK (4721 s.K.) m.17",
+    "TMK (4721 s.K.) m.18"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-066": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Adli para cezası",
+    "konu_ozeti.terimler.Daha ağır suç istisnası",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.2 [1/2]",
+    "SMMM K. (3568 s.K.) m.2 [2/2]",
+    "SMMM K. (3568 s.K.) m.3",
+    "SMMM K. (3568 s.K.) m.45 [1/2]",
+    "SMMM K. (3568 s.K.) m.45 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-067": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.27",
+    "TÜRMOB Etik İlkeler Yön. EK bolum 4"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-068": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.maddi tazminat.kaynak",
+    "konu_ozeti.terimler.kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Haksız Rekabet ve Reklam Yasağı Yön. m.10",
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.63/A",
+    "TBK (6098 s.K.) m.58",
+    "TTK (6102 s.K.) m.56"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-069": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kıdem şartı"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM Odalari Yonetmeligi m.10",
+    "SMMM Odalari Yonetmeligi m.19"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-070": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM Odalari Yonetmeligi m.10",
+    "SMMM Odalari Yonetmeligi m.8"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-071": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[0].kim",
+    "konu_ozeti.terimler[3].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM ve YMM K. Disiplin Yonetmeligi m.30"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-072": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.2 [1/2]",
+    "SMMM K. (3568 s.K.) m.2 [2/2]",
+    "SMMM K. (3568 s.K.) m.43",
+    "SMMM K. (3568 s.K.) m.45 [1/2]",
+    "SMMM K. (3568 s.K.) m.45 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-073": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TÜRMOB Etik İlkeler Yön. EK bolum 2",
+    "TÜRMOB Etik İlkeler Yön. EK bolum 6"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-074": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.iş çevresi önlemleri"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TÜRMOB Etik İlkeler Yön. EK bolum 18",
+    "TÜRMOB Etik İlkeler Yön. EK bolum 3"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-075": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.terimler",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Mal Bildirimi K. (3628 s.K.) m.2 [1/2]",
+    "Mal Bildirimi K. (3628 s.K.) m.2 [2/2]",
+    "SMMM K. (3568 s.K.) m.12 [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-076": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.Bir aylık süre"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.27"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-077": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.33",
+    "SMMM K. (3568 s.K.) m.36",
+    "SMMM K. (3568 s.K.) m.38",
+    "SMMM K. (3568 s.K.) m.39"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-078": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.13",
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.14",
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.20",
+    "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.21"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-079": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler.Çeşitli gelirler"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM Odalari Yonetmeligi m.16 [1/2]",
+    "SMMM Odalari Yonetmeligi m.16 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-080": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Hapis cezası süresi"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "SMMM K. (3568 s.K.) m.3",
+    "SMMM K. (3568 s.K.) m.49"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "__sinama/smmm-ah-yalniz/kp-002",
+  "__sinama/smmm-ah-yalniz/kp-003",
+  "__sinama/smmm-ah-yalniz/kp-004",
+  "__sinama/smmm-ah-yalniz/kp-005",
+  "__sinama/smmm-ah-yalniz/kp-006",
+  "__sinama/smmm-ah-yalniz/kp-007",
+  "__sinama/smmm-ah-yalniz/kp-008",
+  "__sinama/smmm-ah-yalniz/kp-009",
+  "__sinama/smmm-ah-yalniz/kp-010",
+  "__sinama/smmm-ah-yalniz/kp-011",
+  "__sinama/smmm-ah-yalniz/kp-012",
+  "__sinama/smmm-ah-yalniz/kp-013",
+  "__sinama/smmm-ah-yalniz/kp-014",
+  "__sinama/smmm-ah-yalniz/kp-015",
+  "__sinama/smmm-ah-yalniz/kp-016",
+  "__sinama/smmm-ah-yalniz/kp-017",
+  "__sinama/smmm-ah-yalniz/kp-018",
+  "__sinama/smmm-ah-yalniz/kp-019",
+  "__sinama/smmm-ah-yalniz/kp-020",
+  "__sinama/smmm-ah-yalniz/kp-022",
+  "__sinama/smmm-ah-yalniz/kp-023",
+  "__sinama/smmm-ah-yalniz/kp-025",
+  "__sinama/smmm-ah-yalniz/kp-028",
+  "__sinama/smmm-ah-yalniz/kp-029",
+  "__sinama/smmm-ah-yalniz/kp-030",
+  "__sinama/smmm-ah-yalniz/kp-031",
+  "__sinama/smmm-ah-yalniz/kp-033",
+  "__sinama/smmm-ah-yalniz/kp-034",
+  "__sinama/smmm-ah-yalniz/kp-035",
+  "__sinama/smmm-ah-yalniz/kp-036",
+  "__sinama/smmm-ah-yalniz/kp-037",
+  "__sinama/smmm-ah-yalniz/kp-038",
+  "__sinama/smmm-ah-yalniz/kp-040",
+  "__sinama/smmm-ah-yalniz/kp-041",
+  "__sinama/smmm-ah-yalniz/kp-042",
+  "__sinama/smmm-ah-yalniz/kp-043",
+  "__sinama/smmm-ah-yalniz/kp-045",
+  "__sinama/smmm-ah-yalniz/kp-046",
+  "__sinama/smmm-ah-yalniz/kp-048",
+  "__sinama/smmm-ah-yalniz/kp-049",
+  "__sinama/smmm-ah-yalniz/kp-050",
+  "__sinama/smmm-ah-yalniz/kp-051",
+  "__sinama/smmm-ah-yalniz/kp-052",
+  "__sinama/smmm-ah-yalniz/kp-053",
+  "__sinama/smmm-ah-yalniz/kp-054",
+  "__sinama/smmm-ah-yalniz/kp-056",
+  "__sinama/smmm-ah-yalniz/kp-057",
+  "__sinama/smmm-ah-yalniz/kp-058",
+  "__sinama/smmm-ah-yalniz/kp-059",
+  "__sinama/smmm-ah-yalniz/kp-060",
+  "__sinama/smmm-ah-yalniz/kp-062",
+  "__sinama/smmm-ah-yalniz/kp-063",
+  "__sinama/smmm-ah-yalniz/kp-064",
+  "__sinama/smmm-ah-yalniz/kp-065",
+  "__sinama/smmm-ah-yalniz/kp-066",
+  "__sinama/smmm-ah-yalniz/kp-068",
+  "__sinama/smmm-ah-yalniz/kp-069",
+  "__sinama/smmm-ah-yalniz/kp-071",
+  "__sinama/smmm-ah-yalniz/kp-072",
+  "__sinama/smmm-ah-yalniz/kp-073",
+  "__sinama/smmm-ah-yalniz/kp-074",
+  "__sinama/smmm-ah-yalniz/kp-075",
+  "__sinama/smmm-ah-yalniz/kp-076",
+  "__sinama/smmm-ah-yalniz/kp-079",
+  "__sinama/smmm-ah-yalniz/kp-080"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}

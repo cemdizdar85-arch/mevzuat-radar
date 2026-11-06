@@ -56,6 +56,7 @@ Ders şık türü: FM hesap kaydı cümlesi/tam kayıt · FTA yalnız sayı · D
 - **Ö3 Hap:** kuralın akılda kalan tek cümlesi (≤140 kr), açıklamanın tekrarı değil, şartı düşürmeden.
 - **Ö4 İkiz alıştırma (EKSİK, kurulacak):** yanlış yapan öğrenciye aynı kuralın farklı rakamlı/farklı olaylı ikinci sorusu.
 - **Ö5 Açıklama da doğruluk kapısından geçer:** cevap doğru ama açıklama yanlışsa öğrenci "yanlış soru" der → açıklama hakemi + D5 listesi açıklamaya da uygulanır.
+- **Ö6 Ekrandaki her alan bu soruyu anlatır (B32–B34, Cem 07.11):** konu özeti, adım, teşhis, yöntem, terim notu, verilenler, sade kavramlar ve yevmiye doğru çözümle uyuşur. Olumsuz kökte öteki şıklar kurala uydukları için elenir. Soruyu anmayan kalıp cümle kullanılmaz. Ayrıntı `SORU-URETIM-SOZLESMESI.md`.
 
 ## 5 · YAYIN DÜZENİ
 
