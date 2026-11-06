@@ -9,7 +9,7 @@ $depoKok = Split-Path -Parent $PSScriptRoot
 if ($Mutasyon) {
   # 02.10: CI (Linux) runner'da 'powershell' YOK, 'pwsh' var - mutasyon isi bu yuzden hep KIRMIZI dusuyordu
   $psExe = if (Get-Command powershell -ErrorAction SilentlyContinue) { 'powershell' } else { 'pwsh' }
-  $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok', 'iz-yok', 'ozet-yok', 'kural5-yok'   # 13.10 iz-yok: AH bütçesiz izi yazılmaz → sınav KIRMIZI düşmeli · 06.11 ozet-yok/kural5-yok: konu özeti hakeme gitmez
+  $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok', 'iz-yok', 'ozet-yok', 'kural5-yok', 'terim-yok', 'kural6-yok'   # 13.10 iz-yok: AH bütçesiz izi yazılmaz → sınav KIRMIZI düşmeli · 06.11 ozet-yok/kural5-yok: konu özeti hakeme gitmez
   foreach ($m in $ler) { $env:AHS_MUTASYON = $m; & $psExe -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath | Out-Null; $d = $LASTEXITCODE -ne 0; if ($d) { $tut++ }; "  mutasyon $m $(if($d){'KIRMIZI (doğru)'}else{'YESIL (YANLIŞ)'})" }
   $env:AHS_MUTASYON = $null; "MUTASYON: $tut/$($ler.Count) → KIRMIZI"; if ($tut -ne $ler.Count) { exit 1 }; exit 0
 }
@@ -38,6 +38,10 @@ $ozetli = K '2026-10-02' @{ konu_giris = [pscustomobject]@{ desen = 'OZETDESENI'
 $ist = "$((AciklamaHakemIs 'x1' $ozetli).icerik[0].text)"
 T 'özet alanları istemde' (('OZETDESENI', 'OZETHARITA', 'OZETYONTEM', 'OZETORNEK', 'OZETTAKTIK', 'OZETNOT' | Where-Object { $ist -notmatch $_ }).Count -eq 0)
 T 'kural 5 istemde' ($ist -match '(?m)^5\. konu_ozeti')
+# 07.11 B33: terimler hakem istemine girer + kural 6 istemde durur
+$terimli = K '2026-10-02' @{ konu_giris = [pscustomobject]@{ terimler = @([pscustomobject]@{ ad = 'OZETTERIM'; kim = 'piyasa fiyatlar' }) } }
+T 'terimler istemde' ("$((AciklamaHakemIs 'x3' $terimli).icerik[0].text)" -match 'OZETTERIM')
+T 'kural 6 istemde' ($ist -match '(?m)^6\. konu_ozeti')
 $istY = "$((AciklamaHakemIs 'x2' $yeni).icerik[0].text)"
 T 'özetsiz kayıtta istem kurulur, konu_ozeti boş' ($istY -match '"konu_ozeti":null')
 # bütçe freni: geçici fabrika, 1 aday, bütçe 0,001 USD → gönderilmez

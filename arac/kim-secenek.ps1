@@ -30,6 +30,12 @@ function KimSecenek([string]$d,[bool]$Yeni){
   if($d -match '^Hukuk$|Hukuk(?! Denetim)'){ if(-not ($d -match 'Denetim')){ return 'kanun sabitler · mahkeme ya da idare karar verir · taraflar sözleşmeyle belirler · meslek kuruluşu düzenler · mükellef / işveren beyan eder. Denetçi bu derste belirleyici DEĞİLDİR, yazma.' } }
   return (KimSecenekEski $d)
 }
+# 07.11.2026 B33 (Cem "kural oluştur"): kim zorunlu kapalı listeydi; kimsenin koymadığı kalemde model en yakın seçeneği uyduruyordu
+#   ("Dönem Sonu Stok · piyasa fiyatlar"). Ek, yalnız KURAL0711 açıkken isteme girer (istem baytı koruması, kalip-parti-uret.ps1).
+function KimSecenekEk0711(){
+  if("$env:KIM_SECENEK_MUTASYON" -eq 'ek-yok'){ return '' }
+  return ' Listeden hiçbiri gerçekten uymuyorsa seçenek uydurma, "kim" alanını BOŞ bırak (""). Kayıttan gelen ya da formülle çıkan kalemin belirleyicisi yoktur: dönem başı/sonu stok, ortalama stok, devir hızı, finansal analiz oranı için "piyasa fiyatlar" ya da "işletme yönetimi belirler" YAZMA.'
+}
 if($MyInvocation.InvocationName -ne '.' -and @($args) -contains '-Sinav'){
   $dersler=@('Finansal Muhasebe','Maliyet Muhasebesi','Finansal Tablolar ve Analizi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Hukuk','Sermaye Piyasası Mevzuatı','Muh. ve Mali Müş. Meslek Hukuku','Türkçe','Matematik','Atatürk İlkeleri ve İnkılap Tarihi','Yabancı Dil','Ekonomi','Maliye','Ticaret Hukuku','Borçlar Hukuku','İş ve Sosyal Güvenlik Hukuku','Muhasebe')
   $muh='Tekdüzen hesap planı ya da standart tanımlar'
@@ -42,6 +48,8 @@ if($MyInvocation.InvocationName -ne '.' -and @($args) -contains '-Sinav'){
   # 2) YENİ: genel kültür / SPK / Hukuk muhasebe listesi ALMAZ; muhasebe dersleri ve Denetim eskisi gibi
   foreach($d in 'Türkçe','Matematik','Atatürk İlkeleri ve İnkılap Tarihi','Yabancı Dil','Ekonomi','Maliye','Sermaye Piyasası Mevzuatı','Hukuk'){ $v+=,@("yeni: $d muhasebe listesi almaz", (-not (KimSecenek $d $true).Contains($muh))) }
   foreach($d in 'Finansal Muhasebe','Maliyet Muhasebesi','Finansal Tablolar ve Analizi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması'){ $v+=,@("yeni: $d eskisiyle aynı", ((KimSecenek $d $true) -ceq (KimSecenekEski $d))) }
+  # 3) 07.11 B33: boş bırakma izni ve hesap kalemi yasağı istem ekinde durur
+  $ek=KimSecenekEk0711; $v+=,@('B33 ek: boş bırakma izni', ($ek.Contains('BOŞ bırak'))); $v+=,@('B33 ek: stok ve oran yasağı', ($ek.Contains('ortalama stok') -and $ek.Contains('YAZMA')))
   $h=0; foreach($x in $v){ if(-not $x[1]){ $h++; "  DUSTU: $($x[0])" } }
   if($h){ "KIM SECENEK SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KIM SECENEK SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }

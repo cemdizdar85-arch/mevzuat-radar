@@ -863,6 +863,10 @@ jobs:
           # (8 yanlis alarm + 10 yakalama); 7 mutasyon (esik x2, cift, harf, anahtar, olumsuz kok, olumlu kok) KIRMIZI (27.10). Ag yok.
           - { ad: "Karne-anahtar kapisi OZ-SINAVI + MUTASYON (KAPI-KARNE)",
               kabuk: bash, komut: "node arac/karne-kapisi.js --sinav --mutasyon" }
+          # 07.11: KAPI-TERIM (B33) hesap kalemine belirleyici yazilmis terim notu. soru-kalite-kapisi.js uzerinden yalniz kendi esiginden
+          # (2026-11-08) yeni soruda DURDURUR, eskide NOT. 19 vaka (9 yakalama + 10 yanlis alarm/eksik alan); 5 mutasyon KIRMIZI. Ag yok.
+          - { ad: "Terim notu kapisi OZ-SINAVI + MUTASYON (KAPI-TERIM)",
+              kabuk: bash, komut: "node arac/terim-kim-kapisi.js --sinav --mutasyon" }
           # 27.10: sik-kaydir.ps1 harf takasi korumasi (17.09 kosusu 17 sorunun adimini eski harfte birakmisti): harf anan desen
           # harf duyarsiz, sik alanli adimli soru kaydirilmaz, takas karneyi bozarsa yazilmaz. 7 vaka; 3 mutasyon KIRMIZI. Ag yok.
           - { ad: "Sik kaydirma korumasi OZ-SINAVI + MUTASYON",

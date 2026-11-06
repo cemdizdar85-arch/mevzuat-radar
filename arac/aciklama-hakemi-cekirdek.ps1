@@ -17,7 +17,9 @@ function AhKisalt($v, [int]$n) { if ($null -eq $v) { return $null }; $s = $(if (
 function AhKonuOzeti($k) {
   if ($env:AHS_MUTASYON -eq 'ozet-yok' -or -not $k.PSObject.Properties['konu_giris'] -or $null -eq $k.konu_giris) { return $null }
   $g = $k.konu_giris; if ($g -is [string]) { return $g }
-  return [ordered]@{ nedir = $g.nedir; desen = $g.desen; sinavda = $g.sinavda; harita = $g.harita; yontemler = $g.yontemler; ornek = $g.ornek; panel_ornek = $g.panel_ornek }
+  # 07.11 B33: terimler de ekranda basılır ama hakeme gitmiyordu ("Dönem Sonu Stok · piyasa fiyatlar", smmm-4k-a-yfta-kolay-r6/kp-01). Yakalama oranı ÖLÇÜLMEDİ.
+  $terim = $(if ($env:AHS_MUTASYON -eq 'terim-yok') { $null } else { $g.terimler })
+  return [ordered]@{ nedir = $g.nedir; desen = $g.desen; sinavda = $g.sinavda; harita = $g.harita; yontemler = $g.yontemler; ornek = $g.ornek; panel_ornek = $g.panel_ornek; terimler = $terim }
 }
 
 function AciklamaHakemIs([string]$id, $k, [string]$model = 'claude-opus-5-5', [string]$effort = 'medium', [int]$maxTok = 1600) {
@@ -40,6 +42,7 @@ Denetle:
 3. İkiz soru: ikiz_soru ile tablo tutarlı mı, sonuç doğru mu, hedef_cumle cevabı açıkça veriyor mu?
 4. Hesap kodu, kanun maddesi, oran: yanlışsa ya da güncel değilse (ör. KDV genel oranı %20, kurumlar vergisi %25, kâr payı stopajı %15) KUSUR. Kuralı yalnız aşağıdaki KAYNAK metne ve bu listeye dayanarak değerlendir; emin değilsen kusur deme.
 5. konu_ozeti, hap, sinav_taktigi, notlandirici: doğru cevabın çözüm yoluyla çelişiyor mu? Doğru çözümün dışarıda bıraktığı bir kalemi eklemeyi ya da yanlış şıkkın hesabını doğru yol gibi öğretiyorsa, doğru çözümün yaptığı şeyi "tuzak" diye gösteriyorsa, yanlış madde ya da paragraf numarası veriyorsa KUSUR. Tuzağı doğru tarif eden cümle kusur değildir.
+6. konu_ozeti.terimler: her terimin tanim'ı doğru mu, kim ve kaynak alanı gerçeği söylüyor mu? kim, o değeri gerçek hayatta koyan kişi ya da kurumdur ve boş olabilir. Kayıttan gelen ya da formülle çıkan kaleme (dönem stoku, ortalama stok, devir hızı, finansal oran) "piyasa fiyatlar" ya da "işletme yönetimi belirler" yazılmışsa, soruda verilen değere "sen hesaplarsın" denmişse KUSUR.
 Yazım, noktalama ve üslup kusurlarını SAYMA. Yalnız somut, gösterilebilir hata kusurdur; şüphe kusur değildir.
 
 YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
@@ -53,6 +56,7 @@ $(if ($kaynak) { $kaynak } else { '(yok)' })
 "@
   $istem = $istem -replace "`r`n", "`n"
   if ($env:AHS_MUTASYON -eq 'kural5-yok') { $istem = $istem -replace '(?m)^5\. konu_ozeti.*\n', '' }
+  if ($env:AHS_MUTASYON -eq 'kural6-yok') { $istem = $istem -replace '(?m)^6\. konu_ozeti.*\n', '' }
   return @{ id = $id; model = $model; maxTok = $maxTok; effort = $effort; icerik = @(@{ type = 'text'; text = $istem }) }
 }
 

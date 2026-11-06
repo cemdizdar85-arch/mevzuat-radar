@@ -6027,6 +6027,15 @@ elseif("$env:MEVZUAT_KURAL_0610" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:m
 }
 $kimSecenek=KimSecenek $dersAdiG $script:KURAL0610
 "KONU GİRİŞİ 'kim belirler' (06.10): $(if($script:KURAL0610){ 'DERSE GÖRE (yeni)' } else { 'ESKİ istem (bayt bayt aynı)' })"
+# 07.11.2026 B33 (Cem "kural oluştur"): kim boş bırakılabilir, hesap kalemine belirleyici yazılmaz. Açılma şartı KURAL0610 düzeninin aynısı
+#   (≥ 2026-11-08 ve etiketin daha önce gönderilmiş partisi yok: istem değişirse ödenmiş toplu parti ikinci kez ödenir). Elle: MEVZUAT_KURAL_0711=1/0.
+$KURAL0711_BAS='2026-11-08'; $script:KURAL0711=$false
+if("$env:MEVZUAT_KURAL_0711" -eq '1'){ $script:KURAL0711=$true }
+elseif("$env:MEVZUAT_KURAL_0711" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:mm') -ge "$KURAL0711_BAS 00:00"){
+  $script:KURAL0711=$true
+  foreach($kuralBekleyen7 in @(Get-BekleyenPartiler)){ if("$($kuralBekleyen7.etiket)" -like "$Etiket/*" -and "$($kuralBekleyen7.zaman)" -lt $KURAL0711_BAS){ $script:KURAL0711=$false; break } }
+}
+if($script:KURAL0711){ $kimSecenek+=(KimSecenekEk0711) }
 $girisIstem=$girisIstem.Replace('{KIMSECENEK}',$kimSecenek)
 foreach($gecisG in @(1,2,3)){ if($gecisG -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisG -eq 1); $script:DALGA2_TOPLA=($gecisG -eq 2 -and -not $IkinciDalgaKapat)   # 15.09: 1=topla, 2=toplu cevapla + kalanı İKİNCİ DALGAYA topla, 3=ikinci dalga cevabı (son çare anlık)
 :soruG foreach($id in @($don.Keys)){
@@ -6054,7 +6063,7 @@ foreach($gecisG in @(1,2,3)){ if($gecisG -ne 3 -and -not $Toplu){ continue }; $s
     # 07.09 Cem: terim tanımı yer tarif etmez ("tablodaki tutar"); kavramı söyler ("… düşüldükten sonra kalan net tutar")
     $yerTarif=@(@($gN.terimler) | Where-Object { $_ -and "$($_.tanim)" -match '(?i)\b(tablodaki|tabloda|yukarıdaki|aşağıdaki|soldaki|sağdaki)\b' } | ForEach-Object { "$($_.ad)" }); if($yerTarif.Count){ $dusenG+="terim tanımı yer tarif ediyor ($($yerTarif -join ', ')) — kavramı yaz: neyden ne düşülür, ne kalır" }
     # 07.09 Cem "kullanım değerini kim belirliyor?": her terimde kim + kaynak alanı dolu olmalı (denetim-zor2 girişi boş bıraktı)
-    $eksikKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and (-not ($_.PSObject.Properties['kim'] -and "$($_.kim)".Trim()) -or -not ($_.PSObject.Properties['kaynak'] -and "$($_.kaynak)".Trim())) } | ForEach-Object { "$($_.ad)" }); if($eksikKim.Count){ $dusenG+="terimlerde 'kim belirler' / 'sınavda kaynağı' boş ($($eksikKim -join ', '))" }
+    $eksikKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and ((-not $script:KURAL0711 -and -not ($_.PSObject.Properties['kim'] -and "$($_.kim)".Trim())) -or -not ($_.PSObject.Properties['kaynak'] -and "$($_.kaynak)".Trim())) } | ForEach-Object { "$($_.ad)" }); if($eksikKim.Count){ $dusenG+="terimlerde 'kim belirler' / 'sınavda kaynağı' boş ($($eksikKim -join ', '))" }
     # 07.09: kim == kaynak ("soruda verilir · soruda verilir") ya da denetim dersinde "işletme yönetimi" belirleyen → kapı
     $ayniKim=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and $_.PSObject.Properties['kim'] -and $_.PSObject.Properties['kaynak'] -and ((Katla2 "$($_.kim)") -eq (Katla2 "$($_.kaynak)")) } | ForEach-Object { "$($_.ad)" }); if($ayniKim.Count){ $dusenG+="'kim' ile 'kaynak' aynı yazılmış ($($ayniKim -join ', ')); kim = belirleyen, kaynak = sınavda nereden" }
     if($DersRegex -match 'Denetim'){ $yonetimK=@(@($gN.terimler) | Where-Object { $_ -and $_.ad -and "$($_.kim)" -match '(?i)işletme yönetimi|isletme yonetimi|yönetim tahmin' } | ForEach-Object { "$($_.ad)" }); if($yonetimK.Count){ $dusenG+="denetim teriminde belirleyen işletme yönetimi olamaz ($($yonetimK -join ', ')); denetçi ya da standart yaz" } }
