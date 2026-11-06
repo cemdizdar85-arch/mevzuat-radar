@@ -771,7 +771,8 @@ $html=@'
 /* tek ekran paneli: uc satir + cipler; bolumler dokununca */
 .ozet{font-size:.93em;margin:0 0 8px;line-height:1.45}.ozet b{color:var(--yesil)}
 .ayrB{display:none}:root[data-sade] .panel>.ayrB{display:block;order:2;margin:2px 0 8px;font:inherit;font-size:.9em;font-weight:700;color:var(--mavi);background:none;border:1px solid var(--cizgi);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
-@media(max-width:899px){:root[data-sade] .panel.kisa .ayrK,:root[data-sade] .panel.kisa .kutuNot,:root[data-sade] .panel.kisa .akranNot,:root[data-sade] .panel.kisa .sinavDil,:root[data-sade] .panel.kisa .sinavDilM,:root[data-sade] .panel.kisa>.konuK,:root[data-sade] .panel.kisa>.hap{display:none!important}}
+.digerSikS{margin:0 0 6px;line-height:1.5}.digerSik{margin:8px 0 10px}
+@media(max-width:899px){:root[data-sade] .panel.kisa .digerSik,:root[data-sade] .panel.kisa .ayrK,:root[data-sade] .panel.kisa .kutuNot,:root[data-sade] .panel.kisa .akranNot,:root[data-sade] .panel.kisa .sinavDil,:root[data-sade] .panel.kisa .sinavDilM,:root[data-sade] .panel.kisa>.konuK,:root[data-sade] .panel.kisa>.hap{display:none!important}}
 @media(min-width:900px){:root[data-sade] .panel>.ayrB{display:none}}
 :root[data-sade] .panel>.hesapOzet{order:2}.hesapOzet{margin:4px 0 10px}.hesapOzet .et{margin:6px 0 4px}
 .hesapT{width:100%;border-collapse:collapse;font-size:.92em}.hesapT td{padding:6px 8px;border-bottom:1px solid var(--cizgi);vertical-align:top}.hesapT td.hDeger{text-align:right;white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
@@ -1329,6 +1330,11 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
         let sonI=-1; satirlar.forEach((x,ii)=>{ if(tutar(x)) sonI=ii; });
         if(satirlar.length>=2&&satirlar.length<=14&&sonI>=0){ const son=satirlar[sonI];
           hh+='<div class="et">🧮 Hesap</div><table class="hesapT"><tbody>'+satirlar.map(x=>{ const f=vSec.has(x.r+',1')?'':formulOf(x.r); return '<tr'+(x===son?' class="hSonuc"':'')+'><td>'+esc(x.ad)+(f?'<div class="hFormul">'+esc(f)+'</div>':'')+'</td><td class="hDeger">'+esc(x.deger)+'</td></tr>'; }).join('')+'</tbody></table>'; } }
+      // 06.11 DİĞER ŞIKLAR (Cem "UWorld seviyesi"; 30 örnek soru: 28'inde yanlış şıklar açıklamanın içinde, sekme açmadan): "Beş şık, beş cümle"
+      //   sekmede duruyordu, seçilmemiş şıkların nedeni görülmüyordu. Veri zaten var (sade.siklar, yoksa teshis); yeni üretim yok. Doğru şık ve
+      //   zaten anlatılan "senin seçimin" tekrar edilmez. Telefonda kısa kipte gizli, "Ayrıntılı açıklama" ile açılır (.digerSik, CSS notu).
+      { const dH=['A','B','C','D','E'].filter(x=>s.siklar[x]&&x!==s.dogru&&x!==h).map(x=>{ const m=String((sd&&sd.siklar&&sd.siklar[x])||((s.teshis||{})[x]||{}).gercek||'').replace(/\s+/g,' ').trim(); return m?'<div class="digerSikS"><b>'+x+')</b> '+esc(m)+'</div>':''; }).join('');
+        if(dH) hh+='<div class="digerSik"><div class="et">📋 '+(dogruMu?'Yanlış şıklar':'Diğer şıklar')+'</div>'+dH+'</div>'; }
       const hapT=String(s.hap||'').trim(); if(hapT) hh+='<div class="akildaTut">📌 <b>Akılda tut:</b> '+esc(hapT)+'</div>';
       if(hh){ hz.innerHTML=hh; oz.after(hz); const eskiHap=k.querySelector('.hap'); if(eskiHap) eskiHap.style.display='none'; }
     }
