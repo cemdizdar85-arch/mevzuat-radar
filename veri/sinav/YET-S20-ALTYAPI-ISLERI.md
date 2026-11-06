@@ -34,3 +34,8 @@ Kaynak: ortak ambar (`dokumanlar.kaynak_ad` ve metni) — başka kolları da etk
 - BDS dipnot rakamı yapışmaları ("BDS 7064'ya" = BDS 706 + dipnot 4), sıfır genişlikli boşluk (Meslek kaynağında), FM "satıştan iade" notu başlığı bozuk.
 - TMS 1 metni ambarda p.72A/72B'yi içermiyor (FTA S4; güncel TMS 1 karşılaştırması s20 doğrulama dosyasında: `<S20>/onarim-0611/dogrulama-B.md`).
 Öneri (altyapı): ambar onarımı + `kaynak_ad` değişirse bulut kaynak eşlemesinin eşdeğerlik provası (ambarın TAMAMINDA).
+
+## A-9 · Konu özeti (bulut üretimi `konu_giris`) B32/B33 hatası taşıyor; var olan kayıtta bulutta yenileme yolu yok (07.11 ölçüm)
+Yeterlilik s20 D1'in ilk 80 sorusu B32 bulut denetiminden (açıklama hakemi kural 5+6, sınama satırı, gerçek kayda yazılmadı; koşu 42298034575, 2,18 USD) geçti: **65/80 KUSURLU**, kusurların alanı: konu_ozeti.terimler 101 · desen 19 · yontemler 12 · ornek 12 · panel_ornek 7 · harita 3 · teşhis/sade/taktik 3. Sağlama (42296580939): iki eski hata (w3-yvergi-kolay/kp-03 · kgk-t4-tms-g3-cokzor/kp-04, B32 tarifiyle yeniden kurulmuş) 2/2 YAKALANDI.
+Kök: konu_giris yazımda yok, bulut üretir; terim "kim" kapalı listesi (B33, 7d9432a8) yalnız 08.11 sonrası etiketlerde (KURAL0711) düzeldi — eski partiler eski istemle. `kalip-parti-uret.ps1 -GirisYenile` VAR ama `bulut-uretim.yml` girdisi DEĞİL → var olan kayıtta konu özeti bulutta yeniden üretilemiyor.
+Öneri (altyapı): `bulut-uretim.yml`'ye `giris_yenile` girdisi (yalnız konu_giris katmanı, KURAL0711 açık, ardından açıklama hakemi); yeniden üretilen özet AH kural 5+6'dan TEMIZ geçmeden yayın kaydına yazılmasın. s20 kolu bu arada yerelde düzeltiyor (Cem 07.11 DENETIM-TALIMATI madde 4).
