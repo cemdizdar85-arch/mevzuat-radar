@@ -114,6 +114,7 @@ seviye_cizim	p_idler jsonb	SD	t	t	jsonb	depoda
 seviye_kiyas	p_sinav text, p_dogru integer	SD	t	t	jsonb	depoda
 seviye_kontrol	p_id text, p_secim text	SD	t	t	jsonb	depoda
 sik_yuzdesi	p_soru_id text	SD	t	t	record	depoda
+siparis_bekleyen_no	p_paket text, p_tutar numeric, p_dersler text[]	SD	f	t	text	depoda
 siparis_cift_kapi		SD	t	t	trigger	depoda
 siparis_cift_sebep	p_eposta text, p_uid uuid, p_paket text, p_dersler text[], p_haric_no text	SD	f	f	text	depoda
 siparis_elci_damga		SD	t	t	trigger	depoda
