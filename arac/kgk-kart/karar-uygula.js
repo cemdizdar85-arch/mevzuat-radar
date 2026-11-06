@@ -14,7 +14,10 @@ for (const z of ['kolay', 'zor', 'cokzor']) {
   A.forEach((q, i) => {
     const k = K.find(x => x.id === `${grup}-${z}[${i}]`) || {};
     if (k.karar === 'INDIR') { fs.writeFileSync(path.join(B, 'cikarilan', `${grup}-${z}-${i}.json`), JSON.stringify({ karar: k, soru: q }, null, 1)); cik++; return; }
-    if (k.karar === 'KALSIN-DUZELT' && k.duzelt) for (const [al, v] of Object.entries(k.duzelt)) { if (YASAK.has(al)) { console.log(`ATLANDI ${z}[${i}] yasak alan ${al}`); continue; } q[al] = v; duz++; }
+    if (k.karar === 'KALSIN-DUZELT' && k.duzelt) for (const [al, v] of Object.entries(k.duzelt)) { if (YASAK.has(al)) { console.log(`ATLANDI ${z}[${i}] yasak alan ${al}`); continue; }
+      // nesne alan (aciklama/sade{siklar}): doğrulayıcı çoğu kez yalnız düzelttiği şıkkı yazar → BİRLEŞTİR, öbür şıkların açıklaması silinmesin (06.11 g45: 20 anahtar silinmişti)
+      const ob = x => x && typeof x === 'object' && !Array.isArray(x);
+      q[al] = ob(v) && ob(q[al]) ? { ...q[al], ...v } : v; duz++; }
     kalan.push(q);
   });
   fs.writeFileSync(f, JSON.stringify(kalan, null, 2) + '\n');

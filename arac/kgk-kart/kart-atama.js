@@ -15,7 +15,9 @@ const ONC = (opt('--onceki', '') || '').split(',').filter(Boolean), DUS = {}, SE
 for (const g of ONC) for (const z of ['kolay', 'zor', 'cokzor']) { const f = 'C:/TETIKTE-CALISMA/kgk-basim/veri/fabrika/hazir-kgk-t10-' + g + '-' + z + '.json'; if (!fs.existsSync(f)) continue; const { ayir } = require(path.join(IS, 'kalip', 'kgk-kalip-ayirici.js')); for (const q of oku(f)) { DUS[q.konu] = (DUS[q.konu] || 0) + 1; const h = ayir(String(q.soru || ''), Object.values(q.siklar || {}).map(String)); (SEK[q.konu] ||= {})[h] = (SEK[q.konu][h] || 0) + 1; } }
 for (const c of K) if (DUS[c.konu]) c.eksik = Math.max(0, (c.eksik || 0) - DUS[c.konu]);
 for (const [k, v] of Object.entries(SEK)) { S[k] = { ...(S[k] || {}) }; for (const [h, n] of Object.entries(v)) S[k][h] = (S[k][h] || 0) + n; }
-const uygun = K.filter(c => ALAN.every(k => String(c[k] || '').trim()) && !/^\s*(AMBARDA YOK|BOZUK|OKUNAMADI)/.test(c.dayanak) && (c.eksik || 0) > 0)
+// --atla 'k1|k2': KAYNAK YOK çıkan ya da yoruma açık konu (yazar raporu / doğrulayıcı) dışarıda
+const ATLA = new Set((opt('--atla', '') || '').split('|').filter(Boolean));
+const uygun = K.filter(c => !ATLA.has(c.konu) && ALAN.every(k => String(c[k] || '').trim()) && !/^\s*(AMBARDA YOK|BOZUK|OKUNAMADI)/.test(c.dayanak) && (c.eksik || 0) > 0)
   .sort((x, y) => (y.son10 || 0) - (x.son10 || 0) || (y.eksik || 0) - (x.eksik || 0));
 const sec = []; let n = 0;
 for (const c of uygun) {
