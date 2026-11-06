@@ -52,8 +52,6 @@ Kitap ezberleterek değil soru çözdürerek. Emsal UWorld düzeni; hedef ondan 
 6c. **🎯 Hazırlık skoru**: 5 cevaptan önce yüzde gösterilmez ("—"); ilk yanlıştan sonra "%4" caydırıcıdır.
 8. **🚩 Hata bildir** — prototipte localStorage `kc_hata`; üründe kasaya itiraz kaydı.
 
-**06.11.2026 ek (sade kip, Cem "UWorld seviyesi"):** Hesap ile Akılda tut arasına **📋 Diğer şıklar** girer: doğru şık ve seçilen şık dışındaki şıkların nedeni (`sade.siklar`, yoksa `teshis.gercek`). Doğru yapan kişi aynı bloğu "Yanlış şıklar" başlığıyla görür. Telefonda kısa kipte gizli, "Ayrıntılı açıklama" ile açılır. Sebep: UWorld'ün 30 örnek sorusunun 28'inde yanlış şıklar açıklamanın içinde; bizde sekmedeydi.
-
 ## 2b. Ekranın tam akışı (06.09 güncel)
 
 soru + **✏️ hesap kâğıdı** (cevaptan önce) → şık seç → tuzak satırı + sade Doğrusu + kâğıt eşleme özeti → **🎬 Nöbetçi**:
