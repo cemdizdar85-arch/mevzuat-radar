@@ -2,177 +2,907 @@
  "ad": "s20-dis-0611",
  "olusturma": "2026-11-06T17:16:35.768Z",
  "kaynak_klasor": "../../../../../../TETIKTE-CALISMA/yet-s20-arac/onarim-0611/teslim",
- "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK. · 06.11: kök/şık değişen 8 kayıt çıkarıldı (rehakem planında, plan-smmm-s20-dis-d1-onarim-hakem-0611.json)",
+ "not": "smmm-ah-yalniz girdisi: kimlik + taslak parmak izi (sha256, model alanları hariç) + dayanak adı/resmî alıntı. Soru metni YOK. · 06.11: kök/şık değişen 8 kayıt çıkarıldı (rehakem planında, plan-smmm-s20-dis-d1-onarim-hakem-0611.json) · 06.11: dayanaklar kaydın kaynak_adlar + dayanak alıntısından (madde metni AH'ye ambardan gitsin; 31.10 dersi)",
  "kimlikler": [
   {
    "soru_id": "smmm-s20-fmuh-d1-cokzor/kp-05",
    "taslak_sha": "3a488f6b7a542edb2551eea0d2d9dc3091922dff97ddb464a7de79416b4bf0d7",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Aralikli envanter yontemi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 760 - PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 153 - Ticari Mallar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Brüt satış kârı hesaplama ve gelir tablosu akışı (net satışlar, satışların maliyeti, brüt satış kârı, faaliyet kârı)",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-fmuh-d1-zor/kp-01",
    "taslak_sha": "f550a5f3ef892f9be8ae98c9aaefeee239cb61826b242afc85b5cdb33feaf621",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-fmuh-d1-zor/kp-06",
    "taslak_sha": "56ab6108c5426fe8dba7a3ab18f666c5b1fb67b8f3e3812a46cd28315caa3774",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 610 - Satıştan İadeler (-)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 621 - Satılan Ticari Mallar Maliyeti (-)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 153 - Ticari Mallar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 120 - Alıcılar",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-maliyet-d1-zor/kp-03",
    "taslak_sha": "3c365e1ad16db70cdbdbb3be64b8e7dc95380e3692e1c1057e16509e82aa19df",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "THP 740 - HİZMET ÜRETİM MALİYETİ",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 741 - HİZMET ÜRETİM MALİYETİ YANSITMA HESABI",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 742 - HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 622 - SATILAN HİZMET MALİYETİ (-)",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ydenetim-d1-cokzor/kp-05",
    "taslak_sha": "e0d482937b4a3efe2e7361ce7db8ec6f6777e6e6a445c262be2514c2d7cebfab",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "BDS 501 p.8 - BDS 500, “Bağımsız Denetim Kanıtları”",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.5 - A5 paragrafı),",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.6 - BDS 500, “Bağımsız Denetim Kanıtları”",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.11 - Dava ve İddialar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.A5 - BDS 620, “Uzman Çalışmalarının Kullanılması”",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.A6 - Stokların Tetkiki (Bakınız: 4(a)(iii) paragrafı)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.A7 - Test Sayımlarının Yapılması (Bakınız: 4(a)(iv) paragrafı)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A21 - Gözlem",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A22 - Dış Teyit",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A23 - Yeniden Hesaplama",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A24 - Yeniden Uygulama",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A25 - Analitik Prosedürler",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A26 - Sorgulama",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 501 p.A16 - Diğer Denetim Prosedürleri (Bakınız: 8(b) paragrafı)",
+     "alinti": "8(b) paragrafı): "
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ydenetim-d1-y-zor/kp-02",
    "taslak_sha": "20e51d2aa5fc78a78cfce44871dcce64b1527264c80d355ad722497205a6d326",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "BDS 320 p.11 - Ana Hükümler",
+     "alinti": "Denetçi, “önemli yanlışlık” risklerini değerlendirmek ve müteakip denetim prosedürlerinin niteliğine, zamanlamasına ve kapsamına karar vermek amacıyla performan"
+    },
+    {
+     "kaynak_ad": "BDS 320 p.A5 - Kullanılması (Bkz.: 10 uncu paragraf)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 320 p.A6 - Kullanılması (Bkz.: 10 uncu paragraf)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 320 p.A12 - Kamu Sektörü İşletmelerine Özgü Hususlar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 320 p.A13 - Performans Önemliliği (Bkz.: 11 inci paragraf)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 320 p.A14 - Denetim Yürütülürken Değişiklik Yapılması (Bkz.: 12 nci paragraf)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 320 p.A1 - Önemlilik ve Denetim Riski (Bkz.: 5 inci paragraf)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 320 p.10 - Ana Hükümler",
+     "alinti": "Denetçi, genel denetim stratejisini oluştururken, bir bütün olarak finansal tablolar için önemliliği belirler"
+    },
+    {
+     "kaynak_ad": "BDS 320 p.13 - Denetim Yürütülürken Değişiklik Yapılması",
+     "alinti": "Denetçi, bir bütün olarak finansal tablolar için başlangıçta belirlediğinden (ve -uygun hâllerde- özel işlem sınıfları, hesap bakiyeleri veya açıklamalar için b"
+    },
+    {
+     "kaynak_ad": "BDS 320 p.14 - Belgelendirme",
+     "alinti": "Denetçi aşağıdaki tutarlar ile bu tutarların belirlenmesinde dikkate alınan etkenleri çalışma kâğıtlarına dâhil eder: "
+    },
+    {
+     "kaynak_ad": "Bagimsiz Denetim Yonetmeligi m.9",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ydenetim-d1-zor/kp-03",
    "taslak_sha": "4bd71c1c3ee61dc61e0dc35e479e710384c78aa81f49d9b9198aa8687513fa69",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "BDS 500 p.8 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+     "alinti": "Denetim kanıtı olarak kullanılacak bilgilerin, yönetimin faydalandığı bir uzmanın çalışması kullanılarak hazırlanması durumunda denetçi, denetçinin amaçları açı"
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A21 - Gözlem",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A22 - Dış Teyit",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A23 - Yeniden Hesaplama",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A24 - Yeniden Uygulama",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A25 - Analitik Prosedürler",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.A26 - Sorgulama",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "BDS 500 p.7 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+     "alinti": "Denetçi, denetim prosedürlerini tasarlar ve uygularken, dış bilgi kaynağından elde edilen bilgiler dâhil olmak üzere, denetim kanıtı olarak kullanılacak bilgile"
+    },
+    {
+     "kaynak_ad": "BDS 500 p.9 - Denetim Kanıtı Olarak Kullanılacak Bilgiler",
+     "alinti": "İşletme tarafından oluşturulan bir bilgiyi kullanması durumunda denetçi, amaçları açısından bu bilginin yeterince güvenilir olup olmadığını değerlendirir"
+    },
+    {
+     "kaynak_ad": "BDS 500 p.5 - Tanımlar",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ydenetim-d1-zor/kp-04",
    "taslak_sha": "6d7c3c6dccc51c2aba2f456765af54e9eb61a99e309442c5f981a2690c796dc0",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KYS 2 p.19 - A1–A3 paragrafları)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 2 p.1 - Kapsam",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 2 p.2 - Kapsam",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 2 p.3 - Kapsam",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 2 p.4 - Ölçeklendirilebilirlik",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 2 p.5 - Ölçeklendirilebilirlik",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 2 p.6 - Ölçeklendirilebilirlik",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 1 p.53 - Kalite Yönetim Sisteminin Değerlendirilmesi",
+     "alinti": "Kalite yönetim sistemi için nihai sorumluluk ve hesap verme yükümlülüğü verilen kişi veya kişiler, denetim şirketi adına kalite yönetim sistemini değerlendirir"
+    },
+    {
+     "kaynak_ad": "KYS 1 p.A99 - Denetçilerinin Çalışmaları Dâhil), 26 ncı paragraf",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 1 p.A166 - Tespit Edilen Eksikliklerin Kök Nedeni (Bkz.: 41(a) paragrafı)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 1 p.A167 - Tespit Edilen Eksikliklerin Kök Nedeni (Bkz.: 41(a) paragrafı)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 1 p.A168 - Tespit Edilen Eksikliklerin Kök Nedeni (Bkz.: 41(a) paragrafı)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 1 p.A175 - Belirli Bir Denetime İlişkin Bulgular (Bkz.: 45 inci paragraf)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "KYS 1 p.1 - Kapsam",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Bagimsiz Denetim Yonetmeligi m.26 [1/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Bagimsiz Denetim Yonetmeligi m.36 [2/2]",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-cokzor/kp-01",
    "taslak_sha": "3a423ac9a8189a185636a720d8fc0a8c57a9c2deaf4ce72487ec38fabed3f171",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Finansal yapı (kaldıraç) oranları: kaldıraç oranı, özkaynak oranı, kısa vadeli yabancı kaynak oranı, borç-özkaynak oranı ve yorumu",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey yuzdelerden oran hesaplama teknigi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Kaldirac orani ve borc/oz kaynak orani",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-cokzor/kp-02",
    "taslak_sha": "e4659c1dd13cc0f1ce61e6297df6abf353a1ecf22f9105776b46afd1d7eb32e1",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Dikey yuzdelerden oran hesaplama teknigi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Asit-test (likidite) oranlari",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-cokzor/kp-03",
    "taslak_sha": "080a465332e9d5fc78e7935957652ef606d61db2a7b589ba7a217d7f3d061d93",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Dikey yuzdelerden net satis ve gelir tablosu hesaplari",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Faaliyet kar marji ve faaliyet kari hesabi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-cokzor/kp-04",
    "taslak_sha": "b9120291277bb135c0333af20df0f8114e2f90936bac880c455a44fcb4683ed8",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Ortalama stok ve donem ici (ceyreklik) veriyle devir hizi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-kolay/kp-02",
    "taslak_sha": "200ee245451d89d637ab4bc94516975b3605201024a3c853a303a5b517f0096c",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Karşılaştırmalı (yatay) analiz ve yüzde değişim: iki dönemin kalem kalem karşılaştırılması, artış oranının hesaplanması, trend analizi ve yorum kuralları",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Yatay (karsilastirmali) analiz kurallari",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 120 - Alıcılar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 121 - Alacak Senetleri",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y-kolay/kp-01",
    "taslak_sha": "95d133dc14af6c488e41d8ea58a4682acaba1edb2381327f8c083d766d860f02",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Surekli sermaye ve devamli sermaye oranlari",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Özkaynak tutarı ve sermaye yedekleri hesaplama (500-501, 52 Sermaye Yedekleri, 54 Kâr Yedekleri, 57-58-59 grubu)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Finansal yapı (kaldıraç) oranları: kaldıraç oranı, özkaynak oranı, kısa vadeli yabancı kaynak oranı, borç-özkaynak oranı ve yorumu",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y-kolay/kp-02",
    "taslak_sha": "311e4a6f6c352cc6e3ba05428790bad965ce6d8de7f3079833d8e799727e4a56",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Asit-test (likidite) oranlari",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y-kolay/kp-03",
    "taslak_sha": "30bcdc00511dd5882dab0a59aecc675ed192ff3d203dc9865d903a5d7c797718",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey yüzde analizi uygulaması: bilançoda aktif ve pasif yapısının okunması, gelir tablosunda net satışın taban alınması, sektörle karşılaştırma",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y-kolay/kp-04",
    "taslak_sha": "ebe35711a5686191a5fe288028e24600229aee632ffa0b80057dbc9ef259764f",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - varlik devir hizi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y-zor/kp-01",
    "taslak_sha": "37f312653e7be6e5e0296168aabd4bdd75924c487021d52b4c0a823f3a30f42e",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Teori Notu - kaldirac ve basabas",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y2-kolay/kp-01",
    "taslak_sha": "f4e1621f52d44c5661c563d9a57707a24b4b61699185a90a3bafa593a92618de",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Kârlılık oranları ve piyasa oranları: brüt kâr marjı, net kâr marjı, aktif kârlılığı, özsermaye kârlılığı, fiyat-kazanç oranı",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y3-zor2/kp-01",
    "taslak_sha": "2c9d99e1b8174fd86158b787af015e85ac4e8e6e6bb5468f52dfbb9130664e84",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TMS 1 p.69 - Cari Yükümlülükler",
+     "alinti": "Bir yükümlülük aşağıdaki kriterlerden herhangi birini karşıladığında işletme bu yükümlülüğü cari yükümlülük olarak sınıflandırır: "
+    },
+    {
+     "kaynak_ad": "TMS 1 p.32 - Netleştirme",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.33 - Netleştirme",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.13 - Tam Bir Finansal Tablolar Seti",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.64 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.65 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.66 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.71 - Cari Yükümlülükler",
+     "alinti": "Diğer cari yükümlülükler, normal faaliyet döngüsü içinde yer almayan ancak vadesi raporlama döneminden itibaren on iki ay içinde dolacak olan veya öncelikle tic"
+    },
+    {
+     "kaynak_ad": "TFRS 9 p.B7.2.1 - Ticari Amaçla Elde Tutulan Finansal Varlıklar",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TFRS 9 p.B7.2.2 - Değer Düşüklüğü",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TFRS 9 p.B7.2.3 - Değer Düşüklüğü",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TFRS 9 p.7.2.49 - Değişiklikler için Geçiş",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TFRS 9 p.B5.7.3 - Kazanç ve Kayıplar (Bölüm 5.7)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TFRS 9 p.B5.7.4 - Kazanç ve Kayıplar (Bölüm 5.7)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.72 - Cari Yükümlülükler",
+     "alinti": "Aşağıdaki durumlar söz konusu olsa bile, finansal yükümlülüklerin raporlama döneminden sonraki on iki ay içinde vadesinin dolması durumunda işletme bu yükümlülü"
+    },
+    {
+     "kaynak_ad": "TMS 1 p.73 - Cari Yükümlülükler",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.74 - Cari Yükümlülükler",
+     "alinti": "İşletmenin, uzun vadeli bir kredi sözleşmesinin bir hükmünü raporlama dönemi sonunda veya daha önce ihlal etmesi ve bunun sonucu olarak yükümlülüğün talep halin"
+    },
+    {
+     "kaynak_ad": "TMS 1 p.75 - Cari Yükümlülükler",
+     "alinti": "Ancak, borç verenin, raporlama dönemi sonuna kadar, işletmenin ihlalini ortadan kaldırabileceği ve kendisinin hemen ödeme talebinde bulunamayacağı bir süre tanı"
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-y4-cokzor/kp-01",
    "taslak_sha": "4dd46c6c9bc6c331fdd2b8f6dd5f73fa88a22d2da5ef900dc229d80cf3d74768",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Donemsellik kavrami ve muhasebenin temel kavramlari (MSUGT)",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "MSUGT 1 kavram - Tam Açıklama Kavramı",
+     "alinti": "Tam açıklama kavramı"
+    },
+    {
+     "kaynak_ad": "MSUGT 1 kavram - İhtiyatlılık Kavramı",
+     "alinti": "Bu kavramın sonucu olarak, işletmeler, muhtemel giderleri ve zararları için karşılık ayırırlar, muhtemel gelir ve karları için ise gerçekleşme dönemlerine kadar"
+    },
+    {
+     "kaynak_ad": "MSUGT 1 kavram - Önemlilik Kavramı",
+     "alinti": "Önemlilik kavramı, bir hesap kalemi veya mali bir olayın nisbi ağırlık ve değerinin, mali tablolara dayanılarak yapılacak değerlemeleri veya alınacak kararları "
+    },
+    {
+     "kaynak_ad": "MSUGT 1 kavram - Tutarlılık Kavramı",
+     "alinti": "Geçerli nedenlerin bulunduğu durumlarda, işletmeler, uyguladıkları muhasebe politikalarını değiştirebilirler"
+    },
+    {
+     "kaynak_ad": "MSUGT 1 kavram - İşletmenin Sürekliliği Kavramı",
+     "alinti": "Bu kavramın, işletmeler açısından geçerliliğinin bulunmadığı veya ortadan kalktığı durumlarda ise, bu husus mali tabloların dipnotlarında açıklanır"
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-zor/kp-02",
    "taslak_sha": "12506fc7d8cf2e91ce686e27a7b0be8d8920587d2aa155a50e137902c879eb7b",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - varlik devir hizi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-zor/kp-03",
    "taslak_sha": "1611e87dd1355084745d25defc58e4d178b35bf0034b5dab972af6113314351a",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TEORI - Kârlılık oranları ve piyasa oranları: brüt kâr marjı, net kâr marjı, aktif kârlılığı, özsermaye kârlılığı, fiyat-kazanç oranı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Faaliyet kar marji ve faaliyet kari hesabi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Dikey analiz: taban (payda) kalemleri ve kurallar",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yfta-d1-zor/kp-05",
    "taslak_sha": "06127f953726f449710ce72bb5fecf822c52480005fc863c5a2a05fb3aca37b9",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Teori Notu - isletme sermayesi yonetimi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Teori Notu - muhasebe bilgi sistemleri ve nakit donusum dongusu",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMS 1 p.68 - Cari ve Cari Olmayan Ayrımı",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - ticari borc devir hizi",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yhukuk-d1-cokzor/kp-01",
    "taslak_sha": "014dd97e4f005edd98ef48935d06b15ce66e24278c029ab3abd55ee75b0f1ace",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "İş K. (4857 s.K.) m.43",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "İş K. (4857 s.K.) m.42",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "İş K. (4857 s.K.) m.63",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "İş K. (4857 s.K.) m.29 [1/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "İş K. (4857 s.K.) m.29 [2/2]",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yhukuk-d1-zor/kp-04",
    "taslak_sha": "23453859e9d52d69e1c2b3cbc6b413df800c4132f5cba51b7a7e71448f2f2240",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.650",
+     "alinti": "(1) Nama veya emre yazılı senet, ancak kendisine hak verdiği ve borç yüklediği tüm kişilerin muvafakatıyla hamile yazılı senede dönüştürülebilir"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.647",
+     "alinti": "(2) Bundan başka emre yazılı senetlerde ciroya, nama yazılı senetlerde yazılı bir devir beyanına da gerek vardır"
+    },
+    {
+     "kaynak_ad": "TTK (6102 s.K.) m.651",
+     "alinti": "(1) Kıymetli evrak zayi olduğu takdirde mahkeme tarafından iptaline karar verilebilir"
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ymeslek-d1-cokzor/kp-02",
    "taslak_sha": "30d3d9f229b418ffc867bdbe9dcbbe1f38161b3ca12732e07790d164e2799760",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.47",
+     "alinti": "Görevle ilgili suçlar Madde 47 – Meslek mensupları, görevleri sırasında veya görevleri sebebiyle işledikleri suçlardan dolayı, fiilerinin niteliğine göre Türk C"
+    },
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.12 [1/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.12 [2/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.21",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Mal Bildirimi K. (3628 s.K.) m.2 [1/2]",
+     "alinti": "Mal bildiriminde bulunacaklar1 Madde 2 – "
+    },
+    {
+     "kaynak_ad": "Mal Bildirimi K. (3628 s.K.) m.2 [2/2]",
+     "alinti": "Mal bildiriminde bulunacaklar1 Madde 2 – "
+    },
+    {
+     "kaynak_ad": "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik m.21",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ymeslek-d1-cokzor/kp-05",
    "taslak_sha": "5939f48de76c6dbf641dd3343487edbb76d99d988c70df5834152cd82239c126",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.13",
+     "alinti": "Ücret Sözleşmesi Madde 13- Meslek mensubu ücret sözleşmesinin yazılı şekilde yapılması ve belli bir meblağı kapsaması şarttır"
+    },
+    {
+     "kaynak_ad": "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.14",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.21",
+     "alinti": "Ücretin Ödenmesi Madde 21- Ücretin peşin olarak ödenmesi esastır"
+    },
+    {
+     "kaynak_ad": "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) m.20",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ymeslek-d1-kolay/kp-03",
    "taslak_sha": "0138a7e31caa53708980ab0462b7547764f9ed57a62f66b585d96fb82573049f",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.45 [1/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "SMMM K. (3568 s.K.) m.45 [2/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "TMK (4721 s.K.) m.17",
+     "alinti": "IV"
+    },
+    {
+     "kaynak_ad": "TMK (4721 s.K.) m.18",
+     "alinti": "2"
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-ymeslek-d1-zor/kp-04",
    "taslak_sha": "48741b05a7c5ab46c850f0b4e76c4caccd977d1da64da7bfdf38b3b25be83290",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "SMMM Odalari Yonetmeligi m.19",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "SMMM Odalari Yonetmeligi m.10",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yspk-d1-kolay/kp-06",
    "taslak_sha": "c1289570370b370ffb8208ec37f0ea281e5ce0bc5621342cb5156f2e866ba02e",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) m.18 [1/2]",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) m.13",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yspk-d1-y2-cokzor/kp-01",
    "taslak_sha": "48a18a7dfb12964c46dd996ca75e81c80c9ec506c3342ad8800af05a7cb78747",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Borclanma Araclari Tebligi (VII-128.8) m.17",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Borclanma Araclari Tebligi (VII-128.8) m.24",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yspk-d1-y3-zor/kp-01",
    "taslak_sha": "9ccaeb30386a28a8b9d1290614cba6fda06ce0019fa0f30b8e11e61080ec7df4",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "Kar Payi Tebligi (II-19.1) m.7",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Kar Payi Tebligi (II-19.1) m.12",
+     "alinti": ""
+    },
+    {
+     "kaynak_ad": "Kar Payi Tebligi (II-19.1) m.3",
+     "alinti": ""
+    }
+   ]
   },
   {
    "soru_id": "smmm-s20-yvergi-d1-y2-cokzor/kp-01",
    "taslak_sha": "3e5c47ae32e4f165aaffcfe720e7a84eb456c166c78e2a8cb73ff7dc5e0f9eba",
-   "dayanaklar": []
+   "dayanaklar": [
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.11 [1/2]",
+     "alinti": "Kabul edilmeyen indirimler MADDE 11- (1) Kurum kazancının tespitinde aşağıdaki indirimlerin yapılması kabul edilmez:31 "
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.11 [2/2]",
+     "alinti": "Kabul edilmeyen indirimler MADDE 11- (1) Kurum kazancının tespitinde aşağıdaki indirimlerin yapılması kabul edilmez:31 "
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.9 [1/2]",
+     "alinti": "Zarar mahsubu MADDE 9- (1) Kurumlar vergisi matrahının tespitinde, kurumlar vergisi beyannamesinde her yıla ilişkin tutarlar ayrı ayrı gösterilmek şartıyla aşağ"
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.9 [2/2]",
+     "alinti": "Zarar mahsubu MADDE 9- (1) Kurumlar vergisi matrahının tespitinde, kurumlar vergisi beyannamesinde her yıla ilişkin tutarlar ayrı ayrı gösterilmek şartıyla aşağ"
+    },
+    {
+     "kaynak_ad": "KVK (5520 s.K.) m.6",
+     "alinti": ""
+    }
+   ]
   }
  ]
 }
