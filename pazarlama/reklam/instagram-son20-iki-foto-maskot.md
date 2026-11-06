@@ -1,0 +1,34 @@
+---
+tur: reklam
+yz: evet
+kanal: instagram-gonderi (4:5, tek foto)
+durum: taslak
+---
+
+<!-- 06.11.2026 Cem: "tek fotoluk maskotlu ... staja giriş ve bitirme ... iki tane, biri 8 açılıyor, biri içinde staja giriş test,
+     dikkat çekecek bir şey yap, instagram koy".
+     Görseller: mevzuat işi/reklam-8-kasim-sgs/ (kaynak.html, _kes.js maskot kesimi, _bas.js).
+     Ölçülen: s20_liste 06.11: SGS 7 deneme açık, her biri 130 soru, 15 ders testi.
+     Fiyat: fiyat-motoru.js son20Sgs/son20Yet 999 TL KDV dahil. Erken kayıt 02.11'de kalktı, görselde 2.868 yok.
+     Bitirme "kaç deneme" görselde yazılmadı: 06.11 notuna göre yalnız 1. denemeler 20/20, açılış Cem'in kararında.
+     YZ etiketi paylaşırken işaretlenir, görsele yazılmaz. -->
+
+## Ekrandaki yazı
+
+### Bitirme
+SMMM YETERLİLİK · BİTİRME · SINAV 28 KASIM
+Son 20 Gün açılıyor. 8 KASIM
+Hazır mısın?
+Ders ders denemeler. Sadece Denemeler 999 TL · tetikte.com
+
+### SGS
+SMMM STAJA GİRİŞ · SINAV 21 KASIM
+İçimde 7 deneme var. 130 soru, her denemede. Çöz beni!
+Denemeler açık. Sadece 7 Deneme 999 TL · tetikte.com
+
+## Açıklama metni (Instagram)
+
+Bitirme: reklam-8-kasim-sgs/aciklama-bitirme.txt
+SGS: reklam-8-kasim-sgs/aciklama-sgs.txt
+
+#reklam
