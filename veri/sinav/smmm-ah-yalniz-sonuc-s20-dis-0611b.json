@@ -1,0 +1,55 @@
+{
+ "ad": "s20-dis-0611b",
+ "tarih": "2026-11-06T18:25:52.928Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42270111364",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 1,
+  "gonderilen": 1,
+  "temiz": 1,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 1,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.018
+ },
+ "kararlar": {
+  "smmm-s20-ydenetim-d1-zor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "Bagimsiz Denetim Yonetmeligi m.26 [1/2]",
+    "Bagimsiz Denetim Yonetmeligi m.36 [2/2]",
+    "KYS 1 p.1 - Kapsam",
+    "KYS 1 p.53 - Kalite Yönetim Sisteminin Değerlendirilmesi",
+    "KYS 1 p.A166 - Tespit Edilen Eksikliklerin Kök Nedeni (Bkz.: 41(a) paragrafı)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
