@@ -562,10 +562,15 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 .s20b .dgs a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border-radius:12px;font-weight:800;text-decoration:none;border:2px solid var(--cizgi,#d8ccb8);background:var(--kagit,#fff);color:var(--ink,#1a1a1a)}
 .s20b .dgs a.dg-ana{background:var(--amber-dolgu,#f3a52a);border-color:var(--amber-dolgu,#f3a52a);color:#1a1a1a}
 .s20b .dgs a[hidden]{display:none}
-@media(max-width:760px){ .s20b{margin-top:0} .s20b .kutu{grid-template-columns:1fr;padding:14px} .s20b h2{font-size:20px} .s20b .dgs{justify-content:stretch} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
+/* 06.11 Cem ("ikisini de reklamlı paylaş, sitemize de koy"): reklam afişinin geniş hâli; seçili sınava göre, Bitirme afişi 8 Kasım'a kadar. */
+.s20b .s20afis{display:block;width:400px;border-radius:12px;overflow:hidden}.s20b .kutu:has(.s20afis:not([hidden])){grid-template-columns:400px 1fr auto}.s20b .s20afis[hidden]{display:none}
+.s20b .s20afis img{display:block;width:100%;height:auto}
+@media(max-width:1000px){ .s20b .kutu:has(.s20afis:not([hidden])){grid-template-columns:1fr auto} .s20b .s20afis{grid-column:1/-1;width:100%} }
+@media(max-width:760px){ .s20b{margin-top:0} .s20b .kutu,.s20b .kutu:has(.s20afis:not([hidden])){grid-template-columns:1fr;padding:14px} .s20b h2{font-size:20px} .s20b .dgs{justify-content:stretch} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
 </style>
 <section class="s20b" id="s20Bolum" aria-labelledby="s20bBas">
   <div class="ic"><div class="kutu">
+    <a class="s20afis" id="s20bAfis" href="son-20-gun.html"><img id="s20bAfisImg" src="gorsel/reklam/s20-afis-sgs.jpg" width="1200" height="420" alt="Yine mi 59'da kalacaksın? 130 soruda 77 doğru 59,23, 78 doğru 60. Son 20 Gün denemelerine git."></a>
     <div>
       <p class="et" id="s20bEt">SMMM Staja Giriş · Son 20 Gün</p>
       <h2 id="s20bBas">7 deneme açık</h2>
@@ -594,6 +599,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     $('s20bOzet').textContent=yet? 'Her dersin 5 denemesi (20 soru, 45 dakika). Her denemeden sonra eksik konularını kapatırsın.'
                                  : '130\'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.';
     var adres=yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
+    $('s20bAfis').hidden=yet&&!once; $('s20bAfis').href=adres;
+    $('s20bAfisImg').src='gorsel/reklam/'+(yet?'s20-afis-yet.jpg':'s20-afis-sgs.jpg');
+    $('s20bAfisImg').alt=yet?'Gözümüz 8 Kasım\'da. Bitirme Son 20 Gün açılıyor. Denemelere git.':'Yine mi 59\'da kalacaksın? 130 soruda 77 doğru 59,23, 78 doğru 60. Son 20 Gün denemelerine git.';
     $('s20bDg1').href=adres; $('s20bDg1').textContent='Denemeleri gör →'; $('s20bDg2').hidden=false; $('s20bDg2').textContent='Paketleri gör'; $('s20bDg2').href='#paketler'; $('s20bUye').hidden=true;
     if(!yet&&window.ttSon20) ttSon20.durum('sgs',true).then(function(k){
       if(!k||secili()!=='sgs') return;            /* üye değil ya da erişimi yok: genel hâl kalır */
