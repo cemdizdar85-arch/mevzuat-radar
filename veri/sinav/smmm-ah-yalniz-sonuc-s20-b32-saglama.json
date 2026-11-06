@@ -1,0 +1,167 @@
+{
+ "ad": "s20-b32-saglama",
+ "tarih": "2026-11-06T21:28:15.136Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42296580939",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.5,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 7,
+  "gonderilen": 7,
+  "temiz": 1,
+  "kusurlu": 6,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 7,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.222
+ },
+ "kararlar": {
+  "__sinama/smmm-ah-yalniz/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.Eksik ödenen KDV"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "KDVK (3065 s.K.) m.48 - Düzeltme işlemleri [1/2]",
+    "KDVK (3065 s.K.) m.48 - Düzeltme işlemleri [2/2]",
+    "GVK (193 s.K.) muk. m.20 [1/2]",
+    "GVK (193 s.K.) m.21 - BEŞİNCİ BÖLÜM Sermaye İratlarında İstisnalar Gayrimenkuller ve haklarda",
+    "KDVK (3065 s.K.) m.46 - DÖRDÜNCÜ BÖLÜM Verginin Ödenmesi Verginin Ödenmesi"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "ikiz.tablo",
+    "konu_ozeti.terimler.Defter değeri"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TFRS 9 Ek A - Tanımlanan terimler [4/8]",
+    "TFRS 9 Ek A - Tanımlanan terimler [5/8]",
+    "TFRS 9 Ek A - Tanımlanan terimler [6/8]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler",
+    "konu_ozeti.terimler.Beyan sınırı",
+    "konu_ozeti.terimler.Mevduat faizi",
+    "konu_ozeti.terimler.Repo geliri"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 329) m.3 [3/3]",
+    "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 329) m.6 [2/2]",
+    "GVK (193 s.K.) m.22 [1/3]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 193 - PEŞİN ÖDENEN VERGİLER VE FONLAR",
+    "THP 360 - ÖDENECEK VERGİ VE FONLAR",
+    "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+    "THP 371 - DÖNEM KÂRININ PEŞİN ÖDENEN VERGİ VE DİĞER YÜKÜMLÜLÜKLERİ (-)",
+    "THP 691 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "__sinama/smmm-ah-yalniz/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Ayrılma noktası"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Ortak (musterek) maliyetlerin dagitimi: uretim miktari, satis degeri ve net gerceklesebilir deger yontemleri",
+    "TMS 2 p.1 - Amaç",
+    "TMS 2 p.14 - Dönüştürme maliyetleri",
+    "TMS 2 p.2 - Kapsam",
+    "TMS 2 p.3 - Kapsam"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Stokta kalma süresi"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı",
+    "TEORI - Mali Tablolar Analizi: oran analizinde ortalama alma kurali"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-07": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler.Yapısal risk"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "BDS 200 p.A38 - Denetim Riski",
+    "BDS 200 p.A41 - Denetim Riski",
+    "BDS 200 p.A42 - Denetim Riski",
+    "BDS 200 p.A47 - Tespit Edememe Riski",
+    "BDS 200 p.A48 - Tespit Edememe Riski",
+    "BDS 200 p.A74 - BDS’lerde Belirtilen Amaçlar (Bkz.: 21 inci paragraf)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "__sinama/smmm-ah-yalniz/kp-01",
+  "__sinama/smmm-ah-yalniz/kp-02",
+  "__sinama/smmm-ah-yalniz/kp-03",
+  "__sinama/smmm-ah-yalniz/kp-05",
+  "__sinama/smmm-ah-yalniz/kp-06",
+  "__sinama/smmm-ah-yalniz/kp-07"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
