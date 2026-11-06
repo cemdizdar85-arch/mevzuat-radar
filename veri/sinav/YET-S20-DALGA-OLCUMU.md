@@ -84,3 +84,12 @@ Durum: **20/20 — Denetim D1 · Hukuk D1 · SPK D1.** 19/20 — Vergi (son slot
 | D1-y7 | Maliyet | 1 | 0 | 1 ücretsiz KAPI-Ş: çok değerli "sırasıyla" şıkta yalnız ilk tutar okunuyor (altyapı A-6), 0 USD → aynı konu (aday konu kalmadı), işaretli fark | 0 |
 | D1-y8 | Maliyet | 1 | 1 | 0 | 0,06 |
 Kümülatif (06.11 ~02:10 TR): **21,75 USD / 40** (bedel satırları geç yazılıyor; raporda yeniden okunur). **8 dersin 1. denemesi 20/20:** Denetim · Hukuk · SPK · Meslek · Vergi · FM · FTA · Maliyet. Kalite raporları `<S20>/kalite/<kod>-d1.md` (20 ölçü satırı + 5 örnek soru). Siteye/üyeye AÇILMADI — Cem bakacak, site koluna o açtıracak.
+
+06.11 — D1 BAĞIMSIZ OKUMA DÜZELTMELERİ (Cem: ÖNCE + kök + açıklama + dayanak; `<S20>/kalite/DIS-OKUMA-0611.md`, doğrulama `<S20>/onarim-0611/dogrulama-A.md`, `-B.md`):
+| adım | kayıt | sonuç | bedel USD |
+|---|---|---|---|
+| doğrulama (iki ajan, ambar + resmî site okuması) | 61 bulgu | uygulanan 50 · yanlış alarm 7 · doğrulanamayan 0 · karar Cem'de 1 (FTA S4 kök terimi) · ortak ambar (altyapı A-8) 3 | 0 |
+| onarım teslimi (`arac/onarim-hatti.js`) | 42 + 1 | ambar geri okuma 43/43 · cevap harfi değişen 0 | 0 |
+| kök/şık değişen → rehakem (koşu 42260135513) | 8 | 8/8 hakem+hakem2+kör+sim+AH TEMIZ, elle ret 345→337 | ≈0,40 (d1 partilerinde) |
+| yalnız açıklama/dayanak → açıklama hakemi (42268660218 + 42270111364) | 34 | 33 TEMIZ + 1 KUSURLU (Denetim S9 teşhis başlığı; doğrulandı, düzeltildi → TEMIZ) | 0,65 |
+Kümülatif (06.11 ~20:30 TR): d* partileri 22,17 + açıklama hakemi 0,65 = **22,82 USD / 40**. 8 dersin D1'i 20/20 (yeniden ölçüldü, kalite raporları yenilendi).
