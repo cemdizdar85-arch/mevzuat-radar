@@ -1,11 +1,11 @@
 {
-  "tarih": "06.11.2026 20:31",
+  "tarih": "07.11.2026 07:45",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 922,
   "riskli_madde": 1321,
   "sayfa": 82,
-  "atifli_iddia": 317,
-  "dayanaksiz_iddia": 556,
+  "atifli_iddia": 315,
+  "dayanaksiz_iddia": 557,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -1859,21 +1859,21 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 260,
+      "satir": 276,
+      "iddia": "20 dekar",
+      "metin": "BBMD desteğinde minimum alan koşulu (8. madde g bendi) 20 dekar → 20 dekar (2026), 2027 yılında en az 10 dekar"
+    },
+    {
+      "sayfa": "kartlar.html",
+      "satir": 288,
+      "iddia": "2027 yıl",
+      "metin": "Ne yapmalısın: Mevcut destekleme başvurularında kontrol tutanağı gerekliliklerini (Ek-40/41) gözden geçirin. 2027 yılı için geçerli olacak minimum alan koşullarını güncelleyin. Biy"
+    },
+    {
+      "sayfa": "kartlar.html",
+      "satir": 296,
       "iddia": "2020 yıl",
       "metin": "Ne oldu: Enerji Piyasası Düzenleme Kurumu, elektrik dağıtım tarifesine ilişkin tebliğde yer alan gözetim oranını artırmıştır. 2020 yılında yayımlanan ana tebliğin 9. maddesinde yer"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 276,
-      "iddia": "7.000 TL",
-      "metin": "Ne oldu: Türk Mühendis ve Mimar Odaları Birliği'nin bilirkişilik, eksperlik, hakemlik ve teknik müşavirlik yönetmeliğinde değişikliğe gidildi. Şehir planlama mesleği, mühendislik v"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 292,
-      "iddia": "7.000 TL",
-      "metin": "Ne yapmalısın: TMMOB'ye başvuru yapacaksanız dilekçenin yeni koşullarını (şehir planlama dahil) ve 7.000 TL'lik başvuru ücretini kontrol edin. Şehir planlama alanında hakem veya bi"
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -3515,61 +3515,67 @@
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 617,
+      "satir": 620,
+      "iddia": "7 gün",
+      "metin": "+(CD.sinir_7g?' Son 7 günde '+CD.sinir_7g+' kez cihaz sınırına takıldı '+(CD.son_sinir?' · son '+tarih(CD.son_sinir):'')+' ':'')"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 626,
       "iddia": "20 Gün",
       "metin": "if(S2.length) x+=' Son 20 Gün denemeleri Deneme Ders Doğru Yanlış Boş Tarih '"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 680,
+      "satir": 689,
       "iddia": "90 gün",
       "metin": "KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üret"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 783,
+      "satir": 796,
       "iddia": "90 gün",
       "metin": "tutar tavanı (5.000) ve süre (1-90 gün) sunucuda da sınanır */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 786,
+      "satir": 799,
       "iddia": "90 gün",
       "metin": "if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 894,
+      "satir": 907,
       "iddia": "%99",
       "metin": "else if(tur==='oran' && deger>99) hata='Oran en çok %99 olabilir (ücretsiz vermek için \"Ücretsiz paket ver\" kutusunu kullan).';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 899,
+      "satir": 912,
       "iddia": "5.000 TL",
       "metin": "if(!hata && !(ind>=1 && ind<p.fiyat && ind<=5000)) hata=p.ad+': indirim ('+tl(ind)+') fiyattan ('+tl(p.fiyat)+') küçük ve en çok 5.000 TL olmalı.';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 959,
+      "satir": 972,
       "iddia": "24 saat",
       "metin": "/* 10.10 (Cem \"1.2.3\"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 961,
+      "satir": 974,
       "iddia": "30 gün",
       "metin": "$('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 962,
+      "satir": 975,
       "iddia": "24 saat",
       "metin": "+(d.ekip_gec?' · 24 saati geçen: '+d.ekip_gec+' ':'')"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 978,
+      "satir": 991,
       "iddia": "24 saat",
       "metin": "+(gec?' · ⏰ '+saat+' saattir bekliyor (söz: 24 saat) ':'')"
     }
