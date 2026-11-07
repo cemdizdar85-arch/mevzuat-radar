@@ -3,9 +3,9 @@
 > Türetilmiştir (`arac/kgk-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (24 sınav). Eski genel muhasebe konuları hedef dışı. Genel Hukuk (2022'den beri sınavda yok) sayılmaz.
 > Eşleme sözlüğü: `veri/sinav/kgk-konu-es.json`. Tam liste: `veri/fabrika/kgk-konu-kapsama.csv`.
 
-Sitede (paket_soru, sinav=kgk): **1.950** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
+Sitede (paket_soru, sinav=kgk): **1.958** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
 
-**TOPLAM: hedef 4.229 · sitede 1.950 · EKSİK 2.496** (1.893 konu)
+**TOPLAM: hedef 4.229 · sitede 1.958 · EKSİK 2.488** (1.893 konu)
 
 | Modül | Hedefli konu | Son 10 yılda çıkan | Hedef | Sitede | EKSİK | VAR | AZ | Hiç yok (2+ sınav) | Hiç yok (1 sınav) | Eski muhasebe konusu |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -14,9 +14,9 @@ Sitede (paket_soru, sinav=kgk): **1.950** soru · konu kümesi: 2.440 · sözlü
 | c) Finansal Yönetim | 260 | 636 | 636 | 317 | **385** | 83 | 67 | 17 | 93 | 0 |
 | ç) Sermaye Piyasası Mevzuatı | 200 | 484 | 484 | 187 | **301** | 13 | 55 | 27 | 105 | 0 |
 | d) Bankacılık Mevzuatı | 198 | 465 | 465 | 155 | **314** | 7 | 40 | 45 | 106 | 0 |
-| e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 134 | **292** | 15 | 26 | 45 | 145 | 0 |
+| e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 136 | **290** | 15 | 26 | 45 | 145 | 0 |
 | c) Kurumsal Yönetim | 104 | 254 | 254 | 118 | **151** | 30 | 27 | 6 | 41 | 0 |
-| f) Sürdürülebilirlik Raporlaması | 139 | 226 | 226 | 143 | **90** | 55 | 13 | 2 | 69 | 0 |
+| f) Sürdürülebilirlik Raporlaması | 139 | 226 | 226 | 149 | **84** | 61 | 13 | 2 | 63 | 0 |
 | g) Sürdürülebilirlik Denetimi | 47 | 61 | 61 | 32 | **40** | 13 | 0 | 5 | 29 | 0 |
 | Kurumsal Yönetim | 0 | 0 | 0 | 10 | **0** | 0 | 0 | 0 | 0 | 0 |
 | Sermaye Piyasası Mevzuatı | 0 | 0 | 0 | 1 | **0** | 0 | 0 | 0 | 0 | 0 |
@@ -25,9 +25,9 @@ Sitede (paket_soru, sinav=kgk): **1.950** soru · konu kümesi: 2.440 · sözlü
 
 ## Eksik — sıklık katmanı (plan bu sırayla kurulur)
 
-- Hedefi 5+ soru olan konular: **187 konu / 754 soru**
+- Hedefi 5+ soru olan konular: **187 konu / 752 soru**
 - Hedefi 2–4 soru: 431 konu / 837 soru
-- Hedefi 1 soru: 905 konu / 905 soru
+- Hedefi 1 soru: 899 konu / 899 soru
 
 ## En büyük 40 eksik
 
