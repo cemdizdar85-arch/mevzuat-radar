@@ -30,6 +30,13 @@ Okuyucu sırayla yapar ve HER maddeye ayrı karar yazar:
 ## 3 · Kaçırma ölçümü (her dalgada, ŞART)
 Her 50 soruluk dalgaya, okuyucunun bilmediği 5 SAĞLAMA sorusu karıştırılır: bilinen kusurlu eski hâller (yedeklerden, örn. `smmm-4k-a-yvergi-kolay-r4/kp-19` eski hâli) + 2 temiz soru.
 Rapor: kusurlu sağlamanın kaçını yakaladı, temizin kaçına yanlış alarm verdi. Kaçırma > %10 ise dalga geçersiz, okuyucu talimatı düzeltilir.
+**Sağlama seti `veri/sinav/tam-denetim-saglama.json`'dan alınır: 5 kusurlu (≥2 CEVAP_YANLIS, ≥2 YANLIS_OGRETIR) + 2 temiz** (08.11, Cem "1.3 yap").
+Dalga 1 dersi (08.11, ölçüldü): 5 sağlamanın 3'ü YANLIŞ ETİKETLİYDİ — (1) "yanlıştır" kökünde anahtarın yanlış ifadeyi taşıması
+"anahtar yanlış" sanıldı (elle ret gerekçesinden alındı, kök okunmadı); (2) iki "temiz" yalnız hakem/AH kaydından seçildi, ikisi de kusurlu çıktı.
+Kural: kusurlu sağlama BUGÜNKÜ kayıtta yeniden okunur (elle ret gerekçesi bayat olabilir), temiz sağlama açıklama alanlarıyla birlikte okunmuş olur.
+Geçerli kusurlu sağlama 2'nin altındaysa kaçırma oranı **"ölçülmedi"** yazılır.
+
+**Okuyucu talimatı tek yerde: `arac/TAM-DENETIM-OKUYUCU.md`** (sürüm 2: olumsuz kök + kapanış ✓/✗ kuralı, B33 `kim` / gündelik benzetme ZAYIF tavanı).
 
 ## 4 · Rapor (her dalga)
 Okunan · TEMIZ · indirilen · onarılan · sitede ölçülen · BELİRSİZ · sağlama yakalama oranı · hak/USD (ayrı).
