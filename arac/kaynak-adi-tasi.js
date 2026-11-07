@@ -13,8 +13,12 @@
 //    node arac/kaynak-adi-tasi.js --kuru  <esleme.json>    kaç parti/kayıt/ad değişecek, bulutta koşan (yazma yok)
 //    node arac/kaynak-adi-tasi.js --yaz   <esleme.json> [--yalniz kimlikler.json] [--cikti f]   (--yalniz: ["etiket/kp-NN", ...] dışına yazmaz)
 //    node arac/kaynak-adi-tasi.js --sinav                  öz-sınav (sahte ambar, ağ yok)
+//    --kapsam smmm,sgs,kgk   hangi sınavların partileri taranır (07.11.2026, A-11). Varsayılan: smmm (eski çağrılar aynı kalır).
+//      İzinli değerler YALNIZ smmm · sgs · kgk; başka değer (spl, __sinama, devir…) verilirse araç DURUR (çıkış 2).
+//      --yalniz listesinde kapsam dışı sınava ait kimlik varsa sayısı "kapsam dışı kimlik" diye basılır (sessiz düşmez).
 //  esleme.json: { "esleme": { "<eski kaynak_ad>": "<yeni kaynak_ad>", ... } }  — yeni adın ambarda var olduğu yazmadan ÖNCE denetlenir.
-//  🚫 GÖRMEZ: kaynak_adlar dışındaki alanlarda (dayanak, kaynak_metin_ozet, açıklama) geçen eski ad · smmm- dışı partiler ·
+//  🚫 GÖRMEZ: kaynak_adlar dışındaki alanlarda (dayanak, kaynak_metin_ozet, açıklama) geçen eski ad · kapsam dışı partiler
+//    (spl-, pilot6-, devir-, __sinama/ — izin listesinde yok) · sitedeki paket_soru kopyası (kasa yayını ayrıca tazeler) ·
 //    yerel veri/fabrika kopyalarının eskimesi (teslimden önce parti-senkron -Indir).
 // ============================================================================
 'use strict';
@@ -22,6 +26,12 @@ const fs = require('fs'), path = require('path'), cp = require('child_process');
 const KOK = path.resolve(__dirname, '..');
 const TABAN = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1';
 const MUT = process.env.KAYNAK_TASI_MUTASYON || '';
+const IZINLI_KAPSAM = ['smmm', 'sgs', 'kgk'];
+function kapsamCoz(v) { const a = String(v || 'smmm').split(',').map(x => x.trim()).filter(Boolean);
+  const kotu = a.filter(x => !IZINLI_KAPSAM.includes(x)); if (!a.length || kotu.length) throw new Error('kapsam geçersiz: ' + (kotu.join(',') || '(boş)') + ' — izinli: ' + IZINLI_KAPSAM.join(','));
+  return [...new Set(a)]; }
+// mutasyon: kapsam süzgeci bozulursa öz-sınav KIRMIZI düşmeli
+const kapsamUygula = (ets, kapsam) => MUT === 'kapsam-yok' ? ets.filter(e => /^smmm-/.test(e)) : MUT === 'kapsam-hepsi' ? ets : ets.filter(e => kapsam.some(k => e.startsWith(k + '-')));
 const kan = v => Array.isArray(v) ? v.map(kan) : (v && typeof v === 'object') ? Object.keys(v).sort().reduce((o, k) => (o[k] = kan(v[k]), o), {}) : v;
 const esit = (a, b) => JSON.stringify(kan(a)) === JSON.stringify(kan(b));
 function fark(a, b, p = '', out = []) {
@@ -37,7 +47,7 @@ function gercekIO() {
   let K = null; const bas = () => { if (K === null) K = anahtar(); if (!K) throw new Error('SUPABASE_SERVICE_KEY yok'); return { apikey: K, Authorization: 'Bearer ' + K, 'User-Agent': 'mevzuat-radar-robot/1.0', Accept: 'application/json' }; };
   const al = async (u, opt = {}) => { for (let d = 1; d <= 3; d++) { try { const r = await fetch(u, { ...opt, headers: { ...bas(), ...(opt.headers || {}) }, signal: AbortSignal.timeout(180000) }); if (!r.ok) throw new Error('ambar ' + r.status + ' ' + (await r.text()).slice(0, 200)); return r; } catch (e) { if (d === 3) throw e; await new Promise(z => setTimeout(z, 2000 * d)); } } };
   return {
-    async etiketler() { const out = []; for (let off = 0; ; off += 1000) { const r = await (await al(`${TABAN}/kalip_parti?select=etiket&etiket=like.smmm-*&order=etiket.asc&limit=1000&offset=${off}`)).json(); for (const x of r) if (!String(x.etiket).includes('/')) out.push(x.etiket); if (r.length < 1000) break; } return out; },
+    async etiketler(kapsam) { const out = []; for (const k of (MUT === 'kapsam-hepsi' ? [''] : kapsam)) for (let off = 0; ; off += 1000) { const r = await (await al(`${TABAN}/kalip_parti?select=etiket${k ? '&etiket=like.' + k + '-*' : ''}&order=etiket.asc&limit=1000&offset=${off}`)).json(); for (const x of r) if (!String(x.etiket).includes('/')) out.push(x.etiket); if (r.length < 1000) break; } return kapsamUygula([...new Set(out)].sort(), kapsam); },
     async ambarSatir(e) { const r = await al(`${TABAN}/kalip_parti?select=icerik,guncelleme&etiket=eq.${encodeURIComponent(e)}`); const row = (await r.json())[0]; if (!row) return null;
       return { icerik: typeof row.icerik === 'string' ? JSON.parse(row.icerik) : (row.icerik || {}), guncelleme: String(row.guncelleme) }; },
     async damga(e) { const r = await al(`${TABAN}/kalip_parti?select=guncelleme&etiket=eq.${encodeURIComponent(e)}`); const row = (await r.json())[0]; return row ? String(row.guncelleme) : null; },
@@ -54,7 +64,7 @@ function gercekIO() {
 function sahteIO(P, kosanListe = [], adlar = null) {
   const sira = {}; const dmg = e => { const j = P[e]; if (!Array.isArray(j.guncelleme_sira)) return j.guncelleme; const n = sira[e] = (sira[e] || 0); sira[e]++; return j.guncelleme_sira[Math.min(n, j.guncelleme_sira.length - 1)]; };
   const io = { yazilan: [],
-    async etiketler() { return Object.keys(P).filter(e => /^smmm-/.test(e)).sort(); },
+    async etiketler(kapsam) { return kapsamUygula(Object.keys(P).sort(), kapsam); },
     async ambarSatir(e) { if (!P[e]) return null; return { icerik: JSON.parse(JSON.stringify(P[e].icerik)), guncelleme: dmg(e) }; },
     async damga(e) { return P[e] ? dmg(e) : null; },
     async kosulluYaz(e, d, ic) { const j = P[e]; const simdi = Array.isArray(j.guncelleme_sira) ? j.guncelleme_sira[Math.min((sira[e] || 1) - 1, j.guncelleme_sira.length - 1)] : j.guncelleme;
@@ -66,10 +76,12 @@ function sahteIO(P, kosanListe = [], adlar = null) {
 async function havuz(isler, n, fn) { let i = 0; await Promise.all(Array.from({ length: n }, async () => { while (i < isler.length) { const j = i++; await fn(isler[j], j); } })); }
 
 async function tasi(io, esleme, opt = {}) {
-  const r = { parti_toplam: 0, degisecek: { parti: 0, kayit: 0, ad: 0 }, kimlik: [], ad_sayim: {}, atlanan_kosan: [], yazilan: [], yaris: [], uyusmaz: [], hata: [], yeni_ad_yok: [], kapsam_disi: [] };
+  const kapsam = kapsamCoz(opt.kapsam);
+  const r = { kapsam, parti_toplam: 0, degisecek: { parti: 0, kayit: 0, ad: 0 }, sinav_sayim: {}, kimlik: [], ad_sayim: {}, atlanan_kosan: [], yazilan: [], yaris: [], uyusmaz: [], hata: [], yeni_ad_yok: [], kapsam_disi: [], kapsam_disi_kimlik: [] };
+  if (opt.yalniz) r.kapsam_disi_kimlik = [...opt.yalniz].filter(id => !kapsam.some(k => String(id).startsWith(k + '-')));
   for (const y of new Set(Object.values(esleme))) if (!(await io.adVar(y))) r.yeni_ad_yok.push(y);
   if (r.yeni_ad_yok.length) { r.hata.push('yeni ad ambarda yok: ' + r.yeni_ad_yok.length + ' — HİÇBİR ŞEY yazılmadı'); return r; }
-  const ets = await io.etiketler(); r.parti_toplam = ets.length; const satir = {};
+  const ets = await io.etiketler(kapsam); r.parti_toplam = ets.length; const satir = {};
   await havuz(ets, opt.paralel || 6, async e => { const A = await io.ambarSatir(e); if (!A) return; const iz = [];
     for (const [kp, k] of Object.entries(A.icerik || {})) { if (!k || !Array.isArray(k.kaynak_adlar)) continue; if (opt.yalniz && !opt.yalniz.has(e + '/' + kp)) { if (k.kaynak_adlar.some(a => Object.prototype.hasOwnProperty.call(esleme, a))) r.kapsam_disi.push(e + '/' + kp); continue; } k.kaynak_adlar.forEach((a, i) => { if (Object.prototype.hasOwnProperty.call(esleme, a)) iz.push({ kp, i, eski: a, yeni: esleme[a] }); }); }
     if (iz.length) satir[e] = { A, iz }; });
@@ -77,6 +89,7 @@ async function tasi(io, esleme, opt = {}) {
   for (const [e, { A, iz }] of Object.entries(satir).sort()) {
     if (kosan.has(e)) { r.atlanan_kosan.push(e + ' (' + [...new Set(iz.map(x => x.kp))].join(',') + ')'); continue; }
     r.degisecek.parti++; r.degisecek.kayit += new Set(iz.map(x => x.kp)).size; r.degisecek.ad += iz.length;
+    { const sv = e.split('-')[0]; r.sinav_sayim[sv] = (r.sinav_sayim[sv] || 0) + new Set(iz.map(x => x.kp)).size; }
     for (const x of iz) { r.ad_sayim[x.eski] = (r.ad_sayim[x.eski] || 0) + 1; } for (const kp of new Set(iz.map(x => x.kp))) r.kimlik.push(e + '/' + kp);
     if (!opt.yaz) continue;
     const yeni = JSON.parse(JSON.stringify(A.icerik)); for (const x of iz) yeni[x.kp].kaynak_adlar[x.i] = x.yeni;
@@ -106,6 +119,23 @@ async function sinav() {
     S('--yalniz: yalnız listedeki kayıt yazıldı, öteki eşleşenler kapsam dışı sayıldı', w.yazilan.join() === 'smmm-b' && p['smmm-a'].icerik['kp-01'].kaynak_adlar[1] === 'K m.45 - Kirli. Tarh zamanı' && w.kapsam_disi.length === 3); }
   { const p = P(); const io = sahteIO(p, [], []); const w = await tasi(io, E, { yaz: true });
     S('Yeni ad ambarda YOKSA hiçbir şey yazılmaz', io.yazilan.length === 0 && w.yeni_ad_yok.length === 1); }
+  // --- kapsam (07.11.2026, A-11): SGS ve KGK partileri ---
+  const Q = () => ({ ...P(), 'sgs-a': { guncelleme: 'd1', icerik: { 'kp-01': { soru: 'X', kaynak_adlar: ['K m.45 - Kirli. Tarh zamanı'] } } },
+    'kgk-a': { guncelleme: 'd1', icerik: { 'kp-02': { soru: 'Y', kaynak_adlar: ['K m.45 - Kirli. Tarh zamanı', 'K m.1'] } } },
+    'spl-a': { guncelleme: 'd1', icerik: { 'kp-01': { soru: 'Z', kaynak_adlar: ['K m.45 - Kirli. Tarh zamanı'] } } },
+    'sgsx-a': { guncelleme: 'd1', icerik: { 'kp-01': { soru: 'Ö', kaynak_adlar: ['K m.45 - Kirli. Tarh zamanı'] } } } }); // önek benzeri: sgs kapsamına GİRMEZ
+  { const p = Q(); const io = sahteIO(p, ['smmm-d']); const k = await tasi(io, E);
+    S('KAPSAM varsayılan smmm: sgs/kgk/spl görülmez (eski davranış)', k.degisecek.parti === 3 && !k.kimlik.some(x => /^(sgs|kgk|spl)-/.test(x))); }
+  { const p = Q(); const io = sahteIO(p, []); const w = await tasi(io, E, { yaz: true, kapsam: 'sgs,kgk' });
+    S('KAPSAM sgs,kgk: yalnız sgs-a ve kgk-a yazıldı; smmm ve spl dokunulmadı', w.yazilan.join() === 'kgk-a,sgs-a' && p['smmm-a'].icerik['kp-01'].kaynak_adlar[1] === 'K m.45 - Kirli. Tarh zamanı' && p['spl-a'].icerik['kp-01'].kaynak_adlar[0] === 'K m.45 - Kirli. Tarh zamanı');
+    S('KAPSAM sgs,kgk: kgk-a öteki ad AYNI, sınav sayımı sgs 1 · kgk 1', p['kgk-a'].icerik['kp-02'].kaynak_adlar.join('|') === 'K m.45 - Tarh zamanı|K m.1' && w.sinav_sayim.sgs === 1 && w.sinav_sayim.kgk === 1 && !w.sinav_sayim.smmm); }
+  { const p = Q(); const io = sahteIO(p, []); const k = await tasi(io, E, { kapsam: 'smmm,sgs,kgk' });
+    S('KAPSAM üçü: 6 parti (spl ve önek benzeri sgsx hariç), 0 yazma', k.degisecek.parti === 6 && io.yazilan.length === 0 && !k.kimlik.some(x => /^(spl|sgsx)-/.test(x))); }
+  { let atti = false; try { await tasi(sahteIO(Q()), E, { kapsam: 'smmm,spl' }); } catch (e) { atti = /kapsam geçersiz: spl/.test(e.message); }
+    let atti2 = false; try { await tasi(sahteIO(Q()), E, { kapsam: ',' }); } catch (e) { atti2 = /kapsam geçersiz/.test(e.message); }
+    S('KAPSAM izin listesi dışı (spl) ve boş kapsam DURDURUR', atti && atti2); }
+  { const p = Q(); const io = sahteIO(p); const w = await tasi(io, E, { yaz: true, yalniz: new Set(['smmm-b/kp-01', 'sgs-a/kp-01']) });
+    S('--yalniz kapsam dışı kimlik (sgs) sessiz düşmez, sayılır', w.kapsam_disi_kimlik.join() === 'sgs-a/kp-01' && w.yazilan.join() === 'smmm-b' && p['sgs-a'].icerik['kp-01'].kaynak_adlar[0] === 'K m.45 - Kirli. Tarh zamanı'); }
   { process.env.KAYNAK_TASI_MUTASYON = ''; }
   console.log(`ÖZ-SINAV ${ok}/${top}`); return ok === top;
 }
@@ -113,13 +143,19 @@ async function sinav() {
 (async () => {
   const kip = process.argv[2];
   if (kip === '--sinav') { const g = await sinav();
-    if (!MUT) { const c = cp.spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, KAYNAK_TASI_MUTASYON: 'baska-alan' }, encoding: 'utf8' });
-      const yakalandi = /✗ YAZ: yalnız kaynak_adlar|✗ YAZ: a ve b/.test(c.stdout); console.log((yakalandi ? '  ✓ ' : '  ✗ ') + 'MUTASYON baska-alan (soru da değişiyor) YAKALANDI'); process.exit(g && yakalandi ? 0 : 1); }
+    if (!MUT) { let hepsi = true;
+      for (const [m, desen, ad] of [['baska-alan', /✗ YAZ: yalnız kaynak_adlar|✗ YAZ: a ve b/, 'soru da değişiyor'],
+        ['kapsam-yok', /✗ KAPSAM sgs,kgk/, 'kapsam süzgeci sgs/kgk görmüyor'], ['kapsam-hepsi', /✗ KAPSAM varsayılan smmm|✗ KAPSAM üçü/, 'kapsam süzgeci her partiyi alıyor']]) {
+        const c = cp.spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, KAYNAK_TASI_MUTASYON: m }, encoding: 'utf8' });
+        const yakalandi = desen.test(c.stdout) && c.status !== 0; hepsi = hepsi && yakalandi; console.log((yakalandi ? '  ✓ ' : '  ✗ ') + 'MUTASYON ' + m + ' (' + ad + ') YAKALANDI'); }
+      process.exit(g && hepsi ? 0 : 1); }
     process.exit(g ? 0 : 1); }
   if (kip !== '--kuru' && kip !== '--yaz') { console.error('kullanım: --kuru|--yaz <esleme.json> | --sinav'); process.exit(2); }
   const esleme = JSON.parse(fs.readFileSync(process.argv[3], 'utf8').replace(/^﻿/, '')).esleme;
   const yi = process.argv.indexOf('--yalniz'); const yalniz = yi > 0 ? new Set(JSON.parse(fs.readFileSync(process.argv[yi + 1], 'utf8').replace(/^﻿/, ''))) : null;
-  const r = await tasi(gercekIO(), esleme, { yaz: kip === '--yaz', yalniz });
+  const ki = process.argv.indexOf('--kapsam'); let kapsam; try { kapsam = kapsamCoz(ki > 0 ? process.argv[ki + 1] : 'smmm'); } catch (e) { console.error(e.message); process.exit(2); }
+  const r = await tasi(gercekIO(), esleme, { yaz: kip === '--yaz', yalniz, kapsam: kapsam.join(',') });
+  console.log(`kapsam ${r.kapsam.join(',')} · sınav başına kayıt ${JSON.stringify(r.sinav_sayim)}` + (r.kapsam_disi_kimlik.length ? ` · ⚠ --yalniz içinde kapsam dışı kimlik ${r.kapsam_disi_kimlik.length} (yazılmadı)` : ''));
   console.log(`parti ${r.parti_toplam} · değişecek parti ${r.degisecek.parti} · kayıt ${r.degisecek.kayit} · ad ${r.degisecek.ad} · bulutta koşan atlanan ${r.atlanan_kosan.length}` + (yalniz ? ` · --yalniz dışında kalan eşleşen kayıt ${r.kapsam_disi.length}` : ''));
   for (const [a, n] of Object.entries(r.ad_sayim)) console.log(`  ${n} × ${a}`);
   if (r.atlanan_kosan.length) console.log('  BULUTTA (sonraki tur): ' + r.atlanan_kosan.join(', '));
