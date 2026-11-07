@@ -79,7 +79,8 @@ async function tasi(io, esleme, opt = {}) {
   const kapsam = kapsamCoz(opt.kapsam);
   const r = { kapsam, parti_toplam: 0, degisecek: { parti: 0, kayit: 0, ad: 0 }, sinav_sayim: {}, kimlik: [], ad_sayim: {}, atlanan_kosan: [], yazilan: [], yaris: [], uyusmaz: [], hata: [], yeni_ad_yok: [], kapsam_disi: [], kapsam_disi_kimlik: [] };
   if (opt.yalniz) r.kapsam_disi_kimlik = [...opt.yalniz].filter(id => !kapsam.some(k => String(id).startsWith(k + '-')));
-  for (const y of new Set(Object.values(esleme))) if (!(await io.adVar(y))) r.yeni_ad_yok.push(y);
+  // 07.11 A-11: esleme degeri DIZI olabilir (aralik adi "BDS 265 p.1-5" -> [p.1 … p.5]); her yeni ad ambarda olmali
+  for (const y of new Set(Object.values(esleme).flat())) if (!(await io.adVar(y))) r.yeni_ad_yok.push(y);
   if (r.yeni_ad_yok.length) { r.hata.push('yeni ad ambarda yok: ' + r.yeni_ad_yok.length + ' — HİÇBİR ŞEY yazılmadı'); return r; }
   const ets = await io.etiketler(kapsam); r.parti_toplam = ets.length; const satir = {};
   await havuz(ets, opt.paralel || 6, async e => { const A = await io.ambarSatir(e); if (!A) return; const iz = [];
@@ -92,10 +93,19 @@ async function tasi(io, esleme, opt = {}) {
     { const sv = e.split('-')[0]; r.sinav_sayim[sv] = (r.sinav_sayim[sv] || 0) + new Set(iz.map(x => x.kp)).size; }
     for (const x of iz) { r.ad_sayim[x.eski] = (r.ad_sayim[x.eski] || 0) + 1; } for (const kp of new Set(iz.map(x => x.kp))) r.kimlik.push(e + '/' + kp);
     if (!opt.yaz) continue;
-    const yeni = JSON.parse(JSON.stringify(A.icerik)); for (const x of iz) yeni[x.kp].kaynak_adlar[x.i] = x.yeni;
+    const yeni = JSON.parse(JSON.stringify(A.icerik));
+    const coklu = iz.some(x => Array.isArray(x.yeni));
+    if (!coklu) { for (const x of iz) yeni[x.kp].kaynak_adlar[x.i] = x.yeni; }
+    else for (const kp of new Set(iz.map(x => x.kp))) {   // 1 -> N: eski ad yerine dizi sirayla girer, tekrar eden ad bir kez kalir
+      const out = []; for (const a of A.icerik[kp].kaynak_adlar) for (const b of (Object.prototype.hasOwnProperty.call(esleme, a) ? [].concat(esleme[a]) : [a])) if (MUT === 'coklu-tekrar' || !out.includes(b)) out.push(b);
+      yeni[kp].kaynak_adlar = out; }
     if (MUT === 'baska-alan') { const kp0 = iz[0].kp; yeni[kp0].soru = String(yeni[kp0].soru || '') + ' '; }
-    const izinli = new Set(iz.map(x => `${x.kp}.kaynak_adlar[${x.i}]`)); const fk = fark(A.icerik, yeni); const izinsiz = fk.filter(y => !izinli.has(y));
-    if (izinsiz.length || fk.length !== izinli.size) { r.hata.push(`${e}: beklenmeyen fark (${izinsiz.length} yol)`); continue; }
+    const fk = fark(A.icerik, yeni);
+    if (!coklu) { const izinli = new Set(iz.map(x => `${x.kp}.kaynak_adlar[${x.i}]`)); const izinsiz = fk.filter(y => !izinli.has(y));
+      if (izinsiz.length || fk.length !== izinli.size) { r.hata.push(`${e}: beklenmeyen fark (${izinsiz.length} yol)`); continue; } }
+    else { const kpS = new Set(iz.map(x => x.kp)); const izinsiz = fk.filter(y => ![...kpS].some(kp => y === `${kp}.kaynak_adlar` || y.startsWith(`${kp}.kaynak_adlar[`)));
+      const tekrar = [...kpS].some(kp => new Set(yeni[kp].kaynak_adlar).size !== yeni[kp].kaynak_adlar.length);
+      if (izinsiz.length || tekrar) { r.hata.push(`${e}: beklenmeyen fark (${izinsiz.length} yol${tekrar ? ', tekrar eden ad' : ''})`); continue; } }
     const d2 = await io.damga(e); if (d2 !== A.guncelleme) { r.yaris.push(e); continue; }
     const w = await io.kosulluYaz(e, A.guncelleme, yeni); if (w.satir !== 1) { r.yaris.push(e); continue; }
     const G = await io.ambarSatir(e); if (G && esit(G.icerik, yeni)) r.yazilan.push(e); else r.uyusmaz.push(e);
@@ -136,6 +146,13 @@ async function sinav() {
     S('KAPSAM izin listesi dışı (spl) ve boş kapsam DURDURUR', atti && atti2); }
   { const p = Q(); const io = sahteIO(p); const w = await tasi(io, E, { yaz: true, yalniz: new Set(['smmm-b/kp-01', 'sgs-a/kp-01']) });
     S('--yalniz kapsam dışı kimlik (sgs) sessiz düşmez, sayılır', w.kapsam_disi_kimlik.join() === 'sgs-a/kp-01' && w.yazilan.join() === 'smmm-b' && p['sgs-a'].icerik['kp-01'].kaynak_adlar[0] === 'K m.45 - Kirli. Tarh zamanı'); }
+  // --- 1 -> N (07.11.2026, A-11): aralik adi birden cok paragrafa ---
+  { const p = { 'smmm-r': { guncelleme: 'd1', icerik: { 'kp-01': { soru: 'S', kaynak_adlar: ['K m.1', 'K p.1-3', 'K p.2'] } } } };
+    const io = sahteIO(p); const w = await tasi(io, { 'K p.1-3': ['K p.1', 'K p.2', 'K p.3'] }, { yaz: true });
+    S('ÇOKLU 1->N: aralik adi sirayla 3 ada acildi, tekrar eden K p.2 bir kez, soru AYNI', w.yazilan.join() === 'smmm-r' && p['smmm-r'].icerik['kp-01'].kaynak_adlar.join('|') === 'K m.1|K p.1|K p.2|K p.3' && p['smmm-r'].icerik['kp-01'].soru === 'S'); }
+  { const p = { 'smmm-r': { guncelleme: 'd1', icerik: { 'kp-01': { soru: 'S', kaynak_adlar: ['K p.1-3'] } } } };
+    const io = sahteIO(p, [], ['K p.1', 'K p.2']); const w = await tasi(io, { 'K p.1-3': ['K p.1', 'K p.2', 'K p.3'] }, { yaz: true });
+    S('ÇOKLU: dizideki bir ad ambarda YOKSA hicbir sey yazilmaz', io.yazilan.length === 0 && w.yeni_ad_yok.join() === 'K p.3'); }
   { process.env.KAYNAK_TASI_MUTASYON = ''; }
   console.log(`ÖZ-SINAV ${ok}/${top}`); return ok === top;
 }
@@ -145,7 +162,8 @@ async function sinav() {
   if (kip === '--sinav') { const g = await sinav();
     if (!MUT) { let hepsi = true;
       for (const [m, desen, ad] of [['baska-alan', /✗ YAZ: yalnız kaynak_adlar|✗ YAZ: a ve b/, 'soru da değişiyor'],
-        ['kapsam-yok', /✗ KAPSAM sgs,kgk/, 'kapsam süzgeci sgs/kgk görmüyor'], ['kapsam-hepsi', /✗ KAPSAM varsayılan smmm|✗ KAPSAM üçü/, 'kapsam süzgeci her partiyi alıyor']]) {
+        ['kapsam-yok', /✗ KAPSAM sgs,kgk/, 'kapsam süzgeci sgs/kgk görmüyor'], ['kapsam-hepsi', /✗ KAPSAM varsayılan smmm|✗ KAPSAM üçü/, 'kapsam süzgeci her partiyi alıyor'],
+        ['coklu-tekrar', /✗ ÇOKLU 1->N/, '1->N tekrar eden adi birakiyor']]) {
         const c = cp.spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, KAYNAK_TASI_MUTASYON: m }, encoding: 'utf8' });
         const yakalandi = desen.test(c.stdout) && c.status !== 0; hepsi = hepsi && yakalandi; console.log((yakalandi ? '  ✓ ' : '  ✗ ') + 'MUTASYON ' + m + ' (' + ad + ') YAKALANDI'); }
       process.exit(g && hepsi ? 0 : 1); }
