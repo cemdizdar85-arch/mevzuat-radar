@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261106164814
+Start time: 20261107070450
 Username: runnervmwuk1x\runner
 RunAs User: runnervmwuk1x\runner
 Configuration Name: 
 Machine: runnervmwuk1x (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/28311fe2-26f4-4aa1-8bc9-84bec26089c4.ps1'
-Process ID: 11693
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/aa4d65e4-474c-460e-8b01-11bf42ece35c.ps1'
+Process ID: 11712
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -30,31 +30,19 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...100/172
   ...110/172
   ...120/172
+  ...130/172
   ...140/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 168
-  OLCULEMEDI (PDF gelmedi)      : 3
-  inemeyen (istek dustu)        : 1
-     44953  ctype=text/html  253536 bayt  bas='<!DOCTYPE html> <html> <head>     <title>'
-     44954  ctype=text/html  253536 bayt  bas='<!DOCTYPE html> <html> <head>     <title>'
-     44955  ctype=text/html  253536 bayt  bas='<!DOCTYPE html> <html> <head>     <title>'
-     44967 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+  gercekten olculen (PDF geldi) : 172
+  OLCULEMEDI (PDF gelmedi)      : 0
+  inemeyen (istek dustu)        : 0
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-======================================================================
-  KOR: 3/172 teblig OLCULEMEDI - govde PDF degil (yumusak 404).
-======================================================================
-  Gercekten olculen ve degismeyen: 168
-
-  Bu kayitlar icin 'degismedi' DENEMEZ - bakilamadi. Kok sebep
-  URL kalibidir; MevzuatMetin/yonetmelik/9.5.<no>.pdf ucu ana sayfa
-  donduruyor. Dogru uc bulunana kadar gozetim verisi DENETIMSIZ.
-  Ayrinti: veri/teblig-damga.json -> olculemeyen
+TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20261106172152
+End time: 20261107074158
 **********************
