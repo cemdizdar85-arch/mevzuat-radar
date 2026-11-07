@@ -12,6 +12,12 @@ _s20_gorev_kapi	p_deneme integer, p_ders text	SD	f	f	void	depoda
 _s20_gorev_kur	p_uid uuid, p_deneme integer	SD	f	f	integer	depoda
 _s20_gorevler	p_uid uuid	SD	f	f	jsonb	depoda
 _s20_kapi	p_no integer	SD	f	f	void	depoda
+_s20y_acik	p_ders text, p_no integer	SD	f	f	boolean	depoda
+_s20y_gorev_acik	p_uid uuid, p_ders text	SD	f	f	boolean	depoda
+_s20y_gorev_aday	p_uid uuid, p_ders text, p_konu text, p_haric text[], p_adet integer	SD	f	f	text[]	depoda
+_s20y_gorev_kur	p_uid uuid, p_ders text, p_no integer	SD	f	f	integer	depoda
+_s20y_gorevler	p_uid uuid	SD	f	f	jsonb	depoda
+_s20y_kapi	p_ders text, p_no integer	SD	f	f	void	depoda
 _siparis_isle	p_sid bigint, p_uid uuid, p_yol text	SD	f	f	text	depoda
 _son20_indirimsiz		inv	f	f	trigger	depoda
 _soz_hakki_kapi		inv	f	f	trigger	depoda
@@ -109,6 +115,14 @@ s20_gorev_getir	p_deneme integer, p_ders text, p_konu text	SD	f	t	jsonb	depoda
 s20_liste		SD	t	t	jsonb	depoda
 s20_test_bitir	p_deneme integer, p_ders text, p_cevap jsonb, p_sure_sn integer	SD	f	t	jsonb	depoda
 s20_test_getir	p_deneme integer, p_ders text	SD	f	t	jsonb	depoda
+s20y_deneme_yukle	p jsonb	SD	f	f	jsonb	depoda
+s20y_erisim	p_ders text	SD	f	t	boolean	depoda
+s20y_gorev_cevap	p_deneme integer, p_ders text, p_konu text, p_id text, p_secim text	SD	f	t	jsonb	depoda
+s20y_gorev_getir	p_deneme integer, p_ders text, p_konu text	SD	f	t	jsonb	depoda
+s20y_liste		SD	t	t	jsonb	depoda
+s20y_test_bitir	p_deneme integer, p_ders text, p_cevap jsonb, p_sure_sn integer	SD	f	t	jsonb	depoda
+s20y_test_getir	p_deneme integer, p_ders text	SD	f	t	jsonb	depoda
+s20y_yarim_yaz	p_deneme integer, p_ders text, p_cevap jsonb, p_i integer, p_kalan integer	SD	f	t	boolean	depoda
 seviye_aciklama	p_cevaplar jsonb	SD	t	t	jsonb	depoda
 seviye_cizim	p_idler jsonb	SD	t	t	jsonb	depoda
 seviye_kiyas	p_sinav text, p_dogru integer	SD	t	t	jsonb	depoda

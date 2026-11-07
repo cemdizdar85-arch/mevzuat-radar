@@ -223,6 +223,113 @@ begin
 end $function$
 ;
 
+-- _s20y_acik(text,integer)
+CREATE OR REPLACE FUNCTION public._s20y_acik(p_ders text, p_no integer)
+ RETURNS boolean
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select exists (select 1 from public.s20y_deneme d
+                  where d.ders = p_ders and d.no = p_no and coalesce(btrim(d.kalite_onay),'') <> ''
+                    and d.acilis is not null
+                    and (d.acilis <= now() or exists (select 1 from public.s20y_onizleme o where o.user_id = auth.uid())));
+$function$
+;
+
+-- _s20y_gorev_acik(uuid,text)
+CREATE OR REPLACE FUNCTION public._s20y_gorev_acik(p_uid uuid, p_ders text)
+ RETURNS boolean
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select exists (select 1 from public.s20y_gorev g where g.user_id = p_uid and g.ders = p_ders and not g.tamam);
+$function$
+;
+
+-- _s20y_gorev_aday(uuid,text,text,text[],integer)
+CREATE OR REPLACE FUNCTION public._s20y_gorev_aday(p_uid uuid, p_ders text, p_konu text, p_haric text[], p_adet integer)
+ RETURNS text[]
+ LANGUAGE sql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select coalesce(array(
+    select ps.id from public.paket_soru ps
+     where ps.sinav = 'smmm' and ps.ders = p_ders and ps.konu = p_konu
+       and ps.id not like 'smmm-s20-%'
+       and not (ps.id = any(coalesce(p_haric, '{}')))
+       and not exists (select 1 from public.s20y_soru s where s.id = ps.id)
+       and not exists (select 1 from public.kasa_cevap kc where kc.user_id = p_uid and kc.soru_id = ps.id)
+       and coalesce(ps.veri->>'soru','') <> '' and jsonb_typeof(ps.veri->'siklar') = 'object' and coalesce(ps.veri->>'dogru','') ~ '^[A-E]$'
+     order by random() limit p_adet), '{}');
+$function$
+;
+
+-- _s20y_gorev_kur(uuid,text,integer)
+CREATE OR REPLACE FUNCTION public._s20y_gorev_kur(p_uid uuid, p_ders text, p_no integer)
+ RETURNS integer
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare n int := 0; x public.s20y_sonuc; r record; ids text[];
+begin
+  if exists (select 1 from public.s20y_gorev g where g.user_id = p_uid and g.ders = p_ders and g.no = p_no) then return 0; end if;
+  select * into x from public.s20y_sonuc s where s.user_id = p_uid and s.ders = p_ders and s.no = p_no;
+  if not found or x.toplam = 0 or x.dogru * 100 >= x.toplam * 60 then return 0; end if;
+  for r in
+    select s.konu, count(*) as k from public.s20y_soru s
+     where s.ders = p_ders and s.no = p_no and coalesce(btrim(s.konu),'') <> ''
+       and coalesce(x.cevap->>s.id, '') is distinct from (s.veri->>'dogru')
+     group by s.konu order by count(*) desc, s.konu
+  loop
+    ids := public._s20y_gorev_aday(p_uid, p_ders, r.konu, '{}', 4);
+    if cardinality(ids) = 4 then
+      n := n + 1;
+      insert into public.s20y_gorev (user_id, ders, no, konu, sira, yanlis, sorular, gorulen) values (p_uid, p_ders, p_no, r.konu, n, r.k, ids, ids);
+      exit when n >= 5;
+    end if;
+  end loop;
+  return n;
+end $function$
+;
+
+-- _s20y_gorevler(uuid)
+CREATE OR REPLACE FUNCTION public._s20y_gorevler(p_uid uuid)
+ RETURNS jsonb
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select coalesce(jsonb_agg(jsonb_build_object('ders', g.ders, 'no', g.no, 'konu', g.konu, 'sira', g.sira, 'tur', g.tur, 'dogru', g.dogru,
+           'cevaplanan', (select count(*) from jsonb_object_keys(g.cevap)), 'tamam', g.tamam) order by g.ders, g.no, g.sira), '[]'::jsonb)
+    from public.s20y_gorev g where g.user_id = p_uid;
+$function$
+;
+
+-- _s20y_kapi(text,integer)
+CREATE OR REPLACE FUNCTION public._s20y_kapi(p_ders text, p_no integer)
+ RETURNS void
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+begin
+  if auth.uid() is null then raise exception 'S20_OTURUM' using errcode = '42501'; end if;
+  if not public.s20y_erisim(p_ders) then raise exception 'S20_PAKET' using errcode = '42501'; end if;
+  if not public._s20y_acik(p_ders, p_no) then raise exception 'S20_KAPALI' using errcode = 'P0001'; end if;
+  if exists (select 1 from public.s20y_sonuc x where x.user_id = auth.uid() and x.ders = p_ders and x.no = p_no) then return; end if;  -- yeniden çözüm hep açık
+  if public._s20y_gorev_acik(auth.uid(), p_ders) then raise exception 'S20_GOREV' using errcode = 'P0001'; end if;
+  if exists (select 1 from public.s20y_deneme d
+              where d.ders = p_ders and d.no < p_no and public._s20y_acik(d.ders, d.no)
+                and not exists (select 1 from public.s20y_sonuc x where x.user_id = auth.uid() and x.ders = d.ders and x.no = d.no)) then
+    raise exception 'S20_ONCEKI' using errcode = 'P0001';
+  end if;
+end $function$
+;
+
 -- _siparis_isle(bigint,uuid,text)
 CREATE OR REPLACE FUNCTION public._siparis_isle(p_sid bigint, p_uid uuid, p_yol text)
  RETURNS text
@@ -3101,6 +3208,237 @@ begin
                  from public.s20_sonuc r where r.user_id = auth.uid() and r.deneme = p_deneme and r.ders = p_ders),
     'sorular', (select jsonb_agg(jsonb_build_object('id', s.id, 'soru', s.veri->'soru', 'siklar', s.veri->'siklar') order by s.sira)
                   from public.s20_soru s where s.deneme = p_deneme and s.ders = p_ders));
+end $function$
+;
+
+-- s20y_deneme_yukle(jsonb)
+CREATE OR REPLACE FUNCTION public.s20y_deneme_yukle(p jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare d text := btrim(coalesce(p->>'ders','')); n int := (p->>'no')::int; ayni boolean; adet int;
+begin
+  if d = '' or n is null or n not between 1 and 5 or coalesce(btrim(p->>'ad'),'') = '' or jsonb_typeof(p->'sorular') is distinct from 'array' then
+    raise exception 'S20_YUKLE_BICIM'; end if;
+  if jsonb_array_length(p->'sorular') <> 20 then raise exception 'S20_YUKLE_ADET: %', jsonb_array_length(p->'sorular'); end if;
+  if (select count(distinct e->>'id') from jsonb_array_elements(p->'sorular') e) <> 20 then raise exception 'S20_YUKLE_TEKRAR'; end if;
+  if exists (select 1 from jsonb_array_elements(p->'sorular') e where jsonb_typeof(e->'veri') is distinct from 'object') then raise exception 'S20_EKSIK: veri yok'; end if;
+  select coalesce((select array_agg(s.id order by s.id) from public.s20y_soru s where s.ders = d and s.no = n), '{}')
+         = (select array_agg(e->>'id' order by e->>'id') from jsonb_array_elements(p->'sorular') e) into ayni;
+  if not ayni and exists (select 1 from public.s20y_sonuc r where r.ders = d and r.no = n) and coalesce(p->>'zorla','') <> 'evet' then
+    raise exception 'S20_COZULMUS: % deneme % cozulmus, sorulari zorla olmadan degismez', d, n; end if;
+  insert into public.s20y_deneme (ders, no, ad, sure_dk, acilis, kalite_onay, yuklenme)
+  values (d, n, p->>'ad', coalesce((p->>'sure_dk')::int, 45), nullif(p->>'acilis','')::timestamptz, nullif(btrim(p->>'kalite_onay'),''), now())
+  on conflict (ders, no) do update set ad = excluded.ad, sure_dk = excluded.sure_dk, acilis = excluded.acilis,
+                                       kalite_onay = excluded.kalite_onay, yuklenme = now();
+  delete from public.s20y_soru s where s.ders = d and s.no = n;
+  insert into public.s20y_soru (ders, no, id, sira, konu, veri)
+  select d, n, e->>'id', coalesce((e->>'sira')::int, o::int), e->>'konu', e->'veri'
+    from jsonb_array_elements(p->'sorular') with ordinality as t(e, o);
+  if exists (select 1 from public.s20y_soru s where s.ders = d and s.no = n
+              and (coalesce(s.veri->>'soru','') = '' or jsonb_typeof(s.veri->'siklar') <> 'object' or coalesce(s.veri->>'dogru','') !~ '^[A-E]$')) then
+    raise exception 'S20_VERI_BOZUK: % deneme % icinde soru/siklar/dogru eksik soru var', d, n; end if;
+  select count(*) into adet from public.s20y_soru s where s.ders = d and s.no = n;
+  return jsonb_build_object('ders', d, 'no', n, 'adet', adet, 'acilis', (select x.acilis from public.s20y_deneme x where x.ders = d and x.no = n),
+    'acik', exists (select 1 from public.s20y_deneme x where x.ders = d and x.no = n and coalesce(btrim(x.kalite_onay),'') <> '' and x.acilis <= now()));
+end $function$
+;
+
+-- s20y_erisim(text)
+CREATE OR REPLACE FUNCTION public.s20y_erisim(p_ders text)
+ RETURNS boolean
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select exists (
+    select 1 from public.paket_uyeler pu
+    where pu.user_id = auth.uid()
+      and (pu.bitis is null or pu.bitis >= current_date)
+      and (coalesce(nullif(lower(trim(pu.paket)),''),'tam') in ('tam','kurucu','son20-yet','yeterlilik','smmm','yeterlilik-kgk')
+           or lower(trim(pu.paket)) like 'yeterlilik-%')
+      and (pu.dersler is null or p_ders = any(pu.dersler))
+  );
+$function$
+;
+
+-- s20y_gorev_cevap(integer,text,text,text,text)
+CREATE OR REPLACE FUNCTION public.s20y_gorev_cevap(p_deneme integer, p_ders text, p_konu text, p_id text, p_secim text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare g public.s20y_gorev; sec text := upper(btrim(coalesce(p_secim,''))); v jsonb; dogruMu boolean; yeni text[]; ek text[]; turKapandi boolean := false;
+begin
+  if auth.uid() is null then raise exception 'S20_OTURUM' using errcode = '42501'; end if;
+  if not public.s20y_erisim(p_ders) then raise exception 'S20_PAKET' using errcode = '42501'; end if;
+  if sec !~ '^[A-E]$' then raise exception 'S20_SECIM' using errcode = 'P0001'; end if;
+  select * into g from public.s20y_gorev x where x.user_id = auth.uid() and x.ders = p_ders and x.no = p_deneme and x.konu = p_konu for update;
+  if not found then raise exception 'S20_GOREV_YOK' using errcode = 'P0001'; end if;
+  if g.tamam then raise exception 'S20_GOREV_TAMAM' using errcode = 'P0001'; end if;
+  if not (p_id = any(g.sorular)) then raise exception 'S20_GOREV_SORU' using errcode = 'P0001'; end if;
+  if g.cevap ? p_id then raise exception 'S20_GOREV_CEVAPLI' using errcode = 'P0001'; end if;
+  select ps.veri into v from public.paket_soru ps where ps.id = p_id;
+  dogruMu := (sec = v->>'dogru');
+  g.cevap := g.cevap || jsonb_build_object(p_id, sec);
+  if dogruMu then g.dogru := g.dogru + 1; else g.yanlislar := array_append(g.yanlislar, p_id); end if;
+  if (select count(*) from jsonb_object_keys(g.cevap)) >= cardinality(g.sorular) then
+    turKapandi := true;
+    if g.dogru >= 3 then g.tamam := true; g.bitis := now();
+    else
+      yeni := public._s20y_gorev_aday(auth.uid(), g.ders, g.konu, g.gorulen, 4);
+      if cardinality(yeni) < 4 then
+        select array(select x from unnest(g.yanlislar) x where not (x = any(yeni)) group by x order by random() limit 4 - cardinality(yeni)) into ek;
+        yeni := yeni || ek;
+        if cardinality(yeni) < 4 then
+          select array(select x from unnest(g.gorulen) x where not (x = any(yeni)) order by random() limit 4 - cardinality(yeni)) into ek;
+          yeni := yeni || ek;
+        end if;
+      end if;
+      g.tur := g.tur + 1; g.sorular := yeni; g.cevap := '{}'::jsonb; g.dogru := 0;
+      g.gorulen := (select array(select distinct x from unnest(g.gorulen || yeni) x));
+    end if;
+  end if;
+  update public.s20y_gorev x set tur = g.tur, sorular = g.sorular, gorulen = g.gorulen, yanlislar = g.yanlislar, cevap = g.cevap,
+         dogru = g.dogru, tamam = g.tamam, bitis = g.bitis
+   where x.user_id = auth.uid() and x.ders = p_ders and x.no = p_deneme and x.konu = p_konu;
+  return jsonb_build_object('dogru_mu', dogruMu, 'dogru_sik', v->>'dogru', 'veri', v,
+    'tur_kapandi', turKapandi, 'tamam', g.tamam, 'tur', g.tur, 'tur_dogru', g.dogru,
+    'acik_gorev', public._s20y_gorev_acik(auth.uid(), p_ders));
+end $function$
+;
+
+-- s20y_gorev_getir(integer,text,text)
+CREATE OR REPLACE FUNCTION public.s20y_gorev_getir(p_deneme integer, p_ders text, p_konu text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare g public.s20y_gorev; neden text;
+begin
+  if auth.uid() is null then raise exception 'S20_OTURUM' using errcode = '42501'; end if;
+  if not public.s20y_erisim(p_ders) then raise exception 'S20_PAKET' using errcode = '42501'; end if;
+  select * into g from public.s20y_gorev x where x.user_id = auth.uid() and x.ders = p_ders and x.no = p_deneme and x.konu = p_konu;
+  if not found then raise exception 'S20_GOREV_YOK' using errcode = 'P0001'; end if;
+  neden := public.kasa_cekim_izin2('s20y-gorev', 0, cardinality(g.sorular), g.sorular);
+  if neden is not null then raise exception 'KASA_TAVAN:%', neden using errcode = 'P0001'; end if;
+  return jsonb_build_object('deneme', g.no, 'ders', g.ders, 'konu', g.konu, 'tur', g.tur, 'dogru', g.dogru, 'tamam', g.tamam,
+    'sorular', (select jsonb_agg(jsonb_build_object('id', ps.id, 'soru', ps.veri->'soru', 'siklar', ps.veri->'siklar',
+                      'cevap', g.cevap->>ps.id,
+                      'veri', case when g.cevap ? ps.id then ps.veri end) order by array_position(g.sorular, ps.id))
+                  from public.paket_soru ps where ps.id = any(g.sorular)));
+end $function$
+;
+
+-- s20y_liste()
+CREATE OR REPLACE FUNCTION public.s20y_liste()
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare u uuid := auth.uid();
+begin
+  return jsonb_build_object(
+    'oturum', u is not null,
+    'simdi', now(),
+    'gorevler', case when u is null then '[]'::jsonb else public._s20y_gorevler(u) end,
+    'denemeler', coalesce((
+      select jsonb_agg(jsonb_build_object(
+        'ders', d.ders, 'no', d.no, 'ad', d.ad, 'sure_dk', d.sure_dk, 'acilis', d.acilis,
+        'acik', public._s20y_acik(d.ders, d.no), 'erisim', public.s20y_erisim(d.ders),
+        'toplam', (select count(*) from public.s20y_soru s where s.ders = d.ders and s.no = d.no),
+        'yarim', exists (select 1 from public.s20y_yarim y where y.user_id = u and y.ders = d.ders and y.no = d.no),
+        'sonuc', (select jsonb_build_object('dogru', r.dogru, 'yanlis', r.yanlis, 'bos', r.bos, 'toplam', r.toplam, 'zaman', r.zaman)
+                    from public.s20y_sonuc r where r.user_id = u and r.ders = d.ders and r.no = d.no)
+      ) order by d.ders, d.no)
+      from public.s20y_deneme d
+    ), '[]'::jsonb),
+    /* deneme henüz yüklenmemiş üyenin kapısı için: sekiz ders adı sayfada, burada yalnız kişinin ders listesi */
+    'dersler', case when u is null then '[]'::jsonb else coalesce((
+      select to_jsonb(array_agg(x.ders)) from unnest(array['Finansal Muhasebe','Finansal Tablolar ve Analizi','Maliyet Muhasebesi','Muhasebe Denetimi',
+        'Vergi Mevzuatı ve Uygulaması','Hukuk','Meslek Hukuku','Sermaye Piyasası Mevzuatı']) x(ders) where public.s20y_erisim(x.ders)), '[]'::jsonb) end);
+end $function$
+;
+
+-- s20y_test_bitir(integer,text,jsonb,integer)
+CREATE OR REPLACE FUNCTION public.s20y_test_bitir(p_deneme integer, p_ders text, p_cevap jsonb, p_sure_sn integer DEFAULT NULL::integer)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare n_d int := 0; n_y int := 0; n_b int := 0; n_t int := 0; c text; r record; temiz jsonb := '{}'::jsonb; ilk boolean; gorev int := 0;
+begin
+  perform public._s20y_kapi(p_ders, p_deneme);
+  for r in select s.id, s.veri->>'dogru' as dogru from public.s20y_soru s where s.ders = p_ders and s.no = p_deneme loop
+    n_t := n_t + 1;
+    c := upper(btrim(coalesce(p_cevap->>r.id, '')));
+    if c !~ '^[A-E]$' then n_b := n_b + 1;
+    else temiz := temiz || jsonb_build_object(r.id, c); if c = r.dogru then n_d := n_d + 1; else n_y := n_y + 1; end if; end if;
+  end loop;
+  if n_t = 0 then raise exception 'S20_DERS_YOK' using errcode = 'P0001'; end if;
+  insert into public.s20y_sonuc (user_id, ders, no, dogru, yanlis, bos, toplam, cevap, sure_sn)
+  values (auth.uid(), p_ders, p_deneme, n_d, n_y, n_b, n_t, temiz, case when p_sure_sn between 0 and 86400 then p_sure_sn end)
+  on conflict (user_id, ders, no) do nothing;
+  ilk := found;
+  delete from public.s20y_yarim y where y.user_id = auth.uid() and y.ders = p_ders and y.no = p_deneme;
+  if ilk then gorev := public._s20y_gorev_kur(auth.uid(), p_ders, p_deneme); end if;
+  return jsonb_build_object(
+    'dogru', n_d, 'yanlis', n_y, 'bos', n_b, 'toplam', n_t, 'ilk', ilk, 'gorev', gorev,
+    'kayitli', (select jsonb_build_object('dogru', x.dogru, 'yanlis', x.yanlis, 'bos', x.bos, 'toplam', x.toplam)
+                  from public.s20y_sonuc x where x.user_id = auth.uid() and x.ders = p_ders and x.no = p_deneme),
+    'sorular', (select jsonb_agg(jsonb_build_object('id', s.id, 'konu', s.konu, 'veri', s.veri) order by s.sira)
+                  from public.s20y_soru s where s.ders = p_ders and s.no = p_deneme));
+end $function$
+;
+
+-- s20y_test_getir(integer,text)
+CREATE OR REPLACE FUNCTION public.s20y_test_getir(p_deneme integer, p_ders text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare ids text[]; neden text;
+begin
+  perform public._s20y_kapi(p_ders, p_deneme);
+  select array_agg(s.id order by s.sira) into ids from public.s20y_soru s where s.ders = p_ders and s.no = p_deneme;
+  if ids is null then raise exception 'S20_DERS_YOK' using errcode = 'P0001'; end if;
+  neden := public.kasa_cekim_izin2('s20y-' || p_deneme, 0, cardinality(ids), ids);
+  if neden is not null then raise exception 'KASA_TAVAN:%', neden using errcode = 'P0001'; end if;
+  return jsonb_build_object(
+    'sure_dk', (select d.sure_dk from public.s20y_deneme d where d.ders = p_ders and d.no = p_deneme),
+    'adet_deneme', cardinality(ids),
+    'onceki', (select jsonb_build_object('dogru', r.dogru, 'yanlis', r.yanlis, 'bos', r.bos, 'toplam', r.toplam)
+                 from public.s20y_sonuc r where r.user_id = auth.uid() and r.ders = p_ders and r.no = p_deneme),
+    'yarim', (select jsonb_build_object('cevap', y.cevap, 'i', y.i, 'kalan', y.kalan, 'zaman', y.zaman)
+                from public.s20y_yarim y where y.user_id = auth.uid() and y.ders = p_ders and y.no = p_deneme),
+    'sorular', (select jsonb_agg(jsonb_build_object('id', s.id, 'soru', s.veri->'soru', 'siklar', s.veri->'siklar') order by s.sira)
+                  from public.s20y_soru s where s.ders = p_ders and s.no = p_deneme));
+end $function$
+;
+
+-- s20y_yarim_yaz(integer,text,jsonb,integer,integer)
+CREATE OR REPLACE FUNCTION public.s20y_yarim_yaz(p_deneme integer, p_ders text, p_cevap jsonb, p_i integer DEFAULT 0, p_kalan integer DEFAULT NULL::integer)
+ RETURNS boolean
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare temiz jsonb;
+begin
+  perform public._s20y_kapi(p_ders, p_deneme);
+  select coalesce(jsonb_object_agg(s.id, upper(p_cevap->>s.id)), '{}'::jsonb) into temiz
+    from public.s20y_soru s where s.ders = p_ders and s.no = p_deneme and upper(coalesce(p_cevap->>s.id, '')) ~ '^[A-E]$';
+  insert into public.s20y_yarim as y (user_id, ders, no, cevap, i, kalan, zaman)
+  values (auth.uid(), p_ders, p_deneme, temiz, greatest(coalesce(p_i, 0), 0), case when p_kalan between 0 and 86400 then p_kalan end, now())
+  on conflict (user_id, ders, no) do update set cevap = excluded.cevap, i = excluded.i, kalan = excluded.kalan, zaman = now();
+  return true;
 end $function$
 ;
 
