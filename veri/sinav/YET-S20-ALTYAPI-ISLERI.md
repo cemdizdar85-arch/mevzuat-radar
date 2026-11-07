@@ -42,3 +42,14 @@ Kök: konu_giris yazımda yok, bulut üretir; terim "kim" kapalı listesi (B33, 
 
 ## A-10 · İkiz tablosunun boşluk koordinatları bozuk yazılıyor: `{"Count":2,"value":[4,1]}` (07.11 ölçüm, salt okuma)
 s20 parti kayıtlarında `ikiz.bosluk` (ve kimi `verilen`) dizileri PowerShell'in dizi sarmalayıcısıyla yazılmış: **119 kayıtta 893 yer** (ör. smmm-s20-fmuh-d1-cokzor/kp-02 `"bosluk":[{"Count":2,"value":[4,1]},…]`; beklenen `[[4,1],…]`). Kök büyük olasılıkla bulut üreticisinde `ConvertTo-Json` iç içe dizi (tek elemanlı/iki elemanlı dizi kutulanması). Etki ÖLÇÜLMEDİ: ekran ikizde boş hücreyi bu koordinatla gizliyorsa öğrenciye cevap görünür ya da tablo boş kalır. s20 kolu DOKUNMADI (ortak kod). Öneri (altyapı/site): üreticide `-Depth` + `@(,$x)` düzeltmesi, eski kayıtta `{Count,value}` → `value` dönüşümü (eşdeğerlik provası ambarın tamamında), ekranın bu biçimi nasıl gösterdiğinin ölçümü.
+
+## A-11 · Ambar kaynak adlarına bölüm adı ve önceki madde kırıntısı yapışmış; madde gövdesi önceki maddenin son cümlesiyle başlıyor (07.11 ölçüm, salt okuma)
+- Ölçüm: Yet S20 D1'in 160 kaydında dayanak başlığı taranınca 20 başlıkta ambar artığı çıktı. Örnekler:
+  - "GVK m.73 - Türk Parasına çevrilir. Emsal kira bedeli esası": m.72'nin son cümlesi başlığa yapışmış.
+  - "GVK m.65 - RDÜNCÜ BÖLÜM …": bölüm adı kesik.
+  - "VUK m.29 - … İdarece Tarh8 …": içinde dipnot rakamı kalmış.
+  - "VUK m.220 - … Tasdıki …": yazım hatası.
+  - "KDVK m.20 - İndirim BİRİNCİ BÖLÜM …": önceki bölümün adı başlığa yapışmış.
+- Madde gövdelerinde de aynı sorun var: GVK m.73, m.5, m.86 ve VUK m.20 önceki maddenin son cümlesiyle başlıyor. KDVK m.11 "4 İKİNCİ KISIM" parçasıyla başlıyor, VUK m.29'un sonunda başka maddelere ait dipnot artıkları duruyor.
+- D1'de yapılan: öğrencinin gördüğü dayanak başlığı ve teşhis paragrafı, 20 başlıklık eşlemeyle temizlendi (`<S20>/onarim-0711/is-harf/baslik-h.json`, iki kör okuyucu 20/20 UYGUN dedi). `kaynak_adlar` ve ambar DEĞİŞMEDİ, çünkü eşleme anahtarı onlar.
+- Ortak iş: kaynak adı ayrıştırıcısı bölüm adını ve önceki maddenin son cümlesini başlıktan ayırmalı, madde gövdesi madde numarasından başlamalı. Bu düzeltilmezse aynı artıklar bütün sınavlarda dayanak ekranına taşınır.
