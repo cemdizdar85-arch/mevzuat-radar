@@ -2003,69 +2003,12 @@ CREATE OR REPLACE FUNCTION public.madde_ara(sorgu text, adet integer DEFAULT 6)
  RETURNS SETOF dokumanlar
  LANGUAGE sql
  STABLE
+ SET search_path TO 'public'
 AS $function$
-with tok as (
-  select distinct left(regexp_replace(w, '[^a-z0-9]', '', 'g'), 15) as w
-  from regexp_split_to_table(lower(coalesce(sorgu,'')), '\s+') as w
-  where length(regexp_replace(w, '[^a-z0-9]', '', 'g')) >= 3
-  limit 8
-),
--- belge frekansi: 'cikmis%' disi ambarda kac belge bu jetonu iceriyor
-df as (
-  select t.w,
-         (select count(*) from dokumanlar dd
-           where coalesce(dd.tur,'') not like 'cikmis%'
-             and dd.arama_fold @@ to_tsquery('simple', t.w || ':*')) as adet_df
-  from tok t
-),
-agir as (
-  select w,
-         to_tsquery('simple', w || ':*') as tq,
-         ln( ((select count(*) from dokumanlar where coalesce(tur,'') not like 'cikmis%') + 1)::numeric
-             / (adet_df + 1) ) + 0.3 as agirlik
-  from df
-),
--- (1) DAR HAVUZ: yalniz ayirt edici jetonlar aday uretir
-secili as (
-  select w from df where adet_df <= 1500 order by adet_df asc limit 4
-),
-secili2 as (
-  select w from secili
-  union all
-  select w from (select w from df order by adet_df asc limit 2) y
-  where not exists (select 1 from secili)
-),
-qdar as (
-  select to_tsquery('simple', string_agg(w || ':*', ' | ')) as orq from secili2
-),
-qtum as (
-  select to_tsquery('simple', string_agg(w || ':*', ' | ')) as orq from tok
-),
-aday as (
-  select d.ctid as rid, d.arama_fold as af, d.tur as tur,
-         ts_rank(d.arama_fold, (select orq from qtum)) as r
-  from dokumanlar d, qdar
-  where qdar.orq is not null
-    and coalesce(d.tur,'') not like 'cikmis%'
-    and d.arama_fold @@ qdar.orq
-  order by r desc
-  limit 300
-),
-puan as (
-  select a.rid, a.r,
-         (select coalesce(sum(g.agirlik),0) from agir g where a.af @@ g.tq) as s,
-         (select count(*) from agir g where a.af @@ g.tq) as kapsanan,
-         case a.tur
-           when 'teori-notu'    then 0.55
-           when 'standart-madde' then 0.85   -- (2) v7'de 'standart' yaziyordu: OLU DAL
-           else 1.0
-         end as turw
-  from aday a
-)
-select d.* from dokumanlar d
-join puan p on d.ctid = p.rid
-order by (p.s * p.turw * (1 + 0.35 * greatest(p.kapsanan - 1, 0))) desc, p.r desc
-limit greatest(coalesce(adet,6),1)
+select d.*
+from public.madde_ara_deneme_puan(sorgu, adet, '{"adw":0,"tebw":0.75}'::jsonb) p
+join dokumanlar d on d.id = p.id
+order by p.puan desc, p.r desc
 $function$
 ;
 
@@ -2230,6 +2173,77 @@ select p.id, p.kaynak_ad, p.tur,
        p.gs, p.kapsanan, p.adkap, p.turw, p.r
 from puan p
 order by 4 desc, p.r desc
+limit greatest(coalesce(adet,6),1)
+$function$
+;
+
+-- madde_ara_v8(text,integer)
+CREATE OR REPLACE FUNCTION public.madde_ara_v8(sorgu text, adet integer DEFAULT 6)
+ RETURNS SETOF dokumanlar
+ LANGUAGE sql
+ STABLE
+AS $function$
+with tok as (
+  select distinct left(regexp_replace(w, '[^a-z0-9]', '', 'g'), 15) as w
+  from regexp_split_to_table(lower(coalesce(sorgu,'')), '\s+') as w
+  where length(regexp_replace(w, '[^a-z0-9]', '', 'g')) >= 3
+  limit 8
+),
+-- belge frekansi: 'cikmis%' disi ambarda kac belge bu jetonu iceriyor
+df as (
+  select t.w,
+         (select count(*) from dokumanlar dd
+           where coalesce(dd.tur,'') not like 'cikmis%'
+             and dd.arama_fold @@ to_tsquery('simple', t.w || ':*')) as adet_df
+  from tok t
+),
+agir as (
+  select w,
+         to_tsquery('simple', w || ':*') as tq,
+         ln( ((select count(*) from dokumanlar where coalesce(tur,'') not like 'cikmis%') + 1)::numeric
+             / (adet_df + 1) ) + 0.3 as agirlik
+  from df
+),
+-- (1) DAR HAVUZ: yalniz ayirt edici jetonlar aday uretir
+secili as (
+  select w from df where adet_df <= 1500 order by adet_df asc limit 4
+),
+secili2 as (
+  select w from secili
+  union all
+  select w from (select w from df order by adet_df asc limit 2) y
+  where not exists (select 1 from secili)
+),
+qdar as (
+  select to_tsquery('simple', string_agg(w || ':*', ' | ')) as orq from secili2
+),
+qtum as (
+  select to_tsquery('simple', string_agg(w || ':*', ' | ')) as orq from tok
+),
+aday as (
+  select d.ctid as rid, d.arama_fold as af, d.tur as tur,
+         ts_rank(d.arama_fold, (select orq from qtum)) as r
+  from dokumanlar d, qdar
+  where qdar.orq is not null
+    and coalesce(d.tur,'') not like 'cikmis%'
+    and d.arama_fold @@ qdar.orq
+  order by r desc
+  limit 300
+),
+puan as (
+  select a.rid, a.r,
+         (select coalesce(sum(g.agirlik),0) from agir g where a.af @@ g.tq) as s,
+         (select count(*) from agir g where a.af @@ g.tq) as kapsanan,
+         case a.tur
+           when 'teori-notu'    then 0.55
+           when 'standart-madde' then 0.85   -- (2) v7'de 'standart' yaziyordu: OLU DAL
+           else 1.0
+         end as turw
+  from aday a
+)
+select d.* from dokumanlar d
+join puan p on d.ctid = p.rid
+order by (p.s * p.turw * (1 + 0.35 * greatest(p.kapsanan - 1, 0))) desc, p.r desc
 limit greatest(coalesce(adet,6),1)
 $function$
 ;
