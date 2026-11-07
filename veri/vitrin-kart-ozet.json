@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-11-06T01:28:30.855Z",
-  "gun": "2026-11-06",
+  "olcum": "2026-11-07T00:50:22.877Z",
+  "gun": "2026-11-07",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 9,
+      "sira": 0,
       "toplam": 10,
-      "id": "sgs-t2-fmuh-zor/kp-01",
+      "id": "sgs-t2-fmuh-cokzor/kp-01",
       "ders": "Finansal Muhasebe",
-      "konu": "tms 40 yatırım amaçlı gayrimenkul",
-      "donem": 8,
-      "teori": false,
+      "konu": "muhasebe bilgi sistemi",
+      "donem": 10,
+      "teori": true,
       "rakamSik": false,
-      "soru": "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026'da tamamlamıştır. İnşaat sürecinde arsa bedeli 850.000 TL, inşaat harcamaları 620.000 TL olup 258 Yapılmakta Olan Yatırımlar hesabındadır. Tamamlanma tarihindeki gerçeğe uygun değeri 1.610.000 TL'dir. Buna göre yapılacak kayıt aşağıdakilerden hangisidir?",
+      "soru": "İşletmenin muhasebe departmanı 2026 yılı Aralık ayında şu işlemleri gerçekleştirmiştir: Yevmiyede 153 Ticari Mallar hesabına kaydedilmesi gereken 18.000 TL'lik mal alışı sehven 255 Demirbaşlar hesabına borç kaydedilmiş, karşılığında 100 Kasa hesabı doğru tutarla alacaklandırılmıştır; ayrıca dönem sonu envanter ve değerleme işlemleri tamamlanmıştır. Bu bilgilere göre aşağıdakilerden hangisi her zaman doğrudur?",
       "siklar": {
-        "A": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 140.000 TL alacak kaydedilir.",
-        "B": "659 DİĞER OLAĞAN GİDER VE ZARARLAR hesabı 140.000 TL borç kaydedilir.",
-        "C": "258 YAPILMAKTA OLAN YATIRIMLAR hesabı 140.000 TL borç kaydedilir.",
-        "D": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 990.000 TL alacak kaydedilir.",
-        "E": "Fark gerçekleşmemiş kâr sayıldığından hiçbir hesaba kaydedilmez, yalnız dipnotlarda açıklanır."
+        "A": "Genel geçici mizan, hatalı kayda rağmen borç ve alacak toplamları eşit çıkacağı için bu hata söz konusu mizanda tespit edilemez.",
+        "B": "Kesin mizan, envanter işlemlerinden önce düzenlenen mizandır ve mali tablolar doğrudan bu mizandan çıkarılır.",
+        "C": "Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını eşitsiz hale getireceğinden ilk düzenlenecek mizanda ortaya çıkar.",
+        "D": "Mali tablolar genel geçici mizandan düzenlenir, çünkü bu mizan dönem sonu envanter işlemlerini de kapsar.",
+        "E": "Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizanda hesap kalanları sıfırlanmış olarak görünür."
       },
       "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Hesap Seçimi Tuzağı",
-          "metin": "farkın, gayrimenkulün transfer edildiği 258 hesabına yazılacağını sanırsın. Doğrusu: 258 hesap yalnız defter değeriyle kapatılır, fark ayrı olarak gelir hesabına kaydedilir."
+          "ad": "Mizan Sınırı Tuzağı",
+          "metin": "öğrenci mizanı bir hata denetim aracı sanır, her yanlış kaydın mizanda görüneceğini düşünür. Doğrusu: mizan yalnız iki tarafın toplam eşitliğini gösterir; doğru tutarla ama yanlış hesaba yapılan kayıt eşitliği bozmadığı…"
         },
         "E": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "ihtiyatlılık düşüncesiyle gerçekleşmemiş kârın hiç kaydedilmeyeceğini sanırsın. Doğrusu: TMS 40 p.65 farkın muhasebeleştirilmemesine değil, doğrudan kâr/zarara yansıtılmasına hükmeder."
+          "ad": "Mizan Türü Karıştırma Tuzağı",
+          "metin": "öğrenci kesin mizan ile kapanış mizanını aynı aşama sanır, kalanların ne zaman sıfırlandığını yanlış yerleştirir. Doğrusu: kesin mizanda hesap kalanları hâlâ vardır, kalanların sıfırlanması ancak hesaplar kapatıldıktan …"
         },
         "D": {
-          "ad": "Tutar Tuzağı",
-          "metin": "arsa bedelini defter değerine katmayı unutup 1.610.000-620.000=990.000 hesaplarsın. Doğrusu: defter değeri arsa ve inşaat harcamalarının toplamıdır, 850.000+620.000=1.470.000 alınmalıdır."
+          "ad": "Kapsam-Sıra Karışımı Tuzağı",
+          "metin": "öğrenci genel geçici mizanın da envanter kayıtlarını içerdiğini sanarak iki farklı kuralı (mizan türü sırası ve mali tablo kaynağı) birlikte yanlış kurar. Doğrusu: genel geçici mizan envanterden önceki durumu gösterir, …"
         },
         "B": {
-          "ad": "Taraf Tuzağı",
-          "metin": "farkın kâr olduğunu göremeyip zarar sanarak gider hesabına borç yazarsın. Doğrusu: gerçeğe uygun değer defter değerinden büyük olduğundan fark kârdır, gelir hesabına alacak kaydedilir."
+          "ad": "Sıra Tuzağı",
+          "metin": "öğrenci genel geçici mizan ile kesin mizanın zamanlamasını karıştırır, envanterden önce/sonra ayrımını ters kurar. Doğrusu: kesin mizan envanter ve dönem sonu kayıtlarından SONRA düzenlenir, genel geçici mizan ise envan…"
         }
       },
-      "hap": "Kendi inşa edilen ve gerçeğe uygun değerle izlenen yatırım amaçlı gayrimenkul tamamlandığında, tamamlanma tarihindeki gerçeğe uygun değer ile önceki defter değeri arasındaki fark kâr veya zarar olarak finansal tablolara yansıtılır.",
+      "hap": "Mizan yalnız borç toplamı = alacak toplamı eşitliğini denetler; yanlış hesaba doğru tutarla yapılan kayıt bu eşitliği bozmadığı için hiçbir mizan türünde görünmez.",
       "satirlar": [
         [
-          "Toplam defter değeri (arsa + inşaat harcamaları)",
-          "1.470.000"
+          "A) Genel geçici mizan, hatalı kayda rağmen borç ve alacak t…",
+          "p.mizan sınırı"
         ],
         [
-          "Değerleme farkı (1.610.000 - 1.470.000)",
-          "140.000"
+          "B) Kesin mizan, envanter işlemlerinden önce düzenlenen miza…",
+          "p.mizan türleri"
         ],
         [
-          "649 Diğer Olağan Gelir ve Kârlar hesabına alacak kaydedilecek tutar",
-          "140.000"
+          "C) Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını…",
+          "p.mizan sınırı"
+        ],
+        [
+          "D) Mali tablolar genel geçici mizandan düzenlenir, çünkü bu…",
+          "p.mizan türleri"
+        ],
+        [
+          "E) Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizan…",
+          "p.mizan türleri"
         ]
       ],
-      "dayanak": "TMS 40 p.65",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=9",
+      "dayanak": "Muhasebe süreci ve mizan türleri - ders kitabı bilgisi (mizan sınırı ve genel geçici/kesin mizan ayrımı)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -23,
+        "kalan_gun": -24,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,71 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 3,
+      "sira": 4,
       "toplam": 9,
-      "id": "smmm-4k-a-ydenetim-kolay-r10/kp-02",
-      "ders": "Muhasebe Denetimi",
-      "konu": "etik ilkeler",
-      "donem": 8,
+      "id": "smmm-4k-a-ymeslek-kolay-r4/kp-02",
+      "ders": "Meslek Hukuku",
+      "konu": "meslekten çıkarma cezası",
+      "donem": 6,
       "teori": true,
       "rakamSik": false,
-      "soru": "TÜRMOB Etik İlkeler Yönetmeliği EK'inin 1 inci maddesinde düzenlenen gizlilik ilkesi uyarınca, meslek mensubunun mesleki ilişkisi sonucunda öğrendiği bilgiyi üçüncü kişiye açıklaması kural olarak yasaktır. Aşağıdaki durumlardan hangisinde yapılan açıklama gizlilik ilkesine aykırılık oluşturmaz?",
+      "soru": "Serbest muhasebeci mali müşavir Ahmet, mükellefiyle birlikte kasten vergi ziyaına sebebiyet vermiş ve bu husus mahkeme kararı ile kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre Ahmet hakkında hangi disiplin cezası uygulanır?",
       "siklar": {
-        "A": "Meslek mensubu, bilgiyi açıklamasını gerektiren kanuni bir hak veya görevi bulunduğu için, yetkili bir merciin talebi üzerine paylaşmıştır.",
-        "B": "Meslek mensubu, müşterisinin ticari sırlarını yeni bir iş teklifi alma umuduyla rakip firmaya aktarmıştır.",
-        "C": "Meslek mensubu, edindiği mali bilgileri kendi kişisel yatırım kararlarında kullanarak çıkar sağlamıştır.",
-        "D": "Meslek mensubu, bir müşterisine ait bilgileri başka bir müşterisiyle yaptığı kıyaslama sohbetinde örnek olarak paylaşmıştır.",
-        "E": "Meslek mensubu, mesleki ilişkisi sona erdikten sonra da eski müşterisine ait bilgileri sosyal ortamda anlatmaya devam etmiştir."
+        "A": "Uyarma",
+        "B": "Kınama",
+        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
+        "D": "Yeminli sıfatını kaldırma",
+        "E": "Meslekten çıkarma"
       },
-      "dogru": "A",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Kişisel Kullanım Tuzağı",
-          "metin": "öğrenci 'üçüncü kişiye açıklanmadı, kendisi kullandı' diye ilkeyi ihlal edilmemiş sanır. Doğrusu: madde, bilginin yalnız üçüncü kişiye açıklanmasını değil, üçüncü kişi VEYA kendi çıkarı için kullanılmasını da yasaklar; …"
+          "ad": "Geçici Alıkoyma Tuzağı",
+          "metin": "Öğrenci bunu, tasdik yetkisinin gerçeğe aykırı kullanıldığının Maliye Bakanlığınca ilk tespiti hâlindeki cezayla karıştırıyor; o kural yalnız yeminli mali müşavirlere ve farklı bir fiile ilişkindir. Doğrusu: kasten verg…"
         },
-        "E": {
-          "ad": "Süre Sınırı Tuzağı",
-          "metin": "öğrenci 'ilişki bitti, artık gizlilik de biter' diye düşünür. Doğrusu: gizlilik yükümlülüğü mesleki ilişkinin sona ermesinden sonra da devam eder; ilişki bittikten sonraki açıklama da ihlaldir."
+        "A": {
+          "ad": "Uyarma Tuzağı",
+          "metin": "Öğrenci bu cezayı 'mesleğin vakar ve onuruna aykırı ilk fiil' kuralıyla karıştırıyor. Doğrusu: mükellefle birlikte kasten vergi ziyaına sebebiyet verilip mahkeme kararı kesinleşmesi hali doğrudan meslekten çıkarmayı ger…"
         },
         "D": {
-          "ad": "Karşılaştırma Amacı Tuzağı",
-          "metin": "öğrenci 'meslek içi bir konuşma, kötü niyet yok' diye bunu istisna sanır. Doğrusu: amaç ne olursa olsun, açıklamayı gerektiren bir hak veya görev yoksa bilginin başka bir müşteriyle paylaşılması ihlaldir."
+          "ad": "Yeminli Sıfatını Kaldırma Tuzağı",
+          "metin": "Öğrenci bunu, tasdik yetkisinin gerçeğe aykırı kullanılmasının tekerrür edip mahkeme kararıyla kesinleşmesi hâlindeki cezayla karıştırıyor; bu ceza yalnız yeminli mali müşavire ve tasdik fiiline özgüdür. Doğrusu: burada…"
         },
         "B": {
-          "ad": "Rekabet Çıkarı Tuzağı",
-          "metin": "öğrenci burada 'bilgi paylaşılmış ama iş teklifi almak için' diye düşünüp bunu meşru bir gerekçe sanır. Doğrusu: kişisel/ticari menfaat, gizliliği kaldıran bir hak veya görev değildir; bu açıklama ihlaldir."
+          "ad": "Kınama Tuzağı",
+          "metin": "Öğrenci 'ilk defasında uyarma, tekrarında kınama' kuralını bu olaya uyguluyor; oysa bu kural vakar ve onura aykırı genel davranışlar içindir. Doğrusu: kasten vergi ziyaı fiilinde tekerrür şartı aranmaz, doğrudan meslekt…"
         }
       },
-      "hap": "Gizlilik ilkesi, açıklamayı gerektiren bir hak veya görev bulunmadıkça hem üçüncü kişiye açıklamayı hem de kendi çıkarı için kullanmayı yasaklar ve mesleki ilişki sona erse bile devam eder.",
+      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararı ile kesinleşen meslek mensubuna, tekerrür şartı olmaksızın doğrudan meslekten çıkarma cezası verilir.",
       "satirlar": [
         [
-          "A) Meslek mensubu, bilgiyi açıklamasını gerektiren kanuni b…",
-          "EK m.1/1-ç"
+          "A) Uyarma",
+          "p.48/2"
         ],
         [
-          "B) Meslek mensubu, müşterisinin ticari sırlarını yeni bir i…",
-          "EK m.1/1-ç"
+          "B) Kınama",
+          "p.48/2"
         ],
         [
-          "C) Meslek mensubu, edindiği mali bilgileri kendi kişisel ya…",
-          "EK m.1/1-ç"
+          "C) Geçici olarak mesleki faaliyetten alıkoyma",
+          "p.48/3-4"
         ],
         [
-          "D) Meslek mensubu, bir müşterisine ait bilgileri başka bir …",
-          "EK m.1/1-ç"
+          "D) Yeminli sıfatını kaldırma",
+          "p.48/4"
         ],
         [
-          "E) Meslek mensubu, mesleki ilişkisi sona erdikten sonra da …",
-          "EK m.1/1-ç"
+          "E) Meslekten çıkarma",
+          "p.48/5"
         ]
       ],
-      "dayanak": "TÜRMOB Etik İlkeler Yönetmeliği EK, GİRİŞ ve m.1/1-ç (Gizlilik)",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=3",
+      "dayanak": "3568 sayılı SMMM ve YMM Kanunu m.48, fıkra 5",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=4",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -17,
+        "kalan_gun": -18,
         "durum": "DONGU",
         "mail_gunu": false
       },
