@@ -3845,6 +3845,29 @@ begin
 end $function$
 ;
 
+-- yonetim_cihaz_sifirla(text,text)
+CREATE OR REPLACE FUNCTION public.yonetim_cihaz_sifirla(p_eposta text, p_neden text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v_ep text := lower(trim(coalesce(p_eposta, ''))); v_uid uuid; v_silinen int := 0;
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  if length(trim(coalesce(p_neden, ''))) < 3 then raise exception 'NEDEN_GEREKLI'; end if;
+  select id into v_uid from auth.users where lower(email) = v_ep limit 1;
+  if v_uid is null then raise exception 'HESAP_YOK'; end if;
+  delete from public.uye_cihazlar where user_id = v_uid;
+  get diagnostics v_silinen = row_count;
+  delete from public.uye_ekran where user_id = v_uid;
+  if v_silinen = 0 then raise exception 'CIHAZ_YOK'; end if;
+  insert into public.uye_islem_kutugu (user_id, eposta, islem, neden, yapan)
+  values (v_uid, v_ep, 'cihaz_sifirla', left(trim(p_neden), 280) || ' · ' || v_silinen || ' cihaz', auth.uid());
+  return jsonb_build_object('eposta', v_ep, 'silinen', v_silinen);
+end $function$
+;
+
 -- yonetim_ders_hediye(text,text[],date,text,text,boolean)
 CREATE OR REPLACE FUNCTION public.yonetim_ders_hediye(p_eposta text, p_dersler text[], p_bitis date, p_neden text, p_elci text DEFAULT NULL::text, p_zorla boolean DEFAULT false)
  RETURNS jsonb
@@ -4178,7 +4201,7 @@ declare v_bas timestamptz := now() - make_interval(days => least(greatest(coales
 begin
   if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
   return coalesce((select jsonb_agg(e order by z desc) from (
-    select x.zaman z, jsonb_build_object('zaman', x.zaman, 'tur', case x.islem when 'iptal' then 'Üyelik iptal' else 'Giriş engeli kaldırıldı' end,
+    select x.zaman z, jsonb_build_object('zaman', x.zaman, 'tur', case x.islem when 'iptal' then 'Üyelik iptal' when 'cihaz_sifirla' then 'Cihazlar sıfırlandı' else 'Giriş engeli kaldırıldı' end,
              'eposta', x.eposta, 'ayrinti', concat_ws(' · ', nullif(x.neden, ''), case when x.engel then 'girişi engellendi' end,
                case when x.paket_kapanan > 0 then x.paket_kapanan || ' paket kapandı' end,
                case when coalesce(array_length(x.iade_siparis, 1), 0) > 0 then array_to_string(x.iade_siparis, ', ') || ' iade' end),
@@ -4763,6 +4786,33 @@ begin
                   from public.uye_islem_kutugu x where x.user_id = au.id), '[]'::jsonb)
   ) into v;
   return v;
+end $function$
+;
+
+-- yonetim_uye_cihazlar(text)
+CREATE OR REPLACE FUNCTION public.yonetim_uye_cihazlar(p_eposta text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+declare v_ep text := lower(trim(coalesce(p_eposta, ''))); v_uid uuid; v_cikan int; v_ilk timestamptz;
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  select id into v_uid from auth.users where lower(email) = v_ep limit 1;
+  if v_uid is null then raise exception 'HESAP_YOK'; end if;
+  select count(*), min(zaman) into v_cikan, v_ilk from public.uye_cihaz_olay
+   where user_id = v_uid and olay = 'cikarildi' and zaman > now() - interval '30 days';
+  return jsonb_build_object(
+    'sinir', 3,
+    'cikarma_hakki', greatest(0, 2 - v_cikan),
+    'hak_acilis', case when v_cikan >= 2 then v_ilk + interval '30 days' end,
+    'sinir_7g', (select count(*) from public.uye_cihaz_olay
+                  where user_id = v_uid and olay = 'sinir' and zaman > now() - interval '7 days'),
+    'son_sinir', (select max(zaman) from public.uye_cihaz_olay where user_id = v_uid and olay = 'sinir'),
+    'cihazlar', coalesce((select jsonb_agg(jsonb_build_object('etiket', c.etiket, 'ilk_gorulme', c.ilk_gorulme,
+                    'son_gorulme', c.son_gorulme) order by c.son_gorulme desc)
+                  from public.uye_cihazlar c where c.user_id = v_uid), '[]'::jsonb));
 end $function$
 ;
 
