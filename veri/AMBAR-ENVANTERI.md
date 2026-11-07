@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **08.11.2026 02:11** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **08.11.2026 02:34** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 51959 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 416; son ölçüm: 07.11.2026) | Sürüm ölçülen: 47 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
+**ÖZET:** 51958 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 416; son ölçüm: 07.11.2026) | Sürüm ölçülen: 47 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -433,7 +433,7 @@
 | Çevre K. (2872 s.K.) | kanun-madde | 99 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Dahilde İşleme Rejimi Kararı (2005/8391) | kanun-madde | 87 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Dahilde İşleme Rejimi Tebliği (İhracat 2006/12) | kanun-madde | 141 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Damga V.K. (488 s.K.) | kanun-madde | 83 | DELİK-İNCELE(par:2/kesik:16/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Damga V.K. (488 s.K.) | kanun-madde | 82 | DELİK-İNCELE(par:2/kesik:16/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 43) | kanun-madde | 13 | DELİK-İNCELE(par:0/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 46) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 47) | kanun-madde | 5 | DELİK-İNCELE(par:0/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2276,7 +2276,7 @@
 | TBK (6098 s.K.) | kanun-madde | 652 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TCK (5237 s.K.) | kanun-madde | 383 | DELİK-İNCELE(par:5/kesik:1/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TCMB K. (1211 s.K.) | kanun-madde | 103 | DELİK-İNCELE(par:8/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Tebligat K. (7201 s.K.) | kanun-madde | 68 | DELİK-İNCELE(par:3/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Tebligat K. (7201 s.K.) | kanun-madde | 67 | DELİK-İNCELE(par:3/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teknoloji Gel. Bölg. K. (4691 s.K.) | kanun-madde | 41 | DELİK-İNCELE(par:210/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teminatli Menkul Kiymetler Tebligi (III-59.1) | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TFRS 1 | standart-madde | 159 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
@@ -2616,7 +2616,7 @@
 | TSRS Uygulama Kapsamina Iliskin Usul ve Esaslar (RG 16.07.2025-32957) | kanun-madde | 25 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TTK (6102 s.K.) | kanun-madde | 1596 | DELİK-İNCELE(par:20/kesik:2/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Payı K. (7183 s.K.) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Turizm Teşvik K. (2634 s.K.) | kanun-madde | 90 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Turizm Teşvik K. (2634 s.K.) | kanun-madde | 91 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Türkiye Serbest Muhasebeci Mali Müşavirler ve Yeminli Mali Müşavirler Odaları Birliği Yönetmeliği (RG 11.06.1990/20545; son değ. RG 14.01.2026/33137) | kanun-madde | 73 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Birlik Yön. | kanun-madde | 70 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Etik İlkeler Yön. | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
