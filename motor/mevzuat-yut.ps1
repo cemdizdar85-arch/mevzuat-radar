@@ -196,8 +196,81 @@ function BaslikSatirlari([string]$ham){
     if($onSatir -notmatch '[.;:!?\u2026\u201D"\u2019)\]]$' -and ($onSatir.Length + 1 + $ilkK.Length) -gt $gen){ continue }   # kaydirma
     if(KuyrukBaslikMi $L $onSatir){ [void]$kume.Add($L) }
   }
+  # 07.11.2026 A-11 SATIR BASI BASLIK (Cem "B yolu"): eski duzen kanunlarda baslik MADDE ile AYNI satirdadir ve satirin
+  #   BASINDAN baslar ("Kimlere Örnek verilebileceği: Madde 94 –"); bolum adlari ("DÖRDÜNCÜ BÖLÜM Örnek Verme") ustteki AYRI
+  #   satirlardadir. Bu satirin ':'den onceki son parcasi resmi basliktir -> kumeye [char]1 onekiyle eklenir (kuyruk tasima yolu
+  #   onekli ogeyi hic gormez; yalniz BaslikTemizle okur). Onceki satir sayfa genisliginde noktalamasiz bitiyorsa (kaydirma) alinmaz.
+  $satirRx = [regex]'^(?<b>[^:]{2,150}?(?::\s+[^:]{2,150}?)*):\s*(?:MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|MADDE|Madde)\s+\d+(?:/[A-ZÇĞİÖŞÜ])?\s*[-–‐-―−(:]'
+  #   Iki bicim (07.11 olculdu): A "Baslik: Madde N" ayni satir (pdftotext, mevzuat.gov.tr 07.11) · B "Baslik:" satiri + alt satir
+  #   "Madde N" (veri/mevzuat-hazir, yerel indirici). Baslik iki satira bolunmusse yalniz ikinci yarisi gelir ("...bedelin / tespiti:")
+  #   -> onceki satir noktalamayla bitmeli, BUYUK harf bolum kelimesi tasimali, Baslik Duzeninde (bolum adi) olmali ya da tek dipnot
+  #   numarasi olmali; degilse TEYIT YOK (BaslikTemizle kurallarina duser).
+  for($j=0; $j -lt $sat.Count; $j++){
+    $bb = $null
+    $mm = $satirRx.Match($sat[$j])
+    if($mm.Success){ $bb = ((@($mm.Groups['b'].Value -split ':\s+'))[-1]).Trim() }
+    elseif($sat[$j].EndsWith(':') -and $sat[$j].Length -le 150){
+      $k = $j+1; while($k -lt $sat.Count -and -not $sat[$k]){ $k++ }
+      if($k -lt $sat.Count -and $maddeRx.IsMatch($sat[$k])){ $bb = ((@($sat[$j].TrimEnd(':') -split ':\s+'))[-1]).Trim() }
+    }
+    if(-not $bb){ continue }
+    $sonNok = '[.;:!?"' + [char]0x2026 + [char]0x201D + [char]0x2019 + ')\]]$'   # (akilli tirnak dizgiye YAZILMAZ: PS 5.1 dizgiyi kapatir)
+    if($bb.Length -lt 2 -or $bb -match ('[.;!?' + [char]0x2026 + ']$')){ continue }
+    $onIx = $j-1; while($onIx -ge 0 -and -not $sat[$onIx]){ $onIx-- }
+    if($onIx -ge 0 -and $sat[$onIx] -notmatch $sonNok -and ($sat[$onIx].Length + 1 + (($bb -split ' ')[0]).Length) -gt $gen){ continue }   # kaydirma
+    if($onIx -ge 0 -and "$($env:YUT_MUTASYON)" -ne 'onsatir-yok'){
+      $on = $sat[$onIx]; $kel2 = @($on -split ' ' | Where-Object { $_ -and $_ -notmatch '^(ve|ile|veya|ya|da|de)$' })
+      $baslikDuzeni = ($kel2.Count -ge 1 -and $kel2.Count -le 12 -and -not @($kel2 | Where-Object { $_ -cnotmatch '^[\p{Lu}\d(]' }).Count)
+      if(-not ($on -match $sonNok -or $on -cmatch '(BÖLÜM|KISIM|KİTAP|KESİM|FASIL|AYIRIM)' -or $baslikDuzeni -or $on -match '^\d{1,3}$')){ continue }
+    }
+    [void]$kume.Add([string][char]1 + $bb)
+  }
   return ,$kume
 }
+# --- 07.11.2026 A-11 BASLIK TEMIZLEME (Cem "B yolu"; is emri veri/sinav/YET-S20-ALTYAPI-ISLERI.md A-11) ---
+# NEDEN (olculdu 07.11, ambar 50.682 madde/paragraf kaydi): kaynak adlarinin 659'unda artik vardi - bolum adi yapismis 276
+#   ("KDVK m.39 - İKİNCİ BÖLÜM Vergilendirme Dönemi ve Beyan Esası Vergilendirme dönemi"), dipnot rakami 13 ("Tarh8"), kesik bolum
+#   kelimesi ("ISIM Çeşitli Hükümler ..."). pre deseni bolum satirini cumle saymadigi icin basliga katiyordu. Onceki madde cumlesi
+#   ("Maliye Bakanlığı yetkilidir. Harcın nispeti") 31.10 deseniyle zaten kesiliyor; ambardakiler o tarihten once yutulmustu.
+# KURAL (sirayla): (1) harfe yapisik 1-3 haneli dipnot rakami silinir · (2) resmi satir duzeni: basligin bir son eki BaslikSatirlari'ndaki
+#   satir basi basligiyla ayniysa O alinir (tek kelime dahil; tahmin yok) · (3) bolum kelimesi (BÖLÜM/KISIM/KİTAP/KESİM/FASIL/AYIRIM,
+#   BUYUK harf) ya da kesik bolum parcasi yoksa baslik AYNEN kalir · (4) son bolum kelimesinden sonrasi geri taranir: sondan kucuk harfli
+#   kelimeler + ilk buyuk harfli kelime; onundeki "A)", "II.", "III –" isareti ATLANIR (31.10: ad numarasiz) · (5) BELIRSIZ ise baslik YAZILMAZ ("yanlis baslik,
+#   baslik yoklugundan kotudur", 17.08): onundeki kelime yonelme/ilgi ekliyse ("Kimlere Örnek verilebileceği") ya da baslik ilgi ekli
+#   kelimeyle basliyor ve onunde buyuk harfli kelime varsa ("Dışişleri Bakanlığının yetkisi"). Tek kelimelik baslik (A-11 INCELE 143)
+#   satir duzeni teyidi yoksa yalniz bu iki belirsizlik yoksa kabul edilir ("Matrah ve Nispet Matrah" -> "Matrah").
+# BU KURAL SUNU GORMEZ: 70 kr'yi asan bolum+baslik (pre bastan kesik gelir) · bolum adinin kucuk harfle yazildigi metin ·
+#   yeni duzen (baslik MADDE ustundeki satirda) kanunda kaynak_ad - o yol 06.10 kuyruk tasimasidir, baslik alanina gider ·
+#   ilgi ekli gibi biten ama ek olmayan kelime ("Kanun hükümleri") satir teyidi yoksa basliksiz kalir (kayip degil, ad kisalir).
+# Mutasyon (oz-sinav): $env:YUT_MUTASYON = dipnot-yok | satir-yok | bolum-yok | tek-kabul
+function BaslikTemizle([string]$b, $satirlar){
+  $t = ("$b" -replace '\s+',' ').Trim(); if(-not $t){ return '' }
+  $mut = "$($env:YUT_MUTASYON)"
+  if($mut -ne 'dipnot-yok'){ $t = ([regex]::Replace($t, '(?<=[\p{L})])\d{1,3}(?=\s|$)', '') -replace '\s+',' ').Trim() }
+  $isaret = '^(?:\p{Lu}{1,2}\)|\(?\p{Ll}{1,2}\)|[IVXLC]+[.\-–]|\d+[.)]|[–-])$'
+  if($mut -ne 'satir-yok' -and $null -ne $satirlar -and $satirlar.Count){
+    $kel = @($t -split ' ')
+    for($w = $kel.Count; $w -ge 1; $w--){ $aday = ($kel[($kel.Count-$w)..($kel.Count-1)]) -join ' '; if($satirlar.Contains([string][char]1 + $aday)){ return $aday } }
+  }
+  $bm = [regex]::Matches($t, '(?<![\p{L}])(?:\p{Lu}+\s+)?(?:BÖLÜM|KISIM|KİTAP|KESİM|FASIL|AYIRIM)(?:\s*[–-]?\s*(?:[IVXLC]+|\d+))?(?![\p{L}])')
+  $kesik = $t -cmatch '^(?:ISIM|SIM|IM|NCI|NCİ|NCU|NCÜ|\p{Lu}{1,6}(?:NCI|NCİ|NCU|NCÜ))\s'
+  if($mut -eq 'bolum-yok' -or (-not $bm.Count -and -not $kesik)){ return $t }
+  $kalan = if($bm.Count){ $s0 = $bm[$bm.Count-1]; $t.Substring($s0.Index + $s0.Length).Trim() } else { ($t -creplace '^\S+\s+','').Trim() }
+  if(-not $kalan){ return '' }
+  $tk = @($kalan -split ' '); $i = $tk.Count - 1; $al = New-Object System.Collections.Generic.List[string]
+  while($i -ge 0){ $x = $tk[$i]; $al.Insert(0, $x); $i--; if($x -cmatch '^\p{Lu}'){ break } }
+  # onundeki numara isareti ("A)", "II.", "III –", "3.") basliga KATILMAZ, atlanir: 31.10 kurali "AD ve baslik alani numarasiz yazilir"
+  if($i -ge 0 -and $tk[$i] -cmatch $isaret -and $tk[$i] -notmatch '^[–-]$'){ $i-- }
+  elseif($i -ge 1 -and $tk[$i] -match '^[–-]$' -and $tk[$i-1] -cmatch '^(?:[IVXLC]+|\d+)$'){ $i -= 2 }
+  $onceki = if($i -ge 0){ $tk[$i] } else { '' }
+  $ana = @($al | Where-Object { $_ -cnotmatch $isaret })
+  if($mut -ne 'tek-kabul' -and $onceki){
+    if($onceki -match '(lere|lara|nin|nın|nun|nün|ine|ına|une|üne)$'){ return '' }
+    if($onceki -cmatch '^\p{Lu}' -and $ana.Count -and $ana[0] -match '(ın|in|un|ün)$'){ return '' }
+  }
+  return (($al -join ' ').Trim())
+}
+
 function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url, $baslikSatirlari = $null){
   # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde
   # numarasindan HEMEN SONRA tire bekliyordu. Ama bazi metinlerde degisiklik
@@ -329,6 +402,7 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url, $baslikSati
     # 31.10: baslik "1. Umuma arz salahiyeti" gibi sayi numarasiyla baslayabilir (desende izin verildi; metin kendi maddesinde
     #   kalir). AD ve baslik alani numarasiz yazilir - eski adlar ("m.14 - Umuma arz salahiyeti") degismesin.
     $pre = $pre -replace '^\d{1,2}[.)]\s+',''
+    if($pre){ $pre = BaslikTemizle $pre $baslikSatirlari }   # 07.11 A-11: bolum adi / dipnot rakami / satir duzeni
     if($pre -and -not (BaslikGecerli $pre)){ $pre = '' }
     $ad = if($pre){ "$kanunAd $md - $pre" } else { "$kanunAd $md" }
 
@@ -482,7 +556,7 @@ function BagKarari($ambarAdlar, $yeniAdlar, $dizin, [bool]$tasiIzni){
   $kopan = @(@($ambarAdlar) | Where-Object { -not $yeni.Contains("$_") } | Select-Object -Unique)
   $r = [ordered]@{ karar='serbest'; kopan=$kopan.Count; bagli=@(); kayit=0; esleme=[ordered]@{}; eslesmeyen=@(); neden='' }
   if(-not $kopan.Count){ return [pscustomobject]$r }
-  if($dizin -is [scriptblock]){ $dizin = & $dizin }
+  if($dizin -is [scriptblock]){ $dizin = & $dizin $(if("$($env:YUT_MUTASYON)" -eq 'dizin-hepsi'){ $null } else { $kopan }) }   # 07.11: dizine YALNIZ kopan adlar sorulur
   $bagli = @($kopan | Where-Object { $dizin.ContainsKey("$_") }); $r.bagli = $bagli
   foreach($a in $bagli){ $r.kayit += ($dizin["$a"]).Count }   # @() YOK: List[string] tr-TR PS 5.1'de patlar (K3)
   if(-not $bagli.Count){ $r.neden = "kopan $($kopan.Count) adin hicbirine soru bagli degil"; return [pscustomobject]$r }
@@ -492,8 +566,29 @@ function BagKarari($ambarAdlar, $yeniAdlar, $dizin, [bool]$tasiIzni){
   if($r.eslesmeyen.Count){ $r.karar = 'dur'; $r.neden = "$($r.eslesmeyen.Count) bagli ad yeni ciktida eslesmiyor"; return [pscustomobject]$r }
   $r.karar = 'tasi'; return [pscustomobject]$r
 }
-# kalip_parti (SMMM/SGS/KGK) -> { kaynak_ad: [ "SINAV etiket/kp", ... ] }; kosu basina BIR kez indirilir (yalniz kopan ad varsa)
-function BagDizini($Hb){
+# kalip_parti (SMMM/SGS/KGK) -> { kaynak_ad: [ "SINAV etiket/kp", ... ] }
+# 07.11.2026 A-11 BELLEK (Cem onayi): eski yol tum partileri PS 5.1'de ayristirip butun adlarin dizinini kuruyordu (07.11: 32.637 satir,
+#   ~445 MB; pilot yutmada makine bellegi kritik dustu, is ambara yazmadan durduruldu). Artik YALNIZ sorulan (kopan) adlar node ile
+#   aranir (arac/bag-dizini.js, sayfa sayfa okur, yalniz istenen adi tutar). Sonuc kosu boyunca birikir; ayni ad ikinci kez sorulmaz.
+#   node yoksa / dusers throw -> cagiran try "dur" der (kor = dur, kaynak YAZILMAZ). Eski tam-dizin yolu yalniz $adlar verilmezse kalir.
+# BU ISLEV SUNU GORMEZ: bag-dizini.js'in kendi suzgeci (o aracin oz-sinavi) · okuma sirasinda yazilan parti.
+function BagDizini($Hb, $adlar = $null){
+  if($null -ne $adlar){
+    if(-not $script:BAG_DIZIN){ $script:BAG_DIZIN = @{} }
+    if(-not $script:BAG_SORULAN){ $script:BAG_SORULAN = New-Object 'System.Collections.Generic.HashSet[string]' }
+    $yeniAd = @(@($adlar) | ForEach-Object { "$_" } | Where-Object { $_ -and -not $script:BAG_SORULAN.Contains($_) } | Select-Object -Unique)
+    if($yeniAd.Count){
+      $gecD = Join-Path ([IO.Path]::GetTempPath()) ("bag-dizini-" + [guid]::NewGuid().ToString('N').Substring(0,8))
+      [IO.File]::WriteAllText("$gecD-adlar.json", (ConvertTo-Json -InputObject @($yeniAd) -Depth 2 -Compress), (New-Object Text.UTF8Encoding($false)))
+      $null = & node (Join-Path (Join-Path $kok 'arac') 'bag-dizini.js') --adlar "$gecD-adlar.json" --cikti "$gecD-dizin.json"
+      if($LASTEXITCODE -ne 0 -or -not (Test-Path "$gecD-dizin.json")){ throw "bag-dizini.js dustu (kod $LASTEXITCODE) - kor = dur" }
+      $dj = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText("$gecD-dizin.json", [Text.Encoding]::UTF8))
+      foreach($p in $dj.PSObject.Properties){ $L2 = New-Object System.Collections.Generic.List[string]; foreach($x in @($p.Value)){ $L2.Add("$x") }; $script:BAG_DIZIN[$p.Name] = $L2 }
+      foreach($a in $yeniAd){ [void]$script:BAG_SORULAN.Add($a) }
+      Remove-Item "$gecD-adlar.json","$gecD-dizin.json" -ErrorAction SilentlyContinue
+    }
+    return $script:BAG_DIZIN
+  }
   if($script:BAG_DIZIN){ return $script:BAG_DIZIN }
   $d = @{}
   for($ofs = 0; ; $ofs += 40){
@@ -602,6 +697,43 @@ if($OzSinav){
     @{ ad='Gelen baslik parca sayisini BOZMAZ: ~1.780 kr govde tek parca kalir, ad [1/2] almaz'
        metin=("MADDE 1 – (1) Kisa ama yeterince uzun bir ilk madde govdesi vardir ve ayri kayit olur. Uzun başlık burada yer alan bölüm hükümleri MADDE 2 – (1) $uzun")
        kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.2' }).Count -eq 1 -and $c[1].metin.StartsWith('Uzun başlık') } }
+    # 07.11 A-11 BASLIK TEMIZLEME vakalari (BaslikTemizle). Dolgu: BaslikSatirlari 20 satirdan az metinde kume kurmaz.
+    @{ ad='A-11 satir duzeni: "Kimlere Örnek verilebileceği" satir basindan -> bolum adi atilir, baslik TAM'
+       ham=(@(1..20 | ForEach-Object { "Dolgu satiri $_ burada yer alir ve nokta ile biter." }) + @('Önceki hüküm: Madde 93 – Bu bölümdeki hükümler mühür ve tarih onayında da kıyasen uygulanır.','DÖRDÜNCÜ BÖLÜM Örnek Verme','Kimlere Örnek verilebileceği: Madde 94 – Noterler tarafından yapılan işlemlerin örnekleri ancak ilgililerine verilir.') -join "`n")
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.94 - Kimlere Örnek verilebileceği' }).Count -eq 1 } }
+    @{ ad='A-11 satir teyidi YOK + onundeki kelime yonelme ekli ("Kimlere") -> BASLIK YAZILMAZ'
+       metin='Madde 6 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir. DÖRDÜNCÜ BÖLÜM Örnek Verme Kimlere Örnek verilebileceği: Madde 94 – Noterler tarafından yapılan işlemlerin örnekleri ancak ilgililerine verilir.'
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.94' }).Count -eq 1 } }
+    @{ ad='A-11 tek kelimelik baslik: "ÜÇÜNCÜ BÖLÜM Matrah ve Nispet Matrah" -> "Matrah"'
+       metin='Madde 6 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir. ÜÇÜNCÜ BÖLÜM Matrah ve Nispet Matrah: Madde 7 – Bina vergisinin matrahı bu Kanuna göre belirlenen vergi değeridir ve uygulanır.'
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.7 - Matrah' }).Count -eq 1 } }
+    @{ ad='A-11 bolum adi + dipnot: "İKİNCİ BÖLÜM İkmalen Resen Tarh8 İkmalen vergi tarhı" -> "İkmalen vergi tarhı"'
+       metin='Madde 6 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir. İKİNCİ BÖLÜM İkmalen Resen Tarh8 İkmalen vergi tarhı: Madde 29 – Vergi kanunlarına göre tarh edilen vergi matrahının eksikliği halinde ikmalen tarh yapılır.'
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.29 - İkmalen vergi tarhı' }).Count -eq 1 } }
+    @{ ad='A-11 yalniz dipnot rakami: "Mal bildiriminde bulunacaklar1" -> rakam silinir'
+       metin='Madde 1 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir. Mal bildiriminde bulunacaklar1: Madde 2 – Aşağıda yazılı kimseler mal bildiriminde bulunmak zorundadır ve bu hüküm uygulanır.'
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.2 - Mal bildiriminde bulunacaklar' }).Count -eq 1 } }
+    @{ ad='A-11 satir teyidi YOK + ilgi ekli baslangic ("Dışişleri Bakanlığının yetkisi") -> BASLIK YAZILMAZ'
+       metin='Madde 79 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir. BEŞİNCİ BÖLÜM Çeşitli Hükümler Dışişleri Bakanlığının yetkisi: Madde 80 – Konsolosluk harçlarının tarifesi Dışişleri Bakanlığınca belirlenir ve uygulanır.'
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.80' }).Count -eq 1 } }
+    @{ ad='A-11 satir teyidi VAR: "Dışişleri Bakanlığının yetkisi" TAM alinir'
+       ham=(@(1..20 | ForEach-Object { "Dolgu satiri $_ burada yer alir ve nokta ile biter." }) + @('Önceki hüküm: Madde 79 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir.','BEŞİNCİ BÖLÜM Çeşitli Hükümler','Dışişleri Bakanlığının yetkisi: Madde 80 – Konsolosluk harçlarının tarifesi Dışişleri Bakanlığınca belirlenir ve uygulanır.') -join "`n")
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.80 - Dışişleri Bakanlığının yetkisi' }).Count -eq 1 } }
+    @{ ad='A-11 YANLIS ALARM YOK: temiz baslik ("Vergi ehliyeti", "B) Kat mülkiyeti kütüğü", "Ek 2 sayılı cetvel") AYNEN kalir'
+       metin='Vergi ehliyeti: Madde 9 – Vergi kanunlarının uygulanmasında ehliyet aranmaz ve bu hüküm herkese uygulanır. B) Kat mülkiyeti kütüğü: Madde 11 – Kat mülkiyeti kütüğü tapu idaresinde tutulur ve kayıtlar buna göre yapılır. Ek 2 sayılı cetvel: Madde 12 – Bu Kanuna ekli cetvel uygulanır ve tutarlar her yıl yeniden belirlenir.'
+       # BaslikTemizle temiz basliga DOKUNMAZ; "B) ..." / "Ek 2 ..." eskiden beri BaslikGecerli (iki harflik bas) ile basliksiz - davranis AYNEN
+       kontrol={ param($c) (($c | ForEach-Object { $_.kaynak_ad }) -join '|') -ceq 'SINAV m.9 - Vergi ehliyeti|SINAV m.11|SINAV m.12' -and
+         (BaslikTemizle 'B) Kat mülkiyeti kütüğü' $null) -ceq 'B) Kat mülkiyeti kütüğü' -and (BaslikTemizle 'Ek 2 sayılı cetvel' $null) -ceq 'Ek 2 sayılı cetvel' -and
+         (BaslikTemizle 'Birinci kısım hükümleri' $null) -ceq 'Birinci kısım hükümleri' -and (BaslikTemizle 'TFRS 9 uygulaması' $null) -ceq 'TFRS 9 uygulaması' } }
+    @{ ad='A-11 bicim B ("Baslik:" satiri + alt satir "Madde N", veri/mevzuat-hazir): "Birliğin kuruluş ve nitelikleri" TAM'
+       ham=(@(1..20 | ForEach-Object { "Dolgu satiri $_ burada yer alir ve nokta ile biter." }) + @('BİRİNCİ BÖLÜM','Genel Hükümler','Birliğin kuruluş ve nitelikleri:','Madde 109 – Türkiye Barolar Birliği bütün baroların katılmasıyla oluşan bir kuruluştur ve tüzel kişiliği vardır.') -join "`n")
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.109 - Birliğin kuruluş ve nitelikleri' }).Count -eq 1 } }
+    @{ ad='A-11 iki satira bolunmus baslik ("Tahmin edilen bedelin / tespiti:") -> yarim satir TEYIT SAYILMAZ, baslik TAM kalir'
+       ham=(@(1..20 | ForEach-Object { "Dolgu satiri $_ burada yer alir ve nokta ile biter." }) + @('Önceki hüküm: Madde 8 – İhale işlemleri bu Kanun hükümlerine göre yürütülür ve uygulanır.','Tahmin edilen bedelin','tespiti:','Madde 9 – İhale konusu işin tahmin edilen bedeli idarece tespit edilir ve gizli tutulur.') -join "`n")
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.9 - Tahmin edilen bedelin tespiti' }).Count -eq 1 } }
+    @{ ad='A-11 kesik bolum parcasi: "ISIM Çeşitli Hükümler Asgari randıman oranları" -> "Asgari randıman oranları"'
+       metin='Madde 55 – Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olarak yazilir. ISIM Çeşitli Hükümler Asgari randıman oranları: Madde 56 – Asgari randıman oranlarını belirlemeye Bakanlık yetkilidir ve bu hüküm uygulanır.'
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -ceq 'SINAV m.56 - Asgari randıman oranları' }).Count -eq 1 } }
   )
   $gecti = 0; $kaldi = 0
   foreach($s in $sinavlar){
@@ -681,6 +813,9 @@ if($OzSinav){
        kontrol={ param($k) $k.karar -eq 'tasi' -and $k.esleme['K m.45 - Kirli. Tarh zamanı'] -eq 'K m.45 - Tarh zamanı' } }
     @{ ad='BAG: BAG_TASI ama bagli madde yeni ciktida YOK (mulga dustu) -> DUR'; amb=@('K m.9 - Baska','K m.1'); yeni=@('K m.1'); tasi=$true; dz=$dz
        kontrol={ param($k) $k.karar -eq 'dur' -and @($k.eslesmeyen).Count -eq 1 } }
+    @{ ad='BAG (07.11 bellek): dizine YALNIZ kopan ad sorulur (degismeyen K m.1 sorulmaz) -> TASI'; amb=@('K m.45 - Kirli. Tarh zamanı','K m.1'); yeni=@('K m.45 - Tarh zamanı','K m.1'); tasi=$true
+       dz={ param($sorulan) if(@($sorulan).Count -ne 1 -or "$(@($sorulan)[0])" -cne 'K m.45 - Kirli. Tarh zamanı'){ throw 'dizine yanlis/eksik ad soruldu' }; @{ 'K m.45 - Kirli. Tarh zamanı' = $L } }
+       kontrol={ param($k) $k.karar -eq 'tasi' -and $k.esleme['K m.45 - Kirli. Tarh zamanı'] -eq 'K m.45 - Tarh zamanı' } }
     @{ ad='BAG: parca sayisi degisti ([1/2] -> tek) -> eslesmez, DUR'; amb=@('K m.45 - Kirli. Tarh zamanı'); yeni=@('K m.45 - Tarh zamanı [1/2]','K m.45 - Tarh zamanı [2/2]'); tasi=$true; dz=@{ 'K m.45 - Kirli. Tarh zamanı' = $L }
        kontrol={ param($k) $k.karar -eq 'dur' } }
   )
@@ -696,11 +831,11 @@ if($OzSinav){
   $dis = @($kimlikler | Where-Object { $kapsamL -notcontains (("$_" -split '-')[0]) })
   if(-not $dis.Count -and ($ta -join ' ') -ceq '--yaz e.json --yalniz k.json --kapsam smmm,sgs,kgk --cikti c.json'){ $gecti++; Write-Host '  OK    BAG KAPSAM: tasima argumanlari --kapsam smmm,sgs,kgk; SMMM/SGS/KGK kimliklerinin hicbiri kapsam disi degil' }
   else { $kaldi++; Write-Host ("  KALDI BAG KAPSAM: kapsam disi kalan kimlik {0} [{1}]" -f $dis.Count, ($ta -join ' ')) -ForegroundColor Red }
-  # mutasyon (kapi kurali 8): kapsam kosulu bozulunca oz-sinav KIRMIZI dusmeli
+  # mutasyon (kapi kurali 8): kapsam kosulu ve BaslikTemizle'nin bes kilit kosulu tek tek bozulunca oz-sinav KIRMIZI dusmeli
   if(-not "$($env:YUT_MUTASYON)"){
     # alt kosu AYNI kabukla (Windows powershell.exe / CI'da Linux pwsh); "kirmizi" = alt kosu gercekten "kaldi >0" yazdi (kabuk bulunamazsa sahte gecmez)
     $kabuk = (Get-Process -Id $PID).Path
-    foreach($mu in @('kapsam-yok','kapsam-dar')){
+    foreach($mu in @('kapsam-yok','kapsam-dar','dipnot-yok','satir-yok','bolum-yok','tek-kabul','onsatir-yok','dizin-hepsi')){
       $env:YUT_MUTASYON = $mu; $o = (& $kabuk -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath -OzSinav 2>&1 | Out-String); Remove-Item Env:YUT_MUTASYON -ErrorAction SilentlyContinue
       if($o -match 'OZ-SINAV: gecti \d+ - kaldi [1-9]'){ $gecti++; Write-Host ("  OK    MUTASYON {0} -> KIRMIZI" -f $mu) } else { $kaldi++; Write-Host ("  KALDI MUTASYON {0} yakalanmadi" -f $mu) -ForegroundColor Red }
     }
@@ -864,7 +999,7 @@ foreach($law in $manifest.kanunlar){
     $bk = $null
     try {
       $amb = AmbarAdlari "$($law.ad)" $H
-      $bk = BagKarari $amb @($docs | ForEach-Object { "$($_.kaynak_ad)" }) { BagDizini $H } ("$($env:BAG_TASI)" -eq '1')
+      $bk = BagKarari $amb @($docs | ForEach-Object { "$($_.kaynak_ad)" }) { param($sorulan) BagDizini $H $sorulan } ("$($env:BAG_TASI)" -eq '1')
       if($bk.karar -eq 'tasi'){
         $kosan = @(& (Join-Path (Join-Path $kok 'arac') 'bulut-kosan-etiketler.ps1') -Kati)   # okunamazsa throw -> catch -> dur
         $kosanBagli = @(foreach($a in $bk.esleme.Keys){ foreach($k in $script:BAG_DIZIN[$a]){ $e = ("$k" -split ' ')[1] -replace '/[^/]+$',''; if($kosan -contains $e){ $k } } })
