@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261106191845
+Start time: 20261107015701
 Username: runnervmwuk1x\runner
 RunAs User: runnervmwuk1x\runner
 Configuration Name: 
 Machine: runnervmwuk1x (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9347848c-16c4-4004-b183-831bd6e8fc88.ps1'
-Process ID: 2728
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/7b020108-49f7-4197-9aa1-00cb9c143c89.ps1'
+Process ID: 2794
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -17,12 +17,24 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 06-11-2026
-Kart sayisi  : 1
+RG gunu      : 07-11-2026
+Kart sayisi  : 5
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Sığır karkası sınıflandırmasında gözetim usulünde değişiklik
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261106191845
+End time: 20261107015701
 **********************
