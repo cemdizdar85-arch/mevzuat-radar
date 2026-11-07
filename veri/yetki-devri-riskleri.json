@@ -1,11 +1,11 @@
 {
-  "tarih": "07.11.2026 20:27",
+  "tarih": "07.11.2026 22:52",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 922,
   "riskli_madde": 1322,
   "sayfa": 82,
   "atifli_iddia": 315,
-  "dayanaksiz_iddia": 556,
+  "dayanaksiz_iddia": 557,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -3029,63 +3029,69 @@
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 122,
+      "satir": 127,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün · 7 deneme"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 141,
+      "satir": 146,
       "iddia": "%60",
       "metin": "0/5 %60 ve üstü"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 196,
+      "satir": 202,
       "iddia": "20 gün",
       "metin": "+(YET?'Sınava 20 gün kala. Paketini şimdi al; her dersin 1. denemesi o gün bu sayfada açılır, sonrakiler sırayla gelir.':'Paketini şimdi al; denemeler o gün bu sayfada hesabında aç"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 215,
+      "satir": 221,
       "iddia": "3 gün",
       "metin": "/* 31.10 tempo takvimi: 1–20 Kasım'a 7 deneme, 3 günde 1 (21 Kasım sınav günü). Gün İstanbul saatiyle. Üyede deneme başına biten ders. */"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 220,
+      "satir": 226,
       "iddia": "3 gün",
       "metin": "(3 günlük denemede ≈43 soru/gün; Deneme 7 iki gün). Üyede biten ders ✓. */"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 246,
+      "satir": 252,
       "iddia": "3 gün",
       "metin": "if(gun<1) ust='Önerilen tempo: 3 günde 1 deneme. 1 Kasım\\'da Deneme 1 ile başla; 20 Kasım\\'da 7\\'si biter, 21 Kasım sınav günü.';"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 320,
+      "satir": 333,
       "iddia": "%5",
       "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 423,
+      "satir": 453,
       "iddia": "20 Gün",
       "metin": "document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 424,
+      "satir": 454,
       "iddia": "20 Gün",
       "metin": "$('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true; $('takvim').hidden=true;"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 427,
+      "satir": 469,
       "iddia": "%60",
-      "metin": "$('soz').querySelector('.soz-s').innerHTML=' 0/8 şartı tamam ders 5 deneme her derste 3/5 %60 ve üstü gerekir ';"
+      "metin": "$('soz').querySelector('.soz-s').innerHTML=' '+tamamDers+'/'+hakSay+' şartı tamam ders 5 deneme her derste 3/5 %60 ve üstü gerekir ';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 472,
+      "iddia": "%60",
+      "metin": "gk.innerHTML=' Çalışma görevlerin %60\\'ın altında kaldığın denemenin konularını pekiştirme zamanı. Her konuda 4 yeni soru gelir; 3\\'ünü doğru yapınca konu tamamlanır. Görevler biti"
     },
     {
       "sayfa": "songun.html",
