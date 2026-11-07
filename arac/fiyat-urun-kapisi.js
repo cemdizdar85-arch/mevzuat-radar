@@ -53,11 +53,13 @@ function paketSinavlariYukle(metin) {
   return new Function('var SIRA = ' + sira[1] + ';\n' + fn[0] + '\nreturn paketSinavlari;')();
 }
 
-/* canlı tanım dökümünden s20_erisim() gövdesindeki tırnaklı paket kimlikleri; gövde yoksa null (KÖR) */
+/* canlı tanım dökümünden s20_erisim() gövdesindeki tırnaklı paket kimlikleri; gövde yoksa null (KÖR).
+   07.11: Yeterlilik denemeleri ayrı fonksiyonda (s20y_erisim, son20-yet); iki gövde birleşir, SGS gövdesi yoksa yine null. */
 function s20PaketleriYukle(sql) {
   const m = /-- s20_erisim\(\)\n([\s\S]*?)(?:\n-- |$)/.exec(sql || '');
   if (!m || !/paket_uyeler/.test(m[1])) return null;
-  return [...m[1].matchAll(/'([a-z0-9][a-z0-9-]*)'/g)].map((x) => x[1]);
+  const y = /-- s20y_erisim\(text\)\n([\s\S]*?)(?:\n-- |$)/.exec(sql || '');
+  return [...(m[1] + ((y && y[1]) || '')).matchAll(/'([a-z0-9][a-z0-9-]*)'/g)].map((x) => x[1]);
 }
 
 function yorumsuz(metin) {
@@ -161,7 +163,12 @@ function ozSinav() {
     && JSON.stringify(s20PaketleriYukle('-- a()\nselect \'son20-yet\';\n-- s20_erisim()\nselect 1 from public.paket_uyeler where p in (\'son20-sgs\');\n-- b()\nselect \'son20-yet\';')) === '["son20-sgs"]';
   if (!okS20) kir++;
   console.log((okS20 ? 'GEÇTİ  ' : 'KALDI  ') + 'V16 canlı s20_erisim dökümü okundu (' + s20.join(',') + '), komşu fonksiyon karışmıyor');
-  const T = V.length + 2;
+  /* V17 (07.11): Yeterlilik paketi ayrı fonksiyondan okunur; SGS gövdesi yoksa liste yine null (KÖR) */
+  const okY = JSON.stringify(s20PaketleriYukle('-- s20_erisim()\nselect 1 from public.paket_uyeler where p in (\'son20-sgs\');\n-- s20y_erisim(text)\nselect 1 from public.paket_uyeler where p in (\'son20-yet\');\n-- b()\nselect \'x\';')) === '["son20-sgs","son20-yet"]'
+    && s20PaketleriYukle('-- s20y_erisim(text)\nselect 1 from public.paket_uyeler where p in (\'son20-yet\');') === null;
+  if (!okY) kir++;
+  console.log((okY ? 'GEÇTİ  ' : 'KALDI  ') + 'V17 s20y_erisim birleşir, SGS gövdesi yoksa KÖR kalır');
+  const T = V.length + 3;
   console.log(kir ? `KAPI-FU ÖZ-SINAV: KIRMIZI (${kir}/${T} vaka kaldı)` : `KAPI-FU ÖZ-SINAV: YEŞİL (${T}/${T})`);
   process.exit(kir ? 1 : 0);
 }
