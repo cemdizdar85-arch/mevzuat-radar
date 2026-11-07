@@ -1,0 +1,394 @@
+{
+ "ad": "s20-b34-d1b2",
+ "tarih": "2026-11-07T06:53:29.636Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42348627317",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 1.07,
+ "yazim": "yaris",
+ "sayim": {
+  "istenen": 20,
+  "gonderilen": 20,
+  "temiz": 6,
+  "kusurlu": 14,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 0,
+  "kaynaksiz": 0,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.601
+ },
+ "kararlar": {
+  "__sinama/smmm-ah-yalniz/kp-101": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 253 - TESİS, MAKİNE VE CİHAZLAR",
+    "THP 257 - Birikmiş Amortismanlar (-)",
+    "THP 730 - Genel Üretim Giderleri",
+    "TMS 16 p.1 - Amaç",
+    "TMS 16 p.2 - Kapsam",
+    "TMS 16 p.3 - Kapsam",
+    "TMS 16 p.49 - Amortisman"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-102": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim",
+    "konu_ozeti.terimler[3].kaynak"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 190 - DEVREDEN KATMA DEĞER VERGİSİ",
+    "THP 191 - İNDİRİLECEK KDV",
+    "THP 193 - PEŞİN ÖDENEN VERGİLER VE FONLAR",
+    "THP 360 - ÖDENECEK VERGİ VE FONLAR",
+    "THP 391 - HESAPLANAN KDV"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-103": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 101 - ALINAN ÇEKLER",
+    "THP 103 - VERİLEN ÇEKLER VE ÖDEME EMİRLERİ (-)",
+    "THP 153 - Ticari Mallar",
+    "THP 191 - İNDİRİLECEK KDV",
+    "THP 321 - BORÇ SENETLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-104": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Aylık kira tutarı",
+    "konu_ozeti.terimler.Geçen ay sayısı",
+    "konu_ozeti.harita"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 181 - GELİR TAHAKKUKLARI",
+    "THP 380 - Gelecek Aylara Ait Gelirler",
+    "THP 381 - GİDER TAHAKKUKLARI",
+    "THP 649 - FAALİYETLE İLGİLİ DİĞER OLAĞAN GELİR VE KARLAR"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-105": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Net satışlar"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "MSUGT 1 ilke - Gelir Tablosu İlkeleri e",
+    "TEORI - Brüt satış kârı hesaplama ve gelir tablosu akışı (net satışlar, satışların maliyeti, brüt satış kârı, faaliyet kârı)",
+    "THP 642 - Faiz Gelirleri",
+    "THP 660 - KISA VADELİ BORÇLANMA GİDERLERİ (-)",
+    "THP 691 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-106": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Satış kârı",
+    "konu_ozeti.terimler.İşlemiş faiz",
+    "konu_ozeti.terimler.Komisyon gideri"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Menkul kıymet satışı kaydı: satış kârı 645 ve satış zararı 655, komisyon gideri 653, alış bedeliyle çıkış (110, 111, 112), tahvilde işlemiş faiz 642, VUK m.279 değerleme ayrımı",
+    "THP 101 - ALINAN ÇEKLER",
+    "THP 111 - ÖZEL KESİM TAHVİL, SENET VE BONOLARI",
+    "THP 642 - Faiz Gelirleri",
+    "THP 645 - MENKUL KIYMET SATIŞ KARLARI"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-107": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 193 - PEŞİN ÖDENEN VERGİLER VE FONLAR",
+    "THP 360 - ÖDENECEK VERGİ VE FONLAR",
+    "THP 370 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+    "THP 371 - DÖNEM KÂRININ PEŞİN ÖDENEN VERGİ VE DİĞER YÜKÜMLÜLÜKLERİ (-)",
+    "THP 691 - DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-108": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 121 - Alacak Senetleri",
+    "THP 128 - Şüpheli Ticari Alacaklar",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-109": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler[1].kaynak",
+    "konu_ozeti.terimler[2].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter)",
+    "THP 120 - Alıcılar",
+    "THP 153 - Ticari Mallar",
+    "THP 610 - Satıştan İadeler (-)",
+    "THP 621 - Satılan Ticari Mallar Maliyeti (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-110": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Değerleme kuru"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Döviz kredisi ve dövizli borçların kur farkı (kur değerlemesi, 656 Kambiyo Zararları, 646 Kambiyo Kârları, VUK m.280)",
+    "THP 300 - BANKA KREDİLERİ",
+    "THP 320 - Satıcılar",
+    "THP 656 - KAMBİYO ZARARLARI (-)",
+    "THP 780 - Finansman Giderleri Hesabı",
+    "VUK (213 s.K.) m.280"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-111": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 197 - SAYIM VE TESELLÜM NOKSANLARI",
+    "THP 253 - TESİS, MAKİNE VE CİHAZLAR",
+    "THP 397 - SAYIM VE TESELLÜM FAZLALARI",
+    "THP 649 - FAALİYETLE İLGİLİ DİĞER OLAĞAN GELİR VE KARLAR",
+    "THP 679 - DİĞER OLAĞANDIŞI GELİR VE KARLAR"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-112": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.harita",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.terimler.Üçüncü yıl sınırı"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 253 - TESİS, MAKİNE VE CİHAZLAR",
+    "THP 257 - Birikmiş Amortismanlar (-)",
+    "THP 549 - ÖZEL FONLAR",
+    "THP 679 - DİĞER OLAĞANDIŞI GELİR VE KARLAR",
+    "THP 730 - Genel Üretim Giderleri",
+    "VUK (213 s.K.) m.328 - ÜÇÜNCÜ BÖLÜM Özel Haller Amortismana tabi malların satılması [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-113": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[0]",
+    "konu_ozeti.terimler[2]",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 150 - İLK MADDE VE MALZEME",
+    "THP 158 - STOK DEĞER DÜŞÜKLÜĞÜ KARŞILIĞI (-)",
+    "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+    "THP 654 - KARŞILIK GİDERLERİ (-)",
+    "THP 689 - Diğer Olağandışı Gider ve Zararlar",
+    "TMS 2 p.1 - Amaç",
+    "TMS 2 p.2 - Kapsam",
+    "TMS 2 p.29 - Net gerçekleşebilir değer",
+    "TMS 2 p.3 - Kapsam"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-114": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3]"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 250 - ARAZİ VE ARSALAR",
+    "THP 251 - YERALTI VE YERÜSTÜ DÜZENLERİ",
+    "THP 252 - BİNALAR",
+    "THP 258 - YAPILMAKTA OLAN YATIRIMLAR",
+    "THP 264 - ÖZEL MALİYETLER"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-115": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Net alışlar",
+    "konu_ozeti.terimler.Dönem sonu stok",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Aralikli envanter yontemi",
+    "TEORI - Brüt satış kârı hesaplama ve gelir tablosu akışı (net satışlar, satışların maliyeti, brüt satış kârı, faaliyet kârı)",
+    "THP 153 - Ticari Mallar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-116": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 644 - KONUSU KALMAYAN KARŞILIKLAR",
+    "THP 647 - REESKONT FAİZ GELİRLERİ",
+    "THP 657 - REESKONT FAİZ GİDERLERİ (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-117": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Kesilen vergi tutarı",
+    "konu_ozeti.terimler.Net ödenen tutar",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.94 [1/14]",
+    "GVK (193 s.K.) m.94 [2/14]",
+    "GVK (193 s.K.) m.94 [3/14]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-118": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 260 - HAKLAR",
+    "THP 263 - ARAŞTIRMA VE GELİŞTİRME GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-119": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Mahsup tutarı",
+    "konu_ozeti.terimler.Kalan depozito tutarı"
+   ],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 102 - Bankalar",
+    "THP 126 - VERİLEN DEPOZİTO VE TEMİNATLAR",
+    "THP 181 - GELİR TAHAKKUKLARI",
+    "THP 326 - ALINAN DEPOZİTO VE TEMİNATLAR",
+    "THP 381 - GİDER TAHAKKUKLARI"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false,
+   "kaynak_okundu": false
+  },
+  "__sinama/smmm-ah-yalniz/kp-120": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "ambar",
+   "madde_adlari": [
+    "THP 335 - PERSONELE BORÇLAR",
+    "THP 372 - KIDEM TAZMİNATI KARŞILIĞI",
+    "THP 472 - KIDEM TAZMİNATI KARŞILIĞI",
+    "THP 654 - KARŞILIK GİDERLERİ (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": false
+  }
+ },
+ "incelenecek": [
+  "__sinama/smmm-ah-yalniz/kp-102",
+  "__sinama/smmm-ah-yalniz/kp-104",
+  "__sinama/smmm-ah-yalniz/kp-105",
+  "__sinama/smmm-ah-yalniz/kp-106",
+  "__sinama/smmm-ah-yalniz/kp-109",
+  "__sinama/smmm-ah-yalniz/kp-110",
+  "__sinama/smmm-ah-yalniz/kp-111",
+  "__sinama/smmm-ah-yalniz/kp-112",
+  "__sinama/smmm-ah-yalniz/kp-113",
+  "__sinama/smmm-ah-yalniz/kp-114",
+  "__sinama/smmm-ah-yalniz/kp-115",
+  "__sinama/smmm-ah-yalniz/kp-116",
+  "__sinama/smmm-ah-yalniz/kp-117",
+  "__sinama/smmm-ah-yalniz/kp-119"
+ ],
+ "kaynaksiz": [],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [
+  "__sinama/smmm-ah-yalniz"
+ ],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
