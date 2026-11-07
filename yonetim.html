@@ -613,6 +613,15 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     if(SO.length){ var tm={set:'Konu seti',deneme:'Deneme',seviye:'Seviye testi'}, sm={sgs:'Staja Giriş',smmm:'Yeterlilik',kgk:'KGK'};
       x+='<div class="kart-b"><h4>Bitirdiği set / deneme ('+SO.length+')</h4><div class="kaydir"><table><tr><th>Tarih</th><th>Tür</th><th>Sınav</th><th>Ne</th></tr>'
         +SO.slice(0,15).map(function(s){ return '<tr><td>'+tarih(s.tarih)+'</td><td>'+esc(tm[s.tur]||s.tur)+'</td><td>'+esc(sm[s.sinav]||s.sinav)+'</td><td>'+esc(String(s.anahtar||'').replace(/^set-/,'').replace(/-[a-z0-9]{6,}$/,'').replace(/-/g,' '))+'</td></tr>'; }).join('')+'</table></div></div>'; }
+    /* 07.11 cihaz sınırı: üye 3 cihaz + 2 çıkarma hakkını bitirince kendi başına çıkamıyordu; sıfırlama yalnız kasadan yapılıyordu */
+    var ck=await sb.rpc('yonetim_uye_cihazlar', { p_eposta:h.eposta }), CD=ck.data||null, CL=(CD&&CD.cihazlar)||[];
+    if(!ck.error&&CD){ var dolu=CL.length>=(CD.sinir||3);
+      x+='<div class="kart-b"><h4>Cihazlar ('+CL.length+' / '+(CD.sinir||3)+')</h4>'
+        +(CD.sinir_7g?'<p class="not" style="margin:0 0 6px"><b>Son 7 günde '+CD.sinir_7g+' kez cihaz sınırına takıldı</b>'+(CD.son_sinir?' · son '+tarih(CD.son_sinir):'')+'</p>':'')
+        +(CL.length?'<div class="kaydir"><table><tr><th>Cihaz</th><th>İlk görülme</th><th>Son görülme</th></tr>'
+          +CL.map(function(g){ return '<tr><td>'+esc(g.etiket||'Cihaz')+'</td><td>'+tarih(g.ilk_gorulme)+'</td><td>'+tarih(g.son_gorulme)+'</td></tr>'; }).join('')+'</table></div>'
+          :'<p class="not" style="margin:0">Kayıtlı cihaz yok.</p>')
+        +'<p class="not" style="margin:6px 0 0">Üyenin kendi çıkarma hakkı: '+CD.cikarma_hakki+' / 2'+(CD.hak_acilis?' · yeniden '+tarih(CD.hak_acilis):'')+(dolu&&!CD.cikarma_hakki?' · <b>kendi başına çıkamaz</b>':'')+'</p></div>'; }
     var S2=d.s20||[];
     if(S2.length) x+='<div class="kart-b"><h4>Son 20 Gün denemeleri</h4><div class="kaydir"><table><tr><th>Deneme</th><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th><th>Tarih</th></tr>'
       +S2.map(function(s){ return '<tr><td>'+s.deneme+'</td><td>'+esc(s.ders)+'</td><td class="s">'+s.dogru+' / '+s.toplam+'</td><td class="s">'+s.yanlis+'</td><td class="s">'+s.bos+'</td><td>'+tarih(s.zaman)+'</td></tr>'; }).join('')+'</table></div></div>';
@@ -624,10 +633,10 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       +HD.map(function(g){ return '<tr><td>'+tarih(g.tarih)+'</td><td>'+esc(g.paket)+(g.dersler&&g.dersler.length?' ('+esc(g.dersler.join(', '))+')':'')+'</td><td>'+tarih(g.bitis)+'</td><td>'+esc(g.neden||'—')+'</td><td>'+esc(g.veren||'—')+'</td><td>'+(g.iptal?'kapatıldı '+tarih(g.iptal):'açık')+'</td></tr>'; }).join('')+'</table></div></div>';
     var IS=d.islemler||[];
     if(IS.length) x+='<div class="kart-b"><h4>Panel işlemleri</h4><div class="kaydir"><table><tr><th>Tarih</th><th>İşlem</th><th>Neden</th><th>Yapan</th></tr>'
-      +IS.map(function(i){ return '<tr><td>'+tarih(i.zaman)+'</td><td>'+(i.islem==='iptal'?'Üyelik iptal'+(i.engel?' + giriş engeli':''):'Engel kaldırıldı')+'</td><td>'+esc(i.neden||'—')+'</td><td>'+esc(i.yapan||'—')+'</td></tr>'; }).join('')+'</table></div></div>';
+      +IS.map(function(i){ return '<tr><td>'+tarih(i.zaman)+'</td><td>'+(i.islem==='iptal'?'Üyelik iptal'+(i.engel?' + giriş engeli':''):(i.islem==='cihaz_sifirla'?'Cihazlar sıfırlandı':'Engel kaldırıldı'))+'</td><td>'+esc(i.neden||'—')+'</td><td>'+esc(i.yapan||'—')+'</td></tr>'; }).join('')+'</table></div></div>';
     $('akIcerik').innerHTML=x;
     if(G.length) cubukCiz($('akCubuk'), gs, false);
-    $('akDugme').innerHTML=(h.engel_bitis?'<button class="btn" data-engelkaldir="'+esc(h.eposta)+'">Engeli kaldır</button>':(h.yonetici?'':'<button class="btn tehlike" data-uyeiptal="'+esc(h.eposta)+'">Üyeliği iptal et</button>'))
+    $('akDugme').innerHTML=(CL.length?'<button class="btn" data-cihazsifirla="'+esc(h.eposta)+'">Cihazları sıfırla</button>':'')+(h.engel_bitis?'<button class="btn" data-engelkaldir="'+esc(h.eposta)+'">Engeli kaldır</button>':(h.yonetici?'':'<button class="btn tehlike" data-uyeiptal="'+esc(h.eposta)+'">Üyeliği iptal et</button>'))
       +'<button type="button" class="btn ikincil" data-akkapat="1">Kapat</button>';
   }
   function ayrintiKapat(){ $('akPencere').hidden=true; }
@@ -637,7 +646,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
   document.addEventListener('click', function(ev){
     var a=ev.target.closest&&ev.target.closest('[data-ayrinti]'); if(a){ ev.preventDefault(); ayrintiAc(a.dataset.ayrinti); return; }
     var k=ev.target.closest&&ev.target.closest('[data-akkapat]'); if(k) ayrintiKapat();
-    var u=ev.target.closest&&ev.target.closest('#akDugme [data-uyeiptal],#akDugme [data-engelkaldir]'); if(u) ayrintiKapat();
+    var u=ev.target.closest&&ev.target.closest('#akDugme [data-uyeiptal],#akDugme [data-engelkaldir],#akDugme [data-cihazsifirla]'); if(u) ayrintiKapat();
   });
   document.addEventListener('keydown', function(ev){ var a=ev.target.closest&&ev.target.closest('[data-ayrinti]'); if(a&&(ev.key==='Enter'||ev.key===' ')){ ev.preventDefault(); ayrintiAc(a.dataset.ayrinti); } });
 
@@ -679,7 +688,8 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     BASKA_SINAV:'Bu kişide başka sınavın paketi açık (Staja Giriş ya da KGK). Bir üyede tek paket durur; ikisi birden gerekiyorsa "Tam paket" ver.', UCRETLI_DERS_VAR:'Bu kişinin parayla aldığı ders paketi var.',
     KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.',
     BASKA_HESAPTA:'Bu sipariş zaten başka bir hesapta açık. Önce o hesabın sahibiyle konuş.', SURESI_GECMIS:'Bu siparişin paket süresi geçmiş.',
-    YONETICI_KAPATILAMAZ:'Yönetici hesabı panelden kapatılamaz.' };
+    YONETICI_KAPATILAMAZ:'Yönetici hesabı panelden kapatılamaz.',
+    CIHAZ_YOK:'Bu hesapta sıfırlanacak cihaz kalmamış.' };
   function hataYazi(e){ var m=String(e&&e.message||e||''); for(var k in HATA){ if(m.indexOf(k)>-1) return HATA[k]; }
     if(/DURUM_/.test(m)) return 'Bu sipariş artık ödeme beklemiyor ('+m.replace(/.*DURUM_/,'').toLowerCase()+').';
     if(/PGRST202|Could not find the function/i.test(m)) return 'İşlem henüz kurulmamış (veritabanı göçü bekliyor).';
@@ -738,6 +748,9 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     } else if(b.dataset.engelkaldir){
       if(!confirm(b.dataset.engelkaldir+' hesabının giriş engeli kaldırılsın mı?\n\nKişi yeniden giriş yapabilir. Kapatılan paketi KENDİLİĞİNDEN açılmaz; gerekiyorsa "Ücretsiz paket ver" ile ver.')) return;
       await islem('yonetim_uye_engel_kaldir', { p_eposta:b.dataset.engelkaldir, p_neden:'yonetim ekranından' }, function(d){ return '✓ '+d.eposta+': giriş engeli kaldırıldı.'; });
+    } else if(b.dataset.cihazsifirla){
+      if(!confirm(b.dataset.cihazsifirla+' hesabının kayıtlı cihazları sıfırlansın mı?\n\nKişi cihaz perdesinden kurtulur, sayfayı yenileyince girer. Kullandığı cihazlar kendiliğinden yeniden kaydolur. Kendi çıkarma hakkından düşmez.')) return;
+      await islem('yonetim_cihaz_sifirla', { p_eposta:b.dataset.cihazsifirla, p_neden:'yonetim ekranından' }, function(d){ return '✓ '+d.eposta+': '+d.silinen+' cihaz sıfırlandı. Üyeye "sayfayı yenile" de.'; });
     } else if(b.dataset.kapat){
       var zorla=b.dataset.hediye!=='1';
       if(!confirm(b.dataset.kapat+' kişisinin paketi kapatılsın mı?'+(zorla?'\n(Bu paket hediye kaydında yok, elle verilmiş.)':''))) return;
