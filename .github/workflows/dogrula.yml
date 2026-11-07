@@ -566,6 +566,8 @@ jobs:
               kabuk: pwsh, komut: "./arac/yut-esdegerlik-provasi.ps1 -OzSinav" }
           - { ad: "Kaynak adi tasima OZ-SINAVI (yalniz kaynak_adlar degissin, kosullu yazim)",
               kabuk: bash, komut: "node arac/kaynak-adi-tasi.js --sinav" }
+          - { ad: "Bag dizini OZ-SINAVI (yalniz istenen adlar, SMMM/SGS/KGK suzgeci; mutasyon 3/3)",
+              kabuk: bash, komut: "node arac/bag-dizini.js --sinav" }
           - { ad: "Damga degisim turu OZ-SINAVI (dizilis kaymasi soru cekmesin)",
               kabuk: pwsh, komut: "./arac/damga-degisim-sinavi.ps1" }
 
