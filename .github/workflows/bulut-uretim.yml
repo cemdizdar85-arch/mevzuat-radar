@@ -175,8 +175,10 @@ jobs:
         shell: powershell
         run: |
           $s = Get-Content veri/sinav/bulut-sira.json -Raw -Encoding UTF8 | ConvertFrom-Json
-          if ($s.durdur -and '${{ inputs.yalniz_hasat }}' -ne '1' -and '${{ inputs.plan }}' -notmatch '^veri/sinav/plan-(sgs-s20-|smmm-s20-[a-z]+-d\d+-|kgk-t9-|smmm-bt-[a-z0-9]+-\d{4}-onarim-hakem\.json$)') { "ACIL FREN ACIK: soru basimi durduruldu (Cem 30.10). Kaldirmak icin bulut-sira.json durdur=false."; exit 1 }
-          "acil fren: kapali ya da yalniz hasat ya da SGS s20 / Yeterlilik s20 deneme / KGK t9 / bitirme rehakem istisnasi"
+          # 07.11 Cem "yanlis soru istemiyorum tumden kapat, tum sorulari kontrol edecegiz": SGS s20, Yeterlilik s20 ve KGK t9 YENI BASIM istisnalari kapatildi.
+          #   Yalniz var olan sorunun onarim rehakemi (*-onarim-hakem.json) ve hasat gecer. Freni yalniz Cem kaldirir.
+          if ($s.durdur -and '${{ inputs.yalniz_hasat }}' -ne '1' -and '${{ inputs.plan }}' -notmatch '^veri/sinav/plan-[a-z0-9-]+-onarim-hakem\.json$') { "ACIL FREN ACIK: butun yeni soru basimi durduruldu (Cem 07.11). Kaldirmak icin Cem onayi + bulut-sira.json durdur=false."; exit 1 }
+          "acil fren: kapali ya da yalniz hasat ya da onarim rehakemi"
 
       - name: Gizli kasa (anahtar varsa)
         if: env.KASA_VAR == 'true'
