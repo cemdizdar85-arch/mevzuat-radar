@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **08.11.2026 01:51** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **08.11.2026 02:11** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 51957 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 416; son ölçüm: 07.11.2026) | Sürüm ölçülen: 47 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
+**ÖZET:** 51959 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 416; son ölçüm: 07.11.2026) | Sürüm ölçülen: 47 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -1792,7 +1792,7 @@
 | MSUGT 1 kavram - Tam Açıklama Kavramı | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MSUGT 1 kavram - Tarafsızlık ve Belgelendirme Kavramı | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MSUGT 1 kavram - Tutarlılık Kavramı | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| MTV K. (197 s.K.) | kanun-madde | 45 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| MTV K. (197 s.K.) | kanun-madde | 46 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 2) (RG 16.12.1993-21790) | kanun-madde | 14 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MUHASEBE SISTEMI UYGULAMA GENEL TEBLIGI (SIRA NO: 3) (RG 18.09.1994-22055) | kanun-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MUHASEBE SİSTEMİ UYGULAMA GENEL TEBLİĞİ (SIRA NO: 12) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1801,7 +1801,7 @@
 | MUHASEBE SİSTEMİ UYGULAMA GENEL TEBLİĞİ (YENİ TÜRK LİRASI KULLANIMINDA ÖZEL KESİM MUHASEBE SİSTEMİNE İLİŞKİN OLARAK İŞLETMELER TARAFINDAN UYULACAK ESASLAR HAKKINDA) (SIRA NO:13) | kanun-madde | 26 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Noterlik K. (1512 s.K.) | kanun-madde | 254 | DELİK-İNCELE(par:9/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Onemli Nitelikteki Islemler ve Ayrilma Hakki Tebligi (II-23.3) | kanun-madde | 32 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| OSB K. (4562 s.K.) | kanun-madde | 74 | DELİK-İNCELE(par:912/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| OSB K. (4562 s.K.) | kanun-madde | 75 | DELİK-İNCELE(par:912/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Ozel Durumlar Tebligi (II-15.1) | kanun-madde | 45 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Ödeme Hizmetleri K. (6493 s.K.) | kanun-madde | 64 | DELİK-İNCELE(par:2/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | ÖTV K. — Kapsam ve listeler (m.1) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
