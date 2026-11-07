@@ -6037,6 +6037,7 @@ elseif("$env:MEVZUAT_KURAL_0711" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:m
 }
 if($script:KURAL0711){ $kimSecenek+=(KimSecenekEk0711) }
 $girisIstem=$girisIstem.Replace('{KIMSECENEK}',$kimSecenek)
+if($script:KURAL0711){ $girisIstem+=(KonuOzetEk0711) }   # 07.11 B35: konu özeti 7 öncelikli kural (arac/kim-secenek.ps1)
 foreach($gecisG in @(1,2,3)){ if($gecisG -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisG -eq 1); $script:DALGA2_TOPLA=($gecisG -eq 2 -and -not $IkinciDalgaKapat)   # 15.09: 1=topla, 2=toplu cevapla + kalanı İKİNCİ DALGAYA topla, 3=ikinci dalga cevabı (son çare anlık)
 :soruG foreach($id in @($don.Keys)){
   if($SadeceHtml -or -not $KonuGiris){ break }

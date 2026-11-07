@@ -194,7 +194,7 @@
   21 sorunun 11'i bulutta KAPI-Ş'den düştü, dört tur okuma boşa gitti.
 
 ## Teslimden önce (zorunlu)
-**B32 · B33 · B34 — her modül, her soru (Cem 07.11):** `SORU-URETIM-SOZLESMESI.md` B32–B34 yazmadan önce okunur, teslimden önce her soruda bakılır. Ekranda görünen her alan doğru çözümü ve BU sorunun şıklarını anlatır. Olumsuz kökte öteki şıklar kurala uydukları için elenir. `kim` boş kalabilir; taraflarca belirlenen tutara "kanun sabitler", soruda geçmeyen kaleme "soruda verilir" yazılmaz. Soruyu anmayan kalıp cümle kullanılmaz.
+**B32 · B33 · B34 — her modül, her soru (Cem 07.11):** `SORU-URETIM-SOZLESMESI.md` B32–B34 yazmadan önce okunur, teslimden önce her soruda bakılır. Ekranda görünen her alan doğru çözümü ve BU sorunun şıklarını anlatır. Olumsuz kökte öteki şıklar kurala uydukları için elenir. `kim` boş kalabilir; taraflarca belirlenen tutara "kanun sabitler", soruda geçmeyen kaleme "soruda verilir" yazılmaz. Soruyu anmayan kalıp cümle kullanılmaz. B35: konu özeti cevabı söylemez, kuralı daraltmaz, gündelik benzetme kullanmaz; atıf ve dayanak başlığı temizdir.
 
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya veri/fabrika/hazir-kgk-<…>.json

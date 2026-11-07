@@ -48,6 +48,8 @@ Denetle:
 6. konu_ozeti.terimler: her terimin tanim'ı doğru mu, kim ve kaynak alanı gerçeği söylüyor mu? kim, o değeri gerçek hayatta koyan kişi ya da kurumdur ve boş olabilir. Kayıttan gelen ya da formülle çıkan kaleme (dönem stoku, ortalama stok, devir hızı, finansal oran) "piyasa fiyatlar" ya da "işletme yönetimi belirler" yazılmışsa, soruda verilen değere "sen hesaplarsın" denmişse KUSUR. Kanun yalnız kalemin işleyişini söylüyor, tutarı ya da oranı taraflar koyuyorsa (vade farkı, iskonto, taşıma gideri gibi) "kanun sabitler" yazmak KUSUR. Soruda değeri geçmeyen kaleme "soruda verilir" yazmak KUSUR.
 7. teshis.<doğru>, adimlar, konu_ozeti.yontemler, sinav_taktigi: BU sorunun kökünü ve şıklarını doğru anlatıyor mu? Olumsuz kökte (hangisi değildir, girmez, yanlıştır) öteki şıklar kurala UYDUKLARI için elenir; onları "şartı eksik", "kuralı düşürüyor", "başka hükmü uyguluyor" diye anlatmak KUSUR. Soruda bulunmayan bir şeyden (olmayan sözcük farkı, hesap, tutar) söz etmek KUSUR. Soruyu ve şıkları hiç anmayan, her soruya yapışabilecek kalıp cümle bu soruyu yanlış anlatıyorsa KUSUR. İstisna: adimlar içinde "Olay:" ile başlayan adım ve onu izleyen öğretici anlatım, aynı kuralı BAŞKA bir örnek olayla öğretir; bu tasarım gereğidir, sorudaki olaydan farklı olması kusur değildir. Örnek olaydaki kural ve hesap yine doğru olmalıdır.
 8. verilenler, sade.sinav, sade.kavramlar, yevmiye: değer ve tutar soruyla aynı mı, anlam ve tanım doğru mu, verinin çözümdeki rolü doğru çözümle uyuşuyor mu, yevmiye doğru çözümün tutarlarını veriyor mu? Tutmuyorsa KUSUR.
+9. konu_ozeti, hap, sinav_taktigi: (a) doğru şıkkı, doğru tarihi ya da "III yanlıştır" gibi cevabı doğrudan söylüyorsa KUSUR; tuzağı ve maddeyi söylemek serbesttir. (b) Kuralın şart, eşik ya da istisnasını düşürüyorsa, kaynakta olmayan "hiç, yalnız, her zaman" ekliyorsa KUSUR. (c) Muhasebe, vergi, hukuk ve denetim derslerinde konu özeti örneği arkadaş, kantin, telefon, harçlık gibi gündelik benzetmeyse, öznesi kuralın gerçek öznesi değilse ya da rakamsızsa KUSUR ("Olay:" adımı bu maddenin dışındadır). (d) Örnekteki her ara rakam kaynağın hesap yoluyla tutmalıdır. (e) Terim, örnek, harita ve çözüm aynı kuralı söylemeli, ornek ile panel_ornek çelişmemelidir.
+10. dayanak ve atıflar: fıkra ya da bent madde metnindeki sayımla uyuşmuyorsa, ambar parça adı ("bolum 4" gibi) atıf diye yazılmışsa KUSUR. dayanak başlığında Türkçe harfsiz yazım ("Yonetmeligi"), yapışık bölüm adı, önceki maddeden kalan cümle ya da dipnot rakamı ("Tarh8") varsa KUSUR; bu madde aşağıdaki yazım muafiyetine girmez.
 Yazım, noktalama ve üslup kusurlarını SAYMA. Yalnız somut, gösterilebilir hata kusurdur; şüphe kusur değildir.
 
 YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
@@ -64,6 +66,8 @@ $(if ($kaynak) { $kaynak } else { '(yok)' })
   if ($env:AHS_MUTASYON -eq 'kural6-yok') { $istem = $istem -replace '(?m)^6\. konu_ozeti.*\n', '' }
   if ($env:AHS_MUTASYON -eq 'kural7-yok') { $istem = $istem -replace '(?m)^7\. teshis.*\n', '' }
   if ($env:AHS_MUTASYON -eq 'kural8-yok') { $istem = $istem -replace '(?m)^8\. verilenler.*\n', '' }
+  if ($env:AHS_MUTASYON -eq 'kural9-yok') { $istem = $istem -replace '(?m)^9\. konu_ozeti.*\n', '' }
+  if ($env:AHS_MUTASYON -eq 'kural10-yok') { $istem = $istem -replace '(?m)^10\. dayanak.*\n', '' }
   return @{ id = $id; model = $model; maxTok = $maxTok; effort = $effort; icerik = @(@{ type = 'text'; text = $istem }) }
 }
 

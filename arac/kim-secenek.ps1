@@ -36,6 +36,23 @@ function KimSecenekEk0711(){
   if("$env:KIM_SECENEK_MUTASYON" -eq 'ek-yok'){ return '' }
   return ' Listeden hiçbiri gerçekten uymuyorsa seçenek uydurma, "kim" alanını BOŞ bırak (""). Kayıttan gelen ya da formülle çıkan kalemin belirleyicisi yoktur: dönem başı/sonu stok, ortalama stok, devir hızı, finansal analiz oranı için "piyasa fiyatlar" ya da "işletme yönetimi belirler" YAZMA.'
 }
+# 07.11.2026 B35 (Cem "bir daha yanlış soru basmak istemiyorum"): Yeterlilik D1 160 soruda 140 konu özeti kusurlu, 352 alan, cevap hatası 0.
+#   Konu özeti bulutta sorudan SONRA üretilir; istem bu kuralları bilmiyordu. Ek yalnız KURAL0711 açıkken girer (istem baytı koruması).
+function KonuOzetEk0711(){
+  if("$env:KIM_SECENEK_MUTASYON" -eq 'ozet-yok'){ return '' }
+  return @'
+
+
+ÖNCELİKLİ KURALLAR (yukarıdaki yönergeyle çelişirse bunlar geçerlidir):
+1. desen, harita, yontemler, sinavda alanları doğru şıkkı, doğru tarihi ya da "III yanlıştır" gibi cevabı SÖYLEMEZ; yalnız tuzağı ve ilgili maddeyi söyler.
+2. Özet kuralın bütün şart, eşik ve istisnalarını taşır. Kaynakta olmayan "hiç, yalnız, her zaman" yazılmaz.
+3. Muhasebe, vergi, hukuk ve denetim derslerinde örnek gündelik benzetme olamaz (arkadaş, kantin, telefon, harçlık). Örneğin öznesi kuralın gerçek öznesidir (meslek mensubu, ortaklık, mükellef) ve örnek rakamlıdır.
+4. Örnekteki her ara rakamı kaynağın hesap yoluyla yeniden hesapla.
+5. Atıf madde metnindeki fıkra ve bent sayımıyla yazılır; kaynak parça adı atıf yapılmaz.
+6. Kuralı bir düzenleme koyuyorsa kim alanına o düzenleme yazılır; "kanun sabitler" yalnız kural kanundaysa yazılır.
+7. Terim, örnek ve harita aynı kuralı söyler; ornek ile panel_ornek çelişmez.
+'@
+}
 if($MyInvocation.InvocationName -ne '.' -and @($args) -contains '-Sinav'){
   $dersler=@('Finansal Muhasebe','Maliyet Muhasebesi','Finansal Tablolar ve Analizi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Hukuk','Sermaye Piyasası Mevzuatı','Muh. ve Mali Müş. Meslek Hukuku','Türkçe','Matematik','Atatürk İlkeleri ve İnkılap Tarihi','Yabancı Dil','Ekonomi','Maliye','Ticaret Hukuku','Borçlar Hukuku','İş ve Sosyal Güvenlik Hukuku','Muhasebe')
   $muh='Tekdüzen hesap planı ya da standart tanımlar'
@@ -50,6 +67,7 @@ if($MyInvocation.InvocationName -ne '.' -and @($args) -contains '-Sinav'){
   foreach($d in 'Finansal Muhasebe','Maliyet Muhasebesi','Finansal Tablolar ve Analizi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması'){ $v+=,@("yeni: $d eskisiyle aynı", ((KimSecenek $d $true) -ceq (KimSecenekEski $d))) }
   # 3) 07.11 B33: boş bırakma izni ve hesap kalemi yasağı istem ekinde durur
   $ek=KimSecenekEk0711; $v+=,@('B33 ek: boş bırakma izni', ($ek.Contains('BOŞ bırak'))); $v+=,@('B33 ek: stok ve oran yasağı', ($ek.Contains('ortalama stok') -and $ek.Contains('YAZMA')))
+  $oz=KonuOzetEk0711; $v+=,@('B35 ek: cevabı söyleme', ($oz.Contains('SÖYLEMEZ'))); $v+=,@('B35 ek: gündelik benzetme', ($oz.Contains('gündelik benzetme'))); $v+=,@('B35 ek: yedi madde', ($oz.Contains("`n7. ") -or $oz.Contains('7. Terim')))
   $h=0; foreach($x in $v){ if(-not $x[1]){ $h++; "  DUSTU: $($x[0])" } }
   if($h){ "KIM SECENEK SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KIM SECENEK SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }

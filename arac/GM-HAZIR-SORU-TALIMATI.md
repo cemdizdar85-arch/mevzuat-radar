@@ -220,6 +220,7 @@ yeniden koşar. Kapıların GÖRMEDİĞİ sınıflar (madde/fıkra atfı, uydurm
 - Terim notunda `kim` gerçeği söyler, gerekirse boş kalır. Taraflarca belirlenen tutara "kanun sabitler", soruda geçmeyen kaleme "soruda verilir" yazılmaz (B33, B34).
 - Ekranda görünen her alan yazarın sorumluluğundadır: adımlar, teşhis, yöntem, verilenler, sade kavramlar, sınav dili, yevmiye (B34).
 - Olumsuz kökte öteki şıklar kurala UYDUKLARI için elenir; "şartı eksik" ya da "başka hükmü uyguluyor" yazılmaz. Soruda olmayan sözcük, hesap ya da tutardan söz edilmez. Soruyu anmayan kalıp cümle kullanılmaz (B34).
+- Konu özeti cevabı söylemez, kuralı daraltmaz; meslek derslerinde örnek gündelik benzetme olamaz; atıf fıkra ve bentle doğru yazılır; dayanak başlığı temizdir (B35).
 
 `powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya <dosya> -IkizEtiket smmm-<etiket>`
 Çıktıda KAPI-Y / KAPI-K DUSER / KAPI-KALITE / ADIM YOK / SADE YOK / KAPI-A1 kalmaz. KAPI-A1 (29.10): çıkmış sorudan ≥15 kelime
