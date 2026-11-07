@@ -465,6 +465,17 @@ function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitCo
 #   arac/kaynak-adi-tasi.js ile tasinir (kosullu yazim + geri okuma).
 # BU KAPI SUNU GORMEZ: SISTEM partileri ve soru_havuzu (yalniz SMMM/SGS/KGK kalip_parti) · kaynak_adlar disindaki alanlarda
 #   (dayanak, kaynak_metin_ozet) gecen ad · ambar sayilamazsa kaynak YAZILMAZ (kor = dur).
+# 07.11.2026 A-11 KAPSAM (Cem onayi): bag tasima kaynak-adi-tasi.js'i --kapsam OLMADAN cagiriyordu; aracin varsayilani smmm oldugu
+#   icin BagDizini'nin buldugu SGS ve KGK kayitlari "kapsam disi kimlik" sayilip YAZILMIYORDU (olculdu 07.11: kalip_parti'de 7.824
+#   kopuk bag; sitede SGS 916 / bitirme 172 / KGK 2 soru). Arguman listesi burada kurulur ki oz-sinav dogrudan sinasin.
+# BU ISLEV SUNU GORMEZ: kaynak-adi-tasi.js'in kendi kapsam mantigi (o aracin oz-sinavi) · BagDizini'nin SMMM/SGS/KGK disi partileri.
+# Mutasyon (oz-sinav): $env:YUT_MUTASYON = kapsam-yok | kapsam-dar
+function BagTasiArgumanlari([string]$esleme, [string]$kimlik, [string]$cikti){
+  $a = @('--yaz', $esleme, '--yalniz', $kimlik)
+  $mut = "$($env:YUT_MUTASYON)"
+  if($mut -eq 'kapsam-dar'){ $a += @('--kapsam', 'smmm') } elseif($mut -ne 'kapsam-yok'){ $a += @('--kapsam', 'smmm,sgs,kgk') }
+  return ,($a + @('--cikti', $cikti))
+}
 function BagAnahtar([string]$a){ return ($a -replace ' - .*?(?=(?: \[\d+/\d+\])?(?: \(\d+\))?$)','') }
 function BagKarari($ambarAdlar, $yeniAdlar, $dizin, [bool]$tasiIzni){
   $yeni = New-Object 'System.Collections.Generic.HashSet[string]'; foreach($a in @($yeniAdlar)){ [void]$yeni.Add("$a") }
@@ -677,6 +688,23 @@ if($OzSinav){
     $ok = $false; try { $ok = [bool](& $s.kontrol $k) } catch {}
     if($ok){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) } else { $kaldi++; Write-Host ("  KALDI {0}" -f $s.ad) -ForegroundColor Red } }
   if((BagAnahtar 'GVK (193 s.K.) m.88 - EĞİŞİKLİKLER CETVELİ"ne bakınız. 86 Zararlar [1/2]') -ceq 'GVK (193 s.K.) m.88 [1/2]' -and (BagAnahtar 'X gec. m.2 - Kanunun hükmüdür (2)') -ceq 'X gec. m.2 (2)'){ $gecti++; Write-Host '  OK    BAG: madde anahtari ([k/n] ve (n) korunur, baslik duser)' } else { $kaldi++; Write-Host '  KALDI BAG: madde anahtari' -ForegroundColor Red }
+  # 07.11 A-11 KAPSAM: bag tasima argumanlari SGS/KGK kayitlarini kapsamali. Kimlikler ana akistaki ifadeyle (BagDizini bicimi
+  #   "SINAV etiket/kp" -> 2. alan) uretilir; her kimligin sinav oneki --kapsam listesinde olmali.
+  $ta = BagTasiArgumanlari 'e.json' 'k.json' 'c.json'; $ki = [array]::IndexOf($ta, '--kapsam')
+  $kapsamL = if($ki -ge 0){ @("$($ta[$ki+1])" -split ',') } else { @('smmm') }   # --kapsam yoksa aracin varsayilani smmm
+  $kimlikler = @(foreach($k in @('SMMM smmm-a/kp-01','SGS sgs-b/kp-02','KGK kgk-c/kp-03')){ ("$k" -split ' ')[1] })
+  $dis = @($kimlikler | Where-Object { $kapsamL -notcontains (("$_" -split '-')[0]) })
+  if(-not $dis.Count -and ($ta -join ' ') -ceq '--yaz e.json --yalniz k.json --kapsam smmm,sgs,kgk --cikti c.json'){ $gecti++; Write-Host '  OK    BAG KAPSAM: tasima argumanlari --kapsam smmm,sgs,kgk; SMMM/SGS/KGK kimliklerinin hicbiri kapsam disi degil' }
+  else { $kaldi++; Write-Host ("  KALDI BAG KAPSAM: kapsam disi kalan kimlik {0} [{1}]" -f $dis.Count, ($ta -join ' ')) -ForegroundColor Red }
+  # mutasyon (kapi kurali 8): kapsam kosulu bozulunca oz-sinav KIRMIZI dusmeli
+  if(-not "$($env:YUT_MUTASYON)"){
+    # alt kosu AYNI kabukla (Windows powershell.exe / CI'da Linux pwsh); "kirmizi" = alt kosu gercekten "kaldi >0" yazdi (kabuk bulunamazsa sahte gecmez)
+    $kabuk = (Get-Process -Id $PID).Path
+    foreach($mu in @('kapsam-yok','kapsam-dar')){
+      $env:YUT_MUTASYON = $mu; $o = (& $kabuk -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath -OzSinav 2>&1 | Out-String); Remove-Item Env:YUT_MUTASYON -ErrorAction SilentlyContinue
+      if($o -match 'OZ-SINAV: gecti \d+ - kaldi [1-9]'){ $gecti++; Write-Host ("  OK    MUTASYON {0} -> KIRMIZI" -f $mu) } else { $kaldi++; Write-Host ("  KALDI MUTASYON {0} yakalanmadi" -f $mu) -ForegroundColor Red }
+    }
+  }
   Write-Host ("OZ-SINAV: gecti {0} - kaldi {1}" -f $gecti,$kaldi)
   exit $(if($kaldi){ 1 } else { 0 })
 }
@@ -926,7 +954,8 @@ foreach($law in $manifest.kanunlar){
       $kim = @(foreach($a in $bk.esleme.Keys){ foreach($k in $script:BAG_DIZIN[$a]){ ("$k" -split ' ')[1] } }) | Select-Object -Unique
       [IO.File]::WriteAllText("$gec-esleme.json", (ConvertTo-Json -InputObject ([ordered]@{ esleme=$bk.esleme }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
       [IO.File]::WriteAllText("$gec-kimlik.json", (ConvertTo-Json -InputObject @($kim) -Depth 2), (New-Object Text.UTF8Encoding($false)))
-      $cikti = & node (Join-Path (Join-Path $kok 'arac') 'kaynak-adi-tasi.js') --yaz "$gec-esleme.json" --yalniz "$gec-kimlik.json" --cikti "$gec-sonuc.json"
+      $tasiArg = BagTasiArgumanlari "$gec-esleme.json" "$gec-kimlik.json" "$gec-sonuc.json"   # 07.11 A-11: --kapsam smmm,sgs,kgk
+      $cikti = & node (Join-Path (Join-Path $kok 'arac') 'kaynak-adi-tasi.js') $tasiArg
       $kod = $LASTEXITCODE; @($cikti) | ForEach-Object { Write-Host "    $_" }
       $son = if(Test-Path "$gec-sonuc.json"){ Get-Content "$gec-sonuc.json" -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
       $tam = ($kod -eq 0 -and $son -and @($son.yazilan).Count -eq $son.degisecek.parti -and -not @($son.yaris).Count -and -not @($son.atlanan_kosan).Count)
