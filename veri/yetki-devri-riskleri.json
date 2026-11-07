@@ -1,11 +1,11 @@
 {
-  "tarih": "07.11.2026 07:45",
+  "tarih": "07.11.2026 12:38",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 922,
   "riskli_madde": 1321,
   "sayfa": 82,
   "atifli_iddia": 315,
-  "dayanaksiz_iddia": 557,
+  "dayanaksiz_iddia": 556,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -1525,7 +1525,7 @@
       "sayfa": "index.html",
       "satir": 894,
       "iddia": "20 Gün",
-      "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, 8 Kasım\\'da açılır':'')+' '; }"
+      "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, ilk denemeler 8 Kasım\\'da':'')+' '; }"
     },
     {
       "sayfa": "index.html",
@@ -1646,12 +1646,6 @@
       "satir": 134,
       "iddia": "en az 2",
       "metin": "<!-- 28.10 Cem onayı: \"Yeterlilik sözünü önerdiğin şartlarla yaz: her ders için 3 denemenin en az 2'sinde %60 doğru, görevler tamam,"
-    },
-    {
-      "sayfa": "kampanya-son-20-gun.html",
-      "satir": 141,
-      "iddia": "20 Gün",
-      "metin": "Paketini al Tüm dersler, seçtiğin dersler ya da Sadece Denemeler. Son 20 Gün denemeleri 8 Kasım 2026'dan itibaren hesabında açılır."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
@@ -2377,7 +2371,7 @@
       "sayfa": "ogrenci.html",
       "satir": 728,
       "iddia": "20 gün",
-      "metin": "+' '+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. Denemelerin 8 Kasım 2026\\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır.':'Denemelerin Son 20 "
+      "metin": "+' '+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. İlk denemelerin 8 Kasım 2026\\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır, sonrakiler sırayl"
     },
     {
       "sayfa": "ogrenci.html",
@@ -3049,7 +3043,7 @@
       "sayfa": "son-20-gun.html",
       "satir": 196,
       "iddia": "20 gün",
-      "metin": "+(YET?'Sınava 20 gün kala. ':'')+'Paketini şimdi al; denemeler o gün bu sayfada hesabında açılır. ';"
+      "metin": "+(YET?'Sınava 20 gün kala. Paketini şimdi al; her dersin 1. denemesi o gün bu sayfada açılır, sonrakiler sırayla gelir.':'Paketini şimdi al; denemeler o gün bu sayfada hesabında aç"
     },
     {
       "sayfa": "son-20-gun.html",
