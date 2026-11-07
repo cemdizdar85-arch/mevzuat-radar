@@ -461,7 +461,7 @@ begin
     if jsonb_array_length(j->'sorular') <> 4 or position('"dogru"' in (j->'sorular')::text) > 0 then raise exception 'OLCU: gorev getir %', jsonb_array_length(j->'sorular'); end if;
     declare q record; v jsonb;
     begin
-      for q in select ps.id, ps.veri->>'dogru' as dg from public.paket_soru ps where ps.id = any((select g.sorular from public.s20y_gorev g where g.user_id = a and g.ders = d)) loop
+      for q in select ps.id, ps.veri->>'dogru' as dg from public.paket_soru ps where ps.id in (select unnest(g.sorular) from public.s20y_gorev g where g.user_id = a and g.ders = d) loop
         v := public.s20y_gorev_cevap(1, d, k, q.id, q.dg);
       end loop;
       if not (v->>'tamam')::boolean or (v->>'acik_gorev')::boolean then raise exception 'OLCU: gorev tamamlanmadi %', v; end if;
