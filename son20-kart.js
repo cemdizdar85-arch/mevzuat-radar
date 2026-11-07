@@ -41,7 +41,7 @@
     var acT=Date.parse(S.acilis), sonT=Date.parse(S.son), simdi=Date.now();
     if(simdi>=sonT) return Promise.resolve(null);
     var once=simdi<acT, g=kalanGun(acT), adres=tur==='yet'?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
-    var acilisYazi='Denemelerin '+S.gun+' Kasım\'da açılıyor'+(g>1?' · '+g+' gün kaldı':' · yarın');
+    var acilisYazi=(tur==='yet'?'İlk denemelerin ':'Denemelerin ')+S.gun+' Kasım\'da açılıyor'+(g>1?' · '+g+' gün kaldı':' · yarın');
     if(tur==='yet'){
       if(!yetUygun) return Promise.resolve(null);
       return Promise.resolve({ tur:'yet', once:once, acik:!once, adres:adres, kural:KURAL.yet,

@@ -646,7 +646,7 @@
 <script src="uygulama-indir.js?v=20261028m"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261028b"></script>
-<script src="son20-kart.js?v=20261028b"></script>
+<script src="son20-kart.js?v=20261107a"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -725,7 +725,7 @@
     /* 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme alana "Aktif paketin yok" denmez; denemeler son-20-gun.html'de */
     if(!sinavlar.length && d.son20 && d.son20.durum==='aktif' && d.son20.tur==='yet'){   /* 28.10 Yeterlilik Son 20 Gün ön satış */
       kap.innerHTML='<div class="og-paket"><span class="og-paket-et">SMMM Yeterlilik · Son 20 Gün</span><b>Sadece Denemeler</b>'
-        +'<span class="og-paket-alt">'+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. Denemelerin 8 Kasım 2026\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır.':'Denemelerin Son 20 Gün sayfasında; her dersin 3 denemesi var.')
+        +'<span class="og-paket-alt">'+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'Ön siparişin alındı. İlk denemelerin 8 Kasım 2026\'da (sınava 20 gün kala) Son 20 Gün sayfasında açılır, sonrakiler sırayla gelir.':'Denemelerin Son 20 Gün sayfasında; her dersin 5 denemesi var, sırayla açılır.')
         +(d.son20.bitis?' Erişim '+esc(U.tarihYazi(d.son20.bitis))+' tarihine kadar.':'')+'</span>'
         +'<div class="og-btnler"><a class="og-btn ana" href="son-20-gun.html?sinav=yeterlilik">Son 20 Gün sayfası</a><a class="og-btn" href="iletisim.html">Tüm derslere geç (999 TL düşülür)</a></div>'
         +PB_HTML+'</div>';
