@@ -75,6 +75,7 @@ kurucu_sayac		SD	t	t	record	depoda
 madde_ara	sorgu text, adet integer	inv	t	t	dokumanlar	depoda
 madde_ara_deneme	sorgu text, adet integer	inv	t	t	dokumanlar	depoda
 madde_ara_deneme_puan	sorgu text, adet integer, ayar jsonb	inv	t	t	record	depoda
+madde_ara_v8	sorgu text, adet integer	inv	f	f	dokumanlar	depoda
 marka_ayna_durum		SD	f	f	record	depoda
 marka_ayna_sahip	p_unvan text, p_tavan integer	SD	f	f	record	depoda
 marka_bulten_durum		SD	t	t	record	depoda
