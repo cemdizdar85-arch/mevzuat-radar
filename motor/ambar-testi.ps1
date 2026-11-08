@@ -111,20 +111,74 @@ function Sorgula([string]$soru) {
   $havuz = @($havuz | ForEach-Object { $_ })
   $ust = New-Object System.Collections.ArrayList
   $mSay = @{}; $bSay = @{}
+  # TESHIS (08.11.2026): her havuz satirinin NEDEN alindigi/elendigi kaydedilir.
+  # Secim mantigi AYNIDIR (ilk 6 dolunca kalanlar 'kesim sonrasi' isaretlenir,
+  # sayaclara girmez). Yalniz dusen vakanin dokumunde kullanilir.
+  $durum = New-Object System.Collections.ArrayList
   foreach ($d in $havuz) {
     $ad = [string]$d.kaynak_ad
-    if (-not $ad) { continue }
+    if (-not $ad) { [void]$durum.Add('adsiz'); continue }
+    if ($ust.Count -ge 6) { [void]$durum.Add('kesim sonrasi'); continue }
     $mk = ($ad -replace '\s*\[\d+/\d+\]\s*$','').Trim()
     $bk = [regex]::Replace($mk, '\s+((gec\.|muk\.|mük\.|ek|mükerrer)\s+)?m\.\s*\d.*$', '')
     $bk = [regex]::Replace($bk, '\s+(bolum|bölüm)\s+\d.*$', '', 'IgnoreCase').Trim()
-    if ([int]$mSay[$mk] -ge 1) { continue }
-    if ([int]$bSay[$bk] -ge 2) { continue }
+    if ([int]$mSay[$mk] -ge 1) { [void]$durum.Add('elendi: ayni madde'); continue }
+    if ([int]$bSay[$bk] -ge 2) { [void]$durum.Add('elendi: belge tavani 2'); continue }
     $mSay[$mk] = [int]$mSay[$mk] + 1; $bSay[$bk] = [int]$bSay[$bk] + 1
-    [void]$ust.Add($d)
-    if ($ust.Count -ge 6) { break }
+    [void]$ust.Add($d); [void]$durum.Add("ALINDI #$($ust.Count)")
   }
+  $script:SonHavuz = $havuz; $script:SonDurum = @($durum); $script:SonSorgu = ($tokler -join ' ')
   if ($env:TARTI_HATA_AYIKLA) { Write-Host ("      [ayikla] havuz=$($havuz.Count) ust=$($ust.Count) sorgu='$($tokler -join ' ')'") }
   return @($ust)
+}
+
+# ---------------------------------------------------------------------------
+#  DUSEN VAKA DOKUMU (08.11.2026, A-11 GM onerisi 2)
+#  NEDEN: 08.11'de 'idari para cezasina basvuru yolu' dustugunde teshis 15 dk
+#  surdu; top-6 adlari puan ve eleme sebebi olmadan sebebi gostermiyordu.
+#  Ne basar: havuzun ilk 10 satiri (sira, puan, ts_rank, durum), beklenen
+#  kaynagin havuzdaki ilk sirasi, 6. secilenle ESIT PUANLI satir sayisi.
+#  PUAN NEREDEN: madde_ara puan dondurmuyor. madde_ara_deneme_puan ayni sorguyla
+#  cagrilir; ayar = MADDE_ARA_AYAR ya da canli v9 ayari. Donen id sirasi canli
+#  havuzla ILK 10'DA BIREBIR tutmazsa puan BASILMAZ (yanlis puan yazmaktansa
+#  hic yazmamak). SAYIMA VE CIKIS KODUNA ETKISI YOKTUR; hata verirse susar.
+# ---------------------------------------------------------------------------
+$CANLI_AYAR = '{"adw":0,"tebw":0.75}'   # radar-app/sql/2026-11-07-madde-ara-v9.sql
+function DusenDokum([scriptblock]$tutar) {
+  try {
+    $hv = @($script:SonHavuz); $du = @($script:SonDurum)
+    if (-not $hv.Count) { Write-Host "   [dokum] havuz bos"; return }
+    $pu = @{}; $puanVar = $false
+    try {
+      $ay = if ($env:MADDE_ARA_AYAR) { $env:MADDE_ARA_AYAR | ConvertFrom-Json } else { $CANLI_AYAR | ConvertFrom-Json }
+      $gv = @{ sorgu = $script:SonSorgu; adet = $hv.Count; ayar = $ay } | ConvertTo-Json -Compress -Depth 5
+      $pr = @(Invoke-RestMethod -Method Post -Uri "$SB/rest/v1/rpc/madde_ara_deneme_puan" -Headers @{ apikey = $KEY; Authorization = "Bearer $KEY" } -ContentType 'application/json' -Body $gv | ForEach-Object { $_ })
+      $n = [Math]::Min(10, $hv.Count)
+      $ayni = ($pr.Count -ge $n)
+      for ($i = 0; $ayni -and $i -lt $n; $i++) { if ("$($pr[$i].id)" -ne "$($hv[$i].id)") { $ayni = $false } }
+      if ($ayni) { $puanVar = $true; foreach ($p in $pr) { $pu["$($p.id)"] = $p } }
+      else { Write-Host "   [dokum] puan basilmadi: deneme_puan sirasi canli havuzla ilk 10'da tutmadi" }
+    } catch { Write-Host "   [dokum] puan olculemedi (deneme_puan RPC)" }
+    $bekSira = -1
+    for ($i = 0; $i -lt $hv.Count; $i++) { if (& $tutar (Fold ([string]$hv[$i].kaynak_ad))) { $bekSira = $i; break } }
+    Write-Host ("   havuz ilk 10 (sorgu='{0}', havuz {1}):" -f $script:SonSorgu, $hv.Count)
+    for ($i = 0; $i -lt [Math]::Min(10, $hv.Count); $i++) {
+      $p = $pu["$($hv[$i].id)"]
+      $ps = if ($puanVar -and $p) { '{0,9:N6} r={1:N4}' -f [double]$p.puan, [double]$p.r } else { '        -' }
+      $ok = if ($i -eq $bekSira) { '  <= BEKLENEN' } else { '' }
+      Write-Host ("     {0,2} {1} | {2,-22} | {3}{4}" -f ($i + 1), $ps, $du[$i], ([string]$hv[$i].kaynak_ad), $ok)
+    }
+    if ($bekSira -lt 0) { Write-Host "   beklenen: ilk $($hv.Count) havuzda YOK (aday uretimi/puan sorunu, esitlik degil)" }
+    elseif ($bekSira -ge 10) { Write-Host ("   beklenen: havuzda {0}. sirada | {1} | {2}" -f ($bekSira + 1), $du[$bekSira], $hv[$bekSira].kaynak_ad) }
+    if ($puanVar) {
+      $alt = -1; for ($i = 0; $i -lt $du.Count; $i++) { if ("$($du[$i])" -eq 'ALINDI #6') { $alt = $i } }
+      if ($alt -ge 0) {
+        $p6 = [double]$pu["$($hv[$alt].id)"].puan
+        $es = @($hv | Where-Object { $pu["$($_.id)"] -and [Math]::Abs([double]$pu["$($_.id)"].puan - $p6) -lt 1e-6 }).Count
+        if ($es -gt 1) { Write-Host ("   ESITLIK: 6. secilenin puani {0:N6}; havuzda bu puanda {1} satir var - sonuc esitlik bozucuya bagli" -f $p6, $es) }
+      }
+    }
+  } catch { Write-Host "   [dokum] hata: $($_.Exception.Message)" }
 }
 
 # UC DURUM, IKI DEGIL (25.08): gecti / dustu / OLCULEMEDI.
@@ -162,6 +216,8 @@ foreach ($v in $set.vakalar) {
     $dusen++
     Write-Host "DUSTU: '$($v.soru)'  beklenen: $($v.beklenen -join ' | ')"
     Write-Host "   top-6: $((($sonuc | ForEach-Object { $_.kaynak_ad }) | Select-Object -First 6) -join ' § ')"
+    $bekL = @($v.beklenen)
+    DusenDokum { param($a) foreach ($b in $bekL) { if ($a -like "*$b*") { return $true } }; return $false }
   }
   # --- MADDE DUZEYI (yalniz beklenen_madde dolu vakalarda) ---
   if ($v.beklenen_madde) {
@@ -170,7 +226,14 @@ foreach ($v in $set.vakalar) {
     $mTuttu = $false
     foreach ($a in $adlar) { if (MaddeTutar $a $bm) { $mTuttu = $true; break } }
     if ($mTuttu) { $mGecen++ }
-    else { $mDusen += ("{0}  -> beklenen madde: {1}" -f $v.soru, $v.beklenen_madde) }
+    else {
+      $mDusen += ("{0}  -> beklenen madde: {1}" -f $v.soru, $v.beklenen_madde)
+      # kaynak duzeyinde de dustuyse dokum yukarida basildi; tekrar basma
+      if ($tutan) {
+        Write-Host "MADDE DUSTU: '$($v.soru)'  beklenen madde: $($v.beklenen_madde)"
+        DusenDokum { param($a) MaddeTutar $a $bm }
+      }
+    }
   }
 }
 # ===========================================================================

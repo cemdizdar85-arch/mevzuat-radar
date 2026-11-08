@@ -36,7 +36,16 @@ Dalga 1 dersi (08.11, ölçüldü): 5 sağlamanın 3'ü YANLIŞ ETİKETLİYDİ �
 Kural: kusurlu sağlama BUGÜNKÜ kayıtta yeniden okunur (elle ret gerekçesi bayat olabilir), temiz sağlama açıklama alanlarıyla birlikte okunmuş olur.
 Geçerli kusurlu sağlama 2'nin altındaysa kaçırma oranı **"ölçülmedi"** yazılır.
 
-**Okuyucu talimatı tek yerde: `arac/TAM-DENETIM-OKUYUCU.md`** (sürüm 2: olumsuz kök + kapanış ✓/✗ kuralı, B33 `kim` / gündelik benzetme ZAYIF tavanı).
+**Okuyucu talimatı tek yerde: `arac/TAM-DENETIM-OKUYUCU.md`** (sürüm 3: olumsuz kök + kapanış ✓/✗ kuralı, B33 `kim` / gündelik benzetme ZAYIF tavanı, yalnız ekranda görünen alan).
+**Okuyucudan sonra DOĞRULAYICI (2b):** onarım adayının her iddiası ayrı bir ajana resmî metinle yargılatılır (GERCEK / YANLIS_ALARM / BELIRSIZ + onarım cümlesi); doğrulayıcıya da sağlama iddiası karıştırılır (gerçek kusur + bilinen yanlış alarm). Onarım listesine yalnız GERCEK ve ZAYIF olmayan iddia girer.
+
+**Ölçülen (08.11, Cem "1.2.3 üçünü de yap"):**
+- Dalga 1 + 2 (90 bitirme sorusu, en çok çözülen): anahtar yanlış 0 · doğrulanmış onarım 24 + 21 = 45 · okuyucu sağlaması d1 4/4 (geçerli 2 soru), d2 9/10 (kaçırma %10, sınırda) · temiz kontrolde yanlış alarm 0/8 okuma · doğrulayıcı sağlaması 8/8 + 8/8.
+- **`teori_ikiz` ve `notlandirici` siteye gitmez** (`paket_soru.veri`'de yok, 3 site kaydıyla ölçüldü); hesap ikizi `ikiz` ekranda "oyun"dur. Dalga 1'in 5 "onarım"ı yalnız bu görünmeyen alandaydı → çıkarıldı.
+- **Açıklama hakemi (bugünkü kural 1–10) ölçümü** (9 soru, 0,38 USD, `arac/aciklama-hakemi.ps1`): 01.11 öncesi TEMIZ almış 6 görünür-kusurlu sorunun 6'sına KUSURLU dedi (5'inde bilinen kusuru gösterdi), 3 temiz kontrolün 3'üne alarm verdi
+  (gerekçe çoğunlukla B33 `kim` / 9c gündelik benzetme — hakemde KUSUR, okuyucuda ZAYIF; bu bilerek: yeni üretim katı, eski banka önceliklendirilir).
+  ⚠ Hakem kaynak metnini yalnız `kaynak_metin_ozet`'ten alır; örneklemin 9 kaydının 6'sında bu alan BOŞTU → hakem kaynaksız karar verdi. Ölçümde maxTok 1600 4/9 kesti; üretim değeri 3200.
+- Kusurların basım tarihi: dalga 1'in 29 adayının 20'si 16–30.09 (açıklama hakemi öncesi), 9'u 30.10–01.11 (kural 5–10'dan önce TEMIZ almış). Eski banka zorunlu yeniden taranmıyor — bu düzen o boşluk için.
 
 ## 4 · Rapor (her dalga)
 Okunan · TEMIZ · indirilen · onarılan · sitede ölçülen · BELİRSİZ · sağlama yakalama oranı · hak/USD (ayrı).

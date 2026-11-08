@@ -3,15 +3,58 @@
   "kurallar": [
     "Kusurlu sağlama: kusur BUGÜNKÜ kayıtta yeniden okunur (elle ret gerekçesi bayat olabilir: w13-1-fmuh-cokzor/kp-08 kökü düzeltilmişti).",
     "Kök olumsuzsa (değildir/yanlıştır/girmez) anahtarın yanlış ifadeyi taşıması DOĞRUDUR; 'anahtar yanlış' etiketi buna göre okunur (yspk-kolay-r1/kp-29 dersi).",
-    "Temiz sağlama: hakem/AH kaydı yetmez; açıklama alanlarıyla birlikte elle ya da iki kör okuyucuyla okunmuş ve kaynak metniyle doğrulanmış olmalı (gm4-12-maliyet-kolay/kp-01 AH TEMIZ'di, konu özeti yanlış yöntem öğretiyordu)."
+    "Temiz sağlama: hakem/AH kaydı yetmez; açıklama alanlarıyla birlikte elle ya da iki kör okuyucuyla okunmuş ve kaynak metniyle doğrulanmış olmalı (gm4-12-maliyet-kolay/kp-01 AH TEMIZ'di, konu özeti yanlış yöntem öğretiyordu).",
+    "Anahtar iddiasında sorunun TAM olarak neyi sorduğu okunur (hesap toplamı mı, matrah mı): yvergi-zor-r3/kp-03 etiketi bu yüzden iki kez değişti (08.11)."
   ],
   "set": [
-    {"id": "smmm-4k-a-yvergi-kolay-r4/kp-19", "surum": "eski hal: veri/fabrika/temizlik/onarim-e343/_tam/smmm-4k-a-yvergi-kolay-r4__kp-19.tam.json", "beklenen": "YANLIS_OGRETIR", "kusur": "olumsuz kökte öteki şıklar 'şartı eksik' diye anlatılmış (hakem kural 7) + terim notunda vade farkı/iskonto/taşıma için 'kanun sabitler' (kural 6)", "dogrulayan": "dalga 1, 4/4 okuma yakaladı"},
-    {"id": "smmm-4k-a-yhukuk-zor-r4/kp-03", "surum": "ambar (elle ret, sitede yok)", "beklenen": "CEVAP_YANLIS", "kusur": "anahtar D emek ortağının varsayılan zarar muafiyeti; TBK m.623/1 hüküm yoksa kâr ve zarar eşit -> C", "dogrulayan": "elle ret 24.09 + dalga 1, 4/4 okuma yakaladı"},
-    {"id": "smmm-w13-1-fmuh-cokzor/kp-06", "surum": "ambar (elle ret, sitede yok)", "beklenen": "CEVAP_YANLIS", "kusur": "ithalatta KDV gümrükte ödenir, yabancı satıcıya borç yazılmaz: 320 alacak 60.000-22.400=37.600 (A); anahtar D 49.600 KDV'yi katıyor (KDVK m.46/2)", "dogrulayan": "elle ret (iki okuma A) + 08.11 bugünkü kayıt okundu"},
-    {"id": "smmm-4k-a-yvergi-zor-r3/kp-03", "surum": "ambar (elle ret, sitede yok)", "beklenen": "CEVAP_YANLIS", "kusur": "KDVK m.21/c: KDV'ye tabi gümrük müşavirliği ithalat matrahına girmez: (800.000+40.000+15.000+60.000)x%20=183.000 (C); anahtar E 185.000", "dogrulayan": "elle ret (iki okuma C) + 08.11 bugünkü kayıt okundu"},
-    {"id": "smmm-gm4-12-maliyet-kolay/kp-01", "surum": "ambar = site (08.11)", "beklenen": "YANLIS_OGRETIR", "kusur": "konu özeti (nedir/harita/yontemler/ornek) normal kâr payını da düşen ters hesaplamayı öğretiyor; soru ve sinav_taktigi net gerçekleşebilir değer (kâr payı yok)", "dogrulayan": "dalga 1 iki okuyucu + 08.11 elle okundu"},
-    {"id": "smmm-4k-a-ymeslek-zor-r1/kp-06", "surum": "ambar = site (08.11)", "beklenen": "TEMIZ", "kusur": null, "dogrulayan": "dalga 1 iki okuyucu yalnız ZAYIF + 08.11 elle: Yönetmelik m.24 a-d ile anahtar, açıklamalar, sade, ikiz uyumlu"},
-    {"id": "smmm-gm5-8-yvergi-zor/kp-03", "surum": "ambar = site (08.11)", "beklenen": "TEMIZ", "kusur": null, "dogrulayan": "dalga 1 iki okuyucu yalnız ZAYIF (2025 fatura haddi 9.900 GT 577 ekinden doğrulandı) + 08.11 elle: VUK m.229/232/236 ile açıklamalar uyumlu"}
+    {
+      "id": "smmm-4k-a-yvergi-kolay-r4/kp-19",
+      "surum": "eski hal: veri/fabrika/temizlik/onarim-e343/_tam/smmm-4k-a-yvergi-kolay-r4__kp-19.tam.json",
+      "beklenen": "YANLIS_OGRETIR",
+      "kusur": "olumsuz kökte öteki şıklar 'şartı eksik' diye anlatılmış (hakem kural 7) + terim notunda vade farkı/iskonto/taşıma için 'kanun sabitler' (kural 6)",
+      "dogrulayan": "dalga 1, 4/4 okuma yakaladı"
+    },
+    {
+      "id": "smmm-4k-a-yhukuk-zor-r4/kp-03",
+      "surum": "ambar (elle ret, sitede yok)",
+      "beklenen": "CEVAP_YANLIS",
+      "kusur": "anahtar D emek ortağının varsayılan zarar muafiyeti; TBK m.623/1 hüküm yoksa kâr ve zarar eşit -> C",
+      "dogrulayan": "elle ret 24.09 + dalga 1, 4/4 okuma yakaladı"
+    },
+    {
+      "id": "smmm-w13-1-fmuh-cokzor/kp-06",
+      "surum": "ambar (elle ret, sitede yok)",
+      "beklenen": "CEVAP_YANLIS",
+      "kusur": "ithalatta KDV gümrükte ödenir, yabancı satıcıya borç yazılmaz: 320 alacak 60.000-22.400=37.600 (A); anahtar D 49.600 KDV'yi katıyor (KDVK m.46/2)",
+      "dogrulayan": "elle ret (iki okuma A) + 08.11 bugünkü kayıt okundu"
+    },
+    {
+      "id": "smmm-4k-a-yvergi-zor-r3/kp-03",
+      "surum": "ambar (elle ret, sitede yok)",
+      "beklenen": "YANLIS_OGRETIR",
+      "kusur": "kök ve açıklamalar \"gümrük müşavirliği ücreti ithalat KDV matrahına girer\" diye öğretiyor; KDVK m.21/c yalnız vergilendirilmeyen giderleri katar (matrah KDV 183.000). Anahtar E 185.000 DOĞRU: soru 191 toplamını soruyor, müşavirlik faturasının 2.000 KDV si eklenir. Akreditif bedelini matrahtan ayıklayan konu özeti + açıklama harf kayması da var.",
+      "dogrulayan": "08.11 dalga 2 doğrulayıcısı (ilk etiket CEVAP_YANLIS yanlıştı: 191 toplamı okunmamıştı)"
+    },
+    {
+      "id": "smmm-gm4-12-maliyet-kolay/kp-01",
+      "surum": "ambar = site (08.11)",
+      "beklenen": "YANLIS_OGRETIR",
+      "kusur": "konu özeti (nedir/harita/yontemler/ornek) normal kâr payını da düşen ters hesaplamayı öğretiyor; soru ve sinav_taktigi net gerçekleşebilir değer (kâr payı yok)",
+      "dogrulayan": "dalga 1 iki okuyucu + 08.11 elle okundu"
+    },
+    {
+      "id": "smmm-4k-a-ymeslek-zor-r1/kp-06",
+      "surum": "ambar = site (08.11)",
+      "beklenen": "TEMIZ",
+      "kusur": null,
+      "dogrulayan": "dalga 1 iki okuyucu yalnız ZAYIF + 08.11 elle: Yönetmelik m.24 a-d ile anahtar, açıklamalar, sade, ikiz uyumlu"
+    },
+    {
+      "id": "smmm-gm5-8-yvergi-zor/kp-03",
+      "surum": "ambar = site (08.11)",
+      "beklenen": "TEMIZ",
+      "kusur": null,
+      "dogrulayan": "dalga 1 iki okuyucu yalnız ZAYIF (2025 fatura haddi 9.900 GT 577 ekinden doğrulandı) + 08.11 elle: VUK m.229/232/236 ile açıklamalar uyumlu"
+    }
   ]
 }

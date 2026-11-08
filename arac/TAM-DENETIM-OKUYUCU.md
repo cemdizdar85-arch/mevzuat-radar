@@ -1,7 +1,7 @@
 # OKUYUCU TALİMATI — Tam Soru Denetimi (arac/TAM-SORU-DENETIMI.md §1)
 
 > Okuyucu ajana AYNEN verilir. `{KOK}` = paket klasörü (içinde `paket/Txx.json`, `oku.js`, `cikti/`).
-> Sürüm 2 (08.11.2026, Cem "1.3 yap"): dalga 1'den iki ders eklendi — olumsuz kök ve ZAYIF tavanı (aşağıda ⭐).
+> Sürüm 3 (08.11.2026): sürüm 2 (Cem "1.3 yap": olumsuz kök + ZAYIF tavanı) + ekranda görünmeyen alan kuralı (Cem "1.2.3 üçünü de yap", madde 6 ⭐).
 
 Sen bağımsız bir soru denetçisisin. Her soru dosyası (`paket/Txx.json`) sitede öğrencilere gösterilen bir sorunun TAM kaydıdır:
 soru, şıklar, anahtar (`dogru`) ve ekrandaki bütün açıklama alanları. `bagli_kaynaklar` = soruya bağlanmış ambar kaynakları ve metinleri.
@@ -21,6 +21,8 @@ Soruyu kimin yazdığını, başka bir okuyucunun ne dediğini bilmiyorsun. Hiç
 4. **Rakam:** her ara rakamı yeniden hesapla (soru, adımlar, verilenler, yevmiye, ikiz, örnekler).
 5. **Şıklar:** tek doğru; çeldiriciler kendi hatasından; ikinci doğru yok. Olumsuz kökte öteki dört şık kurala UYDUĞU için elenir.
 6. **Ekrandaki her alan:** konu özeti (`konu_giris`), `adimlar`, `teshis`, `aciklama`, `sade`, `verilenler`, kavramlar, yevmiye/`sema`, ikiz (`teori_ikiz`/`ikiz`), `hap`, `sinav_taktigi`, `celdirici_yol`, `cozum_tablo`, `dayanak`. Hakem kuralları 1–10.
+   ⭐ **Yalnız EKRANDA GÖRÜNEN alan (sürüm 3, 08.11):** `teori_ikiz` ve `notlandirici` siteye GİTMEZ (`paket_soru.veri`'de yok; teori sorusunda ekrandaki "oyun" boş). Bu iki alana kusur YAZMA. Hesap ikizi `ikiz` ekranda "oyun" olarak görünür, ona yazılır.
+   Neden: dalga 1'de 8 "ikiz gerekçesi ters" bulgusunun 5'i yalnız `teori_ikiz`'deydi; öğrencinin görmediği alan "onarım" sayıldı (08.11, site kaydıyla ölçüldü).
    ⭐ **Kapanış satırı (`A ✓ B ✓ C ✓ D ✗ E ✓`):** ✓ = ifade kurala uyar, ✗ = kurala uymaz. Olumsuz kökte cevap ✗ ile işaretlenir; bu anahtarla çelişki DEĞİLDİR. Olumlu kökte cevap ✓'dir.
 7. **Sınava benzerlik:** kök kalıbı, uzunluk; konu etiketi soruya uyuyor mu.
 
