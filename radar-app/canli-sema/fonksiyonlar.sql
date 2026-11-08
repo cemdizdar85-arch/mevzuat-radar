@@ -2006,9 +2006,14 @@ CREATE OR REPLACE FUNCTION public.madde_ara(sorgu text, adet integer DEFAULT 6)
  SET search_path TO 'public'
 AS $function$
 select d.*
-from public.madde_ara_deneme_puan(sorgu, adet, '{"adw":0,"tebw":0.75}'::jsonb) p
+from (
+  select p.id, round(p.puan::numeric, 6) as py, p.r
+  from public.madde_ara_deneme_puan(sorgu, 400, '{"adw":0,"tebw":0.75}'::jsonb) p
+  order by 2 desc, p.r desc, p.id
+  limit greatest(coalesce(adet,6),1)
+) p
 join dokumanlar d on d.id = p.id
-order by p.puan desc, p.r desc
+order by p.py desc, p.r desc, p.id
 $function$
 ;
 
@@ -2245,6 +2250,20 @@ select d.* from dokumanlar d
 join puan p on d.ctid = p.rid
 order by (p.s * p.turw * (1 + 0.35 * greatest(p.kapsanan - 1, 0))) desc, p.r desc
 limit greatest(coalesce(adet,6),1)
+$function$
+;
+
+-- madde_ara_v9(text,integer)
+CREATE OR REPLACE FUNCTION public.madde_ara_v9(sorgu text, adet integer DEFAULT 6)
+ RETURNS SETOF dokumanlar
+ LANGUAGE sql
+ STABLE
+ SET search_path TO 'public'
+AS $function$
+select d.*
+from public.madde_ara_deneme_puan(sorgu, adet, '{"adw":0,"tebw":0.75}'::jsonb) p
+join dokumanlar d on d.id = p.id
+order by p.puan desc, p.r desc
 $function$
 ;
 
