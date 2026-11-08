@@ -24,6 +24,15 @@
 #    31.10 hâlinin kopyasıdır (dipnot belirleme, aralıklı madde, görsel tablo, kılavuz/bölüm yedeği, dipnot çıkarma) ·
 #    ambara başka yoldan (elle onarım, standart-yut, kgk-standart-yut, spk-mevzuat-yut) yazılmış kayıtlar ·
 #    ham metni olmayan kaynak (girdi-yok sayılır, sınanmamıştır).
+#
+#  -Ambar (08.11.2026, A-11 GM önerisi 3): eski↔yeni kıyası iki AYRIŞTIRICIYI karşılaştırır, ambarı değil.
+#    08.11 yeniden yutmasında prova "metin farkı 0" dediği hâlde ambarda dipnotlar gövdeden çıktı, tcmb1211'e
+#    74 kelime geri geldi, satır sayıları değişti: bunlar ambarın eski hâli ile yeni çıktı arasındaki farktı ve
+#    prova göremiyordu. -Ambar verilirse YENİ sürümün çıktısı ambardaki bugünkü kanun-madde satırlarıyla da
+#    kıyaslanır: parça sayısı, yalnız ambarda / yalnız yenide olan adlar, ortak adda metni farklı parça,
+#    kelime çoklu-kümesi farkı (örnek kelimelerle). Yalnız GET (salt okuma); ambara yazmaz. Çıkış koduna
+#    ETKİ ETMEZ (yeniden yutulmamış kaynakta fark beklenir); rapora 'ambar' alanı ve özet satırı ekler.
+#    Örnek: powershell -NoProfile -File arac/yut-esdegerlik-provasi.ps1 -Ambar -Sadece kdv,vuk -Rapor r.json
 # ============================================================================
 param(
   [string]$Eski = '',
@@ -34,6 +43,7 @@ param(
   [string]$Rapor = '',
   [string]$Adlar = '',    # verilirse HER kaynagin yeni cikti adlari buraya yazilir {slug:[kaynak_ad]} (bag kapisi olcumu)
   [string]$Dok = '',      # verilirse degisen kaynaklarin eski/yeni parcalari buraya yazilir (inceleme icin)
+  [switch]$Ambar,         # 08.11: YENI ciktiyi ambarin BUGUNKU satirlariyla da kiyasla (salt okuma GET; -Eski olmadan da calisir)
   [switch]$OzSinav
 )
 $ErrorActionPreference = 'Stop'
@@ -174,10 +184,64 @@ function Siniflandir($O, $N){
   return [pscustomobject]$r
 }
 
+# ---------------------- AMBAR TABANI (08.11, salt okuma) ----------------------
+# A = ambar satirlari (kaynak_ad, metin), N = yeni surum ciktisi. Sira karsilastirilmaz (ambar id'si uuid).
+function KelimeSay([string[]]$metinler){
+  $d = New-Object 'System.Collections.Generic.Dictionary[string,int]'
+  foreach($m in $metinler){ foreach($w in ((Bosluk $m) -split ' ')){ if(-not $w){ continue }; if($d.ContainsKey($w)){ $d[$w]++ } else { $d[$w] = 1 } } }
+  return ,$d
+}
+function AmbarKiyas($A, $N){
+  $A = @($A); $N = @($N)
+  $adA = New-Object 'System.Collections.Generic.Dictionary[string,string]'; foreach($x in $A){ $adA["$($x.kaynak_ad)"] = Bosluk "$($x.metin)" }
+  $adN = New-Object 'System.Collections.Generic.Dictionary[string,string]'; foreach($x in $N){ $adN["$($x.kaynak_ad)"] = Bosluk "$($x.metin)" }
+  $yA = @($adA.Keys | Where-Object { -not $adN.ContainsKey($_) }); $yN = @($adN.Keys | Where-Object { -not $adA.ContainsKey($_) })
+  $mf = @($adA.Keys | Where-Object { $adN.ContainsKey($_) -and $adA[$_] -cne $adN[$_] })
+  $kA = KelimeSay @($A | ForEach-Object { "$($_.metin)" }); $kN = KelimeSay @($N | ForEach-Object { "$($_.metin)" })
+  $fA = @{}; $fN = @{}; $tA = 0; $tN = 0
+  foreach($w in $kA.Keys){ $f = $kA[$w] - $(if($kN.ContainsKey($w)){ $kN[$w] } else { 0 }); if($f -gt 0){ $fA[$w] = $f; $tA += $f } }
+  foreach($w in $kN.Keys){ $f = $kN[$w] - $(if($kA.ContainsKey($w)){ $kA[$w] } else { 0 }); if($f -gt 0){ $fN[$w] = $f; $tN += $f } }
+  $ornek = { param($h) @($h.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 8 | ForEach-Object { "$($_.Key) x$($_.Value)" }) }
+  $sinif = if(-not $yA.Count -and -not $yN.Count -and -not $mf.Count -and -not $tA -and -not $tN -and $A.Count -eq $N.Count){ 'ayni' } elseif(-not $tA -and -not $tN){ 'yalniz-bolme' } else { 'metin-farki' }
+  return [pscustomobject][ordered]@{ sinif=$sinif; parca_ambar=$A.Count; parca_yeni=$N.Count; ad_yalniz_ambar=$yA.Count; ad_yalniz_yeni=$yN.Count
+    ortak_ad_metin_farkli=$mf.Count; kelime_yalniz_ambar=$tA; kelime_yalniz_yeni=$tN
+    ornek_ad_yalniz_ambar=@($yA | Select-Object -First 5); ornek_ad_yalniz_yeni=@($yN | Select-Object -First 5)
+    ornek_kelime_yalniz_ambar=(& $ornek $fA); ornek_kelime_yalniz_yeni=(& $ornek $fN) }
+}
+function AmbarSatirlari($law){
+  $key = if($env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY } else { 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' }  # public anon key
+  $H = @{ apikey = $key; Authorization = "Bearer $key"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
+  $q = [uri]::EscapeDataString("$($law.ad)*"); $l = New-Object System.Collections.Generic.List[object]
+  for($o = 0; ; $o += 1000){
+    $r = $null
+    foreach($d in 1..4){ try { $r = @(Invoke-RestMethod -Uri "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.kanun-madde&kaynak_ad=like.$q&order=id&limit=1000&offset=$o" -Headers $H | ForEach-Object { $_ }); break } catch { if($d -eq 4){ throw }; Start-Sleep -Milliseconds (700*$d) } }
+    # like 'ad*' baska kaynagi da yakalayabilir ("X K." / "X K. Yon."): yalniz tam ad ya da "ad " onekli satir
+    foreach($x in $r){ $a = "$($x.kaynak_ad)"; if($a -ceq "$($law.ad)" -or $a.StartsWith("$($law.ad) ")){ $l.Add($x) } }
+    if($r.Count -lt 1000){ break }
+  }
+  # .ToArray() SART: PS 5.1'de @(List[object]) "Bagimsiz degisken turleri eslesmiyor" ile patliyor (08.11 olculdu)
+  return ,($l.ToArray())
+}
+
 # ------------------------------- ÖZ-SINAV -------------------------------
 if($OzSinav){
   $gecti = 0; $kaldi = 0
   function D($ad, $b, $m){ [pscustomobject]@{ kaynak_ad=$ad; baslik=$b; metin=$m } }
+  # AMBAR TABANI siniflandiricisi (08.11)
+  $aA = @( (D 'K m.1' '' 'Madde 1 – Bir.'), (D 'K m.2' '' 'Madde 2 – Iki (Değişik: 1/1/2020-7000/5 md.)') )
+  $amb = @(
+    @{ ad='AMBAR: ayni cikti -> ayni'; a=$aA; n=$aA; kontrol={ param($s) $s.sinif -eq 'ayni' -and $s.kelime_yalniz_ambar -eq 0 } }
+    @{ ad='AMBAR: dipnot govdeden cikti -> metin-farki, kelime yalniz ambarda, ad farki 0'; a=$aA; n=@( $aA[0], (D 'K m.2' '' 'Madde 2 – Iki') )
+       kontrol={ param($s) $s.sinif -eq 'metin-farki' -and $s.kelime_yalniz_ambar -eq 3 -and $s.kelime_yalniz_yeni -eq 0 -and $s.ad_yalniz_ambar -eq 0 -and $s.ortak_ad_metin_farkli -eq 1 } }
+    @{ ad='AMBAR: ayni metin, ad degisti -> yalniz-bolme'; a=$aA; n=@( $aA[0], (D 'K m.2 - Baslik' '' $aA[1].metin) )
+       kontrol={ param($s) $s.sinif -eq 'yalniz-bolme' -and $s.ad_yalniz_ambar -eq 1 -and $s.ad_yalniz_yeni -eq 1 } }
+    @{ ad='MUTASYON AMBAR: yenide kelime fazla -> metin-farki, kelime yalniz yenide'; a=$aA; n=@( $aA[0], (D 'K m.2' '' ($aA[1].metin + ' ek')) )
+       kontrol={ param($s) $s.sinif -eq 'metin-farki' -and $s.kelime_yalniz_yeni -eq 1 } }
+  )
+  foreach($v in $amb){
+    $s = AmbarKiyas $v.a $v.n; $ok = $false; try { $ok = [bool](& $v.kontrol $s) } catch {}
+    if($ok){ $gecti++; Write-Host ("  OK    {0}" -f $v.ad) } else { $kaldi++; Write-Host ("  KALDI {0} -> {1}" -f $v.ad, ($s | ConvertTo-Json -Depth 4 -Compress)) -ForegroundColor Red }
+  }
   $T = "Türkiye'de faydalanılmasını, İfade eder."
   $eskiK = @( (D 'K m.6' '' 'Madde 6 – b) Hizmetin Türkiye''de yapılmasını veya hizmetten'), (D "K m.7 - $T Uluslararası taşıma işleri" "$T Uluslararası taşıma işleri" "$T Uluslararası taşıma işleri: Madde 7 – Türkiye ile yabancı ülkeler arasında taşımacılık."), (D 'K m.8' '' 'Madde 8 – Mükellef sekiz.') )
   $yeniK = @( (D 'K m.6' '' "Madde 6 – b) Hizmetin Türkiye'de yapılmasını veya hizmetten $T"), (D 'K m.7 - Uluslararası taşıma işleri' 'Uluslararası taşıma işleri' 'Uluslararası taşıma işleri: Madde 7 – Türkiye ile yabancı ülkeler arasında taşımacılık.'), (D 'K m.8' '' 'Madde 8 – Mükellef sekiz.') )
@@ -223,9 +287,12 @@ if($OzSinav){
 }
 
 # ------------------------------- PROVA -------------------------------
-if(-not $Eski -or -not (Test-Path $Eski)){ throw '-Eski <eski mevzuat-yut.ps1 yolu> gerekli' }
-$modE = YutModulu (Resolve-Path $Eski).Path 'prova_eski'
+if($Eski -and -not (Test-Path $Eski)){ throw "-Eski bulunamadi: $Eski" }
+if(-not $Eski -and -not $Ambar){ throw '-Eski <eski mevzuat-yut.ps1 yolu> ya da -Ambar gerekli' }
+$modE = if($Eski){ YutModulu (Resolve-Path $Eski).Path 'prova_eski' } else { $null }
 $modY = YutModulu (Resolve-Path $Yeni).Path 'prova_yeni'
+$sayA = [ordered]@{ kaynak=0; ayni=0; yalniz_bolme=0; metin_farki=0; ambarda_yok=0; hata=0; kelime_yalniz_ambar=0; kelime_yalniz_yeni=0 }
+$kayitA = New-Object System.Collections.Generic.List[object]
 $man = Get-Content (Join-Path $kok 'veri/mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $liste = @($man.kanunlar)
 if($Sadece){ $sk = @($Sadece -split ',' | ForEach-Object { $_.Trim() }); $liste = @($liste | Where-Object { $sk -contains $_.slug }) }
@@ -240,9 +307,24 @@ foreach($law in $liste){
   if(-not $yol){ $say.girdi_yok++; $kayit.Add([ordered]@{ slug=$law.slug; ad=$law.ad; sinif='girdi-yok' }); continue }
   $raw = Get-Content $yol -Raw -Encoding UTF8
   try {
-    $o = & $modE { param($r,$l) ProvaYut $r $l } $raw $law
     $y = & $modY { param($r,$l) ProvaYut $r $l } $raw $law
+    $o = if($modE){ & $modE { param($r,$l) ProvaYut $r $l } $raw $law } else { $null }
   } catch { $say.hata++; $kayit.Add([ordered]@{ slug=$law.slug; ad=$law.ad; sinif='hata'; hata="$_" }); continue }
+  if($Ambar -and "$y" -ne 'KISA'){
+    $sayA.kaynak++
+    try {
+      $am = AmbarSatirlari $law
+      if(-not $am.Count){ $sayA.ambarda_yok++; $kayitA.Add([ordered]@{ slug=$law.slug; ad=$law.ad; sinif='ambarda-yok' }) }
+      else {
+        $ak = AmbarKiyas $am $y
+        switch($ak.sinif){ 'ayni' { $sayA.ayni++ } 'yalniz-bolme' { $sayA.yalniz_bolme++ } 'metin-farki' { $sayA.metin_farki++ } }
+        $sayA.kelime_yalniz_ambar += $ak.kelime_yalniz_ambar; $sayA.kelime_yalniz_yeni += $ak.kelime_yalniz_yeni
+        if($ak.sinif -ne 'ayni'){ $kayitA.Add([ordered]@{ slug=$law.slug; ad=$law.ad; kiyas=$ak }) }
+        if($Sadece){ Write-Host ("  AMBAR {0,-14} {1,-12} parca ambar {2} / yeni {3} · ad yalniz ambar {4} / yeni {5} · ortak adda metin farkli {6} · kelime yalniz ambar {7} / yeni {8}" -f $law.slug, $ak.sinif, $ak.parca_ambar, $ak.parca_yeni, $ak.ad_yalniz_ambar, $ak.ad_yalniz_yeni, $ak.ortak_ad_metin_farkli, $ak.kelime_yalniz_ambar, $ak.kelime_yalniz_yeni) }
+      }
+    } catch { $sayA.hata++; $kayitA.Add([ordered]@{ slug=$law.slug; ad=$law.ad; sinif='hata'; hata="$_" }) }
+  }
+  if(-not $modE){ if($Adlar -and "$y" -ne 'KISA'){ $script:CIKTI_AD_DIZINI[$law.slug] = @($y | ForEach-Object { $_.kaynak_ad }) }; continue }
   if("$o" -eq 'KISA' -or "$y" -eq 'KISA'){ $say.kisa++; $kayit.Add([ordered]@{ slug=$law.slug; ad=$law.ad; sinif='kisa'; ikisi_de=("$o" -eq 'KISA' -and "$y" -eq 'KISA') }); continue }
   $s = Siniflandir $o $y
   $say.prova++; $say.parca_eski += $s.parca_eski; $say.parca_yeni += $s.parca_yeni
@@ -258,8 +340,16 @@ foreach($law in $liste){
   if(($n % 50) -eq 0){ Write-Host ("  {0}/{1} ({2:n0} sn) ayni {3} (i) {4} (ii) {5}" -f $n, $liste.Count, ((Get-Date)-$bas).TotalSeconds, $say.ayni, $say.sinif_i, $say.sinif_ii) }
 }
 $cikti = [ordered]@{ olcum=(Get-Date).ToString('s'); eski=$Eski; yeni=$Yeni; dilim=$Dilim; sayim=$say; kaynaklar=$kayit.ToArray() }
+if($Ambar){ $cikti.ambar = [ordered]@{ sayim=$sayA; kaynaklar=$kayitA.ToArray() } }
 if($Adlar){ [IO.File]::WriteAllText($Adlar, (ConvertTo-Json -InputObject $script:CIKTI_AD_DIZINI -Depth 3 -Compress), (New-Object System.Text.UTF8Encoding($false))) }
 if($Rapor){ [IO.File]::WriteAllText($Rapor, ($cikti | ConvertTo-Json -Depth 8), (New-Object System.Text.UTF8Encoding($false))) }
-Write-Host ("PROVA: kaynak {0} · prova {1} · ayni {2} · (i) {3} · (ii) {4} · girdi-yok {5} · kisa {6} · hata {7}" -f $say.kaynak,$say.prova,$say.ayni,$say.sinif_i,$say.sinif_ii,$say.girdi_yok,$say.kisa,$say.hata)
-Write-Host ("PARCA: eski {0} · yeni {1} · degisen (eski tarafta) {2} · (yeni tarafta) {3} · madde degisen {4} · sinir tasimasi {5}" -f $say.parca_eski,$say.parca_yeni,$say.degisen_parca_eski,$say.degisen_parca_yeni,$say.madde_degisen,$say.tasima)
+if($modE){
+  Write-Host ("PROVA: kaynak {0} · prova {1} · ayni {2} · (i) {3} · (ii) {4} · girdi-yok {5} · kisa {6} · hata {7}" -f $say.kaynak,$say.prova,$say.ayni,$say.sinif_i,$say.sinif_ii,$say.girdi_yok,$say.kisa,$say.hata)
+  Write-Host ("PARCA: eski {0} · yeni {1} · degisen (eski tarafta) {2} · (yeni tarafta) {3} · madde degisen {4} · sinir tasimasi {5}" -f $say.parca_eski,$say.parca_yeni,$say.degisen_parca_eski,$say.degisen_parca_yeni,$say.madde_degisen,$say.tasima)
+}
+if($Ambar){
+  Write-Host ("AMBAR TABANI (yeni cikti <-> ambarin bugunku hali): kaynak {0} · ayni {1} · yalniz bolme {2} · metin farki {3} · ambarda yok {4} · hata {5} · kelime yalniz ambarda {6} / yalniz yenide {7}" -f $sayA.kaynak,$sayA.ayni,$sayA.yalniz_bolme,$sayA.metin_farki,$sayA.ambarda_yok,$sayA.hata,$sayA.kelime_yalniz_ambar,$sayA.kelime_yalniz_yeni)
+  Write-Host "  (bilgi amacli; cikis kodunu degistirmez - yeniden yutulmamis kaynakta fark beklenir)"
+}
+if(-not $modE){ exit $(if($say.hata){ 2 } else { 0 }) }
 exit $(if($say.sinif_ii -or $say.hata){ 2 } else { 0 })
