@@ -3,7 +3,7 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.926** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.925** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -12,7 +12,7 @@ Sitede sayfadan okunan soru: **4.926** (kasa modundaki sayfa seçim dosyasından
 | Yabancı Dil | 85 | 321 | 10,0 | 374 | 63 | 1 | 0 | 21 | 1 |
 | Maliyet Muhasebesi | 139 | 266 | 8,3 | 387 | 110 | 2 | 1 | 26 | 0 |
 | Matematik | 115 | 254 | 7,9 | 474 | 61 | 3 | 1 | 50 | 3 |
-| Türkçe | 127 | 225 | 7,0 | 165 | 42 | 4 | 1 | 80 | 6 |
+| Türkçe | 127 | 225 | 7,0 | 164 | 41 | 5 | 1 | 80 | 7 |
 | Vergi Hukuku | 162 | 206 | 6,4 | 171 | 55 | 5 | 1 | 101 | 3 |
 | Ticaret Hukuku | 120 | 205 | 6,4 | 228 | 64 | 4 | 0 | 52 | 3 |
 | Mali Tablolar Analizi | 94 | 192 | 6,0 | 209 | 61 | 8 | 3 | 22 | 2 |
@@ -28,7 +28,7 @@ Sitede sayfadan okunan soru: **4.926** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **35 konu / 68 soru**
+- 3+ dönem çıkmış: **36 konu / 69 soru**
 - 2 dönem çıkmış: 58 konu / 73 soru
 - 1 dönem çıkmış: 908 konu / 910 soru
 
