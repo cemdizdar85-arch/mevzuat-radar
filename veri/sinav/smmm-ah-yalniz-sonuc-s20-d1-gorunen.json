@@ -1,0 +1,1235 @@
+{
+ "ad": "s20-d1-gorunen",
+ "tarih": "2026-11-08T08:12:58.892Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42461485206",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 5,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 80,
+  "gonderilen": 80,
+  "temiz": 15,
+  "kusurlu": 65,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 80,
+  "kaynaksiz": 54,
+  "kaynaksiz_kusurlu": 46,
+  "usd": 2.427
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d1-kolay/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-fmuh-d1-y10-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.sinavda"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.328 - ÜÇÜNCÜ BÖLÜM Özel Haller Amortismana tabi malların satılması [1/2]",
+    "VUK (213 s.K.) m.328 - ÜÇÜNCÜ BÖLÜM Özel Haller Amortismana tabi malların satılması [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-fmuh-d1-y7-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "TMS 2 p.32 - Net gerçekleşebilir değer"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-fmuh-d1-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.desen",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-fmuh-d1-zor/kp-07": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-maliyet-d1-cokzor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-maliyet-d1-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-maliyet-d1-y2-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "TMS 2 p.10 - Stokların maliyeti"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-maliyet-d1-y4-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-maliyet-d1-y8-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "Teori Notu - Black-Scholes opsiyon fiyatlama varsayimlari",
+    "Teori Notu - arbitraj ve tek fiyat kanunu"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.harita"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "BDS 330 p.14 - Önceki denetimlerden elde edilen denetim kanıtlarının kullanılması"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-cokzor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-kolay/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "BDS 200 p.11 - Denetçinin Genel Amaçları"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-ydenetim-d1-y-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-y-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "BDS 210 p.19 - Mevzuatla Belirlenen Finansal Raporlama Çerçevesi - Kabulü Etkileyen Diğer Hususlar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-y-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "BDS 320 p.11 - Ana Hükümler"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap",
+    "dayanak"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-zor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "BDS 500 p.8 - Denetim Kanıtı Olarak Kullanılacak Bilgiler"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "KYS 2 p.19 - A1–A3 paragrafları)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ydenetim-d1-zor/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "BDS 240 p.12 - Tanımlar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yfta-d1-cokzor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yfta-d1-kolay/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yfta-d1-y5-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "Teori Notu - Black-Scholes opsiyon fiyatlama varsayimlari",
+    "Teori Notu - arbitraj ve tek fiyat kanunu"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yfta-d1-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler[3].kim"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "hap",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-cokzor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "sinav_taktigi",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-cokzor/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yhukuk-d1-cokzor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "konu_ozeti.harita",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.ornek",
+    "konu_ozeti.terimler"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-kolay/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "sinav_taktigi",
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-y-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-zor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.harita",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yhukuk-d1-zor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-cokzor/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-cokzor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-kolay/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-y-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-y2-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-ymeslek-d1-y5-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "konu_ozeti.sinavda",
+    "konu_ozeti.terimler.Yakınlık tehdidi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-ymeslek-d1-zor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yspk-d1-cokzor/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.harita",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-cokzor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-kolay/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yspk-d1-kolay/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-kolay/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-kolay/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap",
+    "sinav_taktigi",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-y-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sinav_taktigi",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "adimlar"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) [giris]",
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) gec. m.1",
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) m.1",
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) m.10 [1/2]",
+    "SPK Tebliğ (VII-128.2) - Gayrimenkul Sertifikaları Tebliği (VII-128.2) m.10 [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-y-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.desen",
+    "konu_ozeti.terimler"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-y-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-y-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-zor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.desen",
+    "konu_ozeti.harita"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sinav_taktigi",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-zor/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yspk-d1-zor/kp-07": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.desen",
+    "konu_ozeti.harita",
+    "konu_ozeti.yontemler",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.21 - BEŞİNCİ BÖLÜM Sermaye İratlarında İstisnalar Gayrimenkuller ve haklarda"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-cokzor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "KDVK (3065 s.K.) m.20 - İndirim BİRİNCİ BÖLÜM Matrah Teslim ve hizmet işlemlerinde matrah"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen",
+    "hap",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.220 - ONUNCU BÖLÜM Defterlerin Tasdıki Tasdike tabi defterler"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-kolay/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.20 - Vergi alacağı mükellef bakımından vergi borcunu teşkil eder. Tarh"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-kolay/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.3 - İKİNCİ BÖLÜM Tam Mükellefiyet Mükellefler"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-kolay/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.harita",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.374 - Ceza kesmede zamanaşımı"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-kolay/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "konu_ozeti.yontemler",
+    "konu_ozeti.harita",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "VUK (213 s.K.) m.16 - Ölüm halinde sürenin uzaması"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-kolay/kp-07": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-y-kolay/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "KDVK (3065 s.K.) m.1 - BİRİNCİ BÖLÜM Verginin Konusu Verginin konusunu teşkil eden işlemler [1/2]",
+    "KDVK (3065 s.K.) m.1 - BİRİNCİ BÖLÜM Verginin Konusu Verginin konusunu teşkil eden işlemler [2/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-y-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "hap",
+    "konu_ozeti.desen",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "AATUHK (6183 s.K.) m.37 - ÜÇÜNCÜ BÖLÜM Ödeme Ödeme zamanı ve önce ödeme"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-y2-cokzor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-y7-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.66 - Serbest meslek erbabı"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-zor/kp-01": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.86 - Elde edilmiş sayılır. Toplama yapılmayan haller"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.73 - Türk Parasına çevrilir. Emsal kira bedeli esası"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-zor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-zor/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler",
+    "konu_ozeti.desen",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-yvergi-d1-zor/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-zor/kp-07": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "GVK (193 s.K.) m.18 - DÖRDÜNCÜ BÖLÜM Kazançlarda İstisnalar Serbest meslek kazançlarında"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-s20-yvergi-d1-zor/kp-08": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "hap",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-fmuh-d1-y10-cokzor/kp-01",
+  "smmm-s20-fmuh-d1-y7-zor/kp-01",
+  "smmm-s20-fmuh-d1-zor/kp-01",
+  "smmm-s20-maliyet-d1-cokzor/kp-04",
+  "smmm-s20-maliyet-d1-y2-zor/kp-02",
+  "smmm-s20-maliyet-d1-y4-cokzor/kp-01",
+  "smmm-s20-maliyet-d1-y8-kolay/kp-01",
+  "smmm-s20-ydenetim-d1-cokzor/kp-01",
+  "smmm-s20-ydenetim-d1-cokzor/kp-04",
+  "smmm-s20-ydenetim-d1-kolay/kp-01",
+  "smmm-s20-ydenetim-d1-y-cokzor/kp-01",
+  "smmm-s20-ydenetim-d1-y-zor/kp-01",
+  "smmm-s20-ydenetim-d1-y-zor/kp-02",
+  "smmm-s20-ydenetim-d1-zor/kp-01",
+  "smmm-s20-ydenetim-d1-zor/kp-03",
+  "smmm-s20-ydenetim-d1-zor/kp-04",
+  "smmm-s20-ydenetim-d1-zor/kp-05",
+  "smmm-s20-yfta-d1-cokzor/kp-04",
+  "smmm-s20-yfta-d1-kolay/kp-02",
+  "smmm-s20-yfta-d1-y5-cokzor/kp-01",
+  "smmm-s20-yfta-d1-zor/kp-01",
+  "smmm-s20-yhukuk-d1-cokzor/kp-01",
+  "smmm-s20-yhukuk-d1-cokzor/kp-02",
+  "smmm-s20-yhukuk-d1-cokzor/kp-03",
+  "smmm-s20-yhukuk-d1-cokzor/kp-06",
+  "smmm-s20-yhukuk-d1-kolay/kp-03",
+  "smmm-s20-yhukuk-d1-y-zor/kp-01",
+  "smmm-s20-yhukuk-d1-zor/kp-03",
+  "smmm-s20-yhukuk-d1-zor/kp-06",
+  "smmm-s20-ymeslek-d1-cokzor/kp-01",
+  "smmm-s20-ymeslek-d1-cokzor/kp-02",
+  "smmm-s20-ymeslek-d1-cokzor/kp-05",
+  "smmm-s20-ymeslek-d1-cokzor/kp-06",
+  "smmm-s20-ymeslek-d1-kolay/kp-03",
+  "smmm-s20-ymeslek-d1-y-zor/kp-02",
+  "smmm-s20-ymeslek-d1-y5-zor/kp-01",
+  "smmm-s20-ymeslek-d1-zor/kp-01",
+  "smmm-s20-ymeslek-d1-zor/kp-02",
+  "smmm-s20-ymeslek-d1-zor/kp-06",
+  "smmm-s20-yspk-d1-cokzor/kp-02",
+  "smmm-s20-yspk-d1-cokzor/kp-05",
+  "smmm-s20-yspk-d1-cokzor/kp-06",
+  "smmm-s20-yspk-d1-kolay/kp-03",
+  "smmm-s20-yspk-d1-kolay/kp-04",
+  "smmm-s20-yspk-d1-kolay/kp-05",
+  "smmm-s20-yspk-d1-kolay/kp-06",
+  "smmm-s20-yspk-d1-y-cokzor/kp-01",
+  "smmm-s20-yspk-d1-y-cokzor/kp-02",
+  "smmm-s20-yspk-d1-y-kolay/kp-01",
+  "smmm-s20-yspk-d1-y-zor/kp-02",
+  "smmm-s20-yspk-d1-zor/kp-03",
+  "smmm-s20-yspk-d1-zor/kp-04",
+  "smmm-s20-yspk-d1-zor/kp-05",
+  "smmm-s20-yspk-d1-zor/kp-07",
+  "smmm-s20-yvergi-d1-cokzor/kp-02",
+  "smmm-s20-yvergi-d1-kolay/kp-01",
+  "smmm-s20-yvergi-d1-kolay/kp-02",
+  "smmm-s20-yvergi-d1-kolay/kp-03",
+  "smmm-s20-yvergi-d1-kolay/kp-05",
+  "smmm-s20-yvergi-d1-kolay/kp-06",
+  "smmm-s20-yvergi-d1-kolay/kp-07",
+  "smmm-s20-yvergi-d1-y-zor/kp-01",
+  "smmm-s20-yvergi-d1-y7-zor/kp-01",
+  "smmm-s20-yvergi-d1-zor/kp-05",
+  "smmm-s20-yvergi-d1-zor/kp-08"
+ ],
+ "kaynaksiz": [
+  "smmm-s20-fmuh-d1-kolay/kp-05",
+  "smmm-s20-fmuh-d1-zor/kp-01",
+  "smmm-s20-fmuh-d1-zor/kp-07",
+  "smmm-s20-maliyet-d1-cokzor/kp-04",
+  "smmm-s20-maliyet-d1-kolay/kp-01",
+  "smmm-s20-maliyet-d1-y4-cokzor/kp-01",
+  "smmm-s20-ydenetim-d1-cokzor/kp-04",
+  "smmm-s20-ydenetim-d1-kolay/kp-01",
+  "smmm-s20-ydenetim-d1-y-cokzor/kp-01",
+  "smmm-s20-ydenetim-d1-zor/kp-01",
+  "smmm-s20-yfta-d1-cokzor/kp-04",
+  "smmm-s20-yfta-d1-kolay/kp-02",
+  "smmm-s20-yfta-d1-zor/kp-01",
+  "smmm-s20-yhukuk-d1-cokzor/kp-01",
+  "smmm-s20-yhukuk-d1-cokzor/kp-02",
+  "smmm-s20-yhukuk-d1-cokzor/kp-03",
+  "smmm-s20-yhukuk-d1-cokzor/kp-05",
+  "smmm-s20-yhukuk-d1-cokzor/kp-06",
+  "smmm-s20-yhukuk-d1-kolay/kp-03",
+  "smmm-s20-yhukuk-d1-y-zor/kp-01",
+  "smmm-s20-yhukuk-d1-zor/kp-03",
+  "smmm-s20-yhukuk-d1-zor/kp-06",
+  "smmm-s20-ymeslek-d1-cokzor/kp-01",
+  "smmm-s20-ymeslek-d1-cokzor/kp-02",
+  "smmm-s20-ymeslek-d1-cokzor/kp-05",
+  "smmm-s20-ymeslek-d1-cokzor/kp-06",
+  "smmm-s20-ymeslek-d1-kolay/kp-03",
+  "smmm-s20-ymeslek-d1-y-zor/kp-02",
+  "smmm-s20-ymeslek-d1-y2-zor/kp-01",
+  "smmm-s20-ymeslek-d1-y5-zor/kp-01",
+  "smmm-s20-ymeslek-d1-zor/kp-01",
+  "smmm-s20-ymeslek-d1-zor/kp-02",
+  "smmm-s20-ymeslek-d1-zor/kp-06",
+  "smmm-s20-yspk-d1-cokzor/kp-02",
+  "smmm-s20-yspk-d1-cokzor/kp-05",
+  "smmm-s20-yspk-d1-cokzor/kp-06",
+  "smmm-s20-yspk-d1-kolay/kp-03",
+  "smmm-s20-yspk-d1-kolay/kp-04",
+  "smmm-s20-yspk-d1-kolay/kp-05",
+  "smmm-s20-yspk-d1-kolay/kp-06",
+  "smmm-s20-yspk-d1-y-cokzor/kp-02",
+  "smmm-s20-yspk-d1-y-kolay/kp-01",
+  "smmm-s20-yspk-d1-y-zor/kp-02",
+  "smmm-s20-yspk-d1-zor/kp-03",
+  "smmm-s20-yspk-d1-zor/kp-04",
+  "smmm-s20-yspk-d1-zor/kp-05",
+  "smmm-s20-yspk-d1-zor/kp-07",
+  "smmm-s20-yvergi-d1-cokzor/kp-02",
+  "smmm-s20-yvergi-d1-kolay/kp-07",
+  "smmm-s20-yvergi-d1-y2-cokzor/kp-01",
+  "smmm-s20-yvergi-d1-zor/kp-03",
+  "smmm-s20-yvergi-d1-zor/kp-05",
+  "smmm-s20-yvergi-d1-zor/kp-06",
+  "smmm-s20-yvergi-d1-zor/kp-08"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-s20-fmuh-d1-zor/kp-01",
+  "smmm-s20-maliyet-d1-cokzor/kp-04",
+  "smmm-s20-maliyet-d1-y4-cokzor/kp-01",
+  "smmm-s20-ydenetim-d1-cokzor/kp-04",
+  "smmm-s20-ydenetim-d1-kolay/kp-01",
+  "smmm-s20-ydenetim-d1-y-cokzor/kp-01",
+  "smmm-s20-ydenetim-d1-zor/kp-01",
+  "smmm-s20-yfta-d1-cokzor/kp-04",
+  "smmm-s20-yfta-d1-kolay/kp-02",
+  "smmm-s20-yfta-d1-zor/kp-01",
+  "smmm-s20-yhukuk-d1-cokzor/kp-01",
+  "smmm-s20-yhukuk-d1-cokzor/kp-02",
+  "smmm-s20-yhukuk-d1-cokzor/kp-03",
+  "smmm-s20-yhukuk-d1-cokzor/kp-06",
+  "smmm-s20-yhukuk-d1-kolay/kp-03",
+  "smmm-s20-yhukuk-d1-y-zor/kp-01",
+  "smmm-s20-yhukuk-d1-zor/kp-03",
+  "smmm-s20-yhukuk-d1-zor/kp-06",
+  "smmm-s20-ymeslek-d1-cokzor/kp-01",
+  "smmm-s20-ymeslek-d1-cokzor/kp-02",
+  "smmm-s20-ymeslek-d1-cokzor/kp-05",
+  "smmm-s20-ymeslek-d1-cokzor/kp-06",
+  "smmm-s20-ymeslek-d1-kolay/kp-03",
+  "smmm-s20-ymeslek-d1-y-zor/kp-02",
+  "smmm-s20-ymeslek-d1-y5-zor/kp-01",
+  "smmm-s20-ymeslek-d1-zor/kp-01",
+  "smmm-s20-ymeslek-d1-zor/kp-02",
+  "smmm-s20-ymeslek-d1-zor/kp-06",
+  "smmm-s20-yspk-d1-cokzor/kp-02",
+  "smmm-s20-yspk-d1-cokzor/kp-05",
+  "smmm-s20-yspk-d1-cokzor/kp-06",
+  "smmm-s20-yspk-d1-kolay/kp-03",
+  "smmm-s20-yspk-d1-kolay/kp-04",
+  "smmm-s20-yspk-d1-kolay/kp-05",
+  "smmm-s20-yspk-d1-kolay/kp-06",
+  "smmm-s20-yspk-d1-y-cokzor/kp-02",
+  "smmm-s20-yspk-d1-y-kolay/kp-01",
+  "smmm-s20-yspk-d1-y-zor/kp-02",
+  "smmm-s20-yspk-d1-zor/kp-03",
+  "smmm-s20-yspk-d1-zor/kp-04",
+  "smmm-s20-yspk-d1-zor/kp-05",
+  "smmm-s20-yspk-d1-zor/kp-07",
+  "smmm-s20-yvergi-d1-cokzor/kp-02",
+  "smmm-s20-yvergi-d1-kolay/kp-07",
+  "smmm-s20-yvergi-d1-zor/kp-05",
+  "smmm-s20-yvergi-d1-zor/kp-08"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
