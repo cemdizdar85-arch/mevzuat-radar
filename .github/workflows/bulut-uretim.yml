@@ -179,7 +179,7 @@ jobs:
           #   Yalniz var olan sorunun onarim rehakemi (*-onarim-hakem.json) ve hasat gecer. Freni yalniz Cem kaldirir.
           # 08.11 Cem "ac freni ve dogru sekilde siteye sok": YALNIZ Yeterlilik Son 20 Gun 2. deneme planlari
           #   (veri/sinav/plan-smmm-s20-<ders>-d2-a.json ve -d2-y-a.json) frenden gecer. D3+, SGS, KGK ve oteki basim frende kalir.
-          if ($s.durdur -and '${{ inputs.yalniz_hasat }}' -ne '1' -and '${{ inputs.plan }}' -notmatch '^veri/sinav/plan-[a-z0-9-]+-onarim-hakem\.json$' -and '${{ inputs.plan }}' -notmatch '^veri/sinav/plan-smmm-s20-[a-z]+-d2(-y)?-a\.json$') { "ACIL FREN ACIK: butun yeni soru basimi durduruldu (Cem 07.11). Kaldirmak icin Cem onayi + bulut-sira.json durdur=false."; exit 1 }
+          if ($s.durdur -and '${{ inputs.yalniz_hasat }}' -ne '1' -and '${{ inputs.plan }}' -notmatch '^veri/sinav/plan-[a-z0-9-]+-onarim-hakem\.json$' -and '${{ inputs.plan }}' -notmatch '^veri/sinav/plan-smmm-s20-[a-z]+-d2(-y[0-9]*)?-a\.json$') { "ACIL FREN ACIK: butun yeni soru basimi durduruldu (Cem 07.11). Kaldirmak icin Cem onayi + bulut-sira.json durdur=false."; exit 1 }
           "acil fren: kapali ya da yalniz hasat ya da onarim rehakemi"
 
       - name: Gizli kasa (anahtar varsa)
