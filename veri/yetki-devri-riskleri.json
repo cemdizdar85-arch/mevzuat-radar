@@ -1,11 +1,11 @@
 {
-  "tarih": "07.11.2026 20:27",
+  "tarih": "07.11.2026 23:36",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 922,
-  "riskli_madde": 1322,
+  "riskli_madde": 1321,
   "sayfa": 82,
   "atifli_iddia": 315,
-  "dayanaksiz_iddia": 556,
+  "dayanaksiz_iddia": 557,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1525,7 +1525,7 @@
       "sayfa": "index.html",
       "satir": 894,
       "iddia": "20 Gün",
-      "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, ilk denemeler 8 Kasım\\'da':'')+' '; }"
+      "metin": "+(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, '+(Date.now() '; } /* 08.11 Cem: açıldıktan sonra \"8 Kasım'da\" demesin */"
     },
     {
       "sayfa": "index.html",
@@ -3029,63 +3029,69 @@
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 122,
+      "satir": 127,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün · 7 deneme"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 141,
+      "satir": 146,
       "iddia": "%60",
       "metin": "0/5 %60 ve üstü"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 196,
+      "satir": 202,
       "iddia": "20 gün",
       "metin": "+(YET?'Sınava 20 gün kala. Paketini şimdi al; her dersin 1. denemesi o gün bu sayfada açılır, sonrakiler sırayla gelir.':'Paketini şimdi al; denemeler o gün bu sayfada hesabında aç"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 215,
+      "satir": 221,
       "iddia": "3 gün",
       "metin": "/* 31.10 tempo takvimi: 1–20 Kasım'a 7 deneme, 3 günde 1 (21 Kasım sınav günü). Gün İstanbul saatiyle. Üyede deneme başına biten ders. */"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 220,
+      "satir": 226,
       "iddia": "3 gün",
       "metin": "(3 günlük denemede ≈43 soru/gün; Deneme 7 iki gün). Üyede biten ders ✓. */"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 246,
+      "satir": 252,
       "iddia": "3 gün",
       "metin": "if(gun<1) ust='Önerilen tempo: 3 günde 1 deneme. 1 Kasım\\'da Deneme 1 ile başla; 20 Kasım\\'da 7\\'si biter, 21 Kasım sınav günü.';"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 320,
+      "satir": 333,
       "iddia": "%5",
       "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 423,
+      "satir": 453,
       "iddia": "20 Gün",
       "metin": "document.title='Son 20 Gün · SMMM Yeterlilik | Tetikte';"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 424,
+      "satir": 454,
       "iddia": "20 Gün",
       "metin": "$('s20Bas').textContent='Son 20 Gün · SMMM Yeterlilik'; $('akis').hidden=true; $('takvim').hidden=true;"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 427,
+      "satir": 469,
       "iddia": "%60",
-      "metin": "$('soz').querySelector('.soz-s').innerHTML=' 0/8 şartı tamam ders 5 deneme her derste 3/5 %60 ve üstü gerekir ';"
+      "metin": "$('soz').querySelector('.soz-s').innerHTML=' '+tamamDers+'/'+hakSay+' şartı tamam ders 5 deneme her derste 3/5 %60 ve üstü gerekir ';"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 472,
+      "iddia": "%60",
+      "metin": "gk.innerHTML=' Çalışma görevlerin %60\\'ın altında kaldığın denemenin konularını pekiştirme zamanı. Her konuda 4 yeni soru gelir; 3\\'ünü doğru yapınca konu tamamlanır. Görevler biti"
     },
     {
       "sayfa": "songun.html",
@@ -4237,8 +4243,8 @@
     },
     {
       "dosya": "damga",
-      "kaynak_ad": "Damga V.K. (488 s.K.) m.32 - Bu süreyi üç yıla kadar uzatmaya Cumhurbaşkanı yetkilidir. Yürürlük",
-      "kesit": "...Bu süreyi üç yıla kadar uzatmaya Cumhurbaşkanı yetkilidir. Yürürlük: Madde 32 – Bu kanun hükümleri yayımını takip eden aybaşından itibaren 3 ay sonra yürürlüğe girer...."
+      "kaynak_ad": "Damga V.K. (488 s.K.) gec. m.5",
+      "kesit": "...nadır. Bu süreyi üç yıla kadar uzatmaya Cumhurbaşkanı yetkilidir...."
     },
     {
       "dosya": "damgagt45",
@@ -4703,7 +4709,7 @@
     {
       "dosya": "giderv",
       "kaynak_ad": "Gider Vergileri K. (6802 s.K.) m.33 - Nispet",
-      "kesit": "...LAN DEĞİŞİKLİKLER CETVELİ\"ne bakınız. 8 sıfıra kadar indirmeye ve kambiyo muamelelerinde on katına, vergiye tabi diğer muamelelerde ise kanuni seviyesine kadar artırmaya yetkilidir.91011 İKİNCİ BÖLÜM ..."
+      "kesit": "...likte % 1'e, kambiyo muamelelerinde ise sıfıra kadar indirmeye ve kambiyo muamelelerinde on katına, vergiye tabi diğer muamelelerde ise kanuni seviyesine kadar artırmaya yetkilidir.91011 İKİNCİ BÖLÜM ..."
     },
     {
       "dosya": "giderv",
@@ -7503,7 +7509,7 @@
     {
       "dosya": "osb",
       "kaynak_ad": "OSB K. (4562 s.K.) m.4 [5/5]",
-      "kesit": "...n uygulanmasına ilişkin usul ve esaslar yönetmelikle belirlenir. Nitelikleri..."
+      "kesit": "...n uygulanmasına ilişkin usul ve esaslar yönetmelikle belirlenir...."
     },
     {
       "dosya": "osb",
@@ -7538,12 +7544,12 @@
     {
       "dosya": "osb",
       "kaynak_ad": "OSB K. (4562 s.K.) m.22",
-      "kesit": "...n uygulanmasına ilişkin usul ve esaslar yönetmelikle belirlenir. Bakanlığın yetkileri..."
+      "kesit": "...n uygulanmasına ilişkin usul ve esaslar yönetmelikle belirlenir...."
     },
     {
       "dosya": "osb",
       "kaynak_ad": "OSB K. (4562 s.K.) m.26/A",
-      "kesit": "...zırlanarak yürürlüğe konulacak ayrı bir yönetmelik ile belirlenir.22 Organize Sanayi Bölgeleri Üst Kuruluşu ile yönetmelikler ve düzenlemeler23..."
+      "kesit": "...zırlanarak yürürlüğe konulacak ayrı bir yönetmelik ile belirlenir.22..."
     },
     {
       "dosya": "osb",
@@ -7553,7 +7559,7 @@
     {
       "dosya": "osb",
       "kaynak_ad": "OSB K. (4562 s.K.) ek m.4",
-      "kesit": "...na ilişkin usul ve esasları belirlemeye Cumhurbaşkanı yetkilidir. 2/7/2018 tarihli ve 700 sayılı KHK’nin 127 nci maddesiyle, bu fıkralarda yer alan “Bakanlar Kurulu” ibareleri “Cumhurbaşkanı” şeklinde..."
+      "kesit": "...na ilişkin usul ve esasları belirlemeye Cumhurbaşkanı yetkilidir. 2/7/2018 tarihli ve 700 sayılı KHK’nin 127 nci maddesiyle, bu maddenin birinci fıkrasında yer alan “Bakanlar Kurulunca” ibaresi “Cumhu..."
     },
     {
       "dosya": "osb",
@@ -7573,7 +7579,7 @@
     {
       "dosya": "osb",
       "kaynak_ad": "OSB K. (4562 s.K.) gec. m.17 [4/4]",
-      "kesit": "... usul ve esaslar Bakanlıkça çıkarılacak yönetmelik ile belirlenir. Yürürlük32..."
+      "kesit": "... usul ve esaslar Bakanlıkça çıkarılacak yönetmelik ile belirlenir...."
     },
     {
       "dosya": "otv",
@@ -7788,17 +7794,12 @@
     {
       "dosya": "serbestb",
       "kaynak_ad": "Serbest Bölgeler K. (3218 s.K.) m.2",
-      "kesit": "...lgelerin yer ve sınırlarını belirlemeye Cumhurbaşkanı yetkilidir. Serbest bölgelerin, kamu kurum ve kuruluşlarınca, yerli veya yabancı gerçek veya tüzelkişilerce kurulmasına, işletilmesine..."
+      "kesit": "...lgelerin yer ve sınırlarını belirlemeye Cumhurbaşkanı yetkilidir. Serbest bölgelerin, kamu kurum ve kuruluşlarınca, yerli veya yabancı gerçek veya tüzelkişilerce kurulmasına, işletilmesine Cumhurbaşka..."
     },
     {
       "dosya": "serbestb",
       "kaynak_ad": "Serbest Bölgeler K. (3218 s.K.) m.6 - Muafiyet ve teşvikler [1/2]",
-      "kesit": "...aları olmakla beraber; yer ve sınırları Cumhurbaşkanınca belirlenmiş, serbest dolaşımda olmayan eşyanın herhangi bir gümrük rejimine tabi tutulmaksızın ve serbest 2/7/2018 tarihli ve 703 sayılı Kanun ..."
-    },
-    {
-      "dosya": "serbestb",
-      "kaynak_ad": "Serbest Bölgeler K. (3218 s.K.) m.7 [1/3]",
-      "kesit": "...en sonra gelmek üzere “yer ve sınırları Bakanlar Kurulunca belirlenmiş,” ibaresi eklenmiştir. 7 2/7/2018 tarihli ve 703 sayılı Kanun Hükmünde Kararnamenin 192 nci maddesiyle bu fıkrada yer alan “Bakan..."
+      "kesit": "...aları olmakla beraber; yer ve sınırları Cumhurbaşkanınca belirlenmiş, serbest dolaşımda olmayan eşyanın herhangi bir gümrük rejimine tabi tutulmaksızın ve serbest dolaşıma sokulmaksızın, gümrük mevzua..."
     },
     {
       "dosya": "serbestb",
@@ -9247,27 +9248,27 @@
     },
     {
       "dosya": "turizm",
-      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.6 - Kararı ile) Doğal turizm kaynaklarının korunması ve kullanılması [1/2]",
+      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.6 - Doğal turizm kaynaklarının korunması ve kullanılması [1/2]",
       "kesit": "...bendine dayanılarak yürürlüğe konulacak yönetmelikle belirlenir. (Ek fıkra: 18/7/2021-7334/4 md.) Ücretsiz girişli günübirlik tesis ile 9 uncu maddenin (b) bendinde belirtilen tesislerin Bakanlık tara..."
     },
     {
       "dosya": "turizm",
-      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.13 - LÜM Teşvikle İlgili Esaslar ve Hükümler Teşvik ve koordinasyon esasları",
-      "kesit": "...iğer yerlerdir.22 Belgeli işletmelerden Cumhurbaşkanınca her yıl belirlenen döviz miktarını sağlayanlar, ihracatçı sayılırlar.23..."
+      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.14 - Turizm kredileri",
+      "kesit": "...Belgeli işletmelerden Cumhurbaşkanınca her yıl belirlenen döviz miktarını sağlayanlar, ihracatçı sayılırlar.23 Turizm kredileri: Madde 14 – a) Turizm kredileri öncelikle kültür ve turizm koruma ve gel..."
     },
     {
       "dosya": "turizm",
       "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.27",
-      "kesit": "...amacıyla kullanılmasına ilişkin esaslar yönetmelikle belirlenir. Türk karasuları ve limanları arasında seyir esasları:31..."
+      "kesit": "...amacıyla kullanılmasına ilişkin esaslar yönetmelikle belirlenir...."
     },
     {
       "dosya": "turizm",
-      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.33 - Bu Kanuna göre verilecek uyarma kesindir.37 Para cezaları [5/5]",
+      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.33 [5/5]",
       "kesit": "... maddesi uyarınca tespit ve ilan edilen yeniden değerleme oranında artırılarak uygulanır. Bu suretle idari para cezasının hesabında bir Türk lirasının küsuru dikkate alınmaz. Bu Kanun kapsamında veril..."
     },
     {
       "dosya": "turizm",
-      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.37 - ALTINCI BÖLÜM Son Hükümler Yönetmelikler [1/2]",
+      "kaynak_ad": "Turizm Teşvik K. (2634 s.K.) m.37 - Yönetmelikler [1/2]",
       "kesit": "...mler Yönetmelikler: Madde 37 – (…)43 A. Cumhurbaşkanı kararı ile yürürlüğe girecek yönetmeliklerle düzenlenecek hususlar:43 (1) Kültür ve turizm koruma ve gelişim bölgeleri ve turizm merkezlerinin bel..."
     },
     {
