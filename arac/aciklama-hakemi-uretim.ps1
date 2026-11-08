@@ -20,6 +20,21 @@ function AhAday($v) {
 # koşucu ve havuz-kur için: YENİ soru açıklama hakeminden TEMIZ almadıysa seçilmez
 function AhSecilemez($v) { return [bool]((AhYeniMi $v) -and -not ($v.PSObject.Properties['aciklama_hakem'] -and "$($v.aciklama_hakem.karar)" -eq 'TEMIZ')) }
 
+# 09.11.2026 KURAL (Cem "1 ve 2 yap"): SON 20 GÜN (smmm-s20-) DENEMESİNDE YALNIZ GÖRÜNEN ALAN YARGILANIR.
+#   Deneme sonucu ekranı (son-20-gun.html yetAciklama) yalnız şunları gösterir: sade.dogru · seçilen şıkkın teshis.<X>.gercek'i (yoksa
+#   sade.siklar.<X>) · tablo · adimlar · kural · dayanak · hap. Ölçüldü 08.11: D2'de AH KUSURLU'ların ≈%85'i gösterilmeyen alandaydı
+#   (konu özeti, sınav taktiği, teşhis yanılgı/ayırt/paragraf, ikiz) ve hepsi elle resmî okumayla kapatıldı (155 karar).
+#   Kural: etiket smmm-s20- VE kusurların HEPSİ aşağıdaki GİZLİ listede ise karar TEMIZ; modelin kusurları İZ olarak kalır, onceki_karar +
+#   gizli_alan_kurali alanı düşer. Alanı yazılmamış ya da listede olmayan (hap dahil — hap ekranda görünür) tek kusur → KUSURLU kalır.
+#   🚫 GÖRMEZ: kusurun gerçekten o alanda olduğu (hakemin alan beyanına güvenir) · bitirme/SGS/KGK (yalnız smmm-s20-).
+$script:AH_S20_GIZLI = '^(konu_ozeti|sinav_taktigi|ikiz|teori_ikiz|aciklama|celdirici_yol|verilenler|konu_giris|notlandirici|sema)([.\[]|$)|^teshis\.[A-E]\.(yanilgi|ayirt|paragraf)$'
+function AhS20YalnizGizli([string]$etiket, $kusurlar) {
+  if ($etiket -notmatch '^smmm-s20-') { return $false }
+  $k = @($kusurlar | Where-Object { $_ }); if (-not $k.Count) { return $false }
+  foreach ($u in $k) { $al = "$(if ($u -and $u.PSObject.Properties['alan']) { $u.alan })".Trim(); if (-not $al -or $al -notmatch $script:AH_S20_GIZLI) { return $false } }
+  return $true
+}
+
 # 13.10.2026 KURAL (KGK oturumu, Cem "1.2.3"): AÇIKLAMA HAKEMİ BÜTÇESİZ KALDIYSA PLAN "TAMAMLANDI" SAYILMAZ.
 #   Ölçüldü 13.10: KGK t1/t2 (8 plan, 326 soru, ≈14,7 USD) bütçesi yazım + dört hakemi karşıladı, AH'ye kalmadı
 #   ("aday 31 · gönderilen 0 · bütçe yetmedi 31"); bulut işi "plan tamamlandı - yeniden tetikleme yok" dedi, yayın şartı 0 soru seçti.
@@ -64,9 +79,12 @@ function AciklamaHakemUretim([string]$Kok, $satirlar, [double]$planHarcanan = 0,
     if (-not $sonuc.ContainsKey($id)) { continue }   # zaman aşımı: karar yok → seçilmez, sonraki halka bedava hasat
     $kr = AciklamaHakemKarar $sonuc[$id]
     if ($kr.karar -eq 'OLCULEMEDI') { $rapor.olculemedi++; continue }
-    if ($kr.karar -eq 'TEMIZ') { $rapor.temiz++ } else { $rapor.kusurlu++ }
     $et = $harita[$id][0]; $kp = $harita[$id][1]; if (-not $kararlar.ContainsKey($et)) { $kararlar[$et] = @{} }
-    $kararlar[$et][$kp] = [ordered]@{ karar = $kr.karar; kusurlar = @($kr.kusurlar); model = (ModelKod $model); tarih = (Get-Date -Format 'yyyy-MM-dd') }
+    $gizliKural = ($kr.karar -eq 'KUSURLU' -and (AhS20YalnizGizli $et $kr.kusurlar))
+    $krSon = $(if ($gizliKural) { 'TEMIZ' } else { $kr.karar })
+    if ($krSon -eq 'TEMIZ') { $rapor.temiz++ } else { $rapor.kusurlu++ }
+    $kararlar[$et][$kp] = [ordered]@{ karar = $krSon; kusurlar = @($kr.kusurlar); model = (ModelKod $model); tarih = (Get-Date -Format 'yyyy-MM-dd') }
+    if ($gizliKural) { $kararlar[$et][$kp].onceki_karar = 'KUSURLU'; $kararlar[$et][$kp].gizli_alan_kurali = 'Son 20 Gün: kusurların hepsi deneme ekranında gösterilmeyen alanda (Cem 09.11); model kusurları iz' }
   }
   if ($kararlar.Count) {
     $tmp = [IO.Path]::GetTempFileName()

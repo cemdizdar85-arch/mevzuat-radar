@@ -1,0 +1,78 @@
+{
+ "ad": "s20-hap-0911",
+ "tarih": "2026-11-08T21:34:46.575Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42525536129",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.3,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 2,
+  "temiz": 0,
+  "kusurlu": 2,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 2,
+  "kaynaksiz": 2,
+  "kaynaksiz_kusurlu": 2,
+  "usd": 0.065
+ },
+ "kararlar": {
+  "smmm-s20-ymeslek-d2-kolay/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-yvergi-d2-y3-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.D.paragraf"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-ymeslek-d2-kolay/kp-03",
+  "smmm-s20-yvergi-d2-y3-zor/kp-01"
+ ],
+ "kaynaksiz": [
+  "smmm-s20-ymeslek-d2-kolay/kp-03",
+  "smmm-s20-yvergi-d2-y3-zor/kp-01"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-s20-ymeslek-d2-kolay/kp-03",
+  "smmm-s20-yvergi-d2-y3-zor/kp-01"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
