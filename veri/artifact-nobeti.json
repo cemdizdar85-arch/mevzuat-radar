@@ -1,12 +1,12 @@
 {
-  "olcum": "07.11.2026 13:28",
+  "olcum": "08.11.2026 13:48",
   "durum": "KIRMIZI",
   "neden": "12 artifact SIFRESIZ dosya tasiyor (public repoda herkes indirebilir): kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc, kor-sonuc. Silme komutlari raporda (veri/artifact-nobeti.json).",
   "aciklama": "Depodaki artifactler: github-pages kamu, izinli adlar kamu ilan verisi, gerisi yalniz .enc icermeli. ACIK = sifresiz dosya tasiyan artifact; public repoda herkes indirir.",
   "sayim": {
-    "toplam": 155,
+    "toplam": 158,
     "acik": 12,
-    "sifreli": 89,
+    "sifreli": 92,
     "kamu": 54
   },
   "acik": [
@@ -120,87 +120,186 @@
     }
   ],
   "hukumler": {
-    "13575835641": {
+    "13619490028": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13575161509": {
+    "13619042922": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13575045367": {
+    "13618911769": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13574911264": {
+    "13618747540": {
+      "ad": "alacak-kasa-yedek-16",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "alacak-kasa-20261108-1325.json.enc",
+        "alacak-kasa-20261108-1325.json.k.enc"
+      ]
+    },
+    "13618394765": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13574350476": {
+    "13617320823": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13574084234": {
+    "13616590239": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13573664589": {
+    "13616530210": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13573605628": {
+    "13616490193": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13572366849": {
+    "13616293562": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13572062759": {
+    "13614614040": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13571699917": {
+    "13614391297": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13571037077": {
+    "13614106238": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13570440203": {
+    "13614037043": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13568563381": {
+    "13613937830": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13566602671": {
+    "13612381417": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13566575181": {
+    "13611352088": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
     },
-    "13566485857": {
+    "13611257142": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13610670017": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13610362344": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13609927412": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13609750276": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13609532751": {
+      "ad": "soru-ambar-yedek-69",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "soru-ambar-20261108-0729-dokumanlar.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-ihale_kutuk.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-elci_indirim.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-bedel_kaydi.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-ihale_sonuc.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-kalip_parti.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-konu_karti.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-konu_koprusu.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-konu_semasi.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-kunye.json.gz.enc",
+        "soru-ambar-20261108-0729-marka_ayna.ndjson.gz.enc",
+        "soru-ambar-20261108-0729-marka_ayna_dilim.ndjson.gz.enc"
+      ]
+    },
+    "13609202216": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13609171246": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13609070749": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13608794831": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13608759413": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13608644140": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13608630113": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13608204603": {
+      "ad": "github-pages",
+      "hukum": "site",
+      "dosyalar": []
+    },
+    "13608083714": {
+      "ad": "supabase-yedek-26",
+      "hukum": "sifreli",
+      "dosyalar": [
+        "supabase-yedek.tgz.enc",
+        "supabase-yedek.tgz.k.enc"
+      ]
+    },
+    "13607472997": {
       "ad": "github-pages",
       "hukum": "site",
       "dosyalar": []
@@ -223,66 +322,6 @@
         "soru-ambar-20261107-0719-marka_ayna_dilim.ndjson.gz.enc"
       ]
     },
-    "13566106940": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13565953568": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13565712776": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13565555234": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13565517049": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13565116930": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13564879827": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13564822111": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13564577985": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13564243941": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13564159684": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
-    "13563918743": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
-    },
     "13563226829": {
       "ad": "supabase-yedek-25",
       "hukum": "sifreli",
@@ -290,11 +329,6 @@
         "supabase-yedek.tgz.enc",
         "supabase-yedek.tgz.k.enc"
       ]
-    },
-    "13554709335": {
-      "ad": "github-pages",
-      "hukum": "site",
-      "dosyalar": []
     },
     "13488287623": {
       "ad": "soru-ambar-yedek-67",
