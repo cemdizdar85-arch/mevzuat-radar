@@ -1,0 +1,79 @@
+{
+ "ad": "s20-d2-fmuh-0911",
+ "tarih": "2026-11-09T14:55:15.281Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42638754026",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 2,
+  "temiz": 0,
+  "kusurlu": 2,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 2,
+  "kaynaksiz": 2,
+  "kaynaksiz_kusurlu": 2,
+  "usd": 0.055
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d2-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-fmuh-d2-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek",
+    "konu_ozeti.terimler.Kayıtlı kur",
+    "konu_ozeti.terimler.Değerleme günü kuru",
+    "konu_ozeti.terimler.Kur farkı",
+    "dayanak"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-fmuh-d2-zor/kp-02",
+  "smmm-s20-fmuh-d2-zor/kp-04"
+ ],
+ "kaynaksiz": [
+  "smmm-s20-fmuh-d2-zor/kp-02",
+  "smmm-s20-fmuh-d2-zor/kp-04"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-s20-fmuh-d2-zor/kp-02",
+  "smmm-s20-fmuh-d2-zor/kp-04"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
