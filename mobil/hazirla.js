@@ -73,13 +73,15 @@ const SITE_SAYFALARI = [
   { yol: 'son-20-gun.html', sok: ['canonical'], degis: [
     [/<a class="dg iki" href="smmm-staja-giris-sorulari\.html#gktPaket">Paketleri gör<\/a>/g, '<a class="dg iki" href="index.html#paketler">Paketler</a>', 1],
     [/<a class="dg" href="satin-al\.html\?paket=son20-sgs">[^<]*<\/a><a class="dg iki" href="satin-al\.html\?paket=sgs">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
-    [/<a class="dg" href="satin-al\.html\?paket=son20-yet">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    /* 09.11: 08.11 Yeterlilik ders ders ekranı ikinci "Sadece Denemeler" düğmesini ekledi (girişsiz + paketsiz) → 2 */
+    [/<a class="dg" href="satin-al\.html\?paket=son20-yet">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 2],
     [/ogrenci\.html\?sonra='\+encodeURIComponent\('[^']*'\)\+'/g, 'index.html#giris', 2]
   ] }
 ];
 const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js',
   'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js',
-  'nobetci-notu.js'];   /* 12.10 Nöbetçi notu: ders sayfası (uygulama-kaydir.js) her 10 cevapta */
+  'nobetci-notu.js',   /* 12.10 Nöbetçi notu: ders sayfası (uygulama-kaydir.js) her 10 cevapta */
+  'ilerleme-web.js'];  /* 09.11 yanlış kutusu hesaba: uygulama-kapisi.js ders sayfasında yalnızKutu kipinde yükler */
 const SAYFA_SOK = {   // ad → desen
   canonical: /<link rel="canonical"[^>]*>\n?/,
   sayac: /<script data-goatcounter=[^>]*><\/script>\n?/,

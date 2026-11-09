@@ -76,10 +76,11 @@ const SON20 = () => '<!doctype html><html lang="tr"><head><link rel="canonical" 
   k.innerHTML='<a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a>';
   k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a>';
   k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a>';
+  k.innerHTML='<h2>Denemeler paketinde yok</h2><a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a>';
 ` + '</script></body></html>';
 const SITE_EK_SAHTE = {};
 ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js',
-  'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js', 'nobetci-notu.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
+  'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js', 'nobetci-notu.js', 'ilerleme-web.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
 
 function kur(degisiklik) {
   const k = fs.mkdtempSync(path.join(os.tmpdir(), 'hz-sinav-'));

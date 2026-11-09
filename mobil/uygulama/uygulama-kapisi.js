@@ -162,6 +162,22 @@
     } catch (e) {}
   }
 
+  /* 09.11 YANLIŞ KUTUSU HESABA (üye "yanlışlarımı göremiyorum"): ders sayfasının yanlış kutusu (kc_kutu/kc_kayit/kc_oyun)
+     uygulamada yalnız telefona yazılıyordu; sitede bunu ilerleme-web.js taşıyor. Aynı dosya burada yalnızKutu kipinde çalışır
+     (cevap kaydı ve kaldığın yer uygulama-kaydir.js'te kalır). İlk eşitlemede telefondaki eski kutu da hesaba gider.
+     Arızada (dosya yok, ağ yok) sayfa olduğu gibi çalışır. */
+  function kutuKoprusu(sb, k) {
+    try {
+      if (!/\/kaydir\//.test(location.pathname)) return;
+      var calistir = function () { if (window.ttIlerlemeWeb) window.ttIlerlemeWeb.kur(sb, k, { yalnizKutu: true }); };
+      if (window.ttIlerlemeWeb) return calistir();
+      var s = document.createElement('script');
+      s.src = KOK + 'ilerleme-web.js';
+      s.onload = calistir;
+      (document.head || kok).appendChild(s);
+    } catch (e) {}
+  }
+
   var zaman = setTimeout(function () { perde('hata'); }, 12000);
   (async function () {
     try {
@@ -173,6 +189,7 @@
       if (window.TT.acarMi(p.satir, sayfaSinavi())) {
         ac(sb);
         if (!k.cevrimdisi && !p.cevrimdisi) cihazKorumasi(sb, k);
+        if (!k.cevrimdisi) kutuKoprusu(sb, k);
         return;
       }
       perde('paket');

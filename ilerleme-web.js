@@ -15,6 +15,13 @@
  * YAPMAZ / GÖRMEZ: seri sayacı (kc_seri) ve kâğıt notları (kc_kagit) tarayıcıda kalır; uygulama kutuyu TAŞIR ama göstermez;
  *        iki cihazda AYNI ANDA çözülürse kutu kaydı "en yeni kazanır"la birleşir (soru başına); tek kart (?tek=1), derin bağlantı (#s=N) ve vitrin sayfalarında kaldığın yer yazılmaz/uygulanmaz;
  *        sinav-gibi.html gibi #akis olmayan sayfalarda hiçbir şey yapmaz.
+ *
+ * 09.11 UYGULAMA KÖPRÜSÜ (Cem "bul ve düzelt"; üye "yanlışlarımı göremiyorum"): uygulama (mobil/uygulama/uygulama-kapisi.js)
+ * bu dosyayı kur(sb, kullanici, { yalnizKutu: true }) ile çağırır. O kipte YALNIZ hesapla eşitleme + yanlış kutusu/kayıt/oyun
+ * taşıması çalışır; cevap kaydı, Nöbetçi notu ve kaldığın yer uygulamanın kendi katmanında (uygulama-kaydir.js) kalır (çift yazım yok).
+ * ÖLÇÜLDÜ 09.11 (ogrenci_ilerleme, en az 5 ders cevabı olan 89 üye): yalnız sitede çözen 42 üyenin 42'sinde kayıt dolu;
+ * yalnız uygulamada çözen 16 üyenin 10'unda kayıt + kutu BOŞ (kalan 6'sı uygulamada Yanlışlarım'ı açıp kutu-esitle.js ile taşımış);
+ * karışık 31 üyede kayıt ≈ sitede çözülen kadar. Uygulamadaki ders sayfası kutuyu yalnız telefona yazıyordu.
  */
 (function () {
   var betik = document.currentScript;
@@ -62,9 +69,10 @@
     setTimeout(function () { if (s.parentNode) s.remove(); }, 7000);
   }
 
-  async function kur(sb, kullanici) {
+  async function kur(sb, kullanici, ayar) {
     if (kuruldu || !YOL || !akis() || /\/kaydir\/vitrin\//.test(location.pathname)) return;
     kuruldu = true;
+    var yalnizKutu = !!(ayar && ayar.yalnizKutu);   /* 09.11 uygulama köprüsü: yalnız eşitleme + kutu */
     try {
       if (!window.TTIlerleme) await yukle(KOK + 'mobil/uygulama/ilerleme.js?v=20261012b');
     } catch (e) { return; }
@@ -82,7 +90,7 @@
 
     var ks = kartlar(), a = akis();
     /* 12.10 NÖBETÇİ NOTU (nobetci-notu.js): bitirme ders sayfasında her 10 cevapta bir kart. Tek kartta yok. İnmezse sayfa aynen. */
-    if (/^kaydir\/smmm\//.test(YOL) && !tek) yukle(KOK + 'nobetci-notu.js?v=20261015y').then(function () {
+    if (/^kaydir\/smmm\//.test(YOL) && !tek && !yalnizKutu) yukle(KOK + 'nobetci-notu.js?v=20261015y').then(function () {
       var s0 = (typeof SORULAR !== 'undefined' && SORULAR[0]) || {};
       if (window.ttNobetciNotu) window.ttNobetciNotu.kur({ yol: YOL, kok: KOK, ders: String(s0.ders || ''), tekrar: typeof kutuEkraniAc === 'function' ? kutuEkraniAc : null });
     }).catch(function () {});
@@ -95,9 +103,9 @@
     document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') IL.esitle(sb, uid); });
 
     /* 3) cevap kaydı: sayfanın kendi dinleyicisi şıkları boyadıktan SONRA sonucu okunur (uygulama-kaydir.js ile aynı) */
-    ks.forEach(cevapBagla);
+    if (!yalnizKutu) ks.forEach(cevapBagla);
     /* 07.10 parça yükleme (kasa-yukle.js + __kasaEkle): sonradan gelen kartlara da bağlan; kaldığın kart henüz yoksa gelince git */
-    document.addEventListener('tetikte-kasa-ekle', function () {
+    if (!yalnizKutu) document.addEventListener('tetikte-kasa-ekle', function () {
       var eski = ks.length; ks = kartlar();
       for (var j = eski; j < ks.length; j++) cevapBagla(ks[j], j);
       if (!tek && !derin) yereGit();
@@ -172,7 +180,7 @@
     function izAl() { try { return (localStorage.getItem('kc_kutu') || '') + '|' + (localStorage.getItem('kc_kayit') || '').slice(-160) + '|' + (localStorage.getItem('kc_oyun') || '').slice(-160); } catch (e) { return ''; } }
 
     /* 4) kaldığın yer: tek kart modunda yazılmaz */
-    if (tek) return;
+    if (tek || yalnizKutu) return;
     var konumZam = null;
     a.addEventListener('scroll', function () {
       clearTimeout(konumZam);

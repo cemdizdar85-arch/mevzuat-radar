@@ -214,7 +214,7 @@
       var calistir = function () { if (window.ttIlerlemeWeb) window.ttIlerlemeWeb.kur(sb, kullanici); };
       if (window.ttIlerlemeWeb) return calistir();
       var s = document.createElement('script');
-      s.src = KOK + 'ilerleme-web.js?v=20261015y';   /* 12.10: kaldığın yer kimlikle */
+      s.src = KOK + 'ilerleme-web.js?v=20261109a';   /* 12.10: kaldığın yer kimlikle · 09.11: uygulama yalnızKutu kipi (sitede davranış aynı) */
       s.onload = calistir;
       (document.head || kok).appendChild(s);
     } catch (e) {}
