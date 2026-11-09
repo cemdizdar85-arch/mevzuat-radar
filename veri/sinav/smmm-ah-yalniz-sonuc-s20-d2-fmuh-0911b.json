@@ -1,0 +1,61 @@
+{
+ "ad": "s20-d2-fmuh-0911b",
+ "tarih": "2026-11-09T15:00:51.461Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh42639928631",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 1,
+  "gonderilen": 1,
+  "temiz": 0,
+  "kusurlu": 1,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 1,
+  "kaynaksiz": 1,
+  "kaynaksiz_kusurlu": 1,
+  "usd": 0.026
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d2-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.terimler[2].kim",
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-fmuh-d2-zor/kp-04"
+ ],
+ "kaynaksiz": [
+  "smmm-s20-fmuh-d2-zor/kp-04"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-s20-fmuh-d2-zor/kp-04"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
