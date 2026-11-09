@@ -1,13 +1,13 @@
 {
-  "olcum_tarihi": "2026-11-08T11:26:25.5789253+00:00",
+  "olcum_tarihi": "2026-11-09T13:05:07.3257332+00:00",
   "esik_ust_uste": 2,
   "esik_oran": "3/10",
   "hatirlatma_gun": 7,
   "workflow_toplam": 208,
   "workflow_alinan": 208,
   "aktif_workflow": 208,
-  "bakilan": 206,
-  "olculemeyen": 0,
+  "bakilan": 205,
+  "olculemeyen": 1,
   "kalici_kirmizi": 24,
   "gun_pencere": 14,
   "uyuyan_kirmizi": 7,
@@ -62,27 +62,27 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/38044417134"
     }
   ],
-  "yeni_bildirim": 11,
+  "yeni_bildirim": 6,
   "seriler": [
     {
       "ad": "Alacak Kasa Yedegi (bulut, sifreli)",
       "dosya": "alacak-kasa-yedek.yml",
       "tur": "ust_uste",
-      "ust_uste": 2,
-      "oran": "2/3",
-      "son_sha": "da8dba33",
+      "ust_uste": 3,
+      "oran": "3/3",
+      "son_sha": "7cc5ffbf",
       "son_ne": "Alacak Kasa Yedegi (bulut, sifreli)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/41311076312"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42484802154"
     },
     {
       "ad": "Artifact Nobetcisi",
       "dosya": "artifact-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 8,
-      "oran": "8/10",
-      "son_sha": "d4e11a2b",
+      "ust_uste": 9,
+      "oran": "9/10",
+      "son_sha": "4b82f399",
       "son_ne": "Artifact Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42377073377"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42486645212"
     },
     {
       "ad": "Auth onay maili (oku / kapat / ac)",
@@ -95,84 +95,74 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/41298349575"
     },
     {
-      "ad": "Bulut Uretim (soru basimi)",
-      "dosya": "bulut-uretim.yml",
-      "tur": "ust_uste",
-      "ust_uste": 6,
-      "oran": "6/10",
-      "son_sha": "1ed4fa2a",
-      "son_ne": "Bulut Uretim | veri/sinav/plan-smmm-s20-ymeslek-d2-a.json | halka 0",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42472682213"
-    },
-    {
       "ad": "CI Kirmizi Nobetcisi",
       "dosya": "ci-kirmizi-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 74,
+      "ust_uste": 75,
       "oran": "10/10",
-      "son_sha": "dbc51020",
+      "son_sha": "3616df03",
       "son_ne": "CI Kirmizi Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42366875368"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42475315292"
     },
     {
       "ad": "Damping Kiyas Nobeti",
       "dosya": "damping-kiyas.yml",
       "tur": "ust_uste",
-      "ust_uste": 3,
+      "ust_uste": 4,
       "oran": "6/10",
-      "son_sha": "c671c50e",
+      "son_sha": "609bc568",
       "son_ne": "Damping Kiyas Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42369787839"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42478278843"
     },
     {
       "ad": "Dogrulama Kapisi",
       "dosya": "dogrula.yml",
       "tur": "ust_uste",
-      "ust_uste": 82,
+      "ust_uste": 86,
       "oran": "10/10",
-      "son_sha": "1ed4fa2a",
-      "son_ne": "Merge branch 'main' of https://github.com/cemdizdar85-arch/mevzuat-radar",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42472635750"
+      "son_sha": "3da37776",
+      "son_ne": "Merge remote-tracking branch 'origin/main' into HEAD",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42609428875"
     },
     {
       "ad": "Edge Nobetcisi",
       "dosya": "edge-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 13,
+      "ust_uste": 14,
       "oran": "10/10",
-      "son_sha": "889c4640",
+      "son_sha": "0adc5383",
       "son_ne": "Edge Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42374396396"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42484034163"
     },
     {
       "ad": "Gorev nobeti (yerel robotlar yasiyor mu)",
       "dosya": "gorev-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 9,
-      "oran": "9/10",
-      "son_sha": "50d4f530",
-      "son_ne": "Merge remote-tracking branch 'origin/main'",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42460234699"
+      "ust_uste": 10,
+      "oran": "10/10",
+      "son_sha": "957cfcdd",
+      "son_ne": "Gorev nobeti (yerel robotlar yasiyor mu)",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42498618865"
     },
     {
       "ad": "Icerik Nobetcisi",
       "dosya": "icerik-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 98,
+      "ust_uste": 99,
       "oran": "10/10",
-      "son_sha": "0b10341d",
+      "son_sha": "27f24968",
       "son_ne": "Icerik Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42370252123"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42479234782"
     },
     {
       "ad": "Ihale bulten tamligi (gunluk)",
       "dosya": "ihale-gunluk-tamlik.yml",
       "tur": "ust_uste",
-      "ust_uste": 31,
+      "ust_uste": 32,
       "oran": "7/7",
-      "son_sha": "92a7b047",
+      "son_sha": "5509a55f",
       "son_ne": "Ihale bulten tamligi (gunluk)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42474504135"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42619088232"
     },
     {
       "ad": "Kaynak Nobetcisi",
@@ -180,29 +170,29 @@
       "tur": "ust_uste",
       "ust_uste": 100,
       "oran": "10/10",
-      "son_sha": "46fb35a4",
+      "son_sha": "ad6562fa",
       "son_ne": "Kaynak Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42452571269"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42571837690"
     },
     {
       "ad": "Marka Bulteni",
       "dosya": "marka-bulten.yml",
       "tur": "ust_uste",
-      "ust_uste": 12,
+      "ust_uste": 13,
       "oran": "10/10",
-      "son_sha": "48c7ff8c",
+      "son_sha": "94929345",
       "son_ne": "Marka Bulteni",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42436010916"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42548357765"
     },
     {
       "ad": "Günlük Kanun Aynası",
       "dosya": "mevzuat.yml",
       "tur": "ust_uste",
-      "ust_uste": 4,
+      "ust_uste": 7,
       "oran": "9/10",
-      "son_sha": "1c4df7e8",
-      "son_ne": "Yerel indirici: 4 kaynak guncellendi [veri-operasyonu]",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42458411170"
+      "son_sha": "6228c7da",
+      "son_ne": "Günlük Kanun Aynası",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42581917689"
     },
     {
       "ad": "Nabiz Nobetcisi",
@@ -210,29 +200,29 @@
       "tur": "ust_uste",
       "ust_uste": 100,
       "oran": "10/10",
-      "son_sha": "c688f812",
+      "son_sha": "fc183f97",
       "son_ne": "Nabiz Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42467185440"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42599784559"
     },
     {
       "ad": "Ithalat Rejimi Nobeti",
       "dosya": "rejim.yml",
       "tur": "ust_uste",
-      "ust_uste": 45,
+      "ust_uste": 46,
       "oran": "10/10",
-      "son_sha": "ccf8afdc",
+      "son_sha": "8d18e8c8",
       "son_ne": "Ithalat Rejimi Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42367505281"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42475889564"
     },
     {
       "ad": "SMMM Kapsama Tablosu (0 USD)",
       "dosya": "smmm-kapsama.yml",
       "tur": "ust_uste",
-      "ust_uste": 46,
+      "ust_uste": 47,
       "oran": "10/10",
-      "son_sha": "0b10341d",
+      "son_sha": "27f24968",
       "son_ne": "SMMM Kapsama Tablosu (0 USD)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42370105894"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42478876017"
     },
     {
       "ad": "Smoke Nobetcisi",
@@ -240,26 +230,26 @@
       "tur": "ust_uste",
       "ust_uste": 100,
       "oran": "10/10",
-      "son_sha": "8dce635e",
+      "son_sha": "6228c7da",
       "son_ne": "Smoke Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42457596247"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42581929204"
     },
     {
       "ad": "Soru Ambari Yedegi (bulut, sifreli)",
       "dosya": "soru-ambar-yedek.yml",
-      "tur": "ust_uste",
-      "ust_uste": 8,
+      "tur": "oran",
+      "ust_uste": 0,
       "oran": "8/10",
-      "son_sha": "283bdaa6",
+      "son_sha": "1c956f34",
       "son_ne": "Soru Ambari Yedegi (bulut, sifreli)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42459007998"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42583642178"
     },
     {
       "ad": "Standart Damgasi",
       "dosya": "standart-damga.yml",
       "tur": "ust_uste",
       "ust_uste": 2,
-      "oran": "2/2",
+      "oran": "1/1",
       "son_sha": "2719d370",
       "son_ne": "Standart Damgasi",
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/41455528143"
@@ -268,11 +258,11 @@
       "ad": "Tuzak nobetcisi (CI kapisi)",
       "dosya": "tuzak-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 89,
+      "ust_uste": 92,
       "oran": "10/10",
-      "son_sha": "3aa9af99",
-      "son_ne": "Merge remote-tracking branch 'origin/main' into HEAD",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42460006218"
+      "son_sha": "5a0720d7",
+      "son_ne": "aciklama hakemi: Son 20 Gun (smmm-s20-) sorusunda yalniz deneme ekran…",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42525319350"
     },
     {
       "ad": "Veri Ezici Taramasi",
@@ -285,14 +275,24 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/41823852360"
     },
     {
+      "ad": "Yayin (havuz kur + sayfa bas + ite)",
+      "dosya": "yayin-bas.yml",
+      "tur": "oran",
+      "ust_uste": 0,
+      "oran": "3/10",
+      "son_sha": "7080bf40",
+      "son_ne": "Yayin (havuz kur + sayfa bas + ite)",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42595604131"
+    },
+    {
       "ad": "Haftalik Yedek",
       "dosya": "yedek.yml",
       "tur": "ust_uste",
-      "ust_uste": 2,
-      "oran": "3/4",
-      "son_sha": "8dce635e",
+      "ust_uste": 4,
+      "oran": "5/6",
+      "son_sha": "6228c7da",
       "son_ne": "Haftalik Yedek",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42457599813"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/42581935462"
     },
     {
       "ad": "yetki-devri-denetcisi",
@@ -306,149 +306,149 @@
     }
   ],
   "bildirilen": {
-    "kaynak.yml": {
-      "seri_kok": 38115504338,
+    "yetki-devri.yml": {
       "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
       "seri": 100,
-      "sebep": "yeni seri"
+      "seri_kok": 40597566548,
+      "sebep": "bildirildi"
     },
     "smoke.yml": {
-      "seri_kok": 37426251560,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
+      "son_bildirim": "2026-11-09T13:05:07.3257332+00:00",
       "seri": 100,
+      "seri_kok": 37599074239,
+      "sebep": "yeni seri"
+    },
+    "kaynak.yml": {
+      "son_bildirim": "2026-11-09T13:05:07.3257332+00:00",
+      "seri": 100,
+      "seri_kok": 38209647272,
       "sebep": "yeni seri"
     },
     "nabiz.yml": {
-      "seri_kok": 38580646548,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
+      "son_bildirim": "2026-11-09T13:05:07.3257332+00:00",
       "seri": 100,
-      "sebep": "yeni seri"
-    },
-    "yetki-devri.yml": {
-      "seri_kok": 40597566548,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 100,
+      "seri_kok": 38748551616,
       "sebep": "yeni seri"
     },
     "icerik-nobeti.yml": {
-      "seri_kok": 37540825214,
       "son_bildirim": "2026-11-06T12:17:22.2616906+00:00",
-      "seri": 98,
+      "seri": 99,
+      "seri_kok": 37540825214,
       "sebep": "bildirildi"
     },
     "tuzak-nobeti.yml": {
-      "seri_kok": 40101881501,
       "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 89,
-      "sebep": "7 gundur suruyor"
+      "seri": 92,
+      "seri_kok": 40101881501,
+      "sebep": "bildirildi"
     },
     "dogrula.yml": {
-      "seri_kok": 42064066744,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 82,
+      "son_bildirim": "2026-11-09T13:05:07.3257332+00:00",
+      "seri": 86,
+      "seri_kok": 42118940622,
       "sebep": "yeni seri"
     },
     "ci-kirmizi-nobeti.yml": {
-      "seri_kok": 32932235354,
       "son_bildirim": "2026-11-06T12:17:22.2616906+00:00",
-      "seri": 74,
+      "seri": 75,
+      "seri_kok": 32932235354,
       "sebep": "bildirildi"
     },
     "smmm-kapsama.yml": {
-      "seri_kok": 35847720212,
       "son_bildirim": "2026-11-07T11:14:04.2717232+00:00",
-      "seri": 46,
+      "seri": 47,
+      "seri_kok": 35847720212,
       "sebep": "bildirildi"
     },
     "rejim.yml": {
-      "seri_kok": 35981421468,
       "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 45,
-      "sebep": "7 gundur suruyor"
+      "seri": 46,
+      "seri_kok": 35981421468,
+      "sebep": "bildirildi"
     },
     "ihale-gunluk-tamlik.yml": {
-      "seri_kok": 34829480091,
       "son_bildirim": "2026-11-06T12:17:22.2616906+00:00",
-      "seri": 31,
+      "seri": 32,
+      "seri_kok": 34829480091,
       "sebep": "bildirildi"
     },
     "edge-nobeti.yml": {
-      "seri_kok": 41067965874,
       "son_bildirim": "2026-11-07T11:14:04.2717232+00:00",
-      "seri": 13,
+      "seri": 14,
+      "seri_kok": 41067965874,
       "sebep": "bildirildi"
     },
     "marka-bulten.yml": {
-      "seri_kok": 40616747091,
       "son_bildirim": "2026-11-06T12:17:22.2616906+00:00",
-      "seri": 12,
+      "seri": 13,
+      "seri_kok": 40616747091,
       "sebep": "bildirildi"
     },
     "gorev-nobeti.yml": {
+      "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
+      "seri": 10,
       "seri_kok": 41585371649,
-      "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
-      "seri": 9,
-      "sebep": "bildirildi"
-    },
-    "veri-ezici-taramasi.yml": {
-      "seri_kok": 35840395950,
-      "son_bildirim": "2026-11-06T12:17:22.2616906+00:00",
-      "seri": 8,
-      "sebep": "bildirildi"
-    },
-    "soru-ambar-yedek.yml": {
-      "seri_kok": 41285633819,
-      "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
-      "seri": 8,
       "sebep": "bildirildi"
     },
     "artifact-nobeti.yml": {
-      "seri_kok": 41203478655,
       "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
-      "seri": 8,
+      "seri": 9,
+      "seri_kok": 41203478655,
       "sebep": "bildirildi"
     },
-    "bulut-uretim.yml": {
-      "seri_kok": 42472649521,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 6,
-      "sebep": "yeni seri"
+    "veri-ezici-taramasi.yml": {
+      "son_bildirim": "2026-11-06T12:17:22.2616906+00:00",
+      "seri": 8,
+      "seri_kok": 35840395950,
+      "sebep": "bildirildi"
     },
     "mevzuat.yml": {
+      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
+      "seri": 7,
       "seri_kok": 42424342984,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 4,
-      "sebep": "yeni seri"
-    },
-    "damping-kiyas.yml": {
-      "seri_kok": 42034879774,
-      "son_bildirim": "2026-11-07T11:14:04.2717232+00:00",
-      "seri": 3,
-      "sebep": "bildirildi"
-    },
-    "auth-onay-maili.yml": {
-      "seri_kok": 41295851697,
-      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 3,
-      "sebep": "7 gundur suruyor"
-    },
-    "standart-damga.yml": {
-      "seri_kok": 40314706839,
-      "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
-      "seri": 2,
       "sebep": "bildirildi"
     },
     "yedek.yml": {
-      "seri_kok": 42344997992,
       "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
-      "seri": 2,
-      "sebep": "yeni seri"
+      "seri": 4,
+      "seri_kok": 42344997992,
+      "sebep": "bildirildi"
+    },
+    "damping-kiyas.yml": {
+      "son_bildirim": "2026-11-07T11:14:04.2717232+00:00",
+      "seri": 4,
+      "seri_kok": 42034879774,
+      "sebep": "bildirildi"
+    },
+    "auth-onay-maili.yml": {
+      "son_bildirim": "2026-11-08T11:26:25.5789253+00:00",
+      "seri": 3,
+      "seri_kok": 41295851697,
+      "sebep": "bildirildi"
     },
     "alacak-kasa-yedek.yml": {
+      "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
+      "seri": 3,
       "seri_kok": 41122333662,
+      "sebep": "bildirildi"
+    },
+    "standart-damga.yml": {
       "son_bildirim": "2026-11-04T12:21:24.4479937+00:00",
       "seri": 2,
+      "seri_kok": 40314706839,
       "sebep": "bildirildi"
+    },
+    "soru-ambar-yedek.yml": {
+      "son_bildirim": "2026-11-09T13:05:07.3257332+00:00",
+      "seri": 0,
+      "seri_kok": "oran-356300065",
+      "sebep": "yeni seri"
+    },
+    "yayin-bas.yml": {
+      "son_bildirim": "2026-11-09T13:05:07.3257332+00:00",
+      "seri": 0,
+      "seri_kok": "oran-356384138",
+      "sebep": "yeni seri"
     }
   }
 }
