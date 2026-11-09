@@ -1,5 +1,5 @@
 {
-  "olcum": "08.11.2026 12:03",
+  "olcum": "09.11.2026 14:08",
   "kural": "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
   "kaynak_sagligi": [
     {
@@ -7,7 +7,7 @@
       "dosya": "veri/ders-profili.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "motor/ders-profili-kur.ps1",
       "robot": "yok (resmî liste; Cem onayıyla değişir)"
@@ -16,8 +16,8 @@
       "ad": "kasa-sayim",
       "dosya": "veri/kasa-sayim.json",
       "durum": "TAZE",
-      "damga": "08.11.2026 09:28",
-      "mtime": "08.11.2026 12:03",
+      "damga": "09.11.2026 10:19",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "motor/kasa-sayim.ps1",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
@@ -27,8 +27,8 @@
       "dosya": "veri/uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 100,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 101,
       "uretici": "motor/kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -37,8 +37,8 @@
       "dosya": "veri/sgs-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:4x (Cem ders-ders tablosu)",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 100,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 101,
       "uretici": "motor/sgs-kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -47,8 +47,8 @@
       "dosya": "veri/kgk-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 99,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 100,
       "uretici": "elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi)",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -57,7 +57,7 @@
       "dosya": "veri/sinav/sgs-kapsama-ozet.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "arac/sgs-konu-kapsama.js",
       "robot": "sinav-tek-sayfa.yml · her gün 08:30 TR"
@@ -67,7 +67,7 @@
       "dosya": "veri/sinav/smmm-kapsama-ozet.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "arac/smmm-kapsama-tablosu.ps1",
       "robot": "yok (dalga döngüsü her dalgada tazeler)"
@@ -77,7 +77,7 @@
       "dosya": "veri/sinav/kgk-kapsama-ozet.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "arac/kgk-konu-kapsama.js",
       "robot": "sinav-tek-sayfa.yml · her gün 08:30 TR"
@@ -86,8 +86,8 @@
       "ad": "konu-koprusu",
       "dosya": "veri/konu-koprusu-ozet.json",
       "durum": "TAZE",
-      "damga": "08.11.2026 11:31",
-      "mtime": "08.11.2026 12:03",
+      "damga": "09.11.2026 13:22",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "motor/konu-koprusu-kur.ps1 (V2 canlı)",
       "robot": "konu-koprusu.yml · her gün 07:40 TR"
@@ -96,9 +96,9 @@
       "ad": "ambar-envanteri",
       "dosya": "veri/AMBAR-ENVANTERI.md",
       "durum": "TAZE",
-      "damga": "08.11.2026 02:34",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 0,
+      "damga": "08.11.2026 14:59",
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 1,
       "uretici": "motor/ambar-envanteri.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
@@ -106,8 +106,8 @@
       "ad": "butunluk-raporu",
       "dosya": "veri/butunluk-raporu.json",
       "durum": "TAZE",
-      "damga": "07.11.2026 14:51",
-      "mtime": "08.11.2026 12:03",
+      "damga": "08.11.2026 14:59",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 1,
       "uretici": "motor/butunluk-kapisi.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
@@ -115,40 +115,40 @@
     {
       "ad": "cikmis-karnesi",
       "dosya": "veri/cikmis-soru-karnesi.json",
-      "durum": "BAYAT (53 gün)",
+      "durum": "BAYAT (54 gün)",
       "damga": "16.09.2026 22:30",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 53,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 54,
       "uretici": "motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı)",
       "robot": "yok (KGK evreni için haberci: kgk-sinav-nobeti.yml)"
     },
     {
       "ad": "siklik-kunyesi",
       "dosya": "veri/siklik-kunyesi.json",
-      "durum": "BAYAT (50 gün)",
+      "durum": "BAYAT (51 gün)",
       "damga": "19.09.2026 07:06",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 50,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 51,
       "uretici": "motor/siklik-kunyesi.ps1",
       "robot": "konu-eslesme.yml · yalnız push"
     },
     {
       "ad": "siklik-kunyesi-kgk",
       "dosya": "veri/siklik-kunyesi-kgk.json",
-      "durum": "BAYAT (50 gün)",
+      "durum": "BAYAT (51 gün)",
       "damga": "19.09.2026 07:06",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 50,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 51,
       "uretici": "motor/siklik-kunyesi.ps1 -Sinav KGK",
       "robot": "konu-eslesme.yml · yalnız push"
     },
     {
       "ad": "kgk-analiz",
       "dosya": "veri/kgk-analiz.json",
-      "durum": "BAYAT (sınav nöbetçisi kör ya da 50 gündür koşmadı)",
+      "durum": "BAYAT (sınav nöbetçisi kör ya da 51 gündür koşmadı)",
       "damga": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018)",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 50,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 51,
       "uretici": "elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)",
       "robot": "yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml"
     },
@@ -157,8 +157,8 @@
       "dosya": "veri/ders-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-11-08 05:23",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 0,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 1,
       "uretici": "motor/ders-karnesi.ps1",
       "robot": "karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push)"
     },
@@ -167,8 +167,8 @@
       "dosya": "veri/konu-kaynak-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-11-08 05:23",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 0,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 1,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml · pazar 03:00 TR + sgs-analiz push"
     },
@@ -177,8 +177,8 @@
       "dosya": "veri/konu-kaynak-karnesi-smmm.json",
       "durum": "TAZE",
       "damga": "2026-11-08 07:34",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 0,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 1,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -187,8 +187,8 @@
       "dosya": "veri/konu-kaynak-karnesi-kgk.json",
       "durum": "TAZE",
       "damga": "2026-11-08 10:36",
-      "mtime": "08.11.2026 12:03",
-      "yas_gun": 0,
+      "mtime": "09.11.2026 14:08",
+      "yas_gun": 1,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -197,7 +197,7 @@
       "dosya": "veri/dayanak-metinsiz-raporu.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "arac/dayanak-metinsiz-tarama.ps1",
       "robot": "yok"
@@ -207,7 +207,7 @@
       "dosya": "veri/dayanak-kara-liste.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "arac/dayanak-kara-liste.ps1",
       "robot": "yok"
@@ -217,7 +217,7 @@
       "dosya": "veri/bekleyen-partiler.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "motor/api-hedef.ps1 (Invoke-ClaudeToplu yazar; parti-hasat.ps1 temizler)",
       "robot": "yan ürün: bulut-uretim.yml / soru-uret-v2.yml (parti-liste.yml bu dosyayı yazmaz; 16.09 denetimi)"
@@ -227,7 +227,7 @@
       "dosya": "veri/sinav-ders-envanteri.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "08.11.2026 12:03",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "motor/sinav-ders-envanteri.ps1",
       "robot": "sinav-ders-envanteri.yml · yalnız push"
@@ -236,8 +236,8 @@
       "ad": "kasa-site",
       "dosya": "veri/kasa-sayim.json › site",
       "durum": "TAZE",
-      "damga": "08.11.2026 09:28",
-      "mtime": "08.11.2026 12:03",
+      "damga": "09.11.2026 10:19",
+      "mtime": "09.11.2026 14:08",
       "yas_gun": 0,
       "uretici": "motor/kasa-sayim.ps1 (paket_soru sayımı)",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
@@ -257,7 +257,7 @@
       "sinav": "SMMM",
       "ders": 8,
       "kasa": 12576,
-      "sitede": 3813,
+      "sitede": 3769,
       "hedef": 3980,
       "eksik": 1167,
       "kotasiz_ders": 0
@@ -562,7 +562,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 3247,
-      "sitede": 427,
+      "sitede": 383,
       "hedef": 350,
       "eksik": 76,
       "doluluk": 78
@@ -1438,15 +1438,15 @@
     "karantina": []
   },
   "ambar": {
-    "ozet_satiri": "ÖZET: 51958 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 416; son ölçüm: 07.11.2026) | Sürüm ölçülen: 47 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)",
+    "ozet_satiri": "ÖZET: 51968 parça · 2828 tekil kaynak | Bütünlük ölçülen: 2828 (delikli: 412; son ölçüm: 08.11.2026) | Sürüm ölçülen: 50 (sorunlu: 1; son ölçüm: 08.11.2026 14:57)",
     "butunluk": {
-      "tarih": "07.11.2026 14:51",
+      "tarih": "08.11.2026 14:59",
       "durum": "KIRMIZI",
-      "belge": 51951,
-      "kaynak_temiz": 2388,
-      "kaynak_sorunlu": 440,
-      "kesik_belge": 741,
-      "oksuz_belge": 292
+      "belge": 51968,
+      "kaynak_temiz": 2389,
+      "kaynak_sorunlu": 439,
+      "kesik_belge": 709,
+      "oksuz_belge": 293
     }
   },
   "yutulmayan": {
