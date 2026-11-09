@@ -32,6 +32,7 @@ $depoKok = Split-Path -Parent $buDizin
 $MUTASYONLAR = [ordered]@{
   'kesme'     = @('if($ix -ge 2 -and $TURKCE_ONAR_KESME.IndexOf', 'if($false -and $ix -ge 2 -and $TURKCE_ONAR_KESME.IndexOf')
   'liste'     = @('if($TURKCE_ONAR_KORU.ContainsKey($kucukW)){ return $w }', 'if($false){ return $w }')
+  'buyuk'     = @('if($TURKCE_ONAR_KORU_BUYUK.Contains($w)){ return $w }', 'if($false){ return $w }')   # 09.11 BES
   'en-kelime' = @('if($TURKCE_ONAR_EN_KESIN.Contains($w)){ return $w }', 'if($false){ return $w }')
   'en-harf'   = @('if($w -match ''[wqx]''){ return $w }', 'if($false){ return $w }')
   'en-parca'  = @('foreach($pm in $TURKCE_ONAR_PARCA_RX.Matches($t))', 'foreach($pm in @())')
@@ -80,7 +81,7 @@ $SOZ = @{ ayni = 'aynı'; ogrenci = 'öğrenci'; kayit = 'kayıt'; icin = 'için
   bicimde = 'biçimde'; hatayi = 'hatayı'; cumleyi = 'cümleyi'; yanlis = 'yanlış'; cevirir = 'çevirir'; dogru = 'doğru'; ceviri = 'çeviri'; kalir = 'kalır'
   tur = 'tür'; uncu = 'üncü'; bol = 'böl'; hala = 'hâlâ'; asli = 'aslı'; esasi = 'esası'; ucu = 'üçü'; kara = 'kâra'; asil = 'asıl'; kati = 'katı'
   sure = 'süre'; cumlede = 'cümlede'; tesvike = 'teşvike'; ragmen = 'rağmen'; zitlik = 'zıtlık'; anlatilir = 'anlatılır'; bosluga = 'boşluğa'; cumle = 'cümle'; anlamli = 'anlamlı'
-  iii = 'ııı'; vii = 'vıı'; viii = 'vııı' }   # 06.10: gerçek sözlüğün kusuru (Roma rakamı bent ı'lı biçime gidiyordu) - koruma listesi bunu durdurmalı
+  iii = 'ııı'; vii = 'vıı'; viii = 'vııı'; katip = 'katıp'; bes = 'beş' }   # 06.10: gerçek sözlüğün kusuru (Roma rakamı bent ı'lı biçime gidiyordu) - koruma listesi bunu durdurmalı
 $ENF = @{ ayni = 'aynı'; borc = 'borç'; which = 'which'; this = 'this'; quiz = 'quiz'; isletme = 'işletme'; kara = 'kâra'; esasi = 'esası'; sure = 'süre'; hisse = 'hisse' }
 $IVAR = @{ isletme = $true; iptal = $true }
 
@@ -120,6 +121,10 @@ Vaka 'belirsiz: kara (TÜMÜ BÜYÜK dahil)' 'kara para · KARA PARA' 'kara para
 Vaka 'belirsiz: tur' 'ikinci tur' 'ikinci tur'
 Vaka 'belirsiz: asil' 'asil üye' 'asil üye'
 Vaka 'belirsiz: kati' 'kati hüküm' 'kati hüküm'
+# 09.11 S20 D2 yayın ölçümü: iki gerçek site bozulması
+Vaka 'belirsiz: katip (kâtip üye)' 'iki katip üye' 'iki katip üye'
+Vaka 'TÜMÜ BÜYÜK kısaltma: BES (Bireysel Emeklilik)' 'BES irat tutarı' 'BES irat tutarı'
+Vaka 'küçük bes onarılmaya devam eder (beş)' 'bes kalem' 'beş kalem'
 Vaka 'İngilizce işlev sözcüğü TÜMÜ BÜYÜK (WHICH)' 'Soruda WHICH kelimesi var' 'Soruda WHICH kelimesi var'
 Vaka 'İngilizce işlev sözcüğü, w/q/x yok (THIS)' 'Soruda THIS kelimesi var' 'Soruda THIS kelimesi var'
 Vaka 'Türk alfabesinde olmayan harf (QUIZ)' 'Bu bölümde QUIZ var' 'Bu bölümde QUIZ var'

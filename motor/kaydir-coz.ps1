@@ -89,7 +89,12 @@ $TURKCE_ONAR_KORU=@{
   'iii'   = 'Roma rakamı bent (iii) / ııı'
   'vii'   = 'Roma rakamı bent (vii)'
   'viii'  = 'Roma rakamı bent (viii)'
+  # 09.11 (S20 D2 yayın ölçümü, Cem "gm önerilerini yap"): Hukuk sorusunda "iki katip üye" sitede "iki katıp üye" basıldı.
+  'katip' = 'katip (kâtip: kâtip üye, zabıt katibi) / katıp (katmak)'
 }
+# (3b) TÜMÜ BÜYÜK KISALTMA — yalnız BİREBİR büyük harfli biçim korunur; küçük biçim onarılmaya devam eder (ASCII metinde 'bes' çoğunlukla 'beş').
+#     09.11 (S20 D2): "BES irat tutarı" (Bireysel Emeklilik Sistemi) sitede "BEŞ irat tutarı" basıldı.
+$TURKCE_ONAR_KORU_BUYUK=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($kb in 'BES'){ [void]$TURKCE_ONAR_KORU_BUYUK.Add($kb) }   # sıralı (büyük/küçük duyarlı) karşılaştırma
 # (2) İNGİLİZCE — KESİN: Türkçede kelime olarak geçmeyen İngilizce işlev sözcükleri. Bu kelimeye hiçbir yerde dokunulmaz (WHICH → WHİCH olmaz)
 #     ve parça/dize sayımında "kesin" İngilizce kanıtı sayılır. BELİRSİZ: Türkçede de kelime (is≈iş, an, it, be, has, her, on, in, at, not...);
 #     yalnız sayıma katılır, tek başına kanıt değildir.
@@ -133,6 +138,7 @@ function TurkceOnar([string]$t){
       if($ix -ge 2 -and $TURKCE_ONAR_KESME.IndexOf($t[$ix-1]) -ge 0 -and [char]::IsLetterOrDigit($t[$ix-2])){ return $w }
       # 03.10 (3) KORUNAN kelime
       $kucukW=$w.ToLowerInvariant(); if($TURKCE_ONAR_KORU.ContainsKey($kucukW)){ return $w }
+      if($TURKCE_ONAR_KORU_BUYUK.Contains($w)){ return $w }
       # 03.10 (2) İNGİLİZCE: kesin işlev sözcüğü · Türk alfabesinde olmayan harf (w q x: WHICH, QUIZ) · İngilizce aralık içi
       if($TURKCE_ONAR_EN_KESIN.Contains($w)){ return $w }
       if($w -match '[wqx]'){ return $w }
