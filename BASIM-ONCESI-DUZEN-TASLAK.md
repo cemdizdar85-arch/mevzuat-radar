@@ -6,6 +6,22 @@
 
 ---
 
+## 0. ANA İLKE — sitenin varlık sebebi (Cem, 10.11.2026)
+
+> *"Bizim siteyi kurma amacımız, hiç konu okumayan insan soru çözerek konu öğrensin. Hiç muhasebe bilmeyen kişi bile siteye
+> girdiğinde, soru çözmeye başladığında soru çözerek konu öğrensin. Bunu atlamadan yapalım."*
+
+Aşağıdaki her kural bu ilkeye hizmet eder; çelişirse ilke kazanır. İlkenin kurala çevrilmiş hâli **D10**'dur:
+
+| No | Kural | Ölçü |
+|---|---|---|
+| **D10** | **Soru çözen, konuyu hiç bilmeden öğrenir.** (a) Çözüm ekranındaki yalın anlatım ön bilgi varsaymaz: geçen her meslek terimi ya aynı cümlede gündelik dille açıklanır ya da dokununca açılan kısa tanıma bağlanır; tanım karttan gelir. (b) Bir konunun soruları öğretim sırasıyla dizilir: ilk soru konunun temel fikrini öğretir, her sonraki soru tek bir yeni fikir ekler; bu sıra kartta yazılıdır ("öğretim sırası"). (c) Öğrenci yanlış yaptığında ekran ona seçtiği şıkkın neden çekici geldiğini ve neden yanlış olduğunu söyler. (d) Sınav düzeyindeki soru, konunun temel sorularından sonra gelir; ilk karşılaşmada verilmez. | Mekanik: anlatımda geçen kart terimlerinin her biri açıklanmış ya da bağlanmış mı · kartta öğretim sırası var mı · sorunun sıradaki yeri yazılı mı. İnsan: konuyu hiç bilmeyen bir okuyucu konunun ilk üç sorusunu çözüp dördüncüyü kendi başına yapabiliyor mu. Sitede: konuya ilk kez giren üyenin o konudaki ilk beş sorudaki doğru oranı ile sonraki beş sorudaki doğru oranı karşılaştırılır. |
+
+**Dört parçalı ekranla ilişkisi (D7):** dört parça kısa tutar, D10 öğretir. İkisi birlikte geçerlidir; ekran uzatılmaz, terim
+açıklamaları dokununca açılır.
+
+---
+
 ## 1. Neden hâlâ hatalı soru çıkıyor
 
 **Kural eksik değil. Her soruda çok fazla serbest metin yazdırılıyor.**
