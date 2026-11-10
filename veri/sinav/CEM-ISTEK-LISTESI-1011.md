@@ -114,6 +114,18 @@
 5. Resmî metni olmayan konularda (oran analizi, dikey analiz, trend analizi gibi) kaynak **çıkmış sınav sorusu ve komisyon cevabı** sayılır:
    ONAYLANDI (10.11, "Evet, çıkmış soru"). Kural taslağı D3'e işlendi.
 
+6. **ODAK DARALTILDI (10.11, Cem "evet varım").** Az iş, kusursuz iş. Aşağıdaki üçü bitmeden öbürlerine girilmez.
+
+   **Bütün güç buraya:**
+   - Tek dersin (Muhasebe Denetimi) kartları ve soruları kusursuz olsun (A-01…A-11, D-01…D-03, C-01, C-03, C-08).
+   - Çözüm ekranı dört parçaya insin, her soruda şekil olsun (D-05, D-06; kural taslağı D7).
+   - Yeni üye ilk beş dakikada ne yapacağını anlasın (D-04, E-01).
+
+   **Şimdilik durduruldu (silinmedi, sırası gelince açılır):** yeni sınavlar G-03 · sesli anlatım D-08 · çizerek anlatan
+   öğretmen D-09 · satın al düğmesi denemesi E-03 · mağaza paneli F-02.
+
+   **Sırada, odaktan sonra:** öbür dersler · eski bankanın karta bağlanması G-02 · takip paneli F-01 · satış E-04, E-05.
+
 ### Hâlâ açık sorular (cevap gelene kadar her teslimde yeniden sorulur)
 
 - Kartları kim onaylayacak: Cem örneklem mi okur, meslektaş mı okur?

@@ -116,6 +116,20 @@
         { "kural": "TTK uyarınca yapılan denetimlerde rapor, olağan genel kurul toplantısından en az 20 gün önce denetlenen işletmenin yönetim organına teslim edilir.", "alinti": "olağan genel kurul toplantısından en az 20 gün önce", "kaynak": "Bagimsiz Denetim Yonetmeligi m.30", "parca": "cd7a84d3-1956-4c3c-8789-95f94ff1bdce" }
       ],
       "terimler": [],
+      "sablon_notu": "Bu kart YENİ BİÇİMİN ŞABLONUDUR (Cem 10.11): gorsel + yalin + ana_fikir alanları eklendi. Öbür kartlar bu biçime çevrilecek.",
+      "gorsel": {
+        "tur": "karar-tablosu",
+        "baslik": "Hangi görüş?",
+        "sutunlar": ["", "Etki genele yayılmıyor", "Etki genele yayılıyor"],
+        "satirlar": [
+          ["Kanıt elde edildi, yanlışlık önemli", "Sınırlı olumlu", "Olumsuz"],
+          ["Kanıt elde edilemedi, etki önemli olabilir", "Sınırlı olumlu", "Görüş vermekten kaçınma"]
+        ],
+        "alt_not": "Önemli bir uyumsuzluk yoksa: olumlu görüş.",
+        "dayanak": "Dört kutu da özet alıntılarından: BDS 705 p.7, p.8, p.9 ve Yönetmelik m.30."
+      },
+      "yalin": "Denetçi iki soru sorar. Birincisi: elimde yeterli kanıt var mı? İkincisi: sorun tablonun bir köşesinde mi kalıyor, yoksa geneline mi yayılıyor? Kanıt var ve sorun genele yayılıyorsa \"bu tablolar yanlış\" der; bu olumsuz görüştür. Kanıt yok ve sorun genele yayılıyor olabilirse \"bir şey söyleyemem\" der; bu kaçınmadır. Sorun bir köşede kalıyorsa iki durumda da \"şu kısım dışında doğru\" der; bu sınırlı olumlu görüştür.",
+      "ana_fikir": "Olumsuz görüş kanıt varken verilir, kaçınma kanıt yokken. İkisini ayıran kanıttır; ikisinde de etki yaygındır.",
       "dusururler": "Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · rapor tanımında \"belge\" yerine \"sözleşme\" ya da \"bildirim\" · 20 gün yerine 15/30 gün.",
       "kaynak_notu": "\"Yaygın\" teriminin tanımı çekilen parçalarda yok; terim notu yazılmadı. Karar anahtarı: kanıt VAR + önemli, yaygın değil → sınırlı olumlu · kanıt VAR + önemli ve yaygın → olumsuz · kanıt YOK + önemli olabilir, yaygın değil → sınırlı olumlu · kanıt YOK + önemli ve yaygın olabilir → kaçınma (dördü de yukarıdaki alıntılardan).",
       "onay": null
