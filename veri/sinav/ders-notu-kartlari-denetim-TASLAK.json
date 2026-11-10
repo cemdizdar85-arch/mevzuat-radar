@@ -1,0 +1,124 @@
+{
+  "aciklama": "TASLAK. Muhasebe Denetimi ders notu kartları (BASIM-ONCESI-DUZEN-TASLAK.md D2). Her cümle yalnız ambardaki resmî metinden yazıldı; her kuralın yanında kaynaktan harfi harfine 'alinti' durur ve arac dışı bir betikle kaynak metinde arandı. Onay alanı boş kart soru basımında KULLANILMAZ. 'dusururler' eski biçim kartından (bitirme-konu-kartlari.json 'celdirici') aktarıldı; çıkmış soru metniyle yeniden SAYILMADI.",
+  "tarih": "2026-11-10",
+  "ders": "Muhasebe Denetimi",
+  "durum": "20 karttan 6'sı yazıldı; 13'ü bekliyor; 1'i (Kanıt toplama teknikleri) kaynağı ambar parçasına bağlanamadığı için YAZILMADI",
+  "kart": [
+    {
+      "no": 1,
+      "konu": "Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları",
+      "cikmis": ["2026/1 S16", "2026/1 S17", "2026/1 S20", "2026/2 S16"],
+      "ozet": [
+        { "kural": "Denetim sözleşmesi yazılı yapılır ve Yönetmelikte sayılan asgari hususları içerir: amaç, kapsam ve dönem; denetim konusu ve kıstası; tarafların sorumlulukları; ekip, süre ve ücret dökümü; başlangıç, bitiş ve rapor teslim tarihleri; mesleki sorumluluk sigortası; sözleşmenin ancak mevzuat uyarınca feshedilebileceği.", "alinti": "yazılı olarak düzenlenen denetim sözleşmesinin asgari olarak aşağıdaki hususları içermesi zorunludur", "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [1/2]", "parca": "65a2c345-99fc-48c8-82ff-31a5f569c37a" },
+        { "kural": "Sözleşmede denetim dışında başka bir hizmet öngörülemez; ücretin ödenmesi denetim dışında bir şarta bağlanamaz.", "alinti": "Sözleşmede, denetim hizmeti dışında başka bir hizmet yapılması öngörülemez", "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]", "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f" },
+        { "kural": "Sözleşme, denetçinin seçiminden itibaren en geç 60 gün içinde yapılır. İşletme yazılı ihtara rağmen kaçınırsa denetimi üstlenen, durumu izleyen 10 gün içinde Kuruma bildirir.", "alinti": "seçiminden itibaren en geç 60 gün içinde yapılır", "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]", "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f" },
+        { "kural": "Denetimi üstlenen, sözleşmeyi yalnız haklı bir sebep varsa ya da kendisine karşı görevden alınma davası açılmışsa feshedebilir. Fesih ve gerekçesi 10 gün içinde yazılı olarak Kuruma bildirilir.", "alinti": "sadece haklı bir sebep varsa veya kendisine karşı görevden alınma davası açılmışsa feshedebilir", "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]", "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f" },
+        { "kural": "Denetimin ön şartları iki tanedir: finansal raporlama çerçevesinin kabul edilebilir olması ve yönetimin sorumluluklarını anladığına ve üstlendiğine dair mutabakatı.", "alinti": "Yönetimin aşağıdaki sorumluluklarını anladığına ve üstlendiğine dair mutabakatını alır", "kaynak": "BDS 210 p.6 - Denetimin Ön Şartları", "parca": "61aa6e57-43b1-4430-9fd6-752f630f1c02" },
+        { "kural": "Teklif edilen kapsam sınırlaması görüş vermekten kaçınmayı gerektirecekse denetçi, mevzuat aksini zorunlu kılmadıkça, o sözleşmeyi bağımsız denetim sözleşmesi olarak kabul etmez.", "alinti": "kapsamı sınırlandırılan bu sözleşmeyi bir bağımsız denetim sözleşmesi olarak kabul etmez", "kaynak": "BDS 210 p.7 - Denetimin Ön Şartları", "parca": "4f33d035-fa94-496f-837c-0be2ecd1b480" },
+        { "kural": "Ön şartlar yoksa denetçi konuyu yönetimle müzakere eder; çerçeve kabul edilebilir değilse ya da mutabakat alınamazsa, mevzuat aksini zorunlu kılmadıkça teklifi kabul etmez.", "alinti": "denetçi, denetim sözleşmesi teklifini kabul etmez", "kaynak": "BDS 210 p.8 - Denetim Sözleşmesinin Kabulünü Etkileyen Diğer Etkenler", "parca": "0a96a255-6ce8-48df-b521-ca2c9036e310" }
+      ],
+      "terimler": [
+        { "ad": "Denetimin ön şartları", "tanim": "Kabul edilebilir finansal raporlama çerçevesi ile yönetimin sorumluluklarını anlayıp üstlendiğine dair mutabakatı.", "kaynak": "BDS 210 p.6" }
+      ],
+      "dusururler": "Asgari unsur listesine sözleşmede bulunmayan unsur sokmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · haklı sebep olmadan fesih hakkı vermek · kapsam sınırlamasında sözleşmeyi \"şartlı görüşle kabul eder\" demek.",
+      "kaynak_notu": "BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı.",
+      "onay": null
+    },
+    {
+      "no": 2,
+      "konu": "Denetim riski",
+      "cikmis": ["2026/1 S18", "2026/1 S19", "2026/2 S17"],
+      "ozet": [
+        { "kural": "Denetim riski, finansal tablolar önemli bir yanlışlık içerdiği hâlde denetçinin duruma uygun olmayan bir görüş vermesi riskidir.", "alinti": "Finansal tabloların önemli bir yanlışlık içermesine rağmen, denetçinin duruma uygun olmayan bir denetim görüşü vermesi riskidir", "kaynak": "BDS 200 p.13 - Tanımlar", "parca": "f87bd9b3-57c7-46c2-befb-9a78b741b96b" },
+        { "kural": "Denetim riski iki şeyin fonksiyonudur: \"önemli yanlışlık\" riski ve tespit edememe riski.", "alinti": "Denetim riski, “önemli yanlışlık” riski ile tespit edememe riskinin bir fonksiyonudur", "kaynak": "BDS 200 p.13 - Tanımlar", "parca": "f87bd9b3-57c7-46c2-befb-9a78b741b96b" },
+        { "kural": "\"Önemli yanlışlık\" riski yönetim beyanı düzeyinde iki bileşenden oluşur: yapısal risk ve kontrol riski. Tespit edememe riski bu ikisinin bileşeni değildir.", "alinti": "bu risk yönetim beyanı düzeyinde iki bileşenden oluşur", "kaynak": "BDS 200 p.13 - Tanımlar", "parca": "f87bd9b3-57c7-46c2-befb-9a78b741b96b" },
+        { "kural": "Denetçi, denetim riskini kabul edilebilir düşük bir seviyeye indirecek yeterli ve uygun kanıt elde ettiğinde makul güvence sağlamış olur.", "alinti": "kabul edilebilir düşük bir seviyeye indirecek yeterli ve uygun denetim kanıtı elde ettiğinde makul güvence sağlamış olur", "kaynak": "BDS 200 p.5 - Finansal Tabloların Denetimi", "parca": "e8b0373d-d7d9-4e41-9801-87da12776793" },
+        { "kural": "Denetçi kontrollerin işleyiş etkinliğini test etmeyi planlıyorsa kontrol riskini değerlendirir; planlamıyorsa \"önemli yanlışlık\" riski değerlendirmesi yapısal risk değerlendirmesiyle aynı olur.", "alinti": "Kontrollerin işleyiş etkinliğini test etmeyi planlaması hâlinde denetçi, kontrol riskini değerlendirir", "kaynak": "BDS 315 p.34 - Kontrol Riskinin Değerlendirilmesi", "parca": "e29ab226-8524-4936-bb8f-c4e2ee442bb5" }
+      ],
+      "terimler": [
+        { "ad": "Yapısal risk", "tanim": "İlgili kontrol dikkate alınmadan önce, bir yönetim beyanının tek başına ya da diğer yanlışlıklarla birlikte önemli olabilecek bir yanlışlık içermeye açık olması.", "alinti": "önemli olabilecek bir yanlışlık içermeye açık olması durumudur", "kaynak": "BDS 200 p.13" },
+        { "ad": "Kontrol riski", "tanim": "Önemli olabilecek bir yanlışlığın, işletmenin kontrolleri tarafından zamanında önlenememesi ya da tespit edilerek düzeltilememesi riski.", "alinti": "işletmenin kontrolleri tarafından zamanında önlenememesi veya tespit edilerek düzeltilememesi riskidir", "kaynak": "BDS 200 p.13" },
+        { "ad": "Tespit edememe riski", "tanim": "Denetçinin uyguladığı prosedürler sonucunda, önemli olabilecek mevcut bir yanlışlığın tespit edilememesi riski.", "alinti": "önemli olabilecek mevcut bir yanlışlığın tespit edilememesi riskidir", "kaynak": "BDS 200 p.13" },
+        { "ad": "\"Önemli yanlışlık\" riski", "tanim": "Finansal tabloların denetim öncesinde önemli bir yanlışlık içermesi riski.", "alinti": "Finansal tabloların denetim öncesinde önemli bir yanlışlık içermesi riskidir", "kaynak": "BDS 200 p.13" }
+      ],
+      "dusururler": "Kontrol riski ile yapısal riski yer değiştirmek · tespit edememe riskini \"önemli yanlışlık\" riskinin bileşeni saymak · \"yüksek risk → daha az kanıt\" diye yönü ters çevirmek · iş riski ya da örnekleme riskini aynı aileye sokmak.",
+      "kaynak_notu": "Eski kartta \"yapısal (doğal) risk\" yazıyordu; \"doğal\" kelimesi kaynakta yok, karta alınmadı.",
+      "onay": null
+    },
+    {
+      "no": 3,
+      "konu": "İç kontrol sistemi",
+      "cikmis": ["2026/2 S20"],
+      "ozet": [
+        { "kural": "İç kontrol eksikliği iki durumda vardır: bir kontrol yanlışlığı zamanında önleyemeyecek ya da tespit edip düzeltemeyecek biçimde tasarlanmış, uygulanmış ya da kullanılmıştır; ya da gereken kontrol hiç yoktur.", "alinti": "için gereken bir kontrolün bulunmaması durumunda mevcuttur", "kaynak": "BDS 265 p.6 - Tanımlar", "parca": "011b01b2-cfe4-46bf-b301-a6acd882cc25" },
+        { "kural": "Önemli iç kontrol eksikliği, denetçinin mesleki muhakemesiyle, üst yönetimden sorumlu olanların dikkatini çekmeyi gerektirecek kadar önemli bulduğu eksiklik ya da eksikliklerin bileşimidir.", "alinti": "üst yönetimden sorumlu olanların dikkatini çekmeyi gerektirecek kadar önemli olduğuna kanaat getirdiği iç kontrol eksikliği veya eksikliklerin bileşimidir", "kaynak": "BDS 265 p.6 - Tanımlar", "parca": "011b01b2-cfe4-46bf-b301-a6acd882cc25" },
+        { "kural": "Denetçi önemli iç kontrol eksikliklerini üst yönetimden sorumlu olanlara zamanında ve yazılı olarak bildirir.", "alinti": "üst yönetimden sorumlu olanlara zamanında ve yazılı olarak bildirir", "kaynak": "BDS 265 p.9 - Ana Hükümler", "parca": "93615149-4704-437e-ba6d-ca783d2e0595" },
+        { "kural": "İç kontrol sisteminin BDS 315'te başlık olarak geçen bileşenleri: kontrol çevresi, işletmenin risk değerlendirme süreci, iç kontrol sistemini izleme süreci, bilgi sistemi ve iletişim, kontrol faaliyetleri.", "alinti": "kontrol faaliyetleri bileşeni hakkında kanaat edinir", "kaynak": "BDS 315 p.26 - Kontrol faaliyetleri", "parca": "57ea6fe7-20b4-41bb-b3ac-7a19a06979e4" }
+      ],
+      "terimler": [
+        { "ad": "İç kontrol eksikliği", "tanim": "Kontrolün yanlışlığı zamanında önleyemeyecek ya da tespit edip düzeltemeyecek biçimde tasarlanması, uygulanması ya da kullanılması; ya da gereken kontrolün bulunmaması.", "kaynak": "BDS 265 p.6" },
+        { "ad": "Önemli iç kontrol eksikliği", "tanim": "Üst yönetimden sorumlu olanların dikkatini çekmeyi gerektirecek kadar önemli bulunan eksiklik ya da eksikliklerin bileşimi.", "kaynak": "BDS 265 p.6" }
+      ],
+      "dusururler": "Boşluğa \"önemli iç kontrol eksikliği\" yerine \"iç kontrol eksikliği\" koymak ya da tersi · bildirimi \"sözlü\" ya da yalnız \"yönetime\" yaptırmak · uydurma birleşik terim · bileşen listesine iç denetimi sokmak.",
+      "kaynak_notu": "KAYNAK KUSURU: BDS 315 p.21–26 parçalarının gövdesi iki sütunlu tablodan bozuk aktarılmış, cümleler iç içe geçmiş; p.23'ün başlığı yarım (\"İşletmenin aşağıdakilere ilişkin süreçleri ve\"). Bileşen adları yalnız parça BAŞLIKLARINDAN alındı, gövdeden cümle alınmadı. Bu parçalar onarılmadan bileşenlerin içeriğine soru yazılmamalı. BDS 265 p.6'ya da dipnot kırıntısı karışmış.",
+      "onay": null
+    },
+    {
+      "no": 4,
+      "konu": "Denetimin tanımı, amacı, unsurları ve güvence düzeyi",
+      "cikmis": ["2026/2 S2", "2026/2 S15"],
+      "ozet": [
+        { "kural": "Bağımsız denetim, finansal tablo ve diğer finansal bilgilerin finansal raporlama standartlarına uygunluğu ve doğruluğu hakkında makul güvence sağlayacak yeterli ve uygun kanıt elde etmek amacıyla, denetim tekniklerinin uygulanarak defter, kayıt ve belgeler üzerinden denetlenmesi ve rapora bağlanmasıdır.", "alinti": "defter, kayıt ve belgeler üzerinden denetlenmesi ve değerlendirilerek rapora bağlanmasını", "kaynak": "Bagimsiz Denetim Yonetmeligi m.4 [1/4]", "parca": "d96215ce-317a-4b96-8787-5c18bde13f6d" },
+        { "kural": "Denetim, kullanıcılara makul ya da sınırlı güvence sağlar. Sınırlı güvence sağlayacağı mevzuatta ya da sözleşmede açıkça belirtilmemişse denetim makul güvence verecek şekilde yapılır.", "alinti": "açıkça belirtilmemiş ise denetim makul güvence verecek şekilde gerçekleştirilir", "kaynak": "Bagimsiz Denetim Yonetmeligi m.5", "parca": "7ba6861f-401a-44ab-9724-65e02665bdbc" },
+        { "kural": "Denetimin unsurları beştir: konusu, tarafları, kıstası, kanıtları ve denetim raporu.", "alinti": "Denetimin unsurlarını; denetimin konusu, tarafları, kıstası, kanıtları ve denetim raporu oluşturur", "kaynak": "Bagimsiz Denetim Yonetmeligi m.5", "parca": "7ba6861f-401a-44ab-9724-65e02665bdbc" },
+        { "kural": "Denetimin tarafları üçtür: denetlenen, denetimi yapan ve ilgili mevzuatında hedeflenen kullanıcılar.", "alinti": "Denetlenen, denetimi yapan ve ilgili mevzuatında hedeflenen kullanıcılar denetimin taraflarını oluşturur", "kaynak": "Bagimsiz Denetim Yonetmeligi m.7", "parca": "03e687ed-518d-4714-b793-b9e051a03396" },
+        { "kural": "Makul güvence yüksek bir güvence seviyesidir ama mutlak değildir; çünkü denetimin yapısal kısıtlamaları nedeniyle kanıtların çoğu kesin olmaktan çok ikna edicidir.", "alinti": "makul güvence mutlak bir güvence seviyesi değildir", "kaynak": "BDS 200 p.5 - Finansal Tabloların Denetimi", "parca": "e8b0373d-d7d9-4e41-9801-87da12776793" },
+        { "kural": "Denetçinin iki genel amacı vardır: finansal tabloların önemli yanlışlık içerip içermediğine ilişkin makul güvence elde edip görüş bildirmek; bulgularına uygun raporlama yapmak ve BDS'lerin zorunlu tuttuğu bildirimlerde bulunmak.", "alinti": "Bulgularına uygun olarak, finansal tablolar hakkında raporlama yapmak ve BDS’lerin zorunlu tuttuğu bildirimlerde bulunmaktır", "kaynak": "BDS 200 p.11 - Denetçinin Genel Amaçları", "parca": "0e1669b6-539a-4e52-be7a-bd44c19f4768" }
+      ],
+      "terimler": [
+        { "ad": "Makul güvence", "tanim": "Finansal tabloların denetimi çerçevesinde, yüksek ancak mutlak olmayan güvence seviyesi.", "alinti": "yüksek ancak mutlak olmayan güvence seviyesidir", "kaynak": "BDS 200 p.13" }
+      ],
+      "dusururler": "Makul güvenceyi \"tam\" ya da \"mutlak\" güvence yazmak · sınırlı güvenceyi varsayılan saymak · unsur listesine \"denetim ücreti\" ya da \"iç kontrol\" sokmak · makul güvence tanımı yerine önemlilik tanımını vermek.",
+      "kaynak_notu": "Sınırlı güvencenin tanımı çekilen parçalarda yok; karta yazılmadı.",
+      "onay": null
+    },
+    {
+      "no": 5,
+      "konu": "Denetim kanıtı",
+      "cikmis": ["2026/1 S3", "2026/1 S10"],
+      "ozet": [
+        { "kural": "Yönetmeliğe göre denetim kanıtı, görüş bildirmeye yönelik olarak denetçinin elde ettiği ve belirlenen güvence seviyesi için yeterli ve uygun bilgi, belge ve beyanlardır.", "alinti": "belirlenen güvence seviyesi için yeterli ve uygun bilgi, belge ve beyanlardır", "kaynak": "Bagimsiz Denetim Yonetmeligi m.9", "parca": "3e7977bf-1ca6-4b48-8883-8750dab45488" },
+        { "kural": "BDS'ye göre denetim kanıtı, denetçinin görüşüne dayanak oluşturan sonuçlara ulaşırken kullandığı bilgilerdir; muhasebe kayıtlarındaki bilgileri ve diğer kaynaklardan elde edilen bilgileri içerir.", "alinti": "Denetçinin, görüşüne dayanak oluşturan sonuçlara ulaşırken kullandığı bilgilerdir", "kaynak": "BDS 500 p.5 - Tanımlar", "parca": "377791a9-fbfd-487e-8fb6-9b36179e023b" },
+        { "kural": "Yeterlilik miktarın ölçütüdür; uygunluk kalitenin ölçütüdür. Kalite, kanıtın ihtiyaca uygunluğu ve güvenilirliğidir.", "alinti": "denetim kanıtının ihtiyaca uygunluğu ve güvenilirliğidir", "kaynak": "BDS 500 p.5 - Tanımlar", "parca": "377791a9-fbfd-487e-8fb6-9b36179e023b" },
+        { "kural": "Gereken kanıt miktarı iki şeyden etkilenir: denetçinin \"önemli yanlışlık\" risklerine ilişkin değerlendirmesi ve kanıtın kalitesi.", "alinti": "risklerine ilişkin değerlendirmesinden ve ilgili denetim kanıtının kalitesinden etkilenir", "kaynak": "BDS 500 p.5 - Tanımlar", "parca": "377791a9-fbfd-487e-8fb6-9b36179e023b" },
+        { "kural": "Denetçi yeterli ve uygun kanıt elde etmek için içinde bulunulan şartlara uygun denetim prosedürlerini tasarlar ve uygular.", "alinti": "içinde bulunulan şartlara uygun olan denetim prosedürlerini tasarlar ve uygular", "kaynak": "BDS 500 p.6 - Yeterli ve Uygun Denetim Kanıtı", "parca": "043674db-0ce3-4855-b8b4-ae6a48e30d79" }
+      ],
+      "terimler": [
+        { "ad": "Yeterlilik", "tanim": "Denetim kanıtının miktarının ölçütü.", "alinti": "Denetim kanıtının miktarının ölçütüdür", "kaynak": "BDS 500 p.5" },
+        { "ad": "Uygunluk", "tanim": "Denetim kanıtının kalitesinin ölçütü.", "alinti": "Denetim kanıtının kalitesinin ölçütüdür", "kaynak": "BDS 500 p.5" },
+        { "ad": "Muhasebe kayıtları", "tanim": "Açılış kayıtları ve destekleyici kayıtlar; faturalar; sözleşmeler; defteri kebir ve yardımcı defterler, yevmiye kayıtları; çalışma kâğıtları ve çizelgeler gibi diğer kayıtlar.", "alinti": "defteri kebir ve yardımcı defterler, yevmiye kayıtları", "kaynak": "BDS 500 p.5" }
+      ],
+      "dusururler": "Yeterlilik ile uygunluğu yer değiştirmek · \"yüksek risk → daha az kanıt\" diye yönü ters çevirmek · miktarı artırmanın düşük kaliteyi telafi ettiğini söylemek · boşluğa \"denetim kıstası\" ya da \"mesleki muhakeme\" koymak.",
+      "kaynak_notu": "Eski kartın \"kaynağına göre güvenilirlik\" ve \"miktar düşük kaliteyi telafi etmez\" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız \"etkilenir\" diye geçiyor; \"risk arttıkça kanıt artar\" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış.",
+      "onay": null
+    },
+    {
+      "no": 6,
+      "konu": "Denetim raporu ve görüş türleri",
+      "cikmis": ["2026/2 S7", "2026/2 S10"],
+      "ozet": [
+        { "kural": "Denetim raporu, denetçi görüşünün ve varsa dikkat çekilmek istenen diğer hususların kullanıcılara sunulması amacıyla hazırlanan ve imzalayanın sorumluluğunu üstlendiği belgedir.", "alinti": "tarafından sorumluluğu üstlenilen belgedir", "kaynak": "Bagimsiz Denetim Yonetmeligi m.10", "parca": "2178d01f-df04-4ebc-a821-fe1706338044" },
+        { "kural": "Olumlu görüş: önemli sayılabilecek bir uyumsuzluk ya da aykırılık yoksa.", "alinti": "herhangi bir uyumsuzluğun veya aykırılığın bulunmadığı durumlarda olumlu görüş", "kaynak": "Bagimsiz Denetim Yonetmeligi m.30", "parca": "cd7a84d3-1956-4c3c-8789-95f94ff1bdce" },
+        { "kural": "Sınırlı olumlu görüş: önemli uyumsuzluk var ya da yeterli ve uygun kanıt toplanamamış, ama bunlar denetim konusunun genelini etkilemiyor. BDS 705'in diliyle: önemli ama yaygın değil.", "alinti": "önemli olduğu ancak finansal tablolarda yaygın olmadığı sonucuna varırsa", "kaynak": "BDS 705 p.7 - Sınırlı Olumlu Görüş", "parca": "f968c6cc-d9ba-4650-8227-bdff905a086c" },
+        { "kural": "Olumsuz görüş: yeterli ve uygun kanıt elde edilmiştir ve yanlışlıklar önemli ve yaygındır.", "alinti": "finansal tablolar için önemli ve (etkisinin) yaygın olduğu sonucuna varırsa olumsuz görüş verir", "kaynak": "BDS 705 p.8 - Olumsuz Görüş", "parca": "ab2e7ca7-fc18-4b77-ab7f-ee1eaf1dd972" },
+        { "kural": "Görüş vermekten kaçınma: yeterli ve uygun kanıt elde edilememiştir ve tespit edilmemiş yanlışlıkların muhtemel etkisi önemli ve yaygın olabilir.", "alinti": "muhtemel etkilerinin önemli ve yaygın olabileceği sonucuna varırsa, görüş vermekten kaçınır", "kaynak": "BDS 705 p.9 - Görüş Vermekten Kaçınma", "parca": "428ea9f6-e4f0-443b-b559-a36334bc9cfd" },
+        { "kural": "Yönetmelik kaçınma için ikinci bir durum daha sayar: yeterli kanıt toplanmasına rağmen görüş oluşturmayı engelleyen belirsizliklerin sonradan ortaya çıkması.", "alinti": "görüş oluşturmayı engelleyen belirsizliklerin sonradan ortaya çıktığı durumlarda", "kaynak": "Bagimsiz Denetim Yonetmeligi m.30", "parca": "cd7a84d3-1956-4c3c-8789-95f94ff1bdce" },
+        { "kural": "TTK uyarınca yapılan denetimlerde rapor, olağan genel kurul toplantısından en az 20 gün önce denetlenen işletmenin yönetim organına teslim edilir.", "alinti": "olağan genel kurul toplantısından en az 20 gün önce", "kaynak": "Bagimsiz Denetim Yonetmeligi m.30", "parca": "cd7a84d3-1956-4c3c-8789-95f94ff1bdce" }
+      ],
+      "terimler": [],
+      "dusururler": "Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · rapor tanımında \"belge\" yerine \"sözleşme\" ya da \"bildirim\" · 20 gün yerine 15/30 gün.",
+      "kaynak_notu": "\"Yaygın\" teriminin tanımı çekilen parçalarda yok; terim notu yazılmadı. Karar anahtarı: kanıt VAR + önemli, yaygın değil → sınırlı olumlu · kanıt VAR + önemli ve yaygın → olumsuz · kanıt YOK + önemli olabilir, yaygın değil → sınırlı olumlu · kanıt YOK + önemli ve yaygın olabilir → kaçınma (dördü de yukarıdaki alıntılardan).",
+      "onay": null
+    }
+  ]
+}
