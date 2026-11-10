@@ -111,6 +111,16 @@
 3. Kanıt dalgası: tek ders, tavan 25 USD ONAYLANDI. Ders önerisi ölçümden: Muhasebe Denetimi
    ([`OLCUM-BASIM-ONCESI-1011.md`](OLCUM-BASIM-ONCESI-1011.md)). Basım freni ayrıca Cem'in açık sözüyle açılır; bu onay freni kaldırmaz.
 4. Soru kalitesi ile site ve çözüm ekranı işi iki oturumda aynı anda: ONAYLANDI.
+5. Resmî metni olmayan konularda (oran analizi, dikey analiz, trend analizi gibi) kaynak **çıkmış sınav sorusu ve komisyon cevabı** sayılır:
+   ONAYLANDI (10.11, "Evet, çıkmış soru"). Kural taslağı D3'e işlendi.
+
+### Hâlâ açık sorular (cevap gelene kadar her teslimde yeniden sorulur)
+
+- Kartları kim onaylayacak: Cem örneklem mi okur, meslektaş mı okur?
+- İlk 6 Denetim kartı okundu mu; dil yalın mı, biçim uygun mu?
+- Kalan 13 Denetim kartı aynı biçimde yazılsın mı?
+- Ölçekli tekrar sorusu doğruluğu ölçülene kadar sitede kapatılsın mı?
+- Site ve çözüm ekranı işi için ikinci oturum açıldı mı?
 
 ## SIRA
 

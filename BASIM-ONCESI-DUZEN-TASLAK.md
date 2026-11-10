@@ -40,6 +40,12 @@ Yeni kapı eklemek bu çarpımı küçültmez.
 | **D8** | **Her dalga yayından önce bağımsız okunur.** Okuyan, yazan oturum değildir. | Hedef: yanlış öğreten 0 · kusurlu en çok %5 · düşen soru en çok %10. Tutmazsa dalga yayına girmez, büyütülmez. |
 | **D9** | **Eski banka yeniden basılmaz, karta bağlanır.** Kök, şık, anahtar kalır; soru başına yazılmış özet ve terim notu karttakiyle değişir. | Bağlanan soru sayısı / toplam; bağlanamayan (kartı olmayan konu) ayrı listelenir. |
 
+**Resmî metni olmayan konu (Cem kararı 10.11.2026):** oran analizi, dikey analiz, trend analizi gibi resmî düzenlemesi bulunmayan
+konularda kaynak, **çıkmış sınav sorusu ve komisyon cevabıdır**. Kart her kuralın ve formülün yanında dayandığı çıkmış soruyu
+(dönem + soru no) yazar; teori notu tek başına kaynak sayılmaz. Hiçbir çıkmış soruda geçmeyen formül ya da tanım karta girmez, o
+başlığa soru basılmaz. Ölçü: kartta her kuralın karşısında çıkmış soru atfı var mı (mekanik); atıf o kuralı gerçekten taşıyor mu
+(bağımsız okuma). Bugün bu durumda 16 kart var: Finansal Tablolar ve Analizi 12, Maliyet Muhasebesi 4.
+
 **Kanunu olmayan dersler (matematik, İngilizce, Türkçe):** matematikte cevabı kod hesaplar; dil derslerinde iki bağımsız
 çözücü aynı şıkkı bulmazsa soru basılmaz; kalıp yalnız çıkmış sorudan alınır.
 
