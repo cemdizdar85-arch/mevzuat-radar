@@ -2,7 +2,7 @@
 
 > 2026-11-10 · Kartları sen onaylıyorsun. Her kartın altındaki kutuya "doğru" ya da "düzelt: …" yaz.
 > **Öğrencinin göreceği:** şekil, yalın anlatım, aklında kalsın, basamaklar. **Dayandığı resmî metin:** tırnak içi kaynaktan harfi harfine.
-> Alıntı denetimi: 53/53 alıntı kaynak metinde harfi harfine bulundu. 1. kart 10.11'de dört ayrı okumayla düzeltildi; öbür beş kart henüz kaynakla yan yana eksik taramasından geçmedi.
+> Alıntı denetimi: 53/53 alıntı kaynak metinde harfi harfine bulundu. 1. kart ONAYLI (Cem, 10.11). 2–6. kartlar onaysız; kaynakla yan yana eksik taramasından geçmedi.
 > Dikkat: şekil, yalın anlatım, ana fikir ve basamaklar kurallardan TÜRETİLDİ; bunları senden önce bağımsız kimse okumadı.
 
 ## 1. Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları
@@ -107,12 +107,7 @@ C · DENETLEME GÖREVİNİN DENETİMİ ÜSTLENENDEN GERİ ALINMASI (fesihten ayr
 
 **İç not (öğrenci görmez):** 10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz. 10.11 ÜÇÜNCÜ OKUMA: BDS 210 p.8'deki "19 uncu paragraf" istisnası düşmüştü; p.19 ve p.20 ambardan okunup eklendi. p.19 parçasında dipnot rakamı yapışık ("BDS 7064'ya" = BDS 706 + dipnot 4), ambar kusuru. OKUNMAYAN, bu yüzden karta kural olarak GİRMEYEN: BDS 706 (Dikkat Çekilen Hususlar paragrafının içeriği), BDS 560 (bilanço tarihinden sonraki olaylar; (ı) bendiyle farkı bu kartta tanımlanmadı), TTK m.399/4. 10.11 DÖRDÜNCÜ OKUMA: (a) bendinin TTK m.397/4 kapsamı, p.19(i) ve p.20 ifadeleri kaynağa yaklaştırıldı; yalın anlatımda "sözleşmenin sona ermesinin iki yolu" ifadesi "iki ayrı işlem" olarak düzeltildi. KURAL: karta kural olarak girmeyen kavram (burada BDS 560) üzerinden çeldirici yazılmaz; ilgili çeldirici kaldırıldı.
 
-**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
-
-- ☐ Mevzuat doğru ve eksiksiz
-- ☐ Anlatım yalın ve doğru
-- ☐ Soru kapsamı yeterli
-- düzelt: …
+**✅ ONAYLANDI — Cem, 2026-11-10:** mevzuat doğru ve eksiksiz ☑ · anlatım yalın ve doğru ☑ · soru kapsamı yeterli ☑ (sohbette yazılı onay). Yeniden onay: 2027-11-10 ya da dayandığı metin değişince.
 
 ---
 
