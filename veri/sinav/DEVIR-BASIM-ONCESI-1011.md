@@ -47,6 +47,18 @@ Beş eksik işlendi (aynı iki dosya; ekranı kuran betik artık `_yerel-veri-ka
 - TUZAK: KGK sitesindeki "Güncel" Yönetmelik PDF'i 2017'de kalmış (2022 ve 2024 değişiklikleri işlenmemiş); KGK'da BDS 210'un 2013 sürümü de duruyor. Ambar metni 2018 sürümüyle örtüşüyor.
 - Yapılmayan: sürükle-bırak (dokunarak seçme var), görsellerin tasarımcı elinden geçmesi, meslek mensubu onayı, kartın şemasına `once_bil`/`sozluk`/`etkinlik` alanlarının eklenmesi ve kapı koşulu.
 
+## 3d. 10.11 gece, üçüncü tur: Cem "hatasız istiyorum, kaç tur gerekirse; eksik varsa ekle; çizim az"
+
+- **Kural (Cem):** eksik hüküm eklenir, süs eklenmez. Cem'e gösterilmeden önce art arda iki tur temiz çıkar. Her turda iki ayrı okuyucu: (A) her cümle kaynakla yan yana, (B) kör çözüm + konuyu hiç bilmeyen gözü.
+- **Eksik taraması sonucu konu 13 → 24 basamak, 34 soru, 39 terim (13'ü "gündelik anlam"), 6 etkinlik, 28 satır özet, 7 "anlat", 9 karışık soru.** Üç bölüm: seçim ve sözleşme (1–8) · sona erme (9–15) · BDS 210 (16–24). Eklenen hükümler: TTK m.399/1 (seçim), 399/6 (dördüncü ay, mahkeme ataması, TMSF istisnası), 399/4–5 (görevden alma davası), 399/8–9 (haklı sebep sayılmayanlar, sonuçların genel kurula sunulması, geçici denetçi); Yönetmelik m.34/1-b (30 gün), m.37/1-ç; BDS 210 p.9–18 ve p.21.
+- **Okuma sonucu (orta düzey bulgu, tur tur):** 17 · 16 · 4 · 0 · 0. Kritik bulgu hiçbir turda çıkmadı; anahtar her turda tuttu (son üç turda 34/34). 5. turdan sonra 7 ifade düzeltmesi yapıldı, yeniden okutulmadı. Toplam 10 okuyucu ajan ≈ 1,8 milyon token hak; 0 USD.
+- **Her basamakta çizim:** takvim şeridi, numaralı yol, kâğıt (sözleşme), kişiler arası oklar, ✓/✕ ikili. Kodla çizildi; tasarımcı elinden geçmedi.
+- ⛔ **AMBAR KUSURU (iş emri açılmadı):** ambardaki BDS 210 p.10'da (a)(b)(c) bentleri, p.17'de (a) bendi DÜŞMÜŞ (parça bölme hatası; p.11 başlığı "Yönetimin sorumlulukları," olmuş). Bu konuda resmî metin kullanıldı: `_yerel-veri-kasasi/kart-kaynak/bds210-resmi-2018.txt` (KGK PDF'inden). Öbür BDS'lerde aynı kusur olabilir; ÖLÇÜLMEDİ. Ambardan BDS okuyan her kart resmî PDF'le karşılaştırılmalı.
+- Okuyucuların kullandığı tam kaynak dosyası: `_yerel-veri-kasasi/kart-kaynak/kaynak-kart1-tam.txt`.
+- **Tekrar eden hata türü (öbür kartlarda baştan önle):** (1) mevzuatın söylemediği ayrıntıyı eklemek (sürenin hangi günden başladığı, "önce/sonra", "çoğu zaman"); (2) şart/kayıt düşürmek ("mevzuatta aksi zorunlu kılınmadıkça", "bu süre içinde"); (3) sınav hakkında kanıtsız genelleme; (4) açıklanmamış terim; (5) iki işlemde de geçen kavramı tek kovaya koymak (haklı sebep, 10 gün).
+- **Karta (JSON, depo) HENÜZ işlenmedi:** yeni hükümler yalnız öğret–sor dosyasında. `ders-notu-kartlari-denetim-TASLAK.json` 1. kartının kural bölümü 17 kuralda duruyor; şema (`once_bil`, `sozluk`, `etkinlik`, `bolum`) ve kapı koşulu yok.
+- **Cem'in yeni yönü (10.11 gece):** sitede iki yer olacak: "soru çözerek öğren" (bu ekran) ve "sadece soru çöz" (öğretici kip / süreli kip). İkisi aynı karttan beslenir. Çizim kuralı: her basamakta konuyu gösteren çizim; liste ve düz kutu çizim sayılmaz.
+
 ## 4. Sıradaki iş (Cem'in beklediği)
 
 1. **Sözleşme konusunu (1. kart) D14 biçiminde baştan sona yaz:** 13 basamağın her biri için `once_bil` (kısa, sıfırdan, gerçek özneli örnek, şekil) + soru + beş şıkkın ayrı açıklaması. Cem'e ekran olarak göster. Depoya SORU yazma (depo herkese açık); `_yerel-veri-kasasi/` altına yaz.
