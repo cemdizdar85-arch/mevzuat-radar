@@ -40,7 +40,11 @@ for (const k of j.kart) {
   } else {
     md += '```\n' + k.gorsel.satirlar.join('\n') + '\n```\n\n';
   }
-  md += `**Yalın anlatım:** ${k.yalin}\n\n**Aklında kalsın:** ${k.ana_fikir}\n\n**Basamaklar (soruların öğretim sırası)**\n\n`;
+  md += `**1 · Önce anla (yalın anlatım):** ${k.yalin}\n\n`;
+  if (k.liste) md += `**${k.liste.baslik}**\n\n` + k.liste.maddeler.map(m => `- ${m}`).join('\n') + '\n\n';
+  if (k.terimler && k.terimler.length) md += `**2 · Resmî terimler**\n\n` + k.terimler.map(t => `- **${t.ad}:** ${t.tanim}`).join('\n') + '\n\n';
+  md += `**3 · Sınavda böyle yazar (mevzuatın kendi cümleleri)**\n\n` + k.ozet.map(o => `- "${o.alinti}" *(${o.kaynak.replace(/ - .*/, '').replace('Bagimsiz Denetim Yonetmeligi', 'Yönetmelik')})*`).join('\n') + '\n\n';
+  md += `**Aklında kalsın:** ${k.ana_fikir}\n\n**Basamaklar (soruların öğretim sırası)**\n\n`;
   md += k.basamaklar.map((b, i) => `${i + 1}. ${b}`).join('\n') + '\n\n';
   if (k.basamak_notu) md += `> ${k.basamak_notu}\n\n`;
   if (k.ogretim_gruplamasi) md += `**On iki unsuru akılda tutma grupları:** ${k.ogretim_gruplamasi.gruplar.join(' · ')}\n\n> ${k.ogretim_gruplamasi.not}\n\n`;
