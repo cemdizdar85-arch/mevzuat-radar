@@ -124,7 +124,12 @@
    **Şimdilik durduruldu (silinmedi, sırası gelince açılır):** yeni sınavlar G-03 · sesli anlatım D-08 · çizerek anlatan
    öğretmen D-09 · satın al düğmesi denemesi E-03 · mağaza paneli F-02.
 
-   **Sırada, odaktan sonra:** öbür dersler · eski bankanın karta bağlanması G-02 · takip paneli F-01 · satış E-04, E-05.
+   **Sırada, odaktan sonra:** öbür dersler · eski bankanın karta bağlanması G-02 · takip paneli F-01 · satış E-04, E-05 ·
+   **sınav sonucu toplama** (E-06 ölçüsü: sınavdan sonra üyeye tek soruluk form, geçti mi ve hangi dersten kaç aldı; site işi).
+
+7. **Ana ilke ve ek kurallar (10.11):** "hiç bilmeyen, soru çözerek konuyu öğrenir" kural taslağının 0. bölümü. D10 ön bilgisiz
+   anlatım · D11 sözel soru kısa, formüllü soru adım adım · D12 basamak soruları (öğreten soru da sınav kalıbında) · D13 kartı
+   meslek mensubu imzalar, yılda bir yenilenir.
 
 ### Hâlâ açık sorular (cevap gelene kadar her teslimde yeniden sorulur)
 
