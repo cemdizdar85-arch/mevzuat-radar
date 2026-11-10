@@ -15,44 +15,92 @@
       ],
       "ozet": [
         {
-          "kural": "Denetim sözleşmesi yazılı yapılır ve Yönetmelikte sayılan asgari hususları içerir: amaç, kapsam ve dönem; denetim konusu ve kıstası; tarafların sorumlulukları; ekip, süre ve ücret dökümü; başlangıç, bitiş ve rapor teslim tarihleri; mesleki sorumluluk sigortası; sözleşmenin ancak mevzuat uyarınca feshedilebileceği.",
+          "kural": "Denetim sözleşmesi yazılı yapılır ve Yönetmelik m.29/1'de sayılan on iki hususu asgari olarak içerir: (a) sözleşmenin dayanağı olan genel kurul ya da mahkeme kararının (genel kurulu olmayan işletmede yetkili organ kararının) tarih ve sayısı; (b) denetimin amacı, kapsamı ve dönemi ile varsa özel nedenleri; (c) denetim konusu ve kıstası; (ç) tarafların sorumlulukları; (d) denetimin TDS'ye ve ilgili mevzuata uygun yürütüleceği ve tamamlanacağı; (e) istenen her türlü kayıt, doküman ve bilgiye sınırsız erişim sağlanacağı; (f) ekipteki denetçilerin (yedekler dahil) isim ve unvanları, öngörülen çalışma süreleri, her biri için ücret dökümü ve toplam denetim ücreti; (g) sorumlu denetçi ve yedeğinin denetim raporunu imzalamaya yetkili olduğu; (ğ) denetimin başlangıç ve bitiş tarihleri ile raporun teslim tarihi; (h) mesleki sorumluluk sigortası yapılacağı; (ı) işletmenin, rapor tarihinden sonra ama finansal tabloların ya da yıllık faaliyet raporunun ilanından önce gerçekleşen ve bunları etkileyecek olaylardan denetçiyi haberdar etmekle yükümlü olduğu; (i) sözleşmenin ancak mevzuat uyarınca feshedilebileceği.",
           "alinti": "yazılı olarak düzenlenen denetim sözleşmesinin asgari olarak aşağıdaki hususları içermesi zorunludur",
           "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [1/2]",
           "parca": "65a2c345-99fc-48c8-82ff-31a5f569c37a"
         },
         {
-          "kural": "Sözleşmede denetim dışında başka bir hizmet öngörülemez; ücretin ödenmesi denetim dışında bir şarta bağlanamaz.",
+          "kural": "(g) bendi: sorumlu denetçi ve yedeği, denetimi üstlenenler adına denetim raporunu imzalamaya yetkilidir; bu hüküm sözleşmede yer alır.",
+          "alinti": "denetim raporunu imzalamaya yetkili olduğuna ilişkin hüküm",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [1/2]",
+          "parca": "65a2c345-99fc-48c8-82ff-31a5f569c37a"
+        },
+        {
+          "kural": "(ı) bendi: işletme, rapor tarihinden sonra ama ilan tarihinden önce gerçekleşen ve tabloları ya da faaliyet raporunu etkileyecek olaylardan denetçiyi haberdar etmekle yükümlüdür.",
+          "alinti": "olaylardan denetçiyi haberdar etmekle yükümlü olduğu",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [1/2]",
+          "parca": "65a2c345-99fc-48c8-82ff-31a5f569c37a"
+        },
+        {
+          "kural": "Sözleşmede denetim dışında başka bir hizmet öngörülemez.",
           "alinti": "Sözleşmede, denetim hizmeti dışında başka bir hizmet yapılması öngörülemez",
           "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
           "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
         },
         {
-          "kural": "Sözleşme, denetçinin seçiminden itibaren en geç 60 gün içinde yapılır. İşletme yazılı ihtara rağmen kaçınırsa denetimi üstlenen, durumu izleyen 10 gün içinde Kuruma bildirir.",
+          "kural": "Denetim ücretinin ödenmesi, denetim hizmeti dışında başka bir şarta bağlanamaz.",
+          "alinti": "denetim ücretinin ödenmesi denetim hizmeti dışında başka bir şarta bağlanamaz",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
+          "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
+        },
+        {
+          "kural": "Sözleşme, denetçinin seçildiği hesap dönemi için, seçimden itibaren en geç 60 gün içinde yapılır.",
           "alinti": "seçiminden itibaren en geç 60 gün içinde yapılır",
           "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
           "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
         },
         {
-          "kural": "Denetimi üstlenen, sözleşmeyi yalnız haklı bir sebep varsa ya da kendisine karşı görevden alınma davası açılmışsa feshedebilir. Fesih ve gerekçesi 10 gün içinde yazılı olarak Kuruma bildirilir.",
+          "kural": "İşletme, denetimi üstlenenin YAZILI İHTARINA RAĞMEN bu süre içinde sözleşme yapmaktan kaçınırsa, denetimi üstlenen durumu izleyen 10 gün içinde Kuruma bildirir.",
+          "alinti": "yazılı ihtarına rağmen denetlenen işletme sözleşme yapmaktan kaçınırsa, denetimi üstlenen durumu izleyen 10 gün içinde Kuruma bildirir",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
+          "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
+        },
+        {
+          "kural": "Denetimi üstlenen, sözleşmeyi yalnız iki durumda feshedebilir: (1) haklı bir sebep varsa, (2) kendisine karşı görevden alınma davası açılmışsa.",
           "alinti": "sadece haklı bir sebep varsa veya kendisine karşı görevden alınma davası açılmışsa feshedebilir",
           "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
           "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
         },
         {
-          "kural": "Denetimin ön şartları iki tanedir: finansal raporlama çerçevesinin kabul edilebilir olması ve yönetimin sorumluluklarını anladığına ve üstlendiğine dair mutabakatı.",
+          "kural": "Fesih VE GEREKÇELERİ, denetimi üstlenenler tarafından yazılı olarak 10 gün içinde Kuruma bildirilir.",
+          "alinti": "Sözleşmenin feshedildiği ve gerekçeleri denetimi üstlenenler tarafından yazılı olarak 10 gün içerisinde Kuruma bildirilir",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
+          "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
+        },
+        {
+          "kural": "Fesih sonrası yükümlülük: denetimi üstlenenler çalışma notlarını ve gerekli tüm bilgileri, yerine geçecek denetim kuruluşuna ya da denetçiye teslim etmek zorundadır.",
+          "alinti": "yerine geçecek olan denetim kuruluşlarına ve denetim üstlenen bağımsız denetçilere teslim etmesi zorunludur",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
+          "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
+        },
+        {
+          "kural": "Denetleme görevi denetimi üstlenenden ancak TTK m.399/4'te öngörüldüğü şekilde ve başka bir denetçi atanmışsa geri alınabilir.",
+          "alinti": "başka bir denetim kuruluşu veya denetim üstlenen bağımsız denetçi atanmışsa geri alınabilir",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.29 [2/2]",
+          "parca": "13b6e512-3796-4c4f-8752-698f8fb2842f"
+        },
+        {
+          "kural": "BDS 210'a göre denetimin iki ön şartı vardır: (1) finansal raporlama çerçevesinin kabul edilebilir olması; (2) yönetimin sorumluluklarını anladığına ve üstlendiğine dair mutabakatı.",
           "alinti": "Yönetimin aşağıdaki sorumluluklarını anladığına ve üstlendiğine dair mutabakatını alır",
           "kaynak": "BDS 210 p.6 - Denetimin Ön Şartları",
           "parca": "61aa6e57-43b1-4430-9fd6-752f630f1c02"
         },
         {
-          "kural": "Teklif edilen kapsam sınırlaması görüş vermekten kaçınmayı gerektirecekse denetçi, mevzuat aksini zorunlu kılmadıkça, o sözleşmeyi bağımsız denetim sözleşmesi olarak kabul etmez.",
-          "alinti": "kapsamı sınırlandırılan bu sözleşmeyi bir bağımsız denetim sözleşmesi olarak kabul etmez",
+          "kural": "Yönetimin üstleneceği üç sorumluluk: (i) finansal tabloları geçerli finansal raporlama çerçevesine uygun hazırlamak; (ii) hata ya da hile kaynaklı önemli yanlışlık içermeyen tablolar için gerekli gördüğü iç kontrol; (iii) denetçiye erişim sağlamak: (a) muttali olduğu tüm bilgilere, (b) talep edilebilecek ilave bilgilere, (c) işletme içinde gerekli görülen kişilerle kısıtlama olmaksızın görüşmeye.",
+          "alinti": "kısıtlama olmaksızın görüşme imkânı sağlama sorumluluğu",
+          "kaynak": "BDS 210 p.6 - Denetimin Ön Şartları",
+          "parca": "61aa6e57-43b1-4430-9fd6-752f630f1c02"
+        },
+        {
+          "kural": "Kapsam sınırlaması: yönetim sözleşmede kapsamı sınırlandıracak şartlar teklif ederse VE denetçi bu sınırlamanın görüş vermekten kaçınmayı gerektireceğine inanırsa, MEVZUATLA AKSİ ZORUNLU KILINMADIKÇA, o sözleşmeyi bağımsız denetim sözleşmesi olarak kabul etmez. Yani her kapsam sınırlaması reddi gerektirmez; şart, kaçınmayı gerektirecek nitelikte olmasıdır.",
+          "alinti": "mevzuatla aksi zorunlu kılınmadıkça, kapsamı sınırlandırılan bu sözleşmeyi bir bağımsız denetim sözleşmesi olarak kabul etmez",
           "kaynak": "BDS 210 p.7 - Denetimin Ön Şartları",
           "parca": "4f33d035-fa94-496f-837c-0be2ecd1b480"
         },
         {
-          "kural": "Ön şartlar yoksa denetçi konuyu yönetimle müzakere eder; çerçeve kabul edilebilir değilse ya da mutabakat alınamazsa, mevzuat aksini zorunlu kılmadıkça teklifi kabul etmez.",
-          "alinti": "denetçi, denetim sözleşmesi teklifini kabul etmez",
+          "kural": "Ön şartlar yoksa denetçi önce konuyu yönetimle müzakere eder. Çerçeve kabul edilebilir değilse ya da mutabakat alınamazsa, mevzuatta aksi zorunlu kılınmadıkça, teklifi kabul etmez.",
+          "alinti": "Denetimin ön şartlarının mevcut olmaması durumunda denetçi, bu konuyu yönetimle müzakere eder",
           "kaynak": "BDS 210 p.8 - Denetim Sözleşmesinin Kabulünü Etkileyen Diğer Etkenler",
           "parca": "0a96a255-6ce8-48df-b521-ca2c9036e310"
         }
@@ -60,30 +108,46 @@
       "terimler": [
         {
           "ad": "Denetimin ön şartları",
-          "tanim": "Kabul edilebilir finansal raporlama çerçevesi ile yönetimin sorumluluklarını anlayıp üstlendiğine dair mutabakatı.",
+          "tanim": "Kabul edilebilir finansal raporlama çerçevesi ile yönetimin üç sorumluluğunu anlayıp üstlendiğine dair mutabakatı.",
           "kaynak": "BDS 210 p.6"
+        },
+        {
+          "ad": "Kurum",
+          "tanim": "Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu.",
+          "alinti": "Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumunu",
+          "kaynak": "Bagimsiz Denetim Yonetmeligi m.4 [3/4]"
         }
       ],
       "gorsel": {
-        "tur": "zaman-cizgisi",
-        "baslik": "Sözleşmenin süreleri",
+        "tur": "iki-zaman-cizgisi",
+        "baslik": "60 gün ve iki ayrı 10 gün",
         "satirlar": [
-          "Denetçi seçildi → en geç 60 gün içinde yazılı sözleşme",
-          "İşletme yazılı ihtara rağmen kaçındı → izleyen 10 gün içinde Kuruma bildirim",
-          "Sözleşme feshedildi → 10 gün içinde, gerekçesiyle, yazılı olarak Kuruma bildirim"
+          "A · SÖZLEŞME YAPMA",
+          "  Denetçi seçilir → en geç 60 gün: yazılı sözleşme",
+          "  İşletme, yazılı ihtara rağmen kaçınır → izleyen 10 gün: Kuruma bildirim",
+          "",
+          "B · FESİH",
+          "  Haklı sebep  YA DA  denetçiye karşı görevden alınma davası → fesih",
+          "  → 10 gün içinde: fesih ve gerekçeleri yazılı olarak Kuruma bildirilir",
+          "  → çalışma notları ve gerekli tüm bilgiler yerine geçecek denetçiye teslim edilir"
         ]
       },
-      "yalin": "Denetçi seçildikten sonra işletmeyle yazılı bir sözleşme yapar; bunun süresi seçimden sonra en geç 60 gündür. İşletme sözleşme yapmaktan kaçınırsa denetçi bunu 10 gün içinde Kuruma (Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu) bildirir. Sözleşmeye denetim dışında başka bir iş yazılamaz. Denetçi sözleşmeyi dilediği zaman bozamaz: ya haklı bir sebebi olmalı ya da hakkında görevden alınma davası açılmış olmalıdır. İşi kabul etmeden önce de iki şeye bakar: tabloların hazırlandığı kurallar kabul edilebilir mi, yönetim kendi sorumluluklarını kabul ediyor mu. Biri yoksa işi almaz.",
-      "ana_fikir": "Seçimden sonra 60 gün içinde sözleşme; kaçınmada ve fesihte 10 gün içinde Kuruma bildirim. Ön şart yoksa iş alınmaz.",
+      "yalin": "Denetçi seçildikten sonra işletmeyle yazılı bir sözleşme yapar; süresi seçimden sonra en geç 60 gündür. Sözleşmede bulunması zorunlu on iki başlık vardır; denetim dışında başka bir iş yazılamaz, ücret de başka bir şarta bağlanamaz. İşletme, denetçinin yazılı uyarısına rağmen sözleşme yapmazsa denetçi bunu izleyen 10 gün içinde Kuruma (Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu) bildirir. Denetçi sözleşmeyi dilediği zaman bozamaz: ya haklı bir sebebi olmalı ya da hakkında görevden alınma davası açılmış olmalıdır. Bozarsa bunu gerekçesiyle birlikte 10 gün içinde yazıyla Kuruma bildirir ve çalışma notlarını yerine gelecek denetçiye teslim eder. İşi kabul etmeden önce de iki şeye bakar: tabloların hazırlandığı kurallar kabul edilebilir mi, yönetim üç sorumluluğunu (tabloları hazırlamak, iç kontrol, denetçiye erişim) kabul ediyor mu.",
+      "ana_fikir": "İki ayrı 10 gün vardır: biri işletme sözleşmeden kaçınınca, öbürü denetçi sözleşmeyi feshedince. İkisi de Kuruma bildirimdir; 60 gün ise sözleşmeyi yapma süresidir.",
       "basamaklar": [
-        "Sözleşmede ne bulunur, ne bulunamaz (denetim dışı hizmet öngörülemez)",
-        "Süreler: 60 gün ve 10 gün",
-        "Denetçi sözleşmeyi hangi iki durumda feshedebilir",
-        "Denetimin iki ön şartı; kapsam sınırlaması görüşten kaçınmayı gerektirecekse iş kabul edilmez",
-        "SINAV DÜZEYİ: olay içinde süre, fesih ve ön şart birlikte"
+        "Sözleşme yazılı yapılır; asgari on iki unsur (Yönetmelik m.29/1)",
+        "Sözleşmede bulunamayacak hüküm: denetim dışı hizmet; ücret başka şarta bağlanamaz",
+        "Sözleşmenin yapılma süresi: seçimden itibaren en geç 60 gün",
+        "İşletmenin kaçınması: yazılı ihtar şartı ve izleyen 10 gün içinde Kuruma bildirim",
+        "Denetçinin sözleşmeyi feshedebileceği iki durum",
+        "Fesih bildirimi: 10 gün, yazılı, gerekçeleriyle",
+        "Fesih sonrası: çalışma notlarının ve gerekli bilgilerin yerine geçecek denetçiye teslimi",
+        "BDS 210: denetimin iki ön şartı ve yönetimin üç sorumluluğu",
+        "Ön şart yoksa müzakere ve ret; kapsam sınırlaması (kaçınmayı gerektirecekse, mevzuat aksini zorunlu kılmadıkça)",
+        "SINAV DÜZEYİ: Yönetmelik m.29 ile BDS 210 hükümlerini birleştiren olay sorusu"
       ],
-      "dusururler": "Asgari unsur listesine sözleşmede bulunmayan unsur sokmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · haklı sebep olmadan fesih hakkı vermek · kapsam sınırlamasında sözleşmeyi \"şartlı görüşle kabul eder\" demek.",
-      "kaynak_notu": "BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı.",
+      "dusururler": "Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da \"şartlı görüşle kabul edileceğini\" söylemek.",
+      "kaynak_notu": "10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz.",
       "onay": null
     },
     {
