@@ -2,7 +2,7 @@
 
 > 2026-11-10 · Kartları sen onaylıyorsun. Her kartın altındaki kutuya "doğru" ya da "düzelt: …" yaz.
 > **Öğrencinin göreceği:** şekil, yalın anlatım, aklında kalsın, basamaklar. **Dayandığı resmî metin:** tırnak içi kaynaktan harfi harfine.
-> Alıntı denetimi: 51/51 alıntı kaynak metinde harfi harfine bulundu. 1. kart 10.11'de ikinci okumayla düzeltildi.
+> Alıntı denetimi: 53/53 alıntı kaynak metinde harfi harfine bulundu. 1. kart 10.11'de iki ayrı okumayla düzeltildi; öbür beş kart henüz kaynakla yan yana eksik taramasından geçmedi.
 > Dikkat: şekil, yalın anlatım, ana fikir ve basamaklar kurallardan TÜRETİLDİ; bunları senden önce bağımsız kimse okumadı.
 
 ## 1. Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları
@@ -11,37 +11,59 @@
 
 ### Öğrencinin göreceği
 
-**Şekil — 60 gün ve iki ayrı 10 gün** *(iki-zaman-cizgisi)*
+**Şekil — 60 gün, iki ayrı 10 gün; fesih ile görevin geri alınması ayrı** *(uc-zaman-cizgisi)*
 
 ```
 A · SÖZLEŞME YAPMA
   Denetçi seçilir → en geç 60 gün: yazılı sözleşme
-  İşletme, yazılı ihtara rağmen kaçınır → izleyen 10 gün: Kuruma bildirim
+  İşletme, denetimi üstlenenin yazılı ihtarına rağmen kaçınır → durumu izleyen 10 gün: Kuruma bildirim
 
-B · FESİH
+B · DENETÇİNİN SÖZLEŞMEYİ FESHETMESİ
   Haklı sebep  YA DA  denetçiye karşı görevden alınma davası → fesih
   → 10 gün içinde: fesih ve gerekçeleri yazılı olarak Kuruma bildirilir
-  → çalışma notları ve gerekli tüm bilgiler yerine geçecek denetçiye teslim edilir
+  → çalışma notları ve gerekli tüm bilgiler, yerine geçecek denetim kuruluşuna ya da denetim üstlenen bağımsız denetçiye teslim edilir
+
+C · GÖREVİN DENETÇİDEN GERİ ALINMASI (fesihten ayrı bir işlem)
+  Yalnız TTK m.399/4'te öngörüldüğü şekilde  VE  başka bir denetçi atanmışsa
 ```
 
-**Yalın anlatım:** Denetçi seçildikten sonra işletmeyle yazılı bir sözleşme yapar; süresi seçimden sonra en geç 60 gündür. Sözleşmede bulunması zorunlu on iki başlık vardır; denetim dışında başka bir iş yazılamaz, ücret de başka bir şarta bağlanamaz. İşletme, denetçinin yazılı uyarısına rağmen sözleşme yapmazsa denetçi bunu izleyen 10 gün içinde Kuruma (Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu) bildirir. Denetçi sözleşmeyi dilediği zaman bozamaz: ya haklı bir sebebi olmalı ya da hakkında görevden alınma davası açılmış olmalıdır. Bozarsa bunu gerekçesiyle birlikte 10 gün içinde yazıyla Kuruma bildirir ve çalışma notlarını yerine gelecek denetçiye teslim eder. İşi kabul etmeden önce de iki şeye bakar: tabloların hazırlandığı kurallar kabul edilebilir mi, yönetim üç sorumluluğunu (tabloları hazırlamak, iç kontrol, denetçiye erişim) kabul ediyor mu.
+**Yalın anlatım:** Denetçi seçildikten sonra işletmeyle yazılı bir sözleşme yapar; süresi seçimden sonra en geç 60 gündür. Sözleşmede bulunması zorunlu on iki başlık vardır; denetim dışında başka bir iş yazılamaz, ücret de başka bir şarta bağlanamaz. İşletme, denetçinin yazılı uyarısına rağmen sözleşme yapmazsa denetçi bunu izleyen 10 gün içinde Kuruma (Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu) bildirir. Sözleşmenin sona ermesinin iki ayrı yolu vardır ve karıştırılmamalıdır. Birincisi denetçinin feshetmesidir: ya haklı bir sebebi olmalı ya da hakkında görevden alınma davası açılmış olmalıdır; fesheden denetçi bunu gerekçesiyle 10 gün içinde yazıyla Kuruma bildirir ve çalışma notlarını yerine gelecek denetçiye teslim eder. İkincisi görevin denetçiden geri alınmasıdır: bu ancak kanunda öngörülen yolla ve yerine başka denetçi atanmışsa olur. İşi kabul etmeden önce denetçi iki ön şarta bakar: tabloların hazırlandığı kurallar (finansal raporlama çerçevesi) kabul edilebilir mi; yönetimin üç sorumluluğunu (tabloları hazırlamak, iç kontrol, denetçiye erişim) anladığına ve üstlendiğine dair mutabakat alınmış mı.
 
-**Aklında kalsın:** İki ayrı 10 gün vardır: biri işletme sözleşmeden kaçınınca, öbürü denetçi sözleşmeyi feshedince. İkisi de Kuruma bildirimdir; 60 gün ise sözleşmeyi yapma süresidir.
+**Aklında kalsın:** İki ayrı 10 gün vardır: biri işletme sözleşmeden kaçınınca, öbürü denetçi sözleşmeyi feshedince; ikisi de Kuruma bildirimdir. 60 gün sözleşmeyi yapma süresidir. Fesih ile görevin geri alınması ayrı işlemlerdir.
 
 **Basamaklar (soruların öğretim sırası)**
 
 1. Sözleşme yazılı yapılır; asgari on iki unsur (Yönetmelik m.29/1)
-2. Sözleşmede bulunamayacak hüküm: denetim dışı hizmet; ücret başka şarta bağlanamaz
-3. Sözleşmenin yapılma süresi: seçimden itibaren en geç 60 gün
-4. İşletmenin kaçınması: yazılı ihtar şartı ve izleyen 10 gün içinde Kuruma bildirim
-5. Denetçinin sözleşmeyi feshedebileceği iki durum
-6. Fesih bildirimi: 10 gün, yazılı, gerekçeleriyle
-7. Fesih sonrası: çalışma notlarının ve gerekli bilgilerin yerine geçecek denetçiye teslimi
-8. BDS 210: denetimin iki ön şartı ve yönetimin üç sorumluluğu
-9. Ön şart yoksa müzakere ve ret; kapsam sınırlaması (kaçınmayı gerektirecekse, mevzuat aksini zorunlu kılmadıkça)
-10. SINAV DÜZEYİ: Yönetmelik m.29 ile BDS 210 hükümlerini birleştiren olay sorusu
+2. (ı) bendi: rapor tarihinden sonra, ilandan önce gerçekleşen olayları işletmenin denetçiye bildirmesi
+3. Sözleşmede bulunamayacak hüküm: denetim dışı hizmet; ücret başka şarta bağlanamaz
+4. Sözleşmenin yapılma süresi: seçimden itibaren en geç 60 gün
+5. İşletmenin kaçınması: denetimi üstlenenin yazılı ihtarı ve durumu izleyen 10 gün içinde Kuruma bildirim
+6. Denetçinin sözleşmeyi feshedebileceği iki durum
+7. Fesih bildirimi: 10 gün, yazılı, gerekçeleriyle
+8. Fesih sonrası: çalışma notlarının ve gerekli bilgilerin yerine geçecek denetçiye teslimi
+9. Fesih ile görevin geri alınması ayrımı
+10. BDS 210: denetimin iki ön şartı ve yönetimin üç sorumluluğuna ilişkin mutabakat
+11. Ön şart yoksa müzakere ve ret; kapsam sınırlaması (kaçınmayı gerektirecekse, mevzuat aksini zorunlu kılmadıkça)
+12. Özel durum: çerçeveyi mevzuat belirlemişse BDS 210 p.19 şartları; p.20
+13. SINAV DÜZEYİ: Yönetmelik m.29 ile BDS 210 hükümlerini birleştiren olay sorusu
 
-**Böyle düşürürler:** Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da "şartlı görüşle kabul edileceğini" söylemek.
+**On iki unsuru akılda tutma grupları:** Yetkilendirme: (a) · Denetimin niteliği: (b) (c) · Sorumluluklar ve ekip: (ç) (d) (e) (f) (g) · Takvim: (ğ) · Sigorta ve rapor sonrası olaylar: (h) (ı) · Fesih: (i)
+
+> Bu gruplama öğretim aracıdır; mevzuatta böyle bir gruplama YOKTUR, soru bu gruplara dayandırılmaz.
+
+**Bu konudan yazılacak soru türleri**
+
+- Doğrudan bilgi: on iki sözleşme unsuru
+- Süre: 60 gün ve iki ayrı 10 gün
+- Olumsuz kök: sözleşmede bulunamayacak hükümler
+- Olay: işletmenin yazılı ihtara rağmen kaçınması
+- Ayrım: fesih ile görevin geri alınması
+- Uygulama: fesih sonrası teslim yükümlülüğü
+- Kavram: iki ön şart ve üç sorumluluk
+- İstisna: BDS 210 p.7, p.8, p.19, p.20
+- Karma olay: Yönetmelik m.29 + BDS 210
+
+**Böyle düşürürler:** Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da "şartlı görüşle kabul edileceğini" söylemek. · denetçinin feshi ile görevin geri alınmasını karıştırmak · (ı) bendindeki rapor sonrası olayları başka bir kavramla karıştırmak · çerçeveyi mevzuatın belirlediği özel durumu (BDS 210 p.19) yok saymak.
 
 ### Dayandığı resmî metin
 
@@ -69,18 +91,27 @@ B · FESİH
   - Bagimsiz Denetim Yonetmeligi m.29 [2/2] · "başka bir denetim kuruluşu veya denetim üstlenen bağımsız denetçi atanmışsa geri alınabilir"
 - BDS 210'a göre denetimin iki ön şartı vardır: (1) finansal raporlama çerçevesinin kabul edilebilir olması; (2) yönetimin sorumluluklarını anladığına ve üstlendiğine dair mutabakatı.
   - BDS 210 p.6 · "Yönetimin aşağıdaki sorumluluklarını anladığına ve üstlendiğine dair mutabakatını alır"
-- Yönetimin üstleneceği üç sorumluluk: (i) finansal tabloları geçerli finansal raporlama çerçevesine uygun hazırlamak; (ii) hata ya da hile kaynaklı önemli yanlışlık içermeyen tablolar için gerekli gördüğü iç kontrol; (iii) denetçiye erişim sağlamak: (a) muttali olduğu tüm bilgilere, (b) talep edilebilecek ilave bilgilere, (c) işletme içinde gerekli görülen kişilerle kısıtlama olmaksızın görüşmeye.
+- Yönetimin üstleneceği üç sorumluluk: (i) gerekli hâllerde gerçeğe uygun sunum dâhil, finansal tabloları geçerli finansal raporlama çerçevesine uygun hazırlamak; (ii) hata ya da hile kaynaklı önemli yanlışlık içermeyen tablolar için gerekli gördüğü iç kontrol; (iii) denetçiye erişim sağlamak: (a) muttali olduğu tüm bilgilere, (b) talep edilebilecek ilave bilgilere, (c) işletme içinde gerekli görülen kişilerle kısıtlama olmaksızın görüşmeye.
   - BDS 210 p.6 · "kısıtlama olmaksızın görüşme imkânı sağlama sorumluluğu"
 - Kapsam sınırlaması: yönetim sözleşmede kapsamı sınırlandıracak şartlar teklif ederse VE denetçi bu sınırlamanın görüş vermekten kaçınmayı gerektireceğine inanırsa, MEVZUATLA AKSİ ZORUNLU KILINMADIKÇA, o sözleşmeyi bağımsız denetim sözleşmesi olarak kabul etmez. Yani her kapsam sınırlaması reddi gerektirmez; şart, kaçınmayı gerektirecek nitelikte olmasıdır.
   - BDS 210 p.7 · "mevzuatla aksi zorunlu kılınmadıkça, kapsamı sınırlandırılan bu sözleşmeyi bir bağımsız denetim sözleşmesi olarak kabul etmez"
-- Ön şartlar yoksa denetçi önce konuyu yönetimle müzakere eder. Çerçeve kabul edilebilir değilse ya da mutabakat alınamazsa, mevzuatta aksi zorunlu kılınmadıkça, teklifi kabul etmez.
-  - BDS 210 p.8 · "Denetimin ön şartlarının mevcut olmaması durumunda denetçi, bu konuyu yönetimle müzakere eder"
+- Ön şartlar yoksa denetçi önce konuyu yönetimle müzakere eder. Çerçeve kabul edilebilir değilse ya da mutabakat alınamazsa, mevzuatta aksi zorunlu kılınmadıkça, teklifi kabul etmez. İSTİSNA: çerçevenin kabul edilebilir olmaması bakımından 19 uncu paragrafta belirtilen durumlar bu kuralın dışındadır.
+  - BDS 210 p.8 · "19 uncu paragrafta belirtilen durumlar dışında"
+- BDS 210 p.19: finansal raporlama çerçevesini MEVZUAT belirlemişse ve denetçi bu çerçeveyi kabul edilebilir bulmuyorsa, sözleşmeyi yalnızca şu şartlarla kabul eder: (a) yönetim, tabloların yanıltıcı olmasını önlemek için gereken ilave açıklamaları yapmayı kabul eder; (b) sözleşme şartlarında şunlar kabul edilir: (i) denetçi raporunda Dikkat Çekilen Hususlar paragrafına yer verilmesi, (ii) görüşte, mevzuatta zorunlu kılınmadığı sürece, "tüm önemli yönleriyle gerçeğe uygun bir biçimde sunulmuştur" ya da "doğru ve gerçeğe uygun bir görünüm sağlamaktadır" ifadelerinin kullanılmaması.
+  - BDS 210 p.19 · "denetim sözleşmesini yalnızca aşağıdaki şartların bulunması hâlinde kabul eder"
+- BDS 210 p.20: 19 uncu paragraftaki şartlar yoksa ama mevzuat denetçinin denetimi üstlenmesini zorunlu kılıyorsa denetçi, tabloların yanıltıcı olmasının raporuna etkisini değerlendirir ve sözleşme şartlarında bu hususa uygun şekilde atıfta bulunur.
+  - BDS 210 p.20 · "Denetim sözleşmesinin şartlarında bu hususa uygun şekilde atıfta bulunur"
 
 **Terimler:** **Denetimin ön şartları:** Kabul edilebilir finansal raporlama çerçevesi ile yönetimin üç sorumluluğunu anlayıp üstlendiğine dair mutabakatı. (BDS 210 p.6) · **Kurum:** Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu. (Bagimsiz Denetim Yonetmeligi m.4 [3/4])
 
-**İç not (öğrenci görmez):** 10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz.
+**İç not (öğrenci görmez):** 10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz. 10.11 ÜÇÜNCÜ OKUMA: BDS 210 p.8'deki "19 uncu paragraf" istisnası düşmüştü; p.19 ve p.20 ambardan okunup eklendi. p.19 parçasında dipnot rakamı yapışık ("BDS 7064'ya" = BDS 706 + dipnot 4), ambar kusuru. OKUNMAYAN, bu yüzden karta kural olarak GİRMEYEN: BDS 706 (Dikkat Çekilen Hususlar paragrafının içeriği), BDS 560 (bilanço tarihinden sonraki olaylar; (ı) bendiyle farkı bu kartta tanımlanmadı), TTK m.399/4.
 
-**Onay (Cem):** ☐ doğru ☐ düzelt: …
+**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
+
+- ☐ Mevzuat doğru ve eksiksiz
+- ☐ Anlatım yalın ve doğru
+- ☐ Soru kapsamı yeterli
+- düzelt: …
 
 ---
 
@@ -131,7 +162,12 @@ Denetim riski
 
 **İç not (öğrenci görmez):** Eski kartta "yapısal (doğal) risk" yazıyordu; "doğal" kelimesi kaynakta yok, karta alınmadı.
 
-**Onay (Cem):** ☐ doğru ☐ düzelt: …
+**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
+
+- ☐ Mevzuat doğru ve eksiksiz
+- ☐ Anlatım yalın ve doğru
+- ☐ Soru kapsamı yeterli
+- düzelt: …
 
 ---
 
@@ -179,7 +215,12 @@ Denetim riski
 
 **İç not (öğrenci görmez):** KAYNAK KUSURU: BDS 315 p.21–26 parçalarının gövdesi iki sütunlu tablodan bozuk aktarılmış, cümleler iç içe geçmiş; p.23'ün başlığı yarım ("İşletmenin aşağıdakilere ilişkin süreçleri ve"). Bileşen adları yalnız parça BAŞLIKLARINDAN alındı, gövdeden cümle alınmadı. Bu parçalar onarılmadan bileşenlerin içeriğine soru yazılmamalı. BDS 265 p.6'ya da dipnot kırıntısı karışmış.
 
-**Onay (Cem):** ☐ doğru ☐ düzelt: …
+**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
+
+- ☐ Mevzuat doğru ve eksiksiz
+- ☐ Anlatım yalın ve doğru
+- ☐ Soru kapsamı yeterli
+- düzelt: …
 
 ---
 
@@ -232,7 +273,12 @@ Makul güvence: yüksek, ama mutlak değil
 
 **İç not (öğrenci görmez):** Sınırlı güvencenin tanımı çekilen parçalarda yok; karta yazılmadı.
 
-**Onay (Cem):** ☐ doğru ☐ düzelt: …
+**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
+
+- ☐ Mevzuat doğru ve eksiksiz
+- ☐ Anlatım yalın ve doğru
+- ☐ Soru kapsamı yeterli
+- düzelt: …
 
 ---
 
@@ -281,7 +327,12 @@ Gereken miktarı etkileyen: "önemli yanlışlık" riski değerlendirmesi + kan�
 
 **İç not (öğrenci görmez):** Eski kartın "kaynağına göre güvenilirlik" ve "miktar düşük kaliteyi telafi etmez" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız "etkilenir" diye geçiyor; "risk arttıkça kanıt artar" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış.
 
-**Onay (Cem):** ☐ doğru ☐ düzelt: …
+**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
+
+- ☐ Mevzuat doğru ve eksiksiz
+- ☐ Anlatım yalın ve doğru
+- ☐ Soru kapsamı yeterli
+- düzelt: …
 
 ---
 
@@ -333,7 +384,12 @@ Gereken miktarı etkileyen: "önemli yanlışlık" riski değerlendirmesi + kan�
 
 **İç not (öğrenci görmez):** "Yaygın" teriminin tanımı çekilen parçalarda yok; terim notu yazılmadı. Karar anahtarı: kanıt VAR + önemli, yaygın değil → sınırlı olumlu · kanıt VAR + önemli ve yaygın → olumsuz · kanıt YOK + önemli olabilir, yaygın değil → sınırlı olumlu · kanıt YOK + önemli ve yaygın olabilir → kaçınma (dördü de yukarıdaki alıntılardan).
 
-**Onay (Cem):** ☐ doğru ☐ düzelt: …
+**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**
+
+- ☐ Mevzuat doğru ve eksiksiz
+- ☐ Anlatım yalın ve doğru
+- ☐ Soru kapsamı yeterli
+- düzelt: …
 
 ---
 
