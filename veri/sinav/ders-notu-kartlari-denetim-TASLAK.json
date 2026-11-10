@@ -2,7 +2,7 @@
   "aciklama": "TASLAK. Muhasebe Denetimi ders notu kartları (BASIM-ONCESI-DUZEN-TASLAK.md D2). Her cümle yalnız ambardaki resmî metinden yazıldı; her kuralın yanında kaynaktan harfi harfine 'alinti' durur ve arac dışı bir betikle kaynak metinde arandı. Onay alanı boş kart soru basımında KULLANILMAZ. 'dusururler' eski biçim kartından (bitirme-konu-kartlari.json 'celdirici') aktarıldı; çıkmış soru metniyle yeniden SAYILMADI. YENİ BİÇİM (10.11): her kartta gorsel + yalin + ana_fikir + basamaklar; bu dört alan özetteki alıntılı kurallardan türetildi, ayrıca alıntıya bağlanmadı ve bağımsız okunmadı.",
   "tarih": "2026-11-10",
   "ders": "Muhasebe Denetimi",
-  "durum": "20 karttan 6'sı yazıldı; 1. kart ONAYLI (Cem 10.11); 2–6 onaysız ve kaynakla yan yana eksik taramasından geçmedi; 13'ü bekliyor; 1 kartın kaynağı bağlanamadı",
+  "durum": "20 karttan 6'sı yazıldı; 1. kart ONAYLI (Cem 10.11); 2–6 kaynakla yan yana tarandı ve düzeltildi, Cem onayı bekliyor; çıkmış soru incelemesi (D2b adım 1) hiçbir kartta yapılmadı; 13'ü bekliyor; 1 kartın kaynağı bağlanamadı",
   "kart": [
     {
       "no": 1,
@@ -265,18 +265,25 @@
           "kaynak": "BDS 200 p.13"
         }
       ],
+      "soru_kapsami": [
+        "Tanım: denetim riski",
+        "Sınıflama: hangi risk hangisinin bileşeni",
+        "Tanımdan terimi bulma: yapısal, kontrol, tespit edememe",
+        "Öncüllü: risk tanımlarına ilişkin doğru ve yanlış ifadeler",
+        "Uygulama: kontroller test edilmeyecekse kontrol riski değerlendirmesi (BDS 315 p.34)"
+      ],
       "gorsel": {
         "tur": "agac",
         "baslik": "Denetim riski neyden oluşur",
         "satirlar": [
           "Denetim riski",
-          "├─ \"Önemli yanlışlık\" riski (yanlış, denetimden önce tabloda)",
+          "├─ \"Önemli yanlışlık\" riski (yanlış, denetimden önce tabloda; yönetim beyanı düzeyinde iki bileşen)",
           "│   ├─ Yapısal risk (kontrol hesaba katılmadan önce yanlışa açıklık)",
           "│   └─ Kontrol riski (işletmenin kontrolleri önleyemez ya da yakalayamaz)",
           "└─ Tespit edememe riski (denetçinin prosedürleri var olan yanlışı bulamaz)"
         ]
       },
-      "yalin": "Denetim riski, tablolarda önemli bir yanlış varken denetçinin duruma uymayan bir görüş vermesi tehlikesidir. Bu tehlikenin iki kaynağı vardır. Birincisi, yanlışın denetimden önce tabloda bulunmasıdır; buna \"önemli yanlışlık\" riski denir ve iki parçası vardır. Yapısal risk, hiçbir kontrol hesaba katılmadan önce bir kalemin yanlışa açık olmasıdır. Kontrol riski, işletmenin kendi kontrollerinin o yanlışı zamanında önleyememesi ya da yakalayıp düzeltememesidir. İkinci kaynak denetçinin tarafındadır: uyguladığı prosedürlerin var olan yanlışı bulamaması; bu tespit edememe riskidir.",
+      "yalin": "Denetim riski, tablolarda önemli bir yanlış varken denetçinin duruma uymayan bir görüş vermesi tehlikesidir. Bu tehlikenin iki kaynağı vardır. Birincisi, yanlışın denetimden önce tabloda bulunmasıdır; buna \"önemli yanlışlık\" riski denir. Bu risk, yönetim beyanı düzeyinde (yani tek tek işlem sınıfı, hesap bakiyesi ya da açıklama düzeyinde) iki parçadan oluşur. Yapısal risk, hiçbir kontrol hesaba katılmadan önce o kalemin yanlışa açık olmasıdır. Kontrol riski, işletmenin kendi kontrollerinin o yanlışı zamanında önleyememesi ya da yakalayıp düzeltememesidir. İkinci kaynak denetçinin tarafındadır: uyguladığı prosedürlerin var olan yanlışı bulamaması; bu tespit edememe riskidir.",
       "ana_fikir": "Denetim riski, \"önemli yanlışlık\" riski ile tespit edememe riskinin fonksiyonudur. Yapısal risk ve kontrol riski \"önemli yanlışlık\" riskinin parçalarıdır; tespit edememe riski değildir.",
       "basamaklar": [
         "Denetim riski nedir",
@@ -285,8 +292,8 @@
         "Tespit edememe riski kimin tarafındadır",
         "SINAV DÜZEYİ: verilen tanımdan risk türünü bulma"
       ],
-      "dusururler": "Kontrol riski ile yapısal riski yer değiştirmek · tespit edememe riskini \"önemli yanlışlık\" riskinin bileşeni saymak · \"yüksek risk → daha az kanıt\" diye yönü ters çevirmek · iş riski ya da örnekleme riskini aynı aileye sokmak.",
-      "kaynak_notu": "Eski kartta \"yapısal (doğal) risk\" yazıyordu; \"doğal\" kelimesi kaynakta yok, karta alınmadı.",
+      "dusururler": "Kontrol riski ile yapısal riskin tanımlarını yer değiştirmek · tespit edememe riskini \"önemli yanlışlık\" riskinin bileşeni saymak · denetim riskinin tanımı yerine tespit edememe riskinin tanımını vermek.",
+      "kaynak_notu": "Eski kartta \"yapısal (doğal) risk\" yazıyordu; \"doğal\" kelimesi kaynakta yok, karta alınmadı. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: \"yüksek risk → daha az kanıt\" (risk ile kanıt miktarının yönü çekilen paragraflarda yok), \"iş riski / örnekleme riski\" (kaynağı okunmadı).",
       "onay": null
     },
     {
@@ -319,6 +326,12 @@
           "alinti": "kontrol faaliyetleri bileşeni hakkında kanaat edinir",
           "kaynak": "BDS 315 p.26 - Kontrol faaliyetleri",
           "parca": "57ea6fe7-20b4-41bb-b3ac-7a19a06979e4"
+        },
+        {
+          "kural": "Denetçi, üst yönetimden sorumlu olanlara bildirdiği ya da bildirmeyi düşündüğü önemli iç kontrol eksikliklerini uygun sorumluluğa sahip yönetim kademesine DE zamanında ve yazılı olarak bildirir (doğrudan bildirilmesi uygun olmayanlar dışında). Ayrıca, yönetimin dikkatini çekmeyi gerektirecek kadar önemli olan ve başkalarınca yönetime bildirilmemiş diğer iç kontrol eksikliklerini zamanında bildirir.",
+          "alinti": "önemli iç kontrol eksikliklerini zamanında ve yazılı olarak bildirir",
+          "kaynak": "BDS 265 p.10 - Ana Hükümler",
+          "parca": "9ceada5d-4d1a-4556-a92a-469d1c27af34"
         }
       ],
       "terimler": [
@@ -333,26 +346,34 @@
           "kaynak": "BDS 265 p.6"
         }
       ],
+      "soru_kapsami": [
+        "Tanım: iç kontrol eksikliğinin iki hâli",
+        "Boşluk doldurma: eksiklik / önemli eksiklik",
+        "Bildirim: kime, ne zaman, nasıl",
+        "Öncüllü: bildirime ilişkin doğru ve yanlış ifadeler"
+      ],
       "gorsel": {
         "tur": "karsilastirma",
         "baslik": "Eksiklik mi, önemli eksiklik mi",
         "satirlar": [
           "İç kontrol eksikliği: kontrol yanlışı önleyemiyor / yakalayıp düzeltemiyor, ya da gereken kontrol yok",
-          "Önemli iç kontrol eksikliği: üst yönetimden sorumlu olanların dikkatini çekmeyi gerektirecek kadar önemli",
-          "Önemli olan → üst yönetimden sorumlu olanlara · zamanında · yazılı bildirilir"
+          "Önemli iç kontrol eksikliği: tek bir eksiklik YA DA eksikliklerin bileşimi; üst yönetimden sorumlu olanların dikkatini çekmeyi gerektirecek kadar önemli",
+          "Önemli olan → üst yönetimden sorumlu olanlara · zamanında · yazılı",
+          "Ayrıca → uygun yönetim kademesine de · zamanında · yazılı"
         ]
       },
-      "yalin": "Bir kontrol yanlışı zamanında önleyemiyor ya da yakalayıp düzeltemiyorsa, ya da gereken kontrol hiç yoksa buna iç kontrol eksikliği denir. Her eksiklik aynı ağırlıkta değildir. Denetçi bir eksikliği, işletmenin gözetiminden sorumlu olanların (örneğin yönetim kurulu üyelerinin) dikkatini çekmeyi gerektirecek kadar önemli bulursa buna önemli iç kontrol eksikliği denir. Bunu onlara zamanında ve yazıyla bildirir.",
-      "ana_fikir": "Önemli iç kontrol eksikliği, üst yönetimden sorumlu olanlara zamanında ve yazılı olarak bildirilir.",
+      "yalin": "Bir kontrol yanlışı zamanında önleyemiyor ya da yakalayıp düzeltemiyorsa, ya da gereken kontrol hiç yoksa buna iç kontrol eksikliği denir. Her eksiklik aynı ağırlıkta değildir. Denetçi, tek bir eksikliği ya da birkaç eksikliğin bileşimini, işletmenin gözetiminden sorumlu olanların (örneğin yönetim kurulu üyelerinin) dikkatini çekmeyi gerektirecek kadar önemli bulursa buna önemli iç kontrol eksikliği denir. Bunu onlara zamanında ve yazıyla bildirir; aynı eksiklikleri uygun yönetim kademesine de yazıyla bildirir.",
+      "ana_fikir": "Önemli iç kontrol eksikliği tek bir eksiklik de olabilir, eksikliklerin bileşimi de; üst yönetimden sorumlu olanlara zamanında ve yazılı olarak bildirilir.",
       "basamaklar": [
         "İç kontrol eksikliği hangi iki durumda vardır",
-        "Eksikliği \"önemli\" yapan nedir",
-        "Önemli eksiklik kime, ne zaman, nasıl bildirilir",
-        "SINAV DÜZEYİ: tanımda boşluğa doğru terimi koyma"
+        "Eksikliği \"önemli\" yapan nedir; tek eksiklik ya da eksikliklerin bileşimi",
+        "Önemli eksiklik üst yönetimden sorumlu olanlara: zamanında ve yazılı",
+        "Yönetime bildirim (BDS 265 p.10)",
+        "SINAV DÜZEYİ: tanımda boşluğa doğru terimi koyma; bildirimin kime ve nasıl yapılacağı"
       ],
       "basamak_notu": "İç kontrol bileşenlerinin içeriği için basamak YOK: kaynak parçalar (BDS 315 p.21–26) bozuk, onarılmadan soru yazılmaz.",
-      "dusururler": "Boşluğa \"önemli iç kontrol eksikliği\" yerine \"iç kontrol eksikliği\" koymak ya da tersi · bildirimi \"sözlü\" ya da yalnız \"yönetime\" yaptırmak · uydurma birleşik terim · bileşen listesine iç denetimi sokmak.",
-      "kaynak_notu": "KAYNAK KUSURU: BDS 315 p.21–26 parçalarının gövdesi iki sütunlu tablodan bozuk aktarılmış, cümleler iç içe geçmiş; p.23'ün başlığı yarım (\"İşletmenin aşağıdakilere ilişkin süreçleri ve\"). Bileşen adları yalnız parça BAŞLIKLARINDAN alındı, gövdeden cümle alınmadı. Bu parçalar onarılmadan bileşenlerin içeriğine soru yazılmamalı. BDS 265 p.6'ya da dipnot kırıntısı karışmış.",
+      "dusururler": "Boşluğa \"önemli iç kontrol eksikliği\" yerine \"iç kontrol eksikliği\" koymak ya da tersi · bildirimi \"sözlü\" yaptırmak · önemli eksikliği yalnız tek bir eksiklik sayıp \"eksikliklerin bileşimi\"ni dışlamak · üst yönetimden sorumlu olanlara bildirimi atlayıp yalnız yönetime bildirildiğini söylemek.",
+      "kaynak_notu": "KAYNAK KUSURU: BDS 315 p.21–26 parçalarının gövdesi iki sütunlu tablodan bozuk aktarılmış, cümleler iç içe geçmiş; p.23'ün başlığı yarım (\"İşletmenin aşağıdakilere ilişkin süreçleri ve\"). Bileşen adları yalnız parça BAŞLIKLARINDAN alındı, gövdeden cümle alınmadı. Bu parçalar onarılmadan bileşenlerin içeriğine soru yazılmamalı. BDS 265 p.6'ya da dipnot kırıntısı karışmış. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. BDS 265 p.10 ambardan okunup eklendi (yönetime bildirim). Kaldırılan çeldiriciler: \"bileşen listesine iç denetimi sokmak\" (bileşen parçaları bozuk, basamağı yok), \"uydurma birleşik terim\" (ölçülemez).",
       "onay": null
     },
     {
@@ -408,6 +429,15 @@
           "kaynak": "BDS 200 p.13"
         }
       ],
+      "soru_kapsami": [
+        "Tanım: bağımsız denetim",
+        "Kavram: makul güvence (yüksek, mutlak değil)",
+        "Varsayılan güvence: açıkça yazmıyorsa makul",
+        "Liste: beş unsur",
+        "Liste: üç taraf",
+        "Olumsuz kök: unsurlardan ya da taraflardan biri değildir",
+        "Denetçinin iki genel amacı"
+      ],
       "gorsel": {
         "tur": "liste",
         "baslik": "Denetimin iskeleti",
@@ -418,7 +448,7 @@
           "Makul güvence: yüksek, ama mutlak değil"
         ]
       },
-      "yalin": "Bağımsız denetim, bir işletmenin finansal tablolarının standartlara uygun ve doğru olup olmadığının, defter, kayıt ve belgeler üzerinden incelenip rapora bağlanmasıdır. Denetçi \"kesinlikle doğru\" demez. Verdiği güvenceye makul güvence denir: yüksektir ama mutlak değildir, çünkü denetimin yapısından gelen kısıtlar yüzünden kanıtların çoğu kesin olmaktan çok ikna edicidir. Öbür güvence türü sınırlı güvencedir; ancak mevzuatta ya da sözleşmede açıkça yazıyorsa uygulanır. Yazmıyorsa denetim makul güvence verecek şekilde yapılır.",
+      "yalin": "Bağımsız denetim, bir işletmenin finansal tablolarının, defter, kayıt ve belgeler üzerinden incelenip rapora bağlanmasıdır. Denetim, tabloların kesinlikle doğru olduğunu garanti etmez; finansal raporlama standartlarına uygunluğu ve doğruluğu hakkında makul güvence sağlar. Makul güvence yüksektir ama mutlak değildir, çünkü denetimin yapısından gelen kısıtlar yüzünden kanıtların çoğu kesin olmaktan çok ikna edicidir. Öbür güvence türü sınırlı güvencedir; ancak mevzuatta ya da sözleşmede açıkça yazıyorsa uygulanır. Yazmıyorsa denetim makul güvence verecek şekilde yapılır.",
       "ana_fikir": "Makul güvence yüksektir ama mutlak değildir; aksi açıkça yazılmadıkça denetim makul güvence verir.",
       "basamaklar": [
         "Bağımsız denetim nedir",
@@ -428,8 +458,8 @@
         "Denetimin üç tarafı",
         "SINAV DÜZEYİ: listeye yabancı unsur sokulmuş ya da tanımı karıştırılmış soru"
       ],
-      "dusururler": "Makul güvenceyi \"tam\" ya da \"mutlak\" güvence yazmak · sınırlı güvenceyi varsayılan saymak · unsur listesine \"denetim ücreti\" ya da \"iç kontrol\" sokmak · makul güvence tanımı yerine önemlilik tanımını vermek.",
-      "kaynak_notu": "Sınırlı güvencenin tanımı çekilen parçalarda yok; karta yazılmadı.",
+      "dusururler": "Makul güvenceyi \"tam\" ya da \"mutlak\" güvence yazmak · sınırlı güvenceyi varsayılan saymak · beş unsur ya da üç taraf listesine listede olmayan bir kalem sokmak · unsurlar ile tarafları birbirine karıştırmak.",
+      "kaynak_notu": "Sınırlı güvencenin tanımı çekilen parçalarda yok; karta yazılmadı. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldirici: \"makul güvence tanımı yerine önemlilik tanımını vermek\" (önemlilik bu kartın kuralı değil).",
       "onay": null
     },
     {
@@ -491,6 +521,14 @@
           "kaynak": "BDS 500 p.5"
         }
       ],
+      "soru_kapsami": [
+        "Tanım: Yönetmeliğe göre denetim kanıtı",
+        "Tanım: BDS'ye göre denetim kanıtı",
+        "Eşleştirme: yeterlilik = miktar, uygunluk = kalite",
+        "Boşluk doldurma",
+        "Gereken kanıt miktarını etkileyen iki şey",
+        "Liste: muhasebe kayıtları neleri içerir"
+      ],
       "gorsel": {
         "tur": "formul-kutusu",
         "baslik": "Kanıta iki açıdan bakılır",
@@ -509,8 +547,8 @@
         "Gereken kanıt miktarını etkileyen iki şey",
         "SINAV DÜZEYİ: yeterlilik ile uygunluğun yer değiştirildiği ya da boşluk bırakılan soru"
       ],
-      "dusururler": "Yeterlilik ile uygunluğu yer değiştirmek · \"yüksek risk → daha az kanıt\" diye yönü ters çevirmek · miktarı artırmanın düşük kaliteyi telafi ettiğini söylemek · boşluğa \"denetim kıstası\" ya da \"mesleki muhakeme\" koymak.",
-      "kaynak_notu": "Eski kartın \"kaynağına göre güvenilirlik\" ve \"miktar düşük kaliteyi telafi etmez\" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız \"etkilenir\" diye geçiyor; \"risk arttıkça kanıt artar\" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış.",
+      "dusururler": "Yeterlilik ile uygunluğun tanımlarını yer değiştirmek · uygunluğu yalnız güvenilirlik sayıp \"ihtiyaca uygunluk\"u atmak · boşluğa \"denetim kıstası\" ya da \"mesleki muhakeme\" koymak · Yönetmelikteki tanım ile BDS tanımını karıştırmak.",
+      "kaynak_notu": "Eski kartın \"kaynağına göre güvenilirlik\" ve \"miktar düşük kaliteyi telafi etmez\" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız \"etkilenir\" diye geçiyor; \"risk arttıkça kanıt artar\" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: \"yüksek risk → daha az kanıt\" ve \"miktarı artırmak düşük kaliteyi telafi eder\"; ikisinin dayanağı BDS 500 uygulama paragrafları, okunmadı. Okununca karta kural olarak girer, çeldirici o zaman yazılır.",
       "onay": null
     },
     {
@@ -562,43 +600,74 @@
           "alinti": "olağan genel kurul toplantısından en az 20 gün önce",
           "kaynak": "Bagimsiz Denetim Yonetmeligi m.30",
           "parca": "cd7a84d3-1956-4c3c-8789-95f94ff1bdce"
+        },
+        {
+          "kural": "BDS 705'e göre \"yaygın\", yanlışlıkların (ya da kanıt elde edilemediği için tespit edilememiş yanlışlıkların muhtemel) etkilerini tanımlayan terimdir. Denetçinin muhakemesine göre yaygın etkiler: (i) finansal tabloların belirli unsur, hesap ya da kalemleriyle sınırlı değildir; (ii) sınırlı olsalar bile finansal tabloların önemli bir bölümünü temsil ederler ya da edebilirler; (iii) açıklamalar bakımından, kullanıcıların tabloları anlaması açısından temel teşkil ederler.",
+          "alinti": "Finansal tabloların belirli unsurları, hesapları veya kalemleriyle sınırlı değildir",
+          "kaynak": "BDS 705 p.5 - Tanımlar",
+          "parca": "ac01b9ec-8d1c-45f6-a487-2e2d42e21161"
+        },
+        {
+          "kural": "Olumlu görüş dışında bir görüş iki durumda verilir: (1) elde edilen kanıtlara göre finansal tablolar bir bütün olarak önemli yanlışlık içeriyorsa; (2) önemli yanlışlık içermediği sonucuna varmak için yeterli ve uygun kanıt elde edilemiyorsa. Olumlu görüş dışındaki görüşler: sınırlı olumlu, olumsuz, görüş vermekten kaçınma.",
+          "alinti": "olumlu görüş dışında bir görüş verir",
+          "kaynak": "BDS 705 p.6 - Olumlu Görüş Dışında Bir Görüş Verilmesini Gerektiren Durumlar",
+          "parca": "dba40c8d-8299-4b09-bd74-2323a5b1e097"
         }
       ],
-      "terimler": [],
+      "terimler": [
+        {
+          "ad": "Yaygın",
+          "tanim": "Etkinin belirli hesap ya da kalemlerle sınırlı olmaması; sınırlı olsa bile tabloların önemli bir bölümünü temsil etmesi; ya da açıklamalar bakımından tabloları anlamak için temel olması.",
+          "kaynak": "BDS 705 p.5"
+        }
+      ],
+      "soru_kapsami": [
+        "Tanım: denetim raporu",
+        "Kavram: \"yaygın\"ın üç ölçütü",
+        "Eşleştirme: durum → görüş türü (dört kutu)",
+        "Ayrım: olumsuz ile kaçınma",
+        "Ayrım: iki ayrı sınırlı olumlu gerekçesi",
+        "Süre: 20 gün, hangi denetimlerde, kime teslim",
+        "Öncüllü: görüş türlerine ilişkin doğru ve yanlış ifadeler",
+        "Olay: verilen durumdan görüşü bulma"
+      ],
       "gorsel": {
         "tur": "karar-tablosu",
         "baslik": "Hangi görüş?",
         "sutunlar": [
-          "",
-          "Etki genele yayılmıyor",
-          "Etki genele yayılıyor"
+          "Neden",
+          "Etki önemli, yaygın değil",
+          "Etki önemli ve yaygın"
         ],
         "satirlar": [
           [
-            "Kanıt elde edildi, yanlışlık önemli",
+            "Yanlışlık tespit edildi (kanıt elde edildi)",
             "Sınırlı olumlu",
             "Olumsuz"
           ],
           [
-            "Kanıt elde edilemedi, etki önemli olabilir",
+            "Yeterli ve uygun kanıt elde edilemedi (muhtemel etki)",
             "Sınırlı olumlu",
             "Görüş vermekten kaçınma"
           ]
         ],
-        "alt_not": "Önemli bir uyumsuzluk yoksa: olumlu görüş.",
-        "dayanak": "Dört kutu da özet alıntılarından: BDS 705 p.7, p.8, p.9 ve Yönetmelik m.30."
+        "alt_not": "Önemli bir yanlışlık yoksa ve kanıt yeterliyse: olumlu görüş. İki satırın sınırlı olumlu görüşü aynı adı taşır ama gerekçesi farklıdır: biri tespit edilmiş yanlışlık, öbürü kanıt eksikliği.",
+        "dayanak": "Dört kutu da kural bölümündeki alıntılardan: BDS 705 p.7, p.8, p.9 ve Yönetmelik m.30."
       },
-      "yalin": "Denetçi iki soru sorar. Birincisi: elimde yeterli kanıt var mı? İkincisi: sorun tablonun bir köşesinde mi kalıyor, yoksa geneline mi yayılıyor? Kanıt var ve sorun genele yayılıyorsa \"bu tablolar yanlış\" der; bu olumsuz görüştür. Kanıt yok ve sorun genele yayılıyor olabilirse \"bir şey söyleyemem\" der; bu kaçınmadır. Sorun bir köşede kalıyorsa iki durumda da \"şu kısım dışında doğru\" der; bu sınırlı olumlu görüştür.",
-      "ana_fikir": "Olumsuz görüş kanıt varken verilir, kaçınma kanıt yokken. İkisini ayıran kanıttır; ikisinde de etki yaygındır.",
+      "yalin": "Denetçi olumlu görüş veremiyorsa bunun iki nedeni olabilir: ya tablolarda önemli bir yanlışlık bulmuştur ya da yeterli kanıt elde edememiştir. Sonra şuna bakar: etki yaygın mı? Yaygın, etkinin tek bir hesap ya da kalemle sınırlı kalmaması, ya da sınırlı kalsa bile tabloların önemli bir bölümünü tutması demektir. Dört sonuç çıkar. Tespit edilmiş yanlışlık önemli ama yaygın değilse sınırlı olumlu görüş verilir. Yeterli kanıt elde edilememiş ve muhtemel etki önemli ama yaygın değilse yine sınırlı olumlu görüş verilir; ama gerekçesi kanıt eksikliğidir. Yanlışlık önemli ve yaygınsa olumsuz görüş verilir. Kanıt elde edilememiş ve muhtemel etki önemli ve yaygın olabilecekse denetçi görüş vermekten kaçınır. Türk Ticaret Kanunu uyarınca yapılan denetimlerde rapor, olağan genel kuruldan en az 20 gün önce işletmenin yönetim organına teslim edilir.",
+      "ana_fikir": "Olumsuz görüş yanlışlık tespit edilince, kaçınma kanıt elde edilemeyince verilir; ikisinde de etki yaygındır. Etki yaygın değilse iki durumda da görüş sınırlı olumludur, ama gerekçesi farklıdır.",
       "basamaklar": [
-        "Kanıt var, yanlışlık önemli ama yaygın değil → hangi görüş",
-        "Kanıt var, yanlışlık önemli ve yaygın → hangi görüş",
-        "Kanıt yok, etki önemli ve yaygın olabilir → hangi görüş",
-        "Raporun teslim süresi: olağan genel kuruldan en az 20 gün önce",
+        "Olumlu görüş ne zaman verilir; olumlu görüş dışında görüş gerektiren iki durum",
+        "\"Yaygın\" ne demek (BDS 705 p.5)",
+        "Tespit edilmiş yanlışlık önemli, yaygın değil → sınırlı olumlu",
+        "Tespit edilmiş yanlışlık önemli ve yaygın → olumsuz",
+        "Kanıt elde edilemedi, muhtemel etki önemli ama yaygın değil → sınırlı olumlu (gerekçe farklı)",
+        "Kanıt elde edilemedi, muhtemel etki önemli ve yaygın olabilir → kaçınma",
+        "TTK uyarınca yapılan denetimde raporun teslimi: olağan genel kuruldan en az 20 gün önce, yönetim organına",
         "SINAV DÜZEYİ: olayın içine gömülü bilgiden görüş türünü bulma"
       ],
-      "dusururler": "Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · rapor tanımında \"belge\" yerine \"sözleşme\" ya da \"bildirim\" · 20 gün yerine 15/30 gün.",
-      "kaynak_notu": "\"Yaygın\" teriminin tanımı çekilen parçalarda yok; terim notu yazılmadı. Karar anahtarı: kanıt VAR + önemli, yaygın değil → sınırlı olumlu · kanıt VAR + önemli ve yaygın → olumsuz · kanıt YOK + önemli olabilir, yaygın değil → sınırlı olumlu · kanıt YOK + önemli ve yaygın olabilir → kaçınma (dördü de yukarıdaki alıntılardan).",
+      "dusururler": "Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · tespit edilmiş yaygın yanlışlıkta kaçınma demek (doğrusu olumsuz) · rapor tanımında \"belge\" yerine \"sözleşme\" ya da \"bildirim\" · 20 gün yerine 15/30 gün · raporun teslim edileceği yeri yönetim organı yerine başka bir organ göstermek.",
+      "kaynak_notu": "BDS 705 p.5 (yaygın tanımı) ve p.6 (iki durum) 10.11'de ambardan okunup eklendi. Tabloda \"genele yayılıyor\" yerine standardın terimi \"yaygın\" kullanıldı; Yönetmelik m.30 aynı şeyi \"denetim konusunun genelini etkilediği\" diye söyler. Görüşün rapordaki yazılışı, dayanak paragrafı ve Dikkat Çekilen Hususlar (BDS 705 öbür paragrafları, BDS 706) OKUNMADI; karta girmedi, soru yazılmaz. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı.",
       "onay": null
     }
   ],
