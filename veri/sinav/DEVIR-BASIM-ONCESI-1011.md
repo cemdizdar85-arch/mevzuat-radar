@@ -35,6 +35,18 @@
 - Okuyucunun yakaladığı ders: 6. basamakta 2026/1 S16 yanlış hükme bağlanmıştı (m.29/4 sanıldı, aslında m.29/1-i); çıkmış soru metni açılıp düzeltildi. Sınav hakkındaki her cümle dönem + soru no taşır.
 - Karttaki "13 basamak" listesi `once_bil` alanına henüz TAŞINMADI; şema ve kapı değişmedi (Cem "kalıp tam" deyince, madde 3).
 
+## 3c. 10.11 gece, ikinci tur: Cem dışarıdan gelen 8/10 değerlendirmeyi verdi ("10/10 yapacağız")
+
+Beş eksik işlendi (aynı iki dosya; ekranı kuran betik artık `_yerel-veri-kasasi/kart-kaynak/ekran-kur.js`: `node ekran-kur.js <json> <html>`):
+- Çizim: 60 günlük takvim şeridi (4. basamak) ve "fesihten sonra kime ne gider" çizimi (8. basamak). Öbür şekiller kutu/ok düzeyinde kaldı.
+- Terim sözlüğü: 24 terim, dokununca açılır. 18'i resmî metinden (kaynak adıyla), 6'sı "gündelik anlam" diye işaretli (mutabakat, muttali, ihtar, fesih, çalışma notları, iç kontrol). Bu tur için ambardan okunanlar: TTK m.399, Yönetmelik m.33 ve m.5, BDS 210 p.4, BDS 706 p.7.
+- Etkinlik: altı basamakta beş şıklı soru dışında iş (kovaya koyma ×5, boşluk tamamlama ×1).
+- Konu sonu: özet tablosu → "birine anlatabilir misin" (5 soru) → 6 soruluk karışık sınav (yeni sorular) → sonuç ekranı, yanlışın dayandığı basamağa dönüş.
+- Doğrulama: m.29/1 KGK sayfasıyla, m.29/2–5 ve BDS 210 p.6-7-8-19-20 KGK resmî PDF'leriyle karşılaştırıldı: aynı. m.29 2017'den beri değişmemiş (2022 ve 2024 değişiklikleri m.29'a dokunmuyor). Yeni içerik ayrı okuyucuya okutuldu: 6 karışık soruda anahtar aynı; 2 kritik + 8 orta bulgu işlendi.
+- TUZAK (okuyucu yakaladı): "haklı sebep" ve "görevden alınma davası" TTK m.399/4'e göre görevin geri alınmasında da geçer; "bu şart hangi işleme ait" türü etkinlikte iki kovaya da girer. Kartın kural bölümüne TTK m.399/4, m.399/5 ve m.399/8 (fesihte haklı sebep SAYILMAYANLAR; fesih yazılı ve gerekçeli; sonuçların genel kurula sunulması) HENÜZ GİRMEDİ; girmeden bunlardan soru yazılmaz.
+- TUZAK: KGK sitesindeki "Güncel" Yönetmelik PDF'i 2017'de kalmış (2022 ve 2024 değişiklikleri işlenmemiş); KGK'da BDS 210'un 2013 sürümü de duruyor. Ambar metni 2018 sürümüyle örtüşüyor.
+- Yapılmayan: sürükle-bırak (dokunarak seçme var), görsellerin tasarımcı elinden geçmesi, meslek mensubu onayı, kartın şemasına `once_bil`/`sozluk`/`etkinlik` alanlarının eklenmesi ve kapı koşulu.
+
 ## 4. Sıradaki iş (Cem'in beklediği)
 
 1. **Sözleşme konusunu (1. kart) D14 biçiminde baştan sona yaz:** 13 basamağın her biri için `once_bil` (kısa, sıfırdan, gerçek özneli örnek, şekil) + soru + beş şıkkın ayrı açıklaması. Cem'e ekran olarak göster. Depoya SORU yazma (depo herkese açık); `_yerel-veri-kasasi/` altına yaz.
