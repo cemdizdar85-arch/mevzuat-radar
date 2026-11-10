@@ -1,5 +1,5 @@
 {
-  "tarih": "09.11.2026 18:38",
+  "tarih": "10.11.2026 16:21",
   "toplam": 44,
   "tutarli": 41,
   "incele": 1,
@@ -115,12 +115,21 @@
       "oran": 1.0
     },
     {
-      "standart": "TFRS 7",
+      "standart": "TFRS 2",
       "durum": "TUTARLI",
-      "ambar_parca": 216,
-      "ambar_krk": 146542,
-      "yeni_parca": 221,
-      "yeni_krk": 146520,
+      "ambar_parca": 155,
+      "ambar_krk": 106018,
+      "yeni_parca": 155,
+      "yeni_krk": 106018,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 1",
+      "durum": "TUTARLI",
+      "ambar_parca": 159,
+      "ambar_krk": 91493,
+      "yeni_parca": 161,
+      "yeni_krk": 91482,
       "oran": 1.0
     },
     {
@@ -142,15 +151,6 @@
       "oran": 1.0
     },
     {
-      "standart": "TFRS 1",
-      "durum": "TUTARLI",
-      "ambar_parca": 159,
-      "ambar_krk": 91493,
-      "yeni_parca": 161,
-      "yeni_krk": 91482,
-      "oran": 1.0
-    },
-    {
       "standart": "TFRS 3",
       "durum": "TUTARLI",
       "ambar_parca": 177,
@@ -160,21 +160,12 @@
       "oran": 1.0
     },
     {
-      "standart": "TFRS 2",
+      "standart": "TFRS 7",
       "durum": "TUTARLI",
-      "ambar_parca": 155,
-      "ambar_krk": 106018,
-      "yeni_parca": 155,
-      "yeni_krk": 106018,
-      "oran": 1.0
-    },
-    {
-      "standart": "TMS 34",
-      "durum": "TUTARLI",
-      "ambar_parca": 61,
-      "ambar_krk": 35578,
-      "yeni_parca": 61,
-      "yeni_krk": 35578,
+      "ambar_parca": 216,
+      "ambar_krk": 146542,
+      "yeni_parca": 221,
+      "yeni_krk": 146520,
       "oran": 1.0
     },
     {
@@ -205,21 +196,12 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 36",
+      "standart": "TMS 27",
       "durum": "TUTARLI",
-      "ambar_parca": 171,
-      "ambar_krk": 115045,
-      "yeni_parca": 172,
-      "yeni_krk": 115039,
-      "oran": 1.0
-    },
-    {
-      "standart": "TMS 28",
-      "durum": "TUTARLI",
-      "ambar_parca": 65,
-      "ambar_krk": 39476,
-      "yeni_parca": 66,
-      "yeni_krk": 39471,
+      "ambar_parca": 34,
+      "ambar_krk": 17151,
+      "yeni_parca": 35,
+      "yeni_krk": 17146,
       "oran": 1.0
     },
     {
@@ -229,6 +211,15 @@
       "ambar_krk": 59802,
       "yeni_parca": 101,
       "yeni_krk": 59802,
+      "oran": 1.0
+    },
+    {
+      "standart": "TMS 28",
+      "durum": "TUTARLI",
+      "ambar_parca": 65,
+      "ambar_krk": 39476,
+      "yeni_parca": 66,
+      "yeni_krk": 39471,
       "oran": 1.0
     },
     {
@@ -259,12 +250,21 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 27",
+      "standart": "TMS 34",
       "durum": "TUTARLI",
-      "ambar_parca": 34,
-      "ambar_krk": 17151,
-      "yeni_parca": 35,
-      "yeni_krk": 17146,
+      "ambar_parca": 61,
+      "ambar_krk": 35578,
+      "yeni_parca": 61,
+      "yeni_krk": 35578,
+      "oran": 1.0
+    },
+    {
+      "standart": "TMS 36",
+      "durum": "TUTARLI",
+      "ambar_parca": 171,
+      "ambar_krk": 115045,
+      "yeni_parca": 172,
+      "yeni_krk": 115039,
       "oran": 1.0
     },
     {
@@ -277,13 +277,13 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 41",
-      "durum": "TUTARLI",
-      "ambar_parca": 59,
-      "ambar_krk": 24809,
-      "yeni_parca": 59,
-      "yeni_krk": 24809,
-      "oran": 1.0
+      "standart": "TMS 1",
+      "durum": "INCELE",
+      "ambar_parca": 158,
+      "ambar_krk": 95118,
+      "yeni_parca": 176,
+      "yeni_krk": 94637,
+      "oran": 0.995
     },
     {
       "standart": "TMS 20",
@@ -367,21 +367,21 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 1",
-      "durum": "INCELE",
-      "ambar_parca": 158,
-      "ambar_krk": 95118,
-      "yeni_parca": 176,
-      "yeni_krk": 94637,
-      "oran": 0.995
-    },
-    {
       "standart": "TMS 21",
       "durum": "TUTARLI",
       "ambar_parca": 104,
       "ambar_krk": 53626,
       "yeni_parca": 104,
       "yeni_krk": 53622,
+      "oran": 1.0
+    },
+    {
+      "standart": "TMS 41",
+      "durum": "TUTARLI",
+      "ambar_parca": 59,
+      "ambar_krk": 24809,
+      "yeni_parca": 59,
+      "yeni_krk": 24809,
       "oran": 1.0
     },
     {
