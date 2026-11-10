@@ -33,6 +33,12 @@ for (const k of j.kart) {
   if (k.cikmis_inceleme) {
     md += `### Sınavda nasıl soruldu\n\n| Soru | Kalıp | Kök (kr) | Taktik |\n|---|---|---:|---|\n` + k.cikmis_inceleme.sorular.map(s => `| ${s.ref} | ${s.kalip} | ${s.kok_kr} | ${s.taktik} |`).join('\n') + `\n\n**Sonuç:** ${k.cikmis_inceleme.sonuc}\n\n` + (k.cikmis_inceleme.kaynak_farki ? `> ${k.cikmis_inceleme.kaynak_farki}\n\n` : '');
   }
+  if (k.yazili_inceleme) {
+    const y = k.yazili_inceleme;
+    md += `### Yazılı sınavda nasıl soruldu (2016–2025)\n\n${y.soru_sayisi} soru, ${y.donem_sayisi} dönem${y.son_donem ? ', son ' + y.son_donem : ''}.\n\n`;
+    if (y.sorular.length) md += `| Soru | Ne istendi | Özet (okuyucunun cümlesi) | Teste nasıl çevrilir |\n|---|---|---|---|\n` + y.sorular.map(s => `| ${s.ref} | ${s.istenen} | ${String(s.ozet).replace(/\|/g, '/')} | ${String(s.teste_cevirme).replace(/\|/g, '/')} |`).join('\n') + '\n\n';
+    md += `> ${y.kaynak}\n\n`;
+  }
   md += `### Öğrencinin göreceği\n\n**Şekil — ${k.gorsel.baslik}** *(${k.gorsel.tur})*\n\n![${k.gorsel.baslik}](kart-sekil/${j.sekil_onek || 'denetim'}-${k.no}.svg)\n\nŞeklin yazı hâli (çizim bundan üretilir):\n\n`;
   if (k.gorsel.sutunlar) {
     md += `| ${k.gorsel.sutunlar.join(' | ')} |\n|${k.gorsel.sutunlar.map(() => '---').join('|')}|\n`;
