@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261110170629
+Start time: 20261110203356
 Username: runnervmwuk1x\runner
 RunAs User: runnervmwuk1x\runner
 Configuration Name: 
 Machine: runnervmwuk1x (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0e57e610-9249-4334-bf6e-4fca0d0ef038.ps1'
-Process ID: 11590
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/35d64f5c-c356-47c6-b34b-2e6fa4c07e4b.ps1'
+Process ID: 11844
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -31,18 +31,20 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...110/172
   ...120/172
   ...130/172
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...140/172
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 172
+  gercekten olculen (PDF geldi) : 171
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 0
+  inemeyen (istek dustu)        : 1
+     44961 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 171 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20261110174319
+End time: 20261110210901
 **********************
