@@ -2,7 +2,7 @@
 
 > 2026-11-10 · Kartları sen onaylıyorsun. Her kartın altındaki kutuya "doğru" ya da "düzelt: …" yaz.
 > **Öğrencinin göreceği:** şekil, yalın anlatım, aklında kalsın, basamaklar. **Dayandığı resmî metin:** tırnak içi kaynaktan harfi harfine.
-> Kart kapısı (10.11): 6 kart, 74/74 alıntı kaynak metinde harfi harfine bulundu, 0 kusur. Bağımsız ikinci okuma: 54 bulgu; yanlış öğreten 2 ve eksik 21 bulgu işlendi, ifade sınıfındaki 23 bulgu işlenmedi. Yazılı sınav dökümü (2016–2025) kartlarda. Bütün kartlar Cem onayı bekliyor.
+> > Kart kapisi (10.11): 6 kart, 74/74 alinti, 0 kusur. Butun kartlar Cem onayi bekliyor.
 > Dikkat: şekil, yalın anlatım, ana fikir ve basamaklar kurallardan TÜRETİLDİ; bunları senden önce bağımsız kimse okumadı.
 
 ## Sınav bu dersi nasıl soruyor
@@ -166,7 +166,7 @@ C · DENETLEME GÖREVİNİN DENETİMİ ÜSTLENENDEN GERİ ALINMASI (fesihten ayr
 - Öncüllü (I, II, III): birden çok doğru ve yanlış ifadenin birlikte değerlendirilmesi
 - Karma olay: tek olayda 60 gün, yazılı ihtar, 10 günlük bildirim ve fesih şartının birlikte sorulması (Yönetmelik m.29 + BDS 210) (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)
 
-**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S16 olumsuz liste ("asgari şartlardan biri değildir") · 2026/1 S17 hükmün başı kökte, devamı soruluyor · 2026/1 S20 olumsuz liste ("sorumluluklardan biri değildir") · 2026/2 S16 olumsuz liste, aynı konu yeniden. | KARTTAN TÜRETİLEN: Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da "şartlı görüşle kabul edileceğini" söylemek. · denetçinin feshi ile görevin geri alınmasını karıştırmak · çerçeveyi mevzuatın belirlediği özel durumu (BDS 210 p.19) yok saymak.
+**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S16 olumsuz liste ("asgari şartlardan biri değildir") · 2026/1 S17 hükmün başı kökte, devamı soruluyor · 2026/1 S20 olumsuz liste ("sorumluluklardan biri değildir") · 2026/2 S16 olumsuz liste, aynı konu yeniden. | KARTTAN TÜRETİLEN: Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da "şartlı görüşle kabul edileceğini" söylemek · denetçinin feshi ile görevin geri alınmasını karıştırmak · çerçeveyi mevzuatın belirlediği özel durumu (BDS 210 p.19) yok saymak.
 
 ### Dayandığı resmî metin
 
@@ -209,7 +209,7 @@ C · DENETLEME GÖREVİNİN DENETİMİ ÜSTLENENDEN GERİ ALINMASI (fesihten ayr
 
 **İç not (öğrenci görmez):** 10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz. 10.11 ÜÇÜNCÜ OKUMA: BDS 210 p.8'deki "19 uncu paragraf" istisnası düşmüştü; p.19 ve p.20 ambardan okunup eklendi. p.19 parçasında dipnot rakamı yapışık ("BDS 7064'ya" = BDS 706 + dipnot 4), ambar kusuru. OKUNMAYAN, bu yüzden karta kural olarak GİRMEYEN: BDS 706 (Dikkat Çekilen Hususlar paragrafının içeriği), BDS 560 (bilanço tarihinden sonraki olaylar; (ı) bendiyle farkı bu kartta tanımlanmadı), TTK m.399/4. 10.11 DÖRDÜNCÜ OKUMA: (a) bendinin TTK m.397/4 kapsamı, p.19(i) ve p.20 ifadeleri kaynağa yaklaştırıldı; yalın anlatımda "sözleşmenin sona ermesinin iki yolu" ifadesi "iki ayrı işlem" olarak düzeltildi. KURAL: karta kural olarak girmeyen kavram (burada BDS 560) üzerinden çeldirici yazılmaz; ilgili çeldirici kaldırıldı. ÇIKMIŞ SORU İNCELEMESİ: Sınav, yönetimin sorumluluklarını "ön kabul" başlığıyla soruyor (BDS 200 p.13 tanımı); kart aynı listeyi BDS 210 p.6'dan alıyor. İçerik aynı; "ön kabul" terimi karta terim olarak eklendi. 10.11 BAĞIMSIZ İKİNCİ OKUMA (kaynakla yan yana, ayrı oturum): eksik hükümler ve şartlar kural bölümüne eklendi, yalın anlatım düzeltildi.
 
-**🟡 KISMEN ONAYLI — Cem, 2026-11-10:** mevzuat doğru ve eksiksiz ☐ · anlatım yalın ve doğru ☐ · soru kapsamı yeterli ☐ (sohbette yazılı onay). Yeniden onay: 2027-11-10 ya da dayandığı metin değişince.
+**⚪ ONAY GERİ AÇILDI (önceki onay geçersiz) — Cem, 2026-11-10:** mevzuat doğru ve eksiksiz ☐ · anlatım yalın ve doğru ☐ · soru kapsamı yeterli ☐ (sohbette yazılı onay). Yeniden onay: 2027-11-10 ya da dayandığı metin değişince.
 
 > Onaydan SONRA kart değişti (10.11): çıkmış soru incelemesi, BDS 210 p.7 öznesi, (a) bendinin ikinci hâli ve yalın anlatıma eklenen ön şart / kapsam sınırlaması paragrafı. Üç kutu da yeniden açıldı; Cem'in yeniden bakması gerekir.
 
@@ -300,7 +300,7 @@ Denetim riski
 - Liste: tespit edememe riskini azaltmaya yardım eden hususlar
 - Olumsuz kök: risk değerlendirmesi hakkında hangisi yanlıştır
 
-**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S18 tanımdan terimi bulma · 2026/1 S19 doğrudan bilgi · 2026/2 S17 olumsuz ("hangisi yanlıştır"). | KARTTAN TÜRETİLEN: Kontrol riski ile yapısal riskin tanımlarını yer değiştirmek · tespit edememe riskini "önemli yanlışlık" riskinin bileşeni saymak · denetim riskinin tanımı yerine tespit edememe riskinin tanımını vermek. · risk değerlendirmesini "mesleki muhakemeden çok kesin ölçüm ya da kanıt işi" diye ters çevirmek · tespit edememe riskini azaltan hususların yerine sözleşme imzalamak, kalite sistemi kurmak gibi başka şeyler koymak.
+**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S18 tanımdan terimi bulma · 2026/1 S19 doğrudan bilgi · 2026/2 S17 olumsuz ("hangisi yanlıştır"). | KARTTAN TÜRETİLEN: Kontrol riski ile yapısal riskin tanımlarını yer değiştirmek · tespit edememe riskini "önemli yanlışlık" riskinin bileşeni saymak · denetim riskinin tanımı yerine tespit edememe riskinin tanımını vermek · risk değerlendirmesini "mesleki muhakemeden çok kesin ölçüm ya da kanıt işi" diye ters çevirmek · tespit edememe riskini azaltan hususların yerine sözleşme imzalamak, kalite sistemi kurmak gibi başka şeyler koymak.
 
 ### Dayandığı resmî metin
 
@@ -374,7 +374,7 @@ Ayrıca → uygun yönetim kademesine de · zamanında · yazılı (doğrudan bi
 Diğer eksiklikler (yönetimin dikkatini gerektiren, başkalarınca bildirilmemiş) → yönetime · zamanında
 ```
 
-**1 · Önce anla (yalın anlatım):** Bir kontrol yanlışı zamanında önleyemiyor ya da yakalayıp düzeltemiyorsa, ya da gereken kontrol hiç yoksa buna iç kontrol eksikliği denir. Her eksiklik aynı ağırlıkta değildir. Denetçi, tek bir eksikliği ya da birkaç eksikliğin bileşimini, işletmenin gözetiminden sorumlu olanların (örneğin yönetim kurulu üyelerinin) dikkatini çekmeyi gerektirecek kadar önemli bulursa buna önemli iç kontrol eksikliği denir. Bunu onlara zamanında ve yazıyla bildirir; aynı eksiklikleri uygun yönetim kademesine de yazıyla bildirir. İki muhatabın tanımı ayrıdır: yönetim işi fiilen yürütenlerdir; üst yönetimden sorumlu olanlar ise yürütülen işi ve finansal raporlama sürecini gözetenlerdir (örneğin yönetim kurulu). Bazı işletmelerde aynı kişiler iki sıfatı birden taşıyabilir. Önemli eksiklik üst yönetimden sorumlu olanlara yazıyla bildirilir; doğrudan bildirilmesi uygun olmayan durumlar dışında uygun yönetim kademesine de yazıyla bildirilir. Ayrıca, önemli sayılmasa da yönetimin dikkatini çekmeyi gerektiren ve başkalarınca bildirilmemiş diğer eksiklikler yönetime zamanında bildirilir.
+**1 · Önce anla (yalın anlatım):** Bir kontrol yanlışı zamanında önleyemiyor ya da yakalayıp düzeltemiyorsa, ya da gereken kontrol hiç yoksa buna iç kontrol eksikliği denir. Her eksiklik aynı ağırlıkta değildir. Denetçi, tek bir eksikliği ya da birkaç eksikliğin bileşimini, işletmenin gözetiminden sorumlu olanların (örneğin yönetim kurulu üyelerinin) dikkatini çekmeyi gerektirecek kadar önemli bulursa buna önemli iç kontrol eksikliği denir. İki muhatabın tanımı ayrıdır: yönetim işi fiilen yürütenlerdir; üst yönetimden sorumlu olanlar ise yürütülen işi ve finansal raporlama sürecini gözetenlerdir (örneğin yönetim kurulu). Bazı işletmelerde aynı kişiler iki sıfatı birden taşıyabilir. Önemli eksiklik üst yönetimden sorumlu olanlara yazıyla bildirilir; doğrudan bildirilmesi uygun olmayan durumlar dışında uygun yönetim kademesine de yazıyla bildirilir. Ayrıca, önemli sayılmasa da yönetimin dikkatini çekmeyi gerektiren ve başkalarınca bildirilmemiş diğer eksiklikler yönetime zamanında bildirilir.
 
 **2 · Resmî terimler**
 
@@ -388,7 +388,6 @@ Diğer eksiklikler (yönetimin dikkatini gerektiren, başkalarınca bildirilmemi
 - "için gereken bir kontrolün bulunmaması durumunda mevcuttur" *(BDS 265 p.6)*
 - "üst yönetimden sorumlu olanların dikkatini çekmeyi gerektirecek kadar önemli olduğuna kanaat getirdiği iç kontrol eksikliği veya eksikliklerin bileşimidir" *(BDS 265 p.6)*
 - "üst yönetimden sorumlu olanlara zamanında ve yazılı olarak bildirir" *(BDS 265 p.9)*
-- "kontrol faaliyetleri bileşeni hakkında kanaat edinir" *(BDS 315 p.26)*
 - "önemli iç kontrol eksikliklerini zamanında ve yazılı olarak bildirir" *(BDS 265 p.10)*
 
 **Aklında kalsın:** Önemli iç kontrol eksikliği tek bir eksiklik de olabilir, eksikliklerin bileşimi de; üst yönetimden sorumlu olanlara zamanında ve yazılı olarak bildirilir.
@@ -605,7 +604,7 @@ Gereken miktarı etkileyen: "önemli yanlışlık" riski değerlendirmesi + kan�
 
 - **Yeterlilik:** Denetim kanıtının miktarının ölçütü.
 - **Uygunluk:** Denetim kanıtının kalitesinin ölçütü.
-- **Muhasebe kayıtları:** Açılış kayıtları ve destekleyici kayıtlar; faturalar; sözleşmeler; defteri kebir ve yardımcı defterler, yevmiye kayıtları; çalışma kâğıtları ve çizelgeler gibi diğer kayıtlar.
+- **Muhasebe kayıtları:** Açılış kayıtları ve destekleyici kayıtlar (elektronik fon transferi kayıtları ve çekler gibi); faturalar; sözleşmeler; defteri kebir ve yardımcı defterler; yevmiye kayıtları; yevmiye kayıtlarında yer almayan finansal tablo düzeltmeleri; hesaplamalar, mutabakatlar, açıklamalar ve maliyet dağıtımıyla ilgili çalışma kâğıtları ve çizelgeler gibi diğer kayıtlar.
 
 **3 · Sınavda böyle yazar (mevzuatın kendi cümleleri)**
 
@@ -645,7 +644,7 @@ Gereken miktarı etkileyen: "önemli yanlışlık" riski değerlendirmesi + kan�
 - Liste: denetim prosedürleri
 - Kavram: sorgulamanın sınırı
 
-**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S3 tanımda çift boşluk doldurma · 2026/1 S10 olumsuz ("hangisi yanlıştır"). | KARTTAN TÜRETİLEN: Yeterlilik ile uygunluğun tanımlarını yer değiştirmek · uygunluğu yalnız güvenilirlik sayıp "ihtiyaca uygunluk"u atmak · boşluğa "denetim kıstası" ya da "mesleki muhakeme" koymak · Yönetmelikteki tanım ile BDS tanımını karıştırmak. · "kümülatif" yerine başka bir nitelik yazmak · sorgulamanın tek başına yeterli kanıt sağladığını söylemek · prosedür listesine prosedür olmayan bir kalem sokmak.
+**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S3 tanımda çift boşluk doldurma · 2026/1 S10 olumsuz ("hangisi yanlıştır"). | KARTTAN TÜRETİLEN: Yeterlilik ile uygunluğun tanımlarını yer değiştirmek · uygunluğu yalnız güvenilirlik sayıp "ihtiyaca uygunluk"u atmak · boşluğa "denetim kıstası" ya da "mesleki muhakeme" koymak · Yönetmelikteki tanım ile BDS tanımını karıştırmak · "kümülatif" yerine başka bir nitelik yazmak · sorgulamanın tek başına yeterli kanıt sağladığını söylemek · prosedür listesine prosedür olmayan bir kalem sokmak.
 
 ### Dayandığı resmî metin
 
@@ -672,7 +671,7 @@ Gereken miktarı etkileyen: "önemli yanlışlık" riski değerlendirmesi + kan�
 - BDS 500 A5 devamı: kanıt olarak kullanılabilecek bilgi, yönetimin faydalandığı bir uzmanca hazırlanmış ya da dış bir bilgi kaynağından elde edilmiş olabilir. Denetim kanıtı, yönetim beyanlarını destekleyen ve doğrulayan bilgileri de, bu beyanlarla ÇELİŞEN her tür bilgiyi de kapsar. Bazı hâllerde bilginin bulunmaması da denetim kanıtı oluşturur.
   - BDS 500 p.A5 · "bu beyanlarla çelişen her tür bilgiyi kapsar"
 
-**Terimler:** **Yeterlilik:** Denetim kanıtının miktarının ölçütü. (BDS 500 p.5) · **Uygunluk:** Denetim kanıtının kalitesinin ölçütü. (BDS 500 p.5) · **Muhasebe kayıtları:** Açılış kayıtları ve destekleyici kayıtlar; faturalar; sözleşmeler; defteri kebir ve yardımcı defterler, yevmiye kayıtları; çalışma kâğıtları ve çizelgeler gibi diğer kayıtlar. (BDS 500 p.5)
+**Terimler:** **Yeterlilik:** Denetim kanıtının miktarının ölçütü. (BDS 500 p.5) · **Uygunluk:** Denetim kanıtının kalitesinin ölçütü. (BDS 500 p.5) · **Muhasebe kayıtları:** Açılış kayıtları ve destekleyici kayıtlar (elektronik fon transferi kayıtları ve çekler gibi); faturalar; sözleşmeler; defteri kebir ve yardımcı defterler; yevmiye kayıtları; yevmiye kayıtlarında yer almayan finansal tablo düzeltmeleri; hesaplamalar, mutabakatlar, açıklamalar ve maliyet dağıtımıyla ilgili çalışma kâğıtları ve çizelgeler gibi diğer kayıtlar. (BDS 500 p.5)
 
 **İç not (öğrenci görmez):** Eski kartın "kaynağına göre güvenilirlik" ve "miktar düşük kaliteyi telafi etmez" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız "etkilenir" diye geçiyor; "risk arttıkça kanıt artar" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: "yüksek risk → daha az kanıt" ve "miktarı artırmak düşük kaliteyi telafi eder"; ikisinin dayanağı BDS 500 uygulama paragrafları, okunmadı. Okununca karta kural olarak girer, çeldirici o zaman yazılır. BDS 500 A5 ve A6 10.11'de eklendi. AMBAR KUSURU: A6 ve A7 parçalarının başlığı yanlış ("BDS 315, 16 ncı paragraf"; dipnot başlık yerine geçmiş). 10.11 BAĞIMSIZ İKİNCİ OKUMA (kaynakla yan yana, ayrı oturum): eksik hükümler ve şartlar kural bölümüne eklendi, yalın anlatım düzeltildi. m.9'un kalanı, muhasebe kayıtlarının tam listesi, A5'in şartı ve son üç hükmü eklendi. "Yedi prosedür" sayısı kaldırıldı: kaynak sayı vermiyor.
 
@@ -774,7 +773,7 @@ Gereken miktarı etkileyen: "önemli yanlışlık" riski değerlendirmesi + kan�
 - Olay: verilen durumdan görüşü bulma (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)
 - İstisna: kanıt toplandığı hâlde kaçınma (sonradan çıkan belirsizlik)
 
-**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/2 S7 tanımda boşluk doldurma · 2026/2 S10 hükmün lafzı kökte, hangi görüş. | KARTTAN TÜRETİLEN: Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · tespit edilmiş yaygın yanlışlıkta kaçınma demek (doğrusu olumsuz) · rapor tanımında "belge" yerine "sözleşme" ya da "bildirim" · 20 gün yerine 15/30 gün · raporun teslim edileceği yeri yönetim organı yerine başka bir organ göstermek. · kaçınmanın ikinci hâlini (sonradan ortaya çıkan belirsizlik) olumsuz görüş sanmak.
+**Böyle düşürürler:** SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/2 S7 tanımda boşluk doldurma · 2026/2 S10 hükmün lafzı kökte, hangi görüş. | KARTTAN TÜRETİLEN: Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · tespit edilmiş yaygın yanlışlıkta kaçınma demek (doğrusu olumsuz) · rapor tanımında "belge" yerine "sözleşme" ya da "bildirim" · 20 gün yerine 15/30 gün · raporun teslim edileceği yeri yönetim organı yerine başka bir organ göstermek · kaçınmanın ikinci hâlini (sonradan ortaya çıkan belirsizlik) olumsuz görüş sanmak.
 
 ### Dayandığı resmî metin
 

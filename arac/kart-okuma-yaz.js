@@ -49,7 +49,7 @@ for (const k of j.kart) {
   md += `**1 · Önce anla (yalın anlatım):** ${k.yalin}\n\n`;
   if (k.liste) md += `**${k.liste.baslik}**\n\n` + k.liste.maddeler.map(m => `- ${m}`).join('\n') + '\n\n';
   if (k.terimler && k.terimler.length) md += `**2 · Resmî terimler**\n\n` + k.terimler.map(t => `- **${t.ad}:** ${t.tanim}`).join('\n') + '\n\n';
-  md += `**3 · Sınavda böyle yazar (mevzuatın kendi cümleleri)**\n\n` + k.ozet.map(o => `- "${o.alinti}" *(${o.kaynak.replace(/ - .*/, '').replace('Bagimsiz Denetim Yonetmeligi', 'Yönetmelik')})*`).join('\n') + '\n\n';
+  md += `**3 · Sınavda böyle yazar (mevzuatın kendi cümleleri)**\n\n` + k.ozet.filter(o => o.ogrenciye_gosterme !== false).map(o => `- "${o.alinti}" *(${o.kaynak.replace(/ - .*/, '').replace('Bagimsiz Denetim Yonetmeligi', 'Yönetmelik')})*`).join('\n') + '\n\n';
   md += `**Aklında kalsın:** ${k.ana_fikir}\n\n**Basamaklar (soruların öğretim sırası)**\n\n`;
   md += k.basamaklar.map((b, i) => `${i + 1}. ${b}`).join('\n') + '\n\n';
   if (k.basamak_notu) md += `> ${k.basamak_notu}\n\n`;
@@ -58,7 +58,7 @@ for (const k of j.kart) {
   md += `**Böyle düşürürler:** ${k.dusururler}\n\n### Dayandığı resmî metin\n\n`;
   for (const o of k.ozet) md += `- ${o.kural}\n  - ${o.kaynak.replace(/ - .*/, '')} · "${o.alinti}"\n`;
   if (k.terimler.length) md += `\n**Terimler:** ` + k.terimler.map(t => `**${t.ad}:** ${t.tanim} (${t.kaynak})`).join(' · ') + '\n';
-  if (k.onay) { md += `\n**İç not (öğrenci görmez):** ${k.kaynak_notu}\n\n**${k.onay.mevzuat && k.onay.anlatim && k.onay.soru_kapsami ? '✅ ONAYLANDI' : '🟡 KISMEN ONAYLI'} — ${k.onay.kim}, ${k.onay.tarih}:** mevzuat doğru ve eksiksiz ${k.onay.mevzuat ? '☑' : '☐'} · anlatım yalın ve doğru ${k.onay.anlatim ? '☑' : '☐'} · soru kapsamı yeterli ${k.onay.soru_kapsami ? '☑' : '☐'} (${k.onay.yol}). Yeniden onay: ${k.onay.yeniden_onay} ya da dayandığı metin değişince.${k.onay_notu ? '\n\n> ' + k.onay_notu : ''}\n\n---\n\n`; continue; }
+  if (k.onay) { md += `\n**İç not (öğrenci görmez):** ${k.kaynak_notu}\n\n**${k.onay.mevzuat && k.onay.anlatim && k.onay.soru_kapsami ? '✅ ONAYLANDI' : (k.onay.mevzuat || k.onay.anlatim || k.onay.soru_kapsami ? '🟡 KISMEN ONAYLI' : '⚪ ONAY GERİ AÇILDI (önceki onay geçersiz)')} — ${k.onay.kim}, ${k.onay.tarih}:** mevzuat doğru ve eksiksiz ${k.onay.mevzuat ? '☑' : '☐'} · anlatım yalın ve doğru ${k.onay.anlatim ? '☑' : '☐'} · soru kapsamı yeterli ${k.onay.soru_kapsami ? '☑' : '☐'} (${k.onay.yol}). Yeniden onay: ${k.onay.yeniden_onay} ya da dayandığı metin değişince.${k.onay_notu ? '\n\n> ' + k.onay_notu : ''}\n\n---\n\n`; continue; }
   md += `\n**İç not (öğrenci görmez):** ${k.kaynak_notu}\n\n**Onay (Cem) — üçü de işaretlenmeden kart onaylı sayılmaz:**\n\n- ☐ Mevzuat doğru ve eksiksiz\n- ☐ Anlatım yalın ve doğru\n- ☐ Soru kapsamı yeterli\n- düzelt: …\n\n---\n\n`;
 }
 fs.writeFileSync(mdYol, md, 'utf8');
