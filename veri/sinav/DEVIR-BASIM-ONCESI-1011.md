@@ -26,6 +26,15 @@
 | Konu sırası | `veri/sinav/DENETIM-KONU-SIRASI-1011.md`. Sıradaki kartlar: sorumlu denetçi ve denetim ekibi → bağımsızlık → hile ve hata → önemlilik → kalite yönetimi. (İlk 20'lik seçim yanlıştı: Yönetmeliğe dayanan konular dışarıda kalmıştı.) |
 | Şekiller | Altı kart için SVG çizildi (`veri/sinav/kart-sekil/`), üçüne gözle bakıldı. Basamak başına küçük şekiller YOK. |
 
+## 3b. 10.11 gece: 1. kart D14 biçiminde yazıldı (Cem'in bakışı bekleniyor)
+
+- Dosyalar (depo dışı): `_yerel-veri-kasasi/denetim-1-ogret-sor-1011.json` (içerik) ve `.html` (öğrenci ekranı; "Hepsini açık oku" kipi var). Ekranı kuran betik oturumun geçici klasöründeydi; depoya alınmadı.
+- 13 basamak, 14 soru (son basamakta iki sınav kalıbı soru: on iki unsur + üç sorumluluk). Her şıkta ayrı açıklama: neden çekici / neden yanlış / doğrusu. Anahtar dağılımı A2 B3 C3 D3 E3.
+- Okuma (D8): kör çözücü anahtarsız 14/14 aynı şık, ikinci savunulabilir şık yok. Kaynakla yan yana okuyucu: kritik 0, orta 9 (işlendi), hafif ~20 (çoğu işlendi). İkisi de yazan oturumun ajanı; meslek mensubu okuması DEĞİL.
+- İşlenmeyen bulgu: açıklanmadan geçen terimler (mesleki sorumluluk sigortası, kıstas, sorumlu denetçi, hesap dönemi, haklı sebep, görevden alınma davası, Dikkat Çekilen Hususlar, muttali). Kartta tanımları yok; D10(a) "dokununca açılan tanım" için karta terim eklenmeli, kaynağı okunmalı.
+- Okuyucunun yakaladığı ders: 6. basamakta 2026/1 S16 yanlış hükme bağlanmıştı (m.29/4 sanıldı, aslında m.29/1-i); çıkmış soru metni açılıp düzeltildi. Sınav hakkındaki her cümle dönem + soru no taşır.
+- Karttaki "13 basamak" listesi `once_bil` alanına henüz TAŞINMADI; şema ve kapı değişmedi (Cem "kalıp tam" deyince, madde 3).
+
 ## 4. Sıradaki iş (Cem'in beklediği)
 
 1. **Sözleşme konusunu (1. kart) D14 biçiminde baştan sona yaz:** 13 basamağın her biri için `once_bil` (kısa, sıfırdan, gerçek özneli örnek, şekil) + soru + beş şıkkın ayrı açıklaması. Cem'e ekran olarak göster. Depoya SORU yazma (depo herkese açık); `_yerel-veri-kasasi/` altına yaz.
