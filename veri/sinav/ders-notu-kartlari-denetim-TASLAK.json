@@ -2,7 +2,7 @@
   "aciklama": "TASLAK. Muhasebe Denetimi ders notu kartları (BASIM-ONCESI-DUZEN-TASLAK.md D2). Her cümle yalnız ambardaki resmî metinden yazıldı; her kuralın yanında kaynaktan harfi harfine 'alinti' durur ve arac dışı bir betikle kaynak metinde arandı. Onay alanı boş kart soru basımında KULLANILMAZ. 'dusururler' eski biçim kartından (bitirme-konu-kartlari.json 'celdirici') aktarıldı; çıkmış soru metniyle yeniden SAYILMADI. YENİ BİÇİM (10.11): her kartta gorsel + yalin + ana_fikir + basamaklar; bu dört alan özetteki alıntılı kurallardan türetildi, ayrıca alıntıya bağlanmadı ve bağımsız okunmadı.",
   "tarih": "2026-11-10",
   "ders": "Muhasebe Denetimi",
-  "durum": "20 karttan 6'sı yazıldı; 1. kart ONAYLI (Cem 10.11); 2–6 kaynakla yan yana tarandı ve düzeltildi, Cem onayı bekliyor; çıkmış soru incelemesi (D2b adım 1) hiçbir kartta yapılmadı; 13'ü bekliyor; 1 kartın kaynağı bağlanamadı",
+  "durum": "20 karttan 6'sı yazıldı ve çıkmış soru incelemesinden geçti (2026/1–2, 14 soru). 1. kart: mevzuat ve anlatım ONAYLI, soru kapsamı kutusu inceleme sonrası yeniden açıldı. 2–6: Cem onayı bekliyor. 2. ve 5. kartlarda EKSİK KAYNAK (uygulama paragrafları). 13 kart bekliyor; 1 kartın kaynağı bağlanamadı.",
   "kart": [
     {
       "no": 1,
@@ -128,6 +128,12 @@
           "tanim": "Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu.",
           "alinti": "Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumunu",
           "kaynak": "Bagimsiz Denetim Yonetmeligi m.4 [3/4]"
+        },
+        {
+          "ad": "Ön kabul",
+          "tanim": "Yönetimin (ve uygun hâllerde üst yönetimden sorumlu olanların) denetimin BDS'lere uygun yürütülmesi için elzem olan üç sorumluluğunu anlaması ve üstlenmesi. Sınav bu listeyi \"ön kabul\" adıyla soruyor.",
+          "alinti": "kısaca “ön kabul” olarak da ifade edilebilir",
+          "kaynak": "BDS 200 p.13"
         }
       ],
       "ogretim_gruplamasi": {
@@ -145,13 +151,13 @@
         "Doğrudan bilgi: on iki sözleşme unsuru",
         "Süre: 60 gün ve iki ayrı 10 gün",
         "Olumsuz kök: sözleşmede bulunamayacak hükümler",
-        "Olay: işletmenin yazılı ihtara rağmen kaçınması",
+        "Olay: işletmenin yazılı ihtara rağmen kaçınması (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)",
         "Ayrım: fesih ile görevin geri alınması",
-        "Uygulama: fesih sonrası teslim yükümlülüğü",
+        "Uygulama: fesih sonrası teslim yükümlülüğü (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)",
         "Kavram: iki ön şart ve üç sorumluluk",
         "İstisna: BDS 210 p.7, p.8, p.19, p.20",
         "Öncüllü (I, II, III): birden çok doğru ve yanlış ifadenin birlikte değerlendirilmesi",
-        "Karma olay: tek olayda 60 gün, yazılı ihtar, 10 günlük bildirim ve fesih şartının birlikte sorulması (Yönetmelik m.29 + BDS 210)"
+        "Karma olay: tek olayda 60 gün, yazılı ihtar, 10 günlük bildirim ve fesih şartının birlikte sorulması (Yönetmelik m.29 + BDS 210) (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)"
       ],
       "gorsel": {
         "tur": "uc-zaman-cizgisi",
@@ -185,19 +191,50 @@
         "BDS 210: denetimin iki ön şartı ve yönetimin üç sorumluluğuna ilişkin mutabakat",
         "Ön şart yoksa müzakere ve ret; kapsam sınırlaması (kaçınmayı gerektirecekse, mevzuat aksini zorunlu kılmadıkça)",
         "Özel durum: çerçeveyi mevzuat belirlemişse BDS 210 p.19 şartları; p.20",
-        "SINAV DÜZEYİ: Yönetmelik m.29 ile BDS 210 hükümlerini birleştiren olay sorusu"
+        "SINAV DÜZEYİ (çıkmış kalıp): on iki unsurdan ya da üç sorumluluktan \"biri değildir\"; hükmün başı verilip devamı"
       ],
-      "dusururler": "Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da \"şartlı görüşle kabul edileceğini\" söylemek. · denetçinin feshi ile görevin geri alınmasını karıştırmak · çerçeveyi mevzuatın belirlediği özel durumu (BDS 210 p.19) yok saymak.",
-      "kaynak_notu": "10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz. 10.11 ÜÇÜNCÜ OKUMA: BDS 210 p.8'deki \"19 uncu paragraf\" istisnası düşmüştü; p.19 ve p.20 ambardan okunup eklendi. p.19 parçasında dipnot rakamı yapışık (\"BDS 7064'ya\" = BDS 706 + dipnot 4), ambar kusuru. OKUNMAYAN, bu yüzden karta kural olarak GİRMEYEN: BDS 706 (Dikkat Çekilen Hususlar paragrafının içeriği), BDS 560 (bilanço tarihinden sonraki olaylar; (ı) bendiyle farkı bu kartta tanımlanmadı), TTK m.399/4. 10.11 DÖRDÜNCÜ OKUMA: (a) bendinin TTK m.397/4 kapsamı, p.19(i) ve p.20 ifadeleri kaynağa yaklaştırıldı; yalın anlatımda \"sözleşmenin sona ermesinin iki yolu\" ifadesi \"iki ayrı işlem\" olarak düzeltildi. KURAL: karta kural olarak girmeyen kavram (burada BDS 560) üzerinden çeldirici yazılmaz; ilgili çeldirici kaldırıldı.",
+      "dusururler": "SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S16 olumsuz liste (\"asgari şartlardan biri değildir\") · 2026/1 S17 hükmün başı kökte, devamı soruluyor · 2026/1 S20 olumsuz liste (\"sorumluluklardan biri değildir\") · 2026/2 S16 olumsuz liste, aynı konu yeniden. | KARTTAN TÜRETİLEN: Asgari unsur listesine sözleşmede bulunmayan unsur sokmak ya da listeden bir bendi (ör. imza yetkisi, rapor sonrası olayları bildirme) çıkarmak · 60 gün yerine 30/90, 10 gün yerine 15 gün · iki ayrı 10 günü birbirine karıştırmak · yazılı ihtar şartını atlamak · haklı sebep olmadan fesih hakkı vermek · fesihte gerekçe bildirimini ya da çalışma notlarının teslimini atlamak · her kapsam sınırlamasında sözleşmenin reddedileceğini ya da \"şartlı görüşle kabul edileceğini\" söylemek. · denetçinin feshi ile görevin geri alınmasını karıştırmak · çerçeveyi mevzuatın belirlediği özel durumu (BDS 210 p.19) yok saymak.",
+      "kaynak_notu": "10.11 İKİNCİ OKUMA (dışarıdan gelen değerlendirme, her maddesi ambar metniyle karşılaştırıldı): ilk taslakta asgari unsurlar özetlenmiş, (a) (d) (e) (g) (ı) bentleri düşmüştü; m.29/5 (fesih sonrası teslim), ücretin şarta bağlanamaması, yönetimin üç sorumluluğu ve kapsam sınırlamasının koşulu eksikti. Hepsi kaynak metinden eklendi. BDS 210 p.6 parçasının sonuna dipnot metni ve bir sonraki başlık yapışmış (ambar kusuru); kural bu kırıntıdan alınmadı. TTK m.399/4'ün metni okunmadı; o hükmün içeriğine soru yazılmaz. 10.11 ÜÇÜNCÜ OKUMA: BDS 210 p.8'deki \"19 uncu paragraf\" istisnası düşmüştü; p.19 ve p.20 ambardan okunup eklendi. p.19 parçasında dipnot rakamı yapışık (\"BDS 7064'ya\" = BDS 706 + dipnot 4), ambar kusuru. OKUNMAYAN, bu yüzden karta kural olarak GİRMEYEN: BDS 706 (Dikkat Çekilen Hususlar paragrafının içeriği), BDS 560 (bilanço tarihinden sonraki olaylar; (ı) bendiyle farkı bu kartta tanımlanmadı), TTK m.399/4. 10.11 DÖRDÜNCÜ OKUMA: (a) bendinin TTK m.397/4 kapsamı, p.19(i) ve p.20 ifadeleri kaynağa yaklaştırıldı; yalın anlatımda \"sözleşmenin sona ermesinin iki yolu\" ifadesi \"iki ayrı işlem\" olarak düzeltildi. KURAL: karta kural olarak girmeyen kavram (burada BDS 560) üzerinden çeldirici yazılmaz; ilgili çeldirici kaldırıldı. ÇIKMIŞ SORU İNCELEMESİ: Sınav, yönetimin sorumluluklarını \"ön kabul\" başlığıyla soruyor (BDS 200 p.13 tanımı); kart aynı listeyi BDS 210 p.6'dan alıyor. İçerik aynı; \"ön kabul\" terimi karta terim olarak eklendi.",
       "onay": {
         "kim": "Cem",
         "tarih": "2026-11-10",
         "mevzuat": true,
         "anlatim": true,
-        "soru_kapsami": true,
+        "soru_kapsami": false,
         "yol": "sohbette yazılı onay",
         "yeniden_onay": "2027-11-10"
-      }
+      },
+      "cikmis_inceleme": {
+        "sorular": [
+          {
+            "ref": "2026/1 S16",
+            "kalip": "olumsuz liste (\"asgari şartlardan biri değildir\")",
+            "kok_kr": 131,
+            "taktik": "Dört şık m.29/1 bentlerinin lafzı; yanlış şık (i) bendinin şartını değiştiriyor: \"ancak mevzuat uyarınca\" yerine tarafların anlaşmasıyla fesih."
+          },
+          {
+            "ref": "2026/1 S17",
+            "kalip": "hükmün başı kökte, devamı soruluyor",
+            "kok_kr": 384,
+            "taktik": "BDS 210 p.7'nin koşulu kökte aynen verilmiş; doğru şık hükmün lafzı. Yanlış şıklar \"değerlendirip kabul eder\" türünden yumuşatmalar."
+          },
+          {
+            "ref": "2026/1 S20",
+            "kalip": "olumsuz liste (\"sorumluluklardan biri değildir\")",
+            "kok_kr": 289,
+            "taktik": "Yönetimin üç sorumluluğu (erişimin üç alt bendiyle) şıklarda lafzen; biri listeye dışarıdan sokulmuş."
+          },
+          {
+            "ref": "2026/2 S16",
+            "kalip": "olumsuz liste, aynı konu yeniden",
+            "kok_kr": 238,
+            "taktik": "2026/1 S20 ile aynı liste bir dönem sonra yeniden sorulmuş."
+          }
+        ],
+        "sonuc": "Dört sorunun üçü liste sorusu. On iki unsurun ve üç sorumluluğun LAFZI bilinmeden bu sorular çözülemez; kartın kural bölümündeki eksiksiz liste bu yüzden şart. Süreler (60 gün, 10 gün) bu iki dönemde sorulmadı.",
+        "kaynak_farki": "Sınav, yönetimin sorumluluklarını \"ön kabul\" başlığıyla soruyor (BDS 200 p.13 tanımı); kart aynı listeyi BDS 210 p.6'dan alıyor. İçerik aynı; \"ön kabul\" terimi karta terim olarak eklendi."
+      },
+      "onay_notu": "Onaydan SONRA çıkmış soru incelemesi eklendi ve son basamak değişti (10.11); mevzuat ve anlatım bölümleri değişmedi. Soru kapsamı kutusu yeniden bakılmalı."
     },
     {
       "no": 2,
@@ -270,7 +307,7 @@
         "Sınıflama: hangi risk hangisinin bileşeni",
         "Tanımdan terimi bulma: yapısal, kontrol, tespit edememe",
         "Öncüllü: risk tanımlarına ilişkin doğru ve yanlış ifadeler",
-        "Uygulama: kontroller test edilmeyecekse kontrol riski değerlendirmesi (BDS 315 p.34)"
+        "Uygulama: kontroller test edilmeyecekse kontrol riski değerlendirmesi (BDS 315 p.34) (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)"
       ],
       "gorsel": {
         "tur": "agac",
@@ -290,11 +327,35 @@
         "Denetim riskinin iki ana parçası",
         "Yapısal risk ile kontrol riskini ayırt etme",
         "Tespit edememe riski kimin tarafındadır",
-        "SINAV DÜZEYİ: verilen tanımdan risk türünü bulma"
+        "SINAV DÜZEYİ (çıkmış kalıp): tanım lafzen verilip risk terimini bulma; \"hangisi yanlıştır\""
       ],
-      "dusururler": "Kontrol riski ile yapısal riskin tanımlarını yer değiştirmek · tespit edememe riskini \"önemli yanlışlık\" riskinin bileşeni saymak · denetim riskinin tanımı yerine tespit edememe riskinin tanımını vermek.",
-      "kaynak_notu": "Eski kartta \"yapısal (doğal) risk\" yazıyordu; \"doğal\" kelimesi kaynakta yok, karta alınmadı. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: \"yüksek risk → daha az kanıt\" (risk ile kanıt miktarının yönü çekilen paragraflarda yok), \"iş riski / örnekleme riski\" (kaynağı okunmadı).",
-      "onay": null
+      "dusururler": "SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S18 tanımdan terimi bulma · 2026/1 S19 doğrudan bilgi · 2026/2 S17 olumsuz (\"hangisi yanlıştır\"). | KARTTAN TÜRETİLEN: Kontrol riski ile yapısal riskin tanımlarını yer değiştirmek · tespit edememe riskini \"önemli yanlışlık\" riskinin bileşeni saymak · denetim riskinin tanımı yerine tespit edememe riskinin tanımını vermek.",
+      "kaynak_notu": "Eski kartta \"yapısal (doğal) risk\" yazıyordu; \"doğal\" kelimesi kaynakta yok, karta alınmadı. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: \"yüksek risk → daha az kanıt\" (risk ile kanıt miktarının yönü çekilen paragraflarda yok), \"iş riski / örnekleme riski\" (kaynağı okunmadı). ÇIKMIŞ SORU İNCELEMESİ: EKSİK KAYNAK: BDS 200 uygulama paragrafları okunup karta girmeden bu kart sınavı tam karşılamaz.",
+      "onay": null,
+      "cikmis_inceleme": {
+        "sorular": [
+          {
+            "ref": "2026/1 S18",
+            "kalip": "tanımdan terimi bulma",
+            "kok_kr": 364,
+            "taktik": "Kontrol riskinin tanımı kökte lafzen; şıklar beş risk terimi. Tanımları karıştıran düşer."
+          },
+          {
+            "ref": "2026/1 S19",
+            "kalip": "doğrudan bilgi",
+            "kok_kr": 251,
+            "taktik": "Tespit edememe riskini düşürmeye yardım eden unsurlar soruluyor. DAYANAĞI KARTTA YOK (uygulama paragrafı)."
+          },
+          {
+            "ref": "2026/2 S17",
+            "kalip": "olumsuz (\"hangisi yanlıştır\")",
+            "kok_kr": 114,
+            "taktik": "Dört şık standardın cümleleri; yanlış şık yön tersi (muhakeme ile kanıtın yerini değiştiriyor). O cümlenin dayanağı da uygulama paragrafı."
+          }
+        ],
+        "sonuc": "Tanımların lafzı kartta var ve iki soruyu karşılıyor. Üç sorunun ikisinde en az bir şık BDS 200 uygulama paragraflarına (A ile başlayanlar) dayanıyor; kart bu paragrafları taşımıyor.",
+        "kaynak_farki": "EKSİK KAYNAK: BDS 200 uygulama paragrafları okunup karta girmeden bu kart sınavı tam karşılamaz."
+      }
     },
     {
       "no": 3,
@@ -369,12 +430,24 @@
         "Eksikliği \"önemli\" yapan nedir; tek eksiklik ya da eksikliklerin bileşimi",
         "Önemli eksiklik üst yönetimden sorumlu olanlara: zamanında ve yazılı",
         "Yönetime bildirim (BDS 265 p.10)",
-        "SINAV DÜZEYİ: tanımda boşluğa doğru terimi koyma; bildirimin kime ve nasıl yapılacağı"
+        "SINAV DÜZEYİ (çıkmış kalıp): tanım lafzen verilip boşluğa terimi koyma"
       ],
       "basamak_notu": "İç kontrol bileşenlerinin içeriği için basamak YOK: kaynak parçalar (BDS 315 p.21–26) bozuk, onarılmadan soru yazılmaz.",
-      "dusururler": "Boşluğa \"önemli iç kontrol eksikliği\" yerine \"iç kontrol eksikliği\" koymak ya da tersi · bildirimi \"sözlü\" yaptırmak · önemli eksikliği yalnız tek bir eksiklik sayıp \"eksikliklerin bileşimi\"ni dışlamak · üst yönetimden sorumlu olanlara bildirimi atlayıp yalnız yönetime bildirildiğini söylemek.",
+      "dusururler": "SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/2 S20 tanımda boşluk doldurma. | KARTTAN TÜRETİLEN: Boşluğa \"önemli iç kontrol eksikliği\" yerine \"iç kontrol eksikliği\" koymak ya da tersi · bildirimi \"sözlü\" yaptırmak · önemli eksikliği yalnız tek bir eksiklik sayıp \"eksikliklerin bileşimi\"ni dışlamak · üst yönetimden sorumlu olanlara bildirimi atlayıp yalnız yönetime bildirildiğini söylemek.",
       "kaynak_notu": "KAYNAK KUSURU: BDS 315 p.21–26 parçalarının gövdesi iki sütunlu tablodan bozuk aktarılmış, cümleler iç içe geçmiş; p.23'ün başlığı yarım (\"İşletmenin aşağıdakilere ilişkin süreçleri ve\"). Bileşen adları yalnız parça BAŞLIKLARINDAN alındı, gövdeden cümle alınmadı. Bu parçalar onarılmadan bileşenlerin içeriğine soru yazılmamalı. BDS 265 p.6'ya da dipnot kırıntısı karışmış. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. BDS 265 p.10 ambardan okunup eklendi (yönetime bildirim). Kaldırılan çeldiriciler: \"bileşen listesine iç denetimi sokmak\" (bileşen parçaları bozuk, basamağı yok), \"uydurma birleşik terim\" (ölçülemez).",
-      "onay": null
+      "onay": null,
+      "cikmis_inceleme": {
+        "sorular": [
+          {
+            "ref": "2026/2 S20",
+            "kalip": "tanımda boşluk doldurma",
+            "kok_kr": 440,
+            "taktik": "İç kontrol eksikliği tanımı lafzen verilmiş, terim boş. Şıklarda yakın terimler ve mevzuatta olmayan iki uydurma terim var."
+          }
+        ],
+        "sonuc": "Tek soru, tanımın lafzı. Kartın kural bölümü karşılıyor.",
+        "kaynak_farki": ""
+      }
     },
     {
       "no": 4,
@@ -456,11 +529,29 @@
         "Makul mü sınırlı mı: açıkça yazmıyorsa hangisi",
         "Denetimin beş unsuru",
         "Denetimin üç tarafı",
-        "SINAV DÜZEYİ: listeye yabancı unsur sokulmuş ya da tanımı karıştırılmış soru"
+        "SINAV DÜZEYİ (çıkmış kalıp): m.5 fıkralarından \"hangisi yanlıştır\" (tek kelime değişmiş); makul güvence tanımı"
       ],
-      "dusururler": "Makul güvenceyi \"tam\" ya da \"mutlak\" güvence yazmak · sınırlı güvenceyi varsayılan saymak · beş unsur ya da üç taraf listesine listede olmayan bir kalem sokmak · unsurlar ile tarafları birbirine karıştırmak.",
+      "dusururler": "SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/2 S2 olumsuz (\"hangisi yanlıştır\") · 2026/2 S15 doğrudan bilgi, uzun şıklar. | KARTTAN TÜRETİLEN: Makul güvenceyi \"tam\" ya da \"mutlak\" güvence yazmak · sınırlı güvenceyi varsayılan saymak · beş unsur ya da üç taraf listesine listede olmayan bir kalem sokmak · unsurlar ile tarafları birbirine karıştırmak.",
       "kaynak_notu": "Sınırlı güvencenin tanımı çekilen parçalarda yok; karta yazılmadı. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldirici: \"makul güvence tanımı yerine önemlilik tanımını vermek\" (önemlilik bu kartın kuralı değil).",
-      "onay": null
+      "onay": null,
+      "cikmis_inceleme": {
+        "sorular": [
+          {
+            "ref": "2026/2 S2",
+            "kalip": "olumsuz (\"hangisi yanlıştır\")",
+            "kok_kr": 112,
+            "taktik": "Şıklar Yönetmelik m.5 fıkralarının lafzı; yanlış şıkta tek kelime değişmiş: güvence türünün adı."
+          },
+          {
+            "ref": "2026/2 S15",
+            "kalip": "doğrudan bilgi, uzun şıklar",
+            "kok_kr": 112,
+            "taktik": "Makul güvencenin ne olduğu ve nasıl sağlandığı; şıklar birbirine benzeyen uzun tanım cümleleri, doğrusu BDS 200 p.5'in lafzı."
+          }
+        ],
+        "sonuc": "İki soru da m.5 ve BDS 200 p.5 lafzından. Kart karşılıyor. Tek kelime değişikliğini yakalamak için öğrencinin \"makul ya da sınırlı\" ikilisini ezbere bilmesi gerekir.",
+        "kaynak_farki": ""
+      }
     },
     {
       "no": 5,
@@ -545,11 +636,29 @@
         "Yeterlilik = miktar",
         "Uygunluk = kalite (ihtiyaca uygunluk + güvenilirlik)",
         "Gereken kanıt miktarını etkileyen iki şey",
-        "SINAV DÜZEYİ: yeterlilik ile uygunluğun yer değiştirildiği ya da boşluk bırakılan soru"
+        "SINAV DÜZEYİ (çıkmış kalıp): m.9 tanımında çift boşluk; kanıtla ilgili \"hangisi yanlıştır\""
       ],
-      "dusururler": "Yeterlilik ile uygunluğun tanımlarını yer değiştirmek · uygunluğu yalnız güvenilirlik sayıp \"ihtiyaca uygunluk\"u atmak · boşluğa \"denetim kıstası\" ya da \"mesleki muhakeme\" koymak · Yönetmelikteki tanım ile BDS tanımını karıştırmak.",
-      "kaynak_notu": "Eski kartın \"kaynağına göre güvenilirlik\" ve \"miktar düşük kaliteyi telafi etmez\" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız \"etkilenir\" diye geçiyor; \"risk arttıkça kanıt artar\" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: \"yüksek risk → daha az kanıt\" ve \"miktarı artırmak düşük kaliteyi telafi eder\"; ikisinin dayanağı BDS 500 uygulama paragrafları, okunmadı. Okununca karta kural olarak girer, çeldirici o zaman yazılır.",
-      "onay": null
+      "dusururler": "SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/1 S3 tanımda çift boşluk doldurma · 2026/1 S10 olumsuz (\"hangisi yanlıştır\"). | KARTTAN TÜRETİLEN: Yeterlilik ile uygunluğun tanımlarını yer değiştirmek · uygunluğu yalnız güvenilirlik sayıp \"ihtiyaca uygunluk\"u atmak · boşluğa \"denetim kıstası\" ya da \"mesleki muhakeme\" koymak · Yönetmelikteki tanım ile BDS tanımını karıştırmak.",
+      "kaynak_notu": "Eski kartın \"kaynağına göre güvenilirlik\" ve \"miktar düşük kaliteyi telafi etmez\" başlıkları BDS 500 uygulama paragraflarında; o paragraflar çekilmedi, karta kural olarak yazılmadı. Riskin yüksekliği ile kanıt miktarının yönü de kaynakta yalnız \"etkilenir\" diye geçiyor; \"risk arttıkça kanıt artar\" cümlesi karta alınmadı. BDS 500 p.5'e dipnot kırıntısı karışmış. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı. Kaldırılan çeldiriciler: \"yüksek risk → daha az kanıt\" ve \"miktarı artırmak düşük kaliteyi telafi eder\"; ikisinin dayanağı BDS 500 uygulama paragrafları, okunmadı. Okununca karta kural olarak girer, çeldirici o zaman yazılır. ÇIKMIŞ SORU İNCELEMESİ: EKSİK KAYNAK: BDS 500 uygulama paragrafları okunup karta girmeli.",
+      "onay": null,
+      "cikmis_inceleme": {
+        "sorular": [
+          {
+            "ref": "2026/1 S3",
+            "kalip": "tanımda çift boşluk doldurma",
+            "kok_kr": 389,
+            "taktik": "Yönetmelik m.9 tanımı lafzen; iki boşluk \"yeterli\" ve \"uygun bilgi, belge ve beyanlardır\". Şıklarda \"geçerli\" gibi yakın kelimeler ve sıra değişiklikleri."
+          },
+          {
+            "ref": "2026/1 S10",
+            "kalip": "olumsuz (\"hangisi yanlıştır\")",
+            "kok_kr": 136,
+            "taktik": "Şıklar m.9 ve BDS 500 cümleleri. En az bir şık BDS 500 uygulama paragrafından; DAYANAĞI KARTTA YOK."
+          }
+        ],
+        "sonuc": "m.9 ve BDS 500 p.5 lafzı kartta var. İkinci soru uygulama paragrafı da kullanıyor.",
+        "kaynak_farki": "EKSİK KAYNAK: BDS 500 uygulama paragrafları okunup karta girmeli."
+      }
     },
     {
       "no": 6,
@@ -629,7 +738,7 @@
         "Ayrım: iki ayrı sınırlı olumlu gerekçesi",
         "Süre: 20 gün, hangi denetimlerde, kime teslim",
         "Öncüllü: görüş türlerine ilişkin doğru ve yanlış ifadeler",
-        "Olay: verilen durumdan görüşü bulma"
+        "Olay: verilen durumdan görüşü bulma (2026/1–2'de bu konuda görülmedi; sınav düzeyi sayılmaz, ek alıştırma)"
       ],
       "gorsel": {
         "tur": "karar-tablosu",
@@ -664,12 +773,56 @@
         "Kanıt elde edilemedi, muhtemel etki önemli ama yaygın değil → sınırlı olumlu (gerekçe farklı)",
         "Kanıt elde edilemedi, muhtemel etki önemli ve yaygın olabilir → kaçınma",
         "TTK uyarınca yapılan denetimde raporun teslimi: olağan genel kuruldan en az 20 gün önce, yönetim organına",
-        "SINAV DÜZEYİ: olayın içine gömülü bilgiden görüş türünü bulma"
+        "SINAV DÜZEYİ (çıkmış kalıp): rapor tanımında boşluk; hükmün lafzı verilip görüş türünü bulma"
       ],
-      "dusururler": "Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · tespit edilmiş yaygın yanlışlıkta kaçınma demek (doğrusu olumsuz) · rapor tanımında \"belge\" yerine \"sözleşme\" ya da \"bildirim\" · 20 gün yerine 15/30 gün · raporun teslim edileceği yeri yönetim organı yerine başka bir organ göstermek.",
+      "dusururler": "SINAVDA GÖRÜLEN (2026/1–2, sayıldı): 2026/2 S7 tanımda boşluk doldurma · 2026/2 S10 hükmün lafzı kökte, hangi görüş. | KARTTAN TÜRETİLEN: Yaygın etkide sınırlı olumlu görüş vermek · kanıt elde edilemeyen yaygın durumda olumsuz görüş vermek (doğrusu kaçınma) · tespit edilmiş yaygın yanlışlıkta kaçınma demek (doğrusu olumsuz) · rapor tanımında \"belge\" yerine \"sözleşme\" ya da \"bildirim\" · 20 gün yerine 15/30 gün · raporun teslim edileceği yeri yönetim organı yerine başka bir organ göstermek.",
       "kaynak_notu": "BDS 705 p.5 (yaygın tanımı) ve p.6 (iki durum) 10.11'de ambardan okunup eklendi. Tabloda \"genele yayılıyor\" yerine standardın terimi \"yaygın\" kullanıldı; Yönetmelik m.30 aynı şeyi \"denetim konusunun genelini etkilediği\" diye söyler. Görüşün rapordaki yazılışı, dayanak paragrafı ve Dikkat Çekilen Hususlar (BDS 705 öbür paragrafları, BDS 706) OKUNMADI; karta girmedi, soru yazılmaz. 10.11 KAYNAKLA YAN YANA TARAMA: karta kural olarak girmeyen bilgiye dayanan çeldiriciler kaldırıldı (D2b); yalın anlatım kural bölümüyle hizalandı.",
-      "onay": null
+      "onay": null,
+      "cikmis_inceleme": {
+        "sorular": [
+          {
+            "ref": "2026/2 S7",
+            "kalip": "tanımda boşluk doldurma",
+            "kok_kr": 554,
+            "taktik": "Denetim raporunun Yönetmelik m.10 tanımı lafzen, terim boş. Şıklar denetimin başka belgeleri."
+          },
+          {
+            "ref": "2026/2 S10",
+            "kalip": "hükmün lafzı kökte, hangi görüş",
+            "kok_kr": 439,
+            "taktik": "m.30/2-ç lafzen tırnak içinde verilmiş. Şıklarda dört görüş ve mevzuatta olmayan bir uydurma görüş adı."
+          }
+        ],
+        "sonuc": "İki soru da Yönetmelik lafzından (m.10, m.30). Sınav bu iki dönemde BDS 705'in \"önemli / yaygın\" diliyle değil Yönetmeliğin \"denetim konusunun genelini etkileyen\" diliyle sordu; öğrenci iki dili de tanımalı.",
+        "kaynak_farki": ""
+      }
     }
   ],
-  "onaylayan": "Cem (karar 10.11); onay alanı boş kart onaysızdır"
+  "onaylayan": "Cem (karar 10.11); onay alanı boş kart onaysızdır",
+  "sinav_profili": {
+    "kaynak": "Ambardaki SMMM Yeterlilik Muhasebe Denetimi test kitapçıkları: 2026/1 ve 2026/2, 20'şer soru, toplam 40 soru. Betikle sayıldı (10.11.2026).",
+    "soru": 40,
+    "sik_sayisi": 5,
+    "kok_karakter": {
+      "ortanca": 178,
+      "en_kisa": 74,
+      "en_uzun": 1161
+    },
+    "kok_kelime_ortanca": 20,
+    "sik_karakter_ortanca": 127,
+    "olumsuz_kok": "17 / 40",
+    "bosluk_doldurma": "6 / 40",
+    "oncullu": "1 / 40",
+    "kokte_mevzuat_adi": "31 / 40",
+    "sayisal_sik": "1 / 40",
+    "okuma": "Bu sınav LAFIZ sınavıdır. Kartların andığı 14 soru tek tek okundu: hiçbiri olay (senaryo) sorusu değil. Soru, hükmün ya da tanımın metnini neredeyse harfi harfine verir ve dört yoldan biriyle sorar: (1) \"hangisi yanlıştır / biri değildir\"; (2) tanımda boşluk doldurma; (3) tanımdan terimi bulma; (4) hükmün başını verip devamını sorma. Şıklar uzundur (ortanca 127 karakter) ve çoğu mevzuat cümlesidir.",
+    "celdirici_taktikleri": [
+      "Hükmün lafzında tek kelimeyi değiştirmek (ör. güvence türünün adı, feshin şartı)",
+      "Listeye, listede olmayan ama kulağa uygun gelen bir kalem koymak ya da bir kalemin şartını değiştirmek",
+      "Boşluğa yakın anlamlı ama yanlış terim koymak; mevzuatta bulunmayan uydurma terim koymak",
+      "Yön tersi: iki kavramın sırasını ya da ağırlığını ters çevirmek",
+      "Aynı listeyi art arda iki dönemde \"biri değildir\" diye sormak (yönetimin sorumlulukları 2026/1 ve 2026/2)"
+    ],
+    "gormedigi": "Yalnız iki dönem (40 soru) okundu; 2026 öncesi dönemler yazılı sınavdı, bu ölçüye girmedi. Olumsuz kök ve boşluk sayımı betikle yapıldı, elle doğrulanmadı."
+  }
 }

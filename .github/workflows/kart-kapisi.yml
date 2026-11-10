@@ -1,0 +1,34 @@
+# Ders notu kartları değişince kart kapısını kendiliğinden koşar (BASIM-ONCESI-DUZEN-TASLAK.md D2c).
+# KAYNAKSIZ KİP: ambar metni burada yok; alıntı ve bent sayımı KÖR, yapı denetimleri (zorunlu alanlar, çıkmış soru incelemesi,
+# son basamak, okunmamış kaynaktan çeldirici, onay kaydı) koşar. Alıntı denetimi yerelde, kaynak dosyasıyla yapılır.
+name: kart-kapisi
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'veri/sinav/ders-notu-kartlari-*.json'
+      - 'arac/kart-kapisi.js'
+      - '.github/workflows/kart-kapisi.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  kapi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Kart kapısı (bütün kart dosyaları)
+        run: |
+          set -e
+          say=0
+          for f in veri/sinav/ders-notu-kartlari-*.json; do
+            [ -e "$f" ] || continue
+            echo "== $f"
+            node arac/kart-kapisi.js "$f" - -
+            say=$((say+1))
+          done
+          if [ "$say" -eq 0 ]; then echo "KART DOSYASI YOK - ölçülecek kart bulunamadı"; exit 1; fi

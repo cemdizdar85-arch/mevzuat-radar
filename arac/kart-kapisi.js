@@ -10,7 +10,9 @@
 // EKSİK: kaynağı doğrudan ambardan okumuyor (yerel dosya ister) · dogrula.yml'de koşmuyor · öz-sınav betiği yok (mutasyon elle yapıldı).
 const fs=require('fs'); const [,, kartYol, kaynakYol, mdYol]=process.argv;
 const n=s=>String(s).replace(/\s+/g,' ').trim();
-const kay={}, adIle={}; for(const b of fs.readFileSync(kaynakYol,'utf8').split(/\n(?==== \[)/)){ const m=b.match(/^=== \[(.+?)\] (.+?)\n([\s\S]*)$/); if(m){ kay[m[1]]={ad:m[2],metin:n(m[3])}; adIle[m[2].replace(/ - .*/,'')]=n(m[3]); } }
+// KAYNAKSIZ KİP: kaynak yolu "-" ise (otomatik koşu; ambar metni yok) alıntı ve bent sayımı ATLANIR, yapı denetimleri koşar; çıktıda KÖR diye yazılır.
+const KAYNAKSIZ = kaynakYol==='-';
+const kay={}, adIle={}; for(const b of (KAYNAKSIZ?'':fs.readFileSync(kaynakYol,'utf8')).split(/\n(?==== \[)/)){ const m=b.match(/^=== \[(.+?)\] (.+?)\n([\s\S]*)$/); if(m){ kay[m[1]]={ad:m[2],metin:n(m[3])}; adIle[m[2].replace(/ - .*/,'')]=n(m[3]); } }
 const j=JSON.parse(fs.readFileSync(kartYol,'utf8')); let top=0,ok=0,hata=[];
 let md=`# CEM OKUMA — Muhasebe Denetimi ders notu kartları (TASLAK, ilk ${j.kart.length})\n\n> ${j.tarih} · Her kural yalnız ambardaki resmî metinden yazıldı. Tırnak içindeki satır, kaynaktan harfi harfine alıntıdır ve betikle kaynak metinde arandı.\n> Onaylamadığın kart soru basımında kullanılmaz. "Böyle düşürürler" satırı eski karttan aktarıldı, çıkmış soruyla yeniden sayılmadı.\n\n`;
 for(const k of j.kart){ md+=`## ${k.no}. ${k.konu}\n\nÇıkmış örnek: ${k.cikmis.join(' · ')||'—'}\n\n**Kural**\n\n`;
@@ -22,6 +24,8 @@ md+=`Alıntı denetimi: ${ok}/${top} alıntı kaynak metinde harfi harfine bulun
 // KART KAPISI (10.11): kural bir karta değil HER karta, HER koşuda uygulanır.
 const kusur=[]; const ATIF=/\b(BDS|TMS|TFRS|KKS|BOBI FRS)\s*\d+|\bTTK\b|\bVUK\b|\bGVK\b|\bKVK\b/g;
 for(const k of j.kart){
+  if(!k.cikmis_inceleme||!Array.isArray(k.cikmis_inceleme.sorular)||!k.cikmis_inceleme.sonuc) kusur.push(`kart ${k.no}: çıkmış soru incelemesi yok (D2b adım 1)`);
+  else for(const s of k.cikmis_inceleme.sorular) if(!s.ref||!s.kalip||!s.taktik) kusur.push(`kart ${k.no}: çıkmış soru satırı eksik → ${s.ref||'?'}`);
   for(const a of ['gorsel','yalin','ana_fikir','basamaklar','soru_kapsami','dusururler','kaynak_notu']) if(k[a]===undefined||k[a]===null||(Array.isArray(k[a])&&!k[a].length)||k[a]==='') kusur.push(`kart ${k.no}: alan eksik → ${a}`);
   if(Array.isArray(k.basamaklar)&&k.basamaklar.length&&!/^SINAV DÜZEYİ/.test(k.basamaklar[k.basamaklar.length-1])) kusur.push(`kart ${k.no}: son basamak sınav düzeyi değil`);
   // D2b: çeldirici, soru kapsamı, basamak ve yalın anlatımda anılan kaynak, kural bölümünde olmalı
@@ -30,6 +34,10 @@ for(const k of j.kart){
   for(const m of new Set(ogr.match(ATIF)||[])){ const ad=m.replace(/\s+/g,' '); if(!kuralMetni.includes(ad)) kusur.push(`kart ${k.no}: "${ad}" öğrenci kısmında anılıyor ama kural bölümünde yok (D2b)`); }
   // D2a: sayma hükmü — kuralda "(a)…(i)" bent dizisi varsa kaynak parçadaki bent sayısıyla karşılaştır
   for(const o of k.ozet){ const src=kay[o.parca]; if(!src) continue; const kb=new Set(o.kural.match(/\((?:[a-zçğıöşü])\)/g)||[]); if(kb.size<5) continue; const sb=new Set((src.metin.match(/(?:^|\s)([a-zçğıöşü])\s?\)/g)||[]).map(x=>x.trim().replace(/\s?\)/,''))); if(sb.size>kb.size) kusur.push(`kart ${k.no}: sayma hükmü eksik olabilir — kuralda ${kb.size} bent, kaynak parçada ${sb.size} (${o.kaynak})`); }
-  if(k.onay&&!(k.onay.kim&&k.onay.tarih&&k.onay.mevzuat&&k.onay.anlatim&&k.onay.soru_kapsami)) kusur.push(`kart ${k.no}: onay kaydı eksik`);
+  if(k.onay&&!(k.onay.kim&&k.onay.tarih)) kusur.push(`kart ${k.no}: onay kaydında kim/tarih eksik`);
+  if(k.onay&&['mevzuat','anlatim','soru_kapsami'].some(a=>typeof k.onay[a]!=='boolean')) kusur.push(`kart ${k.no}: onay kutularından biri yazılmamış`);
 }
-fs.writeFileSync(mdYol,md,'utf8'); console.log(`alıntı: ${ok}/${top}`); console.log(`kart kapısı: ${j.kart.length} kart, ${kusur.length} kusur`); if(kusur.length){ console.log(kusur.join('\n')); process.exit(1); } if(hata.length){ console.log('BULUNAMAYAN:\n'+hata.join('\n')); process.exit(1); }
+for(const k of j.kart) for(const o of k.ozet) if(!o.alinti||!o.parca||!o.kaynak||!o.kural) kusur.push(`kart ${k.no}: kuralda alıntı / parça / kaynak eksik`);
+if(mdYol&&mdYol!=='-') fs.writeFileSync(mdYol,md,'utf8');
+console.log(KAYNAKSIZ?`alıntı: KÖR (kaynaksız kip; ${top} alıntı kaynakla karşılaştırılmadı)`:`alıntı: ${ok}/${top}`); console.log(`kart kapısı: ${j.kart.length} kart, ${kusur.length} kusur`); if(kusur.length){ console.log(kusur.join('\n')); process.exit(1); }
+if(KAYNAKSIZ) process.exit(0); if(hata.length){ console.log('BULUNAMAYAN:\n'+hata.join('\n')); process.exit(1); }
