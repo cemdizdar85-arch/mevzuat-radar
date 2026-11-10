@@ -104,12 +104,13 @@
 
 ---
 
-## CEM KARARI BEKLEYENLER
+## CEM KARARLARI (10.11.2026: "bunlara onay verdim")
 
-1. Taslaktaki konu kartı düzeni kabul mü?
-2. Kartları kim onaylar: Cem örneklem mi okur, bir meslektaş mı okur?
-3. Kanıt dalgası hangi derste, hangi tavanla (öneri: tek ders, tavan 25 USD)?
-4. Soru kalitesi işi ile site ve çözüm ekranı işi aynı anda iki oturumda mı yürüsün?
+1. Konu kartı düzeni: ONAYLANDI.
+2. Kart onayı: onaylandı, ama "Cem örneklem mi okur, meslektaş mı okur" seçimi AÇIK; Cem'e yeniden soruldu.
+3. Kanıt dalgası: tek ders, tavan 25 USD ONAYLANDI. Ders önerisi ölçümden: Muhasebe Denetimi
+   ([`OLCUM-BASIM-ONCESI-1011.md`](OLCUM-BASIM-ONCESI-1011.md)). Basım freni ayrıca Cem'in açık sözüyle açılır; bu onay freni kaldırmaz.
+4. Soru kalitesi ile site ve çözüm ekranı işi iki oturumda aynı anda: ONAYLANDI.
 
 ## SIRA
 
