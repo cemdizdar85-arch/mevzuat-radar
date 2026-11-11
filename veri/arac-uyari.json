@@ -1,8 +1,22 @@
 {
-  "tarih": "10.11.2026 19:40",
-  "rg_gun": "10-11-2026",
-  "kart": 5,
-  "etkilenen_dosya": 0,
+  "tarih": "11.11.2026 01:57",
+  "rg_gun": "11-11-2026",
+  "kart": 1,
+  "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": []
+  "uyarilar": [
+    {
+      "dosya": "veri/gtip-damping.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri",
+      "hasat": "motor/damping-hasat.ps1 (yerel damping.xlsx)",
+      "eslesme_sayisi": 1,
+      "eslesmeler": [
+        {
+          "anahtar": "damping",
+          "kart_basligi": "Protez diş bağlantı parçalarında dampinge karşı önlem oranları değiştirildi"
+        }
+      ]
+    }
+  ]
 }
