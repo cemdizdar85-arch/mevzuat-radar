@@ -3,12 +3,12 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-11-10 16:21:23 UTC
-- commit: 09e8c9b7f440d87223ba67b9de2e132bc3a278c0
-- kosu no: 109
+- zaman: 2026-11-11 16:05:58 UTC
+- commit: 9863b1b6ec55be6064a0b18a6b5c0a816887f10c
+- kosu no: 110
 
 ## ortam
-- pdftotext: /usr/bin/pdftotext
+- pdftotext: YOK
 - SUPABASE_SERVICE_KEY uzunluk: 219
 - pwsh: 7.6.9 · OS: Ubuntu 26.04.1 LTS
 
@@ -18,32 +18,9 @@
 Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09] · BOBI harfli no/mulga/bent-baslik/saran/bolum zinciri/uzun baslik/ek/alt alta numara/atif/xpdf kapisi 23 [21.10] · BOBI bent+numara/ust baslik/sayfa sinirinda saran baslik 12 [21.10 ikinci tur])
   SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma
 
-PDF: https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 16.pdf
-  indirildi: 679,907 bayt · GERCEK PDF
-  metin    : 113,495 karakter
-  TMS layout adayi: delik duz 33 · layout 0 · karakter duz 106,785 · layout 108,138
-  -> LAYOUT bolmesi secildi (resmi numaralardan sapma azaldi)
-  bolundu  : 210 parca · 108,138 karakter
-
-AMBARDAKI HALI : 210 parca · 108,138 karakter
-YENI HALI      : 210 parca · 108,138 karakter
-KAZANC         : +0 parca · +0 karakter (1.0 kat)
-
-KURU PROVA — ambara hicbir sey yazilmadi. Ilk 10 yeni parca:
-   TFRS 16 p.0 - Künye ve yürürlük                        468 krk
-   TFRS 16 p.1 - Amaç                                     452 krk
-   TFRS 16 p.2 - Amaç                                     211 krk
-   TFRS 16 p.3 - Kapsam                                   815 krk
-   TFRS 16 p.4 - Kapsam                                   163 krk
-   TFRS 16 p.5 - Finansal tablolara almaya ilişkin isti   222 krk
-   TFRS 16 p.6 - Finansal tablolara almaya ilişkin isti   453 krk
-   TFRS 16 p.7 - Finansal tablolara almaya ilişkin isti   401 krk
-   TFRS 16 p.8 - Finansal tablolara almaya ilişkin isti   361 krk
-   TFRS 16 p.9 - Kiralamanın tanımlanması (B9–B33 parag   506 krk
-
--uygula ile yaz.
+pdftotext bulunamadi.
 
 
 ```
 
-- alt surec cikis kodu: 0
+- alt surec cikis kodu: 1
