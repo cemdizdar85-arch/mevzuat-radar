@@ -1,8 +1,8 @@
 {
  "ad": "s20-ymeslek-d3-hap-1211",
- "tarih": "2026-11-12T13:02:02.488Z",
+ "tarih": "2026-11-12T13:22:16.445Z",
  "yol": "smmm-ah-yalniz",
- "kosu": "gh43222532692",
+ "kosu": "gh43226098362",
  "hakem": {
   "model": "model-c",
   "effort": "medium",
@@ -18,19 +18,22 @@
   "temiz": 0,
   "kusurlu": 1,
   "olculemedi": 0,
-  "onceki": 0,
-  "atlanan": 1,
+  "onceki": 1,
+  "atlanan": 0,
   "yazilan": 1,
   "kaynaksiz": 1,
   "kaynaksiz_kusurlu": 1,
-  "usd": 0.025
+  "usd": 0.037
  },
  "kararlar": {
   "smmm-s20-ymeslek-d3-y6-zor/kp-01": {
+   "karar": "TEMIZ",
+   "onceki": true
+  },
+  "smmm-s20-ymeslek-d3-y7-cokzor/kp-02": {
    "karar": "KUSURLU",
    "kusur_alanlari": [
-    "sinav_taktigi",
-    "konu_ozeti.ornek"
+    "sinav_taktigi"
    ],
    "madde_kaynak": "kaynaksiz",
    "madde_adlari": [],
@@ -43,17 +46,15 @@
   }
  },
  "incelenecek": [
-  "smmm-s20-ymeslek-d3-y6-zor/kp-01"
+  "smmm-s20-ymeslek-d3-y7-cokzor/kp-02"
  ],
  "kaynaksiz": [
-  "smmm-s20-ymeslek-d3-y6-zor/kp-01"
+  "smmm-s20-ymeslek-d3-y7-cokzor/kp-02"
  ],
  "kaynaksiz_kusurlu": [
-  "smmm-s20-ymeslek-d3-y6-zor/kp-01"
+  "smmm-s20-ymeslek-d3-y7-cokzor/kp-02"
  ],
- "atlanan": {
-  "smmm-s20-ymeslek-d3-y7-cokzor/kp-02": "parti bulutta koşuyor (bulut-uretim) — sonra"
- },
+ "atlanan": {},
  "yaris": [],
  "uyusmaz": [],
  "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
