@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261111015718
+Start time: 20261112070100
 Username: runnervmwuk1x\runner
 RunAs User: runnervmwuk1x\runner
 Configuration Name: 
 Machine: runnervmwuk1x (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/520dd415-22c0-4efe-ba00-fb4186d63868.ps1'
-Process ID: 2488
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5eda28b0-bfa8-42fa-998d-a7f553121c20.ps1'
+Process ID: 2688
 PSVersion: 7.6.9
 PSEdition: Core
 GitCommitId: 7.6.9
@@ -17,17 +17,21 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 11-11-2026
-Kart sayisi  : 1
+RG gunu      : 12-11-2026
+Kart sayisi  : 4
 Izlenen dosya: 12
 
 ======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+  RG'DE ILGILI YAYIN VAR - 2 ARAC VERISI ESKIMIS OLABILIR
 ======================================================================
-  veri/gtip-damping.json   (arac: gtip.html)
-      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
-      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
-      <- Protez diş bağlantı parçalarında dampinge karşı önlem oranları değiştirildi
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Afet sonrası bina hasar tespitinde gözetim görevinin değiştirilmesi
+  veri/vergi-sabitleri.json   (arac: coklu (asgari ucret, kidem tavani, SGK esikleri))
+      dayanak: Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani
+      hasat  : elle kurulmus
+      <- Bütünleşik sigortalar hakkında yönetmelik yayımlandı
 
   YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
   yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
@@ -36,5 +40,5 @@ Izlenen dosya: 12
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261111015718
+End time: 20261112070100
 **********************
