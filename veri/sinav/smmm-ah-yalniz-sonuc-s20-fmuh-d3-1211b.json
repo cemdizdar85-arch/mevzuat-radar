@@ -1,0 +1,134 @@
+{
+ "ad": "s20-fmuh-d3-1211b",
+ "tarih": "2026-11-12T14:13:42.023Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh43234163763",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.3,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 5,
+  "gonderilen": 5,
+  "temiz": 0,
+  "kusurlu": 5,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 5,
+  "kaynaksiz": 3,
+  "kaynaksiz_kusurlu": 3,
+  "usd": 0.156
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d3-y-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 1",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 10",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 2",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 3",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 4",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 5",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 6",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 7",
+    "MSUGT 1 ilke - Bilanço İlkeleri Varlıklara İlişkin İlkeler - 8"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-fmuh-d3-y-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-s20-fmuh-d3-y-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kart",
+   "madde_adlari": [
+    "TMS 16 p.70 - Finansal tablo dışı bırakma"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-fmuh-d3-y-zor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.ornek",
+    "konu_ozeti.panel_ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-s20-fmuh-d3-y3-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-fmuh-d3-y-cokzor/kp-01",
+  "smmm-s20-fmuh-d3-y-kolay/kp-01",
+  "smmm-s20-fmuh-d3-y-zor/kp-02",
+  "smmm-s20-fmuh-d3-y-zor/kp-03",
+  "smmm-s20-fmuh-d3-y3-zor/kp-01"
+ ],
+ "kaynaksiz": [
+  "smmm-s20-fmuh-d3-y-kolay/kp-01",
+  "smmm-s20-fmuh-d3-y-zor/kp-03",
+  "smmm-s20-fmuh-d3-y3-zor/kp-01"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-s20-fmuh-d3-y-kolay/kp-01",
+  "smmm-s20-fmuh-d3-y-zor/kp-03",
+  "smmm-s20-fmuh-d3-y3-zor/kp-01"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
