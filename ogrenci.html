@@ -1037,7 +1037,7 @@
          '<br><span>son giriş '+esc(tarih(c.son_gorulme))+'</span></div>'+
          '<button class="og-btn" type="button" data-cihaz="'+esc(c.cihaz_id)+'"'+(v.cikarma_hakki>0?'':' disabled')+'>Çıkar</button></div>';
     });
-    h+='</div><p class="og-alt" style="margin:8px 0 0;font-size:13.5px">'+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay <b>'+v.cikarma_hakki+'</b> çıkarma hakkın kaldı (30 günde en fazla 2).</p><div class="og-hata" id="ogCihazHata"></div>';
+    h+='</div><p class="og-alt" style="margin:8px 0 0;font-size:13.5px">'+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay <b>'+v.cikarma_hakki+'</b> çıkarma hakkın kaldı (30 günde en fazla 2).</p>'+(v.cikarma_hakki>0||!window.ttCihaz.destekSatiri?'':'<p class="og-alt" id="ogCihazDestek" style="margin:8px 0 0;font-size:13.5px">'+window.ttCihaz.destekSatiri()+'</p>')+'<div class="og-hata" id="ogCihazHata"></div>';
     kutu.innerHTML=h;
     kutu.querySelectorAll('button[data-cihaz]').forEach(function(b){
       b.onclick=async function(){

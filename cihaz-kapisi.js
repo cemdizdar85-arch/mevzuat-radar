@@ -138,22 +138,36 @@
       this.disabled = true;
       var r = await kontrol(sb, true);
       if (!r || r.durum === 'tamam') { perdeKaldir(); return; }
-      if (r.durum === 'cihaz_siniri') { cihazSiniri(r); return; }
+      if (r.durum === 'cihaz_siniri') { cihazSiniri(r, sb); return; }
       this.disabled = false;
     };
   }
 
-  function cihazSiniri(sonuc) {
+  /* 12.11 (Cem "gm önerileri yap"): 3 cihaz dolu + 30 günde 2 çıkarma hakkı bitmişse üye perdeden kendi başına çıkamıyordu
+     (aynı üye 07.11 ve 12.11'de takıldı; 07.11 ölçümü: 30 günde sınıra takılan 11 üyenin 6'sının hakkı bitikti).
+     Hak 0 ise perdede ve Hesabım → Cihazlarım'da WhatsApp destek satırı çıkar; yönetim "Cihazları sıfırla" ile açar.
+     🚫 GÖRMEZ: cihazlarim okunamazsa (ağ / SQL yok) satır çıkmaz, perde eskisi gibi kalır. E-posta bağlantıya yazılmaz. */
+  var DESTEK_WA = 'https://wa.me/905323448058?text=' + encodeURIComponent('Merhaba, cihaz sınırına takıldım ve çıkarma hakkım bitti. Cihazlarımı sıfırlar mısınız? Hesap e-postam: ');
+  function destekSatiri() {
+    return '<a class="ck-destek" href="' + DESTEK_WA + '" target="_blank" rel="noopener">Çıkarma hakkın bitti mi? WhatsApp\'tan yaz, açalım</a>';
+  }
+
+  function cihazSiniri(sonuc, sb) {
     var liste = ((sonuc && sonuc.cihazlar) || []).map(function (c) {
       var t = c.son_gorulme ? new Date(c.son_gorulme).toLocaleDateString('tr-TR') : '';
       return '<li>' + kacis(c.etiket || 'Cihaz') + (t ? ' <span style="color:var(--dim)">· son: ' + t + '</span>' : '') + '</li>';
     }).join('');
-    perdeGoster(
+    var d = perdeGoster(
       '<div aria-hidden="true" style="font-size:26px;margin-bottom:6px">🔒</div>' +
       '<h2>Cihaz sınırına ulaştın</h2>' +
       '<p>Paketin en fazla <b>' + ((sonuc && sonuc.sinir) || 3) + ' cihazda</b> kullanılabilir. Bu cihazı eklemek için kayıtlı cihazlarından birini çıkar.</p>' +
       (liste ? '<ul>' + liste + '</ul>' : '') +
       '<a class="ck-ana" href="' + kokAdres() + 'ogrenci.html#cihazlarim">Cihazlarımı yönet</a>');
+    if (!sb) return;
+    listele(sb).then(function (v) {
+      if (!v || v.cikarma_hakki > 0 || !d.parentNode || d.querySelector('.ck-destek')) return;
+      d.querySelector('.ck-kutu').insertAdjacentHTML('beforeend', destekSatiri());
+    }, function () {});
   }
 
   function filigran(kullanici) {
@@ -176,14 +190,14 @@
     var r = await kontrol(sb, false);
     if (!r) return;
     if (r.durum === 'baska_ekran') baskaEkran(sb, r);
-    else if (r.durum === 'cihaz_siniri') cihazSiniri(r);
+    else if (r.durum === 'cihaz_siniri') cihazSiniri(r, sb);
   }
 
   async function koru(sb, kullanici) {
     try {
       var ilk = await kontrol(sb, true);             // sayfa açılışı: bu cihaz ekranı alır
       if (kapali || !ilk) return;                    // SQL yok / ağ düştü: sayfa açık kalır
-      if (ilk.durum === 'cihaz_siniri') { cihazSiniri(ilk); return; }
+      if (ilk.durum === 'cihaz_siniri') { cihazSiniri(ilk, sb); return; }
       if (ilk.durum !== 'tamam') return;
       filigran(kullanici);
       sonYoklama = Date.now();
@@ -194,5 +208,5 @@
     } catch (e) { /* arızada üye içeride kalır */ }
   }
 
-  window.ttCihaz = { kimlik: kimlik, etiket: etiket, kontrol: kontrol, listele: listele, cikar: cikar, koru: koru };
+  window.ttCihaz = { kimlik: kimlik, etiket: etiket, kontrol: kontrol, listele: listele, cikar: cikar, koru: koru, destekSatiri: destekSatiri };
 })();
