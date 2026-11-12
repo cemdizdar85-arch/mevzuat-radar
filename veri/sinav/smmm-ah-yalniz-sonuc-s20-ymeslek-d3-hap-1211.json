@@ -1,0 +1,64 @@
+{
+ "ad": "s20-ymeslek-d3-hap-1211",
+ "tarih": "2026-11-12T13:02:02.488Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh43222532692",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 2,
+  "gonderilen": 1,
+  "temiz": 0,
+  "kusurlu": 1,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 1,
+  "yazilan": 1,
+  "kaynaksiz": 1,
+  "kaynaksiz_kusurlu": 1,
+  "usd": 0.025
+ },
+ "kararlar": {
+  "smmm-s20-ymeslek-d3-y6-zor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sinav_taktigi",
+    "konu_ozeti.ornek"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  }
+ },
+ "incelenecek": [
+  "smmm-s20-ymeslek-d3-y6-zor/kp-01"
+ ],
+ "kaynaksiz": [
+  "smmm-s20-ymeslek-d3-y6-zor/kp-01"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-s20-ymeslek-d3-y6-zor/kp-01"
+ ],
+ "atlanan": {
+  "smmm-s20-ymeslek-d3-y7-cokzor/kp-02": "parti bulutta koşuyor (bulut-uretim) — sonra"
+ },
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
