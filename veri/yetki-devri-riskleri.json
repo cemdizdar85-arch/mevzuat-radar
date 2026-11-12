@@ -1,11 +1,11 @@
 {
-  "tarih": "09.11.2026 14:13",
+  "tarih": "12.11.2026 07:53",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
-  "ambar_dosya": 922,
+  "ambar_dosya": 923,
   "riskli_madde": 1322,
   "sayfa": 82,
-  "atifli_iddia": 315,
-  "dayanaksiz_iddia": 557,
+  "atifli_iddia": 319,
+  "dayanaksiz_iddia": 556,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -1853,21 +1853,15 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 276,
-      "iddia": "20 dekar",
-      "metin": "BBMD desteğinde minimum alan koşulu (8. madde g bendi) 20 dekar → 20 dekar (2026), 2027 yılında en az 10 dekar"
+      "satir": 172,
+      "iddia": "2026 yıl",
+      "metin": "2026 yılı vergi borcu açıklaması: 5 milyon TL üzeri borçlular listesi"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 288,
-      "iddia": "2027 yıl",
-      "metin": "Ne yapmalısın: Mevcut destekleme başvurularında kontrol tutanağı gerekliliklerini (Ek-40/41) gözden geçirin. 2027 yılı için geçerli olacak minimum alan koşullarını güncelleyin. Biy"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 296,
-      "iddia": "2020 yıl",
-      "metin": "Ne oldu: Enerji Piyasası Düzenleme Kurumu, elektrik dağıtım tarifesine ilişkin tebliğde yer alan gözetim oranını artırmıştır. 2020 yılında yayımlanan ana tebliğin 9. maddesinde yer"
+      "satir": 173,
+      "iddia": "2026 yıl",
+      "metin": "Ne oldu: Hazine ve Maliye Bakanlığı, Vergi Usul Kanunu'nun kendisine verdiği yetkiye dayanarak 2026 yılında kesinleşen vergi ve cezaları açıklayacak. Açıklama, her vergi dairesi ne"
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -2425,7 +2419,7 @@
       "sayfa": "ogrenci.html",
       "satir": 1040,
       "iddia": "30 gün",
-      "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
+      "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). '+(v.cikarma_hakki>0||!window.ttCihaz.destekSatiri?''"
     },
     {
       "sayfa": "ogrenci.html",
