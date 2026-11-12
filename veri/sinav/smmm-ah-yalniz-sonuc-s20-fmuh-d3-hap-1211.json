@@ -1,0 +1,54 @@
+{
+ "ad": "s20-fmuh-d3-hap-1211",
+ "tarih": "2026-11-12T18:33:19.607Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh43280171656",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 1,
+  "gonderilen": 1,
+  "temiz": 1,
+  "kusurlu": 0,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 1,
+  "kaynaksiz": 1,
+  "kaynaksiz_kusurlu": 0,
+  "usd": 0.024
+ },
+ "kararlar": {
+  "smmm-s20-fmuh-d3-y3-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  }
+ },
+ "incelenecek": [],
+ "kaynaksiz": [
+  "smmm-s20-fmuh-d3-y3-zor/kp-02"
+ ],
+ "kaynaksiz_kusurlu": [],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
