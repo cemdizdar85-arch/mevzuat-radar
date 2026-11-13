@@ -1,35 +1,8 @@
 {
-  "tarih": "12.11.2026 19:51",
-  "rg_gun": "12-11-2026",
-  "kart": 4,
-  "etkilenen_dosya": 2,
+  "tarih": "13.11.2026 02:39",
+  "rg_gun": "13-11-2026",
+  "kart": 1,
+  "etkilenen_dosya": 0,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": [
-    {
-      "dosya": "veri/gtip-durum.json",
-      "arac": "gtip.html",
-      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
-      "hasat": "motor/tablo-hasat.ps1",
-      "eslesme_sayisi": 1,
-      "eslesmeler": [
-        {
-          "anahtar": "gozetim",
-          "kart_basligi": "Afet sonrası bina hasar tespitinde gözetim görevinin değiştirilmesi"
-        }
-      ]
-    },
-    {
-      "dosya": "veri/vergi-sabitleri.json",
-      "arac": "coklu (asgari ucret, kidem tavani, SGK esikleri)",
-      "kaynak_ad": "Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani",
-      "hasat": "elle kurulmus",
-      "eslesme_sayisi": 1,
-      "eslesmeler": [
-        {
-          "anahtar": "asgari ucret",
-          "kart_basligi": "Bütünleşik sigortalar hakkında yönetmelik yayımlandı"
-        }
-      ]
-    }
-  ]
+  "uyarilar": []
 }
