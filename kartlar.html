@@ -1,5 +1,5 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">
-<title>Günün Hap Kartları - 16.11.2026 | Tetikte</title>
+<title>Günün Hap Kartları - 17.11.2026 | Tetikte</title>
 <meta name="description" content="Bugünün Resmî Gazete değişiklikleri hap bilgi kartları hâlinde: ne oldu, kimi ilgilendiriyor, ne yapmalı.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg"><style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -33,10 +33,41 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><a class="atla" href="#icerik">İçeriğe atla</a><div class="wrap" id="icerik" role="main">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>Bugün (16.11.2026) kart gerektiren yeni düzenleme çıkmadı. Aşağıda son <b>12</b> kart — en yenisi 14.11.2026 tarihli, 30 saniyede okunur.</div>
+<div class='alt'>Bugün (17.11.2026) 1 yeni düzenleme. Aşağıda son <b>12</b> kart — en yenisi 17.11.2026 tarihli, 30 saniyede okunur.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
 <script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ <span style='color:var(--dim);font-weight:400'>· 17.11.2026</span></div>
+<h3>Adli Tıp Kurumu personelinin görevde yükselme ve unvan değişikliği koşulları güncellendi</h3>
+<p><b>Ne oldu:</b> Adalet Bakanlığı, Adli Tıp Kurumu'ndaki görevde yükselme ve unvan değişikliğine ilişkin yönetmeliği revize etti. Değişiklikle hizmet gruplarındaki unvanlar, atama şartları, sınav usulleri ve başvuru süreçleri yeniden düzenleniyor.</p>
+<p><b>Hangi tebliğ:</b> 28/3/2015 tarihli ve 29309 sayılı Adli Tıp Kurumu Personeli Görevde Yükselme ve Unvan Değişikliği Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>11 inci madde</span><span class='hap eski'>5 inci maddenin üçüncü fıkrasında</span><span class='ok'>→</span><span class='hap yeni'>Bu Yönetmelikte</span></div>
+<div class='karsi'><span class='kon'>13 üncü madde</span><span class='hap eski'>2659 sayılı Adli Tıp Kurumu Kanunu</span><span class='ok'>→</span><span class='hap yeni'>2659 sayılı Kanun</span></div>
+<div class='karsi'><span class='kon'>5 inci madde</span><span class='hap eski'>Destek hizmetleri</span><span class='ok'>→</span><span class='hap yeni'>Yardımcı hizmetler</span></div>
+<div class='karsi'><span class='kon'>11 inci madde</span><span class='hap eski'>edilen</span><span class='ok'>→</span><span class='hap yeni'>ettikleri</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Personel ve Eğitim Şubesi Müdürlüğünce Kurumdaki tüm birimlere yazılı olarak bildirilir</span><span class='ok'>→</span><span class='hap yeni'>duyurulur</span></div>
+<div class='kiymet' style='color:var(--dim)'>+3 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kurumda en az altı ay çalışmış olmak şartı atama başvurusu için gerekli; ilan edilen kadroya uygun personel bulunmadığı durumda bu şart aranmaz (Madde 6, bent c).</div>
+<div class='kiymet'>• Başvuru süresi en az beş iş günü; birden fazla kadro başvurusu yapanların sonraki başvuruları geçersiz sayılır (Madde 12, fıkra 1 ve 2).</div>
+<div class='kiymet'>• Reddedilenler başvuru red tarihindem itibaren beş iş günü içinde itiraz edebilir; itirazlar on iş günü içinde karara bağlanır (Madde 12, fıkra 5).</div>
+<div class='kiymet'>• Yazılı sınav Adli Tıp Kurumu tarafından yapılabilir veya ÖSYM, Milli Eğitim Bakanlığı veya yükseköğretim kurumlarında yaptırılabilir (Madde 13, fıkra 1).</div>
+<div class='kiymet'>• Sınav sonuçlarına karşı itirazlar beş iş günü içinde yapılır; kurulca on gün içinde kesin karara bağlanır; hatalı sorular geçerli sorulara göre yeniden puanlanır (Madde 20, fıkra 1).</div>
+<div class='kiymet'>• Atama şartlarını kaybettiren eylemlerle ilgili adli veya idari kovuşturma/soruşturma bulunanların atamaları sonuç çıkana kadar bekletilir (Madde 22, fıkra 5).</div>
+<div class='kiymet'>• Yükseltilen personel başka unvana veya mahale nakil talebinde bulunmak için atandıkları yerden en az iki yıl görev yapması gerekli; atanmadan önceki mazeret nedeniyle nakil talep edilemez (Madde 22, fıkra 6).</div>
+<div class='kiymet'>• Kadroya ilişkin göreve mevzuatla belirlenen sürede başlamayanların atanma hakları sona erer (Madde 22, fıkra 7).</div>
+<div class='kiymet'>• Atama öncesi veya sonrası görevi kabul etmekten vazgeçenlerin aynı sınavdan tekrar atanması yapılamaz (Madde 22, fıkra 8).</div>
+<p><b>Ürün:</b> Adli Tıp Kurumu personelinin görevde yükselme ve unvan değişikliği prosedürü</p>
+<p><b>Kimi ilgilendirir:</b> Adli Tıp Kurumu'nda 657 sayılı Devlet Memurları Kanunu kapsamında görev yapan personel (memur, uzman, şef, müdür, hukuk müşaviri ve teknik/sağlık hizmetleri çalışanları)</p>
+<p><b>Ne yapmalısın:</b> Kurum İnsan Kaynakları müdürlüğü yeni atama şartlarını ve sınav usullerini güncellemeli; başvuru formlarını, itiraz süreçlerini ve sınav kriterlerini yeni düzenlemeye göre hazırlamalı; personel sözleşme ve atama dosyalarında, atanmadan önceki mazeretler nedeniyle nakil taleplerinin engellenmesi şartını not etmelidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Bu değişiklik, hukuki usullerin, sınav yönetiminin ve atama şartlarının netleştirilmesini içeriyor. Personel lehine iyileştirmeler (sınavın dış kurumlara yaptırılması, 6 aylık kurumda çalışma şartının esnek uygulanması) ile kurum lehine kontroller (çoklu başvurunun önlenmesi, kovuşturma bekletmesi) bir arada yer alıyor; yer değişikliği kuralları ise daha sıkı hale geldi (iki yıl görev şartı eklendi).</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261117-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ <span style='color:var(--dim);font-weight:400'>· 14.11.2026</span></div>
 <h3>Türkiye, Pakistan ve Suudi Arabistan arasında ortak savunma anlaşması onaylandı</h3>
@@ -53,23 +84,20 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ <span style='color:var(--dim);font-weight:400'>· 12.11.2026</span></div>
-<h3>Sigortacılık yönetmeliğinde kapsam ve mesafeli sözleşmelere ilişkin değişiklikler</h3>
-<p><b>Ne oldu:</b> Sigortacılık Kapsamında Değerlendirilecek Faaliyetler ve Mesafeli Akdedilen Sigorta Sözleşmeleri Hakkında Yönetmelik'te değişikliğe gidildi. Bu kapsamda amaç maddesi yeniden düzenlendi, kapsam genişletildi, üçüncü bölümün başlığı güncellendi ve 10. madde yürürlükten kaldırıldı.</p>
-<p><b>Hangi tebliğ:</b> 16/6/2021 tarihli ve 31513 sayılı Resmî Gazete'de yayımlanan Sigortacılık Kapsamında Değerlendirilecek Faaliyetler ve Mesafeli Akdedilen Sigorta Sözleşmeleri Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
-<p><b>Neler değişti:</b></p>
-<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<h3>Afet sonrası bina hasar tespitinde gözetim görevinin değiştirilmesi</h3>
+<p><b>Ne oldu:</b> İçişleri Bakanlığı, afet sonrası bina hasar tespiti sırasında hasar değerlendirme işlemlerini denetleyen grubun tanımını değiştirdi. Tahliye, yerleştirme ve planlama grubu yerine, işlemler artık güvenlik ve trafik grubunun gözetiminde, eşya sahipleri tarafından yürütülecek.</p>
+<p><b>Hangi tebliğ:</b> Afetler Sonrası Bina Hasar Tespiti Yapılmasına İlişkin Genel Kurallar Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='karsi'><span class='kon'>9 uncu madde</span><span class='hap eski'>10 uncu maddede</span><span class='ok'>→</span><span class='hap yeni'>12/11/2026 tarihli ve 33428 sayılı Resmî Gazete’de yayımlanan Bütünleşik Sigortalar Hakkında Yönetmelik kapsamında</span></div>
+<div class='karsi'><span class='kon'>15 inci madde</span><span class='hap eski'>tahliye yerleştirme ve planlama grubu gözetiminde</span><span class='ok'>→</span><span class='hap yeni'>güvenlik ve trafik grubu gözetiminde eşya sahiplerince</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
 <p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
-<div class='kiymet'>• Yönetmelik 12 Kasım 2026 tarihinde yürürlüğe girdi (m.6)</div>
-<div class='kiymet'>• 10. madde yürürlükten kaldırıldı (m.5)</div>
-<div class='kiymet'>• Yönetmelik kapsamına sigorta şirketleri, reasürans şirketleri, emeklilik şirketleri, sigorta aracıları ve ilgili kurumlar giriyor (m.2)</div>
-<p><b>Ürün:</b> Sigortacılık hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Sigorta şirketleri, reasürans şirketleri, sigorta teminatı veren emeklilik şirketleri, sigorta aracıları, bankalar ve sigorta acenteliği yapma yetkisine sahip kurumlar</p>
-<p><b>Ne yapmalısın:</b> Yönetmeliğin güncel halini gözden geçirin; özellikle 10. maddenin yürürlükten kaldırılmasından etkileniyorsanız işlemlerinizi buna göre revize edin. Mesafeli sözleşme prosedürlerinde üçüncü bölüm başlığının değiştiğini de göz önünde bulundurun.</p>
-<p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Değişiklik idari ve prosedürel nitelik taşımaktadır. Yönetmeliğin kapsamı ile mesafeli akdedilen sigorta sözleşmelerine ilişkin düzenlemeler netleştirilmiş, 10. maddenin yürürlükten kaldırılmasıyla eski hükümlere yapılan atıflar güncellenmiştir.</div>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261112-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+<div class='kiymet'>• Afet sonrası bina hasar tespiti gözetimi güvenlik ve trafik grubu tarafından, eşya sahiplerinin katılımıyla yürütülecek (Madde 1-2).</div>
+<div class='kiymet'>• Yönetmelik 22 Aralık 2026 tarihinde yürürlüğe giriyor (Madde 4).</div>
+<p><b>Ürün:</b> Afet sonrası bina hasar tespiti hizmetleri ve prosedürleri</p>
+<p><b>Kimi ilgilendirir:</b> Afet bölgelerinde bina hasar tespiti yapan resmi kurullar, güvenlik ve trafik görevlileri, müteahhitler, emlak danışmanları</p>
+<p><b>Ne yapmalısın:</b> Mevcut hasar tespiti prosedürlerinizi 22 Aralık 2026 itibarıyla yeni gözetim grubunun katılımını kapsayacak şekilde güncelleyin. Tahliye ve yerleştirme grubunun yerini alan güvenlik-trafik grubunun rolünü ve eşya sahibinin sorumluluğunu anlatan bilgilendirme materyalleri hazırlayın.</p>
+<p><b>Yürürlük:</b> 22.12.2026</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Değişiklik, hasar tespiti sürecindeki denetim görevini yeniden yapılandırıyor; güvenlik-trafik grubu ön plana çıkarken eşya sahibi de sürece dahil oluyor. Uygulamadaki fiili etki, bölge yöneticilerinin prosedürlerini güncellemesine bağlı olacak.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261112-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ <span style='color:var(--dim);font-weight:400'>· 12.11.2026</span></div>
@@ -93,20 +121,23 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ <span style='color:var(--dim);font-weight:400'>· 12.11.2026</span></div>
-<h3>Afet sonrası bina hasar tespitinde gözetim görevinin değiştirilmesi</h3>
-<p><b>Ne oldu:</b> İçişleri Bakanlığı, afet sonrası bina hasar tespiti sırasında hasar değerlendirme işlemlerini denetleyen grubun tanımını değiştirdi. Tahliye, yerleştirme ve planlama grubu yerine, işlemler artık güvenlik ve trafik grubunun gözetiminde, eşya sahipleri tarafından yürütülecek.</p>
-<p><b>Hangi tebliğ:</b> Afetler Sonrası Bina Hasar Tespiti Yapılmasına İlişkin Genel Kurallar Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<h3>Sigortacılık yönetmeliğinde kapsam ve mesafeli sözleşmelere ilişkin değişiklikler</h3>
+<p><b>Ne oldu:</b> Sigortacılık Kapsamında Değerlendirilecek Faaliyetler ve Mesafeli Akdedilen Sigorta Sözleşmeleri Hakkında Yönetmelik'te değişikliğe gidildi. Bu kapsamda amaç maddesi yeniden düzenlendi, kapsam genişletildi, üçüncü bölümün başlığı güncellendi ve 10. madde yürürlükten kaldırıldı.</p>
+<p><b>Hangi tebliğ:</b> 16/6/2021 tarihli ve 31513 sayılı Resmî Gazete'de yayımlanan Sigortacılık Kapsamında Değerlendirilecek Faaliyetler ve Mesafeli Akdedilen Sigorta Sözleşmeleri Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='karsi'><span class='kon'>15 inci madde</span><span class='hap eski'>tahliye yerleştirme ve planlama grubu gözetiminde</span><span class='ok'>→</span><span class='hap yeni'>güvenlik ve trafik grubu gözetiminde eşya sahiplerince</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>9 uncu madde</span><span class='hap eski'>10 uncu maddede</span><span class='ok'>→</span><span class='hap yeni'>12/11/2026 tarihli ve 33428 sayılı Resmî Gazete’de yayımlanan Bütünleşik Sigortalar Hakkında Yönetmelik kapsamında</span></div>
 <p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
-<div class='kiymet'>• Afet sonrası bina hasar tespiti gözetimi güvenlik ve trafik grubu tarafından, eşya sahiplerinin katılımıyla yürütülecek (Madde 1-2).</div>
-<div class='kiymet'>• Yönetmelik 22 Aralık 2026 tarihinde yürürlüğe giriyor (Madde 4).</div>
-<p><b>Ürün:</b> Afet sonrası bina hasar tespiti hizmetleri ve prosedürleri</p>
-<p><b>Kimi ilgilendirir:</b> Afet bölgelerinde bina hasar tespiti yapan resmi kurullar, güvenlik ve trafik görevlileri, müteahhitler, emlak danışmanları</p>
-<p><b>Ne yapmalısın:</b> Mevcut hasar tespiti prosedürlerinizi 22 Aralık 2026 itibarıyla yeni gözetim grubunun katılımını kapsayacak şekilde güncelleyin. Tahliye ve yerleştirme grubunun yerini alan güvenlik-trafik grubunun rolünü ve eşya sahibinin sorumluluğunu anlatan bilgilendirme materyalleri hazırlayın.</p>
-<p><b>Yürürlük:</b> 22.12.2026</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Değişiklik, hasar tespiti sürecindeki denetim görevini yeniden yapılandırıyor; güvenlik-trafik grubu ön plana çıkarken eşya sahibi de sürece dahil oluyor. Uygulamadaki fiili etki, bölge yöneticilerinin prosedürlerini güncellemesine bağlı olacak.</div>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261112-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+<div class='kiymet'>• Yönetmelik 12 Kasım 2026 tarihinde yürürlüğe girdi (m.6)</div>
+<div class='kiymet'>• 10. madde yürürlükten kaldırıldı (m.5)</div>
+<div class='kiymet'>• Yönetmelik kapsamına sigorta şirketleri, reasürans şirketleri, emeklilik şirketleri, sigorta aracıları ve ilgili kurumlar giriyor (m.2)</div>
+<p><b>Ürün:</b> Sigortacılık hizmetleri</p>
+<p><b>Kimi ilgilendirir:</b> Sigorta şirketleri, reasürans şirketleri, sigorta teminatı veren emeklilik şirketleri, sigorta aracıları, bankalar ve sigorta acenteliği yapma yetkisine sahip kurumlar</p>
+<p><b>Ne yapmalısın:</b> Yönetmeliğin güncel halini gözden geçirin; özellikle 10. maddenin yürürlükten kaldırılmasından etkileniyorsanız işlemlerinizi buna göre revize edin. Mesafeli sözleşme prosedürlerinde üçüncü bölüm başlığının değiştiğini de göz önünde bulundurun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Değişiklik idari ve prosedürel nitelik taşımaktadır. Yönetmeliğin kapsamı ile mesafeli akdedilen sigorta sözleşmelerine ilişkin düzenlemeler netleştirilmiş, 10. maddenin yürürlükten kaldırılmasıyla eski hükümlere yapılan atıflar güncellenmiştir.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261112-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ <span style='color:var(--dim);font-weight:400'>· 11.11.2026</span></div>
@@ -260,33 +291,6 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · nötr):</b> Yönetmelik, mevcut işletmelerin altı ay içinde uyum sağlamasını ve yeni açılacak merkezlerin sıkı prosedürlerle denetlenmesini zorunlu kılarken, hizmet kalitesi ve danışan koruması açısından belirli standartlar getiriyor. Aile danışmanlarının niteliklerinin yükseltilmesi ve ücretsiz hizmet yükümlülüğü ise hizmete erişimi etkileyebilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261107-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
-</div>
-<div class="kart">
-<div class='etiket' style='color:var(--amber)'>★ FIRSAT PENCERESİ — süreyi kaçırma <span style='color:var(--dim);font-weight:400'>· 06.11.2026</span></div>
-<h3>Organize Sanayi Bölgeleri Uygulama Yönetmeliğinde Katılımcı Temsili, Tahsis ve Üst Hakkı Düzenlemeleri</h3>
-<p><b>Ne oldu:</b> Sanayi ve Teknoloji Bakanlığı, Organize Sanayi Bölgeleri (OSB) Uygulama Yönetmeliği'nde kapsamlı değişiklikler yaptı. Tüzel kişi temsilinde yetki belgesi şartı getirildi, iş yeri ruhsatlarında elektronik imzaya geçildi, parsel tahsis süreci yeniden yapılandırıldı, ön tahsislerde hisse devri kontrolleri sıkılaştırıldı ve yeni bir 'üst hakkı' enstrümanı (gayrimenkul üzerinde sınırlı kullanım hakkı) tanıtıldı.</p>
-<p><b>Hangi tebliğ:</b> Organize Sanayi Bölgeleri Uygulama Yönetmeliği sayılı Tebliği değiştiriyor</p>
-<p><b>Neler değişti:</b></p>
-<div class='kiymet'>• MADDE 63/A eklendi</div>
-<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='karsi'><span class='kon'>19 uncu madde</span><span class='hap eski'>İmar planında</span><span class='ok'>→</span><span class='hap yeni'>Yapı kullanma izni alınmış olması şartıyla, imar planında</span></div>
-<div class='karsi'><span class='kon'>19 uncu madde</span><span class='hap eski'>Tüzel kişiliği temsil ve ilzama müşterek yetkili olanlar ile birden fazla</span><span class='ok'>→</span><span class='hap yeni'>Birden fazla</span></div>
-<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>OSB’nin tüzel kişilik kazanmasından parselasyon planının onaylanmasına kadar</span><span class='ok'>→</span><span class='hap yeni'>Tüzel kişilik kazanmış OSB’lerin yer seçimi kesinleştirilen alanlarında kamulaştırma ve altyapı inşa süreci tamamlanana kadar</span></div>
-<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
-<div class='kiymet'>• Tüzel kişi temsilinde genel kurula katılacak kişinin diğer müşterek yetkililer tarafından yazılı muvafakatnameyi ibraz etmesi gerekiyor (m.19/1).</div>
-<div class='kiymet'>• İş yeri açma ve çalışma ruhsatlarının çevrim içi sistemde elektronik ortamda imzalanması zorunlu (m.42/1).</div>
-<div class='kiymet'>• Komşu parsellerden tahsis talep eden üretime geçmiş katılımcılara ihale sonucu oluşan bedel üzerinden tahsis yapılmakta, başka başvurucu yoksa ihalenin yapılması mecburi (m.55/5).</div>
-<div class='kiymet'>• Bakanlık izni olmaksızın ön tahsis alan şirketin hisselerinde %49'u aşan ortaklık payı değişikliği tespit edilirse ön tahsis derhal iptal olur (m.61/5/1).</div>
-<div class='kiymet'>• Bakanlık onayıyla iptal edilen parsel, yeniden tahsis talep halinde ilan yapılmaksızın güncel bedelden aynı katılımcıya tahsis edilebilir (m.60/6).</div>
-<div class='kiymet'>• Yeniden tahsis edilen parsellere Bakanlık tarafından hiçbir şekilde süre uzatımı verilmez (m.60/7).</div>
-<div class='kiymet'>• OSB tahsis edilen parsellerde tahsis hakkı sahibinin gösterdiği gerçek/tüzel kişilere üst hakkı tesis edilebilir; bu hak tapu kütüğüne yazılmaz ve devredilmez (m.63/A/1).</div>
-<div class='kiymet'>• Üst hakkı lehtarının OSB mevzuatına aykırı fiillerinden tahsis hakkı sahibi de müteselsilen sorumlu (m.63/A/2).</div>
-<div class='kiymet'>• Bedelsiz tahsis edilen sanayi parsellerinde mülkiyet devrinden önce üst hakkı hükümleri uygulanmaz (m.63/A/3).</div>
-<p><b>Ürün:</b> Organize Sanayi Bölgelerinin (OSB) kuruluşu ve yönetimi</p>
-<p><b>Kimi ilgilendirir:</b> OSB katılımcıları (sanayi işletmeleri), OSB yönetim kurulları, parsel tahsis başvurusunda bulunan şirketler, kiralama talep eden gerçek ve tüzel kişiler, Sanayi ve Teknoloji Bakanlığı</p>
-<p><b>Ne yapmalısın:</b> Mevcut tahsis sözleşmelerinizi yeni hükümler açısından gözden geçirin; özellikle ön tahsis devri, hisse değişikliği kontrolü ve süre uzatımı konularına dikkat edin. İş yeri ruhsatlarınızın çevrim içi elektronik imza sürecine uygun olup olmadığını kontrol edin. Komşu parsellerde üretime geçmiş katılımcılar varsa, tahsis başvurularının ihale yoluna gidip gitmeyeceğini OSB'den teyit edin. Üst hakkı tesis etmeyi düşünüyorsanız gerekli kurum izinlerini önceden hazırlayın.</p>
-<p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/11/20261106-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
