@@ -80,8 +80,14 @@
     if(yetBekleyen) return yetBekleyen;
     yetBekleyen=new Promise(function(coz){
       var U=window.TetikteUye, bekle=(U&&U.hazir)?U.hazir:Promise.resolve(null);
-      bekle.then(function(){ var sb=window.__pkSb; if(!sb||!sb.rpc) return coz(null);
-        sb.rpc('s20y_liste').then(function(r){
+      bekle.then(function(){ var sb=window.__pkSb;
+        /* ana sayfada girişsiz ziyaretçide Supabase istemcisi yüklenmez (16.11 ölçüldü: __pkSb yok) → açık anahtarla düz REST çağrısı
+           (anahtar uye-durumu.js / fiyat-motoru.js'teki yayımlanabilir anahtar; s20y_liste anon'a açık, acik-rpc.txt A) */
+        var cagri=(sb&&sb.rpc)? sb.rpc('s20y_liste')
+          : fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/rpc/s20y_liste',{ method:'POST', body:'{}',
+              headers:{ apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', 'Content-Type':'application/json' } })
+              .then(function(x){ return x.ok? x.json().then(function(d){ return {data:d}; }) : {error:x.status}; });
+        cagri.then(function(r){
           var L=r&&!r.error&&r.data; if(!L||!L.denemeler||!L.denemeler.length) return coz(null);
           var simdi=Date.parse(L.simdi)||Date.now(), dersler={}, acik={};
           L.denemeler.forEach(function(d){ dersler[d.ders]=1; if(Date.parse(d.acilis)<=simdi&&(+d.toplam||0)>0) (acik[d.no]=acik[d.no]||{})[d.ders]=1; });
