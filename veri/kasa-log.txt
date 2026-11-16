@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261116071358
-Username: runnervmccnms\runner
-RunAs User: runnervmccnms\runner
+Start time: 20261116075207
+Username: ip-10-0-138-46\runner
+RunAs User: ip-10-0-138-46\runner
 Configuration Name: 
-Machine: runnervmccnms (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6bb2f738-c18e-4005-9017-f94959a5e9e2.ps1'
-Process ID: 2425
+Machine: ip-10-0-138-46 (Unix 7.0.0.1016)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/01f20d6d-50cf-40ce-9abf-bf8fbf8c30fd.ps1'
+Process ID: 2369
 PSVersion: 7.6.10
 PSEdition: Core
 GitCommitId: 7.6.10
@@ -108,8 +108,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        71x  Turkce|cumle ogeleri
        63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
-       62x  Finansal Tablolar ve Analizi|asit-test oranı
        62x  Maliyet Muhasebesi|satilan mamul maliyeti
+       62x  Finansal Tablolar ve Analizi|asit-test oranı
        60x  Finansal Muhasebe|supheli alacak karsiligi
        59x  Maliyet Muhasebesi|birim maliyet hesabi
 
@@ -170,7 +170,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      hesap plani (THP) : 1143
      toplam            : 4309
      standart+THP orani: %56.6
-  SITEDE (paket_soru): 10595 · KGK 1958 · SGS 4927 · SMMM 3710
+  SITEDE (paket_soru): 10624 · KGK 1958 · SGS 4927 · SMMM 3739
 
 -> veri/kasa-sayim.json
 -> arac sayimi: 0 kart tarandi, 0 calisan arac
@@ -180,5 +180,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20261116071522
+End time: 20261116075355
 **********************
