@@ -59,7 +59,10 @@ const GVK_DESEN = {
   gvk_tarife_dilim3: { ad: 'GVK 103 tarife 3. dilim üst sınırı (ücret dışı)', re: /fazlası % 20 ([\d.]+) TL['’]nin/, kelime: ['tarife', 'dilim', 'gelir vergisi'] },
   gvk_tarife_dilim3_ucret: { ad: 'GVK 103 tarife 3. dilim üst sınırı (ücret)', re: /\(ücret gelirlerinde ([\d.]+) TL['’]nin [\d.]+ TL['’]si için [\d.]+ TL\),? fazlası % 27/, kelime: ['tarife', 'dilim', 'ücret'] },
   gvk_tarife_dilim4: { ad: 'GVK 103 tarife 4. dilim üst sınırı', re: /fazlası % 27 ([\d.]+) TL['’]nin/, kelime: ['tarife', 'dilim', 'gelir vergisi'] },
-  gvk_mukerrer121: { ad: 'GVK mük.121 vergi indirimi tutar sınırı', re: /beyannamelerinde uygulanmak üzere ([\d.]+) TL olarak tespit/, kelime: ['vergi indirimi', '121'] },
+  // 17.11.2026: mük.121 tutarı Tebliğde "1/1/Y tarihinden itibaren VERİLMESİ GEREKEN ... beyannamelerinde" diye yazılır; Y yılında
+  //   verilen beyanname Y-1 GELİR yılınındır. Kütükteki yıl gelir yılı olduğundan bu kalem Y-1'e yazılır (yilKaydir -1):
+  //   Seri 329 (RG 30/12/2024 2.Mük.) → 2024 gelir yılı 9.900.000 · Seri 332 (RG 31/12/2025 5.Mük.) → 2025 gelir yılı 12.000.000.
+  gvk_mukerrer121: { ad: 'GVK mük.121 vergi indirimi tutar sınırı', re: /beyannamelerinde uygulanmak üzere ([\d.]+) TL olarak tespit/, kelime: ['vergi indirimi', '121'], yilKaydir: -1 },
 };
 const GVK_TEBLIG = [['gvkgt329', '2025'], ['gvkgt332', '2026']];
 
@@ -76,7 +79,8 @@ function uret() {
     const govde = m.t.slice(i, i + 6000);
     for (const [id, d] of Object.entries(GVK_DESEN)) {
       const r = govde.match(d.re);
-      if (r) ekle(id, d.ad, d.kelime, yil, r[1], m.kaynak, govde.slice(Math.max(0, r.index - 60), r.index + r[0].length)); else olculmedi.push(`${id} ${yil}: desen tutmadı (${slug})`);
+      const kyil = d.yilKaydir ? String(Number(yil) + d.yilKaydir) : yil;
+      if (r) ekle(id, d.ad, d.kelime, kyil, r[1], m.kaynak, govde.slice(Math.max(0, r.index - 60), r.index + r[0].length)); else olculmedi.push(`${id} ${kyil}: desen tutmadı (${slug})`);
     }
   }
   // Damga Vergisi Kanunu m.14 azami tutar - her yıl ayrı genel tebliğ
@@ -97,6 +101,7 @@ function uret() {
   olculmedi.push('asgari_ucret 2025: Asgari Ücret Tespit Komisyonu 2025 kararı ambarda yok');
   olculmedi.push('VUK m.370 izaha davet haddi: ambardaki VUK metni yalnız güncel tutarı (870.000) taşıyor, YILI ve 2025 değeri ölçülmedi');
   olculmedi.push('SGK prim tavanı/tabanı, MTV, harç, veraset istisnaları: kütüğe henüz alınmadı');
+  olculmedi.push('gvk_mukerrer121 2026 gelir yılı: 2027\'de verilecek beyannamelerin tutarını belirleyen tebliğ ambarda yok');
   return {
     aciklama: 'Yıl yıl değişen tutarlar; ÜRETİCİ arac/yillik-tutar-kutugu.js (elle düzenlenmez). Kapı: arac/yillik-tutar-kapisi.js.',
     sinav_yili_kurali: 'Y yılında yapılan sınav Y-1 yılının gelir/tutarlarını sorar (ölçüm 22.10.2026: 2025 sınavlarında vergi soruları 2024, 2026/1-2026/2\'de 2025 yılını kullanıyor). Soru yılı = sınavın sorduğu yıl (Cem 22.10.2026).',
