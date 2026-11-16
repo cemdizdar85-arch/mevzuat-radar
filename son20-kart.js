@@ -69,5 +69,32 @@
       return o;
     });
   }
-  window.ttSon20={ durum:durum, KURAL:KURAL };
+  /* 16.11 (Cem ekranda gördü: ana sayfa "1. denemeler açık" diye eski kalmıştı): Yeterlilik'te hangi denemenin kaç derste açık
+     olduğu sabit yazılmaz, s20y_liste'den (girişsiz de çağrılır) hesaplanır. Açık = s20y_deneme satırı var, sorusu var, açılışı geçmiş.
+     Döner: null (veri yok/hata) ya da kısa başlık, ör. "1. ve 2. denemeler açık · 3. deneme 8 dersin 5'inde açık".
+     🚫 GÖRMEZ: kişinin kendi kilidi (önceki deneme çözülmeden açılmaz) — bu genel durum, üye ekranı son-20-gun.html'de. */
+  var yetBekleyen=null;
+  function sirali(a){ return a.length<2? a[0]+'.' : a.slice(0,-1).join('., ')+'. ve '+a[a.length-1]+'.'; }
+  function ekBul(k){ return ({1:'inde',2:'sinde',3:'ünde',4:'ünde',5:'inde',6:'sında',7:'sinde',8:'inde'})[k]||'inde'; }   /* 5'inde, 6'sında */
+  function yetOzet(){
+    if(yetBekleyen) return yetBekleyen;
+    yetBekleyen=new Promise(function(coz){
+      var U=window.TetikteUye, bekle=(U&&U.hazir)?U.hazir:Promise.resolve(null);
+      bekle.then(function(){ var sb=window.__pkSb; if(!sb||!sb.rpc) return coz(null);
+        sb.rpc('s20y_liste').then(function(r){
+          var L=r&&!r.error&&r.data; if(!L||!L.denemeler||!L.denemeler.length) return coz(null);
+          var simdi=Date.parse(L.simdi)||Date.now(), dersler={}, acik={};
+          L.denemeler.forEach(function(d){ dersler[d.ders]=1; if(Date.parse(d.acilis)<=simdi&&(+d.toplam||0)>0) (acik[d.no]=acik[d.no]||{})[d.ders]=1; });
+          var n=Object.keys(dersler).length, tam=[], kismi=[];
+          Object.keys(acik).map(Number).sort(function(a,b){ return a-b; }).forEach(function(no){ var k=Object.keys(acik[no]).length; if(k>=n) tam.push(no); else kismi.push({no:no,k:k}); });
+          if(!tam.length&&!kismi.length) return coz(null);
+          var p=[]; if(tam.length) p.push(sirali(tam)+(tam.length>1?' denemeler':' deneme')+' açık');
+          kismi.forEach(function(x){ p.push(x.no+'. deneme '+n+' dersin '+x.k+'\''+ekBul(x.k)+' açık'); });
+          coz(p.join(' · '));
+        },function(){ coz(null); });
+      },function(){ coz(null); });
+    });
+    return yetBekleyen;
+  }
+  window.ttSon20={ durum:durum, KURAL:KURAL, yetOzet:yetOzet };
 })();

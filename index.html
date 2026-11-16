@@ -594,8 +594,10 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     if(Date.now()>=sonT){ B.hidden=true; return; }
     B.hidden=false; var once=Date.now()<acT;
     $('s20bEt').textContent=(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün';
-    $('s20bBas').textContent=yet? (once?'Her dersin 1. denemesi 8 Kasım\'da açılıyor':'1. denemeler açık, sonrakiler sırayla')
+    $('s20bBas').textContent=yet? (once?'Her dersin 1. denemesi 8 Kasım\'da açılıyor':'Denemeler sırayla açılıyor')
                                 : (once?'7 deneme, 1 Kasım\'da açılıyor':'7 deneme açık');
+    /* 16.11: Yeterlilik'te hangi deneme açık, sabit yazılmaz; s20y_liste'den hesaplanır (son20-kart.js yetOzet) */
+    if(yet&&!once&&window.ttSon20&&ttSon20.yetOzet) ttSon20.yetOzet().then(function(m){ if(m&&secili()==='yeterlilik') $('s20bBas').textContent=m; });
     $('s20bOzet').textContent=yet? 'Her dersin 5 denemesi (20 soru, 45 dakika). Her denemeden sonra eksik konularını kapatırsın.'
                                  : '130\'ar soruluk 7 deneme, sınavdaki ders dağılımıyla · Takvim: 3 günde 1 deneme, 1–20 Kasım.';
     var adres=yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
@@ -778,7 +780,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <script src="paket-kartlari.js?v=7"></script>
 <script src="gkt.js?v=20261101g5"></script>
 <script src="uye-durumu.js?v=20261028z"></script>
-<script src="son20-kart.js?v=20261107a"></script>
+<script src="son20-kart.js?v=20261116a"></script>
 <script src="uygulama-indir.js?v=20261028m"></script>
 <script>
 (function(){
@@ -891,7 +893,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            28.10 Cem: tüm derslerde 7 Kasım 23:59'a kadar erken kayıt (fiyat-motoru.js ERKEN_YET), sonraki fiyat yazılır. */
         h='1 ders <b>'+fiyatAna('yeterlilik-1',a.fiyat)+'</b>\'den · tüm dersler <b>'+fiyatAna('yeterlilik-tum',tn||t.fiyat)+'</b><small>KDV dahil '+tl(a.fiyat)+' TL / '+tl(tn||t.fiyat)+' TL'
           +(tn?' · erken kayıt 7 Kasım 23:59\'a kadar, sonra tüm dersler '+tl(t.fiyat)+' TL':' · ders sayısını satın alırken seçersin')
-          +(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, '+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'ilk denemeler 8 Kasım\'da':'1. denemeler açık'):'')+'</small>'; }   /* 08.11 Cem: açıldıktan sonra "8 Kasım'da" demesin */
+          +(paketBul('son20-yet')?' · Son 20 Gün Sadece Denemeler '+tl(paketBul('son20-yet').fiyat)+' TL, '+(Date.now()<Date.parse('2026-11-08T00:00:00+03:00')?'ilk denemeler 8 Kasım\'da':'denemeler sırayla açılıyor'):'')+'</small>'; }   /* 08.11 Cem: açıldıktan sonra "8 Kasım'da" demesin */
     }catch(x){ h=''; }
     e.innerHTML=h; e.hidden=!h||aktif;
   }
