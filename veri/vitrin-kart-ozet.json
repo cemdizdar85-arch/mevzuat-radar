@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-11-16T00:55:15.714Z",
-  "gun": "2026-11-16",
+  "olcum": "2026-11-17T03:40:41.213Z",
+  "gun": "2026-11-17",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 9,
+      "sira": 0,
       "toplam": 10,
-      "id": "sgs-t2-fmuh-zor/kp-01",
+      "id": "sgs-t2-fmuh-cokzor/kp-01",
       "ders": "Finansal Muhasebe",
-      "konu": "tms 40 yatırım amaçlı gayrimenkul",
-      "donem": 8,
-      "teori": false,
+      "konu": "muhasebe bilgi sistemi",
+      "donem": 10,
+      "teori": true,
       "rakamSik": false,
-      "soru": "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026'da tamamlamıştır. İnşaat sürecinde arsa bedeli 850.000 TL, inşaat harcamaları 620.000 TL olup 258 Yapılmakta Olan Yatırımlar hesabındadır. Tamamlanma tarihindeki gerçeğe uygun değeri 1.610.000 TL'dir. Buna göre yapılacak kayıt aşağıdakilerden hangisidir?",
+      "soru": "İşletmenin muhasebe departmanı 2026 yılı Aralık ayında şu işlemleri gerçekleştirmiştir: Yevmiyede 153 Ticari Mallar hesabına kaydedilmesi gereken 18.000 TL'lik mal alışı sehven 255 Demirbaşlar hesabına borç kaydedilmiş, karşılığında 100 Kasa hesabı doğru tutarla alacaklandırılmıştır; ayrıca dönem sonu envanter ve değerleme işlemleri tamamlanmıştır. Bu bilgilere göre aşağıdakilerden hangisi her zaman doğrudur?",
       "siklar": {
-        "A": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 140.000 TL alacak kaydedilir.",
-        "B": "659 DİĞER OLAĞAN GİDER VE ZARARLAR hesabı 140.000 TL borç kaydedilir.",
-        "C": "258 YAPILMAKTA OLAN YATIRIMLAR hesabı 140.000 TL borç kaydedilir.",
-        "D": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 990.000 TL alacak kaydedilir.",
-        "E": "Fark gerçekleşmemiş kâr sayıldığından hiçbir hesaba kaydedilmez, yalnız dipnotlarda açıklanır."
+        "A": "Genel geçici mizan, hatalı kayda rağmen borç ve alacak toplamları eşit çıkacağı için bu hata söz konusu mizanda tespit edilemez.",
+        "B": "Kesin mizan, envanter işlemlerinden önce düzenlenen mizandır ve mali tablolar doğrudan bu mizandan çıkarılır.",
+        "C": "Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını eşitsiz hale getireceğinden ilk düzenlenecek mizanda ortaya çıkar.",
+        "D": "Mali tablolar genel geçici mizandan düzenlenir, çünkü bu mizan dönem sonu envanter işlemlerini de kapsar.",
+        "E": "Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizanda hesap kalanları sıfırlanmış olarak görünür."
       },
       "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Hesap Seçimi Tuzağı",
-          "metin": "farkın, gayrimenkulün transfer edildiği 258 hesabına yazılacağını sanırsın. Doğrusu: 258 hesap yalnız defter değeriyle kapatılır, fark ayrı olarak gelir hesabına kaydedilir."
+          "ad": "Mizan Sınırı Tuzağı",
+          "metin": "öğrenci mizanı bir hata denetim aracı sanır, her yanlış kaydın mizanda görüneceğini düşünür. Doğrusu: mizan yalnız iki tarafın toplam eşitliğini gösterir; doğru tutarla ama yanlış hesaba yapılan kayıt eşitliği bozmadığı…"
         },
         "E": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "ihtiyatlılık düşüncesiyle gerçekleşmemiş kârın hiç kaydedilmeyeceğini sanırsın. Doğrusu: TMS 40 p.65 farkın muhasebeleştirilmemesine değil, doğrudan kâr/zarara yansıtılmasına hükmeder."
+          "ad": "Mizan Türü Karıştırma Tuzağı",
+          "metin": "öğrenci kesin mizan ile kapanış mizanını aynı aşama sanır, kalanların ne zaman sıfırlandığını yanlış yerleştirir. Doğrusu: kesin mizanda hesap kalanları hâlâ vardır, kalanların sıfırlanması ancak hesaplar kapatıldıktan …"
         },
         "D": {
-          "ad": "Tutar Tuzağı",
-          "metin": "arsa bedelini defter değerine katmayı unutup 1.610.000-620.000=990.000 hesaplarsın. Doğrusu: defter değeri arsa ve inşaat harcamalarının toplamıdır, 850.000+620.000=1.470.000 alınmalıdır."
+          "ad": "Kapsam-Sıra Karışımı Tuzağı",
+          "metin": "öğrenci genel geçici mizanın da envanter kayıtlarını içerdiğini sanarak iki farklı kuralı (mizan türü sırası ve mali tablo kaynağı) birlikte yanlış kurar. Doğrusu: genel geçici mizan envanterden önceki durumu gösterir, …"
         },
         "B": {
-          "ad": "Taraf Tuzağı",
-          "metin": "farkın kâr olduğunu göremeyip zarar sanarak gider hesabına borç yazarsın. Doğrusu: gerçeğe uygun değer defter değerinden büyük olduğundan fark kârdır, gelir hesabına alacak kaydedilir."
+          "ad": "Sıra Tuzağı",
+          "metin": "öğrenci genel geçici mizan ile kesin mizanın zamanlamasını karıştırır, envanterden önce/sonra ayrımını ters kurar. Doğrusu: kesin mizan envanter ve dönem sonu kayıtlarından SONRA düzenlenir, genel geçici mizan ise envan…"
         }
       },
-      "hap": "Kendi inşa edilen ve gerçeğe uygun değerle izlenen yatırım amaçlı gayrimenkul tamamlandığında, tamamlanma tarihindeki gerçeğe uygun değer ile önceki defter değeri arasındaki fark kâr veya zarar olarak finansal tablolara yansıtılır.",
+      "hap": "Mizan yalnız borç toplamı = alacak toplamı eşitliğini denetler; yanlış hesaba doğru tutarla yapılan kayıt bu eşitliği bozmadığı için hiçbir mizan türünde görünmez.",
       "satirlar": [
         [
-          "Toplam defter değeri (arsa + inşaat harcamaları)",
-          "1.470.000"
+          "A) Genel geçici mizan, hatalı kayda rağmen borç ve alacak t…",
+          "p.mizan sınırı"
         ],
         [
-          "Değerleme farkı (1.610.000 - 1.470.000)",
-          "140.000"
+          "B) Kesin mizan, envanter işlemlerinden önce düzenlenen miza…",
+          "p.mizan türleri"
         ],
         [
-          "649 Diğer Olağan Gelir ve Kârlar hesabına alacak kaydedilecek tutar",
-          "140.000"
+          "C) Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını…",
+          "p.mizan sınırı"
+        ],
+        [
+          "D) Mali tablolar genel geçici mizandan düzenlenir, çünkü bu…",
+          "p.mizan türleri"
+        ],
+        [
+          "E) Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizan…",
+          "p.mizan türleri"
         ]
       ],
-      "dayanak": "TMS 40 p.65",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=9",
+      "dayanak": "Muhasebe süreci ve mizan türleri - ders kitabı bilgisi (mizan sınırı ve genel geçici/kesin mizan ayrımı)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -33,
+        "kalan_gun": -34,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,71 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 4,
+      "sira": 5,
       "toplam": 9,
-      "id": "smmm-4k-a-ymeslek-kolay-r4/kp-02",
-      "ders": "Meslek Hukuku",
-      "konu": "meslekten çıkarma cezası",
+      "id": "smmm-4k-a-yspk-zor-r8/kp-01",
+      "ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "sermaye piyasası kurumları",
       "donem": 6,
       "teori": true,
       "rakamSik": false,
-      "soru": "Serbest muhasebeci mali müşavir Ahmet, mükellefiyle birlikte kasten vergi ziyaına sebebiyet vermiş ve bu husus mahkeme kararı ile kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre Ahmet hakkında hangi disiplin cezası uygulanır?",
+      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun 35. maddesinde, bu Kanuna göre faaliyette bulunabilecek sermaye piyasası kurumları tek tek sayılmıştır. Buna göre, aşağıdakilerden hangisi 6362 sayılı Kanun'un 35. maddesinde sayılan sermaye piyasası kurumlarından biri değildir?",
       "siklar": {
-        "A": "Uyarma",
-        "B": "Kınama",
-        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
-        "D": "Yeminli sıfatını kaldırma",
-        "E": "Meslekten çıkarma"
+        "A": "Merkezî takas kuruluşları",
+        "B": "Konut finansmanı ve varlık finansmanı fonları",
+        "C": "Veri depolama kuruluşları",
+        "D": "Varlık kiralama şirketleri",
+        "E": "Faktoring şirketleri"
       },
       "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Geçici Alıkoyma Tuzağı",
-          "metin": "Öğrenci bunu, tasdik yetkisinin gerçeğe aykırı kullanıldığının Maliye Bakanlığınca ilk tespiti hâlindeki cezayla karıştırıyor; o kural yalnız yeminli mali müşavirlere ve farklı bir fiile ilişkindir. Doğrusu: kasten verg…"
+          "ad": "Yeni Kurum Yabancılaşması Tuzağı",
+          "metin": "Öğrenci veri depolama kuruluşlarını teknik-idari bir birim sanıp Kanun kapsamı dışında görür. Doğrusu: Veri depolama kuruluşları madde 35/1-h bendinde sermaye piyasası kurumu olarak sayılmıştır."
         },
         "A": {
-          "ad": "Uyarma Tuzağı",
-          "metin": "Öğrenci bu cezayı 'mesleğin vakar ve onuruna aykırı ilk fiil' kuralıyla karıştırıyor. Doğrusu: mükellefle birlikte kasten vergi ziyaına sebebiyet verilip mahkeme kararı kesinleşmesi hali doğrudan meslekten çıkarmayı ger…"
+          "ad": "Kapsam Daraltma Tuzağı",
+          "metin": "Öğrenci takas kuruluşlarını borsa bünyesinde bir birim sanıp ayrı bir kurum türü olarak Kanun'da sayılmadığını düşünür. Doğrusu: Merkezî takas kuruluşları madde 35/1-g bendinde sermaye piyasası kurumu olarak açıkça sayı…"
         },
         "D": {
-          "ad": "Yeminli Sıfatını Kaldırma Tuzağı",
-          "metin": "Öğrenci bunu, tasdik yetkisinin gerçeğe aykırı kullanılmasının tekerrür edip mahkeme kararıyla kesinleşmesi hâlindeki cezayla karıştırıyor; bu ceza yalnız yeminli mali müşavire ve tasdik fiiline özgüdür. Doğrusu: burada…"
+          "ad": "Sukuk Aracı Karıştırma Tuzağı",
+          "metin": "Öğrenci varlık kiralama şirketlerini yalnız kira sertifikası çıkaran bir araç sanıp ayrı kurum sayılmadığını düşünür. Doğrusu: Varlık kiralama şirketleri madde 35/1-f bendinde sermaye piyasası kurumu olarak sayılmıştır."
         },
         "B": {
-          "ad": "Kınama Tuzağı",
-          "metin": "Öğrenci 'ilk defasında uyarma, tekrarında kınama' kuralını bu olaya uyguluyor; oysa bu kural vakar ve onura aykırı genel davranışlar içindir. Doğrusu: kasten vergi ziyaı fiilinde tekerrür şartı aranmaz, doğrudan meslekt…"
+          "ad": "Fon-Kurum Karıştırma Tuzağı",
+          "metin": "Öğrenci tüzel kişiliği bulunmayan fonların kurum sayılmayacağını düşünür. Doğrusu: Konut finansmanı ve varlık finansmanı fonları madde 35/1-e bendinde sermaye piyasası kurumu olarak sayılmıştır."
         }
       },
-      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararı ile kesinleşen meslek mensubuna, tekerrür şartı olmaksızın doğrudan meslekten çıkarma cezası verilir.",
+      "hap": "6362 sayılı Kanun m.35/1'de sayılan sermaye piyasası kurumları arasında faktoring şirketleri yoktur; bunlar 6361 sayılı Kanun'a tabidir. Bankalar ise m.3/1-v gereği yatırım kuruluşu olarak m.35/1-a kapsamındadır.",
       "satirlar": [
         [
-          "A) Uyarma",
-          "p.48/2"
+          "A) Merkezî takas kuruluşları",
+          "m.35/1-g"
         ],
         [
-          "B) Kınama",
-          "p.48/2"
+          "B) Konut finansmanı ve varlık finansmanı fonları",
+          "m.35/1-e"
         ],
         [
-          "C) Geçici olarak mesleki faaliyetten alıkoyma",
-          "p.48/3-4"
+          "C) Veri depolama kuruluşları",
+          "m.35/1-h"
         ],
         [
-          "D) Yeminli sıfatını kaldırma",
-          "p.48/4"
+          "D) Varlık kiralama şirketleri",
+          "m.35/1-f"
         ],
         [
-          "E) Meslekten çıkarma",
-          "p.48/5"
+          "E) Faktoring şirketleri",
+          "m.35/1"
         ]
       ],
-      "dayanak": "3568 sayılı SMMM ve YMM Kanunu m.48, fıkra 5",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=4",
+      "dayanak": "6362 sayılı Sermaye Piyasası Kanunu m.35/1 (a–ı bentleri), m.3/1-v (yatırım kuruluşu bankaları kapsar); 6361 sayılı Kanun m.1 (faktoring şirketleri)",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=5",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -27,
+        "kalan_gun": -28,
         "durum": "DONGU",
         "mail_gunu": false
       },
