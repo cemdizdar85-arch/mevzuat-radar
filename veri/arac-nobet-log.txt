@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261117205009
-Username: runnervmccnms\runner
-RunAs User: runnervmccnms\runner
+Start time: 20261118034319
+Username: ip-10-0-143-193\runner
+RunAs User: ip-10-0-143-193\runner
 Configuration Name: 
-Machine: runnervmccnms (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/7752c078-ab84-43ab-92d0-fd632bfb0f79.ps1'
-Process ID: 2687
+Machine: ip-10-0-143-193 (Unix 7.0.0.1016)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/cd28ce16-167a-4e8c-a1ba-09b78fb548b9.ps1'
+Process ID: 2735
 PSVersion: 7.6.10
 PSEdition: Core
 GitCommitId: 7.6.10
@@ -17,12 +17,24 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 17-11-2026
+RG gunu      : 18-11-2026
 Kart sayisi  : 1
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-damping.json   (arac: gtip.html)
+      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
+      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
+      <- Sentetik iplik ithalatında dampinge karşı önlemler yeniden değerlendirildi
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261117205009
+End time: 20261118034319
 **********************
