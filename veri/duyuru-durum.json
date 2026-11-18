@@ -1,12 +1,12 @@
 {
-  "guncelleme": "18.11.2026 11:40",
+  "guncelleme": "18.11.2026 21:26",
   "kurumDurumlari": [
     {
       "kurum": "TESMER",
       "durum": "KIRMIZI",
       "linkSayisi": 0,
       "yeni": 0,
-      "hata": "Conversion from JSON failed with error: Unexpected character encountered while parsing value: <. Path '', line 0, position 0."
+      "hata": "Response status code does not indicate success: 403 (Forbidden)."
     },
     {
       "kurum": "KGK",
@@ -19,7 +19,7 @@
       "kurum": "SGK",
       "durum": "YESIL",
       "linkSayisi": 6,
-      "yeni": 0,
+      "yeni": 1,
       "hata": ""
     },
     {
@@ -33,7 +33,7 @@
       "kurum": "TURMOB",
       "durum": "YESIL",
       "linkSayisi": 10,
-      "yeni": 1,
+      "yeni": 0,
       "hata": ""
     },
     {
@@ -116,6 +116,7 @@
     "https://www.sgk.gov.tr/duyuru/detay/Bedeli-Odenecek-Ilaclar-Listesinde-Yapilan-Duzenlemeler-Hakkinda-Duyuru-202642-2026-10-28-08-31-43",
     "https://www.sgk.gov.tr/duyuru/detay/Bedeli-Odenecek-Ilaclar-Listesinde-Yapilan-Duzenlemeler-Hakkinda-Duyuru-202643-2026-11-04-06-22-08",
     "https://www.sgk.gov.tr/duyuru/detay/Bedeli-Odenecek-Ilaclar-Listesinde-Yapilan-Duzenlemeler-Hakkinda-Duyuru-202644-2026-11-11-01-53-50",
+    "https://www.sgk.gov.tr/duyuru/detay/Bedeli-Odenecek-Ilaclar-Listesinde-Yapilan-Duzenlemeler-Hakkinda-Duyuru-202645-2026-11-18-03-55-22",
     "https://www.sgk.gov.tr/duyuru/detay/Danistay-Karari-Hakkinda-2026-08-10-01-52-37",
     "https://www.sgk.gov.tr/duyuru/detay/Dinamik-Alim-Sisteminde-Kullanilacak-Munferit-Alim-Dokumani-Taslaklari-Hakkinda-2026-11-02-02-50-59",
     "https://www.sgk.gov.tr/duyuru/detay/e-Borcu-Yoktur-Sisteminin-Guncellenmesi-Hakkinda-Duyuru-2026-09-28-02-15-39",
