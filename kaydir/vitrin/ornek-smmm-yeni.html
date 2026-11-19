@@ -60,16 +60,20 @@ svg{display:block}
 .ned{background:var(--dolgu);border-radius:16px;padding:13px 15px;margin:10px 0 0;font-size:15px;line-height:1.5}
 .ned b{display:block;margin-bottom:2px}
 .ned span{display:block;color:var(--soluk);font-size:13.5px;margin-top:4px;font-variant-numeric:tabular-nums}
-.kyt{margin:14px 0 0;border:1.5px solid var(--cizgi);border-radius:16px;overflow:hidden;font-size:14.5px;line-height:1.35;font-variant-numeric:tabular-nums;background:var(--kagit)}
-.kr{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:8px;padding:10px 12px;border-top:1px solid var(--cizgi);align-items:center}
+.kyt{margin:6px 0 0;font-size:15.5px;line-height:1.35;font-variant-numeric:tabular-nums}
+.kr{display:grid;grid-template-columns:1.25fr .9fr .9fr;gap:10px;padding:13px 10px;border-bottom:1px solid var(--cizgi);align-items:center}
 .kr span:nth-child(n+2){text-align:right}
-.kr span:nth-child(3){font-weight:600}
-.kr.bs{border-top:0;background:var(--dolgu);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--soluk)}
-.kr.fk{background:var(--sariZ)}
-.kr.fk span:nth-child(2),.kr.snc span:nth-child(2){color:var(--hata);font-weight:700}
-.kr.snc{border-top:1.5px solid var(--murekkep);font-weight:700}
+.kr.bs{padding:6px 10px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ince)}
+.kr.fk{background:var(--sariZ);border-radius:10px;border-bottom-color:transparent;font-weight:600}
+.kr.fk span:nth-child(3){font-weight:700}
+.kr.tp{font-weight:700}
+.kr.ay span:nth-child(2){color:var(--hata)}
+.kr.snc{border-bottom:0;padding-top:16px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.kr.snc span:nth-child(2){color:var(--hata)}
 .kr.snc span:nth-child(3){color:var(--ok)}
-.ned .kyt{margin-top:8px}
+.ned .kyt{margin-top:8px;font-size:14px}
+.ned .kr{padding:9px 4px}
+.ned .kr.snc{font-size:16px}
 .geri{color:var(--soluk);font-size:14.5px;height:40px;margin:-4px 0 2px;display:inline-flex;align-items:center;gap:4px}
 .etk{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:26px 0 6px}
 .etk.no{color:var(--hata)}.etk.ok{color:var(--ok)}
@@ -154,20 +158,40 @@ const ayirt=(q,h)=>(q.teshis&&q.teshis[h]&&q.teshis[h].ayirt)||'';
 const kisa=(q,h)=>(q.sade&&q.sade.siklar&&q.sade.siklar[h])||(q.tuzak&&q.tuzak[h]&&q.tuzak[h].metin)||'';
 const tuzakAd=(q,h)=>(q.tuzak&&q.tuzak[h]&&q.tuzak[h].ad)||'';
 const TB={
- 'smmm-4k-a-yfta-kolay-r6/kp-01':{s:[['Pay: satılan malın maliyeti','405.000'],['Payda: ortalama stok','45.000'],['Stok devir hızı','9']],
-  sen:{A:['405.000','90.000 (toplam stok)','4,5'],B:['405.000','60.000 (dönem sonu)','6,75'],D:['495.000 (net satışlar)','45.000','11'],E:['405.000','30.000 (dönem başı)','13,5']}},
- 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{s:[['Brüt kira','900.000'],['Yöntem','Götürü (2 yıl dolmadı)'],['İndirilen gider','135.000 (%15)'],['Safi irat','765.000']],
-  sen:{A:['900.000','Götürü','180.000 (%20)','720.000'],B:['900.000','Gerçek gider','145.000 (ceza dahil)','755.000'],D:['900.000','Gerçek gider','130.000','770.000'],E:['900.000','Gider yok','0','900.000']}},
- 'smmm-4k-a-fmuh-zor-r3/kp-02':{s:[['Gider fazlası (kârı azaltır)','140.000'],['Gelir fazlası (kârı artırır)','40.000'],['Sonuç','100.000 ₺ düşük']],
-  sen:{A:['bakılmadı','40.000','40.000 ₺ yüksek'],B:['140.000','bakılmadı','140.000 ₺ yüksek'],C:['140.000','40.000','100.000 ₺ yüksek'],D:['140.000','bakılmadı','140.000 ₺ düşük']}},
- 'smmm-w3-maliyet-cokzor/kp-10':{s:[['Birim sabit gider','28,8'],['Atıl kapasite','2.400'],['Fiili üretim','9.600']],
-  sen:{A:['28,8','2.400','2.400 (çıkarılmadı)'],B:['14,4 (yarısı)','4.800','4.800'],D:['28,8','yok sayıldı','12.000'],E:['28,8','2.400','14.400 (eklendi)']}}
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{tut:'Devir hızında pay satılan malın maliyeti, payda iki stoğun ortalamasıdır.',
+  s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t'],['Stok devir hızı','9']],
+  sen:{A:{b:'Stokların ortalamasını almadın.',v:['405.000','30.000','60.000','90.000','4,5']},
+       B:{b:'Yalnız dönem sonu stoğu aldın.',v:['405.000','—','60.000','60.000','6,75']},
+       D:{b:'Paya net satışları yazdın.',v:['495.000','30.000','60.000','45.000','11']},
+       E:{b:'Yalnız dönem başı stoğu aldın.',v:['405.000','30.000','—','30.000','13,5']}}},
+ 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{tut:'Götürü gideri seçen, iki yıl geçmeden gerçek gidere dönemez.',
+  s:[['Brüt kira','900.000'],['Yöntem','Götürü'],['Sigorta, onarım, amortisman','—'],['Trafik cezası','—'],['Götürü gider (%15)','135.000'],['Safi irat','765.000']],
+  sen:{A:{b:'Götürü oranını %20 aldın.',v:['900.000','Götürü','—','—','180.000','720.000']},
+       B:{b:'Gerçek gidere geçtin, cezayı da düştün.',v:['900.000','Gerçek','130.000','15.000','—','755.000']},
+       D:{b:'İki yıl dolmadan gerçek gidere geçtin.',v:['900.000','Gerçek','130.000','—','—','770.000']},
+       E:{b:'Hiç gider düşmedin.',v:['900.000','Yok','—','—','—','900.000']}}},
+ 'smmm-4k-a-fmuh-zor-r3/kp-02':{tut:'Peşin ödenen ve peşin alınan kiranın yalnız bu yıla düşen ayları kâra girer.',
+  s:[['Yazılan kira gideri','180.000'],['2026\'ya ait gider (4 ay)','40.000'],['Gider fazlası (kârı azaltır)','140.000','t'],['Yazılan kira geliri','60.000'],['2026\'ya ait gelir (2 ay)','20.000'],['Gelir fazlası (kârı artırır)','40.000','t'],['Kâr','100.000 ₺ düşük']],
+  sen:{A:{b:'Gider tarafına bakmadın.',v:['—','—','—','60.000','20.000','40.000','40.000 ₺ yüksek']},
+       B:{b:'Geliri atladın, yönü de ters aldın.',v:['180.000','40.000','140.000','—','—','—','140.000 ₺ yüksek']},
+       C:{b:'Tutar doğru, yön ters.',v:['180.000','40.000','140.000','60.000','20.000','40.000','100.000 ₺ yüksek']},
+       D:{b:'Gelir tarafına bakmadın.',v:['180.000','40.000','140.000','—','—','—','140.000 ₺ düşük']}}},
+ 'smmm-w3-maliyet-cokzor/kp-10':{tut:'Fiili üretim, normal kapasiteden atıl kapasite çıkarılarak bulunur.',
+  s:[['Sabit gider bütçesi','345.600'],['Normal kapasite','12.000'],['Birim sabit gider','28,8','t'],['Atıl kapasite (69.120 ÷ birim gider)','2.400','t'],['Fiili üretim','9.600']],
+  sen:{A:{b:'Atıl kapasitede durdun, çıkarmadın.',v:['345.600','12.000','28,8','2.400','2.400']},
+       B:{b:'Birim gideri yarıya indirdin.',v:['345.600','12.000','14,4','4.800','4.800']},
+       D:{b:'Boş kapasiteyi hesaba katmadın.',v:['345.600','12.000','—','—','12.000']},
+       E:{b:'Atıl kapasiteyi çıkaracakken ekledin.',v:['345.600','12.000','28,8','2.400','14.400']}}}
 };
 const bsz=t=>String(t).replace(/\s/g,'');
+function tbl(q,h){
+ const T=TB[q.id];if(!T||!T.sen[h])return null;const n=T.s.length-1;
+ if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1]))||!bsz(q.siklar[h]).startsWith(bsz(T.sen[h].v[n])))return null;
+ return T;
+}
 function tabloH(q,h){
- const T=TB[q.id];if(!T||!T.sen[h])return '';const n=T.s.length-1;
- if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1]))||!bsz(T.sen[h][n]).startsWith(bsz(String(q.siklar[h]).replace(/ gösterilmiştir$/,''))))return '';
- return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${T.sen[h][i]!==r[1]?(i===n?'snc':'fk'):''}"><span>${kac(r[0])}</span><span>${kac(T.sen[h][i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+ const T=tbl(q,h);if(!T)return '';const n=T.s.length-1,v=T.sen[h].v;
+ return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':v[i]!==r[1]?'fk':''} ${r[2]==='t'?'tp':''} ${v[i]!==r[1]?'ay':''}"><span>${kac(r[0])}</span><span>${kac(v[i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
 }
 function dersi(q){
  const d=[];const a=S.sec&&S.sec!==q.dogru?ayirt(q,S.sec):'';
@@ -186,15 +210,15 @@ function eSoru(){
 function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru,son=S.i>=SORULAR.length-1;
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
-  (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
+  (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
  const tb=dg?'':tabloH(q,S.sec);
  const nbr=`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, sesli, adım adım</small></span></button>`;
  const coz=q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'';
- const tut=q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
+ const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
  return `<div class="hd">${seg()}</div><div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
  ${dg?`<p class="etk ok">${S.ikinci?'Doğru · ikinci denemede':'Doğru'}</p><h1>${S.ikinci?'Bu kez gördün.':'Doğru.'}</h1>${coz}`
-     :`<p class="etk no">Yanlış</p><h1>${kac(tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}`}
+     :`<p class="etk no">Yanlış</p><h1>${kac(T0?T0.sen[S.sec].b:tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}`}
  ${nbr}</div>
  <div class="ft">${dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri}</div>`;
 }
