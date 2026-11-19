@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261118202528
+Start time: 20261119032121
 Username: runnervmccnms\runner
 RunAs User: runnervmccnms\runner
 Configuration Name: 
 Machine: runnervmccnms (Unix 7.0.0.1019)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/85311fd0-cd5d-458b-8368-cd4a7618c7fb.ps1'
-Process ID: 2471
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/21fb872d-7aa0-4afc-951d-c9bf31e264ba.ps1'
+Process ID: 2493
 PSVersion: 7.6.10
 PSEdition: Core
 GitCommitId: 7.6.10
@@ -17,24 +17,12 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 18-11-2026
+RG gunu      : 19-11-2026
 Kart sayisi  : 1
 Izlenen dosya: 12
 
-======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
-======================================================================
-  veri/gtip-damping.json   (arac: gtip.html)
-      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
-      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
-      <- Sentetik iplik ithalatında dampinge karşı önlemler yeniden değerlendirildi
-
-  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
-  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
-  -> veri/arac-uyari.json
-
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
 **********************
 PowerShell transcript end
-End time: 20261118202528
+End time: 20261119032121
 **********************
