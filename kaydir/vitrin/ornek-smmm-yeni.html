@@ -111,7 +111,7 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .bit{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px 28px}
 .bit h1{margin:0}
 .bit p{margin:0;color:var(--soluk)}
-.dnm{position:fixed;left:50%;top:6px;transform:translateX(-50%);z-index:20;background:var(--altin);color:var(--kagit);font-size:11.5px;font-weight:700;letter-spacing:.05em;padding:2px 10px;border-radius:999px;pointer-events:none}
+.dnm{background:var(--altin);color:var(--kagit);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:18px;text-align:center}
 .gir{animation:gir .28s ease-out}
 @keyframes gir{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -163,7 +163,7 @@ function eSonuc(){
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${kac(kisa(q,S.acS))}${q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:''}`}</div>`:'');
  const nbr=`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, sesli, adım adım</small></span></button>`;
  const coz=q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'';
- const tut=q.hap?`<div class="tut"><b>Akılda tut</b>${kac(q.hap)}</div>`:'';
+ const tut=q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
  return `<div class="hd">${seg()}</div><div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
  ${dg?`<p class="etk ok">${S.ikinci?'Doğru · ikinci denemede':'Doğru'}</p><h1>${S.ikinci?'Bu kez gördün.':'Doğru.'}</h1>${coz}`
@@ -179,7 +179,7 @@ function eSoruGor(){
 }
 function tahta(d,a){
  if(d[a].t===null)return `<div class="tht"><div class="sor y">${kac(d[a].s)}</div></div>`;
- const sat=k=>String(d[k].t||'').split(/;\s*/).filter(Boolean);
+ const sat=k=>String(d[k].t||'').replace(/\s*\(soruda verilen\)/g,'').split(/;\s*/).filter(Boolean);
  const simdi=sat(a);let once=[];
  for(let k=a-1;k>=0&&d[k].t!==null;k--){const s=sat(k);if(once.length+s.length+simdi.length>9)break;once=s.concat(once);}
  return `<div class="tht">${once.map(x=>`<span class="es">${kac(x)}</span>`).join('')}${simdi.map(x=>`<span class="y">${kac(x)}</span>`).join('')}</div>`;
