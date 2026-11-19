@@ -100,6 +100,20 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .tht .y{color:var(--sari)}
 .tht .es{opacity:.55}
 .tht .sor{margin:auto;text-align:center;font-size:22px;line-height:1.35;padding:0 6px}
+.tht .ust{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;margin-bottom:10px;min-height:50px}
+.tht .kes{display:inline-flex;flex-direction:column;align-items:center;font-size:16px;line-height:1.25}
+.tht .kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:2px 0}
+.tht .lst>div{display:flex;justify-content:space-between;gap:12px}
+.tht .lst>div span:last-child{white-space:nowrap}
+.tht .tpl{border-top:2px solid var(--tebesir);margin-top:4px;padding-top:2px}
+.tht .alt{margin-top:auto;padding-top:10px;text-align:center;font-size:20px}
+.tht .alt em{font-style:normal;display:inline-block;border:2px solid currentColor;border-radius:12px;padding:1px 12px}
+.tht .nt{text-align:center;font-size:16px;margin-top:6px}
+.tht .bil{flex:1;display:flex;gap:10px;min-height:230px}
+.tht .kl{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tht .bs{font-size:14px;text-align:center;opacity:.75;line-height:1.2;min-height:34px;display:flex;align-items:center;justify-content:center}
+.tht .bk{border:2px solid currentColor;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px;line-height:1.2;padding:4px;min-height:44px}
+.tht .bk.sn{opacity:.4}
 .cap{flex:1;padding:22px 24px 6px}
 .cap .st{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8f9a92;margin:0 0 8px}
 .cap .soz{font-size:18.5px;line-height:1.5;margin:0}
@@ -150,7 +164,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -200,7 +214,87 @@ function cozumH(q){
  const T=TB[q.id];if(!T)return '';const n=T.s.length-1;if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1])))return '';
  return `<div class="kyt tek"><div class="kr bs"><span>Çözüm</span><span></span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':''} ${r[2]==='t'?'tp':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
 }
+const kes=(u,a)=>`<span class="kes"><span>${u}</span><i></i><span>${a}</span></span>`;
+const N={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{iste:'Stok devir hızı',dusun:'Paya ne, paydaya ne yazılır?',
+  istC:'Stok devir hızını.',
+  ver:[['Satılan malın maliyeti','405.000'],['Net satışlar','495.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000']],
+  verC:'Soru bize satılan malın maliyetini, net satışları, yılın başındaki ve sonundaki stoğu vermiş.',
+  on:[2,3],onC:'Soru "ortalama değeri kullanın" diyor. Demek ki iki stoğu toplayıp ikiye böleceğiz. Net satışlar bu hesapta kullanılmaz.',
+  kuralH:kes('Satılan malın maliyeti','Ortalama stok'),kuralC:'Stok devir hızı, satılan malın maliyetinin ortalama stoğa bölünmesiyle bulunur.',
+  ara:[['Ortalama stok','45.000']],son:'405.000 ÷ 45.000 = 9',
+  cozC:'Ortalama stok, 30.000 ile 60.000\'in ortalaması: 45.000 ₺. 405.000 bölü 45.000 eşittir 9.',
+  not:'Pay maliyet, payda ortalama stok',notC:'En sık hata: paya net satışları yazmak ya da tek bir stoğu almak.',
+  basit:'Stok devir hızı, depodaki malın yılda kaç kez satılıp yenilendiğini gösterir. Yıl boyunca depoda ortalama 45.000 liralık mal durmuş, 405.000 liralık mal satılmış. Demek ki depo yılda 9 kez boşalıp dolmuş.',
+  sifir:{bas:['Depoda duran mal','Yıl içinde satılan'],k:[['Yıl başı stok<br>30.000',0,1],['Yıl sonu stok<br>60.000',0,2],['Satılan malın maliyeti<br>405.000',1,3]],son:'405.000 ÷ 45.000 = 9',
+   a:[['Stok','Stok, işletmenin satmak için deposunda tuttuğu maldır. Yıl başında bir miktar vardır, yıl sonunda başka bir miktar.',[0,1]],
+      ['Ortalama stok','Depo yıl boyunca aynı kalmaz. O yüzden baştaki ile sondakini toplayıp ikiye böleriz; depoda ortalama ne kadar mal durduğunu buluruz: 45.000.',[0,1]],
+      ['Satılan malın maliyeti','Yıl içinde satılan malların işletmeye kaça mal olduğudur. Satış fiyatı değil, alış bedeli.',[2]],
+      ['Stok devir hızı','İkisini böleriz: satılan malın maliyeti bölü ortalama stok. 9 çıkarsa depo yılda 9 kez boşalıp dolmuş demektir.',[0,1,2]]]}},
+ 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{iste:'Safi irat',dusun:'Geçen yıl götürüyü seçen, bu yıl yöntemi değiştirebilir mi?',
+  istC:'Kira gelirinden gider düşüldükten sonra kalan tutarı, yani safi iradı.',
+  ver:[['Brüt kira','900.000'],['2025\'te seçilen yöntem','Götürü'],['Sigorta, onarım, amortisman','130.000'],['Trafik cezası','15.000']],
+  verC:'Soru bize brüt kirayı, geçen yıl seçilen yöntemi ve bu yıl düşülmek istenen giderleri vermiş.',
+  on:[1],onC:'Geçen yıl götürü gider seçilmiş. Götürüyü seçen iki yıl geçmeden gerçek gidere dönemez. Bu yıl da götürü uygulanır; sayılan giderlerin hiçbiri düşülmez.',
+  kuralH:'<span>Brüt kira − %15 götürü gider</span>',kuralC:'Götürü gider, brüt kiranın yüzde on beşidir.',
+  ara:[['Götürü gider (%15)','135.000']],son:'900.000 − 135.000 = 765.000',
+  cozC:'900.000\'in yüzde on beşi 135.000 ₺. 900.000 eksi 135.000 eşittir 765.000 ₺.',
+  not:'Götürüden dönüş: 2 yıl geçmeden olmaz',notC:'En sık hata: gerçek giderleri düşmek. Soru "geçmek istiyor" diyor, "geçebilir" demiyor.',
+  basit:'Kira gelirinden gider düşmenin iki yolu var: ya belgeli gerçek giderleri düşersin ya da belge göstermeden kiranın yüzde on beşini. İkinciyi seçen iki yıl ondan vazgeçemez. Bay F geçen yıl ikinciyi seçmiş; bu yıl da yüzde on beş düşer: 900.000 eksi 135.000, kalan 765.000.',
+  sifir:{bas:['Alınan kira','Nereye ayrılır'],k:[['Brüt kira<br>900.000',0,1],['Gider<br>135.000',1,1],['Safi irat<br>765.000',1,4]],son:'900.000 − 135.000 = 765.000',
+   a:[['Brüt kira','Kiracıdan bir yılda alınan kiranın tamamıdır.',[0]],
+      ['Gider','Ev sahibinin de masrafı olur. Vergi kiranın tamamından değil, gider düşüldükten sonra kalandan hesaplanır.',[1]],
+      ['İki yol','Gideri iki yoldan biriyle düşersin: gerçek giderleri belgeyle ya da belgesiz olarak kiranın yüzde on beşini. Belgesiz yolu seçen iki yıl geçmeden değiştiremez.',[1]],
+      ['Safi irat','Brüt kiradan gider çıkınca kalan tutardır. Vergi bunun üzerinden hesaplanır.',[0,1,2]]]}},
+ 'smmm-4k-a-fmuh-zor-r3/kp-02':{iste:'Kârdaki hata',dusun:'Yalnız bir tarafa mı baktın, gidere ve gelire birlikte mi?',
+  istC:'2026 kârının kaç lira yüksek ya da düşük gösterildiğini.',
+  ver:[['Ödenen kira · 18 ay · 1 Eylül','180.000'],['Alınan kira · 6 ay · 1 Kasım','60.000']],
+  verC:'Soru bize peşin ödenen 18 aylık kirayı ve peşin alınan 6 aylık kirayı vermiş. İkisinin de tamamı bu yıla yazılmış.',
+  on:[0,1],onC:'İkisi de 2026\'da başlıyor ama 2026\'da bitmiyor. Giderin yalnız 4 ayı, gelirin yalnız 2 ayı bu yıla aittir. Gerisi sonraki yıllarındır.',
+  kuralH:'<span>fazla gider − fazla gelir</span>',kuralC:'Dönemsellik: gelir ve gider, paranın ödendiği yıla değil, ait olduğu yılın kârına yazılır.',
+  ara:[['Fazla gider: 180.000 − 40.000','140.000'],['Fazla gelir: 60.000 − 20.000','40.000']],son:'140.000 − 40.000 = 100.000 düşük',
+  cozC:'Gider 140.000 ₺ fazla yazılmış; bu kârı düşürür. Gelir 40.000 ₺ fazla yazılmış; bu kârı yükseltir. Net etki: kâr 100.000 ₺ düşük görünür.',
+  not:'Fazla gider kârı düşürür, fazla gelir yükseltir',notC:'En sık hata: yalnız bir tarafa bakmak ya da yönü ters söylemek.',
+  basit:'On sekiz aylık kirayı peşin ödedin diye hepsi bu yılın gideri olmaz; bu yıl yalnız 4 ay kullandın, 40.000 ₺. Altı aylık kirayı peşin aldın diye hepsi bu yılın geliri olmaz; bu yıl yalnız 2 ay geçti, 20.000 ₺. Gideri 140.000 fazla, geliri 40.000 fazla yazmışsın; kâr 100.000 ₺ eksik çıkar.',
+  sifir:{bas:['Ödenen kira 180.000','Alınan kira 60.000'],k:[['2026 · 4 ay<br>40.000',0,1],['Sonraki yıllar · 14 ay<br>140.000',0,3],['2026 · 2 ay<br>20.000',1,1],['2027 · 4 ay<br>40.000',1,2]],son:'140.000 − 40.000 = 100.000 düşük',
+   a:[['Dönem','Kâr yıl yıl hesaplanır. Her yılın kârına yalnız o yılın geliri ve gideri girer.',[0,2]],
+      ['Peşin ödenen kira','18 aylık kirayı bugün ödesen de bu yıl yalnız 4 ay kullandın. Bu yılın gideri 40.000; kalan 140.000 sonraki yılların.',[0]],
+      ['Peşin alınan kira','6 aylık kirayı bugün alsan da bu yıl yalnız 2 ay geçti. Bu yılın geliri 20.000; kalan 40.000 gelecek yılın.',[2]],
+      ['Hata','Hepsini bu yıla yazarsan gider 140.000 fazla, gelir 40.000 fazla olur. Fazla gider kârı düşürür, fazla gelir yükseltir.',[1,3]]]}},
+ 'smmm-w3-maliyet-cokzor/kp-10':{iste:'Fiili üretim',dusun:'Soru üretileni mi soruyor, üretilmeyeni mi?',
+  istC:'İşletmenin gerçekte kaç birim ürettiğini.',
+  ver:[['Normal kapasite','12.000 birim'],['Sabit gider bütçesi','345.600'],['Boş kapasite gideri (680)','69.120']],
+  verC:'Soru bize normal kapasiteyi, sabit gider bütçesini ve 680 hesabına aktarılan boş kapasite giderini vermiş.',
+  on:[2],onC:'680 hesabına giden 69.120 ₺, üretilmeyen birimlerin sabit gideridir. Bu tutar bize kaç birimin üretilmediğini söyler.',
+  kuralH:'<span>Normal kapasite − atıl kapasite</span>',kuralC:'Sabit gider birimlere eşit dağıtılır. Üretilmeyen birimlerin payı 680 hesabına gider.',
+  ara:[['Birim sabit gider: 345.600 ÷ 12.000','28,8'],['Atıl kapasite: 69.120 ÷ 28,8','2.400']],son:'12.000 − 2.400 = 9.600',
+  cozC:'Bir birime düşen sabit gider 28,8 ₺. 69.120 bölü 28,8 eşittir 2.400; bu kadar birim üretilmemiş. 12.000 eksi 2.400 eşittir 9.600 birim.',
+  not:'680 = üretilmeyen birimlerin sabit gideri',notC:'En sık hata: 2.400\'ü bulup orada durmak. Soru üretileni soruyor, üretilmeyeni değil.',
+  basit:'Fabrika yılda 12.000 birim üretecek şekilde kurulmuş; kirası, amortismanı üretsen de üretmesen de 345.600 ₺. Yani her birime 28,8 ₺ düşüyor. 69.120 ₺ boşa gittiyse 2.400 birim üretilmemiş demektir. Üretilen: 12.000 eksi 2.400, yani 9.600.',
+  sifir:{bas:['Kapasite 12.000 birim','Sabit gider 345.600'],k:[['Üretilen<br>9.600',0,4],['Boş kalan<br>2.400',0,1],['Ürüne giden<br>276.480',1,4],['680\'e giden<br>69.120',1,1]],son:'12.000 − 2.400 = 9.600',
+   a:[['Sabit gider','Kira, amortisman gibi giderler üretim azalsa da değişmez. Fabrika çalışsa da çalışmasa da ödenir.',[2,3]],
+      ['Normal kapasite','Fabrikanın olağan koşullarda üretebileceği miktardır. Sabit gider bu miktara bölünür; her birime eşit pay düşer.',[0,1]],
+      ['Boş kapasite','Fabrika daha az üretirse üretilmeyen birimlerin payı ürüne yüklenmez; 680 hesabına, doğrudan zarara yazılır.',[1,3]],
+      ['Fiili üretim','Boşa giden gideri birim paya bölersen kaç birimin üretilmediğini bulursun. Kapasiteden çıkarınca üretilen kalır.',[0]]]}}
+};
+const nb=q=>N[q.id]||null;
 function dersi(q){
+ const n=nb(q);if(!n)return dersiE(q);
+ if(S.ders==='sifir')return n.sifir.a.map(x=>({b:x[0],s:x[1]}));
+ const a0=(S.sec&&S.sec!==q.dogru&&ayirt(q,S.sec))||n.dusun;
+ return [{b:'Önce şunu düşün',s:a0},{b:'Soru ne istiyor?',s:n.istC},{b:'Ne verilmiş?',s:n.verC},{b:'Hangisi önemli?',s:n.onC},{b:'Hangi kural?',s:n.kuralC},{b:'Çözüm',s:n.cozC},{b:'Sınav için önemli nokta',s:n.notC}];
+}
+function tahta(q,d,a){
+ const n=nb(q);if(!n)return tahtaE(d,a);
+ if(S.ders==='sifir'){const z=n.sifir,hi=z.a[a][2],sonA=a===z.a.length-1;
+  return `<div class="tht"><div class="bil">${[0,1].map(c=>`<div class="kl"><div class="bs">${kac(z.bas[c])}</div>${z.k.map((k,i)=>k[1]===c?`<div class="bk ${hi.indexOf(i)>=0?'y':'sn'}" style="flex:${k[2]}">${k[0]}</div>`:'').join('')}</div>`).join('')}</div>${sonA?`<div class="alt y" style="margin-top:12px"><em>${kac(z.son)}</em></div>`:''}</div>`;}
+ if(a===0)return `<div class="tht"><div class="sor y">${kac(d[0].s)}</div></div>`;
+ const ust=`<div class="ust ${a===1||a===4?'y':''}"><span>${kac(n.iste)} =</span>${a>=4?n.kuralH:'<span>?</span>'}</div>`;
+ const lst=a>=2?`<div class="lst ${a===2?'y':''}">${n.ver.map((r,i)=>`<div class="${a===3&&n.on.indexOf(i)>=0?'y':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join('')}${a>=5?n.ara.map((r,i)=>`<div class="${i===0?'tpl':''} ${a===5?'y':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join(''):''}</div>`:'';
+ const alt=a>=5?`<div class="alt ${a===5?'y':''}"><em>${kac(n.son)}</em></div>`:'';
+ return `<div class="tht">${ust}${lst}${alt}${a===6?`<div class="nt y">${kac(n.not)}</div>`:''}</div>`;
+}
+function dersiE(q){
  const d=[];const a=S.sec&&S.sec!==q.dogru?ayirt(q,S.sec):'';
  if(a)d.push({b:'Önce şunu düşün',s:a,t:null});
  (q.adimlar||[]).forEach((x,i)=>d.push({b:'Adım '+(i+1),s:x.anlatim||x.formul||'',t:x.formul||''}));
@@ -219,7 +313,7 @@ function eSonuc(){
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
  const tb=dg?'':tabloH(q,S.sec);
- const nbr=`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, sesli, adım adım</small></span></button>`;
+ const nbr=`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
  const coz=cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
@@ -235,7 +329,7 @@ function eSoruGor(){
  ${harfler(q).map(h=>`<div class="op ${S.ele[h]?'el':''} ${h===q.dogru?'dg':h===S.sec?'yn':''}"><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></div>`).join('')}</div>
  <div class="ft"><button class="cta koyu" data-a="kapatS">Cevaba dön</button></div>`;
 }
-function tahta(d,a){
+function tahtaE(d,a){
  if(d[a].t===null)return `<div class="tht"><div class="sor y">${kac(d[a].s)}</div></div>`;
  const sat=k=>String(d[k].t||'').replace(/\s*\(soruda verilen\)/g,'').split(/;\s*/).filter(Boolean);
  const simdi=sat(a);let once=[];
@@ -243,13 +337,14 @@ function tahta(d,a){
  return `<div class="tht">${once.map(x=>`<span class="es">${kac(x)}</span>`).join('')}${simdi.map(x=>`<span class="y">${kac(x)}</span>`).join('')}</div>`;
 }
 function eNob(){
- const q=Q(),d=dersi(q),n=d.length,a=Math.min(S.adim,n-1);
- const ek=S.ek==='basit'?(q.sade&&q.sade.dogru)||'':S.ek==='konu'?[(q.konuGiris&&q.konuGiris.nedir)||'',(q.konuGiris&&q.konuGiris.ornek)||''].filter(Boolean).join(' '):'';
- return `<div class="hd2"><span>Nöbetçi anlatıyor</span><button class="x" data-a="kapatN" aria-label="Kapat">${IK.x}</button></div>${tahta(d,a)}
+ const q=Q(),n0=nb(q),d=dersi(q),n=d.length,a=Math.min(S.adim,n-1),sf=S.ders==='sifir';
+ const ek=sf?'':S.ek==='basit'?(n0?n0.basit:(q.sade&&q.sade.dogru)||''):S.ek==='konu'?[(q.konuGiris&&q.konuGiris.nedir)||'',(q.konuGiris&&q.konuGiris.ornek)||''].filter(Boolean).join(' '):'';
+ const lk=sf?'<button data-a="soruyaDon">Soruya dön</button>':n0?`<button data-a="basit" class="${S.ek==='basit'?'ac':''}">Daha basit anlat</button><button data-a="sifir">Sıfırdan anlat</button>`:`${q.sade&&q.sade.dogru?`<button data-a="basit" class="${S.ek==='basit'?'ac':''}">Daha basit anlat</button>`:''}${q.konuGiris&&q.konuGiris.nedir?`<button data-a="konu" class="${S.ek==='konu'?'ac':''}">Konuyu anlat</button>`:''}`;
+ return `<div class="hd2"><span>${sf?'Nöbetçi · sıfırdan':'Nöbetçi anlatıyor'}</span><button class="x" data-a="kapatN" aria-label="Kapat">${IK.x}</button></div>${tahta(q,d,a)}
  <div class="cap"><p class="st">${a+1} / ${n} · ${kac(d[a].b)}</p><p class="soz">${kac(d[a].s)}</p>${ek?`<div class="bst gir">${kac(ek)}</div>`:''}</div>
  <div class="nkt">${d.map((_,i)=>`<i class="${i===a?'a':''}"></i>`).join('')}</div>
- <div class="ctl"><button data-a="once" aria-label="Önceki adım" ${a===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="oyna" aria-label="${S.oyn?'Durdur':'Dinle'}">${S.oyn?IK.dur:IK.oyna}</button><button data-a="sonraA" aria-label="Sonraki adım" ${a===n-1?'disabled':''}>${IK.sonra}</button></div>
- <div class="lk">${q.sade&&q.sade.dogru?`<button data-a="basit" class="${S.ek==='basit'?'ac':''}">Daha basit anlat</button>`:''}${q.konuGiris&&q.konuGiris.nedir?`<button data-a="konu" class="${S.ek==='konu'?'ac':''}">Konuyu anlat</button>`:''}</div>`;
+ <div class="ctl"><button data-a="once" aria-label="Önceki adım" ${a===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="oyna" aria-label="${S.oyn?'Durdur':'Oynat'}">${S.oyn?IK.dur:IK.oyna}</button><button data-a="sonraA" aria-label="Sonraki adım" ${a===n-1?'disabled':''}>${IK.sonra}</button></div>
+ <div class="lk">${lk}</div>`;
 }
 const sade2=t=>String(t==null?'':t).toLocaleLowerCase('tr').replace(/[\s₺.%]/g,'');
 function eIkiz(){
@@ -277,8 +372,7 @@ function sus(){clearTimeout(zmn);try{window.speechSynthesis&&speechSynthesis.can
 function oku(){
  if(!S.oyn)return;const d=dersi(Q()),t=String(d[S.adim].s);let gecti=false;
  const ileri=()=>{if(gecti||!S.oyn)return;gecti=true;clearTimeout(zmn);if(S.adim>=d.length-1){S.oyn=false;ciz();return;}S.adim++;ciz();oku();};
- try{if(window.speechSynthesis&&window.SpeechSynthesisUtterance){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t),t0=Date.now();u.lang='tr-TR';u.rate=.96;u.onend=()=>{if(Date.now()-t0>600)ileri();};speechSynthesis.speak(u);}}catch(e){}
- zmn=setTimeout(ileri,Math.max(3800,t.length*95));
+ zmn=setTimeout(ileri,Math.max(3500,t.length*70));
 }
 function gOku(){document.querySelectorAll('input[data-g]').forEach(x=>{S.g[x.dataset.g]=x.value;});}
 let uzT=null,uzYut=false;
@@ -299,12 +393,14 @@ document.addEventListener('click',e=>{
    S.sec=S.sel;S.e='sonuc';S.eleKip=false;tit(S.sec===q.dogru?20:[30,60,30]);window.scrollTo(0,0);break;
   case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
   case 'kapatS':S.e='sonuc';break;
-  case 'nob':S.e='nob';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
+  case 'nob':S.e='nob';S.ders='soru';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
   case 'kapatN':sus();S.e='sonuc';break;
   case 'oyna':if(S.oyn){sus();}else{S.oyn=true;ciz();oku();return;}break;
   case 'once':sus();S.adim=Math.max(0,S.adim-1);break;
   case 'sonraA':sus();S.adim=Math.min(dersi(q).length-1,S.adim+1);break;
   case 'basit':S.ek=S.ek==='basit'?null:'basit';break;
+  case 'sifir':sus();S.ders='sifir';S.adim=0;S.ek=null;break;
+  case 'soruyaDon':sus();S.ders='soru';S.adim=0;break;
   case 'konu':S.ek=S.ek==='konu'?null:'konu';break;
   case 'ikiz':S.e='ikiz';S.kontrol=null;S.g={};S.goster=false;window.scrollTo(0,0);break;
   case 'kapatI':S.e='sonuc';window.scrollTo(0,0);break;
@@ -348,6 +444,7 @@ function sinama(){
   let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
   o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
   if(q('[data-a=basit]')){q('[data-a=basit]').click();o.push('  daha basit acildi: '+!!q('.bst'));}
+  if(q('[data-a=sifir]')){q('[data-a=sifir]').click();let ks=qa('.tht .bk').length,sr=qa('.tht .bk.y').length;const m=dersi(s).length;for(let k=1;k<m;k++)q('[data-a=sonraA]').click();o.push('  sifirdan: adim '+m+' | kutu '+ks+' | ilk adimda sari '+sr+' | son hesap '+!!q('.tht .alt em')+' | carpi '+us(q('[data-a=kapatN]'))+' | tahta '+q('.tht').scrollHeight+'/'+q('.tht').clientHeight);q('[data-a=soruyaDon]').click();o.push('  soruya don: "'+q('.cap .st').textContent+'"');}else o.push('  SIFIRDAN YOK');
   q('[data-a=oyna]').click();q('[data-a=kapatN]').click();o.push('  dinlerken carpi: ses durdu '+(!S.oyn)+' | sonuca dondu '+(S.e==='sonuc'));
   if(s.oyun){q('[data-a=ikiz]').click();const gs=qa('input[data-g]');o.push('  ikiz: bos kutu '+gs.length+' | carpi '+us(q('[data-a=kapatI].x')));
    q('[data-a=kontrol]').click();o.push('  bos uyari: '+(q('.uyari')?q('.uyari').textContent:'YOK'));
