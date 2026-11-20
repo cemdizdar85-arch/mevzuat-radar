@@ -18,6 +18,11 @@ on:
         required: true
         default: true
         type: boolean
+      herkes:
+        description: "e-posta izni olmayan aktif SGS uyesi de (Cem karari)"
+        required: true
+        default: false
+        type: boolean
       onay:
         description: "mod=gonder icin Cem onay cumlesi"
         required: false
@@ -45,10 +50,12 @@ jobs:
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           MOD: ${{ inputs.mod }}
           TELEFONSUZ: ${{ inputs.telefonsuz }}
+          HERKES: ${{ inputs.herkes }}
           ONAY: ${{ inputs.onay }}
         run: |
           EK=""
           if [ "$TELEFONSUZ" = "true" ]; then EK="--telefonsuz"; fi
+          if [ "$HERKES" = "true" ]; then EK="$EK --herkes"; fi
           if [ "$MOD" = "deneme" ]; then node motor/sinav-oncesi-mesaj.mjs --deneme
           elif [ "$MOD" = "gonder" ]; then node motor/sinav-oncesi-mesaj.mjs --gonder $EK
           else node motor/sinav-oncesi-mesaj.mjs $EK

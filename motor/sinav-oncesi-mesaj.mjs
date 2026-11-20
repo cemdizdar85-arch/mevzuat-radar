@@ -9,6 +9,8 @@
  *    WhatsApp'tan elle gidiyor; iki kanaldan aynı metin gitmesin).
  *  SAYI: kasa_cevap'ta üyenin farklı soru sayısı + s20_sonuc doğru+yanlış; ogrenci_sonuc (sgs) toplamı daha büyükse o.
  *    100'den azsa sayı YAZILMAZ (az çözene sayısını hatırlatmak moral bozar). Sayı gerçeğin altında olabilir, üstünde olamaz.
+ *    `--herkes` (Cem 20.11 "tüm üyelere bir kere mail atalım"): e-posta izni OLMAYAN aktif SGS üyesi de alır; alt satır
+ *    "paket üyesi olduğun için bir kez aldın" der. Çıkış yapmış üye yine almaz. Metinde satış yok; hukuk kararı Cem'in.
  *  ⛔ ONAYSIZ GÖNDERMEZ: gönderim yalnız `--gonder` + ONAY ortam değişkeni (Cem'in onay cümlesi) ile. Yoksa yalnız SAYIM.
  *  ⛔ METİN "yarın" DER: sınavdan önceki gün (TR saatiyle) değilse gönderim DURUR.
  *  ⛔ KİŞİYE BİR KEZ: form_kayit "Hatırlatma gönderildi" {tur:'sinav-oncesi', sinav:'sgs'} kaydı olan atlanır.
@@ -35,6 +37,7 @@ const SINAV_GUNU = '2026-11-21', PAKETLER = ['sgs', 'tam', 'son20-sgs'], SAYI_ES
 const arg = a => { const i = process.argv.indexOf(a); return i > 0 ? process.argv[i + 1] : null; };
 const kac = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const NEDEN = 'Bu e-postayı, Tetikte hesabını açarken sınav hatırlatmalarına ve duyurulara izin verdiğin için aldın.';
+const NEDEN_UYE = 'Bu e-postayı, Tetikte Staja Giriş paketi üyesi olduğun için sınavdan önce bir kez aldın.';
 
 export const trGun = d => new Date(d.getTime() + 3 * 36e5).toISOString().slice(0, 10);
 export const oncekiGunMu = (simdi, sinavGunu = SINAV_GUNU) => trGun(new Date(simdi.getTime() + 864e5)) === sinavGunu;
@@ -51,25 +54,26 @@ export function cep(t) {
   if (d.length === 11 && d.startsWith('0')) d = '9' + d; else if (d.length === 10) d = '90' + d;
   return /^905\d{9}$/.test(d) ? d : null;
 }
-export function mailKur({ ad, soru }, e) {
+export function mailKur({ ad, soru, izinli = true }, e) {
+  const neden = izinli ? NEDEN : NEDEN_UYE;
   const selam = ilkAd(ad) ? `Merhaba ${ilkAd(ad)},` : 'Merhaba,';
   const orta = soru >= SAYI_ESIGI ? `Tetikte'de ${soru.toLocaleString('tr-TR')} soru çözdün; o emek yarın seninle birlikte salona giriyor.`
     : 'Verdiğin emek yarın seninle birlikte salona giriyor.';
   const govde = [`Yarın sınav günü. ${orta}`, 'Bu gece erken yat. Yarın soruyu iki kez oku, takıldığın soruda oyalanma.', 'Başarılar. Yanındayız.'];
   const ret = `${SITE}/hatirlatma-ret.html?t=${jeton(e || '')}`;
   const konu = 'Yarın salona yalnız girmiyorsun';
-  const metin = [selam, '', ...govde.flatMap(p => [p, '']), 'Cem Dizdar · Tetikte', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
+  const metin = [selam, '', ...govde.flatMap(p => [p, '']), 'Cem Dizdar · Tetikte', '', neden, `Bir daha gönderme: ${ret}`].join('\n');
   const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · STAJA GİRİŞ SINAVI</p>
 <h1 style="font-size:24px;margin:0 0 14px">Başarılar</h1>
 <p style="margin:0 0 12px">${kac(selam)}</p>
 ${govde.map(p => `<p style="margin:0 0 12px">${kac(p)}</p>`).join('\n')}
 <p style="margin:14px 0 18px;font-weight:700">Cem Dizdar · Tetikte</p>
 <p style="margin:0;font-size:12px;color:#6b7280"><a href="${ret}" style="color:#6b7280">Bu e-postaları bir daha gönderme</a></p>
-`, NEDEN);
+`, neden);
   return { konu, metin, html };
 }
 /* saf seçim: kime gider, kim neden düşer (öz-sınavlı) */
-export function sec({ paketler, kullanicilar, siparisler, retJeton, gitmis, bugun, telefonsuz }) {
+export function sec({ paketler, kullanicilar, siparisler, retJeton, gitmis, bugun, telefonsuz, herkes }) {
   const U = new Map(kullanicilar.map(u => [u.id, u])), say = { uye: 0, suresiDolmus: 0, hesapYok: 0, izinsiz: 0, cikti: 0, telefonlu: 0, gitmis: 0 }, liste = [];
   for (const p of paketler) {
     if (!PAKETLER.includes(p.paket)) continue;
@@ -78,13 +82,14 @@ export function sec({ paketler, kullanicilar, siparisler, retJeton, gitmis, bugu
     if (!e) { say.hesapYok++; continue; }
     say.uye++;
     const md = u.user_metadata || {};
-    if (md.pazarlama_rizasi !== true) { say.izinsiz++; continue; }
+    const izinli = md.pazarlama_rizasi === true;
+    if (!izinli) { say.izinsiz++; if (!herkes) continue; }
     if (retJeton.has(jeton(e))) { say.cikti++; continue; }
     const sp = siparisler.filter(x => x.bagli_kullanici === p.user_id || String(x.email || '').toLowerCase() === e);
     if (telefonsuz && sp.some(x => cep(x.telefon))) { say.telefonlu++; continue; }
     if (gitmis.has(e)) { say.gitmis++; continue; }
     const ad = String(md.ad || md.full_name || md.name || (sp.find(x => String(x.ad_soyad || '').trim()) || {}).ad_soyad || '').trim();
-    liste.push({ id: p.user_id, e, ad });
+    liste.push({ id: p.user_id, e, ad, izinli });
   }
   return { say, liste };
 }
@@ -111,7 +116,7 @@ async function ana() {
     console.log(`DENEME: ${n}/2 mail Cem'e gitti`); if (n < 2) process.exitCode = 1; return;
   }
   if (!SK) throw new Error('SUPABASE_SERVICE_KEY yok');
-  const simdi = new Date(), bugun = trGun(simdi), telefonsuz = process.argv.includes('--telefonsuz');
+  const simdi = new Date(), bugun = trGun(simdi), telefonsuz = process.argv.includes('--telefonsuz'), herkes = process.argv.includes('--herkes');
   const gonder = process.argv.includes('--gonder');
   if (gonder && !ONAY) throw new Error('ONAY yok: gönderim Cem onay cümlesi olmadan açılmaz');
   if (gonder && !oncekiGunMu(simdi)) throw new Error(`metin "yarın" diyor; bugün ${bugun}, sınav ${SINAV_GUNU} → gönderilmez`);
@@ -119,7 +124,7 @@ async function ana() {
   const siparisler = await hepsi('/rest/v1/siparisler?select=ad_soyad,email,telefon,bagli_kullanici&order=olusturma.desc');
   const retJeton = new Set((await hepsi('/rest/v1/hatirlatma_ret?select=jeton')).map(x => x.jeton));
   const gitmis = new Set((await hepsi(`/rest/v1/form_kayit?select=eposta,alanlar&konu=eq.${encodeURIComponent('Hatırlatma gönderildi')}`)).filter(x => (x.alanlar || {}).tur === 'sinav-oncesi').map(x => String(x.eposta || '').toLowerCase()));
-  const { say, liste } = sec({ paketler, kullanicilar: await tumKullanicilar(), siparisler, retJeton, gitmis, bugun, telefonsuz });
+  const { say, liste } = sec({ paketler, kullanicilar: await tumKullanicilar(), siparisler, retJeton, gitmis, bugun, telefonsuz, herkes });
   const kc = await hepsi('/rest/v1/kasa_cevap?select=user_id,soru_id&order=id.asc');
   const s20 = await hepsi('/rest/v1/s20_sonuc?select=user_id,dogru,yanlis&order=zaman.asc');
   const os = await hepsi('/rest/v1/ogrenci_sonuc?select=user_id,veri&sinav=eq.sgs&order=id.asc');
@@ -139,7 +144,7 @@ async function ana() {
       await new Promise(r => setTimeout(r, 600));
     }
   }
-  console.log(`SINAV ÖNCESİ MESAJ ${gonder ? 'GÖNDERİM' : 'SAYIM (gönderilmedi)'}${telefonsuz ? ' · yalnız telefonsuz' : ''}: aktif SGS üyesi ${say.uye} · süresi dolmuş ${say.suresiDolmus} · hesapsız ${say.hesapYok} · izinsiz ${say.izinsiz} · çıkmış ${say.cikti} · telefonlu (atlandı) ${say.telefonlu} · daha önce gitmiş ${say.gitmis} · gidecek ${liste.length} (sayılı ${sayili})` + (gonder ? ` · gitti ${gitti} · düştü ${dustu}` : ''));
+  console.log(`SINAV ÖNCESİ MESAJ ${gonder ? 'GÖNDERİM' : 'SAYIM (gönderilmedi)'}${telefonsuz ? ' · yalnız telefonsuz' : ''}${herkes ? ' · izinsiz dahil' : ''}: aktif SGS üyesi ${say.uye} · süresi dolmuş ${say.suresiDolmus} · hesapsız ${say.hesapYok} · izinsiz ${say.izinsiz}${herkes ? ' (dahil)' : ''} · çıkmış ${say.cikti} · telefonlu (atlandı) ${say.telefonlu} · daha önce gitmiş ${say.gitmis} · gidecek ${liste.length} (sayılı ${sayili})` + (gonder ? ` · gitti ${gitti} · düştü ${dustu}` : ''));
   if (gonder && dustu) process.exitCode = 1;
 }
 
@@ -159,6 +164,8 @@ function sinav() {
   b('--telefonsuz: telefonu olan atlanır', e({ telefonsuz: true }) === 'a@b.com');
   b('çıkış yapmış üye seçilmez', e({ retJeton: new Set([jeton('a@b.com')]) }) === 'i@j.com');
   b('daha önce gitmiş üye seçilmez', e({ gitmis: new Set(['a@b.com']) }) === 'i@j.com');
+  b('--herkes: izinsiz üye de seçilir, çıkmış yine seçilmez', e({ herkes: true }) === 'a@b.com,c@d.com,i@j.com' && e({ herkes: true, retJeton: new Set([jeton('c@d.com')]) }) === 'a@b.com,i@j.com');
+  b('izinsiz üyenin alt satırı izin iddia etmez', (() => { const m = mailKur({ ad: '', soru: 0, izinli: false }, 'c@d.com'); return !m.metin.includes('izin verdiğin') && m.metin.includes('bir kez aldın') && m.html.includes('bir kez aldın'); })());
   const m1 = mailKur({ ad: 'AYŞE NUR', soru: 731 }, 'a@b.com'), m2 = mailKur({ ad: 'x1', soru: 99 }, 'a@b.com');
   b('100+ soruda sayı yazılır, ad düzgün', m1.metin.includes('Merhaba Ayşe,') && m1.metin.includes('731 soru çözdün'));
   b('99 soruda sayı yazılmaz, bozuk ad adsız selam', !/\d+ soru/.test(m2.metin) && m2.metin.startsWith('Merhaba,\n'));
