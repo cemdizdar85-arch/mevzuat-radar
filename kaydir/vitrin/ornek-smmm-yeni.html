@@ -174,7 +174,13 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .cnk .buy svg{fill:var(--kagit);width:24px;height:24px}
 .cnk button:disabled{opacity:.25}
 .ucn{position:fixed;z-index:30;font-weight:700;font-size:16px;color:var(--vurgu);pointer-events:none;transition:transform .65s cubic-bezier(.3,.7,.2,1),opacity .65s ease-in}
+.nsr{display:flex;align-items:center;gap:14px;width:100%;text-align:left;min-height:64px;border-radius:14px;background:var(--kagit);border:1.5px solid var(--cizgi);padding:9px 14px 9px 10px;margin:8px 0 0}
+.nsr .oy{flex:none;width:44px;height:44px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
+.nsr .oy svg{width:20px;height:20px;fill:var(--kagit);margin-left:2px}
+.nsr b{display:block;font-size:16px}
+.nsr small{display:block;margin-top:1px;font-size:13px;line-height:1.3;color:var(--soluk)}
 .nsk{display:block;width:100%;text-align:left;min-height:60px;border-radius:14px;background:var(--vurgu);padding:11px 14px;margin:0 0 8px}
+.nsk{margin:0}
 .nsk b{display:block;font-size:16px;color:var(--kagit)}
 .nsk small{display:block;margin-top:2px;font-size:12.5px;color:var(--kagit);opacity:.85}
 .drs{margin:22px 0 0;padding:10px 16px 14px;border-radius:22px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 14px 34px -18px color-mix(in srgb,var(--murekkep) 45%,transparent),0 2px 6px -2px color-mix(in srgb,var(--murekkep) 12%,transparent);scroll-margin-top:10px}
@@ -512,7 +518,7 @@ function caTam(i){const C=CA[Q().id];return S.caK?C.kisa[i].a:i-1;}
 function canliH(q){
  const C=CA[q.id];if(!C)return '';
  if(S.drs&&drsVar(q))return dersH(q);
- if(S.ca<0)return `<div class="nsc"><div class="nsb"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></div>${drsVar(q)?'<button class="nsk" data-a="dersAc"><b>Soruyu birlikte okuyalım</b><small>Canlı ders gibi · okuyup çizerek, sonra çözerek</small></button>':''}<div class="nsd"><button data-a="caKisa"><b>Özet anlatım</b><small>${C.kisa.length} adım · sesli · hata ve doğru çözüm</small></button><button data-a="caUzun"><b>Ayrıntılı anlatım</b><small>${C.ad.length+1} adım · kavramdan sonuca</small></button></div></div>`;
+ if(S.ca<0)return `<div class="nsc">${drsVar(q)?'<button class="nsk" data-a="dersAc"><b>Soruyu birlikte okuyalım</b><small>Canlı ders gibi · okuyup çizerek, sonra çözerek</small></button>':''}<button class="nsr" data-a="caKisa"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi özet anlatım</b><small>${C.kisa.length} adım · sesli · hata ve doğru çözüm</small></span></button><button class="nsr" data-a="caUzun"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi ayrıntılı anlatım</b><small>${C.ad.length+1} adım · kavramdan sonuca</small></span></button></div>`;
  const n=caN(),a=caTam(S.ca),k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
  let m=kac(q.soru);
  for(const x of C.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';const ac=a>=x[2],at=a===2&&k.at.indexOf(x[0])>=0;
