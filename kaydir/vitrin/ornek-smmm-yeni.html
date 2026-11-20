@@ -240,6 +240,21 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 #drg{padding:4px 0 6px}
 #drg[hidden]{display:none}
 .fmb{margin-top:12px}
+.drc.oyn{display:block;gap:0;padding:0 22px calc(8px + env(safe-area-inset-bottom));border-top:0;box-shadow:0 -10px 14px -6px var(--kagit)}
+.oyc{position:relative;height:30px;display:flex;align-items:center;cursor:pointer;touch-action:none}
+.oyr{display:block;width:100%;height:4px;border-radius:2px;background:var(--cizgi);overflow:hidden}
+.oyr i{display:block;height:100%;width:0;background:var(--murekkep)}
+.oyc em{position:absolute;top:50%;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--murekkep);box-shadow:0 1px 4px color-mix(in srgb,var(--murekkep) 35%,transparent)}
+.oyz{display:flex;justify-content:space-between;margin-top:-5px;font-size:11.5px;font-weight:600;color:var(--ince);font-variant-numeric:tabular-nums}
+.oyd{display:flex;align-items:center;justify-content:space-between;margin-top:0}
+.oyi{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--murekkep)}
+.oyi svg{width:32px;height:32px}
+.oyi.kpl{color:var(--ince)}
+.oyh{width:50px;height:32px;border-radius:16px;border:1.5px solid var(--cizgi);font-size:13.5px;font-weight:700;color:var(--murekkep);font-variant-numeric:tabular-nums}
+.drc.oyn .buy{width:64px;height:64px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
+.drc.oyn .buy svg{width:28px;height:28px;fill:var(--kagit)}
+.drc.oyn .buy.tkr svg{fill:none;stroke:var(--kagit)}
+.oyi:active,.oyh:active,.drc.oyn .buy:active{transform:scale(.94)}
 .nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
 .nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
 .ngr{margin:6px 0 0;font-size:16.5px;line-height:1.5;font-weight:600}
@@ -335,6 +350,11 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 <div id="kok"><div class="sahne"><div class="ph"><div class="bit"><p>Sorular yükleniyor…</p></div></div></div></div>
 <script>
 const IK={
+ i10:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.4 4.6a7.6 7.6 0 1 0 7.2 5.2"/><path d="M12.2 1.9 15.3 4.6 12.2 7.3" /><text x="12" y="15.6" text-anchor="middle" font-size="6.6" font-weight="700" fill="currentColor" stroke="none" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">10</text></svg>',
+ g10:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11.6 4.6a7.6 7.6 0 1 1-7.2 5.2"/><path d="M11.8 1.9 8.7 4.6 11.8 7.3"/><text x="12" y="15.6" text-anchor="middle" font-size="6.6" font-weight="700" fill="currentColor" stroke="none" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">10</text></svg>',
+ sesA:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.6h3.2L11.5 6v12l-4.3-3.6H4z" fill="currentColor"/><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M17.6 6.6a7.6 7.6 0 0 1 0 10.8"/></svg>',
+ sesK:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.6h3.2L11.5 6v12l-4.3-3.6H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>',
+ tekrar:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 8.2A7 7 0 1 1 5 12" /><path d="M5.2 4.2v4.3h4.3"/></svg>',
  ele:'<svg viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="10" rx="4"/><path d="M4 20L20 4"/></svg>',
  yil:'<svg viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>',
  x:'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
@@ -618,7 +638,7 @@ function dersH(q){
  <div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
  <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
  <p class="drz" id="drz"></p>
- <div class="drc"><div class="drcz"><div class="dri" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span><i id="drp"></i></span></div><b id="drt">0:00 / 0:00</b></div><div class="drc1"><button class="dry kck" data-d="geri" aria-label="10 saniye geri">−10</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry kck" data-d="ileri" aria-label="10 saniye ileri">+10</button></div><div class="drc2"><button class="dry" data-d="bas">Baştan</button><button class="dry" data-d="hiz" id="drh">Hız 1×</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
+ <div class="drc oyn"><div class="oyc" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span class="oyr"><i id="drp"></i></span><em id="drth"></em></div><div class="oyz"><b id="drt">0:00</b><b id="drtk">−0:00</b></div><div class="oyd"><button class="oyh" data-d="hiz" id="drh" aria-label="Oynatma hızı">1×</button><button class="oyi" data-d="geri" aria-label="10 saniye geri">${IK.g10}</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="oyi" data-d="ileri" aria-label="10 saniye ileri">${IK.i10}</button><button class="oyi" data-d="ses" id="drm" aria-label="Sesi aç ya da kapat">${SES_AC?IK.sesA:IK.sesK}</button></div></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
 }
 const drsBas=()=>S&&S.drsOz&&drsP?drsP.o1:0;
 let drsSimI=-1,drsHiz=1,drsBek=0,drsYer=null;
@@ -663,11 +683,12 @@ function drsCiz(t){
   P.kag.forEach((l,i)=>{l.p.forEach((c,k)=>{const el=kg.querySelector('[data-h="'+i+'_'+k+'"]');if(!el)return;const p=Math.max(0,Math.min(1,(t-c[1])/c[2]));el.style.clipPath='inset(-6px '+(100-p*100).toFixed(1)+'% -6px 0)';el.classList.toggle('yaz',p>0&&p<1);});
    if(l.ciz!=null){const el=kg.querySelector('[data-l="'+i+'"]');if(el)el.classList.toggle('cz',t>=l.ciz);}});}
  let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z&&z.textContent!==s)z.textContent=s;
- const zt=document.getElementById('drt');if(zt){const m=drsSn(t-drsBas())+' / '+drsSn(P.sure-drsBas());if(zt.textContent!==m)zt.textContent=m;}
+ const zt=document.getElementById('drt'),zk=document.getElementById('drtk');if(zt){const m=drsSn(t-drsBas());if(zt.textContent!==m)zt.textContent=m;}if(zk){const m='−'+drsSn(P.sure-t);if(zk.textContent!==m)zk.textContent=m;}
+ const th=document.getElementById('drth');if(th)th.style.left=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
  const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
  const g=document.getElementById('drg');if(g)g.hidden=t<P.sure-.05;
 }
-function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';const hz=document.getElementById('drh');if(hz)hz.textContent='Hız '+String(drsHiz).replace('.',',')+'×';const ka=document.getElementById('drka'),ko=document.getElementById('drko');if(ka)ka.className=S&&S.drsOz?'':'ac';if(ko)ko.className=S&&S.drsOz?'ac':'';}
+function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o){const bitti=!drsOyn&&drsP&&drsT0>=drsP.sure-.05;o.innerHTML=drsOyn?IK.dur:bitti?IK.tekrar:IK.oyna;o.classList.toggle('tkr',!!bitti);}if(m){m.innerHTML=SES_AC?IK.sesA:IK.sesK;m.classList.toggle('kpl',!SES_AC);}const hz=document.getElementById('drh');if(hz)hz.textContent=String(drsHiz).replace('.',',')+'×';const ka=document.getElementById('drka'),ko=document.getElementById('drko');if(ka)ka.className=S&&S.drsOz?'':'ac';if(ko)ko.className=S&&S.drsOz?'ac':'';}
 function drsParcaCal(){
  const P=drsP;let i=P.par.length-1;for(let k=0;k<P.par.length;k++){if(drsT0<P.par[k].off+P.par[k].sure-.05){i=k;break;}}
  drsI=i;if(drsT0<P.par[i].off)drsT0=P.par[i].off;const yer=drsT0-P.par[i].off;drsSesli=false;
@@ -863,7 +884,7 @@ function sinama2(){
    q('[data-a=dersAc]').click();drsDur();
    const izE=qa('#drs .diz').length,izB=drsP.D.iz.length;
    o.push('  ders: tam ekran '+(!q('.hd')&&!q('.cps')&&!q('.ft'))+' | toplam '+drsP.sure.toFixed(1)+' sn | isaret yeri '+izE+'/'+izB+(izE!==izB?' EKSIK':'')+' | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | '+tas());
-   const s0=q('#drt').textContent;q('[data-d=ileri]').click();const s1=drsT0;q('[data-d=geri]').click();const s2=drsT0;q('[data-d=hiz]').click();const h1=q('#drh').textContent;q('[data-d=hiz]').click();q('[data-d=hiz]').click();q('[data-d=hiz]').click();drsGit(drsP.sure*.5);o.push('  kumanda: sure "'+s0+'" | +10 sonrasi '+s1.toFixed(1)+' | -10 sonrasi '+s2.toFixed(1)+' | hiz dugmesi "'+h1+'" sonra "'+q('#drh').textContent+'" | ortaya sarinca '+drsT0.toFixed(1)+' ve "'+q('#drt').textContent+'" | cubuk '+us(q('#drib'))+' | -10 '+us(q('[data-d=geri]'))+' | hiz '+us(q('#drh'))+' | '+tas());
+   const s0=q('#drt').textContent;q('[data-d=ileri]').click();const s1=drsT0;q('[data-d=geri]').click();const s2=drsT0;q('[data-d=hiz]').click();const h1=q('#drh').textContent;q('[data-d=hiz]').click();q('[data-d=hiz]').click();q('[data-d=hiz]').click();drsGit(drsP.sure*.5);o.push('  kumanda: sure "'+s0+'" | +10 sonrasi '+s1.toFixed(1)+' | -10 sonrasi '+s2.toFixed(1)+' | hiz dugmesi "'+h1+'" sonra "'+q('#drh').textContent+'" | yazili dugme '+[...qa('.drc button')].filter(b=>b.id!=='drh'&&b.textContent.trim()&&!b.querySelector('svg')).length+' | ikon '+qa('.drc svg').length+' | kalan "'+q('#drtk').textContent+'" | ortaya sarinca '+drsT0.toFixed(1)+' ve "'+q('#drt').textContent+'" | cubuk '+us(q('#drib'))+' | -10 '+us(q('[data-d=geri]'))+' | hiz '+us(q('#drh'))+' | '+tas());
    drsCiz(999);const kg=q('#drkg');o.push('  ders sonu: iz '+qa('#drv path[data-p]').length+' | not '+qa('#drn .drnot').length+' | kagit satiri '+qa('#drkg .drl').length+' | kagit tasma '+(kg.scrollWidth>kg.clientWidth+1?'TASMA':'yok')+' | bitis dugmeleri "'+[...qa('#drg button')].map(b=>b.textContent).join(',')+'" | altyazi "'+q('#drz').textContent+'"');
    q('[data-d=ozet]').click();drsDur();o.push('  ozet: baslangic '+drsT0.toFixed(1)+' sn | kalan '+(drsP.sure-drsT0).toFixed(1)+' sn');
    q('[data-a=dersKapat].x').click();
