@@ -217,6 +217,13 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .drl.sen.cz .drh{text-decoration:line-through;text-decoration-thickness:2.5px}
 .drl.snt{color:var(--hata);font-size:15px;border-bottom:0}
 .drl.dgr{color:var(--ok);margin-top:8px;border-top:1.5px dashed var(--ince);border-bottom:0}
+.bd.tam{padding:0}
+.tam .drs{margin:0;border:0;box-shadow:none;border-radius:0;padding:10px 20px 0;min-height:calc(100vh - 18px);display:flex;flex-direction:column}
+.tam .drc{margin-top:auto;margin-left:-20px;margin-right:-20px;border-radius:0}
+.tam .drb{text-transform:none;letter-spacing:0}
+#drg{padding:4px 0 6px}
+#drg[hidden]{display:none}
+.fmb{margin-top:12px}
 .nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
 .nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
 .ngr{margin:6px 0 0;font-size:16.5px;line-height:1.5;font-weight:600}
@@ -323,7 +330,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,drsOz:false,fm:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -586,12 +593,13 @@ function drsPlan(q){
 function dersH(q){
  const P=drsPlan(q);if(!P)return '';const D=P.D;
  const bol=D.bol.map((b,i)=>{let m=kac(b[0]);D.iz.forEach((z,j)=>{const p=kac(z[0]);if(m.indexOf(p)>=0)m=m.replace(p,`<span class="diz" data-i="${j}">${p}</span>`);});return `<span class="dbl" data-b="${i}">${m}</span>`;}).join(' ');
- return `<div class="drs" id="drs"><div class="drb"><span>Nöbetçi anlatıyor</span><button class="x ack" data-a="dersKapat" aria-label="Kapat">${IK.x}</button></div>
+ return `<div class="drs" id="drs"><div class="drb"><span class="cnh"><button data-d="ayr" id="drka" class="${S.drsOz?'':'ac'}">Ayrıntılı</button><button data-d="ozet" id="drko" class="${S.drsOz?'ac':''}">Özet</button></span><button class="x ack" data-a="dersKapat" aria-label="Kapat">${IK.x}</button></div>
  <div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
  <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
  <p class="drz" id="drz"></p><div class="dri"><i id="drp"></i></div>
- <div class="drc"><button class="dry" data-d="bas">Baştan</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div><button class="cta" id="drg" data-a="dersKapat" hidden>Dersi kapat, devam et</button></div>`;
+ <div class="drc"><button class="dry" data-d="bas">Baştan</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
 }
+const drsBas=()=>S&&S.drsOz&&drsP?drsP.o1:0;
 let drsA=null,drsT0=0,drsOyn=false,drsRaf=0,drsSon=0,drsIz=[],drsSesli=false,drsP=null,drsI=0,drsKagAcik=false;
 const drsRenk={m:'var(--vurgu)',k:'var(--hata)',s:'var(--altin)'};
 function drsYol(tip,r,j){
@@ -631,10 +639,10 @@ function drsCiz(t){
   P.kag.forEach((l,i)=>{l.p.forEach((c,k)=>{const el=kg.querySelector('[data-h="'+i+'_'+k+'"]');if(!el)return;const p=Math.max(0,Math.min(1,(t-c[1])/c[2]));el.style.clipPath='inset(-6px '+(100-p*100).toFixed(1)+'% -6px 0)';el.classList.toggle('yaz',p>0&&p<1);});
    if(l.ciz!=null){const el=kg.querySelector('[data-l="'+i+'"]');if(el)el.classList.toggle('cz',t>=l.ciz);}});}
  let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z&&z.textContent!==s)z.textContent=s;
- const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,t/P.sure*100).toFixed(1)+'%';
+ const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
  const g=document.getElementById('drg');if(g)g.hidden=t<P.sure-.05;
 }
-function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';}
+function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';const ka=document.getElementById('drka'),ko=document.getElementById('drko');if(ka)ka.className=S&&S.drsOz?'':'ac';if(ko)ko.className=S&&S.drsOz?'ac':'';}
 function drsParcaCal(){
  const P=drsP;let i=P.par.length-1;for(let k=0;k<P.par.length;k++){if(drsT0<P.par[k].off+P.par[k].sure-.05){i=k;break;}}
  drsI=i;if(drsT0<P.par[i].off)drsT0=P.par[i].off;const yer=drsT0-P.par[i].off;drsSesli=false;
@@ -652,13 +660,14 @@ function drsDongu(z){
  drsCiz(drsT0);drsRaf=requestAnimationFrame(drsDongu);
 }
 function drsOynat(){
- if(!drsP)return;if(drsT0>=drsP.sure-.05)drsT0=0;drsOyn=true;drsSon=performance.now();drsParcaCal();
+ if(!drsP)return;if(drsT0>=drsP.sure-.05||drsT0<drsBas())drsT0=drsBas();drsOyn=true;drsSon=performance.now();drsParcaCal();
  drsDugme();cancelAnimationFrame(drsRaf);drsRaf=requestAnimationFrame(drsDongu);
 }
 function drsDur(){drsOyn=false;cancelAnimationFrame(drsRaf);if(drsA){try{drsA.pause();}catch(e){}}drsDugme();}
 function drsTik(d){
  if(d==='oyna'){if(drsOyn)drsDur();else drsOynat();}
- else if(d==='bas'){drsDur();drsT0=0;drsKagAcik=false;drsCiz(0);const el=document.getElementById('drs');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});drsOynat();}
+ else if(d==='bas'){drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);const el=document.getElementById('drs');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});drsOynat();}
+ else if(d==='ozet'||d==='ayr'){S.drsOz=d==='ozet';drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}
  else if(d==='ses'){SES_AC=!SES_AC;if(drsA)drsA.muted=!SES_AC;drsDugme();}
 }
 window.addEventListener('resize',()=>{if(S&&S.drs&&drsKur())drsCiz(drsT0);});
@@ -673,16 +682,18 @@ function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru,son=S.i>=SORULAR.length-1;
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${S.acS!==S.sec&&tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
- const tb=dg?'':tabloH(q,S.sec)?tabloH(q,S.sec)+formulH(q,true):'';
- const nbr=canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
+ const Y=!!drsVar(q);
+ const tb=dg?'':tabloH(q,S.sec)?tabloH(q,S.sec)+(Y?`<button class="anl fmb" data-a="fm">${S.fm?'Formülü gizle':'Formülü gör'}</button>`+(S.fm?formulH(q,true):''):formulH(q,true)):'';
+ const nbr=Y?'':canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
  const coz=formulH(q,true)||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
+ if(S.drs&&Y)return `<div class="bd tam">${dersH(q)}</div>`;
  return `<div class="hd">${seg()}</div><div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
  ${dg?`<p class="etk ok">${S.ikinci?'Doğru · ikinci denemede':'Doğru'}</p><h1>${S.ikinci?'Bu kez gördün.':'Doğru.'}</h1>${coz}`
      :`<p class="etk no">Yanlış</p><h1>${kac(T0?T0.sen[S.sec].b:tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}`}
  ${nbr}</div>
- ${S.drs&&drsVar(q)?'':`<div class="ft">${dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri}</div>`}`;
+ <div class="ft">${Y?(dg?ileri+'<button class="duz" data-a="dersAc">Nöbetçi anlatsın</button>':'<button class="cta" data-a="dersAc">Nöbetçi anlatsın</button>'+ileri):(dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri)}</div>`;
 }
 function eSoruGor(){
  const q=Q();
@@ -757,6 +768,7 @@ document.addEventListener('click',e=>{
   case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
   case 'kapatS':S.e='sonuc';break;
   case 'rk':S.rk=!S.rk;break;
+  case 'fm':S.fm=!S.fm;break;
   case 'dersAc':sesDur();S.caO=false;clearTimeout(caT);S.ca=-1;S.drs=true;drsT0=0;drsKagAcik=false;break;
   case 'dersKapat':drsDur();S.drs=false;break;
   case 'caKisa':case 'caUzun':drsDur();S.drs=false;S.caK=d.a==='caKisa';S.caO=false;clearTimeout(caT);kayC=S.ca<0;S.ca=0;break;
@@ -775,7 +787,7 @@ document.addEventListener('click',e=>{
   case 'sifir':sus();S.ders='sifir';S.adim=0;S.ek=null;break;
   case 'soruyaDon':sus();S.ders='soru';S.adim=0;break;
   case 'konu':S.ek=S.ek==='konu'?null:'konu';break;
-  case 'ikiz':S.e='ikiz';S.kontrol=null;S.g={};S.goster=false;window.scrollTo(0,0);break;
+  case 'ikiz':drsDur();S.drs=false;S.e='ikiz';S.kontrol=null;S.g={};S.goster=false;window.scrollTo(0,0);break;
   case 'kapatI':S.e='sonuc';window.scrollTo(0,0);break;
   case 'kontrol':{const o=q.oyun||{};const bos=(o.bosluk||[]).map(x=>x[0]+'_'+x[1]);S.kontrol=bos.some(k=>!String(S.g[k]||'').trim())?'bos':'ok';break;}
   case 'goster':S.goster=true;break;
@@ -785,7 +797,7 @@ document.addEventListener('click',e=>{
  }
  ciz();
  if(!S.drs||S.e!=='sonuc')drsDur();
- else if(drsKur()){if(d.a==='dersAc'){drsCiz(0);drsOynat();const el=document.getElementById('drs');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}else drsCiz(drsSimdi());}
+ else if(drsKur()){if(d.a==='dersAc'){drsT0=drsBas();drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}else drsCiz(drsSimdi());}
  if(ucA>=0)ucur(ucA);
  if(/^ca(Kisa|Uzun|Ileri|Geri)$/.test(d.a||'')||(d.a==='caOyna'&&S.caO)||(d.a==='sesAc'&&SES_AC))sesCal();
  if(d.a==='caOyna'){if(!S.caO)sesDur();caSaat();}
@@ -799,10 +811,31 @@ function baslat(metin){
  SORULAR=JSON.parse(ham).filter(q=>q&&q.soru&&q.siklar&&q.dogru);
  if(!SORULAR.length)throw new Error('soru yok');
  S=Object.assign(yeniSoru(),{i:0});ciz();
- if(location.hash==='#sinama')sinama();
+ if(location.hash==='#sinama')sinama();if(location.hash==='#sinama2')sinama2();
 }
 function hata(m){kokEl.innerHTML=`<div class="sahne"><div class="ph"><div class="bit"><h1>Açılamadı</h1><p>${kac(m)}</p><a class="cta koyu" style="width:auto;padding:0 28px" href="ornek-smmm.html">Bugünkü ekrana git</a></div></div></div>`;}
 (function(){const x=new XMLHttpRequest();x.open('GET','ornek-smmm.html?z='+Date.now());x.onload=()=>{try{if(x.status&&x.status!==200)throw new Error('sayfa '+x.status);baslat(x.responseText);}catch(e){hata(e.message);}};x.onerror=()=>hata('bağlantı kurulamadı');x.send();})();
+function sinama2(){
+ const o=[],q=x=>document.querySelector(x),qa=x=>document.querySelectorAll(x);
+ const us=el=>{if(!el)return 'YOK';el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect(),t=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return (t===el||el.contains(t))?'ustte':'ORTULU';};
+ const tas=()=>document.documentElement.scrollWidth>innerWidth?'TASMA':'sigdi';
+ try{
+  S=Object.assign(yeniSoru(),{i:0});ciz();q('[data-o=B]').click();q('[data-a=cevap]').click();
+  o.push('yanlis ekrani: baslik "'+q('h1').textContent+'" | tablo satiri '+qa('.bd>.kyt .kr').length+' | satir alti kural '+qa('.bd>.kyt .ac').length+' | formul acik '+qa('.bd>.fg').length+' | akilda tut '+!!q('.tut')+' | ana dugme "'+[...qa('.ft .cta')].map(b=>b.textContent).join(',')+'" | sessiz "'+[...qa('.ft .duz')].map(b=>b.textContent).join(',')+'" | eski nobetci kutusu '+!!q('.nsc')+' | '+tas());
+  q('[data-a=fm]').click();o.push('formulu gor: kutu '+qa('.bd>.fg').length+' | rakamli satir '+qa('.bd>.fg .fd').length+' | tablonun altinda '+(q('.bd>.fg').previousElementSibling.classList.contains('fmb')));
+  q('[data-c=B]').click();o.push('sikka dokununca kutu: '+!!q('.ned'));q('[data-c=B]').click();
+  q('[data-a=dersAc]').click();drsDur();
+  o.push('ders: tam ekran '+(!q('.hd')&&!q('.cps')&&!q('.ft'))+' | baslangic '+drsT0.toFixed(1)+' sn | toplam '+drsP.sure.toFixed(1)+' sn | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | kip "'+q('.cnh .ac').textContent+'" | '+tas());
+  drsCiz(999);o.push('ders sonu: iz '+qa('#drv path[data-p]').length+' | kagit satiri '+qa('#drkg .drl').length+' | bitis dugmeleri "'+[...qa('#drg button')].map(b=>b.textContent).join(',')+'" gorunur '+!q('#drg').hidden);
+  q('[data-d=ozet]').click();drsDur();o.push('ozet kipi: baslangic '+drsT0.toFixed(1)+' sn | kalan '+(drsP.sure-drsT0).toFixed(1)+' sn | kagit acik '+!q('#drkg').hidden+' | kip "'+q('.cnh .ac').textContent+'"');
+  q('[data-a=dersKapat].x').click();o.push('kapaninca: sonuc ekrani '+!!q('.bd>.kyt')+' | ana dugme "'+q('.ft .cta').textContent+'"');
+  S=Object.assign(yeniSoru(),{i:0});ciz();q('[data-o=C]').click();q('[data-a=cevap]').click();
+  o.push('dogru ekrani: ana dugme "'+q('.ft .cta').textContent+'" | sessiz "'+[...qa('.ft .duz')].map(b=>b.textContent).join(',')+'" | '+tas());
+  S=Object.assign(yeniSoru(),{i:1});ciz();const y=harfler(Q()).filter(h=>h!==Q().dogru)[0];q('[data-o='+y+']').click();q('[data-a=cevap]').click();
+  o.push('ikinci soru (eski duzen): tablo '+!!q('.bd>.kyt')+' | dugmeler "'+[...qa('.ft button')].map(b=>b.textContent).join(',')+'"');
+ }catch(er){o.push('HATA: '+er.message);}
+ document.body.innerHTML='<pre id="snc">'+o.join('\n').replace(/</g,'&lt;')+'</pre>';
+}
 function sinama(){
  const o=[],q=x=>document.querySelector(x),qa=x=>document.querySelectorAll(x);
  const us=el=>{if(!el)return 'YOK';el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect(),t=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return (t===el||el.contains(t))?'ustte':'ORTULU '+(t?t.className:'?');};
