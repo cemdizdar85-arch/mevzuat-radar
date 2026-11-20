@@ -427,7 +427,7 @@ h1:focus{outline:none}
 .bit{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px 28px}
 .bit h1{margin:0}
 .bit.trs{justify-content:flex-start;padding-top:28px}
-.seg i.gr{outline:1.5px dashed var(--altin);outline-offset:1px}
+.seg i.gr:not(.t):not(.s){background:var(--sari)}
 .grl{margin:0 0 10px;font-size:12.5px;font-weight:700;color:var(--altin);background:var(--sariZ);border-radius:10px;padding:5px 10px;display:inline-block}
 .grn{margin:12px 0 0;font-size:13px;color:var(--ince)}
 .tzl{width:100%;text-align:left;display:flex;flex-direction:column;gap:8px}
@@ -437,7 +437,7 @@ h1:focus{outline:none}
 .tz span{display:block;font-size:13px;color:var(--soluk);margin-top:2px}
 .tz em{flex:none;font-style:normal;font-size:12px;font-weight:700;color:var(--altin);background:var(--sariZ);border-radius:10px;padding:3px 9px}
 .tz em.ok{color:var(--ok);background:var(--okZ)}
-.dnm{font-size:12px!important}
+.bit p.dnn{font-size:12px;color:var(--ince)}
 .bit p{margin:0;color:var(--soluk)}
 .dnm{background:var(--altin);color:var(--kagit);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:18px;text-align:center}
 .gir{animation:gir .28s ease-out}
@@ -969,7 +969,7 @@ const eGir=()=>`<div class="bit">${mk('by')}<h1>${SORULAR.length} soruluk tur</h
 const eBit=()=>{const n=SORULAR.length,kal=YNL.filter(i=>COZ.indexOf(i)<0).length;
  return `<div class="bit trs">${mk('by')}<h1>Tur bitti</h1><p>${n} sorunun ${DOGRU} tanesini ilk denemede bildin${YNL.length?(kal?'':'; kaçırdıklarının hepsini ikinci gelişinde çözdün'):''}.</p>
  ${YNL.length?`<div class="tzl"><b class="tzb">Bu turda öğrendiğin ${YNL.length} tuzak</b>${YNL.map(i=>{const q=SORULAR[i],c=COZ.indexOf(i)>=0;return `<div class="tz"><div><b>${kac(q.konu||q.ders||'')}</b><span>${kac(tuzAd(q))}</span></div><em class="${c?'ok':''}">${c?'Çözdün':'Yarın yeniden'}</em></div>`;}).join('')}</div>`:'<p class="tzb">Bu turda hiçbir tuzağa düşmedin.</p>'}
- <button class="cta koyu" style="width:auto;padding:0 28px" data-a="bastan">Bir tur daha</button><a class="duz" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="ornek-smmm.html">Bugünkü ekrana git</a><p class="dnm">Bu bir deneme sayfasıdır; cevapların kaydedilmedi.</p></div>`;};
+ <button class="cta koyu" style="width:auto;padding:0 28px" data-a="bastan">Bir tur daha</button><a class="duz" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="ornek-smmm.html">Bugünkü ekrana git</a><p class="dnn">Bu bir deneme sayfasıdır; cevapların kaydedilmedi.</p></div>`;};
 const EK={soru:eSoru,sonuc:eSonuc,soruGor:eSoruGor,nob:eNob,ikiz:eIkiz,bit:eBit,gir:eGir};
 const kokEl=document.getElementById('kok');
 let duyurSon='';
