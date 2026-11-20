@@ -102,7 +102,9 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .skl .l1{background:var(--vurguZ);box-shadow:inset 0 0 0 1px var(--vurgu)}
 .skl .l2{background:var(--sari)}
 .skl .l3{box-shadow:inset 0 0 0 2px var(--hata)}
-.fg{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px 0 0;font-size:15px;font-weight:600}
+.fg{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 14px;padding:14px 12px;border-radius:16px;background:var(--dolgu);font-size:15.5px;font-weight:600}
+.fg b{font-weight:600;border-radius:5px;padding:2px 6px}
+.et{font-style:normal;font-size:11px;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:4px;vertical-align:1px}
 .kes{display:inline-flex;flex-direction:column;align-items:center;line-height:1.3}
 .kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:4px 0}
 .fm{display:flex;gap:10px;margin:14px 0 0}
@@ -264,11 +266,11 @@ function tbl(q,h){
 }
 function tabloH(q,h){
  const T=tbl(q,h);if(!T)return '';const n=T.s.length-1,v=T.sen[h].v;
- return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':v[i]!==r[1]?'fk':''} ${r[2]==='t'?'tp':''} ${v[i]!==r[1]?'ay':''}"><span>${kac(r[0])}</span><span>${kac(v[i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+ return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':v[i]!==r[1]?'fk':''} ${r[2]==='t'?'tp':''} ${v[i]!==r[1]?'ay':''}"><span>${kac(r[0])}${etk(q,i)}</span><span>${kac(v[i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
 }
 function cozumH(q){
  const T=TB[q.id];if(!T)return '';const n=T.s.length-1;if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1])))return '';
- return `<div class="kyt tek"><div class="kr bs"><span>Çözüm</span><span></span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':''} ${r[2]==='t'?'tp':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+ return `<div class="kyt tek"><div class="kr bs"><span>Çözüm</span><span></span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':''} ${r[2]==='t'?'tp':''}"><span>${kac(r[0])}${etk(q,i)}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
 }
 const kes=(u,a)=>`<span class="kes"><span>${u}</span><i></i><span>${a}</span></span>`;
 const N={
@@ -382,7 +384,7 @@ function nobY(q){
  return `<div class="nby"><p class="nbb">Nöbetçi anlatıyor</p>${gir?`<p class="ngr">${kac(gir)}</p>`:''}${y.ad.slice(0,S.nb).map((a,i)=>`<div class="nad ${i===S.nb-1?'gir':''}"><p class="nst">${i+1} / ${y.ad.length} · ${kac(a.b)}</p><div class="tk2">${a.c}</div><p class="nsz">${kac(a.s)}</p><button class="anl ${S.an[i]?'ac':''}" data-n="${i}">${S.an[i]?'Tamam, anladım':'Bunu anlamadım'}</button>${S.an[i]?`<div class="ansf gir">${kac(a.an)}</div>`:''}</div>`).join('')}${S.nb<y.ad.length?'<button class="cta koyu nil" data-a="nobIleri">Sonraki adım</button>':'<p class="nbt">Çözümün tamamı yukarıda. Şimdi aynısını kendin dene.</p>'}</div>`;
 }
 const NF={
- 'smmm-4k-a-yfta-kolay-r6/kp-01':{ad:'Stok devir hızı',pay:'Satılan malın maliyeti',payda:'Ortalama stok',
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{ad:'Stok devir hızı',pay:'Satılan malın maliyeti',payda:'Ortalama stok',satir:{pay:0,payda:3},
   m:[['405.000 ₺','mp'],['495.000 ₺','my'],['30.000 ₺','md'],['60.000 ₺','md'],['ortalama değeri kullanınız','mi']],
   d:{pay:'405.000',payda:'45.000',alt:'(30.000 + 60.000) ÷ 2',s:'9'},
   sen:{A:{pay:'405.000',payda:'90.000',alt:'topladın, ikiye bölmedin',s:'4,5',yer:'payda',at:['ortalama değeri kullanınız']},
@@ -390,17 +392,11 @@ const NF={
        D:{pay:'495.000',payda:'45.000',alt:'paya net satışları yazdın',s:'11',yer:'pay',at:['405.000 ₺'],yn:['495.000 ₺']},
        E:{pay:'405.000',payda:'30.000',alt:'yalnız dönem başı stok',s:'13,5',yer:'payda',at:['60.000 ₺','ortalama değeri kullanınız']}}}
 };
-function formulH(q,h){
- const F=NF[q.id];if(!F)return '';const sn=h?F.sen[h]:null;if(h&&!sn)return '';
- let m=kac(q.soru);
- for(const x of F.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';
-  const at=sn&&sn.at.indexOf(x[0])>=0,yn=sn&&sn.yn&&sn.yn.indexOf(x[0])>=0;
-  m=m.replace(p,`<b class="${yn?'myn':x[1]} ${at?'mat':''}">${p}</b>`);}
- const kesir=(pay,payda,s,yer,alt,dg)=>`<div class="fkt"><em>${dg?'Doğrusu':'Sen'}</em><div class="fr"><span class="kes"><b class="mp ${!dg&&yer==='pay'?'hat':''}">${kac(pay)}</b><i></i><b class="md ${!dg&&yer==='payda'?'hat':''}">${kac(payda)}</b></span><span>=</span><strong class="${dg?'g':'k'}">${kac(s)}</strong></div><small>${kac(alt)}</small></div>`;
- return `<div class="sk"><p class="skb">Soru</p><p class="skm">${m}</p>${sn?'<p class="skl"><i class="l1"></i>pay <i class="l2"></i>payda <i class="l3"></i>atladığın</p>':'<p class="skl"><i class="l1"></i>pay <i class="l2"></i>payda</p>'}</div>
- <div class="fg"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span></div>
- <div class="fm">${sn?kesir(sn.pay,sn.payda,sn.s,sn.yer,sn.alt,false):''}${kesir(F.d.pay,F.d.payda,F.d.s,'',F.d.alt,true)}</div>`;
+function formulH(q){
+ const F=NF[q.id];if(!F)return '';
+ return `<div class="fg"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span></div>`;
 }
+function etk(q,i){const F=NF[q.id];if(!F||!F.satir)return '';return i===F.satir.pay?' <i class="et mp">pay</i>':i===F.satir.payda?' <i class="et md">payda</i>':'';}
 function eSoru(){
  const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
  return `<div class="hd">${seg()}<button class="ik ${S.eleKip?'ac':''}" data-a="eleKip" aria-label="Şık eleme">${IK.ele}</button><button class="ik yl ${S.yil?'ac':''}" data-a="yil" aria-label="Soruyu işaretle">${IK.yil}</button></div>
@@ -412,10 +408,9 @@ function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru,son=S.i>=SORULAR.length-1;
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
- const fh=dg?'':formulH(q,S.sec);
- const tb=dg?'':fh?fh+`<button class="anl" data-a="rk">${S.rk?'Rakamları gizle':'Rakamları satır satır gör'}</button>`+(S.rk?tabloH(q,S.sec):''):tabloH(q,S.sec);
+ const tb=dg?'':tabloH(q,S.sec)?formulH(q)+tabloH(q,S.sec):'';
  const nbr=nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
- const coz=formulH(q,null)||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
+ const coz=(cozumH(q)?formulH(q)+cozumH(q):'')||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
  return `<div class="hd">${seg()}</div><div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
@@ -541,7 +536,7 @@ function sinama(){
   o.push('  tablo: '+yan.map(h=>h+(tabloH(s,h)?' var':' TABLOYOK')).join(' | '));
   o.push('--- soru '+(i+1)+' | sik '+hs.join('')+' | dogru '+s.dogru+' | uzun sik '+uzunMu(s)+' | eksik alan: '+(eksik.join(',')||'yok')+' | '+tas());
   q('[data-o='+yan[0]+']').click();q('[data-a=cevap]').click();
-  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | soruda isaret '+qa('.skm b').length+' atlanan '+qa('.skm .mat').length+' formul '+qa('.fkt').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
+  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
   if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
