@@ -1,0 +1,55 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/sinav-oncesi-mesaj.yml
+# NEDEN VAR (20.11.2026, Cem "sgs sinava giren herkese yazalim ve gonderelim"): sinavdan onceki aksam aktif SGS uyesine
+# kurucu imzali basari mesaji (e-posta izni verenlere). YALNIZ ELLE tetiklenir; zamanlama yok.
+# mod=sayim (varsayilan): yalniz sayi. mod=deneme: iki ornek yalniz Cem'e. mod=gonder: 'onay' girdisi (Cem'in cumlesi) sart.
+# Gunluk PUBLIC: betik e-posta/ad/soru sayisi basmaz. Oz-sinav once kosar; duserse gonderim yok.
+name: Sinav oncesi uye mesaji (SGS)
+on:
+  workflow_dispatch:
+    inputs:
+      mod:
+        description: "sayim | deneme | gonder"
+        required: true
+        default: sayim
+        type: choice
+        options: [sayim, deneme, gonder]
+      telefonsuz:
+        description: "yalniz sipariste cep telefonu olmayan uye"
+        required: true
+        default: true
+        type: boolean
+      onay:
+        description: "mod=gonder icin Cem onay cumlesi"
+        required: false
+        default: ""
+permissions:
+  contents: read
+concurrency:
+  group: sinav-oncesi-mesaj
+  cancel-in-progress: false
+jobs:
+  mesaj:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Oz-sinav
+        run: node motor/sinav-oncesi-mesaj.mjs --sinav
+      - name: Say, dene ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          MOD: ${{ inputs.mod }}
+          TELEFONSUZ: ${{ inputs.telefonsuz }}
+          ONAY: ${{ inputs.onay }}
+        run: |
+          EK=""
+          if [ "$TELEFONSUZ" = "true" ]; then EK="--telefonsuz"; fi
+          if [ "$MOD" = "deneme" ]; then node motor/sinav-oncesi-mesaj.mjs --deneme
+          elif [ "$MOD" = "gonder" ]; then node motor/sinav-oncesi-mesaj.mjs --gonder $EK
+          else node motor/sinav-oncesi-mesaj.mjs $EK
+          fi
