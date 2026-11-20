@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Tetikte · Yeni soru ekranı (deneme 2)</title>
+<style>
+:root{--kagit:#ffffff;--murekkep:#0f1b2d;--soluk:#3d4b63;--ince:#8b95a5;--cizgi:#e6e2da;--dolgu:#f4f2ee;--vurgu:#1f3b73;--vurguZ:#e9eef8;--sari:#ffe08a;--sariZ:#fff3cf;--hata:#b91c1c;--hataZ:#fbe9e7;--ok:#146f35;--okZ:#e3f2e8;--altin:#8a6224;--tahta:#16221c;--tahtaK:#4c3a27;--tebesir:#f2efe6}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--dolgu);color:var(--murekkep);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+svg{display:block}
+.sahne{min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
+.ph{width:100%;max-width:430px;min-height:100vh;background:var(--kagit);display:flex;flex-direction:column;position:relative}
+@media (min-width:520px){.sahne{padding:28px 0}.ph{min-height:800px;border-radius:28px;box-shadow:0 0 0 1px var(--cizgi),0 30px 60px -30px rgba(15,27,45,.35);overflow:clip}}
+.hd{display:flex;align-items:center;gap:14px;padding:20px 22px 6px}
+.seg{flex:1;display:flex;gap:4px}
+.seg i{flex:1;height:4px;border-radius:2px;background:var(--cizgi)}
+.seg i.t{background:var(--murekkep)}
+.seg i.s{background:var(--vurgu)}
+.ik{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--soluk);margin:-8px -8px -8px 0}
+.ik+.ik{margin-left:-6px}
+.ik svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ik.ac{color:var(--vurgu);background:var(--vurguZ)}
+.ik.ac.yl svg{fill:var(--vurgu)}
+.bd{flex:1;padding:14px 22px 18px}
+.ft{padding:10px 22px calc(22px + env(safe-area-inset-bottom));position:sticky;bottom:0;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--kagit) 22%)}
+.kok{font-size:17.5px;line-height:1.6;margin:6px 0 22px}
+.tk{border-radius:5px;cursor:pointer}
+.tk.by{background:var(--sari);box-shadow:0 0 0 2.5px var(--sari)}
+.uyr{background:var(--vurguZ);border-radius:16px;padding:12px 15px;margin:-8px 0 14px;font-size:15.5px;line-height:1.45}
+.uyr b{display:block;color:var(--vurgu);font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.op{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1.5px solid var(--cizgi);border-radius:18px;padding:13px 16px;margin:10px 0;font-size:16.5px;line-height:1.4;min-height:58px;background:var(--kagit);transition:border-color .15s,background-color .15s;-webkit-touch-callout:none;user-select:none}
+.op .lt{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--ince);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--soluk)}
+.op.sl{border-color:var(--vurgu);background:var(--vurguZ)}
+.op.sl .lt{background:var(--vurgu);border-color:var(--vurgu);color:var(--kagit)}
+.op.el{border-style:dashed}
+.op.el .tx{text-decoration:line-through;color:var(--ince)}
+.op.el .lt{color:var(--ince);border-color:var(--cizgi)}
+.op.dg{border-color:var(--ok);background:var(--okZ)}
+.op.yn{border-color:var(--hata);background:var(--hataZ)}
+.cta{display:flex;align-items:center;justify-content:center;width:100%;height:58px;border-radius:19px;background:var(--vurgu);color:var(--kagit);font-size:17px;font-weight:600;text-decoration:none}
+.cta.koyu{background:var(--murekkep)}
+.duz{display:block;width:100%;height:46px;color:var(--vurgu);font-size:16px;font-weight:600;margin-top:4px}
+.ip{margin:0;text-align:center;color:var(--ince);font-size:14.5px;height:58px;display:flex;align-items:center;justify-content:center}
+.kip{margin:-10px 0 12px;font-size:13.5px;color:var(--vurgu);font-weight:600}
+.cps{display:flex;gap:6px;margin:4px 0 0}
+.cp{flex:1;min-width:0;height:56px;border-radius:14px;background:var(--dolgu);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14.5px;font-variant-numeric:tabular-nums;line-height:1.25;overflow:hidden}
+.cp b{font-size:11.5px;font-weight:600;color:var(--ince)}
+.cp.dg{background:var(--okZ);color:var(--ok);font-weight:700}
+.cp.dg b{color:var(--ok)}
+.cp.yn{background:var(--hataZ);color:var(--hata);font-weight:700}
+.cp.yn b{color:var(--hata)}
+.cp.ac{box-shadow:0 0 0 2px var(--murekkep)}
+.cps.uzn{flex-direction:column}
+.cps.uzn .cp{flex:none;height:auto;min-height:48px;flex-direction:row;justify-content:flex-start;gap:12px;padding:10px 14px;text-align:left;font-size:15px}
+.cps.uzn .cp b{font-size:13px;flex:none}
+.ned{background:var(--dolgu);border-radius:16px;padding:13px 15px;margin:10px 0 0;font-size:15px;line-height:1.5}
+.ned b{display:block;margin-bottom:2px}
+.ned span{display:block;color:var(--soluk);font-size:13.5px;margin-top:4px;font-variant-numeric:tabular-nums}
+.kyt{margin:6px 0 0;font-size:15.5px;line-height:1.35;font-variant-numeric:tabular-nums}
+.kr{display:grid;grid-template-columns:1.25fr .9fr .9fr;gap:10px;padding:13px 10px;border-bottom:1px solid var(--cizgi);align-items:center}
+.kr span:nth-child(n+2){text-align:right}
+.kr.bs{padding:6px 10px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ince)}
+.kr.fk{background:var(--sariZ);border-radius:10px;border-bottom-color:transparent;font-weight:600}
+.kr.fk span:nth-child(3){font-weight:700}
+.kr.tp{font-weight:700}
+.kr.ay span:nth-child(2){color:var(--hata)}
+.kr.snc{border-bottom:0;padding-top:16px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.kr.snc span:nth-child(2){color:var(--hata)}
+.kr.snc span:nth-child(3){color:var(--ok)}
+.kyt.tek .kr{grid-template-columns:1.6fr 1fr}
+.kyt.tek .kr.snc span:nth-child(2){color:var(--ok)}
+.kyt.tek .kr.bs{color:var(--ok)}
+.ned .kyt{margin-top:8px;font-size:14px}
+.ned .kr{padding:9px 4px}
+.ned .kr.snc{font-size:16px}
+.geri{color:var(--soluk);font-size:14.5px;height:40px;margin:-4px 0 2px;display:inline-flex;align-items:center;gap:4px}
+.etk{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:26px 0 6px}
+.etk.no{color:var(--hata)}.etk.ok{color:var(--ok)}
+h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-weight:700}
+.alt1{font-size:16px;line-height:1.55;margin:0 0 18px}
+.kt2{margin:18px 0 0;padding:13px 15px;border-radius:16px;background:var(--dolgu);font-size:15.5px;line-height:1.5;font-variant-numeric:tabular-nums}
+.kt2 b,.tut b{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ince);margin-bottom:2px}
+.tut{margin:18px 0 0;padding-left:14px;border-left:3px solid var(--sari);font-size:15.5px;line-height:1.5}
+.sk{margin:4px 0 0;padding:14px 16px;border-radius:16px;background:var(--dolgu)}
+.skb{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ince)}
+.skm{margin:0;font-size:16px;line-height:1.75}
+.skm b,.fg b,.fr b{font-weight:600;border-radius:5px;padding:1px 4px}
+.mp{background:var(--vurguZ);color:var(--vurgu)}
+.md{background:var(--sari)}
+.my{font-weight:400!important;color:var(--ince);text-decoration:line-through}
+.mi{background:none;border-bottom:3px solid var(--sari);border-radius:0!important;padding:0!important}
+.mat{box-shadow:0 0 0 2px var(--hata)}
+.mi.mat{box-shadow:none;border-bottom-color:var(--hata)}
+.myn{background:var(--hataZ);color:var(--hata)}
+.skl{margin:10px 0 0;font-size:12.5px;color:var(--soluk);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.skl i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-left:8px}
+.skl i:first-child{margin-left:0}
+.skl .l1{background:var(--vurguZ);box-shadow:inset 0 0 0 1px var(--vurgu)}
+.skl .l2{background:var(--sari)}
+.skl .l3{box-shadow:inset 0 0 0 2px var(--hata)}
+.fg{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0 0;padding:14px 12px;border-radius:16px;background:var(--dolgu);font-size:15.5px;font-weight:600}
+.fg{flex-wrap:wrap;row-gap:12px}
+.fg .fd{display:inline-flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums;animation:gir .45s ease-out}
+.fg .fd strong{font-size:24px;color:var(--ok);letter-spacing:-.01em}
+.fg.ust{margin:4px 0 8px;padding:10px 12px}
+.fg b{font-weight:600;border-radius:5px;padding:2px 6px}
+.kr .ac{display:block;font-weight:400;font-size:13px;color:var(--soluk);margin-top:2px}
+.et{font-style:normal;font-size:11px;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:4px;vertical-align:1px}
+.kes{display:inline-flex;flex-direction:column;align-items:center;line-height:1.3}
+.kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:4px 0}
+.fm{display:flex;gap:10px;margin:14px 0 0}
+.fkt{flex:1;min-width:0;border:1.5px solid var(--cizgi);border-radius:16px;padding:12px 8px 12px;text-align:center}
+.fkt em{display:block;font-style:normal;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ince);margin-bottom:10px}
+.fr{display:flex;align-items:center;justify-content:center;gap:8px;font-size:16.5px;font-variant-numeric:tabular-nums}
+.fr .hat{box-shadow:0 0 0 2px var(--hata)}
+.fr strong{font-size:24px;letter-spacing:-.01em}
+.fr strong.k{color:var(--hata)}
+.fr strong.g{color:var(--ok)}
+.fkt small{display:block;margin-top:10px;font-size:12.5px;line-height:1.3;color:var(--soluk)}
+.cnl{margin:22px 0 0;padding:16px 16px 12px;border-radius:22px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 14px 34px -18px color-mix(in srgb,var(--murekkep) 45%,transparent),0 2px 6px -2px color-mix(in srgb,var(--murekkep) 12%,transparent);scroll-margin-top:10px}
+.cnb{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.cnb .cnsy{color:var(--ince)}
+.cnv{height:34px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--soluk);background:var(--dolgu);margin-left:auto;margin-right:10px}
+.cnv.ac{color:var(--vurgu);background:var(--vurguZ)}
+.cnh{display:inline-flex;background:var(--dolgu);border-radius:999px;padding:3px}
+.cnh button{height:34px;padding:0 16px;border-radius:999px;font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--soluk)}
+.cnh button.ac{background:var(--kagit);color:var(--vurgu);box-shadow:0 1px 3px color-mix(in srgb,var(--murekkep) 18%,transparent)}
+.nsc{margin:18px 0 0;background:var(--dolgu);border-radius:18px;padding:12px}
+.nsb{display:flex;align-items:center;gap:14px;padding:0 4px 12px}
+.nsb .oy{flex:none;width:44px;height:44px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
+.nsb .oy svg{width:20px;height:20px;fill:var(--kagit);margin-left:2px}
+.nsb b{display:block;font-size:16px}
+.nsb small{color:var(--soluk);font-size:13.5px}
+.nsd{display:flex;gap:8px}
+.nsd button{flex:1;min-height:64px;border-radius:14px;background:var(--kagit);border:1.5px solid var(--cizgi);padding:10px 12px;text-align:left}
+.nsd button b{display:block;font-size:15.5px;color:var(--vurgu)}
+.nsd button small{display:block;margin-top:2px;font-size:12.5px;line-height:1.3;color:var(--soluk)}
+.cnq{margin:12px 0 0;font-size:16px;line-height:2;color:var(--murekkep)}
+.cz{position:relative;white-space:nowrap;transition:color .3s,background-color .3s}
+.cz.alt{box-shadow:inset 0 -3px 0 var(--vurgu);font-weight:600}
+.cz.sari{background:var(--sari);border-radius:4px;box-shadow:0 0 0 3px var(--sari);font-weight:600}
+.cz.dy,.cz.dm{font-weight:700}
+.cz.dm{color:var(--vurgu)}
+.cz.dy::after,.cz.dm::after,.cz.atl::after{content:'';position:absolute;left:-7px;right:-7px;top:-3px;bottom:-3px;border:2.5px solid var(--altin);border-radius:50%;transform:rotate(-3deg);pointer-events:none}
+.cz.dm::after{border-color:var(--vurgu)}
+.cz.atl::after{border-color:var(--hata);border-style:dashed}
+.cz.czg{color:var(--ince);text-decoration:line-through;text-decoration-color:var(--hata);text-decoration-thickness:2px}
+.cz.yeni::after{animation:cem .55s ease-out}
+.cz.sari.yeni,.cz.alt.yeni{animation:parla .6s ease-out}
+@keyframes cem{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes parla{from{background-color:var(--sariZ)}}
+.cnf{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 10px;margin:14px 0 0;padding:16px 10px;border-radius:16px;background:var(--dolgu);font-size:15px;font-weight:600;min-height:112px}
+.cnf .yv{display:block;padding:5px 12px;border-radius:9px;border:1.5px dashed var(--ince);color:var(--soluk);font-size:13.5px;font-weight:600;transition:all .3s}
+.cnf .yv.dolu{border-style:solid;border-color:transparent;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;animation:otur .5s cubic-bezier(.2,1.4,.4,1)}
+.cnf .yv.dolu.md{color:var(--murekkep)}
+.cnf .kes i{margin:6px 0;height:2.5px}
+.cnf strong{font-size:34px;line-height:1;letter-spacing:-.02em;min-width:28px;text-align:center}
+.cnf strong.bos{color:var(--ince);font-weight:500}
+.cnf strong.var{color:var(--ok);animation:otur .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes otur{from{transform:scale(.7)}to{transform:none}}
+.cns{margin:14px 2px 0;font-size:17px;line-height:1.45;font-weight:600;min-height:50px}
+.cnn{display:flex;gap:4px;margin:10px 0 0}
+.cnn i{flex:1;height:3px;border-radius:2px;background:var(--cizgi)}
+.cnn i.g{background:var(--murekkep)}
+.cnn i.a{background:var(--vurgu)}
+.cnk{display:flex;align-items:center;justify-content:center;gap:22px;margin:10px 0 0}
+.cnk button{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cnk svg{width:22px;height:22px;fill:var(--murekkep)}
+.cnk .buy{width:56px;height:56px;background:var(--vurgu)}
+.cnk .buy svg{fill:var(--kagit);width:24px;height:24px}
+.cnk button:disabled{opacity:.25}
+.ucn{position:fixed;z-index:30;font-weight:700;font-size:16px;color:var(--vurgu);pointer-events:none;transition:transform .65s cubic-bezier(.3,.7,.2,1),opacity .65s ease-in}
+.nsr{display:flex;align-items:center;gap:14px;width:100%;text-align:left;min-height:64px;border-radius:14px;background:var(--kagit);border:1.5px solid var(--cizgi);padding:9px 14px 9px 10px;margin:8px 0 0}
+.nsr .oy{flex:none;width:44px;height:44px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
+.nsr .oy svg{width:20px;height:20px;fill:var(--kagit);margin-left:2px}
+.nsr b{display:block;font-size:16px}
+.nsr small{display:block;margin-top:1px;font-size:13px;line-height:1.3;color:var(--soluk)}
+.nsk{display:block;width:100%;text-align:left;min-height:60px;border-radius:14px;background:var(--vurgu);padding:11px 14px;margin:0 0 8px}
+.nsk{margin:0}
+.nsk b{display:block;font-size:16px;color:var(--kagit)}
+.nsk small{display:block;margin-top:2px;font-size:12.5px;color:var(--kagit);opacity:.85}
+.drs{margin:22px 0 0;padding:10px 16px 14px;border-radius:22px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 14px 34px -18px color-mix(in srgb,var(--murekkep) 45%,transparent),0 2px 6px -2px color-mix(in srgb,var(--murekkep) 12%,transparent);scroll-margin-top:10px}
+.drb{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.drb .x{margin-right:-6px}
+.drk{position:relative;margin:2px 0 0}
+.drq{margin:0;padding:14px 0 6px;font-size:16.5px;line-height:2.75}
+.dbl{transition:color .35s;border-radius:4px}
+.dbl.bek{color:var(--ince)}
+.dbl.sim{color:var(--murekkep);background:var(--sariZ);box-shadow:0 0 0 3px var(--sariZ)}
+.dbl.ok{color:var(--murekkep)}
+.diz{white-space:nowrap;font-weight:600}
+.drv{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.drnot{position:absolute;font-family:"Ink Free","Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:15px;line-height:1;font-weight:700;white-space:nowrap;pointer-events:none}
+.drz{margin:10px 2px 0;min-height:48px;font-size:16.5px;line-height:1.45;font-weight:600}
+.dri{height:3px;border-radius:2px;background:var(--cizgi);margin:8px 0 0;overflow:hidden}
+.dri i{display:block;height:100%;width:0;background:var(--vurgu)}
+.drc{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));position:sticky;bottom:0;z-index:2;background:var(--kagit);border-top:1px solid var(--cizgi);border-radius:0 0 22px 22px}
+.drs{padding-bottom:0}
+.drs .cta{margin:12px 0 14px}
+.drs .cta[hidden]{display:none}
+.drc .buy{width:56px;height:56px;border-radius:50%;background:var(--vurgu);display:flex;align-items:center;justify-content:center}
+.drc .buy svg{width:24px;height:24px;fill:var(--kagit)}
+.dry{height:44px;min-width:96px;padding:0 14px;border-radius:22px;background:var(--dolgu);color:var(--soluk);font-size:13.5px;font-weight:700}
+.drkg{margin:8px 0 0;padding:12px 14px 10px;border-radius:14px;background:var(--dolgu);font-family:"Ink Free","Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:17px;line-height:1.9;font-weight:700;color:var(--vurgu)}
+.drkg[hidden]{display:none}
+.drkb{margin:0 0 2px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;color:var(--ince)}
+.drl{border-bottom:1px solid var(--cizgi);min-height:32px}
+.drh{display:inline-block;white-space:pre;clip-path:inset(-6px 100% -6px 0)}
+.drl.buy{font-size:20px}
+.drl.cvp{border-bottom:0;color:var(--ok);font-size:20px}
+.drl.cvp .drh{border:2.5px solid var(--ok);border-radius:10px;padding:0 12px;margin-top:6px;line-height:1.5}
+.drl.sen{color:var(--hata);margin-top:8px;border-top:1.5px dashed var(--ince)}
+.drl.sen.cz .drh{text-decoration:line-through;text-decoration-thickness:2.5px}
+.drl.snt{color:var(--hata);font-size:15px;border-bottom:0}
+.drl.dgr{color:var(--ok);margin-top:8px;border-top:1.5px dashed var(--ince);border-bottom:0}
+.bd.tam{padding:0}
+.tam .drs{margin:0;border:0;box-shadow:none;border-radius:0;padding:10px 20px 0;min-height:calc(100vh - 18px);display:flex;flex-direction:column}
+.tam .drc{margin-top:auto;margin-left:-20px;margin-right:-20px;border-radius:0}
+.tam .drb{text-transform:none;letter-spacing:0}
+#drg{padding:4px 0 6px}
+#drg[hidden]{display:none}
+.fmb{margin-top:12px}
+.nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
+.nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.ngr{margin:6px 0 0;font-size:16.5px;line-height:1.5;font-weight:600}
+.nad{margin:18px 0 0;scroll-margin-top:12px}
+.nst{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ince)}
+.nsz{margin:12px 0 0;font-size:16.5px;line-height:1.5}
+.anl{margin:8px 0 0;height:40px;padding:0 14px;border-radius:20px;background:var(--dolgu);color:var(--soluk);font-size:14px;font-weight:600}
+.anl.ac{background:var(--vurguZ);color:var(--vurgu)}
+.ansf{margin:8px 0 0;padding:12px 14px;border-radius:14px;background:var(--vurguZ);font-size:15px;line-height:1.5}
+.nil{margin-top:18px}
+.nbt{margin:18px 0 0;color:var(--soluk);font-size:14.5px;text-align:center}
+.tk2{background:var(--tahta);border-radius:16px;box-shadow:inset 0 0 0 5px var(--tahtaK);padding:18px 16px;color:var(--tebesir);font-family:"Ink Free","Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:16px;line-height:1.25}
+.tk2 .y{color:var(--sari)}
+.tk2 .kt{border:2px solid currentColor;border-radius:10px;padding:6px 8px;text-align:center;display:flex;align-items:center;justify-content:center;min-height:46px}
+.tk2 .kt.sn{opacity:.45;border-style:dashed}
+.tk2 .ck{display:flex;gap:10px;min-height:190px}
+.tk2 .cs{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tk2 .cs em{font-style:normal;font-size:13.5px;opacity:.75;text-align:center}
+.tk2 .ca{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 8px;font-size:17px}
+.tk2 .cf2{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 10px;margin-top:14px;font-size:17px}
+.tk2 .cf2:first-child{margin-top:0;font-size:21px}
+.tk2 .kes{display:inline-flex;flex-direction:column;align-items:center;line-height:1.25}
+.tk2 .kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:3px 0}
+.tk2 .cson{font-size:34px;border:2px solid currentColor;border-radius:12px;padding:0 14px;line-height:1.3}
+.tk2 .c9{display:flex;justify-content:center;gap:5px;margin-top:16px}
+.tk2 .c9 i{width:22px;height:22px;border:2px solid var(--tebesir);border-radius:5px;opacity:.8}
+.tk2 .cn{text-align:center;font-size:14.5px;opacity:.8;margin-top:6px}
+.nbr{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--dolgu);border-radius:18px;padding:12px 16px 12px 12px;margin:18px 0 0;min-height:64px}
+.nbr .oy{flex:none;width:44px;height:44px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
+.nbr .oy svg{width:20px;height:20px;fill:var(--kagit);margin-left:2px}
+.nbr b{display:block;font-size:16px}
+.nbr small{color:var(--soluk);font-size:13.5px}
+.ph.gece{background:#0c110e;color:#f4f2ec}
+.gece .hd2{display:flex;align-items:center;justify-content:space-between;padding:16px 14px 8px 22px;font-size:15px;color:#aab3ad;font-weight:600}
+.x{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1)}
+.x svg{width:18px;height:18px;stroke:#fff;stroke-width:2.2;stroke-linecap:round;fill:none}
+.x.ack{background:var(--dolgu)}
+.x.ack svg{stroke:var(--murekkep)}
+.tht{margin:6px 14px 0;background:var(--tahta);border-radius:20px;box-shadow:inset 0 0 0 6px #4c3a27,inset 0 0 0 7px #2c2118;padding:22px 22px 18px;min-height:300px;max-height:46vh;overflow:auto;color:var(--tebesir);font-family:"Ink Free","Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:18px;line-height:1.36;display:flex;flex-direction:column;gap:3px}
+.tht .y{color:var(--sari)}
+.tht .es{opacity:.55}
+.tht .sor{margin:auto;text-align:center;font-size:22px;line-height:1.35;padding:0 6px}
+.tht .ust{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;margin-bottom:10px;min-height:50px}
+.tht .kes{display:inline-flex;flex-direction:column;align-items:center;font-size:16px;line-height:1.25}
+.tht .kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:2px 0}
+.tht .lst>div{display:flex;justify-content:space-between;gap:12px}
+.tht .lst>div span:last-child{white-space:nowrap}
+.tht .tpl{border-top:2px solid var(--tebesir);margin-top:4px;padding-top:2px}
+.tht .alt{margin-top:auto;padding-top:10px;text-align:center;font-size:20px}
+.tht .alt em{font-style:normal;display:inline-block;border:2px solid currentColor;border-radius:12px;padding:1px 12px}
+.tht .nt{text-align:center;font-size:16px;margin-top:6px}
+.tht .bil{flex:1;display:flex;gap:10px;min-height:230px}
+.tht .kl{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tht .bs{font-size:14px;text-align:center;opacity:.75;line-height:1.2;min-height:34px;display:flex;align-items:center;justify-content:center}
+.tht .bk{border:2px solid currentColor;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px;line-height:1.2;padding:4px;min-height:44px}
+.tht .bk.sn{opacity:.4}
+.cap{flex:1;padding:22px 24px 6px}
+.cap .st{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8f9a92;margin:0 0 8px}
+.cap .soz{font-size:18.5px;line-height:1.5;margin:0}
+.cap .bst{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.08);font-size:15px;line-height:1.5;color:#d9ddd6}
+.ctl{display:flex;align-items:center;justify-content:center;gap:26px;padding:6px 0 4px}
+.ctl button{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.ctl svg{width:24px;height:24px;fill:#f4f2ec}
+.ctl .buy{width:66px;height:66px;background:var(--sari)}
+.ctl .buy svg{width:28px;height:28px;fill:#16221c}
+.ctl button:disabled{opacity:.25}
+.nkt{display:flex;justify-content:center;gap:6px;padding:8px 0 4px}
+.nkt i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22)}
+.nkt i.a{background:var(--sari);width:18px;border-radius:3px}
+.lk{display:flex;justify-content:center;gap:4px;padding:6px 14px calc(18px + env(safe-area-inset-bottom))}
+.lk button{height:44px;padding:0 14px;border-radius:22px;font-size:14.5px;color:#cfd5cf;font-weight:600}
+.lk button.ac{background:rgba(255,255,255,.12);color:#fff}
+.hd3{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 14px 0 22px;font-size:15px;color:var(--soluk);font-weight:600}
+.gr{border-top:1px solid var(--cizgi);margin-top:10px}
+.gr .st2{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--cizgi);font-size:15.5px;font-variant-numeric:tabular-nums}
+.gr .st2 span:last-child{text-align:right;font-weight:600}
+.gr input{width:128px;height:48px;border:1.5px solid var(--cizgi);border-radius:14px;text-align:right;padding:0 14px;font:inherit;font-size:16.5px;font-variant-numeric:tabular-nums;background:var(--kagit);color:inherit}
+.gr input:focus{outline:none;border-color:var(--vurgu)}
+.gr input.d{border-color:var(--ok);background:var(--okZ);color:var(--ok);font-weight:700}
+.gr input.y{border-color:var(--hata);background:var(--hataZ)}
+.uyari{color:var(--hata);font-size:14.5px;margin:12px 0 0}
+.bit{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px 28px}
+.bit h1{margin:0}
+.bit p{margin:0;color:var(--soluk)}
+.dnm{background:var(--altin);color:var(--kagit);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:18px;text-align:center}
+.gir{animation:gir .28s ease-out}
+@keyframes gir{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="dnm">DENEME · YENİ ÖNERİ</div>
+<div id="kok"><div class="sahne"><div class="ph"><div class="bit"><p>Sorular yükleniyor…</p></div></div></div></div>
+<script>
+const IK={
+ ele:'<svg viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="10" rx="4"/><path d="M4 20L20 4"/></svg>',
+ yil:'<svg viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>',
+ x:'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ oyna:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
+ dur:'<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>',
+ once:'<svg viewBox="0 0 24 24"><path d="M6 5h2.2v14H6zM20 5v14L9.5 12z"/></svg>',
+ sonra:'<svg viewBox="0 0 24 24"><path d="M15.8 5H18v14h-2.2zM4 5v14l10.5-7z"/></svg>'
+};
+const HARF=['A','B','C','D','E'];
+const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+let SORULAR=[],S=null;
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,drsOz:false,fm:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const Q=()=>SORULAR[S.i];
+const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
+const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
+const tit=p=>{try{navigator.vibrate&&navigator.vibrate(p);}catch(e){}};
+const seg=()=>`<div class="seg">${SORULAR.map((_,i)=>`<i class="${i<S.i?'t':i===S.i?'s':''}"></i>`).join('')}</div>`;
+const kok=(q,tik)=>String(q.soru).split(' ').map((t,i)=>`<span class="tk ${S.boya[i]?'by':''}"${tik?` data-t="${i}"`:''}>${kac(t)}</span>`).join(' ');
+const ayirt=(q,h)=>(q.teshis&&q.teshis[h]&&q.teshis[h].ayirt)||'';
+const kisa=(q,h)=>(q.sade&&q.sade.siklar&&q.sade.siklar[h])||(q.tuzak&&q.tuzak[h]&&q.tuzak[h].metin)||'';
+const tuzakAd=(q,h)=>(q.tuzak&&q.tuzak[h]&&q.tuzak[h].ad)||'';
+const TB={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{tut:'Soru "ortalama" diyorsa tek stoğu alma; ikisini topla, ikiye böl.',
+  s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t','(dönem başı + dönem sonu) ÷ 2'],['Stok devir hızı','9']],
+  sen:{A:{b:'Stokların ortalamasını almadın.',v:['405.000','30.000','60.000','90.000','4,5']},
+       B:{b:'Yalnız dönem sonu stoğu aldın.',v:['405.000','—','60.000','60.000','6,75']},
+       D:{b:'Paya net satışları yazdın.',v:['495.000','30.000','60.000','45.000','11']},
+       E:{b:'Yalnız dönem başı stoğu aldın.',v:['405.000','30.000','—','30.000','13,5']}}},
+ 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{tut:'Götürü gideri seçen, iki yıl geçmeden gerçek gidere dönemez.',
+  s:[['Brüt kira','900.000'],['Yöntem','Götürü'],['Sigorta, onarım, amortisman','—'],['Trafik cezası','—'],['Götürü gider (%15)','135.000'],['Safi irat','765.000']],
+  sen:{A:{b:'Götürü oranını %20 aldın.',v:['900.000','Götürü','—','—','180.000','720.000']},
+       B:{b:'Gerçek gidere geçtin, cezayı da düştün.',v:['900.000','Gerçek','130.000','15.000','—','755.000']},
+       D:{b:'İki yıl dolmadan gerçek gidere geçtin.',v:['900.000','Gerçek','130.000','—','—','770.000']},
+       E:{b:'Hiç gider düşmedin.',v:['900.000','Yok','—','—','—','900.000']}}},
+ 'smmm-4k-a-fmuh-zor-r3/kp-02':{tut:'Peşin ödenen ve peşin alınan kiranın yalnız bu yıla düşen ayları kâra girer.',
+  s:[['Yazılan kira gideri','180.000'],['2026\'ya ait gider (4 ay)','40.000'],['Gider fazlası (kârı azaltır)','140.000','t'],['Yazılan kira geliri','60.000'],['2026\'ya ait gelir (2 ay)','20.000'],['Gelir fazlası (kârı artırır)','40.000','t'],['Kâr','100.000 ₺ düşük']],
+  sen:{A:{b:'Gider tarafına bakmadın.',v:['—','—','—','60.000','20.000','40.000','40.000 ₺ yüksek']},
+       B:{b:'Geliri atladın, yönü de ters aldın.',v:['180.000','40.000','140.000','—','—','—','140.000 ₺ yüksek']},
+       C:{b:'Tutar doğru, yön ters.',v:['180.000','40.000','140.000','60.000','20.000','40.000','100.000 ₺ yüksek']},
+       D:{b:'Gelir tarafına bakmadın.',v:['180.000','40.000','140.000','—','—','—','140.000 ₺ düşük']}}},
+ 'smmm-w3-maliyet-cokzor/kp-10':{tut:'Fiili üretim, normal kapasiteden atıl kapasite çıkarılarak bulunur.',
+  s:[['Sabit gider bütçesi','345.600'],['Normal kapasite','12.000'],['Birim sabit gider','28,8','t','sabit gider bütçesi ÷ normal kapasite'],['Atıl kapasite (69.120 ÷ birim gider)','2.400','t'],['Fiili üretim','9.600']],
+  sen:{A:{b:'Atıl kapasitede durdun, çıkarmadın.',v:['345.600','12.000','28,8','2.400','2.400']},
+       B:{b:'Birim gideri yarıya indirdin.',v:['345.600','12.000','14,4','4.800','4.800']},
+       D:{b:'Boş kapasiteyi hesaba katmadın.',v:['345.600','12.000','—','—','12.000']},
+       E:{b:'Atıl kapasiteyi çıkaracakken ekledin.',v:['345.600','12.000','28,8','2.400','14.400']}}}
+};
+const bsz=t=>String(t).replace(/\s/g,'');
+function tbl(q,h){
+ const T=TB[q.id];if(!T||!T.sen[h])return null;const n=T.s.length-1;
+ if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1]))||!bsz(q.siklar[h]).startsWith(bsz(T.sen[h].v[n])))return null;
+ return T;
+}
+function tabloH(q,h){
+ const T=tbl(q,h);if(!T)return '';const n=T.s.length-1,v=T.sen[h].v;
+ return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':v[i]!==r[1]?'fk':''} ${r[2]==='t'?'tp':''} ${v[i]!==r[1]?'ay':''}"><span>${kac(r[0])}${etk(q,i)}${r[3]?`<small class="ac">${kac(r[3])}</small>`:''}</span><span>${kac(v[i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+}
+function cozumH(q){
+ const T=TB[q.id];if(!T)return '';const n=T.s.length-1;if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1])))return '';
+ return `<div class="kyt tek"><div class="kr bs"><span>Çözüm</span><span></span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':''} ${r[2]==='t'?'tp':''}"><span>${kac(r[0])}${etk(q,i)}${r[3]?`<small class="ac">${kac(r[3])}</small>`:''}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+}
+const kes=(u,a)=>`<span class="kes"><span>${u}</span><i></i><span>${a}</span></span>`;
+const N={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{iste:'Stok devir hızı',dusun:'Paya ne, paydaya ne yazılır?',
+  istC:'Stok devir hızını.',
+  ver:[['Satılan malın maliyeti','405.000'],['Net satışlar','495.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000']],
+  verC:'Soru bize satılan malın maliyetini, net satışları, yılın başındaki ve sonundaki stoğu vermiş.',
+  on:[2,3],onC:'Soru "ortalama değeri kullanın" diyor. Demek ki iki stoğu toplayıp ikiye böleceğiz. Net satışlar bu hesapta kullanılmaz.',
+  kuralH:kes('Satılan malın maliyeti','Ortalama stok'),kuralC:'Stok devir hızı, satılan malın maliyetinin ortalama stoğa bölünmesiyle bulunur.',
+  ara:[['Ortalama stok','45.000']],son:'405.000 ÷ 45.000 = 9',
+  cozC:'Ortalama stok, 30.000 ile 60.000\'in ortalaması: 45.000 ₺. 405.000 bölü 45.000 eşittir 9.',
+  not:'Pay maliyet, payda ortalama stok',notC:'En sık hata: paya net satışları yazmak ya da tek bir stoğu almak.',
+  basit:'Stok devir hızı, depodaki malın yılda kaç kez satılıp yenilendiğini gösterir. Yıl boyunca depoda ortalama 45.000 liralık mal durmuş, 405.000 liralık mal satılmış. Demek ki depo yılda 9 kez boşalıp dolmuş.',
+  sifir:{bas:['Depoda duran mal','Yıl içinde satılan'],k:[['Yıl başı stok<br>30.000',0,1],['Yıl sonu stok<br>60.000',0,2],['Satılan malın maliyeti<br>405.000',1,3]],son:'405.000 ÷ 45.000 = 9',
+   a:[['Stok','Stok, işletmenin satmak için deposunda tuttuğu maldır. Yıl başında bir miktar vardır, yıl sonunda başka bir miktar.',[0,1]],
+      ['Ortalama stok','Depo yıl boyunca aynı kalmaz. O yüzden baştaki ile sondakini toplayıp ikiye böleriz; depoda ortalama ne kadar mal durduğunu buluruz: 45.000.',[0,1]],
+      ['Satılan malın maliyeti','Yıl içinde satılan malların işletmeye kaça mal olduğudur. Satış fiyatı değil, alış bedeli.',[2]],
+      ['Stok devir hızı','İkisini böleriz: satılan malın maliyeti bölü ortalama stok. 9 çıkarsa depo yılda 9 kez boşalıp dolmuş demektir.',[0,1,2]]]}},
+ 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{iste:'Safi irat',dusun:'Geçen yıl götürüyü seçen, bu yıl yöntemi değiştirebilir mi?',
+  istC:'Kira gelirinden gider düşüldükten sonra kalan tutarı, yani safi iradı.',
+  ver:[['Brüt kira','900.000'],['2025\'te seçilen yöntem','Götürü'],['Sigorta, onarım, amortisman','130.000'],['Trafik cezası','15.000']],
+  verC:'Soru bize brüt kirayı, geçen yıl seçilen yöntemi ve bu yıl düşülmek istenen giderleri vermiş.',
+  on:[1],onC:'Geçen yıl götürü gider seçilmiş. Götürüyü seçen iki yıl geçmeden gerçek gidere dönemez. Bu yıl da götürü uygulanır; sayılan giderlerin hiçbiri düşülmez.',
+  kuralH:'<span>Brüt kira − %15 götürü gider</span>',kuralC:'Götürü gider, brüt kiranın yüzde on beşidir.',
+  ara:[['Götürü gider (%15)','135.000']],son:'900.000 − 135.000 = 765.000',
+  cozC:'900.000\'in yüzde on beşi 135.000 ₺. 900.000 eksi 135.000 eşittir 765.000 ₺.',
+  not:'Götürüden dönüş: 2 yıl geçmeden olmaz',notC:'En sık hata: gerçek giderleri düşmek. Soru "geçmek istiyor" diyor, "geçebilir" demiyor.',
+  basit:'Kira gelirinden gider düşmenin iki yolu var: ya belgeli gerçek giderleri düşersin ya da belge göstermeden kiranın yüzde on beşini. İkinciyi seçen iki yıl ondan vazgeçemez. Bay F geçen yıl ikinciyi seçmiş; bu yıl da yüzde on beş düşer: 900.000 eksi 135.000, kalan 765.000.',
+  sifir:{bas:['Alınan kira','Nereye ayrılır'],k:[['Brüt kira<br>900.000',0,1],['Gider<br>135.000',1,1],['Safi irat<br>765.000',1,4]],son:'900.000 − 135.000 = 765.000',
+   a:[['Brüt kira','Kiracıdan bir yılda alınan kiranın tamamıdır.',[0]],
+      ['Gider','Ev sahibinin de masrafı olur. Vergi kiranın tamamından değil, gider düşüldükten sonra kalandan hesaplanır.',[1]],
+      ['İki yol','Gideri iki yoldan biriyle düşersin: gerçek giderleri belgeyle ya da belgesiz olarak kiranın yüzde on beşini. Belgesiz yolu seçen iki yıl geçmeden değiştiremez.',[1]],
+      ['Safi irat','Brüt kiradan gider çıkınca kalan tutardır. Vergi bunun üzerinden hesaplanır.',[0,1,2]]]}},
+ 'smmm-4k-a-fmuh-zor-r3/kp-02':{iste:'Kârdaki hata',dusun:'Yalnız bir tarafa mı baktın, gidere ve gelire birlikte mi?',
+  istC:'2026 kârının kaç lira yüksek ya da düşük gösterildiğini.',
+  ver:[['Ödenen kira · 18 ay · 1 Eylül','180.000'],['Alınan kira · 6 ay · 1 Kasım','60.000']],
+  verC:'Soru bize peşin ödenen 18 aylık kirayı ve peşin alınan 6 aylık kirayı vermiş. İkisinin de tamamı bu yıla yazılmış.',
+  on:[0,1],onC:'İkisi de 2026\'da başlıyor ama 2026\'da bitmiyor. Giderin yalnız 4 ayı, gelirin yalnız 2 ayı bu yıla aittir. Gerisi sonraki yıllarındır.',
+  kuralH:'<span>fazla gider − fazla gelir</span>',kuralC:'Dönemsellik: gelir ve gider, paranın ödendiği yıla değil, ait olduğu yılın kârına yazılır.',
+  ara:[['Fazla gider: 180.000 − 40.000','140.000'],['Fazla gelir: 60.000 − 20.000','40.000']],son:'140.000 − 40.000 = 100.000 düşük',
+  cozC:'Gider 140.000 ₺ fazla yazılmış; bu kârı düşürür. Gelir 40.000 ₺ fazla yazılmış; bu kârı yükseltir. Net etki: kâr 100.000 ₺ düşük görünür.',
+  not:'Fazla gider kârı düşürür, fazla gelir yükseltir',notC:'En sık hata: yalnız bir tarafa bakmak ya da yönü ters söylemek.',
+  basit:'On sekiz aylık kirayı peşin ödedin diye hepsi bu yılın gideri olmaz; bu yıl yalnız 4 ay kullandın, 40.000 ₺. Altı aylık kirayı peşin aldın diye hepsi bu yılın geliri olmaz; bu yıl yalnız 2 ay geçti, 20.000 ₺. Gideri 140.000 fazla, geliri 40.000 fazla yazmışsın; kâr 100.000 ₺ eksik çıkar.',
+  sifir:{bas:['Ödenen kira 180.000','Alınan kira 60.000'],k:[['2026 · 4 ay<br>40.000',0,1],['Sonraki yıllar · 14 ay<br>140.000',0,3],['2026 · 2 ay<br>20.000',1,1],['2027 · 4 ay<br>40.000',1,2]],son:'140.000 − 40.000 = 100.000 düşük',
+   a:[['Dönem','Kâr yıl yıl hesaplanır. Her yılın kârına yalnız o yılın geliri ve gideri girer.',[0,2]],
+      ['Peşin ödenen kira','18 aylık kirayı bugün ödesen de bu yıl yalnız 4 ay kullandın. Bu yılın gideri 40.000; kalan 140.000 sonraki yılların.',[0]],
+      ['Peşin alınan kira','6 aylık kirayı bugün alsan da bu yıl yalnız 2 ay geçti. Bu yılın geliri 20.000; kalan 40.000 gelecek yılın.',[2]],
+      ['Hata','Hepsini bu yıla yazarsan gider 140.000 fazla, gelir 40.000 fazla olur. Fazla gider kârı düşürür, fazla gelir yükseltir.',[1,3]]]}},
+ 'smmm-w3-maliyet-cokzor/kp-10':{iste:'Fiili üretim',dusun:'Soru üretileni mi soruyor, üretilmeyeni mi?',
+  istC:'İşletmenin gerçekte kaç birim ürettiğini.',
+  ver:[['Normal kapasite','12.000 birim'],['Sabit gider bütçesi','345.600'],['Boş kapasite gideri (680)','69.120']],
+  verC:'Soru bize normal kapasiteyi, sabit gider bütçesini ve 680 hesabına aktarılan boş kapasite giderini vermiş.',
+  on:[2],onC:'680 hesabına giden 69.120 ₺, üretilmeyen birimlerin sabit gideridir. Bu tutar bize kaç birimin üretilmediğini söyler.',
+  kuralH:'<span>Normal kapasite − atıl kapasite</span>',kuralC:'Sabit gider birimlere eşit dağıtılır. Üretilmeyen birimlerin payı 680 hesabına gider.',
+  ara:[['Birim sabit gider: 345.600 ÷ 12.000','28,8'],['Atıl kapasite: 69.120 ÷ 28,8','2.400']],son:'12.000 − 2.400 = 9.600',
+  cozC:'Bir birime düşen sabit gider 28,8 ₺. 69.120 bölü 28,8 eşittir 2.400; bu kadar birim üretilmemiş. 12.000 eksi 2.400 eşittir 9.600 birim.',
+  not:'680 = üretilmeyen birimlerin sabit gideri',notC:'En sık hata: 2.400\'ü bulup orada durmak. Soru üretileni soruyor, üretilmeyeni değil.',
+  basit:'Fabrika yılda 12.000 birim üretecek şekilde kurulmuş; kirası, amortismanı üretsen de üretmesen de 345.600 ₺. Yani her birime 28,8 ₺ düşüyor. 69.120 ₺ boşa gittiyse 2.400 birim üretilmemiş demektir. Üretilen: 12.000 eksi 2.400, yani 9.600.',
+  sifir:{bas:['Kapasite 12.000 birim','Sabit gider 345.600'],k:[['Üretilen<br>9.600',0,4],['Boş kalan<br>2.400',0,1],['Ürüne giden<br>276.480',1,4],['680\'e giden<br>69.120',1,1]],son:'12.000 − 2.400 = 9.600',
+   a:[['Sabit gider','Kira, amortisman gibi giderler üretim azalsa da değişmez. Fabrika çalışsa da çalışmasa da ödenir.',[2,3]],
+      ['Normal kapasite','Fabrikanın olağan koşullarda üretebileceği miktardır. Sabit gider bu miktara bölünür; her birime eşit pay düşer.',[0,1]],
+      ['Boş kapasite','Fabrika daha az üretirse üretilmeyen birimlerin payı ürüne yüklenmez; 680 hesabına, doğrudan zarara yazılır.',[1,3]],
+      ['Fiili üretim','Boşa giden gideri birim paya bölersen kaç birimin üretilmediğini bulursun. Kapasiteden çıkarınca üretilen kalır.',[0]]]}}
+};
+const nb=q=>N[q.id]||null;
+function dersi(q){
+ const n=nb(q);if(!n)return dersiE(q);
+ if(S.ders==='sifir')return n.sifir.a.map(x=>({b:x[0],s:x[1]}));
+ const a0=(S.sec&&S.sec!==q.dogru&&ayirt(q,S.sec))||n.dusun;
+ return [{b:'Önce şunu düşün',s:a0},{b:'Soru ne istiyor?',s:n.istC},{b:'Ne verilmiş?',s:n.verC},{b:'Hangisi önemli?',s:n.onC},{b:'Hangi kural?',s:n.kuralC},{b:'Çözüm',s:n.cozC},{b:'Sınav için önemli nokta',s:n.notC}];
+}
+function tahta(q,d,a){
+ const n=nb(q);if(!n)return tahtaE(d,a);
+ if(S.ders==='sifir'){const z=n.sifir,hi=z.a[a][2],sonA=a===z.a.length-1;
+  return `<div class="tht"><div class="bil">${[0,1].map(c=>`<div class="kl"><div class="bs">${kac(z.bas[c])}</div>${z.k.map((k,i)=>k[1]===c?`<div class="bk ${hi.indexOf(i)>=0?'y':'sn'}" style="flex:${k[2]}">${k[0]}</div>`:'').join('')}</div>`).join('')}</div>${sonA?`<div class="alt y" style="margin-top:12px"><em>${kac(z.son)}</em></div>`:''}</div>`;}
+ if(a===0)return `<div class="tht"><div class="sor y">${kac(d[0].s)}</div></div>`;
+ const ust=`<div class="ust ${a===1||a===4?'y':''}"><span>${kac(n.iste)} =</span>${a>=4?n.kuralH:'<span>?</span>'}</div>`;
+ const lst=a>=2?`<div class="lst ${a===2?'y':''}">${n.ver.map((r,i)=>`<div class="${a===3&&n.on.indexOf(i)>=0?'y':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join('')}${a>=5?n.ara.map((r,i)=>`<div class="${i===0?'tpl':''} ${a===5?'y':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join(''):''}</div>`:'';
+ const alt=a>=5?`<div class="alt ${a===5?'y':''}"><em>${kac(n.son)}</em></div>`:'';
+ return `<div class="tht">${ust}${lst}${alt}${a===6?`<div class="nt y">${kac(n.not)}</div>`:''}</div>`;
+}
+function dersiE(q){
+ const d=[];const a=S.sec&&S.sec!==q.dogru?ayirt(q,S.sec):'';
+ if(a)d.push({b:'Önce şunu düşün',s:a,t:null});
+ (q.adimlar||[]).forEach((x,i)=>d.push({b:'Adım '+(i+1),s:x.anlatim||x.formul||'',t:x.formul||''}));
+ if(!d.length)d.push({b:'Çözüm',s:q.olay||'',t:q.olay||''});
+ return d;
+}
+const NY={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{
+  giris:{A:'İki stoğu topladın ama ikiye bölmedin. Baştan birlikte bakalım.',B:'Sen yalnız dönem sonu stoğu aldın. Depoda iki kutu var; birlikte bakalım.',D:'Paya net satışları yazdın. Satış fiyatı değil, maliyet lazım; birlikte bakalım.',E:'Sen yalnız dönem başı stoğu aldın. Depoda iki kutu var; birlikte bakalım.',dogru:'Doğru çözdün. Yine de adım adım görmek istersen:'},
+  ad:[
+   {b:'Elimizde ne var',
+    c:'<div class="ck"><div class="cs"><em>Depoda duran mal</em><div class="kt y">Yıl başı stok<br>30.000</div><div class="kt y" style="flex:2">Yıl sonu stok<br>60.000</div></div><div class="cs"><em>Yıl içinde satılan</em><div class="kt y" style="flex:3">Satılan malın maliyeti<br>405.000</div><div class="kt sn"><s>Net satışlar 495.000</s></div></div></div>',
+    s:'Soruda dört rakam var. Depodaki iki stok ve satılan malın maliyeti işimize yarıyor. Net satışlar bu hesapta kullanılmaz.',
+    an:'Stok, işletmenin satmak için deposunda tuttuğu maldır. Satılan malın maliyeti, yıl içinde satılan malların işletmeye kaça mal olduğudur: satış fiyatı değil, alış bedeli. Net satışlar ise müşteriden alınan paradır.'},
+   {b:'Kural',
+    c:'<div class="ca"><div class="kt">30.000</div><span>+</span><div class="kt">60.000</div><span>÷ 2</span><span>→</span><div class="kt y">Ortalama stok<br>45.000</div></div><div class="cf2 y"><span>Stok devir hızı =</span><span class="kes"><span>Satılan malın maliyeti</span><i></i><span>Ortalama stok</span></span></div>',
+    s:'Önce iki stoğun ortalamasını al: 45.000. Stok devir hızı, satılan malın maliyetinin bu ortalamaya bölümüdür.',
+    an:'Depo yıl boyunca aynı kalmaz: başta 30.000, sonda 60.000 liralık mal var. Yıl boyunca depoda ortalama ne kadar mal durduğunu bulmak için ikisini toplar, ikiye böleriz. Soru da bunu istiyor: "ortalama değeri kullanınız".'},
+   {b:'Hesap',
+    c:'<div class="cf2"><span class="kes"><span>405.000</span><i></i><span>45.000</span></span><span>=</span><span class="cson y">9</span></div><div class="c9">'+'<i></i>'.repeat(9)+'</div><div class="cn">depo yılda 9 kez boşalıp doldu</div>',
+    s:'405.000 bölü 45.000 eşittir 9. Cevap C.',
+    an:'Yıl boyunca depoda ortalama 45.000 liralık mal durdu, toplam 405.000 liralık mal satıldı. 405.000\'in içinde 45.000 dokuz kez var. Yani depo yıl içinde dokuz kez boşalıp yeniden dolmuş.'}
+  ]}
+};
+function nobY(q){
+ const y=NY[q.id];if(!y)return '';
+ if(!S.nb)return `<button class="nbr" data-a="nobAc"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Çizerek, üç adımda</small></span></button>`;
+ const gir=S.sec===q.dogru?y.giris.dogru:(y.giris[S.sec]||'');
+ return `<div class="nby"><p class="nbb">Nöbetçi anlatıyor</p>${gir?`<p class="ngr">${kac(gir)}</p>`:''}${y.ad.slice(0,S.nb).map((a,i)=>`<div class="nad ${i===S.nb-1?'gir':''}"><p class="nst">${i+1} / ${y.ad.length} · ${kac(a.b)}</p><div class="tk2">${a.c}</div><p class="nsz">${kac(a.s)}</p><button class="anl ${S.an[i]?'ac':''}" data-n="${i}">${S.an[i]?'Tamam, anladım':'Bunu anlamadım'}</button>${S.an[i]?`<div class="ansf gir">${kac(a.an)}</div>`:''}</div>`).join('')}${S.nb<y.ad.length?'<button class="cta koyu nil" data-a="nobIleri">Sonraki adım</button>':'<p class="nbt">Çözümün tamamı yukarıda. Şimdi aynısını kendin dene.</p>'}</div>`;
+}
+const NF={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{ad:'Stok devir hızı',pay:'Satılan malın maliyeti',payda:'Ortalama stok',satir:{pay:0,payda:3},
+  m:[['405.000 ₺','mp'],['495.000 ₺','my'],['30.000 ₺','md'],['60.000 ₺','md'],['ortalama değeri kullanınız','mi']],
+  d:{pay:'405.000',payda:'45.000',alt:'(30.000 + 60.000) ÷ 2',s:'9'},
+  sen:{A:{pay:'405.000',payda:'90.000',alt:'topladın, ikiye bölmedin',s:'4,5',yer:'payda',at:['ortalama değeri kullanınız']},
+       B:{pay:'405.000',payda:'60.000',alt:'yalnız dönem sonu stok',s:'6,75',yer:'payda',at:['30.000 ₺','ortalama değeri kullanınız']},
+       D:{pay:'495.000',payda:'45.000',alt:'paya net satışları yazdın',s:'11',yer:'pay',at:['405.000 ₺'],yn:['495.000 ₺']},
+       E:{pay:'405.000',payda:'30.000',alt:'yalnız dönem başı stok',s:'13,5',yer:'payda',at:['60.000 ₺','ortalama değeri kullanınız']}}}
+};
+function formulH(q,dolu){
+ const F=NF[q.id];if(!F)return '';
+ return `<div class="fg ${dolu?'':'ust'}"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span>${dolu?`<span class="fd"><span>=</span><span class="kes"><b class="mp">${kac(F.d.pay)}</b><i></i><b class="md">${kac(F.d.alt||F.d.payda)}</b></span><span>=</span><strong>${kac(F.d.s)}</strong></span>`:''}</div>`;
+}
+function etk(q,i){const F=NF[q.id];if(!F||!F.satir)return '';return i===F.satir.pay?' <i class="et mp">pay</i>':i===F.satir.payda?' <i class="et md">payda</i>':'';}
+const CA={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{
+  m:[['stok devir hızı kaçtır','alt',0],['ortalama değeri kullanınız','sari',1],['30.000 ₺','dy',3,'d1'],['60.000 ₺','dy',3,'d2'],['405.000 ₺','dm',4,'p'],['495.000 ₺','czg',5]],
+  kis:{A:{s:'Sen iki stoğu topladın ama ikiye bölmedin.',at:['ortalama değeri kullanınız']},
+       B:{s:'Sen yalnız dönem sonu stoğu aldın; dönem başını atladın.',at:['30.000 ₺']},
+       D:{s:'Sen paya net satışları yazdın. Oysa pay maliyettir.',at:['495.000 ₺']},
+       E:{s:'Sen yalnız dönem başı stoğu aldın; dönem sonunu atladın.',at:['60.000 ₺']},
+       dogru:{s:'Doğru çözdün. Adım adım üstünden geçelim.',at:[]}},
+  on:'Stok devir hızı, depodaki malın yılda kaç kez satılıp yenilendiğini gösterir. Hız yüksekse mal depoda az bekliyor demektir.',
+  ad:['Şimdi soruya bak: stok devir hızını soruyor.','Soru bir ipucu veriyor: ortalama değeri kullan.',null,'Payda ortalama stoktur: iki stoğu topla, ikiye böl.','Pay, satılan malın maliyetidir.','Net satışlar bu hesapta kullanılmaz.','405.000 bölü 45.000 eşittir 9. Depo yılda 9 kez boşalıp dolmuş.'],
+  kisa:[{a:2},{a:4,s:'Doğrusu: satılan malın maliyetini iki stoğun ortalamasına böleceksin.'},{a:6,s:'405.000 bölü 45.000 eşittir 9.'}],
+  uc:{3:[['d1','d'],['d2','d']],4:[['p','p']]},
+  ses:'../../ses/cizim/ornek-stok/',
+  f:{ad:'Stok devir hızı',pay:'405.000',payAd:'Satılan malın maliyeti',payda:'(30.000 + 60.000) ÷ 2',paydaAd:'Ortalama stok',s:'9',sa:6,pa:4,da:3}}
+};
+function caN(){const C=CA[Q().id];return S.caK?C.kisa.length:C.ad.length+1;}
+function caTam(i){const C=CA[Q().id];return S.caK?C.kisa[i].a:i-1;}
+function canliH(q){
+ const C=CA[q.id];if(!C)return '';
+ if(S.drs&&drsVar(q))return dersH(q);
+ if(S.ca<0)return `<div class="nsc">${drsVar(q)?'<button class="nsk" data-a="dersAc"><b>Soruyu birlikte okuyalım</b><small>Canlı ders gibi · okuyup çizerek, sonra çözerek</small></button>':''}<button class="nsr" data-a="caKisa"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi özet anlatım</b><small>${C.kisa.length} adım · sesli · hata ve doğru çözüm</small></span></button><button class="nsr" data-a="caUzun"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi ayrıntılı anlatım</b><small>${C.ad.length+1} adım · kavramdan sonuca</small></span></button></div>`;
+ const n=caN(),a=caTam(S.ca),k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
+ let m=kac(q.soru);
+ for(const x of C.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';const ac=a>=x[2],at=a===2&&k.at.indexOf(x[0])>=0;
+  m=m.replace(p,`<span class="cz ${ac?x[1]:''} ${ac&&a===x[2]?'yeni':''} ${at?'atl yeni':''}"${x[3]?` data-k="${x[3]}"`:''}>${p}</span>`);}
+ const F=C.f,soz=a<0?C.on:a===2?k.s:(S.caK&&C.kisa[S.ca].s)||C.ad[a];
+ return `<div class="cnl" id="cnl"><div class="cnb"><span class="cnh"><button data-a="caKisa" class="${S.caK?'ac':''}">Özet</button><button data-a="caUzun" class="${S.caK?'':'ac'}">Ayrıntılı</button></span>${S.caK&&C.ses?`<button class="cnv ${SES_AC?'ac':''}" data-a="sesAc" aria-label="Sesi aç ya da kapat">${SES_AC?'Ses açık':'Ses kapalı'}</button>`:''}<span class="cnsy">${S.ca+1} / ${n}</span></div>
+ <p class="cnq">${m}</p>
+ <div class="cnf"><span class="cna">${kac(F.ad)} =</span><span class="kes"><span class="yv ${a>=F.pa?'dolu mp':''}" data-h="p">${kac(a>=F.pa?F.pay:F.payAd)}</span><i></i><span class="yv ${a>=F.da?'dolu md':''}" data-h="d">${kac(a>=F.da?F.payda:F.paydaAd)}</span></span><span>=</span><strong class="${a>=F.sa?'var':'bos'}">${a>=F.sa?kac(F.s):'?'}</strong></div>
+ <p class="cns">${kac(soz)}</p>
+ <div class="cnn">${Array.from({length:n},(_,i)=>`<i class="${i<S.ca?'g':i===S.ca?'a':''}"></i>`).join('')}</div>
+ <div class="cnk"><button data-a="caGeri" aria-label="Önceki adım" ${S.ca===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="caOyna" aria-label="${S.caO?'Durdur':'Oynat'}">${S.caO?IK.dur:IK.oyna}</button><button data-a="caIleri" aria-label="Sonraki adım" ${S.ca===n-1?'disabled':''}>${IK.sonra}</button></div></div>`;
+}
+let caT=null;
+function ucur(i){
+ const q=Q(),C=q&&CA[q.id],kok=document.getElementById('cnl');if(!C||!kok||i<1)return;
+ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(e){}
+ const a=caTam(i),o=caTam(i-1);let yol=[];Object.keys(C.uc).forEach(x=>{if(+x>o&&+x<=a)yol=yol.concat(C.uc[x]);});
+ yol.forEach(y=>{const s=kok.querySelector('[data-k="'+y[0]+'"]'),d=kok.querySelector('[data-h="'+y[1]+'"]');if(!s||!d)return;
+  const r1=s.getBoundingClientRect(),r2=d.getBoundingClientRect(),u=document.createElement('span');
+  u.className='ucn';u.textContent=s.textContent;u.style.left=r1.left+'px';u.style.top=r1.top+'px';document.body.appendChild(u);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{u.style.transform='translate('+(r2.left+r2.width/2-r1.left-r1.width/2)+'px,'+(r2.top-r1.top)+'px)';u.style.opacity='0';}));
+  setTimeout(()=>u.remove(),750);});
+}
+let SES_AC=true,sesEl=null;
+function sesVar(){const C=S&&S.e==='sonuc'&&S.ca>=0&&CA[Q().id];return !!(C&&C.ses&&S.caK&&SES_AC);}
+function sesDur(){if(sesEl){sesEl.onended=null;try{sesEl.pause();}catch(e){}}}
+function sesCal(){
+ sesDur();if(!sesVar())return false;const q=Q(),C=CA[q.id];
+ try{if(!sesEl)sesEl=new Audio();sesEl.src=C.ses+(S.ca===0?'o0-'+(S.sec===q.dogru?'X':S.sec):'o'+S.ca)+'.mp3?v=2';const p=sesEl.play();if(p&&p.catch)p.catch(()=>{});}catch(e){return false;}
+ return true;
+}
+function caSaat(){
+ clearTimeout(caT);if(sesEl)sesEl.onended=null;if(!S||!S.caO)return;
+ const ilerle=()=>{clearTimeout(caT);if(sesEl)sesEl.onended=null;if(!S||S.e!=='sonuc'||S.ca<0||!S.caO)return;if(S.ca>=caN()-1){S.caO=false;ciz();return;}S.ca++;ciz();ucur(S.ca);sesCal();caSaat();};
+ if(sesVar()&&sesEl){sesEl.onended=()=>{caT=setTimeout(ilerle,450);};caT=setTimeout(ilerle,14000);}
+ else caT=setTimeout(ilerle,S.caK?3600:3000);
+}
+const DRS={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{yol:'../../ses/cizim/ornek-stok/',sur:'?v=2',
+  oku:{ses:'oku.mp3',sure:26.6},coz:{ses:'coz.mp3',sure:18.72},
+  bol:[['İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺,',1.68],["net satışları 495.000 ₺'dir.",8.94],['Dönem başı stok tutarı 30.000 ₺,',13.1],["dönem sonu stok tutarı 60.000 ₺'dir.",15.41],['Buna göre stok devir hızı kaçtır?',17.88],['(Devir hızlarında ilgili formüllerde ortalama değeri kullanınız.)',20.11]],
+  iz:[['405.000 ₺','alt',5.1,'m','pay',7.9],['495.000 ₺','ust',10.06,'k','lazım değil',12.1],['30.000 ₺','daire',14.4,'s'],['60.000 ₺','daire',16.42,'s','topla, ÷ 2',25.3],['stok devir hızı kaçtır','alt',18.35,'m'],['ortalama değeri kullanınız','cift',21.28,'k','dikkat!',22.3]],
+  soz:[['Soruyu birlikte okuyalım.',0],['Satılan malın maliyeti 405.000. Bunu paya yazacağız.',1.68],['Net satışlar 495.000. Bu bize lazım değil.',8.94],['Dönem başı stok 30.000, dönem sonu stok 60.000.',13.1],['Soru stok devir hızını soruyor.',17.88],['Dikkat: ortalama değeri kullanın diyor.',20.11],['Demek ki iki stoğu toplayıp ikiye böleceğiz.',23.6]],
+  kag:[{p:[['Stok devir hızı =',.93,.9],[' Maliyet ÷ Ortalama stok',2.1,2.2]]},
+       {p:[['Ortalama stok = 30.000 + 60.000',7.57,1.4],[' = 90.000',9.24,.6]]},
+       {p:[['90.000 ÷ 2',10.2,.8],[' = 45.000',11.1,.6]]},
+       {p:[['405.000 ÷ 45.000',13.63,1.6],[' = 9',15.87,.5]],c:'buy'},
+       {p:[['Cevap: C',17.28,.6]],c:'cvp'}],
+  csoz:[['Şimdi çözelim.',0],['Stok devir hızı = satılan malın maliyeti ÷ ortalama stok.',.93],['Önce ortalama stok: 30.000 + 60.000 = 90.000.',5.36],['İkiye bölersek 45.000.',10.2],['Yerine koyalım: 405.000 ÷ 45.000 = 9.',12.13],['Cevap C.',17.28]],
+  kap:{A:{ses:'k-A.mp3',sure:5.84,sen:'Sen: 405.000 ÷ 90.000 = 4,5',nt:['90.000 ikiye bölünmedi',1.68],soz:[['Sen 4,5 bulmuştun.',0],['İki stoğu toplamış ama ikiye bölmemişsin; 90.000\'e bölmüşsün.',1.68]]},
+       B:{ses:'k-B.mp3',sure:9.44,sen:'Sen: 405.000 ÷ 60.000 = 6,75',nt:['yalnız dönem sonu stok',2.42],soz:[['Sen 6,75 bulmuştun.',0],['Bölerken yalnız dönem sonu stoğu kullanmışsın.',2.42],['Soru ortalama diyorsa iki stoğu birlikte al.',6.34]]},
+       D:{ses:'k-D.mp3',sure:7.92,sen:'Sen: 495.000 ÷ 45.000 = 11',nt:['pay net satış değil, maliyet',1.47],soz:[['Sen 11 bulmuştun.',0],['Paya maliyeti değil, net satışları yazmışsın.',1.47],['Devir hızında pay her zaman satılan malın maliyetidir.',4.32]]},
+       E:{ses:'k-E.mp3',sure:8.72,sen:'Sen: 405.000 ÷ 30.000 = 13,5',nt:['yalnız dönem başı stok',1.28],soz:[['Sen 13,5 bulmuştun.',0],['Bölerken yalnız dönem başı stoğu kullanmışsın.',1.28],['Soru ortalama diyorsa iki stoğu birlikte al.',5.52]]},
+       X:{ses:'k-X.mp3',sure:2.8,sen:'Sen de böyle çözdün',dogru:true,soz:[['Sen de böyle çözmüştün.',0],['Aferin, devam edelim.',1.36]]}}}
+};
+const drsVar=q=>{const D=DRS[q.id];return D&&D.bol.map(b=>b[0]).join(' ')===q.soru?D:null;};
+function drsPlan(q){
+ const D=drsVar(q);if(!D)return null;const K=D.kap[S.sec===q.dogru?'X':S.sec]||D.kap.X,o1=D.oku.sure+.5,o2=o1+D.coz.sure+.5;
+ const kag=D.kag.map(l=>({c:l.c||'',p:l.p.map(c=>[c[0],c[1]+o1,c[2]])}));
+ kag.push({c:K.dogru?'dgr':'sen',p:[[K.sen,o2+.15,1.1]],ciz:K.dogru?null:o2+(K.nt?K.nt[1]:1)+1.3});
+ if(K.nt)kag.push({c:'snt',p:[[K.nt[0],o2+K.nt[1],1]]});
+ return {D,o1,o2,sure:o2+K.sure,par:[{ses:D.yol+D.oku.ses,off:0,sure:D.oku.sure},{ses:D.yol+D.coz.ses,off:o1,sure:D.coz.sure},{ses:D.yol+K.ses+(D.sur||''),off:o2,sure:K.sure}],
+  soz:D.soz.concat(D.csoz.map(x=>[x[0],x[1]+o1]),K.soz.map(x=>[x[0],x[1]+o2])),kag};
+}
+function dersH(q){
+ const P=drsPlan(q);if(!P)return '';const D=P.D;
+ const bol=D.bol.map((b,i)=>{let m=kac(b[0]);D.iz.forEach((z,j)=>{const p=kac(z[0]);if(m.indexOf(p)>=0)m=m.replace(p,`<span class="diz" data-i="${j}">${p}</span>`);});return `<span class="dbl" data-b="${i}">${m}</span>`;}).join(' ');
+ return `<div class="drs" id="drs"><div class="drb"><span class="cnh"><button data-d="ayr" id="drka" class="${S.drsOz?'':'ac'}">Ayrıntılı</button><button data-d="ozet" id="drko" class="${S.drsOz?'ac':''}">Özet</button></span><button class="x ack" data-a="dersKapat" aria-label="Kapat">${IK.x}</button></div>
+ <div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
+ <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
+ <p class="drz" id="drz"></p><div class="dri"><i id="drp"></i></div>
+ <div class="drc"><button class="dry" data-d="bas">Baştan</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
+}
+const drsBas=()=>S&&S.drsOz&&drsP?drsP.o1:0;
+let drsA=null,drsT0=0,drsOyn=false,drsRaf=0,drsSon=0,drsIz=[],drsSesli=false,drsP=null,drsI=0,drsKagAcik=false;
+const drsRenk={m:'var(--vurgu)',k:'var(--hata)',s:'var(--altin)'};
+function drsYol(tip,r,j){
+ const rs=(()=>{let s=17+j*31;return()=>{s=(s*9301+49297)%233280;return s/233280-.5;};})();
+ const x=r.x,y=r.y,w=r.w,h=r.h;
+ const cz=yy=>`M ${(x-3).toFixed(1)} ${(yy+rs()*2).toFixed(1)} C ${(x+w*.3).toFixed(1)} ${(yy+rs()*5).toFixed(1)}, ${(x+w*.7).toFixed(1)} ${(yy+rs()*5).toFixed(1)}, ${(x+w+4).toFixed(1)} ${(yy+rs()*2).toFixed(1)}`;
+ if(tip==='alt')return cz(y+h+1);
+ if(tip==='cift')return cz(y+h+1)+' '+cz(y+h+6);
+ if(tip==='ust')return `M ${(x-4).toFixed(1)} ${(y+h*.6).toFixed(1)} L ${(x+w+4).toFixed(1)} ${(y+h*.42).toFixed(1)}`;
+ const cx=x+w/2,cy=y+h/2,rx=w/2+8,ry=h/2+3;let d='';
+ for(let a=-170;a<=215;a+=11){const t=a*Math.PI/180,k=1+rs()*.07+(a>190?.06:0);d+=(d?' L ':'M ')+(cx+Math.cos(t)*rx*k).toFixed(1)+' '+(cy+Math.sin(t)*ry*k).toFixed(1);}
+ return d;
+}
+function drsKur(){
+ const P=S&&S.drs&&drsPlan(Q()),kutu=document.getElementById('drk'),svg=document.getElementById('drv'),nt=document.getElementById('drn');
+ if(!P||!kutu||!svg)return false;drsP=P;const D=P.D,k0=kutu.getBoundingClientRect();let h='';nt.innerHTML='';drsIz=[];
+ D.iz.forEach((z,j)=>{const el=kutu.querySelector('[data-i="'+j+'"]');if(!el)return;const b=el.getBoundingClientRect(),r={x:b.left-k0.left,y:b.top-k0.top,w:b.width,h:b.height};
+  h+=`<path d="${drsYol(z[1],r,j)}" fill="none" stroke="${drsRenk[z[3]]}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" data-p="${j}"/>`;
+  let nel=null;if(z[4]){nel=document.createElement('span');nel.className='drnot';nel.style.color=drsRenk[z[3]];nel.textContent=z[4];nt.appendChild(nel);
+   const gen=nel.offsetWidth;nel.style.left=Math.max(0,Math.min(r.x+2,k0.width-gen-2))+'px';nel.style.top=(r.y-17)+'px';}
+  drsIz.push({j,t:z[2],nt:z[5],nel});});
+ svg.innerHTML=h+'<g id="drkal" style="display:none"><circle r="4.5"/><path d="M 3 -3 L 15 -17" stroke-width="5" stroke-linecap="round" fill="none"/></g>';
+ drsIz.forEach(o=>{o.p=svg.querySelector('[data-p="'+o.j+'"]');o.len=o.p.getTotalLength();o.p.style.strokeDasharray=o.len;o.sure=Math.min(.9,.35+o.len/420);});
+ return true;
+}
+function drsSimdi(){return drsT0;}
+function drsCiz(t){
+ const P=drsP;if(!P||!S||!S.drs||!document.getElementById('drs'))return;const D=P.D;
+ D.bol.forEach((b,i)=>{const el=document.querySelector('.dbl[data-b="'+i+'"]');if(!el)return;const sonra=i+1<D.bol.length?D.bol[i+1][1]:D.oku.sure;el.className='dbl '+(t<b[1]?'bek':t<sonra?'sim':'ok');});
+ const kal=document.getElementById('drkal');let kalem=null;
+ drsIz.forEach(o=>{const p=Math.max(0,Math.min(1,(t-o.t)/o.sure));o.p.style.strokeDashoffset=o.len*(1-p);if(p>0&&p<1)kalem={o,p};
+  if(o.nel){const p2=Math.max(0,Math.min(1,(t-o.nt)/.55));o.nel.style.clipPath='inset(-4px '+(100-p2*100).toFixed(1)+'% -4px 0)';}});
+ if(kal){if(kalem){const n=kalem.o.p.getPointAtLength(kalem.o.len*kalem.p),c=kalem.o.p.getAttribute('stroke');kal.style.display='';kal.setAttribute('transform','translate('+n.x.toFixed(1)+' '+n.y.toFixed(1)+')');kal.firstChild.setAttribute('fill',c);kal.lastChild.setAttribute('stroke',c);}else kal.style.display='none';}
+ const kg=document.getElementById('drkg');
+ if(kg){const acik=t>=P.o1-.25;if(kg.hidden===acik)kg.hidden=!acik;
+  if(acik&&!drsKagAcik&&drsOyn){drsKagAcik=true;try{kg.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}}if(!acik)drsKagAcik=false;
+  P.kag.forEach((l,i)=>{l.p.forEach((c,k)=>{const el=kg.querySelector('[data-h="'+i+'_'+k+'"]');if(!el)return;const p=Math.max(0,Math.min(1,(t-c[1])/c[2]));el.style.clipPath='inset(-6px '+(100-p*100).toFixed(1)+'% -6px 0)';el.classList.toggle('yaz',p>0&&p<1);});
+   if(l.ciz!=null){const el=kg.querySelector('[data-l="'+i+'"]');if(el)el.classList.toggle('cz',t>=l.ciz);}});}
+ let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z&&z.textContent!==s)z.textContent=s;
+ const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
+ const g=document.getElementById('drg');if(g)g.hidden=t<P.sure-.05;
+}
+function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';const ka=document.getElementById('drka'),ko=document.getElementById('drko');if(ka)ka.className=S&&S.drsOz?'':'ac';if(ko)ko.className=S&&S.drsOz?'ac':'';}
+function drsParcaCal(){
+ const P=drsP;let i=P.par.length-1;for(let k=0;k<P.par.length;k++){if(drsT0<P.par[k].off+P.par[k].sure-.05){i=k;break;}}
+ drsI=i;if(drsT0<P.par[i].off)drsT0=P.par[i].off;const yer=drsT0-P.par[i].off;drsSesli=false;
+ try{if(!drsA)drsA=new Audio();drsA.src=P.par[i].ses;drsA.muted=!SES_AC;
+  if(yer>.05){const git=()=>{try{drsA.currentTime=yer;}catch(e){}};if(drsA.readyState>0)git();else drsA.addEventListener('loadedmetadata',git,{once:true});}
+  const p=drsA.play();drsSesli=true;if(p&&p.catch)p.catch(()=>{drsSesli=false;});}catch(e){drsSesli=false;}
+}
+function drsBitir(){drsOyn=false;drsT0=drsP.sure;drsCiz(drsT0);drsDugme();}
+function drsDongu(z){
+ if(!S||!S.drs||!drsOyn||!drsP)return;const P=drsP,dt=Math.min(.25,(z-drsSon)/1000);drsSon=z;
+ if(drsSesli&&drsA){
+  if(drsA.ended){if(drsI>=P.par.length-1){drsBitir();return;}drsT0=P.par[drsI+1].off;drsParcaCal();}
+  else if(!drsA.paused)drsT0=P.par[drsI].off+drsA.currentTime;
+ }else{drsT0+=dt;if(drsT0>=P.sure){drsBitir();return;}}
+ drsCiz(drsT0);drsRaf=requestAnimationFrame(drsDongu);
+}
+function drsOynat(){
+ if(!drsP)return;if(drsT0>=drsP.sure-.05||drsT0<drsBas())drsT0=drsBas();drsOyn=true;drsSon=performance.now();drsParcaCal();
+ drsDugme();cancelAnimationFrame(drsRaf);drsRaf=requestAnimationFrame(drsDongu);
+}
+function drsDur(){drsOyn=false;cancelAnimationFrame(drsRaf);if(drsA){try{drsA.pause();}catch(e){}}drsDugme();}
+function drsTik(d){
+ if(d==='oyna'){if(drsOyn)drsDur();else drsOynat();}
+ else if(d==='bas'){drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);const el=document.getElementById('drs');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});drsOynat();}
+ else if(d==='ozet'||d==='ayr'){S.drsOz=d==='ozet';drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}
+ else if(d==='ses'){SES_AC=!SES_AC;if(drsA)drsA.muted=!SES_AC;drsDugme();}
+}
+window.addEventListener('resize',()=>{if(S&&S.drs&&drsKur())drsCiz(drsT0);});
+function eSoru(){
+ const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
+ return `<div class="hd">${seg()}<button class="ik ${S.eleKip?'ac':''}" data-a="eleKip" aria-label="Şık eleme">${IK.ele}</button><button class="ik yl ${S.yil?'ac':''}" data-a="yil" aria-label="Soruyu işaretle">${IK.yil}</button></div>
+ <div class="bd"><p class="kok">${kok(q,true)}</p>${S.uyari?`<div class="uyr gir"><b>Bir hakkın daha var</b>${kac(ip||'Cevabın açılmadı. Soruya bir daha bak ve yeniden seç.')}</div>`:''}${S.eleKip?'<p class="kip">Eleme açık: dokunduğun şık çizilir.</p>':''}
+ ${harfler(q).map(h=>`<button class="op ${S.sel===h?'sl':''} ${S.ele[h]?'el':''}" data-o="${h}"><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div>
+ <div class="ft">${S.sel?'<button class="cta gir" data-a="cevap">Cevapla</button>':`<p class="ip">${S.uyari?'Yeniden seç':'Dokun: seç · Basılı tut: ele'}</p>`}</div>`;
+}
+function eSonuc(){
+ const q=Q(),dg=S.sec===q.dogru,son=S.i>=SORULAR.length-1;
+ const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
+  (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${S.acS!==S.sec&&tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
+ const Y=!!drsVar(q);
+ const tb=dg?'':tabloH(q,S.sec)?tabloH(q,S.sec)+(Y?`<button class="anl fmb" data-a="fm">${S.fm?'Formülü gizle':'Formülü gör'}</button>`+(S.fm?formulH(q,true):''):formulH(q,true)):'';
+ const nbr=Y?'':canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
+ const coz=formulH(q,true)||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
+ const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
+ const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
+ if(S.drs&&Y)return `<div class="bd tam">${dersH(q)}</div>`;
+ return `<div class="hd">${seg()}</div><div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
+ ${dg?`<p class="etk ok">${S.ikinci?'Doğru · ikinci denemede':'Doğru'}</p><h1>${S.ikinci?'Bu kez gördün.':'Doğru.'}</h1>${coz}`
+     :`<p class="etk no">Yanlış</p><h1>${kac(T0?T0.sen[S.sec].b:tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}`}
+ ${nbr}</div>
+ <div class="ft">${Y?(dg?ileri+'<button class="duz" data-a="dersAc">Nöbetçi anlatsın</button>':'<button class="cta" data-a="dersAc">Nöbetçi anlatsın</button>'+ileri):(dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri)}</div>`;
+}
+function eSoruGor(){
+ const q=Q();
+ return `<div class="hd3"><span>Soru</span><button class="x ack" data-a="kapatS" aria-label="Kapat">${IK.x}</button></div><div class="bd"><p class="kok">${kok(q,false)}</p>
+ ${harfler(q).map(h=>`<div class="op ${S.ele[h]?'el':''} ${h===q.dogru?'dg':h===S.sec?'yn':''}"><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></div>`).join('')}</div>
+ <div class="ft"><button class="cta koyu" data-a="kapatS">Cevaba dön</button></div>`;
+}
+function tahtaE(d,a){
+ if(d[a].t===null)return `<div class="tht"><div class="sor y">${kac(d[a].s)}</div></div>`;
+ const sat=k=>String(d[k].t||'').replace(/\s*\(soruda verilen\)/g,'').split(/;\s*/).filter(Boolean);
+ const simdi=sat(a);let once=[];
+ for(let k=a-1;k>=0&&d[k].t!==null;k--){const s=sat(k);if(once.length+s.length+simdi.length>9)break;once=s.concat(once);}
+ return `<div class="tht">${once.map(x=>`<span class="es">${kac(x)}</span>`).join('')}${simdi.map(x=>`<span class="y">${kac(x)}</span>`).join('')}</div>`;
+}
+function eNob(){
+ const q=Q(),n0=nb(q),d=dersi(q),n=d.length,a=Math.min(S.adim,n-1),sf=S.ders==='sifir';
+ const ek=sf?'':S.ek==='basit'?(n0?n0.basit:(q.sade&&q.sade.dogru)||''):S.ek==='konu'?[(q.konuGiris&&q.konuGiris.nedir)||'',(q.konuGiris&&q.konuGiris.ornek)||''].filter(Boolean).join(' '):'';
+ const lk=sf?'<button data-a="soruyaDon">Soruya dön</button>':n0?`<button data-a="basit" class="${S.ek==='basit'?'ac':''}">Daha basit anlat</button><button data-a="sifir">Sıfırdan anlat</button>`:`${q.sade&&q.sade.dogru?`<button data-a="basit" class="${S.ek==='basit'?'ac':''}">Daha basit anlat</button>`:''}${q.konuGiris&&q.konuGiris.nedir?`<button data-a="konu" class="${S.ek==='konu'?'ac':''}">Konuyu anlat</button>`:''}`;
+ return `<div class="hd2"><span>${sf?'Nöbetçi · sıfırdan':'Nöbetçi anlatıyor'}</span><button class="x" data-a="kapatN" aria-label="Kapat">${IK.x}</button></div>${tahta(q,d,a)}
+ <div class="cap"><p class="st">${a+1} / ${n} · ${kac(d[a].b)}</p><p class="soz">${kac(d[a].s)}</p>${ek?`<div class="bst gir">${kac(ek)}</div>`:''}</div>
+ <div class="nkt">${d.map((_,i)=>`<i class="${i===a?'a':''}"></i>`).join('')}</div>
+ <div class="ctl"><button data-a="once" aria-label="Önceki adım" ${a===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="oyna" aria-label="${S.oyn?'Durdur':'Oynat'}">${S.oyn?IK.dur:IK.oyna}</button><button data-a="sonraA" aria-label="Sonraki adım" ${a===n-1?'disabled':''}>${IK.sonra}</button></div>
+ <div class="lk">${lk}</div>`;
+}
+const sade2=t=>String(t==null?'':t).toLocaleLowerCase('tr').replace(/[\s₺.%]/g,'');
+function eIkiz(){
+ const q=Q(),o=q.oyun||{},sat=(o.tablo&&o.tablo.satirlar)||[],bos={};(o.bosluk||[]).forEach(b=>bos[b[0]+'_'+b[1]]=1);
+ const anah=Object.keys(bos);const dogruMu=k=>{const p=k.split('_');return sade2(S.g[k])===sade2(sat[p[0]][p[1]]);};
+ const tam=S.kontrol==='ok'&&anah.length>0&&anah.every(dogruMu);
+ const hucre=(r,i,j)=>{const k=i+'_'+j;if(!bos[k])return `<span>${kac(r[j])}</span>`;
+  const c=S.goster?'d':S.kontrol==='ok'?(dogruMu(k)?'d':'y'):'';
+  return `<input data-g="${k}" inputmode="text" value="${kac(S.goster?r[j]:(S.g[k]||''))}" class="${c}" aria-label="${kac(r[0])}">`;};
+ const satir=(r,i)=>{if(r.length<2)return `<div class="st2"><span style="font-weight:600">${kac(r[0])}</span><span></span></div>`;
+  if(r.length===2)return `<div class="st2"><span>${kac(r[0])}</span>${hucre(r,i,1)}</div>`;
+  return `<div class="st2" style="flex-wrap:wrap"><span style="flex:1 0 100%">${kac(r[0])}</span>${r.slice(1).map((_,j)=>hucre(r,i,j+1)).join('')}</div>`;};
+ return `<div class="hd3"><span>Bir tane daha · aynı yöntem, yeni rakamlar</span><button class="x ack" data-a="kapatI" aria-label="Kapat">${IK.x}</button></div><div class="bd">
+ ${tam?'<p class="etk ok gir">Doğru</p><h1 class="gir">Bu kez oldu.</h1>':''}<p class="kok" style="margin-top:14px">${kac(o.soru||'')}</p>${o.hedef?`<p style="font-weight:600;margin:0">${kac(o.hedef)}</p>`:''}
+ <div class="gr">${sat.map(satir).join('')}</div>
+ ${S.kontrol==='bos'?'<p class="uyari">Önce boş kutuları doldur.</p>':S.kontrol==='ok'&&!tam&&!S.goster?'<p class="uyari">Kırmızı kutuya yeniden bak.</p>':''}</div>
+ <div class="ft">${tam||S.goster?'<button class="cta" data-a="kapatI">Cevaba dön</button>':'<button class="cta" data-a="kontrol">Kontrol et</button>'+(S.kontrol==='ok'?'<button class="duz" data-a="goster">Cevabı göster</button>':'')}</div>`;
+}
+const eBit=()=>`<div class="bit"><h1>Bitti.</h1><p>${SORULAR.length} örnek soruyu yeni ekranda çözdün. Bu bir deneme sayfasıdır; cevapların kaydedilmedi.</p><button class="cta koyu" style="width:auto;padding:0 28px" data-a="bastan">Baştan çöz</button><a class="duz" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="ornek-smmm.html">Bugünkü ekrana git</a></div>`;
+const EK={soru:eSoru,sonuc:eSonuc,soruGor:eSoruGor,nob:eNob,ikiz:eIkiz,bit:eBit};
+const kokEl=document.getElementById('kok');
+function ciz(){kokEl.innerHTML=`<div class="sahne"><div class="ph ${S.e==='nob'?'gece':''}">${EK[S.e]()}</div></div>`;}
+let zmn=null;
+function sus(){clearTimeout(zmn);try{window.speechSynthesis&&speechSynthesis.cancel();}catch(e){}S.oyn=false;}
+function oku(){
+ if(!S.oyn)return;const d=dersi(Q()),t=String(d[S.adim].s);let gecti=false;
+ const ileri=()=>{if(gecti||!S.oyn)return;gecti=true;clearTimeout(zmn);if(S.adim>=d.length-1){S.oyn=false;ciz();return;}S.adim++;ciz();oku();};
+ zmn=setTimeout(ileri,Math.max(3500,t.length*70));
+}
+function gOku(){document.querySelectorAll('input[data-g]').forEach(x=>{S.g[x.dataset.g]=x.value;});}
+let uzT=null,uzYut=false;
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('button.op[data-o]');if(!b||!S||S.e!=='soru')return;const h=b.dataset.o;uzT=setTimeout(()=>{S.ele[h]=!S.ele[h];if(S.sel===h)S.sel=null;uzYut=true;tit(15);ciz();},450);});
+['pointerup','pointercancel','pointerleave'].forEach(n=>document.addEventListener(n,()=>clearTimeout(uzT),true));
+document.addEventListener('contextmenu',e=>{if(e.target.closest('button.op[data-o]'))e.preventDefault();});
+document.addEventListener('click',e=>{
+ if(!S)return;if(uzYut){uzYut=false;return;}
+ const dd=e.target.closest('[data-d]');if(dd){drsTik(dd.dataset.d);return;}
+ const t=e.target.closest('.tk[data-t]');if(t){S.boya[t.dataset.t]=!S.boya[t.dataset.t];ciz();return;}
+ const b=e.target.closest('button');if(!b||b.disabled)return;const d=b.dataset,q=Q();
+ let kay=false,ucA=-1,kayC=false;
+ if(S.e==='ikiz')gOku();
+ if(d.o){if(S.eleKip){S.ele[d.o]=!S.ele[d.o];if(S.sel===d.o)S.sel=null;}else{S.ele[d.o]=false;S.sel=S.sel===d.o?null:d.o;}}
+ else if(d.c){S.acS=S.acS===d.c?null:d.c;}
+ else if(d.n){S.an[d.n]=!S.an[d.n];}
+ else switch(d.a){
+  case 'eleKip':S.eleKip=!S.eleKip;break;
+  case 'yil':S.yil=!S.yil;break;
+  case 'cevap':S.sec=S.sel;S.e='sonuc';S.eleKip=false;tit(S.sec===q.dogru?20:[30,60,30]);window.scrollTo(0,0);break;
+  case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
+  case 'kapatS':S.e='sonuc';break;
+  case 'rk':S.rk=!S.rk;break;
+  case 'fm':S.fm=!S.fm;break;
+  case 'dersAc':sesDur();S.caO=false;clearTimeout(caT);S.ca=-1;S.drs=true;drsT0=0;drsKagAcik=false;break;
+  case 'dersKapat':drsDur();S.drs=false;break;
+  case 'caKisa':case 'caUzun':drsDur();S.drs=false;S.caK=d.a==='caKisa';S.caO=false;clearTimeout(caT);kayC=S.ca<0;S.ca=0;break;
+  case 'caIleri':S.caO=false;clearTimeout(caT);S.ca++;ucA=S.ca;break;
+  case 'caGeri':S.caO=false;clearTimeout(caT);S.ca=Math.max(0,S.ca-1);break;
+  case 'sesAc':SES_AC=!SES_AC;if(!SES_AC){sesDur();if(S.caO)caSaat();}break;
+  case 'caOyna':S.caO=!S.caO;if(S.caO&&S.ca>=caN()-1)S.ca=0;break;
+  case 'nobAc':S.nb=1;kay=true;break;
+  case 'nobIleri':S.nb=S.nb+1;kay=true;break;
+  case 'nob':S.e='nob';S.ders='soru';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
+  case 'kapatN':sus();S.e='sonuc';break;
+  case 'oyna':if(S.oyn){sus();}else{S.oyn=true;ciz();oku();return;}break;
+  case 'once':sus();S.adim=Math.max(0,S.adim-1);break;
+  case 'sonraA':sus();S.adim=Math.min(dersi(q).length-1,S.adim+1);break;
+  case 'basit':S.ek=S.ek==='basit'?null:'basit';break;
+  case 'sifir':sus();S.ders='sifir';S.adim=0;S.ek=null;break;
+  case 'soruyaDon':sus();S.ders='soru';S.adim=0;break;
+  case 'konu':S.ek=S.ek==='konu'?null:'konu';break;
+  case 'ikiz':drsDur();S.drs=false;S.e='ikiz';S.kontrol=null;S.g={};S.goster=false;window.scrollTo(0,0);break;
+  case 'kapatI':S.e='sonuc';window.scrollTo(0,0);break;
+  case 'kontrol':{const o=q.oyun||{};const bos=(o.bosluk||[]).map(x=>x[0]+'_'+x[1]);S.kontrol=bos.some(k=>!String(S.g[k]||'').trim())?'bos':'ok';break;}
+  case 'goster':S.goster=true;break;
+  case 'sonraki':{const i=S.i+1;if(i>=SORULAR.length){S=Object.assign(yeniSoru(),{i:S.i,e:'bit'});}else{S=Object.assign(yeniSoru(),{i});}window.scrollTo(0,0);break;}
+  case 'bastan':S=Object.assign(yeniSoru(),{i:0});window.scrollTo(0,0);break;
+  default:return;
+ }
+ ciz();
+ if(!S.drs||S.e!=='sonuc')drsDur();
+ else if(drsKur()){if(d.a==='dersAc'){drsT0=drsBas();drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}else drsCiz(drsSimdi());}
+ if(ucA>=0)ucur(ucA);
+ if(/^ca(Kisa|Uzun|Ileri|Geri)$/.test(d.a||'')||(d.a==='caOyna'&&S.caO)||(d.a==='sesAc'&&SES_AC))sesCal();
+ if(d.a==='caOyna'){if(!S.caO)sesDur();caSaat();}
+ if(S.ca<0||S.e!=='sonuc')sesDur();
+ if(kayC){const el=document.getElementById('cnl');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+ if(kay){const el=document.querySelectorAll('.nad');if(el.length)el[el.length-1].scrollIntoView({behavior:'smooth',block:'start'});}
+});
+function baslat(metin){
+ const a=metin.indexOf('const SORULAR=');if(a<0)throw new Error('soru verisi bulunamadı');
+ const b=metin.indexOf('\n',a);const ham=metin.slice(a+14,b<0?undefined:b).trim().replace(/;$/,'');
+ SORULAR=JSON.parse(ham).filter(q=>q&&q.soru&&q.siklar&&q.dogru);
+ if(!SORULAR.length)throw new Error('soru yok');
+ S=Object.assign(yeniSoru(),{i:0});ciz();
+ if(location.hash==='#sinama')sinama();if(location.hash==='#sinama2')sinama2();
+}
+function hata(m){kokEl.innerHTML=`<div class="sahne"><div class="ph"><div class="bit"><h1>Açılamadı</h1><p>${kac(m)}</p><a class="cta koyu" style="width:auto;padding:0 28px" href="ornek-smmm.html">Bugünkü ekrana git</a></div></div></div>`;}
+(function(){const x=new XMLHttpRequest();x.open('GET','ornek-smmm.html?z='+Date.now());x.onload=()=>{try{if(x.status&&x.status!==200)throw new Error('sayfa '+x.status);baslat(x.responseText);}catch(e){hata(e.message);}};x.onerror=()=>hata('bağlantı kurulamadı');x.send();})();
+function sinama2(){
+ const o=[],q=x=>document.querySelector(x),qa=x=>document.querySelectorAll(x);
+ const us=el=>{if(!el)return 'YOK';el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect(),t=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return (t===el||el.contains(t))?'ustte':'ORTULU';};
+ const tas=()=>document.documentElement.scrollWidth>innerWidth?'TASMA':'sigdi';
+ try{
+  S=Object.assign(yeniSoru(),{i:0});ciz();q('[data-o=B]').click();q('[data-a=cevap]').click();
+  o.push('yanlis ekrani: baslik "'+q('h1').textContent+'" | tablo satiri '+qa('.bd>.kyt .kr').length+' | satir alti kural '+qa('.bd>.kyt .ac').length+' | formul acik '+qa('.bd>.fg').length+' | akilda tut '+!!q('.tut')+' | ana dugme "'+[...qa('.ft .cta')].map(b=>b.textContent).join(',')+'" | sessiz "'+[...qa('.ft .duz')].map(b=>b.textContent).join(',')+'" | eski nobetci kutusu '+!!q('.nsc')+' | '+tas());
+  q('[data-a=fm]').click();o.push('formulu gor: kutu '+qa('.bd>.fg').length+' | rakamli satir '+qa('.bd>.fg .fd').length+' | tablonun altinda '+(q('.bd>.fg').previousElementSibling.classList.contains('fmb')));
+  q('[data-c=B]').click();o.push('sikka dokununca kutu: '+!!q('.ned'));q('[data-c=B]').click();
+  q('[data-a=dersAc]').click();drsDur();
+  o.push('ders: tam ekran '+(!q('.hd')&&!q('.cps')&&!q('.ft'))+' | baslangic '+drsT0.toFixed(1)+' sn | toplam '+drsP.sure.toFixed(1)+' sn | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | kip "'+q('.cnh .ac').textContent+'" | '+tas());
+  drsCiz(999);o.push('ders sonu: iz '+qa('#drv path[data-p]').length+' | kagit satiri '+qa('#drkg .drl').length+' | bitis dugmeleri "'+[...qa('#drg button')].map(b=>b.textContent).join(',')+'" gorunur '+!q('#drg').hidden);
+  q('[data-d=ozet]').click();drsDur();o.push('ozet kipi: baslangic '+drsT0.toFixed(1)+' sn | kalan '+(drsP.sure-drsT0).toFixed(1)+' sn | kagit acik '+!q('#drkg').hidden+' | kip "'+q('.cnh .ac').textContent+'"');
+  q('[data-a=dersKapat].x').click();o.push('kapaninca: sonuc ekrani '+!!q('.bd>.kyt')+' | ana dugme "'+q('.ft .cta').textContent+'"');
+  S=Object.assign(yeniSoru(),{i:0});ciz();q('[data-o=C]').click();q('[data-a=cevap]').click();
+  o.push('dogru ekrani: ana dugme "'+q('.ft .cta').textContent+'" | sessiz "'+[...qa('.ft .duz')].map(b=>b.textContent).join(',')+'" | '+tas());
+  S=Object.assign(yeniSoru(),{i:1});ciz();const y=harfler(Q()).filter(h=>h!==Q().dogru)[0];q('[data-o='+y+']').click();q('[data-a=cevap]').click();
+  o.push('ikinci soru (eski duzen): tablo '+!!q('.bd>.kyt')+' | dugmeler "'+[...qa('.ft button')].map(b=>b.textContent).join(',')+'"');
+ }catch(er){o.push('HATA: '+er.message);}
+ document.body.innerHTML='<pre id="snc">'+o.join('\n').replace(/</g,'&lt;')+'</pre>';
+}
+function sinama(){
+ const o=[],q=x=>document.querySelector(x),qa=x=>document.querySelectorAll(x);
+ const us=el=>{if(!el)return 'YOK';el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect(),t=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return (t===el||el.contains(t))?'ustte':'ORTULU '+(t?t.className:'?');};
+ const tas=()=>document.documentElement.scrollWidth>innerWidth?'TASMA':'sigdi';
+ try{
+ o.push('soru sayisi '+SORULAR.length+' | genislik '+innerWidth);
+ SORULAR.forEach((s,i)=>{
+  const hs=harfler(s),yan=hs.filter(h=>h!==s.dogru);
+  S=Object.assign(yeniSoru(),{i});ciz();
+  const eksik=[];if(!s.olay)eksik.push('olay');if(!s.hap)eksik.push('hap');if(!(s.adimlar||[]).length)eksik.push('adimlar');if(!s.oyun)eksik.push('oyun');yan.forEach(h=>{if(!kisa(s,h))eksik.push('kisa'+h);if(!tuzakAd(s,h))eksik.push('tuzak'+h);if(!ayirt(s,h))eksik.push('ayirt'+h);});
+  o.push('  tablo: '+yan.map(h=>h+(tabloH(s,h)?' var':' TABLOYOK')).join(' | '));
+  o.push('--- soru '+(i+1)+' | sik '+hs.join('')+' | dogru '+s.dogru+' | uzun sik '+uzunMu(s)+' | eksik alan: '+(eksik.join(',')||'yok')+' | '+tas());
+  q('[data-o='+yan[0]+']').click();q('[data-a=cevap]').click();
+  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' dolu hali '+qa('.bd>.fg .fd').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
+  q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
+  q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
+  if(q('[data-a=caUzun]')){if(q('[data-a=dersAc]')){q('[data-a=dersAc]').click();drsDur();drsCiz(5.3);const kal=q('#drkal').style.display!=='none',bek=qa('#drs .dbl.bek').length,kg0=q('#drkg').hidden;drsCiz(40);const kg1=!q('#drkg').hidden,yzl=[...qa('#drkg .drh')].filter(e=>e.style.clipPath.indexOf(' 0.0%')>0).length;drsCiz(999);o.push('  canli ders: toplam '+drsP.sure.toFixed(1)+' sn, ses parcasi '+drsP.par.length+' | 5,3 sn: kalem '+kal+', okunmamis bolum '+bek+', kagit kapali '+kg0+' | 40 sn: kagit acik '+kg1+', yazilmis parca '+yzl+' | sonda iz '+qa('#drv path[data-p]').length+' not '+qa('#drn .drnot').length+' kagit satiri '+qa('#drkg .drl').length+' sen satiri cizili '+!!q('#drkg .drl.sen.cz')+' | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | alt dugmeler gizli '+!q('.ft')+' | devam dugmesi '+!q('#drg').hidden+' | altyazi "'+q('#drz').textContent+'" | '+tas());q('[data-a=dersKapat].x').click();o.push('  kapaninca alt dugmeler geri '+!!q('.ft')+' | secim geri: '+!!q('[data-a=caUzun]')+' | ders dugmesi '+!!q('[data-a=dersAc]'));}else o.push('  CANLI OKUMA DUGMESI CIKMADI');q('[data-a=caKisa]').click();const kn=q('.cnsy').textContent+' ses dugmesi '+!!q('[data-a=sesAc]')+' ses dosyasi '+(sesEl?sesEl.src.split('/').slice(-3).join('/'):'YOK');q('[data-a=sesAc]').click();const kapali=q('[data-a=sesAc]').textContent;q('[data-a=sesAc]').click();q('[data-a=caIleri]').click();q('[data-a=caIleri]').click();const ks=(q('#cnl .cnf strong')||{}).textContent;q('[data-a=caUzun]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<7;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: kisa "'+kn+' | kapatinca "'+kapali+'" sonucu '+ks+' | uzun adim "'+q('.cnsy').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
+  q('[data-a=nob]').click();const n=dersi(s).length;o.push('  nobetci: adim '+n+' | carpi '+us(q('[data-a=kapatN]'))+' | oynat '+us(q('[data-a=oyna]'))+' | '+tas());
+  let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
+  o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
+  if(q('[data-a=basit]')){q('[data-a=basit]').click();o.push('  daha basit acildi: '+!!q('.bst'));}
+  if(q('[data-a=sifir]')){q('[data-a=sifir]').click();let ks=qa('.tht .bk').length,sr=qa('.tht .bk.y').length;const m=dersi(s).length;for(let k=1;k<m;k++)q('[data-a=sonraA]').click();o.push('  sifirdan: adim '+m+' | kutu '+ks+' | ilk adimda sari '+sr+' | son hesap '+!!q('.tht .alt em')+' | carpi '+us(q('[data-a=kapatN]'))+' | tahta '+q('.tht').scrollHeight+'/'+q('.tht').clientHeight);q('[data-a=soruyaDon]').click();o.push('  soruya don: "'+q('.cap .st').textContent+'"');}else o.push('  SIFIRDAN YOK');
+  q('[data-a=oyna]').click();q('[data-a=kapatN]').click();o.push('  dinlerken carpi: ses durdu '+(!S.oyn)+' | sonuca dondu '+(S.e==='sonuc'));
+  }
+  if(s.oyun){q('[data-a=ikiz]').click();const gs=qa('input[data-g]');o.push('  ikiz: bos kutu '+gs.length+' | carpi '+us(q('[data-a=kapatI].x')));
+   q('[data-a=kontrol]').click();o.push('  bos uyari: '+(q('.uyari')?q('.uyari').textContent:'YOK'));
+   const sat=s.oyun.tablo.satirlar;qa('input[data-g]').forEach(x=>{const p=x.dataset.g.split('_');x.value=sat[p[0]][p[1]];});q('[data-a=kontrol]').click();
+   o.push('  dogru doldurunca: "'+(q('h1')?q('h1').textContent:'YOK')+'"');q('[data-a=kapatI]').click();}
+  S=Object.assign(yeniSoru(),{i});ciz();q('[data-o='+s.dogru+']').click();q('[data-a=cevap]').click();o.push('  dogru: "'+q('h1').textContent+'" | cozum tablosu '+qa('.kyt.tek .kr').length+' | akilda tut yok '+!q('.tut')+' | dugme "'+q('.ft').textContent.trim()+'"');
+ });
+ S=Object.assign(yeniSoru(),{i:SORULAR.length-1});ciz();q('[data-o='+Q().dogru+']').click();q('[data-a=cevap]').click();q('[data-a=sonraki]').click();o.push('bitis ekrani: '+!!q('.bit h1'));
+ }catch(er){o.push('HATA: '+er.message);}
+ document.body.innerHTML='<pre id="snc">'+o.join('\n').replace(/</g,'&lt;')+'</pre>';
+}
+</script>
+</body>
+</html>
