@@ -205,9 +205,16 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .drv{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .drnot{position:absolute;font-family:"Ink Free","Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:15px;line-height:1;font-weight:700;white-space:nowrap;pointer-events:none}
 .drz{margin:10px 2px 0;min-height:48px;font-size:16.5px;line-height:1.45;font-weight:600}
-.dri{height:3px;border-radius:2px;background:var(--cizgi);margin:8px 0 0;overflow:hidden}
+.drcz{display:flex;align-items:center;gap:10px;width:100%}
+.dri{flex:1;height:30px;display:flex;align-items:center;cursor:pointer;touch-action:none}
+.dri span{display:block;width:100%;height:6px;border-radius:3px;background:var(--cizgi);overflow:hidden}
 .dri i{display:block;height:100%;width:0;background:var(--vurgu)}
-.drc{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));position:sticky;bottom:0;z-index:2;background:var(--kagit);border-top:1px solid var(--cizgi);border-radius:0 0 22px 22px}
+.drcz b{flex:none;font-size:12px;font-weight:600;color:var(--soluk);font-variant-numeric:tabular-nums;min-width:74px;text-align:right}
+.drc1,.drc2{display:flex;align-items:center;justify-content:center;gap:12px;width:100%}
+.drc2{gap:8px}
+.drc2 .dry{flex:1;min-width:0;height:40px;padding:0 6px;font-size:13px}
+.dry.kck{min-width:60px;font-size:15px;font-variant-numeric:tabular-nums}
+.drc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin:10px -16px 0;padding:4px 16px calc(10px + env(safe-area-inset-bottom));position:sticky;bottom:0;z-index:2;background:var(--kagit);border-top:1px solid var(--cizgi);border-radius:0 0 22px 22px}
 .drs{padding-bottom:0}
 .drs .cta{margin:12px 0 14px}
 .drs .cta[hidden]{display:none}
@@ -610,11 +617,13 @@ function dersH(q){
  return `<div class="drs" id="drs"><div class="drb"><span class="cnh"><button data-d="ayr" id="drka" class="${S.drsOz?'':'ac'}">Ayrıntılı</button><button data-d="ozet" id="drko" class="${S.drsOz?'ac':''}">Özet</button></span><button class="x ack" data-a="dersKapat" aria-label="Kapat">${IK.x}</button></div>
  <div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
  <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
- <p class="drz" id="drz"></p><div class="dri"><i id="drp"></i></div>
- <div class="drc"><button class="dry" data-d="bas">Baştan</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
+ <p class="drz" id="drz"></p>
+ <div class="drc"><div class="drcz"><div class="dri" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span><i id="drp"></i></span></div><b id="drt">0:00 / 0:00</b></div><div class="drc1"><button class="dry kck" data-d="geri" aria-label="10 saniye geri">−10</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry kck" data-d="ileri" aria-label="10 saniye ileri">+10</button></div><div class="drc2"><button class="dry" data-d="bas">Baştan</button><button class="dry" data-d="hiz" id="drh">Hız 1×</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
 }
 const drsBas=()=>S&&S.drsOz&&drsP?drsP.o1:0;
-let drsSimI=-1;
+let drsSimI=-1,drsHiz=1,drsBek=0,drsYer=null;
+const drsSn=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
+function drsGit(t){const P=drsP;if(!P)return;t=Math.max(drsBas(),Math.min(P.sure-.15,t));const oy=drsOyn;drsDur();drsT0=t;drsSimI=-1;if(t<P.o1)drsKagAcik=false;drsCiz(t);if(oy)drsOynat();}
 let drsA=null,drsT0=0,drsOyn=false,drsRaf=0,drsSon=0,drsIz=[],drsSesli=false,drsP=null,drsI=0,drsKagAcik=false;
 const drsRenk={m:'var(--vurgu)',k:'var(--hata)',s:'var(--altin)'};
 function drsYol(tip,r,j){
@@ -654,14 +663,16 @@ function drsCiz(t){
   P.kag.forEach((l,i)=>{l.p.forEach((c,k)=>{const el=kg.querySelector('[data-h="'+i+'_'+k+'"]');if(!el)return;const p=Math.max(0,Math.min(1,(t-c[1])/c[2]));el.style.clipPath='inset(-6px '+(100-p*100).toFixed(1)+'% -6px 0)';el.classList.toggle('yaz',p>0&&p<1);});
    if(l.ciz!=null){const el=kg.querySelector('[data-l="'+i+'"]');if(el)el.classList.toggle('cz',t>=l.ciz);}});}
  let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z&&z.textContent!==s)z.textContent=s;
+ const zt=document.getElementById('drt');if(zt){const m=drsSn(t-drsBas())+' / '+drsSn(P.sure-drsBas());if(zt.textContent!==m)zt.textContent=m;}
  const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
  const g=document.getElementById('drg');if(g)g.hidden=t<P.sure-.05;
 }
-function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';const ka=document.getElementById('drka'),ko=document.getElementById('drko');if(ka)ka.className=S&&S.drsOz?'':'ac';if(ko)ko.className=S&&S.drsOz?'ac':'';}
+function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';const hz=document.getElementById('drh');if(hz)hz.textContent='Hız '+String(drsHiz).replace('.',',')+'×';const ka=document.getElementById('drka'),ko=document.getElementById('drko');if(ka)ka.className=S&&S.drsOz?'':'ac';if(ko)ko.className=S&&S.drsOz?'ac':'';}
 function drsParcaCal(){
  const P=drsP;let i=P.par.length-1;for(let k=0;k<P.par.length;k++){if(drsT0<P.par[k].off+P.par[k].sure-.05){i=k;break;}}
  drsI=i;if(drsT0<P.par[i].off)drsT0=P.par[i].off;const yer=drsT0-P.par[i].off;drsSesli=false;
- try{if(!drsA)drsA=new Audio();drsA.src=P.par[i].ses;drsA.muted=!SES_AC;
+ drsBek=0;drsYer=yer>.05?yer:null;
+ try{if(!drsA)drsA=new Audio();drsA.src=P.par[i].ses;drsA.muted=!SES_AC;drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;
   if(yer>.05){const git=()=>{try{drsA.currentTime=yer;}catch(e){}};if(drsA.readyState>0)git();else drsA.addEventListener('loadedmetadata',git,{once:true});}
   const p=drsA.play();drsSesli=true;if(p&&p.catch)p.catch(()=>{drsSesli=false;});}catch(e){drsSesli=false;}
 }
@@ -670,8 +681,9 @@ function drsDongu(z){
  if(!S||!S.drs||!drsOyn||!drsP)return;const P=drsP,dt=Math.min(.25,(z-drsSon)/1000);drsSon=z;
  if(drsSesli&&drsA){
   if(drsA.ended){if(drsI>=P.par.length-1){drsBitir();return;}drsT0=P.par[drsI+1].off;drsParcaCal();}
-  else if(!drsA.paused)drsT0=P.par[drsI].off+drsA.currentTime;
- }else{drsT0+=dt;if(drsT0>=P.sure){drsBitir();return;}}
+  else if(!drsA.paused){drsBek=0;if(drsYer!=null&&drsA.currentTime<drsYer-.4){}else{drsYer=null;drsT0=P.par[drsI].off+drsA.currentTime;}}
+  else{drsBek+=dt;if(drsBek>2.5){drsSesli=false;try{drsA.pause();}catch(e){}}}
+ }else{drsT0+=dt*drsHiz;if(drsT0>=P.sure){drsBitir();return;}}
  drsCiz(drsT0);drsRaf=requestAnimationFrame(drsDongu);
 }
 function drsOynat(){
@@ -682,10 +694,17 @@ function drsDur(){drsOyn=false;cancelAnimationFrame(drsRaf);if(drsA){try{drsA.pa
 function drsTik(d){
  if(d==='oyna'){if(drsOyn)drsDur();else drsOynat();}
  else if(d==='bas'){drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);const el=document.getElementById('drs');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});drsOynat();}
+ else if(d==='geri')drsGit(drsT0-10);
+ else if(d==='ileri')drsGit(drsT0+10);
+ else if(d==='hiz'){const H=[1,1.25,1.5,2];drsHiz=H[(H.indexOf(drsHiz)+1)%H.length];if(drsA){try{drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;}catch(e){}}drsDugme();}
  else if(d==='ozet'||d==='ayr'){S.drsOz=d==='ozet';drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}
  else if(d==='ses'){SES_AC=!SES_AC;if(drsA)drsA.muted=!SES_AC;drsDugme();}
 }
 window.addEventListener('resize',()=>{if(S&&S.drs&&drsKur())drsCiz(drsT0);});
+(function(){let sur=false;const git=e=>{const b=document.getElementById('drib');if(!b||!drsP)return;const r=b.getBoundingClientRect(),o=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));drsGit(drsBas()+o*(drsP.sure-drsBas()));};
+ document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#drib')){sur=true;git(e);e.preventDefault();}});
+ document.addEventListener('pointermove',e=>{if(sur)git(e);});
+ ['pointerup','pointercancel'].forEach(n=>document.addEventListener(n,()=>{sur=false;}));})();
 function eSoru(){
  const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
  return `<div class="hd">${seg()}<button class="ik ${S.eleKip?'ac':''}" data-a="eleKip" aria-label="Şık eleme">${IK.ele}</button><button class="ik yl ${S.yil?'ac':''}" data-a="yil" aria-label="Soruyu işaretle">${IK.yil}</button></div>
@@ -844,6 +863,7 @@ function sinama2(){
    q('[data-a=dersAc]').click();drsDur();
    const izE=qa('#drs .diz').length,izB=drsP.D.iz.length;
    o.push('  ders: tam ekran '+(!q('.hd')&&!q('.cps')&&!q('.ft'))+' | toplam '+drsP.sure.toFixed(1)+' sn | isaret yeri '+izE+'/'+izB+(izE!==izB?' EKSIK':'')+' | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | '+tas());
+   const s0=q('#drt').textContent;q('[data-d=ileri]').click();const s1=drsT0;q('[data-d=geri]').click();const s2=drsT0;q('[data-d=hiz]').click();const h1=q('#drh').textContent;q('[data-d=hiz]').click();q('[data-d=hiz]').click();q('[data-d=hiz]').click();drsGit(drsP.sure*.5);o.push('  kumanda: sure "'+s0+'" | +10 sonrasi '+s1.toFixed(1)+' | -10 sonrasi '+s2.toFixed(1)+' | hiz dugmesi "'+h1+'" sonra "'+q('#drh').textContent+'" | ortaya sarinca '+drsT0.toFixed(1)+' ve "'+q('#drt').textContent+'" | cubuk '+us(q('#drib'))+' | -10 '+us(q('[data-d=geri]'))+' | hiz '+us(q('#drh'))+' | '+tas());
    drsCiz(999);const kg=q('#drkg');o.push('  ders sonu: iz '+qa('#drv path[data-p]').length+' | not '+qa('#drn .drnot').length+' | kagit satiri '+qa('#drkg .drl').length+' | kagit tasma '+(kg.scrollWidth>kg.clientWidth+1?'TASMA':'yok')+' | bitis dugmeleri "'+[...qa('#drg button')].map(b=>b.textContent).join(',')+'" | altyazi "'+q('#drz').textContent+'"');
    q('[data-d=ozet]').click();drsDur();o.push('  ozet: baslangic '+drsT0.toFixed(1)+' sn | kalan '+(drsP.sure-drsT0).toFixed(1)+' sn');
    q('[data-a=dersKapat].x').click();
