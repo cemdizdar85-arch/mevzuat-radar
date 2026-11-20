@@ -57,7 +57,7 @@ export function mailKur({ ad, soru }, e) {
     : 'Verdiğin emek yarın seninle birlikte salona giriyor.';
   const govde = [`Yarın sınav günü. ${orta}`, 'Bu gece erken yat. Yarın soruyu iki kez oku, takıldığın soruda oyalanma.', 'Başarılar. Yanındayız.'];
   const ret = `${SITE}/hatirlatma-ret.html?t=${jeton(e || '')}`;
-  const konu = 'Yarın sınav günü: başarılar';
+  const konu = 'Yarın salona yalnız girmiyorsun';
   const metin = [selam, '', ...govde.flatMap(p => [p, '']), 'Cem Dizdar · Tetikte', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
   const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · STAJA GİRİŞ SINAVI</p>
 <h1 style="font-size:24px;margin:0 0 14px">Başarılar</h1>
