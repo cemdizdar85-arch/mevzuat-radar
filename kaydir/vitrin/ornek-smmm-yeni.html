@@ -120,6 +120,44 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .fr strong.k{color:var(--hata)}
 .fr strong.g{color:var(--ok)}
 .fkt small{display:block;margin-top:10px;font-size:12.5px;line-height:1.3;color:var(--soluk)}
+.cnl{margin:22px 0 0;padding:16px 16px 12px;border-radius:22px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 14px 34px -18px color-mix(in srgb,var(--murekkep) 45%,transparent),0 2px 6px -2px color-mix(in srgb,var(--murekkep) 12%,transparent);scroll-margin-top:10px}
+.cnb{display:flex;justify-content:space-between;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.cnb span:last-child{color:var(--ince)}
+.cnq{margin:12px 0 0;font-size:16px;line-height:2;color:var(--murekkep)}
+.cz{position:relative;white-space:nowrap;transition:color .3s,background-color .3s}
+.cz.alt{box-shadow:inset 0 -3px 0 var(--vurgu);font-weight:600}
+.cz.sari{background:var(--sari);border-radius:4px;box-shadow:0 0 0 3px var(--sari);font-weight:600}
+.cz.dy,.cz.dm{font-weight:700}
+.cz.dm{color:var(--vurgu)}
+.cz.dy::after,.cz.dm::after,.cz.atl::after{content:'';position:absolute;left:-7px;right:-7px;top:-3px;bottom:-3px;border:2.5px solid var(--altin);border-radius:50%;transform:rotate(-3deg);pointer-events:none}
+.cz.dm::after{border-color:var(--vurgu)}
+.cz.atl::after{border-color:var(--hata);border-style:dashed}
+.cz.czg{color:var(--ince);text-decoration:line-through;text-decoration-color:var(--hata);text-decoration-thickness:2px}
+.cz.yeni::after{animation:cem .55s ease-out}
+.cz.sari.yeni,.cz.alt.yeni{animation:parla .6s ease-out}
+@keyframes cem{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes parla{from{background-color:var(--sariZ)}}
+.cnf{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 10px;margin:14px 0 0;padding:16px 10px;border-radius:16px;background:var(--dolgu);font-size:15px;font-weight:600;min-height:112px}
+.cnf .yv{display:block;padding:5px 12px;border-radius:9px;border:1.5px dashed var(--ince);color:var(--soluk);font-size:13.5px;font-weight:600;transition:all .3s}
+.cnf .yv.dolu{border-style:solid;border-color:transparent;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;animation:otur .5s cubic-bezier(.2,1.4,.4,1)}
+.cnf .yv.dolu.md{color:var(--murekkep)}
+.cnf .kes i{margin:6px 0;height:2.5px}
+.cnf strong{font-size:34px;line-height:1;letter-spacing:-.02em;min-width:28px;text-align:center}
+.cnf strong.bos{color:var(--ince);font-weight:500}
+.cnf strong.var{color:var(--ok);animation:otur .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes otur{from{transform:scale(.7)}to{transform:none}}
+.cns{margin:14px 2px 0;font-size:17px;line-height:1.45;font-weight:600;min-height:50px}
+.cnn{display:flex;gap:4px;margin:10px 0 0}
+.cnn i{flex:1;height:3px;border-radius:2px;background:var(--cizgi)}
+.cnn i.g{background:var(--murekkep)}
+.cnn i.a{background:var(--vurgu)}
+.cnk{display:flex;align-items:center;justify-content:center;gap:22px;margin:10px 0 0}
+.cnk button{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cnk svg{width:22px;height:22px;fill:var(--murekkep)}
+.cnk .buy{width:56px;height:56px;background:var(--vurgu)}
+.cnk .buy svg{fill:var(--kagit);width:24px;height:24px}
+.cnk button:disabled{opacity:.25}
+.ucn{position:fixed;z-index:30;font-weight:700;font-size:16px;color:var(--vurgu);pointer-events:none;transition:transform .65s cubic-bezier(.3,.7,.2,1),opacity .65s ease-in}
 .nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
 .nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
 .ngr{margin:6px 0 0;font-size:16.5px;line-height:1.5;font-weight:600}
@@ -226,7 +264,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',ca:-1,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -401,6 +439,47 @@ function formulH(q){
  return `<div class="fg"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span><span class="fd"><span>=</span><span class="kes"><b class="mp">${kac(F.d.pay)}</b><i></i><b class="md">${kac(F.d.alt||F.d.payda)}</b></span><span>=</span><strong>${kac(F.d.s)}</strong></span></div>`;
 }
 function etk(q,i){const F=NF[q.id];if(!F||!F.satir)return '';return i===F.satir.pay?' <i class="et mp">pay</i>':i===F.satir.payda?' <i class="et md">payda</i>':'';}
+const CA={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{
+  m:[['stok devir hızı kaçtır','alt',0],['ortalama değeri kullanınız','sari',1],['30.000 ₺','dy',3,'d1'],['60.000 ₺','dy',3,'d2'],['405.000 ₺','dm',4,'p'],['495.000 ₺','czg',5]],
+  kis:{A:{s:'Sen iki stoğu topladın ama ikiye bölmedin.',at:['ortalama değeri kullanınız']},
+       B:{s:'Sen yalnız dönem sonu stoğu aldın; dönem başını atladın.',at:['30.000 ₺']},
+       D:{s:'Sen paya net satışları yazdın. Oysa pay maliyettir.',at:['495.000 ₺']},
+       E:{s:'Sen yalnız dönem başı stoğu aldın; dönem sonunu atladın.',at:['60.000 ₺']},
+       dogru:{s:'Doğru çözdün. Adım adım üstünden geçelim.',at:[]}},
+  ad:['Önce soruya bak: stok devir hızını soruyor.','Soru bir ipucu veriyor: ortalama değeri kullan.',null,'Payda ortalama stoktur: iki stoğu topla, ikiye böl.','Pay, satılan malın maliyetidir.','Net satışlar bu hesapta kullanılmaz.','405.000 bölü 45.000 eşittir 9. Depo yılda 9 kez boşalıp dolmuş.'],
+  uc:{3:[['d1','d'],['d2','d']],4:[['p','p']]},
+  f:{ad:'Stok devir hızı',pay:'405.000',payAd:'Satılan malın maliyeti',payda:'(30.000 + 60.000) ÷ 2',paydaAd:'Ortalama stok',s:'9',sa:6,pa:4,da:3}}
+};
+function canliH(q){
+ const C=CA[q.id];if(!C)return '';
+ if(S.ca<0)return `<button class="nbr" data-a="caAc"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></button>`;
+ const a=S.ca,n=C.ad.length,k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
+ let m=kac(q.soru);
+ for(const x of C.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';const ac=a>=x[2],at=a===2&&k.at.indexOf(x[0])>=0;
+  m=m.replace(p,`<span class="cz ${ac?x[1]:''} ${ac&&a===x[2]?'yeni':''} ${at?'atl yeni':''}"${x[3]?` data-k="${x[3]}"`:''}>${p}</span>`);}
+ const F=C.f,soz=a===2?k.s:C.ad[a];
+ return `<div class="cnl" id="cnl"><div class="cnb"><span>Nöbetçi anlatıyor</span><span>${a+1} / ${n}</span></div>
+ <p class="cnq">${m}</p>
+ <div class="cnf"><span class="cna">${kac(F.ad)} =</span><span class="kes"><span class="yv ${a>=F.pa?'dolu mp':''}" data-h="p">${kac(a>=F.pa?F.pay:F.payAd)}</span><i></i><span class="yv ${a>=F.da?'dolu md':''}" data-h="d">${kac(a>=F.da?F.payda:F.paydaAd)}</span></span><span>=</span><strong class="${a>=F.sa?'var':'bos'}">${a>=F.sa?kac(F.s):'?'}</strong></div>
+ <p class="cns">${kac(soz)}</p>
+ <div class="cnn">${C.ad.map((_,i)=>`<i class="${i<a?'g':i===a?'a':''}"></i>`).join('')}</div>
+ <div class="cnk"><button data-a="caGeri" aria-label="Önceki adım" ${a===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="caOyna" aria-label="${S.caO?'Durdur':'Oynat'}">${S.caO?IK.dur:IK.oyna}</button><button data-a="caIleri" aria-label="Sonraki adım" ${a===n-1?'disabled':''}>${IK.sonra}</button></div></div>`;
+}
+let caT=null;
+function ucur(a){
+ const q=Q(),C=q&&CA[q.id],yol=C&&C.uc[a],kok=document.getElementById('cnl');if(!yol||!kok)return;
+ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(e){}
+ yol.forEach(y=>{const s=kok.querySelector('[data-k="'+y[0]+'"]'),d=kok.querySelector('[data-h="'+y[1]+'"]');if(!s||!d)return;
+  const r1=s.getBoundingClientRect(),r2=d.getBoundingClientRect(),u=document.createElement('span');
+  u.className='ucn';u.textContent=s.textContent;u.style.left=r1.left+'px';u.style.top=r1.top+'px';document.body.appendChild(u);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{u.style.transform='translate('+(r2.left+r2.width/2-r1.left-r1.width/2)+'px,'+(r2.top-r1.top)+'px)';u.style.opacity='0';}));
+  setTimeout(()=>u.remove(),750);});
+}
+function caSaat(){
+ clearTimeout(caT);if(!S||!S.caO)return;
+ caT=setTimeout(()=>{if(!S||S.e!=='sonuc'||S.ca<0||!S.caO)return;const C=CA[Q().id];if(S.ca>=C.ad.length-1){S.caO=false;ciz();return;}S.ca++;ciz();ucur(S.ca);caSaat();},3000);
+}
 function eSoru(){
  const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
  return `<div class="hd">${seg()}<button class="ik ${S.eleKip?'ac':''}" data-a="eleKip" aria-label="Şık eleme">${IK.ele}</button><button class="ik yl ${S.yil?'ac':''}" data-a="yil" aria-label="Soruyu işaretle">${IK.yil}</button></div>
@@ -413,7 +492,7 @@ function eSonuc(){
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
  const tb=dg?'':tabloH(q,S.sec)?tabloH(q,S.sec)+formulH(q):'';
- const nbr=nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
+ const nbr=canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
  const coz=(cozumH(q)?cozumH(q)+formulH(q):'')||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
@@ -483,7 +562,7 @@ document.addEventListener('click',e=>{
  if(!S)return;if(uzYut){uzYut=false;return;}
  const t=e.target.closest('.tk[data-t]');if(t){S.boya[t.dataset.t]=!S.boya[t.dataset.t];ciz();return;}
  const b=e.target.closest('button');if(!b||b.disabled)return;const d=b.dataset,q=Q();
- let kay=false;
+ let kay=false,ucA=-1,kayC=false;
  if(S.e==='ikiz')gOku();
  if(d.o){if(S.eleKip){S.ele[d.o]=!S.ele[d.o];if(S.sel===d.o)S.sel=null;}else{S.ele[d.o]=false;S.sel=S.sel===d.o?null:d.o;}}
  else if(d.c){S.acS=S.acS===d.c?null:d.c;}
@@ -495,6 +574,10 @@ document.addEventListener('click',e=>{
   case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
   case 'kapatS':S.e='sonuc';break;
   case 'rk':S.rk=!S.rk;break;
+  case 'caAc':S.ca=0;kayC=true;break;
+  case 'caIleri':S.caO=false;clearTimeout(caT);S.ca++;ucA=S.ca;break;
+  case 'caGeri':S.caO=false;clearTimeout(caT);S.ca=Math.max(0,S.ca-1);break;
+  case 'caOyna':S.caO=!S.caO;if(S.caO&&S.ca>=CA[q.id].ad.length-1)S.ca=0;break;
   case 'nobAc':S.nb=1;kay=true;break;
   case 'nobIleri':S.nb=S.nb+1;kay=true;break;
   case 'nob':S.e='nob';S.ders='soru';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
@@ -515,6 +598,9 @@ document.addEventListener('click',e=>{
   default:return;
  }
  ciz();
+ if(ucA>=0)ucur(ucA);
+ if(d.a==='caOyna')caSaat();
+ if(kayC){const el=document.getElementById('cnl');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
  if(kay){const el=document.querySelectorAll('.nad');if(el.length)el[el.length-1].scrollIntoView({behavior:'smooth',block:'start'});}
 });
 function baslat(metin){
@@ -543,7 +629,7 @@ function sinama(){
   o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' dolu hali '+qa('.bd>.fg .fd').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
-  if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
+  if(q('[data-a=caAc]')){q('[data-a=caAc]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<6;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: adim "'+q('.cnb span:last-child').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
   q('[data-a=nob]').click();const n=dersi(s).length;o.push('  nobetci: adim '+n+' | carpi '+us(q('[data-a=kapatN]'))+' | oynat '+us(q('[data-a=oyna]'))+' | '+tas());
   let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
   o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
