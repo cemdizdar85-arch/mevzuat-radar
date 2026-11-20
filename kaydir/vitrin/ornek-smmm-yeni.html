@@ -255,6 +255,30 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .drc.oyn .buy svg{width:28px;height:28px;fill:var(--kagit)}
 .drc.oyn .buy.tkr svg{fill:none;stroke:var(--kagit)}
 .oyi:active,.oyh:active,.drc.oyn .buy:active{transform:scale(.94)}
+.drbs{display:flex;align-items:center;gap:2px}
+.oyk{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--murekkep)}
+.oyk svg{width:24px;height:24px}
+.oyk.kpl{color:var(--ince)}
+.oyb{display:flex;gap:6px;margin:6px 0 0}
+.oyb button{flex:1;min-width:0;height:28px;border-radius:14px;font-size:12px;font-weight:700;color:var(--ince);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oyb button.ac{color:var(--murekkep);background:var(--dolgu)}
+.oyr{display:flex!important;gap:3px;overflow:visible!important;background:none!important;position:relative}
+.oyr span{display:block;height:4px;border-radius:2px;background:var(--cizgi);overflow:hidden;min-width:6px}
+.oyr span i{display:block;height:100%;width:0;background:var(--murekkep)}
+.oyr u{position:absolute;top:-3px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--sari);box-shadow:0 0 0 1.5px var(--altin);text-decoration:none}
+.oya{display:block;margin:0 0 0 auto;height:34px;padding:0 16px;border-radius:17px;background:var(--murekkep);color:var(--kagit);font-size:13px;font-weight:700}
+.oya[hidden],.oyt[hidden],.drfl[hidden]{display:none}
+.oyt{margin:0 0 4px;text-align:center;font-size:12.5px;font-weight:600;color:var(--soluk)}
+.drfl{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);z-index:5;padding:10px 18px;border-radius:22px;background:color-mix(in srgb,var(--murekkep) 82%,transparent);color:var(--kagit);font-size:15px;font-weight:700;pointer-events:none}
+.drfl.gst{animation:yanip .65s ease-out both}
+@keyframes yanip{0%{opacity:0;transform:translate(-50%,-50%) scale(.9)}20%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0}}
+.drz[hidden]{display:none}
+.drgi{display:flex;gap:8px}
+.drgi .duz{flex:1;margin-top:0}
+.trm{display:inline;font:inherit;color:inherit;padding:0;border-bottom:2px dotted var(--vurgu);border-radius:0;line-height:inherit}
+.trm.ac{background:var(--vurguZ);border-bottom-style:solid}
+.tri{margin:-12px 0 16px;font-size:13px;color:var(--ince)}
+.ned.trn{margin:-10px 0 18px}
 .nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
 .nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
 .ngr{margin:6px 0 0;font-size:16.5px;line-height:1.5;font-weight:600}
@@ -350,6 +374,8 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 <div id="kok"><div class="sahne"><div class="ph"><div class="bit"><p>Sorular yükleniyor…</p></div></div></div></div>
 <script>
 const IK={
+ imle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5h10v15l-5-3.6-5 3.6z"/></svg>',
+ cc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M10.4 10.4a2.1 2.1 0 1 0 0 3.2M16.6 10.4a2.1 2.1 0 1 0 0 3.2"/></svg>',
  i10:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.4 4.6a7.6 7.6 0 1 0 7.2 5.2"/><path d="M12.2 1.9 15.3 4.6 12.2 7.3" /><text x="12" y="15.6" text-anchor="middle" font-size="6.6" font-weight="700" fill="currentColor" stroke="none" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">10</text></svg>',
  g10:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11.6 4.6a7.6 7.6 0 1 1-7.2 5.2"/><path d="M11.8 1.9 8.7 4.6 11.8 7.3"/><text x="12" y="15.6" text-anchor="middle" font-size="6.6" font-weight="700" fill="currentColor" stroke="none" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">10</text></svg>',
  sesA:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.6h3.2L11.5 6v12l-4.3-3.6H4z" fill="currentColor"/><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M17.6 6.6a7.6 7.6 0 0 1 0 10.8"/></svg>',
@@ -366,7 +392,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,drsOz:false,fm:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,trm:null,drsOz:false,fm:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -634,14 +660,23 @@ function drsPlan(q){
 function dersH(q){
  const P=drsPlan(q);if(!P)return '';const D=P.D;
  const bol=D.bol.map((b,i)=>{let m=kac(b[0]);D.iz.forEach((z,j)=>{const p=kac(z[0]);if(m.indexOf(p)>=0)m=m.replace(p,`<span class="diz" data-i="${j}">${p}</span>`);});return `<span class="dbl" data-b="${i}">${m}</span>`;}).join(' ');
- return `<div class="drs" id="drs"><div class="drb"><span class="cnh"><button data-d="ayr" id="drka" class="${S.drsOz?'':'ac'}">Ayrıntılı</button><button data-d="ozet" id="drko" class="${S.drsOz?'ac':''}">Özet</button></span><button class="x ack" data-a="dersKapat" aria-label="Kapat">${IK.x}</button></div>
- <div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
+ return `<div class="drs" id="drs"><div class="drb"><span class="cnh"><button data-d="ayr" id="drka" class="${S.drsOz?'':'ac'}">Ayrıntılı</button><button data-d="ozet" id="drko" class="${S.drsOz?'ac':''}">Özet</button></span><span class="drbs"><button class="oyk" data-d="imle" id="drim" aria-label="Bu anı işaretle">${IK.imle}</button><button class="oyk ${ALT_AC?'':'kpl'}" data-d="alt" id="dral" aria-label="Altyazıyı aç ya da kapat">${IK.cc}</button><button class="x ack" data-a="dersKapat" aria-label="Kapat">${IK.x}</button></span></div>
+ <div class="drfl" id="drfl" hidden></div><div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
  <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
  <p class="drz" id="drz"></p>
- <div class="drc oyn"><div class="oyc" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span class="oyr"><i id="drp"></i></span><em id="drth"></em></div><div class="oyz"><b id="drt">0:00</b><b id="drtk">−0:00</b></div><div class="oyd"><button class="oyh" data-d="hiz" id="drh" aria-label="Oynatma hızı">1×</button><button class="oyi" data-d="geri" aria-label="10 saniye geri">${IK.g10}</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="oyi" data-d="ileri" aria-label="10 saniye ileri">${IK.i10}</button><button class="oyi" data-d="ses" id="drm" aria-label="Sesi aç ya da kapat">${SES_AC?IK.sesA:IK.sesK}</button></div></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<button class="duz" data-a="dersKapat">Dersi kapat</button></div></div>`;
+ <div class="drc oyn"><p class="oyt" id="drdv" hidden></p><button class="oya" id="drat" data-d="atla" hidden>Okumayı atla</button><div class="oyb" id="drbl"></div><div class="oyc" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span class="oyr" id="drtr"></span><em id="drth"></em></div><div class="oyz"><b id="drt">0:00</b><b id="drtk">−0:00</b></div><div class="oyd"><button class="oyh" data-d="hiz" id="drh" aria-label="Oynatma hızı">1×</button><button class="oyi" data-d="geri" aria-label="10 saniye geri">${IK.g10}</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="oyi" data-d="ileri" aria-label="10 saniye ileri">${IK.i10}</button><button class="oyi" data-d="ses" id="drm" aria-label="Sesi aç ya da kapat">${SES_AC?IK.sesA:IK.sesK}</button></div></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<div class="drgi"><button class="duz" data-a="sonraki" id="drsn">${S.i>=SORULAR.length-1?'Bitir':'Sonraki soru'}</button><button class="duz" data-a="dersKapat">Dersi kapat</button></div></div></div>`;
 }
 const drsBas=()=>S&&S.drsOz&&drsP?drsP.o1:0;
-let drsSimI=-1,drsHiz=1,drsBek=0,drsYer=null;
+const dp={al:(k,v)=>{try{const x=localStorage.getItem(k);return x==null?v:JSON.parse(x);}catch(e){return v;}},yaz:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+let ALT_AC=dp.al('tk_alt',true)!==false;
+let drsSimI=-1,drsHiz=[1,1.25,1.5,2].indexOf(dp.al('tk_hiz',1))>=0?dp.al('tk_hiz',1):1,drsBek=0,drsYer=null,drsGeri=0,drsGeriT=null,drsImle=[];
+function drsBolum(){const P=drsP;if(!P)return [];const b=[];if(!(S&&S.drsOz))b.push({ad:'Okuma',bas:0,son:P.o1});b.push({ad:'Çözüm',bas:P.o1,son:P.o2});b.push({ad:S&&S.sec===Q().dogru?'Kapanış':'Senin hatan',bas:P.o2,son:P.sure});return b;}
+function drsCubuk(){const P=drsP,bl=document.getElementById('drbl'),tr=document.getElementById('drtr');if(!P||!bl||!tr)return;const B=drsBolum(),top=P.sure-drsBas();
+ bl.innerHTML=B.map((b,i)=>'<button data-d="bol" data-b="'+i+'">'+b.ad+'</button>').join('');
+ tr.innerHTML=B.map(b=>'<span style="flex:'+(b.son-b.bas).toFixed(2)+'"><i></i></span>').join('')+drsImle.filter(x=>x>=drsBas()).map(x=>'<u style="left:'+((x-drsBas())/top*100).toFixed(1)+'%"></u>').join('');}
+function drsGeriDur(){clearInterval(drsGeriT);drsGeriT=null;drsGeri=0;const b=document.getElementById('drsn');if(b&&S)b.textContent=S.i>=SORULAR.length-1?'Bitir':'Sonraki soru';}
+function drsYanip(m){const e=document.getElementById('drfl');if(!e)return;e.textContent=m;e.hidden=false;e.classList.remove('gst');void e.offsetWidth;e.classList.add('gst');clearTimeout(drsYanip.t);drsYanip.t=setTimeout(()=>{e.hidden=true;},650);}
+function drsBilgi(m){const e=document.getElementById('drdv');if(!e)return;e.textContent=m;e.hidden=false;clearTimeout(drsBilgi.t);drsBilgi.t=setTimeout(()=>{e.hidden=true;},3200);}
 const drsSn=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 function drsGit(t){const P=drsP;if(!P)return;t=Math.max(drsBas(),Math.min(P.sure-.15,t));const oy=drsOyn;drsDur();drsT0=t;drsSimI=-1;if(t<P.o1)drsKagAcik=false;drsCiz(t);if(oy)drsOynat();}
 let drsA=null,drsT0=0,drsOyn=false,drsRaf=0,drsSon=0,drsIz=[],drsSesli=false,drsP=null,drsI=0,drsKagAcik=false;
@@ -667,6 +702,7 @@ function drsKur(){
   drsIz.push({j,t:z[2],nt:z[5],nel});});
  svg.innerHTML=h+'<g id="drkal" style="display:none"><circle r="4.5"/><path d="M 3 -3 L 15 -17" stroke-width="5" stroke-linecap="round" fill="none"/></g>';
  drsIz.forEach(o=>{o.p=svg.querySelector('[data-p="'+o.j+'"]');o.len=o.p.getTotalLength();o.p.style.strokeDasharray=o.len;o.sure=Math.min(.9,.35+o.len/420);});
+ drsImle=dp.al('tk_imle_'+Q().id,[]);if(!Array.isArray(drsImle))drsImle=[];drsCubuk();
  return true;
 }
 function drsSimdi(){return drsT0;}
@@ -682,7 +718,10 @@ function drsCiz(t){
   if(acik&&!drsKagAcik&&drsOyn){drsKagAcik=true;try{kg.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}}if(!acik)drsKagAcik=false;
   P.kag.forEach((l,i)=>{l.p.forEach((c,k)=>{const el=kg.querySelector('[data-h="'+i+'_'+k+'"]');if(!el)return;const p=Math.max(0,Math.min(1,(t-c[1])/c[2]));el.style.clipPath='inset(-6px '+(100-p*100).toFixed(1)+'% -6px 0)';el.classList.toggle('yaz',p>0&&p<1);});
    if(l.ciz!=null){const el=kg.querySelector('[data-l="'+i+'"]');if(el)el.classList.toggle('cz',t>=l.ciz);}});}
- let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z&&z.textContent!==s)z.textContent=s;
+ let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z){if(z.textContent!==s)z.textContent=s;if(z.hidden===ALT_AC)z.hidden=!ALT_AC;}
+ const B=drsBolum(),tr=document.getElementById('drtr'),bl=document.getElementById('drbl');
+ if(tr&&bl&&tr.children.length>=B.length)B.forEach((b,i)=>{const dol=Math.max(0,Math.min(1,(t-b.bas)/(b.son-b.bas)));const ic=tr.children[i].firstChild;if(ic)ic.style.width=(dol*100).toFixed(1)+'%';const dg=bl.children[i];if(dg){const ak=t>=b.bas-.01&&(t<b.son||i===B.length-1);if(dg.classList.contains('ac')!==ak)dg.classList.toggle('ac',ak);}});
+ const at=document.getElementById('drat');if(at){const gz=!(!S.drsOz&&t>1.5&&t<P.o1-2);if(at.hidden!==gz)at.hidden=gz;}
  const zt=document.getElementById('drt'),zk=document.getElementById('drtk');if(zt){const m=drsSn(t-drsBas());if(zt.textContent!==m)zt.textContent=m;}if(zk){const m='−'+drsSn(P.sure-t);if(zk.textContent!==m)zk.textContent=m;}
  const th=document.getElementById('drth');if(th)th.style.left=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
  const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,Math.max(0,(t-drsBas())/(P.sure-drsBas())*100)).toFixed(1)+'%';
@@ -697,7 +736,9 @@ function drsParcaCal(){
   if(yer>.05){const git=()=>{try{drsA.currentTime=yer;}catch(e){}};if(drsA.readyState>0)git();else drsA.addEventListener('loadedmetadata',git,{once:true});}
   const p=drsA.play();drsSesli=true;if(p&&p.catch)p.catch(()=>{drsSesli=false;});}catch(e){drsSesli=false;}
 }
-function drsBitir(){drsOyn=false;drsT0=drsP.sure;drsCiz(drsT0);drsDugme();}
+function drsBitir(){drsOyn=false;drsT0=drsP.sure;drsCiz(drsT0);drsDugme();dp.yaz('tk_yer_'+Q().id,0);
+ drsGeriDur();drsGeri=8;const say=()=>{const b=document.getElementById('drsn');if(!b||!S||!S.drs){drsGeriDur();return;}if(drsGeri<=0){drsGeriDur();b.click();return;}b.textContent=(S.i>=SORULAR.length-1?'Bitir':'Sonraki soru')+' · '+drsGeri;drsGeri--;};say();drsGeriT=setInterval(say,1000);
+ const g=document.getElementById('drg');if(g){try{g.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}}}
 function drsDongu(z){
  if(!S||!S.drs||!drsOyn||!drsP)return;const P=drsP,dt=Math.min(.25,(z-drsSon)/1000);drsSon=z;
  if(drsSesli&&drsA){
@@ -708,20 +749,33 @@ function drsDongu(z){
  drsCiz(drsT0);drsRaf=requestAnimationFrame(drsDongu);
 }
 function drsOynat(){
- if(!drsP)return;if(drsT0>=drsP.sure-.05||drsT0<drsBas())drsT0=drsBas();drsOyn=true;drsSimI=-1;drsSon=performance.now();drsParcaCal();
+ if(!drsP)return;drsGeriDur();if(drsT0>=drsP.sure-.05||drsT0<drsBas())drsT0=drsBas();drsOyn=true;drsSimI=-1;drsSon=performance.now();drsParcaCal();
  drsDugme();cancelAnimationFrame(drsRaf);drsRaf=requestAnimationFrame(drsDongu);
 }
-function drsDur(){drsOyn=false;cancelAnimationFrame(drsRaf);if(drsA){try{drsA.pause();}catch(e){}}drsDugme();}
-function drsTik(d){
+function drsDur(){if(drsOyn&&drsP&&S&&SORULAR[S.i])dp.yaz('tk_yer_'+SORULAR[S.i].id,drsT0<drsP.sure-3?+drsT0.toFixed(1):0);drsOyn=false;cancelAnimationFrame(drsRaf);if(drsA){try{drsA.pause();}catch(e){}}drsDugme();}
+function drsTik(d,el){
+ if(d==='atla'){drsGit(drsP.o1+.02);if(!drsOyn)drsOynat();return;}
+ if(d==='bol'){const b=drsBolum()[+el.dataset.b];if(b){drsGit(b.bas+.02);if(!drsOyn)drsOynat();}return;}
+ if(d==='alt'){ALT_AC=!ALT_AC;dp.yaz('tk_alt',ALT_AC);const k=document.getElementById('dral');if(k)k.classList.toggle('kpl',!ALT_AC);drsCiz(drsT0);return;}
+ if(d==='imle'){const yak=drsImle.findIndex(x=>Math.abs(x-drsT0)<2.5);if(yak>=0){drsImle.splice(yak,1);drsBilgi('İşaret kaldırıldı');}else{drsImle.push(+drsT0.toFixed(1));drsImle.sort((a,b)=>a-b);drsBilgi('Bu an işaretlendi · çubukta sarı nokta');}dp.yaz('tk_imle_'+Q().id,drsImle);drsCubuk();drsCiz(drsT0);return;}
  if(d==='oyna'){if(drsOyn)drsDur();else drsOynat();}
  else if(d==='bas'){drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);const el=document.getElementById('drs');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});drsOynat();}
  else if(d==='geri')drsGit(drsT0-10);
  else if(d==='ileri')drsGit(drsT0+10);
- else if(d==='hiz'){const H=[1,1.25,1.5,2];drsHiz=H[(H.indexOf(drsHiz)+1)%H.length];if(drsA){try{drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;}catch(e){}}drsDugme();}
- else if(d==='ozet'||d==='ayr'){S.drsOz=d==='ozet';drsDur();drsT0=drsBas();drsKagAcik=false;drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}
+ else if(d==='hiz'){const H=[1,1.25,1.5,2];drsHiz=H[(H.indexOf(drsHiz)+1)%H.length];dp.yaz('tk_hiz',drsHiz);if(drsA){try{drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;}catch(e){}}drsDugme();}
+ else if(d==='ozet'||d==='ayr'){S.drsOz=d==='ozet';drsDur();drsT0=drsBas();drsKagAcik=false;drsCubuk();drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}
  else if(d==='ses'){SES_AC=!SES_AC;if(drsA)drsA.muted=!SES_AC;drsDugme();}
 }
 window.addEventListener('resize',()=>{if(S&&S.drs&&drsKur())drsCiz(drsT0);});
+(function(){let son=0,bek=null,sx=0,sy=0;
+ document.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;if(drsGeriT&&!(e.target.closest&&e.target.closest('#drsn')))drsGeriDur();},true);
+ document.addEventListener('pointerup',e=>{
+  if(!S||!S.drs||!drsP)return;const a=e.target.closest&&e.target.closest('#drk,#drkg,#drz');if(!a||e.target.closest('button'))return;
+  if(Math.abs(e.clientX-sx)>12||Math.abs(e.clientY-sy)>12)return;
+  const z=performance.now();
+  if(z-son<300){clearTimeout(bek);son=0;const sag=e.clientX>innerWidth/2;drsGit(drsT0+(sag?10:-10));drsYanip(sag?'+10 sn':'−10 sn');}
+  else{son=z;bek=setTimeout(()=>{if(drsOyn){drsDur();drsYanip('Durdu');}else{drsOynat();drsYanip('Devam');}},300);}
+ });})();
 (function(){let sur=false;const git=e=>{const b=document.getElementById('drib');if(!b||!drsP)return;const r=b.getBoundingClientRect(),o=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));drsGit(drsBas()+o*(drsP.sure-drsBas()));};
  document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#drib')){sur=true;git(e);e.preventDefault();}});
  document.addEventListener('pointermove',e=>{if(sur)git(e);});
@@ -750,9 +804,20 @@ function eSonuc(){
  ${nbr}</div>
  <div class="ft">${Y?(dg?ileri+'<button class="duz" data-a="dersAc">Nöbetçi anlatsın</button>':'<button class="cta" data-a="dersAc">Nöbetçi anlatsın</button>'+ileri):(dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri)}</div>`;
 }
+const TERIM={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':[['satılan malın maliyeti','Dönem içinde satılan malların işletmeye maliyeti. Satış fiyatı değil; alış ya da üretim bedeli.'],['net satışları','Satışlardan iade ve iskontolar düşüldükten sonra kalan tutar.'],['stok devir hızı','Stokların bir yılda kaç kez satılıp yenilendiğini gösteren oran.']],
+ 'smmm-4k-a-yvergi-cokzor-r2/kp-02':[['götürü gider yöntemini','Kira gelirinden, belge göstermeden hasılatın belirli bir yüzdesini gider olarak düşme yöntemi.'],['gerçek gider yöntemine','Kira gelirinden, belgelenen gerçek giderleri düşme yöntemi.'],['brüt kira hasılatı','Bir yılda elde edilen kiranın, gider düşülmeden önceki toplamı.'],['safi irat','Kira hasılatından giderler düşüldükten sonra kalan, vergiye esas tutar.']],
+ 'smmm-4k-a-fmuh-zor-r3/kp-02':[['Dönemsellik kavramına','Gelir ve giderin, paranın ödendiği döneme değil ait olduğu döneme yazılması ilkesi.'],['peşin ödemiş','Bedeli bugün ödenen ama bir kısmı gelecek dönemlere ait olan gider.']],
+ 'smmm-w3-maliyet-cokzor/kp-10':[['normal maliyet yöntemini','Sabit üretim giderlerinin fiili üretime değil normal kapasiteye göre ürünlere yüklendiği yöntem.'],['normal kapasitesi','İşletmenin olağan koşullarda bir yılda üretebileceği miktar.'],['boş kapasiteye','Normal kapasitenin kullanılmayan kısmı. Buna düşen sabit gider ürüne yüklenmez.'],['fiili üretim miktarı','Dönemde gerçekten üretilen miktar.']]
+};
+function terimH(q){
+ const T=TERIM[q.id];let m=kac(q.soru);if(!T)return `<p class="kok">${m}</p>`;
+ T.forEach((x,i)=>{const p=kac(x[0]);if(m.indexOf(p)>=0)m=m.replace(p,`<button class="trm ${S.trm===i?'ac':''}" data-tr="${i}">${p}</button>`);});
+ return `<p class="kok">${m}</p>${S.trm!=null&&T[S.trm]?`<div class="ned trn gir"><b>${kac(T[S.trm][0])}</b>${kac(T[S.trm][1])}</div>`:'<p class="tri">Altı noktalı terime dokun, anlamını gör.</p>'}`;
+}
 function eSoruGor(){
  const q=Q();
- return `<div class="hd3"><span>Soru</span><button class="x ack" data-a="kapatS" aria-label="Kapat">${IK.x}</button></div><div class="bd"><p class="kok">${kok(q,false)}</p>
+ return `<div class="hd3"><span>Soru</span><button class="x ack" data-a="kapatS" aria-label="Kapat">${IK.x}</button></div><div class="bd">${terimH(q)}
  ${harfler(q).map(h=>`<div class="op ${S.ele[h]?'el':''} ${h===q.dogru?'dg':h===S.sec?'yn':''}"><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></div>`).join('')}</div>
  <div class="ft"><button class="cta koyu" data-a="kapatS">Cevaba dön</button></div>`;
 }
@@ -808,7 +873,7 @@ document.addEventListener('pointerdown',e=>{const b=e.target.closest('button.op[
 document.addEventListener('contextmenu',e=>{if(e.target.closest('button.op[data-o]'))e.preventDefault();});
 document.addEventListener('click',e=>{
  if(!S)return;if(uzYut){uzYut=false;return;}
- const dd=e.target.closest('[data-d]');if(dd){drsTik(dd.dataset.d);return;}
+ const dd=e.target.closest('[data-d]');if(dd){drsTik(dd.dataset.d,dd);return;}
  const t=e.target.closest('.tk[data-t]');if(t){S.boya[t.dataset.t]=!S.boya[t.dataset.t];ciz();return;}
  const b=e.target.closest('button');if(!b||b.disabled)return;const d=b.dataset,q=Q();
  let kay=false,ucA=-1,kayC=false;
@@ -816,6 +881,7 @@ document.addEventListener('click',e=>{
  if(d.o){if(S.eleKip){S.ele[d.o]=!S.ele[d.o];if(S.sel===d.o)S.sel=null;}else{S.ele[d.o]=false;S.sel=S.sel===d.o?null:d.o;}}
  else if(d.c){S.acS=S.acS===d.c?null:d.c;}
  else if(d.n){S.an[d.n]=!S.an[d.n];}
+ else if(d.tr!=null){S.trm=S.trm===+d.tr?null:+d.tr;}
  else switch(d.a){
   case 'eleKip':S.eleKip=!S.eleKip;break;
   case 'yil':S.yil=!S.yil;break;
@@ -852,7 +918,7 @@ document.addEventListener('click',e=>{
  }
  ciz();
  if(!S.drs||S.e!=='sonuc')drsDur();
- else if(drsKur()){if(d.a==='dersAc'){drsT0=drsBas();drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}else drsCiz(drsSimdi());}
+ else if(drsKur()){if(d.a==='dersAc'){drsT0=drsBas();const yr=+dp.al('tk_yer_'+Q().id,0)||0;if(yr>drsBas()+3&&yr<drsP.sure-3){drsT0=yr;drsBilgi('Kaldığın yerden devam ediyor');}drsCiz(drsT0);window.scrollTo(0,0);drsOynat();drsDugme();}else drsCiz(drsSimdi());}
  if(ucA>=0)ucur(ucA);
  if(/^ca(Kisa|Uzun|Ileri|Geri)$/.test(d.a||'')||(d.a==='caOyna'&&S.caO)||(d.a==='sesAc'&&SES_AC))sesCal();
  if(d.a==='caOyna'){if(!S.caO)sesDur();caSaat();}
@@ -881,10 +947,12 @@ function sinama2(){
    o.push('--- soru '+(i+1)+' ('+yan[0]+' secildi): "'+q('h1').textContent+'" | ders var '+!!drsVar(s)+' | tablo satiri '+qa('.bd>.kyt .kr').length+' | akilda tut '+!!q('.tut')+' | ana dugme "'+[...qa('.ft .cta')].map(b=>b.textContent).join(',')+'" | sessiz "'+[...qa('.ft .duz')].map(b=>b.textContent).join(',')+'" | eski kutu '+!!(q('.nsc')||q('.nbr'))+' | '+tas());
    q('[data-a=fm]').click();o.push('  formulu gor: kutu '+qa('.bd>.fg').length+' | "'+q('.bd>.fg').textContent.slice(0,70)+'"');
    q('[data-c='+yan[0]+']').click();o.push('  sikka dokununca kutu: '+!!q('.ned'));q('[data-c='+yan[0]+']').click();
+   q('[data-a=soruGor]').click();const tn=qa('.trm').length;if(tn){q('.trm').click();}o.push('  soruyu gor: terim '+tn+(tn===(TERIM[s.id]||[]).length?'':' EKSIK')+' | dokununca "'+(q('.trn')?q('.trn').textContent.slice(0,60):'YOK')+'" | '+tas());q('[data-a=kapatS].x').click();
    q('[data-a=dersAc]').click();drsDur();
    const izE=qa('#drs .diz').length,izB=drsP.D.iz.length;
    o.push('  ders: tam ekran '+(!q('.hd')&&!q('.cps')&&!q('.ft'))+' | toplam '+drsP.sure.toFixed(1)+' sn | isaret yeri '+izE+'/'+izB+(izE!==izB?' EKSIK':'')+' | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | '+tas());
    const s0=q('#drt').textContent;q('[data-d=ileri]').click();const s1=drsT0;q('[data-d=geri]').click();const s2=drsT0;q('[data-d=hiz]').click();const h1=q('#drh').textContent;q('[data-d=hiz]').click();q('[data-d=hiz]').click();q('[data-d=hiz]').click();drsGit(drsP.sure*.5);o.push('  kumanda: sure "'+s0+'" | +10 sonrasi '+s1.toFixed(1)+' | -10 sonrasi '+s2.toFixed(1)+' | hiz dugmesi "'+h1+'" sonra "'+q('#drh').textContent+'" | yazili dugme '+[...qa('.drc button')].filter(b=>b.id!=='drh'&&b.textContent.trim()&&!b.querySelector('svg')).length+' | ikon '+qa('.drc svg').length+' | kalan "'+q('#drtk').textContent+'" | ortaya sarinca '+drsT0.toFixed(1)+' ve "'+q('#drt').textContent+'" | cubuk '+us(q('#drib'))+' | -10 '+us(q('[data-d=geri]'))+' | hiz '+us(q('#drh'))+' | '+tas());
+   const bl=[...qa('#drbl button')].map(b=>b.textContent).join('/');drsGit(3);const atlaVar=!q('#drat').hidden;q('#drat').click();drsDur();const atS=drsT0;q('#drbl button:last-child').click();drsDur();const blS=drsT0;q('[data-d=imle]').click();const im=qa('#drtr u').length;q('[data-d=imle]').click();q('[data-d=alt]').click();const altK=q('#drz').hidden;q('[data-d=alt]').click();o.push('  yeni: bolumler "'+bl+'" | okumayi atla gorunur '+atlaVar+', basinca '+atS.toFixed(1)+' sn (cozum '+drsP.o1.toFixed(1)+') | son bolume dokununca '+blS.toFixed(1)+' sn (kapanis '+drsP.o2.toFixed(1)+') | isaret noktasi '+im+' | altyazi kapaninca gizli '+altK+' | hiz hatirlaniyor '+(dp.al('tk_hiz',0)===drsHiz)+' | ust ikonlar '+us(q('#drim'))+'/'+us(q('#dral'))+' | '+tas());
    drsCiz(999);const kg=q('#drkg');o.push('  ders sonu: iz '+qa('#drv path[data-p]').length+' | not '+qa('#drn .drnot').length+' | kagit satiri '+qa('#drkg .drl').length+' | kagit tasma '+(kg.scrollWidth>kg.clientWidth+1?'TASMA':'yok')+' | bitis dugmeleri "'+[...qa('#drg button')].map(b=>b.textContent).join(',')+'" | altyazi "'+q('#drz').textContent+'"');
    q('[data-d=ozet]').click();drsDur();o.push('  ozet: baslangic '+drsT0.toFixed(1)+' sn | kalan '+(drsP.sure-drsT0).toFixed(1)+' sn');
    q('[data-a=dersKapat].x').click();
