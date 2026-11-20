@@ -389,8 +389,7 @@ document.addEventListener('click',e=>{
  else switch(d.a){
   case 'eleKip':S.eleKip=!S.eleKip;break;
   case 'yil':S.yil=!S.yil;break;
-  case 'cevap':if(S.sel!==q.dogru&&!S.ikinci){S.ikinci=true;S.uyari=S.sel;S.ele[S.sel]=true;S.sel=null;S.eleKip=false;tit([20,50,20]);window.scrollTo(0,0);break;}
-   S.sec=S.sel;S.e='sonuc';S.eleKip=false;tit(S.sec===q.dogru?20:[30,60,30]);window.scrollTo(0,0);break;
+  case 'cevap':S.sec=S.sel;S.e='sonuc';S.eleKip=false;tit(S.sec===q.dogru?20:[30,60,30]);window.scrollTo(0,0);break;
   case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
   case 'kapatS':S.e='sonuc';break;
   case 'nob':S.e='nob';S.ders='soru';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
@@ -435,8 +434,6 @@ function sinama(){
   o.push('  tablo: '+yan.map(h=>h+(tabloH(s,h)?' var':' TABLOYOK')).join(' | '));
   o.push('--- soru '+(i+1)+' | sik '+hs.join('')+' | dogru '+s.dogru+' | uzun sik '+uzunMu(s)+' | eksik alan: '+(eksik.join(',')||'yok')+' | '+tas());
   q('[data-o='+yan[0]+']').click();q('[data-a=cevap]').click();
-  o.push('  ikinci sans: soru ekraninda '+(S.e==='soru')+' | ipucu "'+(q('.uyr')?q('.uyr').textContent.slice(20,70):'YOK')+'" | elendi '+!!q('.op.el[data-o='+yan[0]+']'));
-  q('[data-o='+yan[1]+']').click();q('[data-a=cevap]').click();
   o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
