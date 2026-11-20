@@ -124,6 +124,8 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .cnl{margin:22px 0 0;padding:16px 16px 12px;border-radius:22px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 14px 34px -18px color-mix(in srgb,var(--murekkep) 45%,transparent),0 2px 6px -2px color-mix(in srgb,var(--murekkep) 12%,transparent);scroll-margin-top:10px}
 .cnb{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
 .cnb .cnsy{color:var(--ince)}
+.cnv{height:34px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--soluk);background:var(--dolgu);margin-left:auto;margin-right:10px}
+.cnv.ac{color:var(--vurgu);background:var(--vurguZ)}
 .cnh{display:inline-flex;background:var(--dolgu);border-radius:999px;padding:3px}
 .cnh button{height:34px;padding:0 16px;border-radius:999px;font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--soluk)}
 .cnh button.ac{background:var(--kagit);color:var(--vurgu);box-shadow:0 1px 3px color-mix(in srgb,var(--murekkep) 18%,transparent)}
@@ -465,19 +467,20 @@ const CA={
   ad:['Şimdi soruya bak: stok devir hızını soruyor.','Soru bir ipucu veriyor: ortalama değeri kullan.',null,'Payda ortalama stoktur: iki stoğu topla, ikiye böl.','Pay, satılan malın maliyetidir.','Net satışlar bu hesapta kullanılmaz.','405.000 bölü 45.000 eşittir 9. Depo yılda 9 kez boşalıp dolmuş.'],
   kisa:[{a:2},{a:4,s:'Doğrusu: paydaya iki stoğun ortalaması, paya satılan malın maliyeti.'},{a:6,s:'405.000 bölü 45.000 eşittir 9.'}],
   uc:{3:[['d1','d'],['d2','d']],4:[['p','p']]},
+  ses:'ses/stok/',
   f:{ad:'Stok devir hızı',pay:'405.000',payAd:'Satılan malın maliyeti',payda:'(30.000 + 60.000) ÷ 2',paydaAd:'Ortalama stok',s:'9',sa:6,pa:4,da:3}}
 };
 function caN(){const C=CA[Q().id];return S.caK?C.kisa.length:C.ad.length+1;}
 function caTam(i){const C=CA[Q().id];return S.caK?C.kisa[i].a:i-1;}
 function canliH(q){
  const C=CA[q.id];if(!C)return '';
- if(S.ca<0)return `<div class="nsc"><div class="nsb"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></div><div class="nsd"><button data-a="caKisa"><b>Özet anlatım</b><small>${C.kisa.length} adım · hata ve doğru çözüm</small></button><button data-a="caUzun"><b>Ayrıntılı anlatım</b><small>${C.ad.length+1} adım · kavramdan sonuca</small></button></div></div>`;
+ if(S.ca<0)return `<div class="nsc"><div class="nsb"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></div><div class="nsd"><button data-a="caKisa"><b>Özet anlatım</b><small>${C.kisa.length} adım · sesli · hata ve doğru çözüm</small></button><button data-a="caUzun"><b>Ayrıntılı anlatım</b><small>${C.ad.length+1} adım · kavramdan sonuca</small></button></div></div>`;
  const n=caN(),a=caTam(S.ca),k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
  let m=kac(q.soru);
  for(const x of C.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';const ac=a>=x[2],at=a===2&&k.at.indexOf(x[0])>=0;
   m=m.replace(p,`<span class="cz ${ac?x[1]:''} ${ac&&a===x[2]?'yeni':''} ${at?'atl yeni':''}"${x[3]?` data-k="${x[3]}"`:''}>${p}</span>`);}
  const F=C.f,soz=a<0?C.on:a===2?k.s:(S.caK&&C.kisa[S.ca].s)||C.ad[a];
- return `<div class="cnl" id="cnl"><div class="cnb"><span class="cnh"><button data-a="caKisa" class="${S.caK?'ac':''}">Özet</button><button data-a="caUzun" class="${S.caK?'':'ac'}">Ayrıntılı</button></span><span class="cnsy">${S.ca+1} / ${n}</span></div>
+ return `<div class="cnl" id="cnl"><div class="cnb"><span class="cnh"><button data-a="caKisa" class="${S.caK?'ac':''}">Özet</button><button data-a="caUzun" class="${S.caK?'':'ac'}">Ayrıntılı</button></span>${S.caK&&C.ses?`<button class="cnv ${SES_AC?'ac':''}" data-a="sesAc" aria-label="Sesi aç ya da kapat">${SES_AC?'Ses açık':'Ses kapalı'}</button>`:''}<span class="cnsy">${S.ca+1} / ${n}</span></div>
  <p class="cnq">${m}</p>
  <div class="cnf"><span class="cna">${kac(F.ad)} =</span><span class="kes"><span class="yv ${a>=F.pa?'dolu mp':''}" data-h="p">${kac(a>=F.pa?F.pay:F.payAd)}</span><i></i><span class="yv ${a>=F.da?'dolu md':''}" data-h="d">${kac(a>=F.da?F.payda:F.paydaAd)}</span></span><span>=</span><strong class="${a>=F.sa?'var':'bos'}">${a>=F.sa?kac(F.s):'?'}</strong></div>
  <p class="cns">${kac(soz)}</p>
@@ -495,9 +498,19 @@ function ucur(i){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{u.style.transform='translate('+(r2.left+r2.width/2-r1.left-r1.width/2)+'px,'+(r2.top-r1.top)+'px)';u.style.opacity='0';}));
   setTimeout(()=>u.remove(),750);});
 }
+let SES_AC=true,sesEl=null;
+function sesVar(){const C=S&&S.e==='sonuc'&&S.ca>=0&&CA[Q().id];return !!(C&&C.ses&&S.caK&&SES_AC);}
+function sesDur(){if(sesEl){sesEl.onended=null;try{sesEl.pause();}catch(e){}}}
+function sesCal(){
+ sesDur();if(!sesVar())return false;const q=Q(),C=CA[q.id];
+ try{if(!sesEl)sesEl=new Audio();sesEl.src=C.ses+(S.ca===0?'o0-'+(S.sec===q.dogru?'X':S.sec):'o'+S.ca)+'.mp3';const p=sesEl.play();if(p&&p.catch)p.catch(()=>{});}catch(e){return false;}
+ return true;
+}
 function caSaat(){
- clearTimeout(caT);if(!S||!S.caO)return;
- caT=setTimeout(()=>{if(!S||S.e!=='sonuc'||S.ca<0||!S.caO)return;if(S.ca>=caN()-1){S.caO=false;ciz();return;}S.ca++;ciz();ucur(S.ca);caSaat();},S.caK?3600:3000);
+ clearTimeout(caT);if(sesEl)sesEl.onended=null;if(!S||!S.caO)return;
+ const ilerle=()=>{clearTimeout(caT);if(sesEl)sesEl.onended=null;if(!S||S.e!=='sonuc'||S.ca<0||!S.caO)return;if(S.ca>=caN()-1){S.caO=false;ciz();return;}S.ca++;ciz();ucur(S.ca);sesCal();caSaat();};
+ if(sesVar()&&sesEl){sesEl.onended=()=>{caT=setTimeout(ilerle,450);};caT=setTimeout(ilerle,14000);}
+ else caT=setTimeout(ilerle,S.caK?3600:3000);
 }
 function eSoru(){
  const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
@@ -596,6 +609,7 @@ document.addEventListener('click',e=>{
   case 'caKisa':case 'caUzun':S.caK=d.a==='caKisa';S.caO=false;clearTimeout(caT);kayC=S.ca<0;S.ca=0;break;
   case 'caIleri':S.caO=false;clearTimeout(caT);S.ca++;ucA=S.ca;break;
   case 'caGeri':S.caO=false;clearTimeout(caT);S.ca=Math.max(0,S.ca-1);break;
+  case 'sesAc':SES_AC=!SES_AC;if(!SES_AC){sesDur();if(S.caO)caSaat();}break;
   case 'caOyna':S.caO=!S.caO;if(S.caO&&S.ca>=caN()-1)S.ca=0;break;
   case 'nobAc':S.nb=1;kay=true;break;
   case 'nobIleri':S.nb=S.nb+1;kay=true;break;
@@ -618,7 +632,9 @@ document.addEventListener('click',e=>{
  }
  ciz();
  if(ucA>=0)ucur(ucA);
- if(d.a==='caOyna')caSaat();
+ if(/^ca(Kisa|Uzun|Ileri|Geri)$/.test(d.a||'')||(d.a==='caOyna'&&S.caO)||(d.a==='sesAc'&&SES_AC))sesCal();
+ if(d.a==='caOyna'){if(!S.caO)sesDur();caSaat();}
+ if(S.ca<0||S.e!=='sonuc')sesDur();
  if(kayC){const el=document.getElementById('cnl');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
  if(kay){const el=document.querySelectorAll('.nad');if(el.length)el[el.length-1].scrollIntoView({behavior:'smooth',block:'start'});}
 });
@@ -648,7 +664,7 @@ function sinama(){
   o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' dolu hali '+qa('.bd>.fg .fd').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
-  if(q('[data-a=caUzun]')){q('[data-a=caKisa]').click();const kn=q('.cnsy').textContent;q('[data-a=caIleri]').click();q('[data-a=caIleri]').click();const ks=(q('#cnl .cnf strong')||{}).textContent;q('[data-a=caUzun]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<7;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: kisa "'+kn+'" sonucu '+ks+' | uzun adim "'+q('.cnsy').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
+  if(q('[data-a=caUzun]')){q('[data-a=caKisa]').click();const kn=q('.cnsy').textContent+' ses dugmesi '+!!q('[data-a=sesAc]')+' ses dosyasi '+(sesEl?sesEl.src.split('/').slice(-3).join('/'):'YOK');q('[data-a=sesAc]').click();const kapali=q('[data-a=sesAc]').textContent;q('[data-a=sesAc]').click();q('[data-a=caIleri]').click();q('[data-a=caIleri]').click();const ks=(q('#cnl .cnf strong')||{}).textContent;q('[data-a=caUzun]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<7;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: kisa "'+kn+' | kapatinca "'+kapali+'" sonucu '+ks+' | uzun adim "'+q('.cnsy').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
   q('[data-a=nob]').click();const n=dersi(s).length;o.push('  nobetci: adim '+n+' | carpi '+us(q('[data-a=kapatN]'))+' | oynat '+us(q('[data-a=oyna]'))+' | '+tas());
   let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
   o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
