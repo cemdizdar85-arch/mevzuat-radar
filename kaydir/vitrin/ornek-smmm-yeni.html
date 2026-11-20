@@ -470,13 +470,13 @@ function caN(){const C=CA[Q().id];return S.caK?C.kisa.length:C.ad.length;}
 function caTam(i){const C=CA[Q().id];return S.caK?C.kisa[i].a:i;}
 function canliH(q){
  const C=CA[q.id];if(!C)return '';
- if(S.ca<0)return `<div class="nsc"><div class="nsb"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></div><div class="nsd"><button data-a="caKisa"><b>Kısa anlat</b><small>${C.kisa.length} adım · yalnız hatan ve doğrusu</small></button><button data-a="caUzun"><b>Uzun anlat</b><small>${C.ad.length} adım · baştan sona</small></button></div></div>`;
+ if(S.ca<0)return `<div class="nsc"><div class="nsb"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></div><div class="nsd"><button data-a="caKisa"><b>Özet anlatım</b><small>${C.kisa.length} adım · hata ve doğru çözüm</small></button><button data-a="caUzun"><b>Ayrıntılı anlatım</b><small>${C.ad.length} adım · sorunun tamamı</small></button></div></div>`;
  const n=caN(),a=caTam(S.ca),k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
  let m=kac(q.soru);
  for(const x of C.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';const ac=a>=x[2],at=a===2&&k.at.indexOf(x[0])>=0;
   m=m.replace(p,`<span class="cz ${ac?x[1]:''} ${ac&&a===x[2]?'yeni':''} ${at?'atl yeni':''}"${x[3]?` data-k="${x[3]}"`:''}>${p}</span>`);}
  const F=C.f,soz=a===2?k.s:(S.caK&&C.kisa[S.ca].s)||C.ad[a];
- return `<div class="cnl" id="cnl"><div class="cnb"><span class="cnh"><button data-a="caKisa" class="${S.caK?'ac':''}">Kısa</button><button data-a="caUzun" class="${S.caK?'':'ac'}">Uzun</button></span><span class="cnsy">${S.ca+1} / ${n}</span></div>
+ return `<div class="cnl" id="cnl"><div class="cnb"><span class="cnh"><button data-a="caKisa" class="${S.caK?'ac':''}">Özet</button><button data-a="caUzun" class="${S.caK?'':'ac'}">Ayrıntılı</button></span><span class="cnsy">${S.ca+1} / ${n}</span></div>
  <p class="cnq">${m}</p>
  <div class="cnf"><span class="cna">${kac(F.ad)} =</span><span class="kes"><span class="yv ${a>=F.pa?'dolu mp':''}" data-h="p">${kac(a>=F.pa?F.pay:F.payAd)}</span><i></i><span class="yv ${a>=F.da?'dolu md':''}" data-h="d">${kac(a>=F.da?F.payda:F.paydaAd)}</span></span><span>=</span><strong class="${a>=F.sa?'var':'bos'}">${a>=F.sa?kac(F.s):'?'}</strong></div>
  <p class="cns">${kac(soz)}</p>
