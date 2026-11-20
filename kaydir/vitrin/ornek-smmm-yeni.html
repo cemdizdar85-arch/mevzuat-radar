@@ -106,6 +106,7 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .fg{flex-wrap:wrap;row-gap:12px}
 .fg .fd{display:inline-flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums;animation:gir .45s ease-out}
 .fg .fd strong{font-size:24px;color:var(--ok);letter-spacing:-.01em}
+.fg.ust{margin:4px 0 8px;padding:10px 12px}
 .fg b{font-weight:600;border-radius:5px;padding:2px 6px}
 .kr .ac{display:block;font-weight:400;font-size:13px;color:var(--soluk);margin-top:2px}
 .et{font-style:normal;font-size:11px;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:4px;vertical-align:1px}
@@ -275,7 +276,7 @@ const ayirt=(q,h)=>(q.teshis&&q.teshis[h]&&q.teshis[h].ayirt)||'';
 const kisa=(q,h)=>(q.sade&&q.sade.siklar&&q.sade.siklar[h])||(q.tuzak&&q.tuzak[h]&&q.tuzak[h].metin)||'';
 const tuzakAd=(q,h)=>(q.tuzak&&q.tuzak[h]&&q.tuzak[h].ad)||'';
 const TB={
- 'smmm-4k-a-yfta-kolay-r6/kp-01':{tut:'Devir hızında pay satılan malın maliyeti, payda iki stoğun ortalamasıdır.',
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{tut:'Soru "ortalama" diyorsa tek stoğu alma; ikisini topla, ikiye böl.',
   s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t','(dönem başı + dönem sonu) ÷ 2'],['Stok devir hızı','9']],
   sen:{A:{b:'Stokların ortalamasını almadın.',v:['405.000','30.000','60.000','90.000','4,5']},
        B:{b:'Yalnız dönem sonu stoğu aldın.',v:['405.000','—','60.000','60.000','6,75']},
@@ -434,9 +435,9 @@ const NF={
        D:{pay:'495.000',payda:'45.000',alt:'paya net satışları yazdın',s:'11',yer:'pay',at:['405.000 ₺'],yn:['495.000 ₺']},
        E:{pay:'405.000',payda:'30.000',alt:'yalnız dönem başı stok',s:'13,5',yer:'payda',at:['60.000 ₺','ortalama değeri kullanınız']}}}
 };
-function formulH(q){
+function formulH(q,dolu){
  const F=NF[q.id];if(!F)return '';
- return `<div class="fg"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span><span class="fd"><span>=</span><span class="kes"><b class="mp">${kac(F.d.pay)}</b><i></i><b class="md">${kac(F.d.alt||F.d.payda)}</b></span><span>=</span><strong>${kac(F.d.s)}</strong></span></div>`;
+ return `<div class="fg ${dolu?'':'ust'}"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span>${dolu?`<span class="fd"><span>=</span><span class="kes"><b class="mp">${kac(F.d.pay)}</b><i></i><b class="md">${kac(F.d.alt||F.d.payda)}</b></span><span>=</span><strong>${kac(F.d.s)}</strong></span>`:''}</div>`;
 }
 function etk(q,i){const F=NF[q.id];if(!F||!F.satir)return '';return i===F.satir.pay?' <i class="et mp">pay</i>':i===F.satir.payda?' <i class="et md">payda</i>':'';}
 const CA={
@@ -491,9 +492,9 @@ function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru,son=S.i>=SORULAR.length-1;
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
- const tb=dg?'':tabloH(q,S.sec)?tabloH(q,S.sec)+formulH(q):'';
+ const tb=dg?'':tabloH(q,S.sec)?formulH(q,false)+tabloH(q,S.sec):'';
  const nbr=canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
- const coz=(cozumH(q)?cozumH(q)+formulH(q):'')||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
+ const coz=formulH(q,true)||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
  return `<div class="hd">${seg()}</div><div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
@@ -565,7 +566,7 @@ document.addEventListener('click',e=>{
  let kay=false,ucA=-1,kayC=false;
  if(S.e==='ikiz')gOku();
  if(d.o){if(S.eleKip){S.ele[d.o]=!S.ele[d.o];if(S.sel===d.o)S.sel=null;}else{S.ele[d.o]=false;S.sel=S.sel===d.o?null:d.o;}}
- else if(d.c){S.acS=S.acS===d.c?null:d.c;}
+ else if(d.c){if(d.c!==S.sec)S.acS=S.acS===d.c?null:d.c;}
  else if(d.n){S.an[d.n]=!S.an[d.n];}
  else switch(d.a){
   case 'eleKip':S.eleKip=!S.eleKip;break;
