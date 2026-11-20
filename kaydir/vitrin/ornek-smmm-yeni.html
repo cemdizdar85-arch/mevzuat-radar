@@ -509,7 +509,7 @@ function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru,son=S.i>=SORULAR.length-1;
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${S.acS!==S.sec&&tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
- const tb=dg?'':tabloH(q,S.sec)?formulH(q,false)+tabloH(q,S.sec):'';
+ const tb=dg?'':tabloH(q,S.sec)?tabloH(q,S.sec)+formulH(q,true):'';
  const nbr=canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
  const coz=formulH(q,true)||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
