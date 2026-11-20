@@ -192,7 +192,10 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .drz{margin:10px 2px 0;min-height:48px;font-size:16.5px;line-height:1.45;font-weight:600}
 .dri{height:3px;border-radius:2px;background:var(--cizgi);margin:8px 0 0;overflow:hidden}
 .dri i{display:block;height:100%;width:0;background:var(--vurgu)}
-.drc{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0 0}
+.drc{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));position:sticky;bottom:0;z-index:2;background:var(--kagit);border-top:1px solid var(--cizgi);border-radius:0 0 22px 22px}
+.drs{padding-bottom:0}
+.drs .cta{margin:12px 0 14px}
+.drs .cta[hidden]{display:none}
 .drc .buy{width:56px;height:56px;border-radius:50%;background:var(--vurgu);display:flex;align-items:center;justify-content:center}
 .drc .buy svg{width:24px;height:24px;fill:var(--kagit)}
 .dry{height:44px;min-width:96px;padding:0 14px;border-radius:22px;background:var(--dolgu);color:var(--soluk);font-size:13.5px;font-weight:700}
@@ -499,7 +502,7 @@ const CA={
        dogru:{s:'Doğru çözdün. Adım adım üstünden geçelim.',at:[]}},
   on:'Stok devir hızı, depodaki malın yılda kaç kez satılıp yenilendiğini gösterir. Hız yüksekse mal depoda az bekliyor demektir.',
   ad:['Şimdi soruya bak: stok devir hızını soruyor.','Soru bir ipucu veriyor: ortalama değeri kullan.',null,'Payda ortalama stoktur: iki stoğu topla, ikiye böl.','Pay, satılan malın maliyetidir.','Net satışlar bu hesapta kullanılmaz.','405.000 bölü 45.000 eşittir 9. Depo yılda 9 kez boşalıp dolmuş.'],
-  kisa:[{a:2},{a:4,s:'Doğrusu: paydaya iki stoğun ortalaması, paya satılan malın maliyeti.'},{a:6,s:'405.000 bölü 45.000 eşittir 9.'}],
+  kisa:[{a:2},{a:4,s:'Doğrusu: satılan malın maliyetini iki stoğun ortalamasına böleceksin.'},{a:6,s:'405.000 bölü 45.000 eşittir 9.'}],
   uc:{3:[['d1','d'],['d2','d']],4:[['p','p']]},
   ses:'../../ses/cizim/ornek-stok/',
   f:{ad:'Stok devir hızı',pay:'405.000',payAd:'Satılan malın maliyeti',payda:'(30.000 + 60.000) ÷ 2',paydaAd:'Ortalama stok',s:'9',sa:6,pa:4,da:3}}
@@ -538,7 +541,7 @@ function sesVar(){const C=S&&S.e==='sonuc'&&S.ca>=0&&CA[Q().id];return !!(C&&C.s
 function sesDur(){if(sesEl){sesEl.onended=null;try{sesEl.pause();}catch(e){}}}
 function sesCal(){
  sesDur();if(!sesVar())return false;const q=Q(),C=CA[q.id];
- try{if(!sesEl)sesEl=new Audio();sesEl.src=C.ses+(S.ca===0?'o0-'+(S.sec===q.dogru?'X':S.sec):'o'+S.ca)+'.mp3';const p=sesEl.play();if(p&&p.catch)p.catch(()=>{});}catch(e){return false;}
+ try{if(!sesEl)sesEl=new Audio();sesEl.src=C.ses+(S.ca===0?'o0-'+(S.sec===q.dogru?'X':S.sec):'o'+S.ca)+'.mp3?v=2';const p=sesEl.play();if(p&&p.catch)p.catch(()=>{});}catch(e){return false;}
  return true;
 }
 function caSaat(){
@@ -548,7 +551,7 @@ function caSaat(){
  else caT=setTimeout(ilerle,S.caK?3600:3000);
 }
 const DRS={
- 'smmm-4k-a-yfta-kolay-r6/kp-01':{yol:'../../ses/cizim/ornek-stok/',
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{yol:'../../ses/cizim/ornek-stok/',sur:'?v=2',
   oku:{ses:'oku.mp3',sure:26.6},coz:{ses:'coz.mp3',sure:18.72},
   bol:[['İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺,',1.68],["net satışları 495.000 ₺'dir.",8.94],['Dönem başı stok tutarı 30.000 ₺,',13.1],["dönem sonu stok tutarı 60.000 ₺'dir.",15.41],['Buna göre stok devir hızı kaçtır?',17.88],['(Devir hızlarında ilgili formüllerde ortalama değeri kullanınız.)',20.11]],
   iz:[['405.000 ₺','alt',5.1,'m','pay',7.9],['495.000 ₺','ust',10.06,'k','lazım değil',12.1],['30.000 ₺','daire',14.4,'s'],['60.000 ₺','daire',16.42,'s','topla, ÷ 2',25.3],['stok devir hızı kaçtır','alt',18.35,'m'],['ortalama değeri kullanınız','cift',21.28,'k','dikkat!',22.3]],
@@ -559,10 +562,10 @@ const DRS={
        {p:[['405.000 ÷ 45.000',13.63,1.6],[' = 9',15.87,.5]],c:'buy'},
        {p:[['Cevap: C',17.28,.6]],c:'cvp'}],
   csoz:[['Şimdi çözelim.',0],['Stok devir hızı = satılan malın maliyeti ÷ ortalama stok.',.93],['Önce ortalama stok: 30.000 + 60.000 = 90.000.',5.36],['İkiye bölersek 45.000.',10.2],['Yerine koyalım: 405.000 ÷ 45.000 = 9.',12.13],['Cevap C.',17.28]],
-  kap:{A:{ses:'k-A.mp3',sure:6.08,sen:'Sen: 405.000 ÷ 90.000 = 4,5',nt:['90.000 ikiye bölünmedi',1.68],soz:[['Sen 4,5 bulmuştun.',0],['İki stoğu toplamış ama ikiye bölmemişsin.',1.68]]},
-       B:{ses:'k-B.mp3',sure:9.12,sen:'Sen: 405.000 ÷ 60.000 = 6,75',nt:['yalnız dönem sonu stok',2.44],soz:[['Sen 6,75 bulmuştun.',0],['Paydaya yalnız dönem sonu stoğu yazmışsın.',2.44],['Soru ortalama diyorsa iki stoğu birlikte al.',6.02]]},
+  kap:{A:{ses:'k-A.mp3',sure:5.84,sen:'Sen: 405.000 ÷ 90.000 = 4,5',nt:['90.000 ikiye bölünmedi',1.68],soz:[['Sen 4,5 bulmuştun.',0],['İki stoğu toplamış ama ikiye bölmemişsin; 90.000\'e bölmüşsün.',1.68]]},
+       B:{ses:'k-B.mp3',sure:9.44,sen:'Sen: 405.000 ÷ 60.000 = 6,75',nt:['yalnız dönem sonu stok',2.42],soz:[['Sen 6,75 bulmuştun.',0],['Bölerken yalnız dönem sonu stoğu kullanmışsın.',2.42],['Soru ortalama diyorsa iki stoğu birlikte al.',6.34]]},
        D:{ses:'k-D.mp3',sure:7.92,sen:'Sen: 495.000 ÷ 45.000 = 11',nt:['pay net satış değil, maliyet',1.47],soz:[['Sen 11 bulmuştun.',0],['Paya maliyeti değil, net satışları yazmışsın.',1.47],['Devir hızında pay her zaman satılan malın maliyetidir.',4.32]]},
-       E:{ses:'k-E.mp3',sure:8.72,sen:'Sen: 405.000 ÷ 30.000 = 13,5',nt:['yalnız dönem başı stok',1.89],soz:[['Sen 13,5 bulmuştun.',0],['Paydaya yalnız dönem başı stoğu yazmışsın.',1.89],['Soru ortalama diyorsa iki stoğu birlikte al.',5.52]]},
+       E:{ses:'k-E.mp3',sure:8.72,sen:'Sen: 405.000 ÷ 30.000 = 13,5',nt:['yalnız dönem başı stok',1.28],soz:[['Sen 13,5 bulmuştun.',0],['Bölerken yalnız dönem başı stoğu kullanmışsın.',1.28],['Soru ortalama diyorsa iki stoğu birlikte al.',5.52]]},
        X:{ses:'k-X.mp3',sure:2.8,sen:'Sen de böyle çözdün',dogru:true,soz:[['Sen de böyle çözmüştün.',0],['Aferin, devam edelim.',1.36]]}}}
 };
 const drsVar=q=>{const D=DRS[q.id];return D&&D.bol.map(b=>b[0]).join(' ')===q.soru?D:null;};
@@ -571,7 +574,7 @@ function drsPlan(q){
  const kag=D.kag.map(l=>({c:l.c||'',p:l.p.map(c=>[c[0],c[1]+o1,c[2]])}));
  kag.push({c:K.dogru?'dgr':'sen',p:[[K.sen,o2+.15,1.1]],ciz:K.dogru?null:o2+(K.nt?K.nt[1]:1)+1.3});
  if(K.nt)kag.push({c:'snt',p:[[K.nt[0],o2+K.nt[1],1]]});
- return {D,o1,o2,sure:o2+K.sure,par:[{ses:D.yol+D.oku.ses,off:0,sure:D.oku.sure},{ses:D.yol+D.coz.ses,off:o1,sure:D.coz.sure},{ses:D.yol+K.ses,off:o2,sure:K.sure}],
+ return {D,o1,o2,sure:o2+K.sure,par:[{ses:D.yol+D.oku.ses,off:0,sure:D.oku.sure},{ses:D.yol+D.coz.ses,off:o1,sure:D.coz.sure},{ses:D.yol+K.ses+(D.sur||''),off:o2,sure:K.sure}],
   soz:D.soz.concat(D.csoz.map(x=>[x[0],x[1]+o1]),K.soz.map(x=>[x[0],x[1]+o2])),kag};
 }
 function dersH(q){
@@ -581,7 +584,7 @@ function dersH(q){
  <div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
  <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
  <p class="drz" id="drz"></p><div class="dri"><i id="drp"></i></div>
- <div class="drc"><button class="dry" data-d="bas">Baştan</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div></div>`;
+ <div class="drc"><button class="dry" data-d="bas">Baştan</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="dry" data-d="ses" id="drm">${SES_AC?'Ses açık':'Ses kapalı'}</button></div><button class="cta" id="drg" data-a="dersKapat" hidden>Dersi kapat, devam et</button></div>`;
 }
 let drsA=null,drsT0=0,drsOyn=false,drsRaf=0,drsSon=0,drsIz=[],drsSesli=false,drsP=null,drsI=0,drsKagAcik=false;
 const drsRenk={m:'var(--vurgu)',k:'var(--hata)',s:'var(--altin)'};
@@ -623,6 +626,7 @@ function drsCiz(t){
    if(l.ciz!=null){const el=kg.querySelector('[data-l="'+i+'"]');if(el)el.classList.toggle('cz',t>=l.ciz);}});}
  let s='';P.soz.forEach(x=>{if(t>=x[1])s=x[0];});const z=document.getElementById('drz');if(z&&z.textContent!==s)z.textContent=s;
  const pr=document.getElementById('drp');if(pr)pr.style.width=Math.min(100,t/P.sure*100).toFixed(1)+'%';
+ const g=document.getElementById('drg');if(g)g.hidden=t<P.sure-.05;
 }
 function drsDugme(){const o=document.getElementById('dro'),m=document.getElementById('drm');if(o)o.innerHTML=drsOyn?IK.dur:IK.oyna;if(m)m.textContent=SES_AC?'Ses açık':'Ses kapalı';}
 function drsParcaCal(){
@@ -672,7 +676,7 @@ function eSonuc(){
  ${dg?`<p class="etk ok">${S.ikinci?'Doğru · ikinci denemede':'Doğru'}</p><h1>${S.ikinci?'Bu kez gördün.':'Doğru.'}</h1>${coz}`
      :`<p class="etk no">Yanlış</p><h1>${kac(T0?T0.sen[S.sec].b:tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}`}
  ${nbr}</div>
- <div class="ft">${dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri}</div>`;
+ ${S.drs&&drsVar(q)?'':`<div class="ft">${dg?ileri:(q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':'')+ileri}</div>`}`;
 }
 function eSoruGor(){
  const q=Q();
@@ -809,7 +813,7 @@ function sinama(){
   o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' dolu hali '+qa('.bd>.fg .fd').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
-  if(q('[data-a=caUzun]')){if(q('[data-a=dersAc]')){q('[data-a=dersAc]').click();drsDur();drsCiz(5.3);const kal=q('#drkal').style.display!=='none',bek=qa('#drs .dbl.bek').length,kg0=q('#drkg').hidden;drsCiz(40);const kg1=!q('#drkg').hidden,yzl=[...qa('#drkg .drh')].filter(e=>e.style.clipPath.indexOf(' 0.0%')>0).length;drsCiz(999);o.push('  canli ders: toplam '+drsP.sure.toFixed(1)+' sn, ses parcasi '+drsP.par.length+' | 5,3 sn: kalem '+kal+', okunmamis bolum '+bek+', kagit kapali '+kg0+' | 40 sn: kagit acik '+kg1+', yazilmis parca '+yzl+' | sonda iz '+qa('#drv path[data-p]').length+' not '+qa('#drn .drnot').length+' kagit satiri '+qa('#drkg .drl').length+' sen satiri cizili '+!!q('#drkg .drl.sen.cz')+' | carpi '+us(q('[data-a=dersKapat]'))+' | altyazi "'+q('#drz').textContent+'" | '+tas());q('[data-a=dersKapat]').click();o.push('  kapaninca secim geri: '+!!q('[data-a=caUzun]')+' | ders dugmesi '+!!q('[data-a=dersAc]'));}else o.push('  CANLI OKUMA DUGMESI CIKMADI');q('[data-a=caKisa]').click();const kn=q('.cnsy').textContent+' ses dugmesi '+!!q('[data-a=sesAc]')+' ses dosyasi '+(sesEl?sesEl.src.split('/').slice(-3).join('/'):'YOK');q('[data-a=sesAc]').click();const kapali=q('[data-a=sesAc]').textContent;q('[data-a=sesAc]').click();q('[data-a=caIleri]').click();q('[data-a=caIleri]').click();const ks=(q('#cnl .cnf strong')||{}).textContent;q('[data-a=caUzun]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<7;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: kisa "'+kn+' | kapatinca "'+kapali+'" sonucu '+ks+' | uzun adim "'+q('.cnsy').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
+  if(q('[data-a=caUzun]')){if(q('[data-a=dersAc]')){q('[data-a=dersAc]').click();drsDur();drsCiz(5.3);const kal=q('#drkal').style.display!=='none',bek=qa('#drs .dbl.bek').length,kg0=q('#drkg').hidden;drsCiz(40);const kg1=!q('#drkg').hidden,yzl=[...qa('#drkg .drh')].filter(e=>e.style.clipPath.indexOf(' 0.0%')>0).length;drsCiz(999);o.push('  canli ders: toplam '+drsP.sure.toFixed(1)+' sn, ses parcasi '+drsP.par.length+' | 5,3 sn: kalem '+kal+', okunmamis bolum '+bek+', kagit kapali '+kg0+' | 40 sn: kagit acik '+kg1+', yazilmis parca '+yzl+' | sonda iz '+qa('#drv path[data-p]').length+' not '+qa('#drn .drnot').length+' kagit satiri '+qa('#drkg .drl').length+' sen satiri cizili '+!!q('#drkg .drl.sen.cz')+' | carpi '+us(q('[data-a=dersKapat].x'))+' | oynat '+us(q('#dro'))+' | alt dugmeler gizli '+!q('.ft')+' | devam dugmesi '+!q('#drg').hidden+' | altyazi "'+q('#drz').textContent+'" | '+tas());q('[data-a=dersKapat].x').click();o.push('  kapaninca alt dugmeler geri '+!!q('.ft')+' | secim geri: '+!!q('[data-a=caUzun]')+' | ders dugmesi '+!!q('[data-a=dersAc]'));}else o.push('  CANLI OKUMA DUGMESI CIKMADI');q('[data-a=caKisa]').click();const kn=q('.cnsy').textContent+' ses dugmesi '+!!q('[data-a=sesAc]')+' ses dosyasi '+(sesEl?sesEl.src.split('/').slice(-3).join('/'):'YOK');q('[data-a=sesAc]').click();const kapali=q('[data-a=sesAc]').textContent;q('[data-a=sesAc]').click();q('[data-a=caIleri]').click();q('[data-a=caIleri]').click();const ks=(q('#cnl .cnf strong')||{}).textContent;q('[data-a=caUzun]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<7;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: kisa "'+kn+' | kapatinca "'+kapali+'" sonucu '+ks+' | uzun adim "'+q('.cnsy').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
   q('[data-a=nob]').click();const n=dersi(s).length;o.push('  nobetci: adim '+n+' | carpi '+us(q('[data-a=kapatN]'))+' | oynat '+us(q('[data-a=oyna]'))+' | '+tas());
   let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
   o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
