@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Tetikte · Yeni soru ekranı (deneme)</title>
 <style>
-:root{--kagit:#ffffff;--murekkep:#0f1b2d;--soluk:#3d4b63;--ince:#8b95a5;--cizgi:#e6e2da;--dolgu:#f4f2ee;--vurgu:#1f3b73;--vurguZ:#e9eef8;--sari:#ffe08a;--sariZ:#fff3cf;--hata:#b91c1c;--hataZ:#fbe9e7;--ok:#146f35;--okZ:#e3f2e8;--altin:#8a6224;--tahta:#16221c;--tebesir:#f2efe6}
+:root{--kagit:#ffffff;--murekkep:#0f1b2d;--soluk:#3d4b63;--ince:#8b95a5;--cizgi:#e6e2da;--dolgu:#f4f2ee;--vurgu:#1f3b73;--vurguZ:#e9eef8;--sari:#ffe08a;--sariZ:#fff3cf;--hata:#b91c1c;--hataZ:#fbe9e7;--ok:#146f35;--okZ:#e3f2e8;--altin:#8a6224;--tahta:#16221c;--tahtaK:#4c3a27;--tebesir:#f2efe6}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--dolgu);color:var(--murekkep);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -85,6 +85,33 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .kt2{margin:18px 0 0;padding:13px 15px;border-radius:16px;background:var(--dolgu);font-size:15.5px;line-height:1.5;font-variant-numeric:tabular-nums}
 .kt2 b,.tut b{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ince);margin-bottom:2px}
 .tut{margin:18px 0 0;padding-left:14px;border-left:3px solid var(--sari);font-size:15.5px;line-height:1.5}
+.nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
+.nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.ngr{margin:6px 0 0;font-size:16.5px;line-height:1.5;font-weight:600}
+.nad{margin:18px 0 0;scroll-margin-top:12px}
+.nst{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ince)}
+.nsz{margin:12px 0 0;font-size:16.5px;line-height:1.5}
+.anl{margin:8px 0 0;height:40px;padding:0 14px;border-radius:20px;background:var(--dolgu);color:var(--soluk);font-size:14px;font-weight:600}
+.anl.ac{background:var(--vurguZ);color:var(--vurgu)}
+.ansf{margin:8px 0 0;padding:12px 14px;border-radius:14px;background:var(--vurguZ);font-size:15px;line-height:1.5}
+.nil{margin-top:18px}
+.nbt{margin:18px 0 0;color:var(--soluk);font-size:14.5px;text-align:center}
+.tk2{background:var(--tahta);border-radius:16px;box-shadow:inset 0 0 0 5px var(--tahtaK);padding:18px 16px;color:var(--tebesir);font-family:"Ink Free","Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:16px;line-height:1.25}
+.tk2 .y{color:var(--sari)}
+.tk2 .kt{border:2px solid currentColor;border-radius:10px;padding:6px 8px;text-align:center;display:flex;align-items:center;justify-content:center;min-height:46px}
+.tk2 .kt.sn{opacity:.45;border-style:dashed}
+.tk2 .ck{display:flex;gap:10px;min-height:190px}
+.tk2 .cs{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tk2 .cs em{font-style:normal;font-size:13.5px;opacity:.75;text-align:center}
+.tk2 .ca{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 8px;font-size:17px}
+.tk2 .cf2{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 10px;margin-top:14px;font-size:17px}
+.tk2 .cf2:first-child{margin-top:0;font-size:21px}
+.tk2 .kes{display:inline-flex;flex-direction:column;align-items:center;line-height:1.25}
+.tk2 .kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:3px 0}
+.tk2 .cson{font-size:34px;border:2px solid currentColor;border-radius:12px;padding:0 14px;line-height:1.3}
+.tk2 .c9{display:flex;justify-content:center;gap:5px;margin-top:16px}
+.tk2 .c9 i{width:22px;height:22px;border:2px solid var(--tebesir);border-radius:5px;opacity:.8}
+.tk2 .cn{text-align:center;font-size:14.5px;opacity:.8;margin-top:6px}
 .nbr{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--dolgu);border-radius:18px;padding:12px 16px 12px 12px;margin:18px 0 0;min-height:64px}
 .nbr .oy{flex:none;width:44px;height:44px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
 .nbr .oy svg{width:20px;height:20px;fill:var(--kagit);margin-left:2px}
@@ -164,7 +191,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -301,6 +328,30 @@ function dersiE(q){
  if(!d.length)d.push({b:'Çözüm',s:q.olay||'',t:q.olay||''});
  return d;
 }
+const NY={
+ 'smmm-4k-a-yfta-kolay-r6/kp-01':{
+  giris:{A:'İki stoğu topladın ama ikiye bölmedin. Baştan birlikte bakalım.',B:'Sen yalnız dönem sonu stoğu aldın. Depoda iki kutu var; birlikte bakalım.',D:'Paya net satışları yazdın. Satış fiyatı değil, maliyet lazım; birlikte bakalım.',E:'Sen yalnız dönem başı stoğu aldın. Depoda iki kutu var; birlikte bakalım.',dogru:'Doğru çözdün. Yine de adım adım görmek istersen:'},
+  ad:[
+   {b:'Elimizde ne var',
+    c:'<div class="ck"><div class="cs"><em>Depoda duran mal</em><div class="kt y">Yıl başı stok<br>30.000</div><div class="kt y" style="flex:2">Yıl sonu stok<br>60.000</div></div><div class="cs"><em>Yıl içinde satılan</em><div class="kt y" style="flex:3">Satılan malın maliyeti<br>405.000</div><div class="kt sn"><s>Net satışlar 495.000</s></div></div></div>',
+    s:'Soruda dört rakam var. Depodaki iki stok ve satılan malın maliyeti işimize yarıyor. Net satışlar bu hesapta kullanılmaz.',
+    an:'Stok, işletmenin satmak için deposunda tuttuğu maldır. Satılan malın maliyeti, yıl içinde satılan malların işletmeye kaça mal olduğudur: satış fiyatı değil, alış bedeli. Net satışlar ise müşteriden alınan paradır.'},
+   {b:'Kural',
+    c:'<div class="ca"><div class="kt">30.000</div><span>+</span><div class="kt">60.000</div><span>÷ 2</span><span>→</span><div class="kt y">Ortalama stok<br>45.000</div></div><div class="cf2 y"><span>Stok devir hızı =</span><span class="kes"><span>Satılan malın maliyeti</span><i></i><span>Ortalama stok</span></span></div>',
+    s:'Önce iki stoğun ortalamasını al: 45.000. Stok devir hızı, satılan malın maliyetinin bu ortalamaya bölümüdür.',
+    an:'Depo yıl boyunca aynı kalmaz: başta 30.000, sonda 60.000 liralık mal var. Yıl boyunca depoda ortalama ne kadar mal durduğunu bulmak için ikisini toplar, ikiye böleriz. Soru da bunu istiyor: "ortalama değeri kullanınız".'},
+   {b:'Hesap',
+    c:'<div class="cf2"><span class="kes"><span>405.000</span><i></i><span>45.000</span></span><span>=</span><span class="cson y">9</span></div><div class="c9">'+'<i></i>'.repeat(9)+'</div><div class="cn">depo yılda 9 kez boşalıp doldu</div>',
+    s:'405.000 bölü 45.000 eşittir 9. Cevap C.',
+    an:'Yıl boyunca depoda ortalama 45.000 liralık mal durdu, toplam 405.000 liralık mal satıldı. 405.000\'in içinde 45.000 dokuz kez var. Yani depo yıl içinde dokuz kez boşalıp yeniden dolmuş.'}
+  ]}
+};
+function nobY(q){
+ const y=NY[q.id];if(!y)return '';
+ if(!S.nb)return `<button class="nbr" data-a="nobAc"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Çizerek, üç adımda</small></span></button>`;
+ const gir=S.sec===q.dogru?y.giris.dogru:(y.giris[S.sec]||'');
+ return `<div class="nby"><p class="nbb">Nöbetçi anlatıyor</p>${gir?`<p class="ngr">${kac(gir)}</p>`:''}${y.ad.slice(0,S.nb).map((a,i)=>`<div class="nad ${i===S.nb-1?'gir':''}"><p class="nst">${i+1} / ${y.ad.length} · ${kac(a.b)}</p><div class="tk2">${a.c}</div><p class="nsz">${kac(a.s)}</p><button class="anl ${S.an[i]?'ac':''}" data-n="${i}">${S.an[i]?'Tamam, anladım':'Bunu anlamadım'}</button>${S.an[i]?`<div class="ansf gir">${kac(a.an)}</div>`:''}</div>`).join('')}${S.nb<y.ad.length?'<button class="cta koyu nil" data-a="nobIleri">Sonraki adım</button>':'<p class="nbt">Çözümün tamamı yukarıda. Şimdi aynısını kendin dene.</p>'}</div>`;
+}
 function eSoru(){
  const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
  return `<div class="hd">${seg()}<button class="ik ${S.eleKip?'ac':''}" data-a="eleKip" aria-label="Şık eleme">${IK.ele}</button><button class="ik yl ${S.yil?'ac':''}" data-a="yil" aria-label="Soruyu işaretle">${IK.yil}</button></div>
@@ -313,7 +364,7 @@ function eSonuc(){
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span>Sen</span>','<span>Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
  const tb=dg?'':tabloH(q,S.sec);
- const nbr=`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
+ const nbr=nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
  const coz=cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const T0=dg?null:tbl(q,S.sec);const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:q.hap?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki">${son?'Bitir':'Sonraki soru'}</button>`;
@@ -383,15 +434,19 @@ document.addEventListener('click',e=>{
  if(!S)return;if(uzYut){uzYut=false;return;}
  const t=e.target.closest('.tk[data-t]');if(t){S.boya[t.dataset.t]=!S.boya[t.dataset.t];ciz();return;}
  const b=e.target.closest('button');if(!b||b.disabled)return;const d=b.dataset,q=Q();
+ let kay=false;
  if(S.e==='ikiz')gOku();
  if(d.o){if(S.eleKip){S.ele[d.o]=!S.ele[d.o];if(S.sel===d.o)S.sel=null;}else{S.ele[d.o]=false;S.sel=S.sel===d.o?null:d.o;}}
  else if(d.c){S.acS=S.acS===d.c?null:d.c;}
+ else if(d.n){S.an[d.n]=!S.an[d.n];}
  else switch(d.a){
   case 'eleKip':S.eleKip=!S.eleKip;break;
   case 'yil':S.yil=!S.yil;break;
   case 'cevap':S.sec=S.sel;S.e='sonuc';S.eleKip=false;tit(S.sec===q.dogru?20:[30,60,30]);window.scrollTo(0,0);break;
   case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
   case 'kapatS':S.e='sonuc';break;
+  case 'nobAc':S.nb=1;kay=true;break;
+  case 'nobIleri':S.nb=S.nb+1;kay=true;break;
   case 'nob':S.e='nob';S.ders='soru';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
   case 'kapatN':sus();S.e='sonuc';break;
   case 'oyna':if(S.oyn){sus();}else{S.oyn=true;ciz();oku();return;}break;
@@ -410,6 +465,7 @@ document.addEventListener('click',e=>{
   default:return;
  }
  ciz();
+ if(kay){const el=document.querySelectorAll('.nad');if(el.length)el[el.length-1].scrollIntoView({behavior:'smooth',block:'start'});}
 });
 function baslat(metin){
  const a=metin.indexOf('const SORULAR=');if(a<0)throw new Error('soru verisi bulunamadı');
@@ -437,12 +493,14 @@ function sinama(){
   o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
+  if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
   q('[data-a=nob]').click();const n=dersi(s).length;o.push('  nobetci: adim '+n+' | carpi '+us(q('[data-a=kapatN]'))+' | oynat '+us(q('[data-a=oyna]'))+' | '+tas());
   let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
   o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
   if(q('[data-a=basit]')){q('[data-a=basit]').click();o.push('  daha basit acildi: '+!!q('.bst'));}
   if(q('[data-a=sifir]')){q('[data-a=sifir]').click();let ks=qa('.tht .bk').length,sr=qa('.tht .bk.y').length;const m=dersi(s).length;for(let k=1;k<m;k++)q('[data-a=sonraA]').click();o.push('  sifirdan: adim '+m+' | kutu '+ks+' | ilk adimda sari '+sr+' | son hesap '+!!q('.tht .alt em')+' | carpi '+us(q('[data-a=kapatN]'))+' | tahta '+q('.tht').scrollHeight+'/'+q('.tht').clientHeight);q('[data-a=soruyaDon]').click();o.push('  soruya don: "'+q('.cap .st').textContent+'"');}else o.push('  SIFIRDAN YOK');
   q('[data-a=oyna]').click();q('[data-a=kapatN]').click();o.push('  dinlerken carpi: ses durdu '+(!S.oyn)+' | sonuca dondu '+(S.e==='sonuc'));
+  }
   if(s.oyun){q('[data-a=ikiz]').click();const gs=qa('input[data-g]');o.push('  ikiz: bos kutu '+gs.length+' | carpi '+us(q('[data-a=kapatI].x')));
    q('[data-a=kontrol]').click();o.push('  bos uyari: '+(q('.uyari')?q('.uyari').textContent:'YOK'));
    const sat=s.oyun.tablo.satirlar;qa('input[data-g]').forEach(x=>{const p=x.dataset.g.split('_');x.value=sat[p[0]][p[1]];});q('[data-a=kontrol]').click();
