@@ -103,6 +103,9 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .skl .l2{background:var(--sari)}
 .skl .l3{box-shadow:inset 0 0 0 2px var(--hata)}
 .fg{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 14px;padding:14px 12px;border-radius:16px;background:var(--dolgu);font-size:15.5px;font-weight:600}
+.fg{flex-wrap:wrap;row-gap:12px}
+.fg .fd{display:inline-flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums;animation:gir .45s ease-out .5s both}
+.fg .fd strong{font-size:24px;color:var(--ok);letter-spacing:-.01em}
 .fg b{font-weight:600;border-radius:5px;padding:2px 6px}
 .kr .ac{display:block;font-weight:400;font-size:13px;color:var(--soluk);margin-top:2px}
 .et{font-style:normal;font-size:11px;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:4px;vertical-align:1px}
@@ -395,7 +398,7 @@ const NF={
 };
 function formulH(q){
  const F=NF[q.id];if(!F)return '';
- return `<div class="fg"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span></div>`;
+ return `<div class="fg"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span><span class="fd"><span>=</span><span class="kes"><b class="mp">${kac(F.d.pay)}</b><i></i><b class="md">${kac(F.d.payda)}</b></span><span>=</span><strong>${kac(F.d.s)}</strong></span></div>`;
 }
 function etk(q,i){const F=NF[q.id];if(!F||!F.satir)return '';return i===F.satir.pay?' <i class="et mp">pay</i>':i===F.satir.payda?' <i class="et md">payda</i>':'';}
 function eSoru(){
@@ -537,7 +540,7 @@ function sinama(){
   o.push('  tablo: '+yan.map(h=>h+(tabloH(s,h)?' var':' TABLOYOK')).join(' | '));
   o.push('--- soru '+(i+1)+' | sik '+hs.join('')+' | dogru '+s.dogru+' | uzun sik '+uzunMu(s)+' | eksik alan: '+(eksik.join(',')||'yok')+' | '+tas());
   q('[data-o='+yan[0]+']').click();q('[data-a=cevap]').click();
-  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
+  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' dolu hali '+qa('.bd>.fg .fd').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
   if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
