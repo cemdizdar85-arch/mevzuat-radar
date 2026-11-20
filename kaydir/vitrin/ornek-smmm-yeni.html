@@ -104,6 +104,7 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .skl .l3{box-shadow:inset 0 0 0 2px var(--hata)}
 .fg{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 14px;padding:14px 12px;border-radius:16px;background:var(--dolgu);font-size:15.5px;font-weight:600}
 .fg b{font-weight:600;border-radius:5px;padding:2px 6px}
+.kr .ac{display:block;font-weight:400;font-size:13px;color:var(--soluk);margin-top:2px}
 .et{font-style:normal;font-size:11px;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:4px;vertical-align:1px}
 .kes{display:inline-flex;flex-direction:column;align-items:center;line-height:1.3}
 .kes i{display:block;width:100%;height:2px;background:currentColor;border-radius:1px;margin:4px 0}
@@ -234,7 +235,7 @@ const kisa=(q,h)=>(q.sade&&q.sade.siklar&&q.sade.siklar[h])||(q.tuzak&&q.tuzak[h
 const tuzakAd=(q,h)=>(q.tuzak&&q.tuzak[h]&&q.tuzak[h].ad)||'';
 const TB={
  'smmm-4k-a-yfta-kolay-r6/kp-01':{tut:'Devir hızında pay satılan malın maliyeti, payda iki stoğun ortalamasıdır.',
-  s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t'],['Stok devir hızı','9']],
+  s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t','(30.000 + 60.000) ÷ 2'],['Stok devir hızı','9']],
   sen:{A:{b:'Stokların ortalamasını almadın.',v:['405.000','30.000','60.000','90.000','4,5']},
        B:{b:'Yalnız dönem sonu stoğu aldın.',v:['405.000','—','60.000','60.000','6,75']},
        D:{b:'Paya net satışları yazdın.',v:['495.000','30.000','60.000','45.000','11']},
@@ -252,7 +253,7 @@ const TB={
        C:{b:'Tutar doğru, yön ters.',v:['180.000','40.000','140.000','60.000','20.000','40.000','100.000 ₺ yüksek']},
        D:{b:'Gelir tarafına bakmadın.',v:['180.000','40.000','140.000','—','—','—','140.000 ₺ düşük']}}},
  'smmm-w3-maliyet-cokzor/kp-10':{tut:'Fiili üretim, normal kapasiteden atıl kapasite çıkarılarak bulunur.',
-  s:[['Sabit gider bütçesi','345.600'],['Normal kapasite','12.000'],['Birim sabit gider','28,8','t'],['Atıl kapasite (69.120 ÷ birim gider)','2.400','t'],['Fiili üretim','9.600']],
+  s:[['Sabit gider bütçesi','345.600'],['Normal kapasite','12.000'],['Birim sabit gider','28,8','t','345.600 ÷ 12.000'],['Atıl kapasite (69.120 ÷ birim gider)','2.400','t'],['Fiili üretim','9.600']],
   sen:{A:{b:'Atıl kapasitede durdun, çıkarmadın.',v:['345.600','12.000','28,8','2.400','2.400']},
        B:{b:'Birim gideri yarıya indirdin.',v:['345.600','12.000','14,4','4.800','4.800']},
        D:{b:'Boş kapasiteyi hesaba katmadın.',v:['345.600','12.000','—','—','12.000']},
@@ -266,11 +267,11 @@ function tbl(q,h){
 }
 function tabloH(q,h){
  const T=tbl(q,h);if(!T)return '';const n=T.s.length-1,v=T.sen[h].v;
- return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':v[i]!==r[1]?'fk':''} ${r[2]==='t'?'tp':''} ${v[i]!==r[1]?'ay':''}"><span>${kac(r[0])}${etk(q,i)}</span><span>${kac(v[i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+ return `<div class="kyt"><div class="kr bs"><span></span><span>Sen</span><span>Doğrusu</span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':v[i]!==r[1]?'fk':''} ${r[2]==='t'?'tp':''} ${v[i]!==r[1]?'ay':''}"><span>${kac(r[0])}${etk(q,i)}${r[3]?`<small class="ac">${kac(r[3])}</small>`:''}</span><span>${kac(v[i])}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
 }
 function cozumH(q){
  const T=TB[q.id];if(!T)return '';const n=T.s.length-1;if(!bsz(q.siklar[q.dogru]).startsWith(bsz(T.s[n][1])))return '';
- return `<div class="kyt tek"><div class="kr bs"><span>Çözüm</span><span></span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':''} ${r[2]==='t'?'tp':''}"><span>${kac(r[0])}${etk(q,i)}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
+ return `<div class="kyt tek"><div class="kr bs"><span>Çözüm</span><span></span></div>${T.s.map((r,i)=>`<div class="kr ${i===n?'snc':''} ${r[2]==='t'?'tp':''}"><span>${kac(r[0])}${etk(q,i)}${r[3]?`<small class="ac">${kac(r[3])}</small>`:''}</span><span>${kac(r[1])}</span></div>`).join('')}</div>`;
 }
 const kes=(u,a)=>`<span class="kes"><span>${u}</span><i></i><span>${a}</span></span>`;
 const N={
@@ -536,7 +537,7 @@ function sinama(){
   o.push('  tablo: '+yan.map(h=>h+(tabloH(s,h)?' var':' TABLOYOK')).join(' | '));
   o.push('--- soru '+(i+1)+' | sik '+hs.join('')+' | dogru '+s.dogru+' | uzun sik '+uzunMu(s)+' | eksik alan: '+(eksik.join(',')||'yok')+' | '+tas());
   q('[data-o='+yan[0]+']').click();q('[data-a=cevap]').click();
-  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
+  o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
   if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
