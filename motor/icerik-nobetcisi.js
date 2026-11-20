@@ -37,7 +37,20 @@ const UCRETSIZ = [
   /^veri\/seviye\/sgs-havuz\.json$/,    // ücretsiz seviye testi havuzu
   /^veri\/vitrin-kart-ozet\.json$/,     // günün sorusu (tek soru)
   /^veri\/vitrin-soru-havuzu\.json$/,
-  /^veri\/vitrin\//
+  /^veri\/vitrin\//,
+  // 20.11.2026: aşağıdaki iki dosya motor/vitrin-hesap.js çıktısıdır; üretici yalnız kasada ucretsiz=true olan soruyu yazar
+  // (06:30'da her gün tazeler, ücretsizden çıkan kendiliğinden düşer). 07.10 ve 08.10'da doğdular, bu listeye yazılmadılar ->
+  // nöbet 06.10'dan 20.11'e 45 gün her koşuda KIRMIZI + mail (20.11 ölçümü: 89/89 + 5/5 SGS sorusu ücretsiz seviye havuzunda;
+  // örnek dosyasının 9 kimliği kaydir/vitrin/ornek-*.html ile aynı).
+  // 🚫 GÖRMEZ: üretici bozulur da ücretli soru yazarsa bu nöbet YAKALAMAZ (ücretsiz bayrağı kasada, burada okunmaz).
+  /^veri\/vitrin-hesap\.json$/,       // ana sayfa kartı + günün sorusu listesi
+  /^veri\/ornek-soru\.json$/          // "5 örnek soru"
+];
+// PAKET DIŞI (20.11.2026): resmî ÇIKMIŞ sınav sorusu — satılan paket içeriği değil, ölçüm girdisi. Dosya TAM ADIYLA yazılır
+// (kalıpla değil: yeni dosya yine KIRMIZI düşer) ve içindeki HER sorunun kimliği verilen kalıba uymak zorundadır; uymayan soru
+// paket içeriği sayılır. 🚫 GÖRMEZ: çıkmış kimliği taşıyan ama aslında bankadan gelen soru (kimlik elle yazılırsa).
+const PAKET_DISI = [
+  { yol: /^veri\/sinav\/s20-kalibrasyon-cikmis3\.json$/, kimlik: /^cikmis-\d{4}-\d-\d+$/ }   // 348 çıkmış SGS sorusu (2025/3, 2026/1, 2026/2), kör kalibrasyon girdisi
 ];
 const BOYUT_TAVAN = 40 * 1024 * 1024;
 
@@ -62,6 +75,28 @@ function soruSay(deger) {
   return n;
 }
 
+// Paket dışı dosyada kimliği kalıba UYMAYAN soru sayısı (0 = dosya gerçekten yalnız çıkmış soru taşıyor). Bozuk JSON -1.
+function yabanciSay(metin, kimlik) {
+  let kok; try { kok = JSON.parse(metin.replace(/^\uFEFF/, '')); } catch (e) { return -1; }
+  let n = 0; const yigin = [kok];
+  while (yigin.length) {
+    const x = yigin.pop();
+    if (Array.isArray(x)) { for (const e of x) yigin.push(e); continue; }
+    if (x && typeof x === 'object') {
+      if (soruNesnesiMi(x)) { if (!kimlik.test(String(x.id == null ? '' : x.id))) n++; continue; }
+      for (const k in x) yigin.push(x[k]);
+    }
+  }
+  return n;
+}
+// dosya + soru sayısı -> hangi sınıf, kaç soru (saf işlev, öz-sınavlı)
+function sinifla(yol, metin, n) {
+  if (ucretsizMi(yol)) return { sinif: 'ucretsiz', soru: n };
+  const pd = PAKET_DISI.find(p => p.yol.test(yol));
+  if (pd) { const y = yabanciSay(metin, pd.kimlik); return y === 0 ? { sinif: 'cikmis', soru: n } : { sinif: 'paket', soru: y < 0 ? n : y }; }
+  return { sinif: 'paket', soru: n };
+}
+
 // "const SORULAR=[...]" dizisini keser ve nesneleri döndürür (yoksa [], bozuksa null).
 function htmlSorulariCek(metin) {
   const i = metin.indexOf('const SORULAR=');
@@ -84,12 +119,18 @@ function htmlSorulariCek(metin) {
 // 15.09 ölçümü: 3.809 yayındaki sorudan 4'ü (Matematik, KAYNAK-EKSIK) bu durumdaydı.
 // Cevabı riskli sınıflar KIRMIZI (öğrenci yanlış öğrenir), diğerleri SARI (yeniden basım bekliyor).
 const CEVAP_RISKI = /SIM-YANLIS|KOR-CELISKI|HESAP-YANLIS|CIFT-ANLAM|COK-ANLAMLI|CELDIRICI-SAHTE/;
-function kaliteHukmu(yayindakiIdler, retKayitlari) {
+// ELLE DOĞRULANAN (20.11.2026): ret kaydı ESKİ olabilir (kütükte tarih yok). Kör çelişkisinin kendi onarım notu "önce anahtarı
+// elle doğrula" der; elle + resmî metinle doğrulanmış soru arac/icerik-nobeti-taban.json "kalite_elle_dogrulanan" listesine
+// {id, tarih, gerekce} ile yazılır -> hükmü etkilemez, ama her koşuda SATIRI BASILIR (sessiz geçilmez). Gerekçesiz/tarihsiz kayıt sayılmaz.
+// 🚫 GÖRMEZ: doğrulamadan SONRA soru metni değişirse ya da yeni bir ret kaydı düşerse muafiyet yine geçerli sayılır.
+function kaliteHukmu(yayindakiIdler, retKayitlari, dogrulananlar) {
+  const dogru = new Set((dogrulananlar || []).filter(d => d && d.id && d.tarih && String(d.gerekce || '').length >= 20).map(d => String(d.id)));
   const ret = new Map();
   for (const r of retKayitlari || []) { const k = r.etiket + '/' + r.id; if (!ret.has(k)) ret.set(k, r); }
   const esles = [];
-  for (const [id, sayfa] of yayindakiIdler) if (ret.has(id)) { const r = ret.get(id); esles.push({ id, sayfa, kapi: r.kapi, sinif: r.sinif, risk: CEVAP_RISKI.test(String(r.sinif)) }); }
-  const hukum = esles.some(e => e.risk) ? 'KIRMIZI' : esles.length ? 'SARI' : 'YEŞİL';
+  for (const [id, sayfa] of yayindakiIdler) if (ret.has(id)) { const r = ret.get(id); esles.push({ id, sayfa, kapi: r.kapi, sinif: r.sinif, risk: CEVAP_RISKI.test(String(r.sinif)), dogrulandi: dogru.has(id) }); }
+  const acik = esles.filter(e => !e.dogrulandi);
+  const hukum = acik.some(e => e.risk) ? 'KIRMIZI' : acik.length ? 'SARI' : 'YEŞİL';
   return { hukum, esles };
 }
 
@@ -139,7 +180,7 @@ function kasaModu() {
 function depoyuTara() {
   const liste = execSync('git ls-files -z', { cwd: KOK, maxBuffer: 64 * 1024 * 1024 }).toString('utf8')
     .split('\0').filter(p => /\.(html?|json)$/.test(p));
-  const sonuc = { taranan: 0, okunamayan: [], paket: [], ucretsiz: [], kasada: [] };
+  const sonuc = { taranan: 0, okunamayan: [], paket: [], ucretsiz: [], cikmis: [], kasada: [] };
   for (const yol of liste) {
     const tam = path.join(KOK, yol);
     let st; try { st = fs.statSync(tam); } catch (e) { continue; }
@@ -152,7 +193,8 @@ function depoyuTara() {
     const n = dosyaSay(yol, metin);
     if (n < 0) { sonuc.okunamayan.push(yol); continue; }
     if (n === 0) continue;
-    (ucretsizMi(yol) ? sonuc.ucretsiz : sonuc.paket).push({ yol, soru: n });
+    const s = sinifla(yol, metin, n);
+    sonuc[s.sinif].push({ yol, soru: s.soru });
   }
   return sonuc;
 }
@@ -204,6 +246,18 @@ function sinav() {
   t('kalite: ret yok YEŞİL', kaliteHukmu(yay, [{ etiket: 'c', id: 'kp-01', sinif: 'SIM-YANLIS' }]).hukum === 'YEŞİL');
   t('kalite: kaynak eksik SARI', kaliteHukmu(yay, [{ etiket: 'a', id: 'kp-01', sinif: 'KAYNAK-EKSIK' }]).hukum === 'SARI');
   t('kalite: simülasyon yanlış KIRMIZI', kaliteHukmu(yay, [{ etiket: 'b', id: 'kp-02', sinif: 'SIM-YANLIS' }]).hukum === 'KIRMIZI');
+  // 20.11.2026
+  t('vitrin-hesap + ornek-soru ücretsiz sayılır', sinifla('veri/vitrin-hesap.json', '[]', 3).sinif === 'ucretsiz' && sinifla('veri/ornek-soru.json', '[]', 3).sinif === 'ucretsiz');
+  t('benzer adlı dosya ücretsiz SAYILMAZ', sinifla('veri/vitrin-hesap-2.json', '[]', 3).sinif === 'paket' && sinifla('veri/sinav/ornek-soru.json', '[]', 3).sinif === 'paket');
+  const ck = 'veri/sinav/s20-kalibrasyon-cikmis3.json';
+  t('çıkmış dosyası paket dışı', sinifla(ck, '[{"id":"cikmis-2025-3-1","soru":"a","siklar":{"A":1},"dogru":"A"}]', 1).sinif === 'cikmis');
+  const ckKarisik = sinifla(ck, '[{"id":"cikmis-2025-3-1","soru":"a","siklar":{"A":1},"dogru":"A"},{"id":"sgs-k1-fmuh-zor/kp-01","soru":"b","siklar":{"A":1},"dogru":"A"},{"soru":"c","siklar":{"A":1},"dogru":"A"}]', 3);
+  t('çıkmış dosyasına karışan banka sorusu + kimliksiz soru PAKET sayılır', ckKarisik.sinif === 'paket' && ckKarisik.soru === 2);
+  t('çıkmış dosyasının yeni kardeşi paket dışı SAYILMAZ', sinifla('veri/sinav/s20-kalibrasyon-cikmis4.json', '[{"id":"cikmis-2025-3-1","soru":"a","siklar":{"A":1},"dogru":"A"}]', 1).sinif === 'paket');
+  const dg = [{ id: 'b/kp-02', tarih: '2026-11-20', gerekce: 'anahtar resmî metinle elle doğrulandı' }];
+  t('kalite: elle doğrulanan risk hükme girmez ama listede kalır', (k => k.hukum === 'YEŞİL' && k.esles.length === 1 && k.esles[0].dogrulandi === true)(kaliteHukmu(yay, [{ etiket: 'b', id: 'kp-02', sinif: 'SIM-YANLIS' }], dg)));
+  t('kalite: doğrulanmayan öbür risk yine KIRMIZI', kaliteHukmu(yay, [{ etiket: 'b', id: 'kp-02', sinif: 'SIM-YANLIS' }, { etiket: 'a', id: 'kp-01', sinif: 'KOR-CELISKI' }], dg).hukum === 'KIRMIZI');
+  t('kalite: gerekçesiz/tarihsiz muafiyet SAYILMAZ', kaliteHukmu(yay, [{ etiket: 'b', id: 'kp-02', sinif: 'SIM-YANLIS' }], [{ id: 'b/kp-02', tarih: '2026-11-20', gerekce: 'tamam' }]).hukum === 'KIRMIZI' && kaliteHukmu(yay, [{ etiket: 'b', id: 'kp-02', sinif: 'SIM-YANLIS' }], [{ id: 'b/kp-02', gerekce: 'anahtar resmî metinle elle doğrulandı' }]).hukum === 'KIRMIZI');
   t('kalite: SORULAR nesneleri çekilir', (htmlSorulariCek('const SORULAR=[{"id":"a/kp-01","soru":"]"}];') || [])[0].id === 'a/kp-01');
   console.log(h ? 'ÖZ-SINAV DÜŞTÜ (' + h + ')' : 'ÖZ-SINAV GEÇTİ');
   return h ? 1 : 0;
@@ -220,13 +274,14 @@ async function ana() {
   if (process.argv.includes('--taban-yaz')) {
     const yeni = { guncelleme: new Date().toISOString().slice(0, 10),
       gerekce: 'BİLİNEN AÇIK: Adım 2 (paket soruları kilitli kasadan servis + depodan/geçmişten çıkarma) bitene kadar. Adım 2 bitince bu liste BOŞALTILIR; yeni dosya eklemek sızıntıyı kabul etmektir, gerekçesiz eklenmez.',
-      acik_dosyalar: tarama.paket.map(k => k.yol).sort() };
+      acik_dosyalar: tarama.paket.map(k => k.yol).sort(),
+      kalite_elle_dogrulanan: (taban && taban.kalite_elle_dogrulanan) || [] };
     fs.writeFileSync(TABAN, JSON.stringify(yeni, null, 2) + '\n');
     console.log('taban yazıldı: ' + yeni.acik_dosyalar.length + ' dosya');
     return;
   }
 
-  if (!process.argv.includes('--canli-yok')) { await canliYokla(tarama.paket); await canliYokla(tarama.ucretsiz); }
+  if (!process.argv.includes('--canli-yok')) { await canliYokla(tarama.paket); await canliYokla(tarama.ucretsiz); await canliYokla(tarama.cikmis); }
   const h = hukumVer(tarama, taban);
 
   // KALİTE: yayındaki Kaydır-Çöz soruları × veri/ret-kutugu.json
@@ -242,11 +297,11 @@ async function ana() {
     }
   } catch (e) { kaliteKor = e.message; }
   let kalite;
-  try { kalite = kaliteHukmu(yayin, JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'ret-kutugu.json'), 'utf8').replace(/^﻿/, '')).kayitlar); }
+  try { kalite = kaliteHukmu(yayin, JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'ret-kutugu.json'), 'utf8').replace(/^﻿/, '')).kayitlar, taban && taban.kalite_elle_dogrulanan); }
   catch (e) { kalite = { hukum: 'KÖR', esles: [] }; kaliteKor = 'ret kütüğü okunamadı: ' + e.message; }
   if (kaliteKor) kalite.hukum = 'KÖR';
   console.log(`KALİTE · ${kalite.hukum} · yayındaki ${yayin.size} soru × ret kütüğü → ${kalite.esles.length} eşleşme${kaliteKor ? ' · ' + kaliteKor : ''}`);
-  for (const e of kalite.esles) console.log(`    ${e.risk ? 'CEVAP RİSKİ' : 'yeniden basım'}  ${e.id}  ${e.kapi} ${e.sinif}  (${e.sayfa})`);
+  for (const e of kalite.esles) console.log(`    ${e.dogrulandi ? 'ELLE DOĞRULANDI (hükme girmez)' : e.risk ? 'CEVAP RİSKİ' : 'yeniden basım'}  ${e.id}  ${e.kapi} ${e.sinif}  (${e.sayfa})`);
   const SIRA = { 'YEŞİL': 0, 'SARI': 1, 'KÖR': 2, 'KIRMIZI': 3 };
   if (SIRA[kalite.hukum] > SIRA[h.hukum]) { h.hukum = kalite.hukum; }
   // Kabuk sayfanın sorusu dosyada değil kasada: kalite taraması onları GÖRMEZ — sessiz geçilmez, yazılır.
@@ -254,7 +309,8 @@ async function ana() {
     h.neden += ` · kalite taraması kasadaki ${tarama.kasada.length} sayfayı kapsamıyor (${tarama.kasada.join(', ')})`;
     if (h.hukum === 'YEŞİL') h.hukum = 'SARI';
   }
-  if (kalite.esles.length) h.neden += ` · kalite: yayında ${kalite.esles.length} ret kayıtlı soru (${kalite.esles.filter(e => e.risk).length} cevap riski)`;
+  const kAcik = kalite.esles.filter(e => !e.dogrulandi);
+  if (kAcik.length) h.neden += ` · kalite: yayında ${kAcik.length} ret kayıtlı soru (${kAcik.filter(e => e.risk).length} cevap riski)`;
   const topPaket = tarama.paket.reduce((t, k) => t + k.soru, 0);
   const topUcr = tarama.ucretsiz.reduce((t, k) => t + k.soru, 0);
   const canliAcik = tarama.paket.filter(k => k.canli === 200).length;
@@ -265,9 +321,11 @@ async function ana() {
   console.log(`İÇERİK NÖBETÇİSİ · ${h.hukum} · ${h.neden}`);
   console.log(`  taranan dosya ${tarama.taranan} · açık paket içeriği ${tarama.paket.length} dosya / ${topPaket} soru · canlı sitede 200 dönen ${canliAcik}`);
   console.log(`  ücretsiz katman (bilinçli açık) ${tarama.ucretsiz.length} dosya / ${topUcr} soru`);
+  console.log(`  paket dışı (resmî çıkmış soru) ${tarama.cikmis.length} dosya / ${tarama.cikmis.reduce((t, k) => t + k.soru, 0)} soru${tarama.cikmis.length ? ': ' + tarama.cikmis.map(k => k.yol).join(', ') : ''}`);
   console.log(`  KASADA (kabuk) ${tarama.kasada.length} sayfa${tarama.kasada.length ? ': ' + tarama.kasada.join(', ') : ''} · tabandan kapanan ${kapanan.length}${kapanan.length ? ': ' + kapanan.join(', ') : ''}`);
   for (const k of tarama.paket.sort((a, b) => b.soru - a.soru)) console.log(`    PAKET  ${String(k.soru).padStart(5)}  ${k.yol}${k.canli ? '  [canlı ' + k.canli + ']' : ''}`);
   for (const k of tarama.ucretsiz) console.log(`    ÜCRETSİZ ${String(k.soru).padStart(3)}  ${k.yol}${k.canli ? '  [canlı ' + k.canli + ']' : ''}`);
+  for (const k of tarama.cikmis) console.log(`    ÇIKMIŞ   ${String(k.soru).padStart(3)}  ${k.yol}${k.canli ? '  [canlı ' + k.canli + ']' : ''}`);
 
   if (process.env.GITHUB_STEP_SUMMARY) {
     const md = [`### İçerik nöbetçisi: ${h.hukum}`, h.neden, '',
@@ -275,7 +333,8 @@ async function ana() {
       `kasada (kabuk) **${tarama.kasada.length} sayfa** · tabandan kapanan ${kapanan.length}`, '',
       '| tür | soru | dosya | canlı |', '|---|---:|---|---|']
       .concat(tarama.paket.map(k => `| paket | ${k.soru} | ${k.yol} | ${k.canli || ''} |`))
-      .concat(tarama.ucretsiz.map(k => `| ücretsiz | ${k.soru} | ${k.yol} | ${k.canli || ''} |`)).join('\n');
+      .concat(tarama.ucretsiz.map(k => `| ücretsiz | ${k.soru} | ${k.yol} | ${k.canli || ''} |`))
+      .concat(tarama.cikmis.map(k => `| çıkmış (paket dışı) | ${k.soru} | ${k.yol} | ${k.canli || ''} |`)).join('\n');
     fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md + '\n');
     const tip = h.hukum === 'KIRMIZI' || h.hukum === 'KÖR' ? 'error' : (h.hukum === 'SARI' ? 'warning' : 'notice');
     console.log(`::${tip} title=icerik nobeti ${h.hukum}::${h.neden.slice(0, 300)}`);
@@ -289,4 +348,4 @@ function cikti(hukum, neden) {
 }
 
 if (require.main === module) ana();
-module.exports = { soruSay, htmlSorulariSay, hukumVer, ucretsizMi };
+module.exports = { soruSay, htmlSorulariSay, hukumVer, ucretsizMi, sinifla, kaliteHukmu };
