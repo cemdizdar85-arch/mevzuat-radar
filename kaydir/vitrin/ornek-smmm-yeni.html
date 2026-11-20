@@ -238,7 +238,7 @@ const kisa=(q,h)=>(q.sade&&q.sade.siklar&&q.sade.siklar[h])||(q.tuzak&&q.tuzak[h
 const tuzakAd=(q,h)=>(q.tuzak&&q.tuzak[h]&&q.tuzak[h].ad)||'';
 const TB={
  'smmm-4k-a-yfta-kolay-r6/kp-01':{tut:'Devir hızında pay satılan malın maliyeti, payda iki stoğun ortalamasıdır.',
-  s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t','(30.000 + 60.000) ÷ 2'],['Stok devir hızı','9']],
+  s:[['Satılan malın maliyeti','405.000'],['Dönem başı stok','30.000'],['Dönem sonu stok','60.000'],['Ortalama stok','45.000','t','(dönem başı + dönem sonu) ÷ 2'],['Stok devir hızı','9']],
   sen:{A:{b:'Stokların ortalamasını almadın.',v:['405.000','30.000','60.000','90.000','4,5']},
        B:{b:'Yalnız dönem sonu stoğu aldın.',v:['405.000','—','60.000','60.000','6,75']},
        D:{b:'Paya net satışları yazdın.',v:['495.000','30.000','60.000','45.000','11']},
@@ -256,7 +256,7 @@ const TB={
        C:{b:'Tutar doğru, yön ters.',v:['180.000','40.000','140.000','60.000','20.000','40.000','100.000 ₺ yüksek']},
        D:{b:'Gelir tarafına bakmadın.',v:['180.000','40.000','140.000','—','—','—','140.000 ₺ düşük']}}},
  'smmm-w3-maliyet-cokzor/kp-10':{tut:'Fiili üretim, normal kapasiteden atıl kapasite çıkarılarak bulunur.',
-  s:[['Sabit gider bütçesi','345.600'],['Normal kapasite','12.000'],['Birim sabit gider','28,8','t','345.600 ÷ 12.000'],['Atıl kapasite (69.120 ÷ birim gider)','2.400','t'],['Fiili üretim','9.600']],
+  s:[['Sabit gider bütçesi','345.600'],['Normal kapasite','12.000'],['Birim sabit gider','28,8','t','sabit gider bütçesi ÷ normal kapasite'],['Atıl kapasite (69.120 ÷ birim gider)','2.400','t'],['Fiili üretim','9.600']],
   sen:{A:{b:'Atıl kapasitede durdun, çıkarmadın.',v:['345.600','12.000','28,8','2.400','2.400']},
        B:{b:'Birim gideri yarıya indirdin.',v:['345.600','12.000','14,4','4.800','4.800']},
        D:{b:'Boş kapasiteyi hesaba katmadın.',v:['345.600','12.000','—','—','12.000']},
