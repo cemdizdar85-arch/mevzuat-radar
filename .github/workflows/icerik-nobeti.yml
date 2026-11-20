@@ -39,8 +39,31 @@ jobs:
         id: nobet
         continue-on-error: true
         run: node motor/icerik-nobetcisi.js
-      - name: KIRMIZI / KÖR ise Cem'e mail
+      # 20.11.2026 (Cem "böyle mesajlar geliyor sürekli"): aynı KIRMIZI 06.10'dan beri her koşuda mail attı; 20.11'de 30 koşu = 30 mail
+      # (kaydir/** altına giden her push koşuyu tetikliyor). Kural: AYNI hüküm + AYNI neden için GÜNDE (TR) TEK mail. Neden değişirse
+      # (yeni dosya, yeni eşleşme) anahtar değişir -> yeni mail. Akış her durumda KIRMIZI biter; kesilen yalnız tekrar maildir.
+      # İz = Actions önbelleğinde boş kayıt (depoya yazılmaz). 🚫 GÖRMEZ: önbellek hizmeti düşerse iz okunamaz -> mail YİNE gider
+      # (bilerek: susmak yerine tekrar); nedenin ilk 400 harfi aynı kalıp sonrası değişirse aynı gün ikinci mail gitmez.
+      - name: Mail izi anahtarı
+        id: iz
         if: steps.nobet.outputs.hukum == 'KIRMIZI' || steps.nobet.outputs.hukum == 'KÖR' || steps.nobet.outputs.hukum == ''
+        env:
+          HUKUM: ${{ steps.nobet.outputs.hukum }}
+          NEDEN: ${{ steps.nobet.outputs.neden }}
+        run: |
+          mkdir -p .nobet-iz && date -u +%FT%TZ > .nobet-iz/iz.txt
+          echo "anahtar=icerik-nobeti-mail-$(TZ=Europe/Istanbul date +%F)-$(printf '%s' "$HUKUM|$NEDEN" | sha256sum | cut -c1-16)" >> "$GITHUB_OUTPUT"
+      - name: Bugün aynı nedenle mail atıldı mı
+        id: izbak
+        if: steps.iz.outputs.anahtar != ''
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: .nobet-iz
+          key: ${{ steps.iz.outputs.anahtar }}
+          lookup-only: true
+      - name: KIRMIZI / KÖR ise Cem'e mail
+        if: (steps.nobet.outputs.hukum == 'KIRMIZI' || steps.nobet.outputs.hukum == 'KÖR' || steps.nobet.outputs.hukum == '') && steps.izbak.outputs.cache-hit != 'true'
         shell: pwsh
         env:
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
@@ -49,5 +72,18 @@ jobs:
           NEDEN: ${{ steps.nobet.outputs.neden }}
         run: |
           $h = if ($env:HUKUM) { $env:HUKUM } else { 'KÖR (çıktı yok)' }
-          ./arac/alarm-maili.ps1 -Konu "TETIKTE ICERIK NOBETI $h - paket sorulari acikta olabilir" -Mesaj ("Hüküm: $h`n$($env:NEDEN)`n`nAyrıntı (dosya dosya soru sayısı, canlı durum): https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`nTabanda olmayan bir dosyada soru+şık+doğru cevap bulunduysa bu YENİ bir sızıntıdır: dosya depodan çıkarılmalı ya da gerekçesiyle tabana yazılmalı.")
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE ICERIK NOBETI $h - paket sorulari acikta olabilir" -Mesaj ("Hüküm: $h`n$($env:NEDEN)`n`nAyrıntı (dosya dosya soru sayısı, canlı durum): https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`nTabanda olmayan bir dosyada soru+şık+doğru cevap bulunduysa bu YENİ bir sızıntıdır: dosya depodan çıkarılmalı ya da gerekçesiyle tabana yazılmalı.`n`nAynı neden için bugün başka mail gelmez; neden değişirse yeni mail gelir.")
+      - name: Mail izini yaz
+        if: (steps.nobet.outputs.hukum == 'KIRMIZI' || steps.nobet.outputs.hukum == 'KÖR' || steps.nobet.outputs.hukum == '') && steps.izbak.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: .nobet-iz
+          key: ${{ steps.iz.outputs.anahtar }}
+      - name: KIRMIZI / KÖR ise akış kırmızı biter
+        if: steps.nobet.outputs.hukum == 'KIRMIZI' || steps.nobet.outputs.hukum == 'KÖR' || steps.nobet.outputs.hukum == ''
+        env:
+          IZ: ${{ steps.izbak.outputs.cache-hit }}
+        run: |
+          if [ "$IZ" = "true" ]; then echo "::notice title=icerik nobeti::ayni neden icin bugun mail zaten atildi - tekrar mail ATILMADI"; fi
           exit 1
