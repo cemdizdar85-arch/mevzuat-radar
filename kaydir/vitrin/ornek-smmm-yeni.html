@@ -107,7 +107,14 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .fg .fd{display:inline-flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums;animation:gir .45s ease-out}
 .fg .fd strong{font-size:24px;color:var(--ok);letter-spacing:-.01em}
 .fg.ust{margin:4px 0 8px;padding:10px 12px}
-.fg.dz{flex-direction:column;gap:8px;text-align:center}
+.fg.dz{display:block;text-align:left;padding:6px 14px;font-weight:400}
+.fad{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--cizgi)}
+.fad:first-child{border-top:0}
+.fad em{flex:none;width:26px;height:26px;border-radius:50%;background:var(--kagit);border:1.5px solid var(--ince);font-style:normal;font-size:13px;font-weight:700;color:var(--soluk);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.fak{margin:0;font-size:15.5px;line-height:1.45}
+.far{margin:4px 0 0;font-size:16.5px;line-height:1.45;font-variant-numeric:tabular-nums;color:var(--soluk)}
+.far strong{color:var(--murekkep);font-size:17px}
+.far strong.son{color:var(--ok);font-size:19px}
 .dzr{font-size:19px;font-weight:700;color:var(--ok);font-variant-numeric:tabular-nums}
 .fg b{font-weight:600;border-radius:5px;padding:2px 6px}
 .kr .ac{display:block;font-weight:400;font-size:13px;color:var(--soluk);margin-top:2px}
@@ -494,9 +501,9 @@ function nobY(q){
  return `<div class="nby"><p class="nbb">Nöbetçi anlatıyor</p>${gir?`<p class="ngr">${kac(gir)}</p>`:''}${y.ad.slice(0,S.nb).map((a,i)=>`<div class="nad ${i===S.nb-1?'gir':''}"><p class="nst">${i+1} / ${y.ad.length} · ${kac(a.b)}</p><div class="tk2">${a.c}</div><p class="nsz">${kac(a.s)}</p><button class="anl ${S.an[i]?'ac':''}" data-n="${i}">${S.an[i]?'Tamam, anladım':'Bunu anlamadım'}</button>${S.an[i]?`<div class="ansf gir">${kac(a.an)}</div>`:''}</div>`).join('')}${S.nb<y.ad.length?'<button class="cta koyu nil" data-a="nobIleri">Sonraki adım</button>':'<p class="nbt">Çözümün tamamı yukarıda. Şimdi aynısını kendin dene.</p>'}</div>`;
 }
 const NF={
- 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{duz:'Safi irat = Brüt kira − Götürü gider (%15)',duzD:'900.000 − 135.000 = 765.000'},
- 'smmm-4k-a-fmuh-zor-r3/kp-02':{duz:'Kâr hatası = Fazla gider − Fazla gelir',duzD:'140.000 − 40.000 = 100.000 düşük'},
- 'smmm-w3-maliyet-cokzor/kp-10':{duz:'Fiili üretim = Normal kapasite − Atıl kapasite',duzD:'12.000 − 2.400 = 9.600'},
+ 'smmm-4k-a-yvergi-cokzor-r2/kp-02':{adim:[['Götürü gider','Brüt kira × %15','900.000 × %15','135.000'],['Safi irat','Brüt kira − Götürü gider','900.000 − 135.000','765.000']]},
+ 'smmm-4k-a-fmuh-zor-r3/kp-02':{adim:[['Fazla gider','Yazılan gider − Bu yılın gideri','180.000 − 40.000','140.000'],['Fazla gelir','Yazılan gelir − Bu yılın geliri','60.000 − 20.000','40.000'],['Kâr hatası','Fazla gider − Fazla gelir','140.000 − 40.000','100.000 düşük']]},
+ 'smmm-w3-maliyet-cokzor/kp-10':{adim:[['Birim sabit gider','Sabit gider bütçesi ÷ Normal kapasite','345.600 ÷ 12.000','28,8'],['Atıl kapasite','Boş kapasite gideri ÷ Birim sabit gider','69.120 ÷ 28,8','2.400'],['Fiili üretim','Normal kapasite − Atıl kapasite','12.000 − 2.400','9.600']]},
  'smmm-4k-a-yfta-kolay-r6/kp-01':{ad:'Stok devir hızı',pay:'Satılan malın maliyeti',payda:'Ortalama stok',satir:{pay:0,payda:3},
   m:[['405.000 ₺','mp'],['495.000 ₺','my'],['30.000 ₺','md'],['60.000 ₺','md'],['ortalama değeri kullanınız','mi']],
   d:{pay:'405.000',payda:'45.000',alt:'(30.000 + 60.000) ÷ 2',s:'9'},
@@ -507,7 +514,7 @@ const NF={
 };
 function formulH(q,dolu){
  const F=NF[q.id];if(!F)return '';
- if(F.duz)return `<div class="fg dz"><span>${kac(F.duz)}</span>${dolu?`<span class="dzr">${kac(F.duzD)}</span>`:''}</div>`;
+ if(F.adim)return `<div class="fg dz">${F.adim.map((a,i)=>`<div class="fad"><em>${i+1}</em><div><p class="fak"><b>${kac(a[0])}</b> = ${kac(a[1])}</p>${dolu?`<p class="far">= ${kac(a[2])} = <strong class="${i===F.adim.length-1?'son':''}">${kac(a[3])}</strong></p>`:''}</div></div>`).join('')}</div>`;
  return `<div class="fg ${dolu?'':'ust'}"><span>${kac(F.ad)} =</span><span class="kes"><b class="mp">${kac(F.pay)}</b><i></i><b class="md">${kac(F.payda)}</b></span>${dolu?`<span class="fd"><span>=</span><span class="kes"><b class="mp">${kac(F.d.pay)}</b><i></i><b class="md">${kac(F.d.alt||F.d.payda)}</b></span><span>=</span><strong>${kac(F.d.s)}</strong></span>`:''}</div>`;
 }
 function etk(q,i){const F=NF[q.id];if(!F||!F.satir)return '';return i===F.satir.pay?' <i class="et mp">pay</i>':i===F.satir.payda?' <i class="et md">payda</i>':'';}
