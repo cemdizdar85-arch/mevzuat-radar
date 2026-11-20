@@ -320,8 +320,8 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 @keyframes kfu{0%{opacity:1;transform:none}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r))}}
 .mk{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 24%;background:var(--tebesir);flex:none;box-shadow:0 0 0 1.5px var(--cizgi)}
 .mk.by{width:104px;height:104px}
-.cta.nbt{gap:10px}
-.cta.nbt .mk{width:38px;height:38px;box-shadow:0 0 0 2px var(--kagit)}
+.cta.nbd{gap:10px}
+.cta.nbd .mk{width:38px;height:38px;box-shadow:0 0 0 2px var(--kagit)}
 .kyd{margin:2px 0 0;text-align:center;font-size:12px;color:var(--ince)}
 .dgm{display:flex;gap:8px;flex-wrap:wrap}
 .dgm .anl{margin-top:12px}
@@ -863,7 +863,7 @@ function eSonuc(){
  const coz=fml||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:(!dg&&q.hap)?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki" id="snb">${sonAd()}</button>`;
- const nb=dg?'<button class="duz" data-a="dersAc">Nöbetçi anlatsın</button>':`<button class="cta nbt" data-a="dersAc">${mk()}<span>Nöbetçi anlatsın</span></button>`;
+ const nb=dg?'<button class="duz" data-a="dersAc">Nöbetçi anlatsın</button>':`<button class="cta nbd" data-a="dersAc">${mk()}<span>Nöbetçi anlatsın</span></button>`;
  return `${ustH()}<div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${cps}
  ${dg?`<div class="kut">${KONF}<div class="tik"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l8 8 15-17"/></svg></div><h1>Doğru!</h1><p class="kts">${SERI>=2?'Üst üste '+SERI+' doğru.':'İlk denemede bildin.'}</p></div>${coz}`
      :`<p class="etk no">Yanlış</p><h1>${kac(T0?T0.sen[S.sec].b:tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}`}
