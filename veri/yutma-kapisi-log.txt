@@ -1,9 +1,12 @@
-YUTMA KAPISI - 19.11.2026 10:54
-  simdi : 120 cagri, bilgi tasiyan %93.3
+YUTMA KAPISI - 20.11.2026 07:10
+  simdi : 120 cagri, bilgi tasiyan %82.5
   onceki: 120 cagri, bilgi tasiyan %93.3
   - AB: %92 -> %92 (0) [100 kayit] gecti
   - HAMLE (Teknoloji Odaklı Sanayi Hamlesi): %100 -> %100 (0) [1 kayit] gecti
-  - Kalkınma Ajansları: %100 -> %100 (0) [14 kayit] gecti
+  - Kalkınma Ajansları: %100 -> %7.1 (-92.9) [14 kayit] KIRMIZI (cokus)
   - TÜBİTAK: %100 -> %100 (0) [5 kayit] gecti
 
-YESIL - hicbir kaynakta cokus/korlesme yok.
+KIRMIZI - 1 kaynakta yutma coktu:
+   * Kalkınma Ajansları: %100 -> %7.1 (-92.9 puan dustu). Kaynak sayfasi degismis olabilir.
+Ne yapmali: motor/cagri-hasat.ps1 -YerelYut ile onbellekten yeniden yut
+(kuruma gidilmez, saniyeler surer), desen tutmuyorsa kaynak sayfasini ac.

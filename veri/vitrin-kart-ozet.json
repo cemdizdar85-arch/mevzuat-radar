@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-11-19T02:28:44.836Z",
-  "gun": "2026-11-19",
+  "olcum": "2026-11-20T02:13:40.848Z",
+  "gun": "2026-11-20",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 2,
+      "sira": 3,
       "toplam": 10,
-      "id": "sgs-a6e-yabancidil-p1b/kp-01",
-      "ders": "Yabancı Dil",
-      "konu": "cümle tamamlama",
-      "donem": 18,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "Although the audit team had full access to all the accounting records, ----.",
+      "id": "sgs-t1-maliyet-cokzor/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dağıtımı",
+      "donem": 13,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Bir tekstil işletmesinde A ve B ana ürünleri ile Z yan ürünü aynı ortak üretim sürecinden elde edilmektedir. Ayrılma noktasından sonra A ürününe 100.000 TL, B ürününe 30.000 TL ek işleme maliyeti yüklenmekte; A ürününün nihai satış değeri 300.000 TL, B ürününün nihai satış değeri 150.000 TL'dir. Z yan ürününün satış geliri 20.000 TL olup yan ürüne ortak maliyetten pay verilmemekte, bu tutar ortak maliyetten düşülmektedir. Net gerçekleşebilir değer yöntemine göre yapılan dağıtım sonucunda B ürününe isabet eden ortak maliyet payı 96.000 TL olarak hesaplanmıştır. Buna göre işletmenin toplam birleşik (ortak) üretim maliyeti kaç TL'dir?",
       "siklar": {
-        "A": "they were able to complete the whole review well ahead of schedule",
-        "B": "the management refused to sign the letter of representation",
-        "C": "they still could not verify the origin of several large payments",
-        "D": "the financial statements had been prepared in line with the standards",
-        "E": "an independent expert was appointed by the board of directors"
+        "A": "236.000",
+        "B": "256.000",
+        "C": "276.000",
+        "D": "288.000",
+        "E": "308.000"
       },
       "dogru": "C",
       "tuzak": {
         "D": {
-          "ad": "Yön Tuzağı",
-          "metin": "Tabloların standartlara uygun hazırlanmış olması erişimle aynı yönde olumlu bir yargıdır. Doğrusu: zıtlık için olumsuz bir sonuç gerekir."
+          "ad": "Ölçüt Karışıklığı Tuzağı",
+          "metin": "NGD hesaplarken ek işleme maliyetlerini düşmeden doğrudan nihai satış değerlerini oranladın, ayrıca yan ürün gelirini eklemedin. Doğrusu: dağıtım anahtarı ek işleme maliyeti düşülmüş NGD'dir, nihai satış değeri değildir."
         },
         "E": {
-          "ad": "Bağlantı Tuzağı",
-          "metin": "Bağımsız uzman atanması ayrı bir olaydır, yan cümleyle zıtlık ilişkisi kurmaz. Doğrusu: ana cümle yan cümlenin beklentisini bozmalıdır."
+          "ad": "Bileşik Hata Tuzağı",
+          "metin": "hem yanlış oranla (ek işleme maliyetini düşmeden) net tutarı buldun hem de sonuna Z'yi ekleyerek iki hatayı birleştirdin. Doğrusu: doğru oran NGD'den, doğru toplam ise Z'nin doğru orana dayalı net tutara eklenmesinden g…"
         },
         "A": {
-          "ad": "Zıtlık Tuzağı",
-          "metin": "'Although' iki yargı arasında zıtlık kurar; erişim kolaylığı ile işin erken bitmesi aynı yönde olduğu için zıtlık doğmaz. Doğrusu: yan cümleyle ters düşen bir sonuç gerekir."
+          "ad": "Ters İşaret Tuzağı",
+          "metin": "Yan ürün satış gelirinin ortak maliyetten düşüldüğünü gördüğün için toplam ortak maliyeti bulurken bu tutarı dağıtılacak net tutardan bir kez daha çıkardın. Doğrusu: Z'nin satış geliri, net dağıtılacak tutara geri EKLEN…"
         },
         "B": {
-          "ad": "İlgi Tuzağı",
-          "metin": "Yönetimin beyan mektubunu imzalamaması, kayıtlara erişimle mantıksal olarak bağlanmaz. Doğrusu: sonuç, erişim olgusuyla çelişmelidir."
+          "ad": "Atlanan Katman Tuzağı",
+          "metin": "96.000 TL'yi 0,375 orana bölerek bulduğun 256.000'i doğrudan toplam ortak maliyet sandın, yan ürünün düşülmüş olan payını geri eklemeyi unuttun. Doğrusu: 256.000, Z düşüldükten SONRAKİ net dağıtılabilir tutardır, toplam…"
         }
       },
-      "hap": "Although gördüğünde ana cümlede beklenenin TERSİNİ ara; iki olumlu yargı yan yana gelmez.",
+      "hap": "Net gerçekleşebilir değer yönteminde dağıtım anahtarı, nihai satış değerinden ek işleme maliyetinin düşülmesiyle bulunan NGD'dir; yan ürünün ortak maliyetten düşülen satış geliri, toplam birleşik maliyete geri eklenerek bulunur.",
       "satirlar": [
         [
-          "Ne soruluyor",
-          "'Although' ile başlayan yan cümleyi anlamca tamamlayan ana cümle isteniyor."
+          "B ürünü net gerçekleşebilir değeri (150.000-30.000)",
+          "120.000"
         ],
         [
-          "Kural",
-          "'Although' zıtlık bağlacıdır; yan cümlede beklenen sonucun tersi ana cümlede yer alır. Burada yan cümle 'tüm kayıtlara tam erişim vardı' diyor; beklenen sonuç 'her şey doğrulandı' olurdu."
+          "Toplam net gerçekleşebilir değer",
+          "320.000"
         ],
         [
-          "Doğru şık",
-          "C) they still could not verify the origin of several large payments"
+          "B ürünü dağıtım oranı (120.000/320.000)",
+          "%37,5"
+        ],
+        [
+          "Dağıtılacak net ortak maliyet (96.000/0,375)",
+          "256.000"
+        ],
+        [
+          "Toplam birleşik (ortak) üretim maliyeti (256.000+20.000)",
+          "276.000"
         ]
       ],
-      "dayanak": "Yabancı Dil dilbilgisi kuralı - Zıtlık bağlaçları (although / though / even though): yan cümlede belirtilen durumun doğal sonucu ana cümlede GERÇEKLEŞMEZ. Cümle tamamlamada ilk adım bağlacın kurduğu anlam ilişkisini (zı…",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=2",
+      "dayanak": "Ortak maliyet dağıtımı - net gerçekleşebilir değer yöntemi ve yan ürün maliyetlendirmesi (maliyet muhasebesi teorisi, mevzuat maddesi yok)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=3",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -36,
+        "kalan_gun": -37,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,63 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 7,
+      "sira": 8,
       "toplam": 9,
-      "id": "smmm-w7-2-fmuh-kolay/kp-01",
-      "ders": "Finansal Muhasebe",
-      "konu": "bilanço düzenleme",
-      "donem": 30,
+      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "stok devir hızı",
+      "donem": 13,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı bilançosunun düzenlenmesinde, toplam anapara bakiyesi 640.000 ₺ olan uzun vadeli banka kredisinden, bilanço tarihinden itibaren bir yıl içinde ödenecek 185.000 ₺'lik taksit tutarı ile buna ilişkin tahakkuk etmiş ancak henüz ödenmemiş 12.500 ₺ faiz bulunmaktadır. Bu tutarların 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri hesabına aktarılacak toplamı kaç ₺'dir?",
+      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır? (Devir hızlarında ilgili formüllerde ortalama değeri kullanınız.)",
       "siklar": {
-        "A": "12.500",
-        "B": "185.000",
-        "C": "197.500",
-        "D": "640.000",
-        "E": "652.500"
+        "A": "4,5",
+        "B": "6,75",
+        "C": "9",
+        "D": "11",
+        "E": "13,5"
       },
       "dogru": "C",
       "tuzak": {
         "D": {
-          "ad": "Tümünü Aktarma Tuzağı",
-          "metin": "Öğrenci kredinin vade ayrımı yapmadan tamamını kısa vadeli hesaba taşır. Doğrusu: Sadece bir yıl içinde ödenecek 185.000 ₺'lik kısım ile faizi 303 hesabına aktarılır, kalan uzun vadeli olarak izlenir."
+          "ad": "Pay Karıştırma Tuzağı",
+          "metin": "pay (bölünen) olarak satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjı içerdiğinden kullanılmaz; payda ortalama s…"
         },
         "E": {
-          "ad": "Toplam Anaparaya Faiz Ekleme Tuzağı",
-          "metin": "Öğrenci kredinin tüm anaparasını kısa vadeye alır ve üstüne faizi ekler. Doğrusu: 303 hesabına aktarılacak tutar sadece bir yıl içinde ödenecek 185.000 ₺ ile faizin toplamı olan 197.500 ₺'dir."
+          "ad": "Dönem Başı Stok Tuzağı",
+          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
         },
         "A": {
-          "ad": "Yalnızca Faiz Tuzağı",
-          "metin": "Öğrenci sadece tahakkuk eden faizi 303 hesabına aktarır, anapara taksitini unutur. Doğrusu: 303 hesabı hem taksiti hem faizi kapsar, tutar 185.000+12.500=197.500 olmalıdır."
+          "ad": "Toplam Stok Tuzağı",
+          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
         },
         "B": {
-          "ad": "Yalnızca Anapara Tuzağı",
-          "metin": "Öğrenci taksit tutarını doğru bulur ama tahakkuk eden faizi 303 hesabına eklemeyi unutur. Doğrusu: 303 hesabı anapara taksiti ile faizin toplamını kapsar, 197.500 olmalıdır."
+          "ad": "Dönem Sonu Stok Tuzağı",
+          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: kök ortalama değeri istediği için payda ortalama stok (45.000) olmalıdır; kök söylemeseydi, iki dönem verisinde komisyon dönem sonu st…"
         }
       },
-      "hap": "Uzun vadeli kredinin bilanço tarihinden itibaren bir yıl içinde ödenecek anapara taksiti, buna ait tahakkuk etmiş ödenmemiş faiziyle birlikte 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri hesabına aktarılır.",
+      "hap": "Stok devir hızının payı satılan malın maliyetidir, satış hasılatı kullanılmaz; bu soruda kök ortalama istediği için payda ortalama stoktur (kök söylemeseydi, iki dönem verisinde komisyon dönem sonu stoğu da kabul etmiştir, K15).",
       "satirlar": [
         [
-          "Bir yıl içinde ödenecek anapara taksiti",
-          "185.000"
+          "Dönem Başı Stok",
+          "30.000"
         ],
         [
-          "Tahakkuk eden ödenmemiş faiz",
-          "12.500"
+          "Dönem Sonu Stok",
+          "60.000"
         ],
         [
-          "303 UZUN VADELİ KREDİLERİN ANAPARA TAKSİTLERİ VE FAİZLERİ hesabı aktarılacak toplam",
-          "197.500"
+          "Ortalama Stok",
+          "45.000"
+        ],
+        [
+          "Satılan Malın Maliyeti",
+          "405.000"
+        ],
+        [
+          "Stok Devir Hızı",
+          "9"
         ]
       ],
-      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=7",
+      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=8",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -30,
+        "kalan_gun": -31,
         "durum": "DONGU",
         "mail_gunu": false
       },
