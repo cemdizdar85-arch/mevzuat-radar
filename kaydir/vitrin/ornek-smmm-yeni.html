@@ -122,8 +122,21 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .fr strong.g{color:var(--ok)}
 .fkt small{display:block;margin-top:10px;font-size:12.5px;line-height:1.3;color:var(--soluk)}
 .cnl{margin:22px 0 0;padding:16px 16px 12px;border-radius:22px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 14px 34px -18px color-mix(in srgb,var(--murekkep) 45%,transparent),0 2px 6px -2px color-mix(in srgb,var(--murekkep) 12%,transparent);scroll-margin-top:10px}
-.cnb{display:flex;justify-content:space-between;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
-.cnb span:last-child{color:var(--ince)}
+.cnb{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.cnb .cnsy{color:var(--ince)}
+.cnh{display:inline-flex;background:var(--dolgu);border-radius:999px;padding:3px}
+.cnh button{height:34px;padding:0 16px;border-radius:999px;font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--soluk)}
+.cnh button.ac{background:var(--kagit);color:var(--vurgu);box-shadow:0 1px 3px color-mix(in srgb,var(--murekkep) 18%,transparent)}
+.nsc{margin:18px 0 0;background:var(--dolgu);border-radius:18px;padding:12px}
+.nsb{display:flex;align-items:center;gap:14px;padding:0 4px 12px}
+.nsb .oy{flex:none;width:44px;height:44px;border-radius:50%;background:var(--murekkep);display:flex;align-items:center;justify-content:center}
+.nsb .oy svg{width:20px;height:20px;fill:var(--kagit);margin-left:2px}
+.nsb b{display:block;font-size:16px}
+.nsb small{color:var(--soluk);font-size:13.5px}
+.nsd{display:flex;gap:8px}
+.nsd button{flex:1;min-height:64px;border-radius:14px;background:var(--kagit);border:1.5px solid var(--cizgi);padding:10px 12px;text-align:left}
+.nsd button b{display:block;font-size:15.5px;color:var(--vurgu)}
+.nsd button small{display:block;margin-top:2px;font-size:12.5px;line-height:1.3;color:var(--soluk)}
 .cnq{margin:12px 0 0;font-size:16px;line-height:2;color:var(--murekkep)}
 .cz{position:relative;white-space:nowrap;transition:color .3s,background-color .3s}
 .cz.alt{box-shadow:inset 0 -3px 0 var(--vurgu);font-weight:600}
@@ -265,7 +278,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',ca:-1,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -449,28 +462,32 @@ const CA={
        E:{s:'Sen yalnız dönem başı stoğu aldın; dönem sonunu atladın.',at:['60.000 ₺']},
        dogru:{s:'Doğru çözdün. Adım adım üstünden geçelim.',at:[]}},
   ad:['Önce soruya bak: stok devir hızını soruyor.','Soru bir ipucu veriyor: ortalama değeri kullan.',null,'Payda ortalama stoktur: iki stoğu topla, ikiye böl.','Pay, satılan malın maliyetidir.','Net satışlar bu hesapta kullanılmaz.','405.000 bölü 45.000 eşittir 9. Depo yılda 9 kez boşalıp dolmuş.'],
+  kisa:[{a:2},{a:4,s:'Doğrusu: paydaya iki stoğun ortalaması, paya satılan malın maliyeti.'},{a:6,s:'405.000 bölü 45.000 eşittir 9.'}],
   uc:{3:[['d1','d'],['d2','d']],4:[['p','p']]},
   f:{ad:'Stok devir hızı',pay:'405.000',payAd:'Satılan malın maliyeti',payda:'(30.000 + 60.000) ÷ 2',paydaAd:'Ortalama stok',s:'9',sa:6,pa:4,da:3}}
 };
+function caN(){const C=CA[Q().id];return S.caK?C.kisa.length:C.ad.length;}
+function caTam(i){const C=CA[Q().id];return S.caK?C.kisa[i].a:i;}
 function canliH(q){
  const C=CA[q.id];if(!C)return '';
- if(S.ca<0)return `<button class="nbr" data-a="caAc"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></button>`;
- const a=S.ca,n=C.ad.length,k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
+ if(S.ca<0)return `<div class="nsc"><div class="nsb"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Sorunun üstünde, çizerek</small></span></div><div class="nsd"><button data-a="caKisa"><b>Kısa anlat</b><small>${C.kisa.length} adım · yalnız hatan ve doğrusu</small></button><button data-a="caUzun"><b>Uzun anlat</b><small>${C.ad.length} adım · baştan sona</small></button></div></div>`;
+ const n=caN(),a=caTam(S.ca),k=S.sec===q.dogru?C.kis.dogru:(C.kis[S.sec]||C.kis.dogru);
  let m=kac(q.soru);
  for(const x of C.m){const p=kac(x[0]);if(m.indexOf(p)<0)return '';const ac=a>=x[2],at=a===2&&k.at.indexOf(x[0])>=0;
   m=m.replace(p,`<span class="cz ${ac?x[1]:''} ${ac&&a===x[2]?'yeni':''} ${at?'atl yeni':''}"${x[3]?` data-k="${x[3]}"`:''}>${p}</span>`);}
- const F=C.f,soz=a===2?k.s:C.ad[a];
- return `<div class="cnl" id="cnl"><div class="cnb"><span>Nöbetçi anlatıyor</span><span>${a+1} / ${n}</span></div>
+ const F=C.f,soz=a===2?k.s:(S.caK&&C.kisa[S.ca].s)||C.ad[a];
+ return `<div class="cnl" id="cnl"><div class="cnb"><span class="cnh"><button data-a="caKisa" class="${S.caK?'ac':''}">Kısa</button><button data-a="caUzun" class="${S.caK?'':'ac'}">Uzun</button></span><span class="cnsy">${S.ca+1} / ${n}</span></div>
  <p class="cnq">${m}</p>
  <div class="cnf"><span class="cna">${kac(F.ad)} =</span><span class="kes"><span class="yv ${a>=F.pa?'dolu mp':''}" data-h="p">${kac(a>=F.pa?F.pay:F.payAd)}</span><i></i><span class="yv ${a>=F.da?'dolu md':''}" data-h="d">${kac(a>=F.da?F.payda:F.paydaAd)}</span></span><span>=</span><strong class="${a>=F.sa?'var':'bos'}">${a>=F.sa?kac(F.s):'?'}</strong></div>
  <p class="cns">${kac(soz)}</p>
- <div class="cnn">${C.ad.map((_,i)=>`<i class="${i<a?'g':i===a?'a':''}"></i>`).join('')}</div>
- <div class="cnk"><button data-a="caGeri" aria-label="Önceki adım" ${a===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="caOyna" aria-label="${S.caO?'Durdur':'Oynat'}">${S.caO?IK.dur:IK.oyna}</button><button data-a="caIleri" aria-label="Sonraki adım" ${a===n-1?'disabled':''}>${IK.sonra}</button></div></div>`;
+ <div class="cnn">${Array.from({length:n},(_,i)=>`<i class="${i<S.ca?'g':i===S.ca?'a':''}"></i>`).join('')}</div>
+ <div class="cnk"><button data-a="caGeri" aria-label="Önceki adım" ${S.ca===0?'disabled':''}>${IK.once}</button><button class="buy" data-a="caOyna" aria-label="${S.caO?'Durdur':'Oynat'}">${S.caO?IK.dur:IK.oyna}</button><button data-a="caIleri" aria-label="Sonraki adım" ${S.ca===n-1?'disabled':''}>${IK.sonra}</button></div></div>`;
 }
 let caT=null;
-function ucur(a){
- const q=Q(),C=q&&CA[q.id],yol=C&&C.uc[a],kok=document.getElementById('cnl');if(!yol||!kok)return;
+function ucur(i){
+ const q=Q(),C=q&&CA[q.id],kok=document.getElementById('cnl');if(!C||!kok||i<1)return;
  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(e){}
+ const a=caTam(i),o=caTam(i-1);let yol=[];Object.keys(C.uc).forEach(x=>{if(+x>o&&+x<=a)yol=yol.concat(C.uc[x]);});
  yol.forEach(y=>{const s=kok.querySelector('[data-k="'+y[0]+'"]'),d=kok.querySelector('[data-h="'+y[1]+'"]');if(!s||!d)return;
   const r1=s.getBoundingClientRect(),r2=d.getBoundingClientRect(),u=document.createElement('span');
   u.className='ucn';u.textContent=s.textContent;u.style.left=r1.left+'px';u.style.top=r1.top+'px';document.body.appendChild(u);
@@ -479,7 +496,7 @@ function ucur(a){
 }
 function caSaat(){
  clearTimeout(caT);if(!S||!S.caO)return;
- caT=setTimeout(()=>{if(!S||S.e!=='sonuc'||S.ca<0||!S.caO)return;const C=CA[Q().id];if(S.ca>=C.ad.length-1){S.caO=false;ciz();return;}S.ca++;ciz();ucur(S.ca);caSaat();},3000);
+ caT=setTimeout(()=>{if(!S||S.e!=='sonuc'||S.ca<0||!S.caO)return;if(S.ca>=caN()-1){S.caO=false;ciz();return;}S.ca++;ciz();ucur(S.ca);caSaat();},S.caK?3600:3000);
 }
 function eSoru(){
  const q=Q(),ip=S.uyari?ayirt(q,S.uyari):'';
@@ -575,10 +592,10 @@ document.addEventListener('click',e=>{
   case 'soruGor':S.e='soruGor';window.scrollTo(0,0);break;
   case 'kapatS':S.e='sonuc';break;
   case 'rk':S.rk=!S.rk;break;
-  case 'caAc':S.ca=0;kayC=true;break;
+  case 'caKisa':case 'caUzun':S.caK=d.a==='caKisa';S.caO=false;clearTimeout(caT);kayC=S.ca<0;S.ca=0;break;
   case 'caIleri':S.caO=false;clearTimeout(caT);S.ca++;ucA=S.ca;break;
   case 'caGeri':S.caO=false;clearTimeout(caT);S.ca=Math.max(0,S.ca-1);break;
-  case 'caOyna':S.caO=!S.caO;if(S.caO&&S.ca>=CA[q.id].ad.length-1)S.ca=0;break;
+  case 'caOyna':S.caO=!S.caO;if(S.caO&&S.ca>=caN()-1)S.ca=0;break;
   case 'nobAc':S.nb=1;kay=true;break;
   case 'nobIleri':S.nb=S.nb+1;kay=true;break;
   case 'nob':S.e='nob';S.ders='soru';S.adim=0;S.ek=null;window.scrollTo(0,0);break;
@@ -630,7 +647,7 @@ function sinama(){
   o.push('  yanlis: "'+q('h1').textContent.slice(0,40)+'" | cozum '+!!q('.kt2')+' | akilda tut '+!!q('.tut')+' | formul '+qa('.bd>.fg').length+' dolu hali '+qa('.bd>.fg .fd').length+' tablo satiri '+qa('.bd>.kyt .kr').length+' etiket '+qa('.bd>.kyt .et').length+' kisa hesap '+qa('.bd>.kyt .ac').length+' | sik sirasi '+qa('.cp').length+' | '+tas());
   q('[data-c='+yan[2]+']').click();o.push('  sikka dokun: '+(q('.ned')?q('.ned').textContent.length+' harf':'YOK'));q('[data-c='+yan[2]+']').click();
   q('[data-a=soruGor]').click();o.push('  soruyu gor: carpi '+us(q('[data-a=kapatS].x')));q('[data-a=kapatS].x').click();
-  if(q('[data-a=caAc]')){q('[data-a=caAc]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<6;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: adim "'+q('.cnb span:last-child').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
+  if(q('[data-a=caUzun]')){q('[data-a=caKisa]').click();const kn=q('.cnsy').textContent;q('[data-a=caIleri]').click();q('[data-a=caIleri]').click();const ks=(q('#cnl .cnf strong')||{}).textContent;q('[data-a=caUzun]').click();const ilk=qa('#cnl .cz.alt').length;for(let k=0;k<6;k++)q('[data-a=caIleri]').click();o.push('  canli anlatim: kisa "'+kn+'" sonucu '+ks+' | uzun adim "'+q('.cnsy').textContent+'" | ilk adimda alti cizili '+ilk+' | isaret '+qa('#cnl .cz.alt,#cnl .cz.sari,#cnl .cz.dy,#cnl .cz.dm,#cnl .cz.czg').length+' | pay dolu '+!!q('#cnl [data-h=p].dolu')+' | payda dolu '+!!q('#cnl [data-h=d].dolu')+' | sonuc '+(q('#cnl .cnf strong')||{}).textContent+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());q('[data-a=caGeri]').click();q('[data-a=caOyna]').click();q('[data-a=caOyna]').click();o.push('  oynat/durdur: oynuyor '+S.caO);}else if(q('[data-a=nobAc]')){q('[data-a=nobAc]').click();q('[data-a=nobIleri]').click();q('[data-a=nobIleri]').click();q('[data-n="1"]').click();o.push('  yeni nobetci: adim '+qa('.nad').length+' | cizim '+qa('.tk2').length+' | anlamadim acildi '+!!q('.ansf')+' | sonraki dugmesi bitti '+!q('[data-a=nobIleri]')+' | ayni ekranda '+(S.e==='sonuc')+' | '+tas());}else{
   q('[data-a=nob]').click();const n=dersi(s).length;o.push('  nobetci: adim '+n+' | carpi '+us(q('[data-a=kapatN]'))+' | oynat '+us(q('[data-a=oyna]'))+' | '+tas());
   let enUzun=0;for(let k=1;k<n;k++){q('[data-a=sonraA]').click();enUzun=Math.max(enUzun,q('.tht').scrollHeight);}
   o.push('  son adim "'+q('.cap .st').textContent+'" | tahta en uzun '+enUzun+'px | daha basit '+!!q('[data-a=basit]')+' | konu '+!!q('[data-a=konu]'));
