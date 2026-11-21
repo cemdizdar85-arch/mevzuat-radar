@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **20.11.2026 16:56** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **21.11.2026 16:04** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 51975 parça · 2829 tekil kaynak | Bütünlük ölçülen: 2829 (delikli: 412; son ölçüm: 20.11.2026) | Sürüm ölçülen: 50 (sorunlu: 1; son ölçüm: 20.11.2026 16:54)
+**ÖZET:** 51976 parça · 2829 tekil kaynak | Bütünlük ölçülen: 2829 (delikli: 412; son ölçüm: 21.11.2026) | Sürüm ölçülen: 50 (sorunlu: 1; son ölçüm: 21.11.2026 16:02)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -762,7 +762,7 @@
 | Kabahatler K. (5326 s.K.) | kanun-madde | 59 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kaçakçılıkla Müc. K. (5607 s.K.) | kanun-madde | 58 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kamu Finansmanı ve Borç Yönetimi K. (4749 s.K.) | kanun-madde | 125 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Kamu Ihale Genel Tebligi | kanun-madde | 381 | DELİK-İNCELE(par:4/kesik:78/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Kamu Ihale Genel Tebligi | kanun-madde | 382 | DELİK-İNCELE(par:4/kesik:79/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kamu İhale Sözl. K. (4735 s.K.) | kanun-madde | 58 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kamu Ihale Tebligi (2026/1) - esik degerler | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kamu Malî Yönetimi K. (5018 s.K.) | kanun-madde | 169 | DELİK-İNCELE(par:4/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
