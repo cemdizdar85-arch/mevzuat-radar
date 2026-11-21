@@ -325,7 +325,9 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .cta.nbd .mk{width:38px;height:38px;box-shadow:0 0 0 2px var(--kagit)}
 .kyd{margin:2px 0 0;text-align:center;font-size:12px;color:var(--ince)}
 .dgm{display:flex;gap:8px;flex-wrap:wrap}
-.dgm .anl{margin-top:12px}
+.dgm .anl{margin-top:12px;flex:1 1 0;min-width:140px;height:48px;border-radius:14px;background:var(--vurguZ);color:var(--vurgu);font-size:15px;font-weight:700;border:1.5px solid color-mix(in srgb,var(--vurgu) 38%,transparent);display:flex;align-items:center;justify-content:center;gap:6px}
+.dgm .anl::after{content:"›";font-size:18px;line-height:1;transform:rotate(90deg)}
+.dgm .anl.ack::after{transform:rotate(-90deg)}
 .drb .cnh button{padding:0 11px}
 .so{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :focus-visible{outline:3px solid var(--vurgu);outline-offset:2px}
@@ -912,7 +914,7 @@ function eSonuc(){
  if(S.drs&&Y)return `<div class="bd tam">${dersH(q)}</div>`;
  const T0=dg?null:tbl(q,S.sec),fml=formulH(q,true);
  const gizli=T0?T0.s.filter((r,i)=>i!==T0.s.length-1&&T0.sen[S.sec].v[i]===r[1]).length:0;
- const tb=T0?tabloH(q,S.sec,!S.tmm)+`<div class="dgm">${gizli?`<button class="anl" data-a="tmm">${S.tmm?'Kısa göster':'Hesabın tamamı'}</button>`:''}${fml?`<button class="anl fmb" data-a="fm">${S.fm?'Formülü gizle':'Formülü gör'}</button>`:''}</div>`+(S.fm?fml:''):'';
+ const tb=T0?tabloH(q,S.sec,!S.tmm)+`<div class="dgm">${gizli?`<button class="anl ${S.tmm?'ack':''}" data-a="tmm">${S.tmm?'Kısa göster':'Hesabın tamamı'}</button>`:''}${fml?`<button class="anl fmb ${S.fm?'ack':''}" data-a="fm">${S.fm?'Formülü gizle':'Formülü gör'}</button>`:''}</div>`+(S.fm?fml:''):'';
  const nbr=Y?'':canliH(q)||nobY(q)||`<button class="nbr" data-a="nob"><span class="oy">${IK.oyna}</span><span><b>Nöbetçi anlatsın</b><small>Tahtada, adım adım</small></span></button>`;
  const coz=fml||cozumH(q)||(q.olay?`<div class="kt2"><b>Doğru çözüm</b>${kac(q.olay)}</div>`:'');
  const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:(!dg&&q.hap)?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
