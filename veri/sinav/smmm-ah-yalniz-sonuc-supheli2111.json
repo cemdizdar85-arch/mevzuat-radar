@@ -1,0 +1,844 @@
+{
+ "ad": "supheli2111",
+ "tarih": "2026-11-21T19:06:28.821Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh44938464360",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 3.1,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 51,
+  "gonderilen": 51,
+  "temiz": 18,
+  "kusurlu": 33,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 51,
+  "kaynaksiz": 6,
+  "kaynaksiz_kusurlu": 2,
+  "usd": 2.21
+ },
+ "kararlar": {
+  "smmm-4k-a-fmuh-cokzor-r5/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-fmuh-kolay-r2/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Teminatlı kısım"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-fmuh-kolay-r4/kp-15": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "aciklama.E",
+    "sade.dogru",
+    "teshis.E",
+    "adimlar",
+    "hap",
+    "sinav_taktigi",
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-fmuh-kolay-r5/kp-18": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 151 - YARI MAMULLER-ÜRETİM"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-fmuh-kolay-r6/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-fmuh-kolay-r6/kp-15": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-fmuh-kolay-r8/kp-10": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 151 - YARI MAMULLER-ÜRETİM"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-fmuh-zor-r10/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[Teminatlı kısım].kim",
+    "konu_ozeti.terimler[Karşılık tutarı].kim",
+    "sade.kavramlar.kaynak"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+    "VUK (213 s.K.) m.322 - İKİNCİ BÖLÜM Alacaklarda ve Sermayede Amortisman Değersiz alacaklar"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-fmuh-zor-r6/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar[2].tanim"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-fmuh-zor-r9/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 151 - YARI MAMULLER-ÜRETİM"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-ydenetim-kolay-r10/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Teminatlı kısım",
+    "konu_ozeti.terimler.Sonradan tahsilat",
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "THP 422 - BORÇ SENETLERİ REESKONTU (-)",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-ydenetim-kolay-r7/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[0].kim",
+    "konu_ozeti.terimler[1]",
+    "konu_ozeti.terimler[2]",
+    "konu_ozeti.terimler[3]",
+    "teshis.C.paragraf",
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "THP 422 - BORÇ SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-ydenetim-zor-r1/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Teminatlı kısım.kim",
+    "konu_ozeti.terimler.Sonradan tahsilat.kim",
+    "sade.kavramlar.Değersiz alacak.kaynak"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "THP 422 - BORÇ SENETLERİ REESKONTU (-)",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-ydenetim-zor-r3/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Şüpheli alacak.kim",
+    "konu_ozeti.terimler.Teminatlı kısım.kim",
+    "konu_ozeti.terimler.Tasarruf değeri.tanim",
+    "konu_ozeti.terimler.Tasarruf değeri.kim",
+    "konu_ozeti.terimler.Karşılık tutarı.kim"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "THP 422 - BORÇ SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-ydenetim-zor-r5/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.terimler[3].kim",
+    "sade.kavramlar[2].kaynak"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "THP 422 - BORÇ SENETLERİ REESKONTU (-)",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-4k-a-ydenetim-zor-r9/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Şüpheli alacak.kim",
+    "konu_ozeti.terimler.Teminat tutarı.kim",
+    "konu_ozeti.terimler.Tahsil edilen kısım.kim"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "THP 422 - BORÇ SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-gm5-1-fmuh-zor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-gm5-10-fmuh-zor/kp-08": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-gm5-4-fmuh-zor/kp-04": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.sinavda"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w10-2-fmuh-cokzor/kp-10": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar[0].tanim"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w10-3-fmuh-cokzor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[Teminat tutarı].kim",
+    "konu_ozeti.terimler[KDV dahil toplam alacak].kim",
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w10-3-fmuh-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.128 Şüpheli Ticari Alacaklar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) muk. m.298 [10/16]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w10-3-fmuh-kolay/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w10-3-fmuh-zor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w10-3-fmuh-zor/kp-08": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[3].kim",
+    "konu_ozeti.terimler[0].kim",
+    "teshis.D.paragraf",
+    "teshis.B.paragraf"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w11-1-fmuh-cokzor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Teminatlı kısım",
+    "konu_ozeti.terimler.Ayrılacak karşılık",
+    "sade.siklar.E",
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-w11-1-fmuh-zor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.C"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w13-1-fmuh-zor/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.A"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [2/2]",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w13-4-fmuh-zor/kp-13": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w4-fmuh-cokzor/kp-09": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "ustune_yazildi": {
+    "onceki_karar": "TEMIZ"
+   }
+  },
+  "smmm-w4-fmuh-cokzor/kp-18": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w5-fmuh-cokzor/kp-13": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "dayanak"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) m.177"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w5-fmuh-cokzor/kp-22": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w5-fmuh-kolay/kp-09": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) m.176 - İKİNCİ BÖLÜM Defter Tutma Bakımından Tüccarlar Tüccar sınıfları"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w5-fmuh-kolay/kp-15": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w6-fmuh-cokzor/kp-04": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w6-fmuh-zor/kp-20": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar[0]"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-1-fmuh-cokzor/kp-10": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar[0]",
+    "teshis.B.paragraf"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-1-fmuh-kolay/kp-09": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Teminatlı kısım",
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-2-fmuh-cokzor/kp-10": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-2-fmuh-kolay/kp-10": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler[1].kim",
+    "konu_ozeti.harita",
+    "konu_ozeti.terimler[0].tanim"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 271 - ARAMA GİDERLERİ"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-3-fmuh-cokzor/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "dayanak",
+    "teshis.A.gercek"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) muk. m.298 [10/16]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-3-fmuh-kolay/kp-01": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.B"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) muk. m.298 [10/16]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-3-fmuh-kolay/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sinav_taktigi"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 137 - DİĞER ALACAK SENETLERİ REESKONTU (-)",
+    "VUK (213 s.K.) muk. m.298 [12/16]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w8-4-fmuh-kolay/kp-07": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w9-1-fmuh-zor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.nedir",
+    "konu_ozeti.terimler[0].tanim",
+    "konu_ozeti.terimler[2].kim"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w9-2-fmuh-cokzor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+    "THP 128 - Şüpheli Ticari Alacaklar",
+    "THP 129 - ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-)",
+    "THP 654 - KARŞILIK GİDERLERİ (-)",
+    "THP 681 - ÖNCEKİ DÖNEM GİDER VE ZARARLARI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w9-2-fmuh-cokzor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.yontemler",
+    "konu_ozeti.terimler.Tahsil edilen kısım",
+    "konu_ozeti.terimler.Karşılık tutarı",
+    "dayanak",
+    "teshis.A",
+    "teshis.B",
+    "teshis.D"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w9-2-fmuh-zor/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "dayanak",
+    "konu_ozeti.yontemler"
+   ],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 139 - ŞÜPHELİ DİĞER ALACAKLAR KARŞILIĞI (-)"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w9-3-fmuh-kolay/kp-12": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kayit+ambar",
+   "madde_adlari": [
+    "kaynak_metin_ozet",
+    "THP 122 - ALACAK SENETLERİ REESKONTU (-)",
+    "THP 151 - YARI MAMULLER-ÜRETİM"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w9-4-fmuh-kolay/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.sinav",
+    "dayanak",
+    "hap"
+   ],
+   "madde_kaynak": "kayit",
+   "madde_adlari": [
+    "kaynak_metin_ozet"
+   ],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-fmuh-kolay-r2/kp-03",
+  "smmm-4k-a-fmuh-kolay-r4/kp-15",
+  "smmm-4k-a-fmuh-zor-r10/kp-01",
+  "smmm-4k-a-fmuh-zor-r6/kp-05",
+  "smmm-4k-a-ydenetim-kolay-r10/kp-01",
+  "smmm-4k-a-ydenetim-kolay-r7/kp-01",
+  "smmm-4k-a-ydenetim-zor-r1/kp-02",
+  "smmm-4k-a-ydenetim-zor-r3/kp-01",
+  "smmm-4k-a-ydenetim-zor-r5/kp-01",
+  "smmm-4k-a-ydenetim-zor-r9/kp-01",
+  "smmm-gm5-4-fmuh-zor/kp-04",
+  "smmm-w10-2-fmuh-cokzor/kp-10",
+  "smmm-w10-3-fmuh-cokzor/kp-02",
+  "smmm-w10-3-fmuh-kolay/kp-01",
+  "smmm-w10-3-fmuh-kolay/kp-05",
+  "smmm-w10-3-fmuh-zor/kp-08",
+  "smmm-w11-1-fmuh-cokzor/kp-06",
+  "smmm-w11-1-fmuh-zor/kp-06",
+  "smmm-w13-1-fmuh-zor/kp-05",
+  "smmm-w5-fmuh-cokzor/kp-13",
+  "smmm-w6-fmuh-zor/kp-20",
+  "smmm-w8-1-fmuh-cokzor/kp-10",
+  "smmm-w8-1-fmuh-kolay/kp-09",
+  "smmm-w8-2-fmuh-cokzor/kp-10",
+  "smmm-w8-2-fmuh-kolay/kp-10",
+  "smmm-w8-3-fmuh-cokzor/kp-01",
+  "smmm-w8-3-fmuh-kolay/kp-01",
+  "smmm-w8-3-fmuh-kolay/kp-06",
+  "smmm-w8-4-fmuh-kolay/kp-07",
+  "smmm-w9-1-fmuh-zor/kp-06",
+  "smmm-w9-2-fmuh-cokzor/kp-03",
+  "smmm-w9-2-fmuh-zor/kp-02",
+  "smmm-w9-4-fmuh-kolay/kp-02"
+ ],
+ "kaynaksiz": [
+  "smmm-4k-a-fmuh-kolay-r6/kp-15",
+  "smmm-gm5-1-fmuh-zor/kp-04",
+  "smmm-gm5-10-fmuh-zor/kp-08",
+  "smmm-gm5-4-fmuh-zor/kp-04",
+  "smmm-w11-1-fmuh-cokzor/kp-06",
+  "smmm-w4-fmuh-cokzor/kp-09"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-gm5-4-fmuh-zor/kp-04",
+  "smmm-w11-1-fmuh-cokzor/kp-06"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
