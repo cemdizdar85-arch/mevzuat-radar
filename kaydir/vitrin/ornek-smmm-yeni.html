@@ -1008,14 +1008,20 @@ function eIkiz(){
 const tuzAd=q=>{const T=TB[q.id];return T&&T.tut?T.tut:q.hap?String(q.hap).replace(/,?\s*K\d+(?=\))/g,''):'';};
 const yolBos=()=>({gor:[],ynl:[],bit:0,gun:[],ara:null});
 let Y=Object.assign(yolBos(),dp.al('tk_yol_1',null)||{});
-const yolYaz=()=>{if(!SINAMA)dp.yaz('tk_yol_1',Y);};
+const HK='sg_yol_smmm_ornek';let HSB=null,HUID=null,hsT=null,hesBir=false;
+const yolYaz=()=>{if(SINAMA)return;Y.t=Date.now();dp.yaz('tk_yol_1',Y);hesKuyruk();};
+function hesKuyruk(){if(!HUID)return;clearTimeout(hsT);hsT=setTimeout(hesGonder,3000);}
+function hesGonder(){clearTimeout(hsT);hsT=null;if(!HUID||!HSB)return;try{HSB.from('deneme_ilerleme').upsert([{user_id:HUID,anahtar:HK,veri:Y,guncelleme:new Date().toISOString()}],{onConflict:'user_id,anahtar'}).then(()=>{},()=>{});}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&hsT)hesGonder();});
+function hesAc(){if(SINAMA||hesBir)return;hesBir=true;const git=async()=>{try{HSB=window.__pkSb||(window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg'));const o=(await HSB.auth.getSession()).data.session;if(!o)return;const r=await HSB.from('deneme_ilerleme').select('veri').eq('anahtar',HK).limit(1);if(!r||r.error)return;HUID=o.user.id;const u=r.data&&r.data[0]&&r.data[0].veri;if(u&&typeof u==='object'&&(+u.t||0)>(+Y.t||0)){if(S&&S.e==='gir'){Y=Object.assign(yolBos(),u);dp.yaz('tk_yol_1',Y);araDuzelt();}}else if(Y.gor.length||Y.gun.length)hesGonder();if(S&&S.e==='gir')ciz();}catch(e){}};if(window.supabase&&window.supabase.createClient)git();else{const k=document.createElement('script');k.src='../../kutuphane/supabase-2.112.3.js';k.onload=git;document.head.appendChild(k);}}
+const hesYazi=()=>HUID?'İlerlemen hesabına kaydediliyor; hangi cihazdan girersen kaldığın yerden açılır.':'Giriş yapmadın; ilerlemen yalnız bu cihazda tutulur.';
 const gunAd=d=>d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 function seriN(){const t=new Date();if(Y.gun.indexOf(gunAd(t))<0){t.setDate(t.getDate()-1);if(Y.gun.indexOf(gunAd(t))<0)return 0;}let n=0;while(Y.gun.indexOf(gunAd(t))>=0){n++;t.setDate(t.getDate()-1);}return n;}
 const idx=id=>SORULAR.findIndex(q=>q.id===id);
 function yolCvp(id,dgr){if(SINAMA)return;if(Y.gor.indexOf(id)<0)Y.gor.push(id);const k=Y.ynl.indexOf(id);if(!dgr&&k<0)Y.ynl.push(id);if(dgr&&k>=0&&(OZL||POS===RVP))Y.ynl.splice(k,1);yolAra(true);}
 function yolAra(c){if(SINAMA)return;Y.ara={k:TNO,o:OZL,s:SIRA.map(i=>SORULAR[i].id),p:POS,c:!!c,t:TURN,r:RVP,y:YNL.map(i=>SORULAR[i].id),z:COZ.map(i=>SORULAR[i].id),d:DOGRU};yolYaz();}
 function gunEkle(){const g=gunAd(new Date());if(Y.gun.indexOf(g)<0)Y.gun.push(g);Y.gun=Y.gun.slice(-60);}
-function yolBit(){if(SINAMA)return;if(!OZL)Y.bit=Math.max(Y.bit,TNO+1);gunEkle();Y.ara=null;yolYaz();}
+function yolBit(){if(SINAMA)return;if(!OZL)Y.bit=Math.max(Y.bit,TNO+1);gunEkle();Y.ara=null;yolYaz();hesGonder();}
 function araDuzelt(){if(SINAMA)return;Y.ynl=Y.ynl.filter(id=>idx(id)>=0);Y.gor=Y.gor.filter(id=>idx(id)>=0);if(Y.bit>DURAK.length)Y.bit=DURAK.length;const a=Y.ara;if(a){if(!a.s||a.s.some(id=>idx(id)<0)||(!a.o&&a.k>=DURAK.length)){Y.ara=null;}else if(a.p+(a.c?1:0)>=a.s.length){if(!a.o)Y.bit=Math.max(Y.bit,a.k+1);gunEkle();Y.ara=null;}}yolYaz();}
 function turBasla(k,ozel){OZL=!!ozel;RVP=-1;TNO=ozel?0:k;if(ozel){SIRA=Y.ynl.slice(0,4).map(idx);}else{SIRA=DURAK[k].slice();if(k>0){const r=Y.ynl.map(idx).filter(i=>SIRA.indexOf(i)<0)[0];if(r!=null){SIRA.push(r);RVP=SIRA.length-1;}}}TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
 function araYukle(){const a=Y.ara;OZL=!!a.o;TNO=a.k;SIRA=a.s.map(idx);TURN=a.t;RVP=a.r;YNL=a.y.map(idx);COZ=a.z.map(idx);DOGRU=a.d||0;SERI=0;POS=a.p+(a.c?1:0);if(POS>=SIRA.length)POS=SIRA.length-1;S=Object.assign(yeniSoru(),{i:SIRA[POS]});yolAra(false);}
@@ -1030,14 +1036,14 @@ function srIz(){if(S&&S.e==='bit'){if(!srGor){srGor=true;setTimeout(srBas,0);}}e
 document.addEventListener('pointerdown',e=>{if(srT&&!(e.target.closest&&e.target.closest('#srb')))srDur();},true);
 const ESKI_ALT="<button class=\"cta koyu\" style=\"width:auto;padding:0 28px\" data-a=\"bastan\">Bir tur daha</button><a class=\"duz\" style=\"display:flex;align-items:center;justify-content:center;text-decoration:none\" href=\"ornek-smmm.html\">Bugünkü ekrana git</a><p class=\"dnn\">Bu bir deneme sayfasıdır; cevapların kaydedilmedi.</p>";
 const bitAlt=()=>{if(SINAMA)return ESKI_ALT;const sa=sirAd();
- return (seriH()?'<div class="ylc">'+seriH()+'</div>':'')+(sa?'<p class="srd">Sıradaki: '+kac(sa)+'</p><button class="cta" style="width:auto;padding:0 32px" data-a="sirada" id="srb">Sıradaki tur</button><button class="duz" data-a="yol">Yola dön</button>':'<p class="srd">Yolun tamamını bitirdin.</p><button class="cta" style="width:auto;padding:0 32px" data-a="yol">Yola dön</button>')+'<p class="dnn">Deneme sayfası: ilerlemen yalnız bu cihazda tutulur.</p>';};
+ return (seriH()?'<div class="ylc">'+seriH()+'</div>':'')+(sa?'<p class="srd">Sıradaki: '+kac(sa)+'</p><button class="cta" style="width:auto;padding:0 32px" data-a="sirada" id="srb">Sıradaki tur</button><button class="duz" data-a="yol">Yola dön</button>':'<p class="srd">Yolun tamamını bitirdin.</p><button class="cta" style="width:auto;padding:0 32px" data-a="yol">Yola dön</button>')+'<p class="dnn">'+hesYazi()+'</p>';};
 const eYol=()=>{const top=SORULAR.length,gr=SORULAR.filter(q=>Y.gor.indexOf(q.id)>=0).length,k=Y.bit,a=Y.ara;
  const ana=a?'Devam et · '+(a.o?'Sana özel tur':'Tur '+(a.k+1))+', '+Math.min(a.s.length,a.p+(a.c?1:0)+1)+'. soru':k<DURAK.length?(k===0?'Başla':'Devam et · Tur '+(k+1)):Y.ynl.length?'Sana özel turu çöz':'';
  return '<div class="yol"><div class="ylb">'+mk()+'<div><h1>Yeterlilik · örnek yol</h1><p>'+top+' sorunun '+gr+' tanesini çözdün</p></div></div><div class="ylp"><i style="width:'+Math.round(gr/top*100)+'%"></i></div><div class="ylc">'+seriH()+'<span class="ych gri">Çok çıkan konu önce gelir</span></div>'
  +DURAK.map((d,i)=>{const bt=i<k,sm=i===k&&!(a&&a.o);return '<div class="drk '+(bt?'bt':sm?'sm':'kl')+'"><span class="drn">'+(bt?'✓':i+1)+'</span><div><b>Tur '+(i+1)+' · '+(d.length+(i>0?1:0))+' soru</b><span>'+d.map(j=>kac(SORULAR[j].konu)).join(' · ')+(i>0?' · + 1 rövanş':'')+'</span></div><em>'+(bt?'Bitti':sm?'Sıradaki':'Kilitli')+'</em></div>';}).join('')
  +(Y.ynl.length?'<button class="ozb" data-a="ozel">Sana özel tur · yanlış yaptığın '+Y.ynl.length+' soru</button>':'')
  +(ana?'<button class="cta" data-a="basla">'+ana+'</button>':'<p class="srd">Yolun tamamını bitirdin, yanlışın kalmadı.</p>')
- +'<div class="yls"><button class="ykl" data-a="sifirla">Yolu sıfırla</button><a class="ykl" href="ornek-smmm.html">Bugünkü ekrana git</a></div><p class="dnn">Deneme sayfası: ilerlemen yalnız bu cihazda tutulur.</p></div>';};
+ +'<div class="yls"><button class="ykl" data-a="sifirla">Yolu sıfırla</button><a class="ykl" href="ornek-smmm.html">Bugünkü ekrana git</a></div><p class="dnn">'+hesYazi()+'</p></div>';};
 const eGir=()=>SINAMA?eGirE():eYol();
 const eGirE=()=>`<div class="bit">${mk('by')}<h1>${SORULAR.length} soruluk tur</h1><p>Yaklaşık ${Math.max(1,Math.round(SORULAR.length*.75))} dakika. Yanlış yaptığın soru turun sonunda bir kez daha gelir.</p><button class="cta al" style="width:auto;padding:0 44px" data-a="basla">Başla</button></div>`;
 const eBit=()=>{const n=OZL?TURN:TURN-(RVP>=0?1:0),kal=YNL.filter(i=>COZ.indexOf(i)<0).length;
@@ -1144,7 +1150,7 @@ function baslat(metin,metin2){
  if(!SINAMA&&metin2){const B=ayikla(metin2).filter(q=>!SORULAR.some(x=>x.id===q.id));B.sort((x,y)=>kp(y)-kp(x));B.forEach(q=>{q.konu=basH(q.konu);});SORULAR=SORULAR.concat(B);}
  DURAK=[SORULAR.slice(0,n0).map((_,i)=>i)];for(let i=n0;i<SORULAR.length;i+=3)DURAK.push(SORULAR.slice(i,i+3).map((_,j)=>i+j));
  araDuzelt();
- turKur();S=Object.assign(yeniSoru(),{i:0,e:location.hash.indexOf('sinama')<0?'gir':'soru'});ciz();
+ turKur();hesAc();S=Object.assign(yeniSoru(),{i:0,e:location.hash.indexOf('sinama')<0?'gir':'soru'});ciz();
  if(location.hash==='#sinama')sinama();if(location.hash==='#sinama2')sinama2();
 }
 function hata(m){kokEl.innerHTML=`<div class="sahne"><div class="ph"><div class="bit"><h1>Açılamadı</h1><p>${kac(m)}</p><a class="cta koyu" style="width:auto;padding:0 28px" href="ornek-smmm.html">Bugünkü ekrana git</a></div></div></div>`;}
