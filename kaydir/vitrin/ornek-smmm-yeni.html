@@ -429,6 +429,26 @@ h1:focus{outline:none}
 .bit h1{margin:0}
 .bit.trs{justify-content:flex-start;padding-top:28px}
 .seg i.gr:not(.t):not(.s){background:var(--sari)}
+.sdh{gap:10px;padding-bottom:10px;border-bottom:1px solid var(--cizgi)}
+.sdn{flex:1;display:flex;gap:14px;font-size:15px;font-weight:600;color:var(--ince);font-variant-numeric:tabular-nums}
+.sdn i{font-style:normal}
+.sdn i.a{color:var(--murekkep);font-size:19px;font-weight:800;line-height:1}
+.sdn i.g{color:var(--soluk)}
+.sdb{width:44px;height:44px;margin:-10px 0;display:flex;align-items:center;justify-content:center;color:var(--ince)}
+.sdb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sdb.ac{color:var(--altin)}
+.sdb.ac svg{fill:currentColor}
+.sds{font-size:15px;font-weight:600;color:var(--soluk);font-variant-numeric:tabular-nums}
+.kok.sdk{font-size:16.5px;line-height:1.6;margin:14px 0 18px}
+.op.sdo{border-color:transparent;background:none;border-radius:10px;padding:8px 4px;min-height:46px;margin:2px 0;gap:10px;align-items:flex-start;font-size:16px}
+.op.sdo .rd{flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;border:1.5px solid var(--ince);background:var(--kagit)}
+.op.sdo .hf{flex:none;font-weight:700}
+.op.sdo.sl{border-color:transparent;background:none}
+.op.sdo.sl .rd{border-color:var(--murekkep);background:var(--murekkep);box-shadow:inset 0 0 0 4px var(--kagit)}
+.op.sdo.dg{border-color:transparent;background:var(--okZ)}
+.op.sdo.dg .rd{border-color:var(--ok);background:var(--ok);box-shadow:inset 0 0 0 4px var(--kagit)}
+.op.sdo.yn{border-color:transparent;background:var(--hataZ)}
+.op.sdo.yn .rd{border-color:var(--hata);background:var(--hata);box-shadow:inset 0 0 0 4px var(--kagit)}
 .kln{margin:2px 22px 0;font-size:12.5px;font-weight:600;color:var(--ince)}
 .rzt{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .rzt span{font-size:12.5px;font-weight:700;border-radius:10px;padding:5px 10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -896,7 +916,17 @@ const sonAd=()=>S&&sonMu()?'Turu bitir':'Sonraki soru';
 function snGeriDur(){clearInterval(snGeriT);snGeriT=null;const b=document.getElementById('snb');if(b&&S)b.textContent=sonAd();}
 function snGeriBasla(){snGeriDur();if(HIZLI)return;let n=5;const say=()=>{const b=document.getElementById('snb');if(!b||!S||S.e!=='sonuc'||S.drs||S.sg){snGeriDur();return;}if(n<=0){snGeriDur();b.click();return;}b.textContent=sonAd()+' · '+n;n--;};say();snGeriT=setInterval(say,1000);}
 const ustH=()=>`<div class="hd">${seg()}<span class="sy">${POS+1} / ${SIRA.length}</span>${SERI>=2?`<span class="sr">Seri ${SERI}</span>`:''}</div>`;
+const SADE=/[?&]sade=1/.test(location.search);let TUR0=Date.now();
+setInterval(()=>{const e=document.getElementById('sds');if(e){const sn=Math.floor((Date.now()-TUR0)/1000);e.textContent=String(Math.floor(sn/60)).padStart(2,'0')+':'+String(sn%60).padStart(2,'0');}},1000);
+function eSoruSade(){
+ const q=Q(),fb=S.fb;
+ return `<div class="hd sdh"><span class="sdn">${SIRA.map((_,i)=>`<i class="${i===POS?'a':i<POS?'g':''}">${i+1}</i>`).join('')}</span><button class="sdb ${S.yil?'ac':''}" data-a="yil" aria-pressed="${S.yil?'true':'false'}" aria-label="Sonra bak">${IK.yil}</button><span class="sds" id="sds">00:00</span></div>
+ <div class="bd"><p class="kok sdk">${kac(q.soru)}</p>
+ <div role="radiogroup" aria-label="Şıklar">${harfler(q).map(h=>`<button role="radio" aria-checked="${S.sel===h?'true':'false'}" aria-label="${h} şıkkı: ${kac(q.siklar[h])}" class="op sdo ${fb?(h===q.dogru?'dg':h===S.sec?'yn':'snk'):(S.sel===h?'sl':'')}" data-o="${h}" ${fb?'disabled':''}><span class="rd"></span><b class="hf">${h}.</b><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div></div>
+ <div class="ft">${fb?'':(S.sel?'<button class="cta al gir" data-a="cevap">Cevapla</button>':'<p class="ip">Bir şık seç</p>')}</div>`;
+}
 function eSoru(){
+ if(SADE)return eSoruSade();
  const q=Q(),fb=S.fb;
  return `${ustH()}${klnH()}${fb?'':`<div class="arc"><button class="ar ${S.eleKip?'ac':''}" data-a="eleKip" aria-pressed="${S.eleKip?'true':'false'}">${IK.ele}<span>${S.eleKip?'Eleme açık':'Şık ele'}</span></button><button class="ar ${S.yil?'ac':''}" data-a="yil" aria-pressed="${S.yil?'true':'false'}">${IK.yil}<span>${S.yil?'İşaretlendi':'Sonra bak'}</span></button></div>`}
  <div class="bd"><div class="rzt">${q.konu?`<span class="kn">${kac(q.konu)}</span>`:''}${geriMi()?'<span class="rv">Rövanş sorusu</span>':''}</div><p class="kok ${String(q.soru).length>330?'uzs':''}">${kok(q,!fb)}</p>${S.eleKip&&!fb?'<p class="kip">Eleme açık: dokunduğun şık çizilir. Bitince yeniden "Eleme açık"a bas.</p>':''}
@@ -1055,7 +1085,7 @@ document.addEventListener('click',e=>{
   case 'kontrol':{const o=q.oyun||{};const bos=(o.bosluk||[]).map(x=>x[0]+'_'+x[1]);S.kontrol=bos.some(k=>!String(S.g[k]||'').trim())?'bos':'ok';break;}
   case 'goster':S.goster=true;break;
   case 'sonraki':{POS++;if(POS>=SIRA.length){S=Object.assign(yeniSoru(),{i:S.i,e:'bit'});}else{S=Object.assign(yeniSoru(),{i:SIRA[POS]});}window.scrollTo(0,0);break;}
-  case 'basla':S.e='soru';S.gec='yukari';window.scrollTo(0,0);break;
+  case 'basla':TUR0=Date.now();S.e='soru';S.gec='yukari';window.scrollTo(0,0);break;
   case 'bastan':turKur();S=Object.assign(yeniSoru(),{i:0});window.scrollTo(0,0);break;
   default:return;
  }

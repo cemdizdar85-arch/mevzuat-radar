@@ -1,1 +1,31 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="refresh" content="0;url=ornek-smmm-yeni.html"><title>Tetikte</title></head><body><a href="ornek-smmm-yeni.html">Yeni soru ekranı</a></body></html>
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Tetikte · Soru ekranı kıyası (deneme)</title>
+<style>
+:root{--kagit:#ffffff;--murekkep:#0f1b2d;--soluk:#3d4b63;--cizgi:#e6e2da;--dolgu:#f4f2ee}
+@media (prefers-color-scheme:dark){:root{--kagit:#12161d;--murekkep:#eef1f5;--soluk:#b6bfcc;--cizgi:#2b323d;--dolgu:#1b212b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--dolgu);color:var(--murekkep);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{margin:0;padding:18px 16px 4px;text-align:center;font-size:18px}
+p.not{margin:0 0 14px;padding:0 16px;text-align:center;font-size:13.5px;color:var(--soluk)}
+.sira{display:flex;gap:28px;justify-content:center;align-items:flex-start;padding:0 16px 28px;overflow-x:auto}
+.kol{flex:none;width:390px;max-width:100%}
+.kol h2{margin:0 0 8px;font-size:15px;text-align:center}
+.kol small{display:block;font-weight:400;color:var(--soluk);font-size:12.5px;margin-top:2px}
+iframe{display:block;width:390px;max-width:100%;height:780px;border:1px solid var(--cizgi);border-radius:28px;background:var(--kagit)}
+@media (max-width:860px){.sira{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<h1>Soru ekranı: iki düzen yan yana</h1>
+<p class="not">Deneme sayfasıdır; cevaplar kaydedilmez. İkisinde de aynı sorular var.</p>
+<div class="sira">
+ <div class="kol"><h2>Bizim düzen<small>ilerleme çubuğu, konu rozeti, kutulu şıklar</small></h2><iframe src="ornek-smmm-yeni.html" title="Bizim düzen"></iframe></div>
+ <div class="kol"><h2>Yalın düzen<small>sınav kâğıdı gibi: düz soru, yuvarlak seçim, süre</small></h2><iframe src="ornek-smmm-yeni.html?sade=1" title="Yalın düzen"></iframe></div>
+</div>
+</body>
+</html>
