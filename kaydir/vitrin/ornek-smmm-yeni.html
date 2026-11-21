@@ -476,6 +476,27 @@ h1:focus{outline:none}
 .yls{display:flex;gap:18px;justify-content:center}
 .ykl{min-height:44px;display:flex;align-items:center;font-size:13px;font-weight:600;color:var(--ince);background:none;text-decoration:none}
 .srd{font-size:13.5px;color:var(--soluk);margin:0;text-align:center}
+.srd.sol{text-align:left}
+.ybs{font-size:13px;font-weight:700;color:var(--murekkep);margin:8px 0 -4px}
+.boy{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--soluk);font-weight:600}
+.bs{min-width:52px;height:44px;border-radius:12px;background:var(--dolgu);color:var(--soluk);font-weight:700;font-size:15px;border:1.5px solid transparent}
+.bs.ac{background:var(--sariZ);border-color:var(--cagK);color:var(--murekkep)}
+.raf{display:flex;gap:10px;overflow-x:auto;margin:0 -20px;padding:2px 20px 6px;scrollbar-width:none}
+.raf::-webkit-scrollbar{display:none}
+.dka{flex:none;width:150px;min-height:118px;border-radius:16px;background:var(--dolgu);padding:12px;text-align:left;display:flex;flex-direction:column;gap:6px;border:1.5px solid transparent}
+.dka.kr{background:var(--vurguZ)}
+.dka.sb{border-color:var(--cagK);background:var(--sariZ)}
+.dka b{font-size:14px;line-height:1.25;color:var(--murekkep)}
+.dka em{font-style:normal;font-size:11px;font-weight:700;color:var(--altin)}
+.dka span{font-size:12px;color:var(--soluk);margin-top:auto}
+.dka i{display:block;height:5px;border-radius:3px;background:var(--cizgi);overflow:hidden}
+.dka u{display:block;height:100%;background:var(--ok)}
+.kns{display:flex;align-items:center;gap:10px;width:100%;min-height:58px;background:var(--dolgu);border-radius:14px;padding:10px 14px;text-align:left}
+.kns div{flex:1;min-width:0}
+.kns b{display:block;font-size:14.5px;color:var(--murekkep)}
+.kns span{display:block;font-size:12.5px;color:var(--soluk);margin-top:2px}
+.kns em{font-style:normal;color:var(--ince);font-size:20px}
+.ygr{align-self:flex-start;min-height:44px;font-size:14px;font-weight:600;color:var(--vurgu);background:none;margin:-10px 0 -6px}
 .bit p{margin:0;color:var(--soluk)}
 .dnm{background:var(--altin);color:var(--kagit);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:18px;text-align:center}
 .gir{animation:gir .28s ease-out}
@@ -1006,7 +1027,10 @@ function eIkiz(){
  <div class="ft">${tam||S.goster?'<button class="cta" data-a="kapatI">Cevaba dön</button>':'<button class="cta" data-a="kontrol">Kontrol et</button>'+(S.kontrol==='ok'?'<button class="duz" data-a="goster">Cevabı göster</button>':'')}</div>`;
 }
 const tuzAd=q=>{const T=TB[q.id];return T&&T.tut?T.tut:q.hap?String(q.hap).replace(/,?\s*K\d+(?=\))/g,''):'';};
-const yolBos=()=>({gor:[],ynl:[],bit:0,gun:[],ara:null});
+const yolBos=()=>({gor:[],ynl:[],bit:0,gun:[],ara:null,son:{},boy:4,sabit:null});
+let TIP='yol',TAD='';
+const ATP=a=>a.tp||(a.o?'ozel':'yol');
+const BOY=()=>[4,10,20].indexOf(+Y.boy)>=0?+Y.boy:4;
 let Y=Object.assign(yolBos(),dp.al('tk_yol_1',null)||{});
 const HK='sg_yol_smmm_ornek';let HSB=null,HUID=null,hsT=null,hesBir=false;
 const yolYaz=()=>{if(SINAMA)return;Y.t=Date.now();dp.yaz('tk_yol_1',Y);hesKuyruk();};
@@ -1018,16 +1042,41 @@ const hesYazi=()=>HUID?'İlerlemen hesabına kaydediliyor; hangi cihazdan girers
 const gunAd=d=>d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 function seriN(){const t=new Date();if(Y.gun.indexOf(gunAd(t))<0){t.setDate(t.getDate()-1);if(Y.gun.indexOf(gunAd(t))<0)return 0;}let n=0;while(Y.gun.indexOf(gunAd(t))>=0){n++;t.setDate(t.getDate()-1);}return n;}
 const idx=id=>SORULAR.findIndex(q=>q.id===id);
-function yolCvp(id,dgr){if(SINAMA)return;if(Y.gor.indexOf(id)<0)Y.gor.push(id);const k=Y.ynl.indexOf(id);if(!dgr&&k<0)Y.ynl.push(id);if(dgr&&k>=0&&(OZL||POS===RVP))Y.ynl.splice(k,1);yolAra(true);}
-function yolAra(c){if(SINAMA)return;Y.ara={k:TNO,o:OZL,s:SIRA.map(i=>SORULAR[i].id),p:POS,c:!!c,t:TURN,r:RVP,y:YNL.map(i=>SORULAR[i].id),z:COZ.map(i=>SORULAR[i].id),d:DOGRU};yolYaz();}
+function yolCvp(id,dgr){if(SINAMA)return;if(Y.gor.indexOf(id)<0)Y.gor.push(id);const k=Y.ynl.indexOf(id);if(!dgr&&k<0)Y.ynl.push(id);if(dgr&&k>=0&&(OZL||POS===RVP))Y.ynl.splice(k,1);try{if(!Y.son||typeof Y.son!=='object')Y.son={};Y.son[SORULAR[idx(id)].ders]=Date.now();}catch(e){}yolAra(true);}
+function yolAra(c){if(SINAMA)return;Y.ara={k:TNO,o:OZL,tp:TIP,ad:TAD,s:SIRA.map(i=>SORULAR[i].id),p:POS,c:!!c,t:TURN,r:RVP,y:YNL.map(i=>SORULAR[i].id),z:COZ.map(i=>SORULAR[i].id),d:DOGRU};yolYaz();}
 function gunEkle(){const g=gunAd(new Date());if(Y.gun.indexOf(g)<0)Y.gun.push(g);Y.gun=Y.gun.slice(-60);}
-function yolBit(){if(SINAMA)return;if(!OZL)Y.bit=Math.max(Y.bit,TNO+1);gunEkle();Y.ara=null;yolYaz();hesGonder();}
-function araDuzelt(){if(SINAMA)return;Y.ynl=Y.ynl.filter(id=>idx(id)>=0);Y.gor=Y.gor.filter(id=>idx(id)>=0);if(Y.bit>DURAK.length)Y.bit=DURAK.length;const a=Y.ara;if(a){if(!a.s||a.s.some(id=>idx(id)<0)||(!a.o&&a.k>=DURAK.length)){Y.ara=null;}else if(a.p+(a.c?1:0)>=a.s.length){if(!a.o)Y.bit=Math.max(Y.bit,a.k+1);gunEkle();Y.ara=null;}}yolYaz();}
-function turBasla(k,ozel){OZL=!!ozel;RVP=-1;TNO=ozel?0:k;if(ozel){SIRA=Y.ynl.slice(0,4).map(idx);}else{SIRA=DURAK[k].slice();if(k>0){const r=Y.ynl.map(idx).filter(i=>SIRA.indexOf(i)<0)[0];if(r!=null){SIRA.push(r);RVP=SIRA.length-1;}}}TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
-function araYukle(){const a=Y.ara;OZL=!!a.o;TNO=a.k;SIRA=a.s.map(idx);TURN=a.t;RVP=a.r;YNL=a.y.map(idx);COZ=a.z.map(idx);DOGRU=a.d||0;SERI=0;POS=a.p+(a.c?1:0);if(POS>=SIRA.length)POS=SIRA.length-1;S=Object.assign(yeniSoru(),{i:SIRA[POS]});yolAra(false);}
-function yolIleri(ozel){if(SINAMA){S.e='soru';return;}srDur();if(ozel){if(Y.ynl.length)turBasla(-1,true);return;}if(Y.ara)araYukle();else if(Y.bit<DURAK.length)turBasla(Y.bit,false);else if(Y.ynl.length)turBasla(-1,true);}
-const sirAd=()=>Y.bit<DURAK.length?'Tur '+(Y.bit+1)+' · '+DURAK[Y.bit].map(i=>SORULAR[i].konu).join(', '):Y.ynl.length?'Sana özel tur · yanlış yaptığın '+Y.ynl.length+' soru':'';
-const bitAd=()=>SINAMA?'Tur bitti':OZL?'Sana özel tur bitti':'Tur '+(TNO+1)+' bitti';
+function yolBit(){if(SINAMA)return;if(TIP==='yol')Y.bit=Math.max(Y.bit,TNO+1);gunEkle();Y.ara=null;yolYaz();hesGonder();}
+function araDuzelt(){if(SINAMA)return;Y.ynl=Y.ynl.filter(id=>idx(id)>=0);Y.gor=Y.gor.filter(id=>idx(id)>=0);if(Y.bit>DURAK.length)Y.bit=DURAK.length;const a=Y.ara;if(a){if(!a.s||a.s.some(id=>idx(id)<0)||(ATP(a)==='yol'&&a.k>=DURAK.length)){Y.ara=null;}else if(a.p+(a.c?1:0)>=a.s.length){if(ATP(a)==='yol')Y.bit=Math.max(Y.bit,a.k+1);gunEkle();Y.ara=null;}}yolYaz();}
+function turBasla(k,ozel){OZL=!!ozel;TIP=ozel?'ozel':'yol';TAD='';RVP=-1;TNO=ozel?0:k;if(ozel){SIRA=Y.ynl.slice(0,BOY()).map(idx);}else{SIRA=DURAK[k].slice();if(k>0){const r=Y.ynl.map(idx).filter(i=>SIRA.indexOf(i)<0)[0];if(r!=null){SIRA.push(r);RVP=SIRA.length-1;}}}TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
+function araYukle(){const a=Y.ara;OZL=!!a.o;TIP=ATP(a);TAD=a.ad||'';TNO=a.k;SIRA=a.s.map(idx);TURN=a.t;RVP=a.r;YNL=a.y.map(idx);COZ=a.z.map(idx);DOGRU=a.d||0;SERI=0;POS=a.p+(a.c?1:0);if(POS>=SIRA.length)POS=SIRA.length-1;S=Object.assign(yeniSoru(),{i:SIRA[POS]});yolAra(false);}
+function yolIleri(ozel){if(SINAMA){S.e='soru';return;}srDur();if(ozel){if(Y.ynl.length)turBasla(-1,true);return;}if(Y.ara)araYukle();else oner().git();}
+const kpS=i=>{const q=SORULAR[i];return (q.cikmis&&q.cikmis.kopru)||0;};
+const dersAdlari=()=>{const L=[];SORULAR.forEach(q=>{if(L.indexOf(q.ders)<0)L.push(q.ders);});return L.sort((a,b)=>dersIdx(b).length-dersIdx(a).length||a.localeCompare(b,'tr'));};
+const dersIdx=ad=>SORULAR.map((q,i)=>q.ders===ad?i:-1).filter(i=>i>=0).sort((a,b)=>kpS(b)-kpS(a));
+const gorN=L=>L.filter(i=>Y.gor.indexOf(SORULAR[i].id)>=0).length;
+function turListe(liste,ad){if(!liste.length)return;const yeni=liste.filter(i=>Y.gor.indexOf(SORULAR[i].id)<0),eski=liste.filter(i=>Y.gor.indexOf(SORULAR[i].id)>=0);TIP='ders';TAD=ad;OZL=false;RVP=-1;TNO=0;SIRA=yeni.concat(eski).slice(0,BOY());TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
+function zayifDers(){const L=dersAdlari();let en=L[0],ep=2,ez=Infinity;L.forEach(d=>{const x=dersIdx(d),p=gorN(x)/x.length,z=(Y.son&&Y.son[d])||0;if(p<ep||(p===ep&&z<ez)){en=d;ep=p;ez=z;}});return en;}
+function oner(){if(Y.sabit&&dersIdx(Y.sabit).length)return {et:Y.sabit,git:()=>turListe(dersIdx(Y.sabit),Y.sabit)};if(Y.bit<DURAK.length){const k=Y.bit;return {et:'Karışık yol, Tur '+(k+1),git:()=>turBasla(k,false)};}if(Y.ynl.length)return {et:'Sana özel tur',git:()=>turBasla(-1,true)};const d=zayifDers();return {et:d,git:()=>turListe(dersIdx(d),d)};}
+const sirAd=()=>oner().et;
+const bitAd=()=>SINAMA?'Tur bitti':TIP==='ozel'?'Sana özel tur bitti':TIP==='ders'?TAD+' turu bitti':'Tur '+(TNO+1)+' bitti';
+const araEt=a=>(ATP(a)==='ozel'?'Sana özel tur':ATP(a)==='ders'?a.ad:'Karışık yol, Tur '+(a.k+1))+', '+Math.min(a.s.length,a.p+(a.c?1:0)+1)+'. soru';
+const boyH=()=>'<div class="boy"><span>Tur boyu</span>'+[4,10,20].map(n=>'<button class="bs '+(BOY()===n?'ac':'')+'" data-a="yboy" data-v="'+n+'">'+n+'</button>').join('')+'<span>soru</span></div>';
+const altH=()=>'<div class="yls"><button class="ykl" data-a="sifirla">İlerlemeyi sıfırla</button><a class="ykl" href="ornek-smmm.html">Bugünkü ekrana git</a></div><p class="dnn">'+hesYazi()+'</p>';
+const eAna=()=>{const top=SORULAR.length,gr=gorN(SORULAR.map((_,i)=>i)),a=Y.ara,D=dersAdlari();
+ const ana=a?'Devam et · '+araEt(a):(gr?'Devam et · ':'Başla · ')+oner().et;
+ const zy=Y.ynl.length?SORULAR[idx(Y.ynl[Y.ynl.length-1])]:null;
+ return '<div class="yol"><div class="ylb">'+mk()+'<div><h1>Bugün ne çözelim?</h1><p>'+top+' sorunun '+gr+' tanesini çözdün</p></div></div><div class="ylp"><i style="width:'+Math.round(gr/top*100)+'%"></i></div>'+(seriH()?'<div class="ylc">'+seriH()+'</div>':'')
+ +'<button class="cta" data-a="basla">'+kac(ana)+'</button>'+boyH()
+ +'<p class="ybs">Sana özel</p>'+(zy?'<button class="ozb" data-a="ozel">Yanlış yaptığın '+Y.ynl.length+' soru</button><button class="ozb" data-a="yzayif">En zayıf konun: '+kac(zy.konu)+'</button>':'<p class="srd sol">Yanlış yaptıkça burası dolar; o sorular sana özel tur olur.</p>')
+ +'<p class="ybs">Dersler</p><div class="raf"><button class="dka kr" data-a="yhepsi"><b>Tüm dersler · karışık</b><span>'+top+' soru · '+gr+' çözüldü</span><i><u style="width:'+Math.round(gr/top*100)+'%"></u></i></button>'
+ +D.map((d,i)=>{const L=dersIdx(d),g=gorN(L);return '<button class="dka '+(Y.sabit===d?'sb':'')+'" data-a="ydsec" data-v="'+i+'">'+(Y.sabit===d?'<em>Bugünün dersi</em>':'')+'<b>'+kac(d)+'</b><span>'+L.length+' soru · '+g+' çözüldü</span><i><u style="width:'+Math.round(g/L.length*100)+'%"></u></i></button>';}).join('')+'</div>'
+ +'<button class="kns" data-a="yyol"><div><b>Karışık yol</b><span>'+DURAK.length+' turun '+Math.min(Y.bit,DURAK.length)+' tanesi bitti · çok çıkan konu önce</span></div><em>›</em></button>'+altH()+'</div>';};
+const eDers=()=>{const ad=S.dr,L=dersIdx(ad),g=gorN(L),K=[];L.forEach(i=>{const k=SORULAR[i].konu;let x=K.find(y=>y.k===k);if(!x){x={k:k,l:[]};K.push(x);}x.l.push(i);});
+ return '<div class="yol"><button class="ygr" data-a="yol">‹ Ana ekran</button><div class="ylb"><div><h1>'+kac(ad)+'</h1><p>'+L.length+' soru · '+g+' çözüldü</p></div></div><div class="ylp"><i style="width:'+Math.round(g/L.length*100)+'%"></i></div>'
+ +'<button class="cta" data-a="ykar">Bu dersten karışık tur · '+Math.min(BOY(),L.length)+' soru</button>'+boyH()
+ +'<button class="ozb" data-a="ysabit">'+(Y.sabit===ad?'Bugünün dersi bu ✓ · kaldır':'Bugün bu dersi çalış')+'</button>'
+ +'<p class="ybs">Konular · çok çıkan önce</p>'+K.map((x,j)=>{const gn=gorN(x.l),yn=x.l.filter(i=>Y.ynl.indexOf(SORULAR[i].id)>=0).length;return '<button class="kns" data-a="yktur" data-v="'+j+'"><div><b>'+kac(x.k)+'</b><span>'+x.l.length+' soru · '+(yn?'yanlışın var':gn===x.l.length?'çözüldü':gn+' çözüldü')+'</span></div><em>›</em></button>';}).join('')
+ +'<p class="dnn">Örnek sayfa: bu derste yalnız herkese açık '+L.length+' soru var.</p></div>';};
 const seriH=()=>{const n=seriN();return n?'<span class="ych">Seri: '+n+' gün</span>':'';};
 let srT=null,srN=0,srGor=false;
 function srDur(){if(srT){clearInterval(srT);srT=null;const b=document.getElementById('srb');if(b)b.textContent='Sıradaki tur';}}
@@ -1036,21 +1085,21 @@ function srIz(){if(S&&S.e==='bit'){if(!srGor){srGor=true;setTimeout(srBas,0);}}e
 document.addEventListener('pointerdown',e=>{if(srT&&!(e.target.closest&&e.target.closest('#srb')))srDur();},true);
 const ESKI_ALT="<button class=\"cta koyu\" style=\"width:auto;padding:0 28px\" data-a=\"bastan\">Bir tur daha</button><a class=\"duz\" style=\"display:flex;align-items:center;justify-content:center;text-decoration:none\" href=\"ornek-smmm.html\">Bugünkü ekrana git</a><p class=\"dnn\">Bu bir deneme sayfasıdır; cevapların kaydedilmedi.</p>";
 const bitAlt=()=>{if(SINAMA)return ESKI_ALT;const sa=sirAd();
- return (seriH()?'<div class="ylc">'+seriH()+'</div>':'')+(sa?'<p class="srd">Sıradaki: '+kac(sa)+'</p><button class="cta" style="width:auto;padding:0 32px" data-a="sirada" id="srb">Sıradaki tur</button><button class="duz" data-a="yol">Yola dön</button>':'<p class="srd">Yolun tamamını bitirdin.</p><button class="cta" style="width:auto;padding:0 32px" data-a="yol">Yola dön</button>')+'<p class="dnn">'+hesYazi()+'</p>';};
+ return (seriH()?'<div class="ylc">'+seriH()+'</div>':'')+(sa?'<p class="srd">Sıradaki: '+kac(sa)+'</p><button class="cta" style="width:auto;padding:0 32px" data-a="sirada" id="srb">Sıradaki tur</button><button class="duz" data-a="yol">Ana ekrana dön</button>':'<button class="cta" style="width:auto;padding:0 32px" data-a="yol">Ana ekrana dön</button>')+'<p class="dnn">'+hesYazi()+'</p>';};
 const eYol=()=>{const top=SORULAR.length,gr=SORULAR.filter(q=>Y.gor.indexOf(q.id)>=0).length,k=Y.bit,a=Y.ara;
  const ana=a?'Devam et · '+(a.o?'Sana özel tur':'Tur '+(a.k+1))+', '+Math.min(a.s.length,a.p+(a.c?1:0)+1)+'. soru':k<DURAK.length?(k===0?'Başla':'Devam et · Tur '+(k+1)):Y.ynl.length?'Sana özel turu çöz':'';
- return '<div class="yol"><div class="ylb">'+mk()+'<div><h1>Yeterlilik · örnek yol</h1><p>'+top+' sorunun '+gr+' tanesini çözdün</p></div></div><div class="ylp"><i style="width:'+Math.round(gr/top*100)+'%"></i></div><div class="ylc">'+seriH()+'<span class="ych gri">Çok çıkan konu önce gelir</span></div>'
+ return '<div class="yol"><button class="ygr" data-a="yol">‹ Ana ekran</button><div class="ylb">'+mk()+'<div><h1>Karışık yol</h1><p>'+top+' sorunun '+gr+' tanesini çözdün</p></div></div><div class="ylp"><i style="width:'+Math.round(gr/top*100)+'%"></i></div><div class="ylc">'+seriH()+'<span class="ych gri">Çok çıkan konu önce gelir</span></div>'
  +DURAK.map((d,i)=>{const bt=i<k,sm=i===k&&!(a&&a.o);return '<div class="drk '+(bt?'bt':sm?'sm':'kl')+'"><span class="drn">'+(bt?'✓':i+1)+'</span><div><b>Tur '+(i+1)+' · '+(d.length+(i>0?1:0))+' soru</b><span>'+d.map(j=>kac(SORULAR[j].konu)).join(' · ')+(i>0?' · + 1 rövanş':'')+'</span></div><em>'+(bt?'Bitti':sm?'Sıradaki':'Kilitli')+'</em></div>';}).join('')
  +(Y.ynl.length?'<button class="ozb" data-a="ozel">Sana özel tur · yanlış yaptığın '+Y.ynl.length+' soru</button>':'')
  +(ana?'<button class="cta" data-a="basla">'+ana+'</button>':'<p class="srd">Yolun tamamını bitirdin, yanlışın kalmadı.</p>')
  +'<div class="yls"><button class="ykl" data-a="sifirla">Yolu sıfırla</button><a class="ykl" href="ornek-smmm.html">Bugünkü ekrana git</a></div><p class="dnn">'+hesYazi()+'</p></div>';};
-const eGir=()=>SINAMA?eGirE():eYol();
+const eGir=()=>SINAMA?eGirE():eAna();
 const eGirE=()=>`<div class="bit">${mk('by')}<h1>${SORULAR.length} soruluk tur</h1><p>Yaklaşık ${Math.max(1,Math.round(SORULAR.length*.75))} dakika. Yanlış yaptığın soru turun sonunda bir kez daha gelir.</p><button class="cta al" style="width:auto;padding:0 44px" data-a="basla">Başla</button></div>`;
 const eBit=()=>{const n=OZL?TURN:TURN-(RVP>=0?1:0),kal=YNL.filter(i=>COZ.indexOf(i)<0).length;
  return `<div class="bit trs">${mk('by')}<h1>${bitAd()}</h1><p>${OZL?n+' sorunun '+COZ.length+' tanesini bu kez bildin':n+' sorunun '+DOGRU+' tanesini ilk denemede bildin'}${YNL.length?(kal?'':'; kaçırdıklarının hepsini ikinci gelişinde çözdün'):''}.</p>
  ${YNL.length?`<div class="tzl"><b class="tzb">Bu turda öğrendiğin ${YNL.length} tuzak</b>${YNL.map(i=>{const q=SORULAR[i],c=COZ.indexOf(i)>=0;return `<div class="tz"><div><b>${kac(q.konu||q.ders||'')}</b><span>${kac(tuzAd(q))}</span></div><em class="${c?'ok':''}">${c?'Çözdün':'Yarın yeniden'}</em></div>`;}).join('')}</div>`:(OZL?'':'<p class="tzb">Bu turda hiçbir tuzağa düşmedin.</p>')}
  ${bitAlt()}</div>`;};
-const EK={soru:eSoru,sonuc:eSonuc,soruGor:eSoruGor,nob:eNob,ikiz:eIkiz,bit:eBit,gir:eGir};
+const EK={soru:eSoru,sonuc:eSonuc,soruGor:eSoruGor,nob:eNob,ikiz:eIkiz,bit:eBit,gir:eGir,yol:eYol,ders:eDers};
 const kokEl=document.getElementById('kok');
 let duyurSon='';
 function ciz(){srIz();const g=S.gec||'';kokEl.innerHTML=`<div class="sahne"><div class="ph ${S.e==='nob'?'gece':''} ${g?'g-'+g:''}">${EK[S.e]()}</div></div>`;S.gec=null;
@@ -1122,7 +1171,15 @@ document.addEventListener('click',e=>{
   case 'basla':case 'sirada':yolIleri(false);S.gec='yukari';window.scrollTo(0,0);break;
   case 'ozel':yolIleri(true);S.gec='yukari';window.scrollTo(0,0);break;
   case 'yol':S=Object.assign(yeniSoru(),{i:0,e:'gir'});window.scrollTo(0,0);break;
-  case 'sifirla':Y.gor=[];Y.ynl=[];Y.bit=0;Y.ara=null;yolYaz();S=Object.assign(yeniSoru(),{i:0,e:'gir'});window.scrollTo(0,0);break;
+  case 'yyol':S=Object.assign(yeniSoru(),{i:0,e:'yol'});window.scrollTo(0,0);break;
+  case 'ydsec':{const ad=dersAdlari()[+d.v];if(!ad)return;S=Object.assign(yeniSoru(),{i:0,e:'ders',dr:ad});window.scrollTo(0,0);break;}
+  case 'yboy':Y.boy=+d.v;yolYaz();break;
+  case 'ysabit':Y.sabit=Y.sabit===S.dr?null:S.dr;yolYaz();break;
+  case 'ykar':srDur();Y.ara=null;turListe(dersIdx(S.dr),S.dr);S.gec='yukari';window.scrollTo(0,0);break;
+  case 'yktur':{const ad=S.dr,L=dersIdx(ad),K=[];L.forEach(i=>{const k=SORULAR[i].konu;if(K.indexOf(k)<0)K.push(k);});const k=K[+d.v];if(k==null)return;srDur();Y.ara=null;turListe(L.filter(i=>SORULAR[i].konu===k),k);S.gec='yukari';window.scrollTo(0,0);break;}
+  case 'yhepsi':srDur();Y.ara=null;turListe(SORULAR.map((_,i)=>i).sort((a,b)=>kpS(b)-kpS(a)),'Tüm dersler');S.gec='yukari';window.scrollTo(0,0);break;
+  case 'yzayif':{if(!Y.ynl.length)return;const q=SORULAR[idx(Y.ynl[Y.ynl.length-1])];srDur();Y.ara=null;turListe(dersIdx(q.ders).filter(i=>SORULAR[i].konu===q.konu),q.konu);S.gec='yukari';window.scrollTo(0,0);break;}
+  case 'sifirla':Y.gor=[];Y.ynl=[];Y.bit=0;Y.ara=null;Y.son={};Y.sabit=null;yolYaz();S=Object.assign(yeniSoru(),{i:0,e:'gir'});window.scrollTo(0,0);break;
   case 'bastan':turKur();S=Object.assign(yeniSoru(),{i:0});window.scrollTo(0,0);break;
   default:return;
  }
