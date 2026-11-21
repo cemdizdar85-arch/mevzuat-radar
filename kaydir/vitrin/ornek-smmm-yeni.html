@@ -460,18 +460,18 @@ h1:focus{outline:none}
 .bit .ylc{justify-content:center}
 .ych{font-size:12.5px;font-weight:700;border-radius:10px;padding:4px 10px;background:var(--sariZ);color:var(--altin)}
 .ych.gri{background:var(--dolgu);color:var(--soluk)}
-.drk{display:flex;gap:12px;align-items:flex-start;background:var(--dolgu);border-radius:16px;padding:14px;border:1.5px solid transparent;text-align:left}
-.drk.sm{border-color:var(--cagK);background:var(--sariZ)}
-.drk.kl b,.drk.kl span:not(.drn){color:var(--ince)}
+.ydk{display:flex;gap:12px;align-items:flex-start;background:var(--dolgu);border-radius:16px;padding:14px;border:1.5px solid transparent;text-align:left}
+.ydk.sm{border-color:var(--cagK);background:var(--sariZ)}
+.ydk.kl b,.ydk.kl span:not(.drn){color:var(--ince)}
 .drn{flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:var(--kagit);color:var(--murekkep);border:1.5px solid var(--cizgi)}
-.drk.bt .drn{background:var(--ok);color:var(--kagit);border-color:var(--ok)}
-.drk.sm .drn{background:var(--cag);border-color:var(--cagK);color:var(--cagY)}
-.drk>div{flex:1;min-width:0}
-.drk b{display:block;font-size:15px;color:var(--murekkep)}
-.drk span:not(.drn){display:block;font-size:13px;color:var(--soluk);margin-top:3px;line-height:1.4}
-.drk em{font-style:normal;font-size:12px;font-weight:700;color:var(--ince);flex:none;padding-top:2px}
-.drk.sm em{color:var(--altin)}
-.drk.bt em{color:var(--ok)}
+.ydk.bt .drn{background:var(--ok);color:var(--kagit);border-color:var(--ok)}
+.ydk.sm .drn{background:var(--cag);border-color:var(--cagK);color:var(--cagY)}
+.ydk>div{flex:1;min-width:0}
+.ydk b{display:block;font-size:15px;color:var(--murekkep)}
+.ydk span:not(.drn){display:block;font-size:13px;color:var(--soluk);margin-top:3px;line-height:1.4}
+.ydk em{font-style:normal;font-size:12px;font-weight:700;color:var(--ince);flex:none;padding-top:2px}
+.ydk.sm em{color:var(--altin)}
+.ydk.bt em{color:var(--ok)}
 .ozb{width:100%;min-height:52px;padding:6px 12px;border-radius:14px;background:var(--vurguZ);color:var(--vurgu);font-size:15px;font-weight:700;border:1.5px solid color-mix(in srgb,var(--vurgu) 38%,transparent)}
 .yls{display:flex;gap:18px;justify-content:center}
 .ykl{min-height:44px;display:flex;align-items:center;font-size:13px;font-weight:600;color:var(--ince);background:none;text-decoration:none}
@@ -1092,7 +1092,7 @@ const bitAlt=()=>{if(SINAMA)return ESKI_ALT;const sa=sirAd();
 const eYol=()=>{const top=SORULAR.length,gr=SORULAR.filter(q=>Y.gor.indexOf(q.id)>=0).length,k=Y.bit,a=Y.ara;
  const ana=a?'Devam et · '+(a.o?'Sana özel tur':'Tur '+(a.k+1))+', '+Math.min(a.s.length,a.p+(a.c?1:0)+1)+'. soru':k<DURAK.length?(k===0?'Başla':'Devam et · Tur '+(k+1)):Y.ynl.length?'Sana özel turu çöz':'';
  return '<div class="yol"><button class="ygr" data-a="yol">‹ Ana ekran</button><div class="ylb">'+mk()+'<div><h1>Karışık yol</h1><p>'+top+' sorunun '+gr+' tanesini çözdün</p></div></div><div class="ylp"><i style="width:'+Math.round(gr/top*100)+'%"></i></div><div class="ylc">'+seriH()+'<span class="ych gri">Çok çıkan konu önce gelir</span></div>'
- +DURAK.map((d,i)=>{const bt=i<k,sm=i===k&&!(a&&a.o);return '<div class="drk '+(bt?'bt':sm?'sm':'kl')+'"><span class="drn">'+(bt?'✓':i+1)+'</span><div><b>Tur '+(i+1)+' · '+(d.length+(i>0?1:0))+' soru</b><span>'+d.map(j=>kac(SORULAR[j].konu)).join(' · ')+(i>0?' · + 1 rövanş':'')+'</span></div><em>'+(bt?'Bitti':sm?'Sıradaki':'Kilitli')+'</em></div>';}).join('')
+ +DURAK.map((d,i)=>{const bt=i<k,sm=i===k&&!(a&&a.o);return '<div class="ydk '+(bt?'bt':sm?'sm':'kl')+'"><span class="drn">'+(bt?'✓':i+1)+'</span><div><b>Tur '+(i+1)+' · '+(d.length+(i>0?1:0))+' soru</b><span>'+d.map(j=>kac(SORULAR[j].konu)).join(' · ')+(i>0?' · + 1 rövanş':'')+'</span></div><em>'+(bt?'Bitti':sm?'Sıradaki':'Kilitli')+'</em></div>';}).join('')
  +(Y.ynl.length?'<button class="ozb" data-a="ozel">Sana özel tur · yanlış yaptığın '+Y.ynl.length+' soru</button>':'')
  +(ana?'<button class="cta" data-a="basla">'+ana+'</button>':'<p class="srd">Yolun tamamını bitirdin, yanlışın kalmadı.</p>')
  +'<div class="yls"><button class="ykl" data-a="sifirla">Yolu sıfırla</button><a class="ykl" href="ornek-smmm.html">Bugünkü ekrana git</a></div><p class="dnn">'+hesYazi()+'</p></div>';};
