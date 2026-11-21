@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Tetikte · Yeni soru ekranı (deneme)</title>
 <style>
-:root{--kagit:#ffffff;--murekkep:#0f1b2d;--soluk:#3d4b63;--ince:#5d6877;--ust:18px;--cizgi:#e6e2da;--dolgu:#f4f2ee;--vurgu:#1f3b73;--vurguZ:#e9eef8;--sari:#ffe08a;--sariZ:#fff3cf;--hata:#b91c1c;--hataZ:#fbe9e7;--ok:#146f35;--okZ:#e3f2e8;--altin:#8a6224;--tahta:#16221c;--tahtaK:#4c3a27;--tebesir:#f2efe6;--perde:#0f1b2d}
-@media (prefers-color-scheme:dark){:root{--kagit:#12161d;--murekkep:#eef1f5;--soluk:#b6bfcc;--ince:#7f8a99;--cizgi:#2b323d;--dolgu:#1b212b;--vurgu:#8fb0f5;--vurguZ:#1e2a44;--sari:#6a5716;--sariZ:#3a3110;--hata:#ff8f85;--hataZ:#3b1d1b;--ok:#73d391;--okZ:#16301f;--altin:#dcb75f;--perde:#000000}}
+:root{--kagit:#ffffff;--murekkep:#0f1b2d;--soluk:#3d4b63;--ince:#5d6877;--ust:18px;--cizgi:#e6e2da;--dolgu:#f4f2ee;--vurgu:#1f3b73;--vurguZ:#e9eef8;--sari:#ffe08a;--sariZ:#fff3cf;--hata:#b91c1c;--hataZ:#fbe9e7;--ok:#146f35;--okZ:#e3f2e8;--altin:#8a6224;--tahta:#16221c;--tahtaK:#4c3a27;--tebesir:#f2efe6;--perde:#0f1b2d;--cag:#ffd21f;--cagK:#d98a00;--cagY:#0f1b2d}
+@media (prefers-color-scheme:dark){:root{--kagit:#12161d;--murekkep:#eef1f5;--soluk:#b6bfcc;--ince:#7f8a99;--cizgi:#2b323d;--dolgu:#1b212b;--vurgu:#8fb0f5;--vurguZ:#1e2a44;--sari:#6a5716;--sariZ:#3a3110;--hata:#ff8f85;--hataZ:#3b1d1b;--ok:#73d391;--okZ:#16301f;--altin:#dcb75f;--perde:#000000;--cag:#f5c518;--cagK:#f5c518;--cagY:#0f1b2d}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--dolgu);color:var(--murekkep);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -334,7 +334,7 @@ h1:focus{outline:none}
 #olcp{position:fixed;left:6px;top:24px;z-index:40;margin:0;padding:6px 8px;border-radius:8px;background:var(--perde);color:var(--tebesir);font:11px/1.35 ui-monospace,Consolas,monospace;max-width:92vw;white-space:pre-wrap;pointer-events:none;opacity:.92}
 .kok.uzs{font-size:16px;line-height:1.5;margin-bottom:14px}
 .op{min-height:54px;margin:8px 0;padding:10px 16px}
-.hd+.arc{margin:8px 22px 0}
+.hd+.arc,.kln+.arc{margin:8px 22px 0}
 .cp b,.et,.oyz{font-size:12px}
 .anl,.ar,.oyh,.oya,.oyb button,.cnh button,.geri{min-height:44px;font-size:14px;font-weight:600}
 .anl,.ar,.oya,.oyh{border-radius:22px}
@@ -429,6 +429,19 @@ h1:focus{outline:none}
 .bit h1{margin:0}
 .bit.trs{justify-content:flex-start;padding-top:28px}
 .seg i.gr:not(.t):not(.s){background:var(--sari)}
+.kln{margin:2px 22px 0;font-size:12.5px;font-weight:600;color:var(--ince)}
+.rzt{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.rzt span{font-size:12.5px;font-weight:700;border-radius:10px;padding:5px 10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rzt .kn{color:var(--soluk);background:var(--dolgu)}
+.rzt .rv{color:var(--altin);background:var(--sariZ)}
+.tk.ry{font-weight:700;background:var(--sariZ);box-shadow:0 0 0 2px var(--sariZ)}
+.kok .sor{display:block;margin-top:12px;font-weight:700}
+.kok .prn{display:block;margin-top:8px;font-size:.9em;color:var(--soluk)}
+.nip{display:flex;align-items:center;gap:10px;margin:14px 0 0;padding:9px 12px;border-radius:14px;background:var(--dolgu);font-size:14px;line-height:1.4;color:var(--soluk)}
+.nip .mk{width:30px;height:30px}
+.cta.al{background:var(--cag);color:var(--cagY);box-shadow:inset 0 -2px 0 var(--cagK)}
+.op.sl{border-color:var(--cagK);background:var(--sariZ)}
+.op.sl .lt{background:var(--cag);border-color:var(--cagK);color:var(--cagY)}
 .grl{margin:0 0 10px;font-size:12.5px;font-weight:700;color:var(--altin);background:var(--sariZ);border-radius:10px;padding:5px 10px;display:inline-block}
 .grn{margin:12px 0 0;font-size:13px;color:var(--ince)}
 .tzl{width:100%;text-align:left;display:flex;flex-direction:column;gap:8px}
@@ -476,7 +489,11 @@ const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
 const tit=p=>{try{navigator.vibrate&&navigator.vibrate(p);}catch(e){}};
 const seg=()=>`<div class="seg">${SIRA.map((_,i)=>`<i class="${i<POS?'t':i===POS?'s':''} ${i>=SORULAR.length?'gr':''}"></i>`).join('')}</div>`;
-const kok=(q,tik)=>String(q.soru).split(' ').map((t,i)=>`<span class="tk ${S.boya[i]?'by':''}"${tik?` data-t="${i}"`:''}>${kac(t)}</span>`).join(' ');
+const kok=(q,tik)=>{const T=String(q.soru).split(' ');let son=-1;T.forEach((t,i)=>{if(/\?/.test(t))son=i;});let bas=0;if(son>=0)for(let i=son-1;i>=0;i--){if(/[.:]$/.test(T[i])){bas=i+1;break;}}
+ const rk=i=>{const t=T[i];if(/^₺/.test(t))return i>0&&/\d/.test(T[i-1]);if(!/\d/.test(t))return false;if(/^\(?(19|20)\d\d\)?[.,;:]?$/.test(t))return false;if(T[i+1]&&/^sayılı/.test(T[i+1]))return false;return true;};
+ return T.map((t,i)=>(son>=0&&i===bas&&bas>0?'<strong class="sor">':'')+(son>=0&&i===son+1?'<span class="prn">':'')+`<span class="tk ${rk(i)?'ry':''} ${S.boya[i]?'by':''}"${tik?` data-t="${i}"`:''}>${kac(t)}</span>`+(son>=0&&i===son&&bas>0?'</strong>':'')+(son>=0&&son<T.length-1&&i===T.length-1?'</span>':'')).join(' ');};
+const NIP={'smmm-4k-a-yfta-kolay-r6/kp-01':'Bu soruda tuzak tek bir kelimede. Parantezi okudun mu?','smmm-4k-a-yvergi-cokzor-r2/kp-02':'Bay (F) geçen yıl hangi yöntemi seçmişti? Önce ona bak.','smmm-4k-a-fmuh-zor-r3/kp-02':'İki işlem var, kârı ters yönlere çekiyor. Yönü karıştırma.','smmm-w3-maliyet-cokzor/kp-10':'Soru üretileni mi soruyor, üretilmeyeni mi? Son cümleyi bir daha oku.'};
+const klnH=()=>{const k=SIRA.length-POS,dk=Math.max(1,Math.round(k*.75));return '<p class="kln">'+(k<=1?'Son soru · bir dakikadan az':k<=3?'Son '+k+' soru · yaklaşık '+dk+' dakika':k+' soru kaldı · yaklaşık '+dk+' dakika')+'</p>';};
 const ayirt=(q,h)=>(q.teshis&&q.teshis[h]&&q.teshis[h].ayirt)||'';
 const kisa=(q,h)=>(q.sade&&q.sade.siklar&&q.sade.siklar[h])||(q.tuzak&&q.tuzak[h]&&q.tuzak[h].metin)||'';
 const tuzakAd=(q,h)=>(q.tuzak&&q.tuzak[h]&&q.tuzak[h].ad)||'';
@@ -883,10 +900,10 @@ function snGeriBasla(){snGeriDur();if(HIZLI)return;let n=5;const say=()=>{const 
 const ustH=()=>`<div class="hd">${seg()}<span class="sy">${POS+1} / ${SIRA.length}</span>${SERI>=2?`<span class="sr">Seri ${SERI}</span>`:''}</div>`;
 function eSoru(){
  const q=Q(),fb=S.fb;
- return `${ustH()}${fb?'':`<div class="arc"><button class="ar ${S.eleKip?'ac':''}" data-a="eleKip" aria-pressed="${S.eleKip?'true':'false'}">${IK.ele}<span>${S.eleKip?'Eleme açık':'Şık ele'}</span></button><button class="ar ${S.yil?'ac':''}" data-a="yil" aria-pressed="${S.yil?'true':'false'}">${IK.yil}<span>${S.yil?'İşaretlendi':'Sonra bak'}</span></button></div>`}
- <div class="bd">${geriMi()?'<p class="grl">Geri gelen soru · ilk seferde kaçırmıştın</p>':''}<p class="kok ${String(q.soru).length>330?'uzs':''}">${kok(q,!fb)}</p>${S.eleKip&&!fb?'<p class="kip">Eleme açık: dokunduğun şık çizilir. Bitince yeniden "Eleme açık"a bas.</p>':''}
- <div role="radiogroup" aria-label="Şıklar">${harfler(q).map(h=>`<button role="radio" aria-checked="${S.sel===h?'true':'false'}" aria-label="${h} şıkkı: ${kac(q.siklar[h])}${S.ele[h]?' (elendi)':''}" class="op ${fb?(h===q.dogru?'dg zpl':h===S.sec?'yn sll':'snk'):(S.sel===h?'sl':'')} ${S.ele[h]?'el':''}" data-o="${h}" ${fb?'disabled':''}><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div></div>
- <div class="ft">${fb?'':(S.sel?'<button class="cta gir" data-a="cevap">Cevapla</button>':'<p class="ip">Bir şık seç</p>')}</div>`;
+ return `${ustH()}${klnH()}${fb?'':`<div class="arc"><button class="ar ${S.eleKip?'ac':''}" data-a="eleKip" aria-pressed="${S.eleKip?'true':'false'}">${IK.ele}<span>${S.eleKip?'Eleme açık':'Şık ele'}</span></button><button class="ar ${S.yil?'ac':''}" data-a="yil" aria-pressed="${S.yil?'true':'false'}">${IK.yil}<span>${S.yil?'İşaretlendi':'Sonra bak'}</span></button></div>`}
+ <div class="bd"><div class="rzt">${q.konu?`<span class="kn">${kac(q.konu)}</span>`:''}${geriMi()?'<span class="rv">Rövanş sorusu</span>':''}</div><p class="kok ${String(q.soru).length>330?'uzs':''}">${kok(q,!fb)}</p>${S.eleKip&&!fb?'<p class="kip">Eleme açık: dokunduğun şık çizilir. Bitince yeniden "Eleme açık"a bas.</p>':''}
+ <div role="radiogroup" aria-label="Şıklar">${harfler(q).map(h=>`<button role="radio" aria-checked="${S.sel===h?'true':'false'}" aria-label="${h} şıkkı: ${kac(q.siklar[h])}${S.ele[h]?' (elendi)':''}" class="op ${fb?(h===q.dogru?'dg zpl':h===S.sec?'yn sll':'snk'):(S.sel===h?'sl':'')} ${S.ele[h]?'el':''}" data-o="${h}" ${fb?'disabled':''}><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div>${!fb&&NIP[q.id]?`<div class="nip">${mk()}<span>${kac(NIP[q.id])}</span></div>`:''}</div>
+ <div class="ft">${fb?'':(S.sel?'<button class="cta al gir" data-a="cevap">Cevapla</button>':'<p class="ip">Bir şık seç</p>')}</div>`;
 }
 function sayfaH(q){
  return `<div class="syf"></div><div class="syk ${S.gec==='sg'?'yeni':''}" role="dialog" aria-modal="true" aria-label="Soru"><div class="syt"><i></i></div><div class="hd3"><span>Soru</span><button class="x ack" data-a="kapatS" aria-label="Kapat">${IK.x}</button></div><div class="bd">${terimH(q)}
@@ -966,7 +983,7 @@ function eIkiz(){
  <div class="ft">${tam||S.goster?'<button class="cta" data-a="kapatI">Cevaba dön</button>':'<button class="cta" data-a="kontrol">Kontrol et</button>'+(S.kontrol==='ok'?'<button class="duz" data-a="goster">Cevabı göster</button>':'')}</div>`;
 }
 const tuzAd=q=>{const T=TB[q.id];return T&&T.tut?T.tut:q.hap?String(q.hap).replace(/,?\s*K\d+(?=\))/g,''):'';};
-const eGir=()=>`<div class="bit">${mk('by')}<h1>${SORULAR.length} soruluk tur</h1><p>Yaklaşık ${Math.max(1,Math.round(SORULAR.length*.75))} dakika. Yanlış yaptığın soru turun sonunda bir kez daha gelir.</p><button class="cta koyu" style="width:auto;padding:0 36px" data-a="basla">Başla</button></div>`;
+const eGir=()=>`<div class="bit">${mk('by')}<h1>${SORULAR.length} soruluk tur</h1><p>Yaklaşık ${Math.max(1,Math.round(SORULAR.length*.75))} dakika. Yanlış yaptığın soru turun sonunda bir kez daha gelir.</p><button class="cta al" style="width:auto;padding:0 44px" data-a="basla">Başla</button></div>`;
 const eBit=()=>{const n=SORULAR.length,kal=YNL.filter(i=>COZ.indexOf(i)<0).length;
  return `<div class="bit trs">${mk('by')}<h1>Tur bitti</h1><p>${n} sorunun ${DOGRU} tanesini ilk denemede bildin${YNL.length?(kal?'':'; kaçırdıklarının hepsini ikinci gelişinde çözdün'):''}.</p>
  ${YNL.length?`<div class="tzl"><b class="tzb">Bu turda öğrendiğin ${YNL.length} tuzak</b>${YNL.map(i=>{const q=SORULAR[i],c=COZ.indexOf(i)>=0;return `<div class="tz"><div><b>${kac(q.konu||q.ders||'')}</b><span>${kac(tuzAd(q))}</span></div><em class="${c?'ok':''}">${c?'Çözdün':'Yarın yeniden'}</em></div>`;}).join('')}</div>`:'<p class="tzb">Bu turda hiçbir tuzağa düşmedin.</p>'}
