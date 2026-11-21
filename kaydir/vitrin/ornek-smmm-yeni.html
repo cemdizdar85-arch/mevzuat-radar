@@ -434,10 +434,10 @@ h1:focus{outline:none}
 .rzt span{font-size:12.5px;font-weight:700;border-radius:10px;padding:5px 10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rzt .kn{color:var(--soluk);background:var(--dolgu)}
 .rzt .rv{color:var(--altin);background:var(--sariZ)}
-.tk.ry{font-weight:700;background:var(--sariZ);box-shadow:0 0 0 2px var(--sariZ)}
+.tk.ry,.tk b.ry{font-weight:700;background:var(--sariZ);box-shadow:0 0 0 2px var(--sariZ);border-radius:5px}
 .kok .sor{display:block;margin-top:12px;font-weight:700}
 .kok .prn{display:block;margin-top:8px;font-size:.9em;color:var(--soluk)}
-.nip{display:flex;align-items:center;gap:10px;margin:14px 0 0;padding:9px 12px;border-radius:14px;background:var(--dolgu);font-size:14px;line-height:1.4;color:var(--soluk)}
+.nip{display:flex;align-items:center;gap:10px;margin:0;min-height:58px;padding:8px 12px;border-radius:14px;background:var(--dolgu);font-size:14px;line-height:1.4;color:var(--soluk)}
 .nip .mk{width:30px;height:30px}
 .cta.al{background:var(--cag);color:var(--cagY);box-shadow:inset 0 -2px 0 var(--cagK)}
 .op.sl{border-color:var(--cagK);background:var(--sariZ)}
@@ -490,8 +490,8 @@ const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
 const tit=p=>{try{navigator.vibrate&&navigator.vibrate(p);}catch(e){}};
 const seg=()=>`<div class="seg">${SIRA.map((_,i)=>`<i class="${i<POS?'t':i===POS?'s':''} ${i>=SORULAR.length?'gr':''}"></i>`).join('')}</div>`;
 const kok=(q,tik)=>{const T=String(q.soru).split(' ');let son=-1;T.forEach((t,i)=>{if(/\?/.test(t))son=i;});let bas=0;if(son>=0)for(let i=son-1;i>=0;i--){if(/[.:]$/.test(T[i])){bas=i+1;break;}}
- const rk=i=>{const t=T[i];if(/^₺/.test(t))return i>0&&/\d/.test(T[i-1]);if(!/\d/.test(t))return false;if(/^\(?(19|20)\d\d\)?[.,;:]?$/.test(t))return false;if(T[i+1]&&/^sayılı/.test(T[i+1]))return false;return true;};
- return T.map((t,i)=>(son>=0&&i===bas&&bas>0?'<strong class="sor">':'')+(son>=0&&i===son+1?'<span class="prn">':'')+`<span class="tk ${rk(i)?'ry':''} ${S.boya[i]?'by':''}"${tik?` data-t="${i}"`:''}>${kac(t)}</span>`+(son>=0&&i===son&&bas>0?'</strong>':'')+(son>=0&&son<T.length-1&&i===T.length-1?'</span>':'')).join(' ');};
+ const rk=i=>{const t=T[i];if(/^₺/.test(t))return false;if(/^\d{3}$/.test(t)&&T[i+1]&&/^[A-ZÇĞİÖŞÜ]/.test(T[i+1]))return false;if(!/\d/.test(t))return false;if(/^\(?(19|20)\d\d\)?[.,;:]?$/.test(t))return false;if(T[i+1]&&/^sayılı/.test(T[i+1]))return false;return true;};
+ return T.map((t,i)=>(son>=0&&i===bas&&bas>0?'<strong class="sor">':'')+(son>=0&&i===son+1?'<span class="prn">':'')+`<span class="tk ${rk(i)?'ry':''} ${S.boya[i]?'by':''}"${tik?` data-t="${i}"`:''}>${/^₺/.test(t)&&i>0&&rk(i-1)?'<b class="ry">₺</b>'+kac(t.slice(1)):kac(t)}</span>`+(son>=0&&i===son&&bas>0?'</strong>':'')+(son>=0&&son<T.length-1&&i===T.length-1?'</span>':'')).join(' ');};
 const NIP={'smmm-4k-a-yfta-kolay-r6/kp-01':'Bu soruda tuzak tek bir kelimede. Parantezi okudun mu?','smmm-4k-a-yvergi-cokzor-r2/kp-02':'Bay (F) geçen yıl hangi yöntemi seçmişti? Önce ona bak.','smmm-4k-a-fmuh-zor-r3/kp-02':'İki işlem var, kârı ters yönlere çekiyor. Yönü karıştırma.','smmm-w3-maliyet-cokzor/kp-10':'Soru üretileni mi soruyor, üretilmeyeni mi? Son cümleyi bir daha oku.'};
 const klnH=()=>{const k=SIRA.length-POS,dk=Math.max(1,Math.round(k*.75));return '<p class="kln">'+(k<=1?'Son soru · bir dakikadan az':k<=3?'Son '+k+' soru · yaklaşık '+dk+' dakika':k+' soru kaldı · yaklaşık '+dk+' dakika')+'</p>';};
 const ayirt=(q,h)=>(q.teshis&&q.teshis[h]&&q.teshis[h].ayirt)||'';
@@ -902,8 +902,8 @@ function eSoru(){
  const q=Q(),fb=S.fb;
  return `${ustH()}${klnH()}${fb?'':`<div class="arc"><button class="ar ${S.eleKip?'ac':''}" data-a="eleKip" aria-pressed="${S.eleKip?'true':'false'}">${IK.ele}<span>${S.eleKip?'Eleme açık':'Şık ele'}</span></button><button class="ar ${S.yil?'ac':''}" data-a="yil" aria-pressed="${S.yil?'true':'false'}">${IK.yil}<span>${S.yil?'İşaretlendi':'Sonra bak'}</span></button></div>`}
  <div class="bd"><div class="rzt">${q.konu?`<span class="kn">${kac(q.konu)}</span>`:''}${geriMi()?'<span class="rv">Rövanş sorusu</span>':''}</div><p class="kok ${String(q.soru).length>330?'uzs':''}">${kok(q,!fb)}</p>${S.eleKip&&!fb?'<p class="kip">Eleme açık: dokunduğun şık çizilir. Bitince yeniden "Eleme açık"a bas.</p>':''}
- <div role="radiogroup" aria-label="Şıklar">${harfler(q).map(h=>`<button role="radio" aria-checked="${S.sel===h?'true':'false'}" aria-label="${h} şıkkı: ${kac(q.siklar[h])}${S.ele[h]?' (elendi)':''}" class="op ${fb?(h===q.dogru?'dg zpl':h===S.sec?'yn sll':'snk'):(S.sel===h?'sl':'')} ${S.ele[h]?'el':''}" data-o="${h}" ${fb?'disabled':''}><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div>${!fb&&NIP[q.id]?`<div class="nip">${mk()}<span>${kac(NIP[q.id])}</span></div>`:''}</div>
- <div class="ft">${fb?'':(S.sel?'<button class="cta al gir" data-a="cevap">Cevapla</button>':'<p class="ip">Bir şık seç</p>')}</div>`;
+ <div role="radiogroup" aria-label="Şıklar">${harfler(q).map(h=>`<button role="radio" aria-checked="${S.sel===h?'true':'false'}" aria-label="${h} şıkkı: ${kac(q.siklar[h])}${S.ele[h]?' (elendi)':''}" class="op ${fb?(h===q.dogru?'dg zpl':h===S.sec?'yn sll':'snk'):(S.sel===h?'sl':'')} ${S.ele[h]?'el':''}" data-o="${h}" ${fb?'disabled':''}><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div></div>
+ <div class="ft">${fb?'':(S.sel?'<button class="cta al gir" data-a="cevap">Cevapla</button>':(NIP[q.id]?`<div class="nip">${mk()}<span>${kac(NIP[q.id])}</span></div>`:'<p class="ip">Bir şık seç</p>'))}</div>`;
 }
 function sayfaH(q){
  return `<div class="syf"></div><div class="syk ${S.gec==='sg'?'yeni':''}" role="dialog" aria-modal="true" aria-label="Soru"><div class="syt"><i></i></div><div class="hd3"><span>Soru</span><button class="x ack" data-a="kapatS" aria-label="Kapat">${IK.x}</button></div><div class="bd">${terimH(q)}
