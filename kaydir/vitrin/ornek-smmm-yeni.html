@@ -55,6 +55,9 @@ svg{display:block}
 .cpo .yn{color:var(--hata)}
 .nsk2{display:block;margin:2px 0 6px;font-size:15px;font-weight:600;color:var(--murekkep)}
 .ertn{margin:6px 22px 0;padding:8px 12px;border-radius:10px;background:var(--dolgu);font-size:13.5px;color:var(--soluk)}
+.grs{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.kyb{height:40px;margin:-4px 0 2px;padding:0 12px;border-radius:12px;font-size:14.5px;font-weight:700;color:var(--vurgu);background:none;display:inline-flex;align-items:center;gap:6px}
+.kyb.ac{color:var(--altin);background:var(--sariZ)}
 .cpg{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:44px;margin:6px 0 0;border-radius:12px;font-size:14px;font-weight:700;color:var(--vurgu);background:none;border:1.5px dashed color-mix(in srgb,var(--vurgu) 35%,transparent)}
 .cpg::after{content:"›";transform:rotate(90deg);font-size:17px}
 .cpg.ack::after{transform:rotate(-90deg)}
@@ -1046,7 +1049,7 @@ function eSonuc(){
  const tut=T0?`<div class="tut"><b>Akılda tut</b>${kac(T0.tut)}</div>`:(!dg&&q.hap)?`<div class="tut"><b>Akılda tut</b>${kac(String(q.hap).replace(/,?\s*K\d+(?=\))/g,''))}</div>`:'';
  const ileri=`<button class="${dg?'cta':'duz'}" data-a="sonraki" id="snb">${sonAd()}</button>`;
  const nb=dg?'<button class="duz" data-a="dersAc">Nöbetçi anlatsın</button>':`<button class="cta nbd" data-a="dersAc">${mk()}<span>Nöbetçi anlatsın</span></button>`;
- return `${ustH()}<div class="bd"><button class="geri" data-a="soruGor">‹ Soruyu gör</button>${q.konu?`<div class="rzt"><span class="kn">${kac(q.konu)}</span></div>`:''}${cps}
+ return `${ustH()}<div class="bd"><div class="grs"><button class="geri" data-a="soruGor">‹ Soruyu gör</button><button class="kyb ${kayL().indexOf(q.id)>=0?'ac':''}" data-a="kaydet" aria-pressed="${kayL().indexOf(q.id)>=0?'true':'false'}">${kayL().indexOf(q.id)>=0?'★ Kaydedildi':'☆ Kaydet'}</button></div>${q.konu?`<div class="rzt"><span class="kn">${kac(q.konu)}</span></div>`:''}${cps}
  ${dg?`<div class="kut">${KONF}<div class="tik" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l8 8 15-17"/></svg></div><h1 tabindex="-1">${geriMi()?'Tuzağı çözdün.':'Doğru!'}</h1><p class="kts">${geriMi()?'İlk seferde kaçırdığın soruyu bu kez bildin.':SERI>=2?'Üst üste '+SERI+' doğru.':'İlk denemede bildin.'}</p></div>${coz}`
      :`<p class="etk no">Yanlış</p><h1 tabindex="-1">${kac(T0?T0.sen[S.sec].b:tuzakAd(q,S.sec)||'Doğru cevap '+q.dogru)}</h1>${tb||`<p class="alt1">${kac(kisa(q,S.sec))}</p>${coz}`}${tut}${geriMi()?'':'<p class="grn">Bu soru turun sonunda bir kez daha gelecek.</p>'}`}
  ${nbr}</div>
@@ -1107,7 +1110,8 @@ function eIkiz(){
  <div class="ft">${tam||S.goster?'<button class="cta" data-a="kapatI">Cevaba dön</button>':'<button class="cta" data-a="kontrol">Kontrol et</button>'+(S.kontrol==='ok'?'<button class="duz" data-a="goster">Cevabı göster</button>':'')}</div>`;
 }
 const tuzAd=q=>{const T=TB[q.id];return T&&T.tut?T.tut:q.hap?String(q.hap).replace(/,?\s*K\d+(?=\))/g,''):'';};
-const yolBos=()=>({gor:[],ynl:[],bit:0,gun:[],ara:null,son:{},boy:4,sabit:null});
+const yolBos=()=>({gor:[],ynl:[],bit:0,gun:[],ara:null,son:{},boy:4,sabit:null,kay:[]});
+const kayL=()=>Array.isArray(Y.kay)?Y.kay:(Y.kay=[]);
 let TIP='yol',TAD='';
 const ATP=a=>a.tp||(a.o?'ozel':'yol');
 const BOY=()=>[4,10,20].indexOf(+Y.boy)>=0?+Y.boy:4;
@@ -1148,6 +1152,7 @@ const eAna=()=>{const top=SORULAR.length,gr=gorN(SORULAR.map((_,i)=>i)),a=Y.ara,
  return '<div class="yol"><div class="ylb">'+mk()+'<div><h1>Bugün ne çözelim?</h1><p>'+top+' sorunun '+gr+' tanesini çözdün</p></div></div><div class="ylp"><i style="width:'+Math.round(gr/top*100)+'%"></i></div>'+(seriH()?'<div class="ylc">'+seriH()+'</div>':'')
  +'<button class="cta" data-a="basla">'+kac(ana)+'</button>'+boyH()
  +'<p class="ybs">Sana özel</p>'+(zy?'<button class="ozb" data-a="ozel">Yanlış yaptığın '+Y.ynl.length+' soru</button><button class="ozb" data-a="yzayif">En zayıf konun: '+kac(zy.konu)+'</button>':'<p class="srd sol">Yanlış yaptıkça burası dolar; o sorular sana özel tur olur.</p>')
+ +(kayL().filter(id=>idx(id)>=0).length?'<button class="ozb" data-a="ykay">★ Kaydettiklerin · '+kayL().filter(id=>idx(id)>=0).length+' soru</button>':'')
  +'<p class="ybs">Dersler</p><div class="raf"><button class="dka kr" data-a="yhepsi"><b>Tüm dersler · karışık</b><span>'+top+' soru · '+gr+' çözüldü</span><i><u style="width:'+Math.round(gr/top*100)+'%"></u></i></button>'
  +D.map((d,i)=>{const L=dersIdx(d),g=gorN(L);return '<button class="dka '+(Y.sabit===d?'sb':'')+'" data-a="ydsec" data-v="'+i+'">'+(Y.sabit===d?'<em>Bugünün dersi</em>':'')+'<b>'+kac(d)+'</b><span>'+L.length+' soru · '+g+' çözüldü</span><i><u style="width:'+Math.round(g/L.length*100)+'%"></u></i></button>';}).join('')+'</div>'
  +'<button class="kns" data-a="yyol"><div><b>Karışık yol</b><span>'+DURAK.length+' turun '+Math.min(Y.bit,DURAK.length)+' tanesi bitti · çok çıkan konu önce</span></div><em>›</em></button>'+altH()+'</div>';};
@@ -1250,6 +1255,8 @@ document.addEventListener('click',e=>{
   case 'goster':S.goster=true;break;
   case 'sonraki':{POS++;if(POS>=SIRA.length){S=Object.assign(yeniSoru(),{i:S.i,e:'bit'});yolBit();}else{S=Object.assign(yeniSoru(),{i:SIRA[POS]});yolAra(false);}window.scrollTo(0,0);break;}
   case 'basla':case 'sirada':yolIleri(false);S.gec='yukari';window.scrollTo(0,0);break;
+  case 'kaydet':{const L=kayL(),k=L.indexOf(q.id);if(k>=0)L.splice(k,1);else L.push(q.id);yolYaz();break;}
+  case 'ykay':{const L=kayL().map(idx).filter(i=>i>=0);if(!L.length)return;srDur();Y.ara=null;turListe(L,'Kaydettiklerin');S.gec='yukari';window.scrollTo(0,0);break;}
   case 'ozel':yolIleri(true);S.gec='yukari';window.scrollTo(0,0);break;
   case 'yol':S=Object.assign(yeniSoru(),{i:0,e:'gir'});window.scrollTo(0,0);break;
   case 'yyol':S=Object.assign(yeniSoru(),{i:0,e:'yol'});window.scrollTo(0,0);break;
