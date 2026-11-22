@@ -47,6 +47,9 @@ svg{display:block}
 .ip{margin:0;text-align:center;color:var(--ince);font-size:14.5px;height:58px;display:flex;align-items:center;justify-content:center}
 .kip{margin:-10px 0 12px;font-size:13.5px;color:var(--vurgu);font-weight:600}
 .cps{display:flex;gap:6px;margin:4px 0 0}
+.cpg{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:44px;margin:6px 0 0;border-radius:12px;font-size:14px;font-weight:700;color:var(--vurgu);background:none;border:1.5px dashed color-mix(in srgb,var(--vurgu) 35%,transparent)}
+.cpg::after{content:"›";transform:rotate(90deg);font-size:17px}
+.cpg.ack::after{transform:rotate(-90deg)}
 .cp{flex:1;min-width:0;height:56px;border-radius:14px;background:var(--dolgu);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14.5px;font-variant-numeric:tabular-nums;line-height:1.25;overflow:hidden}
 .cp b{font-size:11.5px;font-weight:600;color:var(--ince)}
 .cp.dg{background:var(--okZ);color:var(--ok);font-weight:700}
@@ -563,7 +566,7 @@ const IK={
 const HARF=['A','B','C','D','E'];
 const kac=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 let SORULAR=[],S=null;
-const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,fb:false,sg:false,tmm:false,gec:null,trm:null,drsOz:false,fm:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
+const yeniSoru=()=>({e:'soru',sel:null,sec:null,ele:{},eleKip:false,yil:false,boya:{},acS:null,ders:'soru',drs:false,fb:false,sg:false,tmm:false,cpA:false,gec:null,trm:null,drsOz:false,fm:false,ca:-1,caK:false,caO:false,rk:false,nb:0,an:{},adim:0,oyn:false,ek:null,g:{},kontrol:null,goster:false,ikinci:false,uyari:null});
 const Q=()=>SORULAR[S.i];
 const harfler=q=>HARF.filter(h=>q.siklar&&q.siklar[h]!=null);
 const uzunMu=q=>harfler(q).some(h=>String(q.siklar[h]).length>9);
@@ -1020,7 +1023,8 @@ function sayfaH(q){
 const KONF=(()=>{const r=['var(--ok)','var(--sari)','var(--vurgu)','var(--hata)'];let h='';for(let i=0;i<16;i++){const a=(i/16)*Math.PI*2,u=70+((i*37)%50);h+=`<i style="--x:${(Math.cos(a)*u).toFixed(0)}px;--y:${(Math.sin(a)*u-30).toFixed(0)}px;--r:${(i*53)%360}deg;background:${r[i%4]};animation-delay:${(i%4)*30}ms"></i>`;}return `<div class="kf" aria-hidden="true">${h}</div>`;})();
 function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru;
- const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
+ const cpK=uzunMu(q)&&!S.cpA&&!dg,cpO=harfler(q).length-2;
+ const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).filter(h=>!cpK||h===q.dogru||h===S.sec||h===S.acS).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+(uzunMu(q)&&!dg&&cpO>0?`<button class="cpg ${S.cpA?'ack':''}" data-a="cpAc" aria-expanded="${S.cpA?'true':'false'}">${S.cpA?'Öbür şıkları gizle':'Öbür '+cpO+' şıkkı göster'}</button>`:'')+
   (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${S.acS!==S.sec&&tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span role="columnheader">Sen</span>','<span role="columnheader">Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
  const Y=!!drsVar(q);
  if(S.drs&&Y)return `<div class="bd tam">${dersH(q)}</div>`;
@@ -1209,6 +1213,7 @@ document.addEventListener('click',e=>{
   case 'soruGor':S.sg=true;S.gec='sg';S.trm=null;break;
   case 'kapatS':S.sg=false;break;
   case 'tmm':S.tmm=!S.tmm;break;
+  case 'cpAc':S.cpA=!S.cpA;if(!S.cpA&&S.acS&&S.acS!==q.dogru&&S.acS!==S.sec)S.acS=null;break;
   case 'rk':S.rk=!S.rk;break;
   case 'fm':S.fm=!S.fm;break;
   case 'dersAc':drsOlcAd='dokunuş → ilk ses';dersOnYukle(q,true);sesDur();S.caO=false;clearTimeout(caT);S.ca=-1;S.drs=true;drsT0=0;drsKagAcik=false;break;
