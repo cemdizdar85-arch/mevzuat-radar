@@ -393,6 +393,20 @@ h1:focus{outline:none}
 .oyb button{border-radius:22px}
 .oyh{width:54px}
 .x{min-width:44px;flex:none}
+.oyb{margin:4px 0 0}
+.oyb button{min-height:36px;height:36px;font-size:13.5px}
+.oyc{height:26px}
+.oyd{position:relative}
+.drc.oyn .buy{width:54px;height:54px}
+.drc.oyn .buy svg{width:24px;height:24px}
+.oyi{width:44px;height:44px}
+.oyi svg{width:27px;height:27px}
+.oyh{min-height:36px;height:36px;width:50px}
+.dsn{min-height:36px;margin-top:0}
+.oyv{position:absolute;right:-6px;bottom:calc(100% + 6px);z-index:3;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:16px;background:var(--kagit);border:1px solid var(--cizgi);box-shadow:0 10px 24px -10px color-mix(in srgb,var(--murekkep) 45%,transparent)}
+.oyv[hidden]{display:none}
+.oyv input{width:150px;height:28px;accent-color:var(--vurgu)}
+.oyv b{font-size:13px;font-weight:700;color:var(--soluk);min-width:34px;text-align:right;font-variant-numeric:tabular-nums}
 .trm{padding:9px 0;margin:-9px 0}
 .nby{margin:22px 0 0;border-top:1.5px solid var(--murekkep);padding-top:14px}
 .nbb{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
@@ -812,6 +826,9 @@ function ucur(i){
   setTimeout(()=>u.remove(),750);});
 }
 let SES_AC=true,sesEl=null;
+let SES_SV=1;try{const v=+JSON.parse(localStorage.getItem('tk_sv')||'1');if(v>=0&&v<=1)SES_SV=v;}catch(e){}
+const SVD=(()=>{try{const a=new Audio();a.volume=.5;return a.volume===.5;}catch(e){return false;}})();
+let svT=null;
 function sesVar(){const C=S&&S.e==='sonuc'&&S.ca>=0&&CA[Q().id];return !!(C&&C.ses&&S.caK&&SES_AC);}
 function sesDur(){if(sesEl){sesEl.onended=null;try{sesEl.pause();}catch(e){}}}
 function sesCal(){
@@ -849,6 +866,7 @@ Object.assign(DRS,{"ornek-anlatim/maliyet-2023-3":{"yol":"../../ses/cizim/ornek-
 DRS['ornek-anlatim/maliyet-2023-3'].kag=[{"p":[["X katsayısı: 590.000 ÷ 1.000.000",5.2,2],[" = 0,59",8.51,0.6]],"g":["590.000 ₺","1.000.000 ₺"]},{"p":[["Y katsayısı: 825.000 ÷ 500.000",10.64,2],[" = 1,65",14.62,0.6]],"g":["825.000 ₺","500.000 ₺"]},{"p":[["Z katsayısı: 600.000 ÷ 20.000",17.22,2],[" = 30",20.47,0.6]],"g":["600.000 ₺","20.000 birim"]},{"p":[["X payı: 0,59 × 60.000",29.36,1.6],[" = 35.400",33.92,0.6]],"g":["60.000 ₺"]},{"p":[["Y payı: 1,65 × 10.000",36.24,1.6],[" = 16.500",40.19,0.6]],"g":["10.000 ₺"]},{"p":[["Z payı: 30 × 1.000",42.56,1.4],[" = 30.000",45.09,0.6]],"g":["1.000 birim"]},{"p":[["35.400 + 16.500 + 30.000",46.67,1.6],[" = 81.900",48.14,0.6]]},{"p":[["60.000 + 10.000",50.52,1.1],[" = 70.000",51.96,0.5]],"g":["60.000 ₺","10.000 ₺"]},{"p":[["70.000 + 81.900",52.85,1.1],[" = 151.900",54.34,0.6]]},{"p":[["151.900 ÷ 1.000",56.88,1.4],[" = 151,90",59.3,0.6]],"c":"buy","g":["1.000 birim"]},{"p":[["Cevap: E",61.68,0.6]],"c":"cvp"}];
 (function(){const K={"ornek-anlatim/maliyet-2023-3":{"3":[0],"4":[1],"5":[2],"6":[3,4,5],"8":[7,6],"9":[8]},"ornek-anlatim/fm-2025-3":{"1":[0],"5":[1]},"smmm-4k-a-yfta-kolay-r6/kp-01":{"2":[1],"3":[2]},"smmm-w3-maliyet-cokzor/kp-10":{"1":[0],"2":[1]},"smmm-4k-a-yvergi-cokzor-r2/kp-02":{"3":[2]}};Object.keys(K).forEach(k=>{if(DRS[k])Object.keys(K[k]).forEach(i=>{if(DRS[k].kag[i])DRS[k].kag[i].k=K[k][i];});});})();
 DRS['ornek-anlatim/fm-2025-3'].kag=[{"p":[["Net değer = 10.000 − 7.000",8.44,1.8],[" = 3.000",12.67,0.6]],"g":["10.000 ₺","7.000 ₺"]},{"p":[["3.500 − 3.000",13.46,1.4],[" = 500 fazla",16.96,0.7]],"g":["3.500 ₺"],"k":[0]},{"p":[["Hesap",19.95,0.3],["Borç",20.25,0.3],["Alacak",20.55,0.3]],"c":"yv yh"},{"p":[["100 Kasa",21.12,0.8],["3.500",21.82,0.5]],"c":"yv yb","g":["3.500 ₺"]},{"p":[["129 Karşılık",23.36,0.8],["7.000",24.16,0.5]],"c":"yv yb","g":["7.000 ₺"]},{"p":[["128 Şüpheli Alacaklar",25.82,1],["10.000",26.82,0.5]],"c":"yv ya","g":["10.000 ₺"]},{"p":[["644 ya da 671",31.3,1.2],["500",33.9,0.4]],"c":"yv ya","k":[1]},{"p":[["Toplam",34.64,0.4],["10.500",35.14,0.5],["10.500",35.74,0.5]],"c":"yv yt"},{"p":[["Cevap: B",37.48,0.6]],"c":"cvp"}];
+(function(){const D=DRS["smmm-4k-a-yvergi-cokzor-r2/kp-02"];if(!D||D.kag.length!==5)return;D.iz=D.iz.filter(z=>z[0]!=='15.000 ₺');D.kag.forEach(l=>{if(l.k)l.k=l.k.map(x=>x>=2?x+1:x);});D.kag.splice(2,0,{p:[['Sayılan giderlerin hiçbiri düşülmez',14.21,2.2]],g:['25.000 ₺','60.000 ₺','45.000 ₺','15.000 ₺']});const i=D.csoz.findIndex(x=>x[1]>14.21);D.csoz.splice(i<0?D.csoz.length:i,0,['Sayılan giderlerin hiçbiri düşülmez.',14.21]);})();
 const drsVar=q=>{const D=DRS[q.id];return D&&D.bol.map(b=>b[0]).join(' ')===q.soru?D:null;};
 function drsPlan(q){
  const D=drsVar(q);if(!D)return null;const K=D.kap[S.sec===q.dogru?'X':S.sec]||D.kap.X,o1=D.oku.sure+.5,o2=o1+D.coz.sure+.5;
@@ -866,7 +884,7 @@ function dersH(q){
  <div class="drfl" id="drfl" hidden></div><div class="drk" id="drk"><p class="drq">${bol}</p><svg class="drv" id="drv" aria-hidden="true"></svg><div id="drn"></div></div>
  <div class="drkg" id="drkg" hidden><p class="drkb">Çözüm</p>${P.kag.map((l,i)=>`<div class="drl ${l.c}" data-l="${i}">${l.p.map((c,k)=>`<span class="drh" data-h="${i}_${k}">${kac(c[0])}</span>`).join('')}</div>`).join('')}</div>
  <p class="drz" id="drz" aria-hidden="true"></p>
- <div class="drc oyn"><p class="oyt" id="drdv" hidden></p><div class="oyb" id="drbl"></div><div class="oyc" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span class="oyr" id="drtr"></span><em id="drth"></em></div><div class="oyz"><b id="drt">0:00</b><b id="drtk">−0:00</b></div><div class="oyd"><button class="oyh" data-d="hiz" id="drh" aria-label="Oynatma hızı">1×</button><button class="oyi" data-d="geri" aria-label="10 saniye geri">${IK.g10}</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="oyi" data-d="ileri" aria-label="10 saniye ileri">${IK.i10}</button><button class="oyi" data-d="ses" id="drm" aria-label="Sesi aç ya da kapat">${SES_AC?IK.sesA:IK.sesK}</button></div><button class="dsn" data-a="sonraki" id="drsk">${sonAd()} ›</button></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<div class="drgi"><button class="duz" data-a="sonraki" id="drsn">${sonMu()?'Bitir':'Sonraki soru'}</button><button class="duz" data-a="dersKapat">Dersi kapat</button></div></div></div>`;
+ <div class="drc oyn"><p class="oyt" id="drdv" hidden></p><div class="oyb" id="drbl"></div><div class="oyc" id="drib" role="slider" aria-label="Dersin neresinde" tabindex="0"><span class="oyr" id="drtr"></span><em id="drth"></em></div><div class="oyz"><b id="drt">0:00</b><b id="drtk">−0:00</b></div><div class="oyd"><button class="oyh" data-d="hiz" id="drh" aria-label="Oynatma hızı">1×</button><button class="oyi" data-d="geri" aria-label="10 saniye geri">${IK.g10}</button><button class="buy" data-d="oyna" id="dro" aria-label="Oynat ya da durdur">${IK.dur}</button><button class="oyi" data-d="ileri" aria-label="10 saniye ileri">${IK.i10}</button><button class="oyi" data-d="ses" id="drm" aria-label="${SVD?'Ses seviyesi':'Sesi aç ya da kapat'}">${SES_AC?IK.sesA:IK.sesK}</button><div class="oyv" id="drvs" hidden><input type="range" min="0" max="100" step="5" id="drvr" value="${SES_AC?Math.round(SES_SV*100):0}" aria-label="Ses seviyesi"><b id="drvy">%${SES_AC?Math.round(SES_SV*100):0}</b></div></div><button class="dsn" data-a="sonraki" id="drsk">${sonAd()} ›</button></div><div id="drg" hidden>${q.oyun?'<button class="cta" data-a="ikiz">Bir tane daha dene</button>':''}<div class="drgi"><button class="duz" data-a="sonraki" id="drsn">${sonMu()?'Bitir':'Sonraki soru'}</button><button class="duz" data-a="dersKapat">Dersi kapat</button></div></div></div>`;
 }
 const drsBas=()=>S&&S.drsOz&&drsP?drsP.o1:0;
 const dp={al:(k,v)=>{try{const x=localStorage.getItem(k);return x==null?v:JSON.parse(x);}catch(e){return v;}},yaz:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
@@ -949,7 +967,7 @@ function drsParcaCal(){
  const P=drsP;let i=P.par.length-1;for(let k=0;k<P.par.length;k++){if(drsT0<P.par[k].off+P.par[k].sure-.05){i=k;break;}}
  drsI=i;if(drsT0<P.par[i].off)drsT0=P.par[i].off;const yer=drsT0-P.par[i].off;drsSesli=false;
  drsBek=0;drsYer=yer>.05?yer:null;
- try{if(!drsA)drsA=new Audio();drsA.src=P.par[i].ses;drsA.muted=!SES_AC;drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;
+ try{if(!drsA)drsA=new Audio();drsA.src=P.par[i].ses;drsA.muted=!SES_AC;try{drsA.volume=SES_SV;}catch(e){}drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;
   if(yer>.05){const git=()=>{try{drsA.currentTime=yer;}catch(e){}};if(drsA.readyState>0)git();else drsA.addEventListener('loadedmetadata',git,{once:true});}
   if(OLC){const z0=performance.now(),ad=drsOlcAd||('parça '+(i+1)+' geçişi');drsOlcAd=null;drsA.addEventListener('playing',()=>olcYaz(ad,Math.round(performance.now()-z0)+' ms'),{once:true});}
   const p=drsA.play();drsSesli=true;if(p&&p.catch)p.catch(()=>{drsSesli=false;olcYaz('ses','çalınamadı, sessiz ilerliyor');});}catch(e){drsSesli=false;}
@@ -983,9 +1001,10 @@ function drsTik(d,el){
  else if(d==='ileri')drsGit(drsT0+10);
  else if(d==='hiz'){const H=[1,1.25,1.5,2];drsHiz=H[(H.indexOf(drsHiz)+1)%H.length];dp.yaz('tk_hiz',drsHiz);if(drsA){try{drsA.defaultPlaybackRate=drsHiz;drsA.playbackRate=drsHiz;}catch(e){}}drsDugme();}
  else if(d==='ozet'||d==='ayr'){S.drsOz=d==='ozet';drsDur();drsT0=drsBas();drsKagAcik=false;drsCubuk();drsCiz(drsT0);window.scrollTo(0,0);drsOynat();}
- else if(d==='ses'){SES_AC=!SES_AC;if(drsA)drsA.muted=!SES_AC;drsDugme();}
+ else if(d==='ses'){const pv=document.getElementById('drvs');if(SVD&&pv){pv.hidden=!pv.hidden;clearTimeout(svT);if(!pv.hidden)svT=setTimeout(()=>{pv.hidden=true;},5000);}else{SES_AC=!SES_AC;if(drsA)drsA.muted=!SES_AC;drsDugme();}}
 }
 window.addEventListener('resize',()=>{if(S&&S.drs&&drsKur())drsCiz(drsT0);});
+document.addEventListener('input',e=>{if(!e.target||e.target.id!=='drvr')return;const v=Math.max(0,Math.min(100,+e.target.value||0));SES_AC=v>0;if(v>0){SES_SV=v/100;try{localStorage.setItem('tk_sv',JSON.stringify(SES_SV));}catch(x){}}if(drsA){try{drsA.volume=SES_SV;}catch(x){}drsA.muted=!SES_AC;}const y=document.getElementById('drvy');if(y)y.textContent='%'+v;drsDugme();const pv=document.getElementById('drvs');clearTimeout(svT);svT=setTimeout(()=>{if(pv)pv.hidden=true;},4000);});
 document.addEventListener('keydown',e=>{if(!S)return;if(S.sg&&e.key==='Escape'){S.sg=false;ciz();return;}if(!S.drs||!drsP)return;const hedef=e.target&&e.target.tagName;if(e.key==='ArrowRight'){drsGit(drsT0+5);e.preventDefault();}else if(e.key==='ArrowLeft'){drsGit(drsT0-5);e.preventDefault();}else if((e.key===' '||e.key==='k')&&hedef!=='BUTTON'){if(drsOyn)drsDur();else drsOynat();e.preventDefault();}else if(e.key==='Escape'){drsDur();S.drs=false;ciz();}});
 (function(){let y0=null,dip=false;
  document.addEventListener('touchstart',e=>{if(!S||S.e!=='sonuc'||S.drs||S.sg||S.fb){y0=null;return;}y0=e.touches[0].clientY;dip=innerHeight+scrollY>=document.documentElement.scrollHeight-4;},{passive:true});
