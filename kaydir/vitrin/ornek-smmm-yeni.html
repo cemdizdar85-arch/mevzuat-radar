@@ -472,6 +472,13 @@ h1:focus{outline:none}
 .tht .bs{font-size:14px;text-align:center;opacity:.75;line-height:1.2;min-height:34px;display:flex;align-items:center;justify-content:center}
 .tht .bk{border:2px solid currentColor;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px;line-height:1.2;padding:4px;min-height:44px}
 .tht .bk.sn{opacity:.4}
+.tht.szl{max-height:none;font-size:16px;line-height:1.4;padding:18px 18px 16px}
+.tht.szl>*{flex-shrink:0}
+.tht.szl .ust{display:block;min-height:0;margin-bottom:10px}
+.tht.szl .ust span{display:block}
+.tht.szl .lst>div{gap:10px;margin-bottom:3px}
+.tht.szl .lst>div span:last-child{white-space:normal;text-align:right;max-width:52%}
+.tht.szl .alt{font-size:17px}
 .cap{flex:1;padding:22px 24px 6px}
 .cap .st{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8f9a92;margin:0 0 8px}
 .cap .soz{font-size:18.5px;line-height:1.5;margin:0}
@@ -739,7 +746,7 @@ function tahta(q,d,a){
  const ust=`<div class="ust ${a===1||a===4?'y':''}"><span>${kac(n.iste)}${n.soz?':':' ='}</span>${a>=4?n.kuralH:'<span>?</span>'}</div>`;
  const lst=a>=2?`<div class="lst ${a===2?'y':''}">${n.ver.map((r,i)=>`<div class="${a===3&&n.on.indexOf(i)>=0?'y':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join('')}${a>=5?n.ara.map((r,i)=>`<div class="${i===0?'tpl':''} ${a===5?'y':''}"><span>${kac(r[0])}</span><span>${kac(r[1])}</span></div>`).join(''):''}</div>`:'';
  const alt=a>=5?`<div class="alt ${a===5?'y':''}"><em>${kac(n.son)}</em></div>`:'';
- return `<div class="tht">${ust}${lst}${alt}${a===6?`<div class="nt y">${kac(n.not)}</div>`:''}</div>`;
+ return `<div class="tht${n.soz?' szl':''}">${ust}${lst}${alt}${a===6?`<div class="nt y">${kac(n.not)}</div>`:''}</div>`;
 }
 function dersiE(q){
  const d=[];const a=S.sec&&S.sec!==q.dogru?ayirt(q,S.sec):'';
