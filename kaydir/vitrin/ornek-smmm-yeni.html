@@ -54,6 +54,7 @@ svg{display:block}
 .cpo .dg{color:var(--ok)}
 .cpo .yn{color:var(--hata)}
 .nsk2{display:block;margin:2px 0 6px;font-size:15px;font-weight:600;color:var(--murekkep)}
+.ertn{margin:6px 0 0;padding:8px 12px;border-radius:10px;background:var(--dolgu);font-size:13.5px;color:var(--soluk)}
 .cpg{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:44px;margin:6px 0 0;border-radius:12px;font-size:14px;font-weight:700;color:var(--vurgu);background:none;border:1.5px dashed color-mix(in srgb,var(--vurgu) 35%,transparent)}
 .cpg::after{content:"›";transform:rotate(90deg);font-size:17px}
 .cpg.ack::after{transform:rotate(-90deg)}
@@ -1015,9 +1016,11 @@ const sonAd=()=>S&&sonMu()?'Turu bitir':'Sonraki soru';
 function snGeriDur(){clearInterval(snGeriT);snGeriT=null;const b=document.getElementById('snb');if(b&&S)b.textContent=sonAd();}
 function snGeriBasla(){snGeriDur();if(HIZLI)return;let n=5;const say=()=>{const b=document.getElementById('snb');if(!b||!S||S.e!=='sonuc'||S.drs||S.sg){snGeriDur();return;}if(n<=0){snGeriDur();b.click();return;}b.textContent=sonAd()+' · '+n;n--;};say();snGeriT=setInterval(say,1000);}
 const ustH=()=>`<div class="hd">${seg()}<span class="sy">${POS+1} / ${SIRA.length}</span>${SERI>=2?`<span class="sr">Seri ${SERI}</span>`:''}</div>`;
+let ERT=[];
+function ertHedef(){if(ERT.indexOf(SIRA[POS])>=0)return -1;if(POS>=TURN)return POS<SIRA.length-1?SIRA.length-1:-1;const h=RVP>=0?RVP-1:TURN-1;return POS<h?h:-1;}
 function eSoru(){
  const q=Q(),fb=S.fb;
- return `${ustH()}${klnH()}${fb?'':`<div class="arc"><button class="ar ${S.eleKip?'ac':''}" data-a="eleKip" aria-pressed="${S.eleKip?'true':'false'}">${IK.ele}<span>${S.eleKip?'Eleme açık':'Şık ele'}</span></button><button class="ar ${S.yil?'ac':''}" data-a="yil" aria-pressed="${S.yil?'true':'false'}">${IK.yil}<span>${S.yil?'İşaretlendi':'Sonra bak'}</span></button></div>`}
+ return `${ustH()}${klnH()}${S.ertN&&!fb?`<p class="ertn">${kac(S.ertN)}</p>`:''}${fb?'':`<div class="arc"><button class="ar ${S.eleKip?'ac':''}" data-a="eleKip" aria-pressed="${S.eleKip?'true':'false'}">${IK.ele}<span>${S.eleKip?'Eleme açık':'Şık ele'}</span></button><button class="ar" data-a="yil">${IK.yil}<span>${ertHedef()>=0?'Sonra bak':'Bu soruyu geç'}</span></button></div>`}
  <div class="bd">${geriMi()?'<div class="rzt"><span class="rv">Rövanş sorusu</span></div>':''}<p class="kok ${String(q.soru).length>330?'uzs':''}">${kok(q,!fb)}</p>${S.eleKip&&!fb?'<p class="kip">Eleme açık: dokunduğun şık çizilir. Bitince yeniden "Eleme açık"a bas.</p>':''}
  <div role="radiogroup" aria-label="Şıklar">${harfler(q).map(h=>`<button role="radio" aria-checked="${S.sel===h?'true':'false'}" aria-label="${h} şıkkı: ${kac(q.siklar[h])}${S.ele[h]?' (elendi)':''}" class="op ${fb?(h===q.dogru?'dg zpl':h===S.sec?'yn sll':'snk'):(S.sel===h?'sl':'')} ${S.ele[h]?'el':''}" data-o="${h}" ${fb?'disabled':''}><span class="lt">${h}</span><span class="tx">${kac(q.siklar[h])}</span></button>`).join('')}</div></div>
  <div class="ft">${fb?'':(S.sel?'<button class="cta al gir" data-a="cevap">Cevapla</button>':'<p class="ip">Bir şık seç</p>')}</div>`;
@@ -1124,14 +1127,14 @@ function yolAra(c){if(SINAMA)return;Y.ara={k:TNO,o:OZL,tp:TIP,ad:TAD,s:SIRA.map(
 function gunEkle(){const g=gunAd(new Date());if(Y.gun.indexOf(g)<0)Y.gun.push(g);Y.gun=Y.gun.slice(-60);}
 function yolBit(){if(SINAMA)return;if(TIP==='yol')Y.bit=Math.max(Y.bit,TNO+1);gunEkle();Y.ara=null;yolYaz();hesGonder();}
 function araDuzelt(){if(SINAMA)return;Y.ynl=Y.ynl.filter(id=>idx(id)>=0);Y.gor=Y.gor.filter(id=>idx(id)>=0);if(Y.bit>DURAK.length)Y.bit=DURAK.length;const a=Y.ara;if(a){if(!a.s||a.s.some(id=>idx(id)<0)||(ATP(a)==='yol'&&a.k>=DURAK.length)){Y.ara=null;}else if(a.p+(a.c?1:0)>=a.s.length){if(ATP(a)==='yol')Y.bit=Math.max(Y.bit,a.k+1);gunEkle();Y.ara=null;}}yolYaz();}
-function turBasla(k,ozel){OZL=!!ozel;TIP=ozel?'ozel':'yol';TAD='';RVP=-1;TNO=ozel?0:k;if(ozel){SIRA=Y.ynl.slice(0,BOY()).map(idx);}else{SIRA=DURAK[k].slice();if(k>0){const r=Y.ynl.map(idx).filter(i=>SIRA.indexOf(i)<0)[0];if(r!=null){SIRA.push(r);RVP=SIRA.length-1;}}}TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
+function turBasla(k,ozel){OZL=!!ozel;TIP=ozel?'ozel':'yol';TAD='';RVP=-1;TNO=ozel?0:k;if(ozel){SIRA=Y.ynl.slice(0,BOY()).map(idx);}else{SIRA=DURAK[k].slice();if(k>0){const r=Y.ynl.map(idx).filter(i=>SIRA.indexOf(i)<0)[0];if(r!=null){SIRA.push(r);RVP=SIRA.length-1;}}}ERT=[];TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
 function araYukle(){const a=Y.ara;OZL=!!a.o;TIP=ATP(a);TAD=a.ad||'';TNO=a.k;SIRA=a.s.map(idx);TURN=a.t;RVP=a.r;YNL=a.y.map(idx);COZ=a.z.map(idx);DOGRU=a.d||0;SERI=0;POS=a.p+(a.c?1:0);if(POS>=SIRA.length)POS=SIRA.length-1;S=Object.assign(yeniSoru(),{i:SIRA[POS]});yolAra(false);}
 function yolIleri(ozel){if(SINAMA){S.e='soru';return;}srDur();if(ozel){if(Y.ynl.length)turBasla(-1,true);return;}if(Y.ara)araYukle();else oner().git();}
 const kpS=i=>{const q=SORULAR[i];return (q.cikmis&&q.cikmis.kopru)||0;};
 const dersAdlari=()=>{const L=[];SORULAR.forEach(q=>{if(L.indexOf(q.ders)<0)L.push(q.ders);});return L.sort((a,b)=>dersIdx(b).length-dersIdx(a).length||a.localeCompare(b,'tr'));};
 const dersIdx=ad=>SORULAR.map((q,i)=>q.ders===ad?i:-1).filter(i=>i>=0).sort((a,b)=>kpS(b)-kpS(a));
 const gorN=L=>L.filter(i=>Y.gor.indexOf(SORULAR[i].id)>=0).length;
-function turListe(liste,ad){if(!liste.length)return;const yeni=liste.filter(i=>Y.gor.indexOf(SORULAR[i].id)<0),eski=liste.filter(i=>Y.gor.indexOf(SORULAR[i].id)>=0);TIP='ders';TAD=ad;OZL=false;RVP=-1;TNO=0;SIRA=yeni.concat(eski).slice(0,BOY());TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
+function turListe(liste,ad){if(!liste.length)return;const yeni=liste.filter(i=>Y.gor.indexOf(SORULAR[i].id)<0),eski=liste.filter(i=>Y.gor.indexOf(SORULAR[i].id)>=0);TIP='ders';TAD=ad;OZL=false;RVP=-1;TNO=0;SIRA=yeni.concat(eski).slice(0,BOY());ERT=[];TURN=SIRA.length;POS=0;YNL=[];COZ=[];DOGRU=0;SERI=0;S=Object.assign(yeniSoru(),{i:SIRA[0]});yolAra(false);}
 function zayifDers(){const L=dersAdlari();let en=L[0],ep=2,ez=Infinity;L.forEach(d=>{const x=dersIdx(d),p=gorN(x)/x.length,z=(Y.son&&Y.son[d])||0;if(p<ep||(p===ep&&z<ez)){en=d;ep=p;ez=z;}});return en;}
 function oner(){if(Y.sabit&&dersIdx(Y.sabit).length)return {et:Y.sabit,git:()=>turListe(dersIdx(Y.sabit),Y.sabit)};if(Y.bit<DURAK.length){const k=Y.bit;return {et:'Karışık yol, Tur '+(k+1),git:()=>turBasla(k,false)};}if(Y.ynl.length)return {et:'Sana özel tur',git:()=>turBasla(-1,true)};const d=zayifDers();return {et:d,git:()=>turListe(dersIdx(d),d)};}
 const sirAd=()=>oner().et;
@@ -1213,7 +1216,7 @@ document.addEventListener('click',e=>{
  else if(d.tr!=null){S.trm=S.trm===+d.tr?null:+d.tr;}
  else switch(d.a){
   case 'eleKip':S.eleKip=!S.eleKip;break;
-  case 'yil':S.yil=!S.yil;break;
+  case 'yil':{const h=ertHedef();if(h>=0){const i=SIRA.splice(POS,1)[0];SIRA.splice(h,0,i);ERT.push(i);S=Object.assign(yeniSoru(),{i:SIRA[POS],ertN:'Soru turun sonuna alındı; sonda yeniden gelecek.'});yolAra(false);}else{ERT=ERT.filter(x=>x!==SIRA[POS]);POS++;if(POS>=SIRA.length){S=Object.assign(yeniSoru(),{i:S.i,e:'bit'});yolBit();}else{S=Object.assign(yeniSoru(),{i:SIRA[POS],ertN:'Soru geçildi; cevaplanmadı.'});yolAra(false);}}window.scrollTo(0,0);break;}
   case 'cevap':{S.sec=S.sel;S.eleKip=false;const dgr=S.sec===q.dogru;const gr=geriMi();yolCvp(q.id,dgr);if(dgr){SERI++;if(gr)COZ.push(S.i);else DOGRU++;}else{SERI=0;if(!gr&&YNL.indexOf(S.i)<0){YNL.push(S.i);SIRA.push(S.i);}}tit(dgr?20:[30,60,30]);
    if(HIZLI){S.e='sonuc';window.scrollTo(0,0);break;}
    S.fb=true;ciz();setTimeout(()=>{if(!S||!S.fb)return;S.fb=false;S.e='sonuc';S.gec='sonuc';ciz();window.scrollTo(0,0);if(dgr)snGeriBasla();},dgr?750:900);return;}
