@@ -219,6 +219,9 @@ h1{font-size:27px;line-height:1.16;letter-spacing:-.02em;margin:0 0 12px;font-we
 .drl.ya .drh:first-child{padding-left:20px}
 .drl.ya .drh:last-child{grid-column:3}
 .drl.yt{border-top:1.5px solid var(--vurgu);border-bottom:0;font-size:15px;color:var(--soluk)}
+.kr.yvg{padding-top:12px;padding-bottom:2px;border-bottom:0;min-height:0}
+.kr.yvg span:first-child{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--vurgu)}
+.kr.yvs{font-size:14px}
 .yvb{margin:14px 0 5px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soluk)}
 .yvb.dg{color:var(--ok)}
 .yvb.yn{color:var(--hata)}
@@ -605,10 +608,13 @@ function tbl(q,h){
  return T;
 }
 function yevH(T,h){
- const D=T.yv.d,Sn=T.yv.sen[h],n=T.s.length-1,v=T.sen[h].v,ay=x=>x[0]+'|'+x[1]+'|'+x[2],sy=t=>+String(t).replace(/\./g,'')||0,bc=x=>x.toLocaleString('tr-TR');
- const tbl1=(R,O,cls)=>{let b=0,a=0;const anh=O.map(ay);const st=R.map(x=>{if(x[1]==='b')b+=sy(x[2]);else a+=sy(x[2]);return `<div role="row" class="yvr ${x[1]==='a'?'al':''} ${anh.indexOf(ay(x))<0?cls:''}"><span role="rowheader">${kac(x[0])}</span><span role="cell">${x[1]==='b'?kac(x[2]):''}</span><span role="cell">${x[1]==='a'?kac(x[2]):''}</span></div>`;}).join('');
-  return `<div class="yvt" role="table"><div class="yvr bs" role="row"><span role="columnheader">Hesap</span><span role="columnheader">Borç</span><span role="columnheader">Alacak</span></div>${st}<div role="row" class="yvr tp ${b!==a?'dn':''}"><span role="rowheader">${b!==a?'Toplam · borç alacağa eşit değil':'Toplam'}</span><span role="cell">${bc(b)}</span><span role="cell">${bc(a)}</span></div></div>`;};
- return `<p class="yvb yn">Senin kaydın</p>${tbl1(Sn,D,'fk')}<p class="yvb dg">Doğru kayıt</p>${tbl1(D,Sn,'ay')}<div class="kyt" role="table" aria-label="Sonuç"><div class="kr bs" role="row"><span role="columnheader">Kalem</span><span role="columnheader">Sen</span><span role="columnheader">Doğrusu</span></div><div role="row" class="kr snc"><span role="rowheader">${kac(T.s[n][0])}${T.s[n][3]?`<small class="ac">${kac(T.s[n][3])}</small>`:''}</span><span role="cell">${kac(v[n])}</span><span role="cell">${kac(T.s[n][1])}</span></div></div>`;
+ const D=T.yv.d,Sn=T.yv.sen[h],n=T.s.length-1,v=T.sen[h].v,sy=t=>+String(t).replace(/\./g,'')||0,bc=x=>x.toLocaleString('tr-TR');
+ const grup=(yon,ad)=>{const L=[];D.concat(Sn).forEach(x=>{if(x[1]===yon&&L.indexOf(x[0])<0)L.push(x[0]);});let ts=0,td=0;
+  const st=L.map(k=>{const s=Sn.find(x=>x[0]===k&&x[1]===yon),d=D.find(x=>x[0]===k&&x[1]===yon),sv=s?s[2]:'yok',dv=d?d[2]:'yok';ts+=s?sy(s[2]):0;td+=d?sy(d[2]):0;
+   return `<div role="row" class="kr ${sv!==dv?'fk ay':''}"><span role="rowheader">${kac(k)}</span><span role="cell">${kac(sv)}</span><span role="cell">${kac(dv)}</span></div>`;}).join('');
+  return {h:`<div role="row" class="kr yvg"><span role="rowheader">${ad}</span><span></span><span></span></div>${st}`,ts,td};};
+ const B=grup('b','Borç'),A=grup('a','Alacak'),dn=B.ts!==A.ts;
+ return `<div class="kyt" role="table" aria-label="Senin kaydın ve doğrusu"><div class="kr bs" role="row"><span role="columnheader">Hesap</span><span role="columnheader">Sen</span><span role="columnheader">Doğrusu</span></div>${B.h}<div role="row" class="kr tp yvs"><span role="rowheader">Borç toplamı</span><span role="cell">${bc(B.ts)}</span><span role="cell">${bc(B.td)}</span></div>${A.h}<div role="row" class="kr tp yvs ${dn?'fk':''}"><span role="rowheader">Alacak toplamı${dn?'<small class="ac">senin kaydında borç alacağa eşit değil</small>':''}</span><span role="cell">${bc(A.ts)}</span><span role="cell">${bc(A.td)}</span></div><div role="row" class="kr snc"><span role="rowheader">${kac(T.s[n][0])}${T.s[n][3]?`<small class="ac">${kac(T.s[n][3])}</small>`:''}</span><span role="cell">${kac(v[n])}</span><span role="cell">${kac(T.s[n][1])}</span></div></div>`;
 }
 function tabloH(q,h,oz){
  const T=tbl(q,h);if(!T)return '';if(T.yv&&T.yv.sen[h])return yevH(T,h);const n=T.s.length-1,v=T.sen[h].v;
@@ -1015,7 +1021,7 @@ const KONF=(()=>{const r=['var(--ok)','var(--sari)','var(--vurgu)','var(--hata)'
 function eSonuc(){
  const q=Q(),dg=S.sec===q.dogru;
  const cps=`<div class="cps ${uzunMu(q)?'uzn':''}">${harfler(q).map(h=>`<button class="cp ${h===q.dogru?'dg':h===S.sec?'yn':''} ${S.acS===h?'ac':''}" data-c="${h}" aria-label="${h} şıkkı"><b>${h}</b><span>${kac(q.siklar[h])}</span></button>`).join('')}</div>`+
-  (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${S.acS!==S.sec&&tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span role="columnheader">Sen</span>','<span role="columnheader">Bu şık</span>').replace('Senin kaydın','Bu şıkkın kaydı'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
+  (S.acS?`<div class="ned gir">${S.acS===q.dogru?`<b>${S.acS} şıkkı · doğru</b>${cozumH(q)||kac(q.olay||'')}`:`<b>${S.acS} şıkkı${tbl(q,S.acS)?' · '+kac(tbl(q,S.acS).sen[S.acS].b):tuzakAd(q,S.acS)?' · '+kac(tuzakAd(q,S.acS)):''}</b>${S.acS!==S.sec&&tabloH(q,S.acS)?tabloH(q,S.acS).replace('<span role="columnheader">Sen</span>','<span role="columnheader">Bu şık</span>'):kac(kisa(q,S.acS))+(q.celdiriciYol&&q.celdiriciYol[S.acS]?`<span>${kac(q.celdiriciYol[S.acS])}</span>`:'')}`}</div>`:'');
  const Y=!!drsVar(q);
  if(S.drs&&Y)return `<div class="bd tam">${dersH(q)}</div>`;
  const T0=dg?null:tbl(q,S.sec),fml=formulH(q,true);
