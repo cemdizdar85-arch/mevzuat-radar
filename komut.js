@@ -79,6 +79,13 @@
             if (!x.sayfa) return;
             var konular = (x.konular || []).map(function (k) { return k.ad; }).join(' ');
             KAYIT.push({ ad: x.ad, yol: '/' + x.sayfa, konu: s.ad + ' dersleri', ara: katla(x.ad + ' ' + konular + ' ' + (x.ara || '') + ' ' + s.ad + ' ' + (s.uzun || '')) });
+            /* 23.11 Cem "Amazon/YouTube gibi" (denetim C19 "arama konu bulmuyor"): konu da ayrı sonuç olur; tık = ders sayfası
+               ?konu=<ad> (kasa-yukle.js sırayı o konuya indirir; ad tutmazsa bütün ders açılır). Konu adı ders adından önce gelir. */
+            (x.konular || []).forEach(function (k) {
+              if (!k || !k.ad) return;
+              var ad = k.ad.charAt(0).toLocaleUpperCase('tr-TR') + k.ad.slice(1);
+              KAYIT.push({ ad: ad, yol: '/' + x.sayfa + '?konu=' + encodeURIComponent(k.ad), konu: x.ad + ' · ' + s.ad + ' konusu', ara: katla(k.ad + ' ' + x.ad), tur: 'konu' });
+            });
           });
         });
         if (acik && girdi) ciz(girdi.value);
@@ -94,18 +101,32 @@
     var t = katla(q).trim();
     if (!t) return KAYIT.slice();
     var parca = t.split(/\s+/);
-    return KAYIT.map(function (r) {
-      var ad = katla(r.ad), puan = 0, hepsi = true;
-      parca.forEach(function (p) {
-        var i = r.ara.indexOf(p);
-        if (i < 0) { hepsi = false; return; }
-        if (ad.indexOf(p) === 0) puan += 100;
-        else if (ad.indexOf(p) > -1) puan += 50;
-        else puan += 10;
-      });
-      return hepsi ? { r: r, puan: puan } : null;
-    }).filter(Boolean).sort(function (a, b) { return b.puan - a.puan; })
-      .map(function (x) { return x.r; });
+    /* 23.11: Türkçe ek toleransı - kelimenin sonundaki TEK ek atılmış hâli de aranır, kök en az 4 harf
+       ("iadesi" -> "iade", "amortismani" -> "amortisman"; "turkce" -> "turkc", "ataturk"e düşmez) */
+    var EKLER = ['leri', 'lari', 'nin', 'nun', 'dan', 'den', 'tan', 'ten', 'ler', 'lar', 'si', 'su', 'in', 'un', 'da', 'de', 'ta', 'te', 'i', 'u', 'e', 'a'];
+    var kok = parca.map(function (p) {
+      for (var j = 0; j < EKLER.length; j++) { var e = EKLER[j]; if (p.length - e.length >= 4 && p.slice(-e.length) === e) return p.slice(0, -e.length); }
+      return p;
+    });
+    function puanla(tumu) {
+      return KAYIT.map(function (r) {
+        var ad = katla(r.ad), puan = 0, tutan = 0;
+        parca.forEach(function (p, n) {
+          var q = r.ara.indexOf(p) > -1 ? p : (r.ara.indexOf(kok[n]) > -1 ? kok[n] : '');
+          if (!q) return;
+          tutan++;
+          if (ad.indexOf(q) === 0) puan += 100;
+          else if (ad.indexOf(q) > -1) puan += 50;
+          else puan += 10;
+        });
+        if (r.tur === 'konu' && puan >= 50) puan += 30;   /* adında geçen konu, aynı kelimeyi yalnız anahtar listesinde taşıyan dersten önce */
+        return (tumu ? tutan === parca.length : tutan > 0) ? { r: r, puan: puan + tutan * 5 } : null;
+      }).filter(Boolean).sort(function (a, b) { return b.puan - a.puan; })
+        .map(function (x) { return x.r; });
+    }
+    var tam = puanla(true);
+    /* hiçbir sonuç bütün kelimeleri taşımıyorsa en az birini taşıyanlar ("kdv iadesi" -> KDV geçen dersler) */
+    return tam.length ? tam : puanla(false);
   }
 
   /* GTIP kodu yazildiysa dogrudan sorguya goturen ozel satir uretilir.
