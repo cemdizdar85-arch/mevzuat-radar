@@ -1,5 +1,5 @@
 {
-  "tarih": "23.11.2026 14:48",
+  "tarih": "23.11.2026 15:03",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 923,
   "riskli_madde": 1322,
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -2669,127 +2669,127 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 476,
+      "satir": 481,
       "iddia": "20 Gün",
       "metin": "/* 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı; eski bağlantı (reklam, uygulama, e-posta: ?paket=sgs / son20-sgs)"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 537,
+      "satir": 542,
       "iddia": "20 Gün",
       "metin": "(paket-kartlari.js ciz ile aynı kural): erken kayıtta indirimli tutar, Son 20 Gün paketleri KDV dahil; erken kayıtta"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 540,
+      "satir": 545,
       "iddia": "20 Gün",
       "metin": "/* 28.10 görüntü turu: erken kayıt ve Son 20 Gün kartında \"açılış fiyatı · ilk 1.000 üye\" / \"sabit fiyat\" notu kalabalık yapıyordu */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 619,
+      "satir": 624,
       "iddia": "3 gün",
       "metin": "Sunucu yanıt vermezse tarih yazılmaz, \"o sınavdan 3 gün sonra biter\" yazar (tahmini tarih yazılmaz). */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 624,
+      "satir": 629,
       "iddia": "3 gün",
       "metin": "if(!t) return d.ad + ' Tarih henüz açıklanmadı · erişim sınavdan 3 gün sonra biter ';"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 899,
+      "satir": 906,
       "iddia": "20 Gün",
       "metin": "/* 02.11 Cem (\"999 TL tekliflerde hiçbir indirim kodu kullanılamasın\"): Son 20 Gün paketlerinde kod kutusu yok, girilmiş kod"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 907,
+      "satir": 914,
       "iddia": "20 Gün",
       "metin": "if(s20){ elciDurumYaz(ham.trim() ? (s27 ? 'SGS 2027 paketinde indirim kodu kullanılmaz.' : '999 TL Son 20 Gün paketlerinde indirim kodu kullanılmaz.') : '', 'var(--amber)'); ozetCi"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 987,
+      "satir": 994,
       "iddia": "20 Gün",
       "metin": "tüm dersler ↔ Son 20 Gün. Öteki paketler yine \"Başka paket seç\" ile açılır. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 989,
+      "satir": 996,
       "iddia": "20 Gün",
       "metin": "1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 992,
+      "satir": 999,
       "iddia": "20 Gün",
       "metin": "if(/^sgs/.test(id) || id === 'son20-sgs') liste = []; /* 23.11: SGS'de tek paket (SGS 2027); Son 20 Gün satıştan kalktı */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1020,
+      "satir": 1027,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1269,
+      "satir": 1282,
       "iddia": "2 saat",
       "metin": "2 saatten yeni siparişte, siparişte bir kez (siparis-bildirim.ts). */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1271,
+      "satir": 1284,
       "iddia": "7 gün",
       "metin": "gönderiyoruz … üye olduğunda göndereceksek göndermesek de olur\"): son 7 günde kartla 30 kişi ödedi, havaleyle 2; havalede 13"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1274,
+      "satir": 1287,
       "iddia": "3 saat",
       "metin": "(özet + sözleşme ekleri; siparis-bildirim.ts tekMail - kartla ödeyenle aynı). 3 saatlik havale hatırlatması ve"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1289,
+      "satir": 1302,
       "iddia": "3 saat",
       "metin": "kişinin elinde 3 saatlik hatırlatmaya kadar hiçbir şey yoktu, sayfa tek satır kırmızı yazı gösteriyordu (\"yeniden dene\" düğmesi bile yoktu)."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1291,
+      "satir": 1304,
       "iddia": "2 saat",
       "metin": "aynı: ödeme bekleyen, 2 saatten yeni, siparişte bir kez) + spam notu yalnız mail gerçekten kabul edildiyse. SMS hattımız YOK. */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1456,
+      "satir": 1471,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1458,
+      "satir": 1473,
       "iddia": "90 gün",
       "metin": "/* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1518,
+      "satir": 1537,
       "iddia": "24 saat",
       "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1593,
+      "satir": 1612,
       "iddia": "24 saat",
       "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1645,
+      "satir": 1671,
       "iddia": "14 gün",
       "metin": "/* 06.11 (Cem \"alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın\"): son 14 günde 80 kart siparişinin 18'inde kart geçmedi, 16'sı"
     },
