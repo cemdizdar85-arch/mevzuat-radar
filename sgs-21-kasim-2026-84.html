@@ -318,7 +318,7 @@ table.oz td.yk{font-size:12.5px;color:var(--muted)}
       var t=(x!==d && tz[x] && tz[x].metin)?'<span class="tz">'+(tz[x].ad?'<b>'+e(tz[x].ad)+':</b> ':'')+e(tz[x].metin)+'</span>':'';
       return '<li class="'+(x===d?'d':'')+'"><span class="h">'+e(x)+')</span>'+e(sk[x])+(x===d?' <span class="dc">✓ doğru</span>':'')+t+'</li>';
     }).join('')+'</ol>';
-    if(v.aciklama) h+='<h4>Neden '+e(d)+'?</h4><p style="margin:0">'+e(v.aciklama)+'</p>';
+    var acik=v.aciklama||v.hap; if(acik) h+='<h4>Neden '+e(d)+'?</h4><p style="margin:0">'+e(acik)+'</p>';
     var ad=adimlar(v.adimlar);
     if(ad.length) h+='<h4>Çözüm adımları</h4><ol class="ad">'+ad.map(function(x){ return '<li>'+e(x.a)+(x.f?'<span class="fm">'+e(x.f)+'</span>':'')+'</li>'; }).join('')+'</ol>';
     if(v.kural) h+='<h4>Kural</h4><p style="margin:0">'+e(v.kural)+'</p>';
