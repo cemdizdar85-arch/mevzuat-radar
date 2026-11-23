@@ -246,6 +246,13 @@ html body .dr-kart:hover{border-color:var(--ink)}
 .dr-kart span{font-size:14px;color:var(--muted)}
 .dr-kart .dr-git{color:var(--amber);font-weight:700}
 .dr-kart.dr-tum{background:var(--bg2);justify-content:center;align-items:center;font-weight:800}
+/* 24.11 Cem (taslak onayı): Netflix kapağı - renkli kapak, üstte bölüm, altta ders adı; üyenin bu cihazdaki son Hesabım ölçümü varsa ilerleme çubuğu */
+html body .dr-kart.dr-k{flex-basis:min(230px,62%);padding:0;border:0;background:none;gap:0}
+.dr-k .dr-kapak{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:128px;border-radius:12px;padding:12px 12px 16px;color:#fff;overflow:hidden}
+.dr-k .dr-kapak small{position:absolute;top:10px;left:12px;font-size:12px;font-weight:700;letter-spacing:.4px;opacity:.85;color:#fff}
+.dr-k .dr-kapak b{font-size:16.5px;color:#fff}
+.dr-k .dr-bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.28)}.dr-k .dr-bar i{display:block;height:100%;background:#ffc24b}
+.dr-k .dr-git{display:block;padding:7px 2px 0}
 /* 23.11: telefonda uzun anlatım bölümleri katlanır (metin sayfada kalır, arama motoru görür) */
 .katla-ac{display:none}
 @media(max-width:600px){
@@ -1231,8 +1238,12 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     if(!s||!s.dersler||!s.dersler.length){ document.getElementById('dersRafi').hidden=true; return; }
     document.getElementById('dersRafi').hidden=false;
     tum.href='sorular.html#'+ANAH[k];
-    raf.innerHTML=s.dersler.map(function(d){
-      return '<a class="dr-kart" href="'+esc(d.sayfa)+'"><b>'+esc(d.ad)+'</b><span class="dr-git">Soru çöz →</span></a>';   /* 23.11 Cem: soru sayısı yazılmaz (164 ile 1.098 yan yana zayıf görünüyordu) */
+    var REN=['#1d3a5f,#0f1b2d','#7a4b12,#3b2507','#1e5b4a,#0c2a22','#5a2a52,#2a1026','#2f4b7a,#14223b','#6a5a17,#2f2706','#5b3a1e,#26160a','#24526b,#0e2430'];
+    var ilr={}; try{ var o=JSON.parse(localStorage.getItem('tt_raf_ozet')||'null'); if(o&&o.d&&Date.now()-o.t<30*86400000) o.d.forEach(function(x){ ilr[x[0]]=x[1]; }); }catch(e){}
+    raf.innerHTML=s.dersler.map(function(d,i){
+      var y=ilr[d.sayfa], bol=String(d.bolum||'').replace(/^Yeterlilik$/,'').toLocaleUpperCase('tr-TR');
+      return '<a class="dr-kart dr-k" href="'+esc(d.sayfa)+'"><span class="dr-kapak" style="background:linear-gradient(135deg,'+REN[i%REN.length]+')"><small>'+esc(bol)+'</small><b>'+esc(d.ad)+'</b>'
+        +(y>0?'<span class="dr-bar"><i style="width:'+y+'%"></i></span>':'')+'</span><span class="dr-git">'+(y>0?'%'+y+' · devam et →':'Soru çöz →')+'</span></a>';   /* 23.11 Cem: soru sayısı yazılmaz */
     }).join('')+'<a class="dr-kart dr-tum" href="sorular.html#'+ANAH[k]+'">Tüm dersler →</a>';
     raf.scrollLeft=0;
   }

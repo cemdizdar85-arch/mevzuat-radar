@@ -129,6 +129,16 @@
   .og-paket{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .og-paket .og-paket-et{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:6px}
   .og-paket b{display:block;font-size:20px;color:var(--ink)}
+  /* 24.11 Netflix rafları (rafCiz) */
+  .op-raf{margin:0 0 18px}
+  .op-raf h3{margin:0 0 10px;font-size:19px;letter-spacing:-.3px}
+  .op-serit{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
+  html body a.op-rk{flex:0 0 min(230px,70%);scroll-snap-align:start;text-decoration:none;color:var(--ink)}
+  .op-rk-kapak{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:128px;border-radius:12px;padding:12px 12px 16px;color:#fff;overflow:hidden}
+  .op-rk-kapak small{position:absolute;top:10px;left:12px;font-size:12px;font-weight:700;letter-spacing:.4px;opacity:.85}
+  .op-rk-kapak b{font-size:16.5px;line-height:1.25}
+  .op-rk-bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.28)}.op-rk-bar i{display:block;height:100%;background:#ffc24b}
+  .op-rk-alt{display:block;padding:7px 2px 0;font-size:14px;color:var(--muted)}.op-rk-alt b{color:var(--ink)}
   .og-odeme-kart{margin:0 0 16px;padding:18px 18px 16px;border-radius:14px;border:2px solid var(--green);background:color-mix(in srgb,var(--green) 7%,var(--kagit))}
   .og-odeme-bas{margin:0 0 8px;font-size:19px;font-weight:800;color:var(--green)}
   .og-odeme-liste{margin:0 0 14px;padding-left:18px;font-size:15px;line-height:1.55}
@@ -488,6 +498,9 @@
       </div>
     </div>
       <!-- karne: 4 gösterge (artı/eksi: geçen haftaya ya da önceki ölçüme göre) -->
+      <!-- 24.11 Cem ("Netflix gibi", taslak onayı "YAPALIM"): kapaklı raflar - kaldığın yerden devam (ilerleme çubuğu) + başlamadığın dersler.
+           Veri aynı: uye_calisma_ozetim (hesaptaki bütün cevaplar) + soru dizini; ilerleme = çözülen farklı soru / dersin sitedeki sorusu. -->
+      <div id="opRaf"></div>
       <div class="op-karne" id="opKarne"></div>
       <div class="og-kutu op-blok">
         <div class="op-blok-ust"><h3>Derslerim</h3><a class="og-link" id="opTumDersler" href="sorular.html">Tüm dersler →</a></div>
@@ -1378,6 +1391,26 @@
     var an=s+'|'+uygun; S20_SON=an;
     ttSon20.durum(tur,uygun).then(function(k){ if(S20_SON===an&&ILR.secili===s) s20Uygula(k); },function(){});
   }
+  /* 24.11 RAFLAR (Netflix): satir = Derslerim tablosunun satırları {ad, sayfa, banka, d:{cozulen,son,...}}. Banka büyüklüğü YAZILMAZ
+     (Cem 23.11 "soru sayısı yazmasın"); yalnız yüzde ve son çalışma. Sıra: en son çalışılan önce (Netflix "izlemeye devam et"). */
+  function rafCiz(satir, s){
+    var kap=$('opRaf'); if(!kap) return;
+    var ETK={ sgs:'STAJA GİRİŞ', yeterlilik:'YETERLİLİK', kgk:'KGK' }[s]||'';
+    var REN=['#1d3a5f,#0f1b2d','#7a4b12,#3b2507','#1e5b4a,#0c2a22','#5a2a52,#2a1026','#2f4b7a,#14223b','#6a5a17,#2f2706','#5b3a1e,#26160a','#24526b,#0e2430'];
+    var kart=function(r,i,devam){
+      var coz=r.d&&r.d.cozulen?+r.d.cozulen:0, yz=r.banka?Math.min(100,Math.round(100*coz/r.banka)):0;
+      if(coz>0&&yz<1) yz=1;
+      var alt=devam?('<b>%'+yz+'</b>'+(r.d&&r.d.son?' · son çalışma '+esc(opTarih(r.d.son)):'')):'Başla →';
+      return '<a class="op-rk" href="'+esc(r.sayfa||'sorular.html')+'"><span class="op-rk-kapak" style="background:linear-gradient(135deg,'+REN[i%REN.length]+')"><small>'+ETK+'</small><b>'+esc(r.ad)+'</b>'
+        +(devam?'<span class="op-rk-bar"><i style="width:'+yz+'%"></i></span>':'')+'</span><span class="op-rk-alt">'+alt+'</span></a>';
+    };
+    var sirali=satir.map(function(r,i){ return {r:r,i:i}; }).filter(function(x){ return x.r.sayfa; });
+    var devam=sirali.filter(function(x){ return x.r.d&&+x.r.d.cozulen>0; }).sort(function(a,b){ return String(b.r.d.son||'').localeCompare(String(a.r.d.son||'')); });
+    var yeni=sirali.filter(function(x){ return !(x.r.d&&+x.r.d.cozulen>0); });
+    kap.innerHTML=(devam.length?'<section class="op-raf"><h3>Kaldığın yerden devam</h3><div class="op-serit">'+devam.map(function(x){ return kart(x.r,x.i,true); }).join('')+'</div></section>':'')
+      +(yeni.length?'<section class="op-raf"><h3>'+(devam.length?'Henüz başlamadığın dersler':'Derslerin')+'</h3><div class="op-serit">'+yeni.map(function(x){ return kart(x.r,x.i,false); }).join('')+'</div></section>':'');
+    try{ localStorage.setItem('tt_raf_ozet', JSON.stringify({ s:s, t:Date.now(), d:satir.map(function(r){ return [r.sayfa, r.banka?Math.min(100,Math.round(100*((r.d&&+r.d.cozulen)||0)/r.banka)):0]; }) })); }catch(e){}
+  }
   function panoCiz(){
     var s=ILR.secili; if(!s||!$('ogPano')) return;
     try{ s20Ciz(s); }catch(e){}
@@ -1534,6 +1567,7 @@
             +'<td class="s">'+(r.sayfa?'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Çöz</a>':'')+'</td></tr>'
             +'<tr class="op-detay'+(ac?'':' og-gizli')+'"><td colspan="5">'+(ac?detay(r):'')+'</td></tr>'; }).join('')
         +'</table>';
+      try{ rafCiz(satir, s); }catch(e){}
       $('opDersler').onclick=function(e){ var b=e.target.closest&&e.target.closest('.op-ac'); if(!b) return;
         var a=b.getAttribute('data-ders'), key=s+'|'+ad(a), tr=b.closest('tr'), dt=tr.nextElementSibling, r=satir.filter(function(x){ return x.ad===a; })[0];
         OP_ACIK[key]=!OP_ACIK[key]; tr.classList.toggle('acik',OP_ACIK[key]); b.setAttribute('aria-expanded',OP_ACIK[key]);

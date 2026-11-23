@@ -607,7 +607,7 @@ function yeniUst(){
     'html body .tt-cipler a:hover{background:color-mix(in srgb,var(--ink) 12%,var(--bg))}'+
     'html body .tt-cipler a[aria-current=page]{background:var(--ink);color:var(--bg)!important}'+
     '@media(max-width:700px){html.tt-yu .navlinks .kp-dugme{flex:0 0 auto;max-width:none;margin-right:0;width:42px;height:42px;padding:0;justify-content:center}'+
-      'html.tt-yu .navlinks .kp-dugme>span::after{content:""}'+
+      'html.tt-yu .navlinks .kp-dugme>span{display:none!important}'+
       'html.tt-yu .navlinks a.nl-hesap{font-size:0!important;padding:0 5px!important;gap:0!important}'+
       'html.tt-yu body #ttUst .navlinks a.ust-cta,html.tt-yu body #nav .navlinks a#navCta{height:42px;min-height:42px;padding:0 14px;font-size:14.5px}'+
       '.tt-cipler .ic{padding:8px 14px}}';
