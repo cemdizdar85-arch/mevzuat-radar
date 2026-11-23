@@ -59,6 +59,8 @@
       a.textContent = 'Satın al'; a.setAttribute('href', 'satin-al.html?paket=sgs'); a.removeAttribute('aria-disabled');
       return;
     }
+    /* 23.11 Cem "2027 diye belirtelim": Yeterlilik kartı da yılı söyler (SGS kartındaki gibi) */
+    var psn = k.querySelector('.pk-sinav'); if(psn && /^yeterlilik-/.test(p.id) && typeof yet2027Evre === 'function' && yet2027Evre() > 0) psn.textContent = 'SMMM Yeterlilik · 2027';
     k.querySelector('[data-fiyat]').innerHTML = hr ? tlx(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' <small>TL + KDV</small>' : tlx(p.fiyat) + ' <small>TL</small>';
     k.querySelector('[data-dahil]').textContent = (hr ? fiyatDahilNot(p.id, p.fiyat) : '') + (p.kota && p.liste > p.fiyat ? (hr ? ' · ' : '') + 'açılış fiyatı · ilk ' + tlx(p.kota) + ' üye' : '')
       + (p.sonraYazi ? (hr ? ' · ' : '') + p.not : '');   /* 23.11 SGS 2027: "31 Aralık 2026 23:59'a kadar" */

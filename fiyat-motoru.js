@@ -502,6 +502,9 @@ var SGS2027_DONEM = [
 ];
 function sgs2027Fiyat(){ return Date.now() < FIYAT.sgs2027.gecis ? FIYAT.sgs2027.kurulus : FIYAT.sgs2027.liste; }
 function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
+/* 23.11: 2027 paketinin erişim yazısı. Sunucu bitişi = en geç(28 Kasım 2026, satın alma + 92 gün) (kart_siparis_odendi) → 28 Kasım dahil, en az 3 ay */
+function yetErisim(ye){ var s = sinav('yeterlilik'); if(!ye) return erisimYazi('yeterlilik');
+  return (s && new Date(s.tarih + 'T09:00:00+03:00') >= new Date()) ? 'En az 3 ay · ' + s.yazi + ' sınavı da dahil' : erisimYazi('yeterlilik'); }
 function yet2027Evre(){ var t = Date.now(), y = FIYAT.yet2027; return !y || t < y.baslangic ? 0 : t < y.gecis ? 1 : 2; }
 /* 23.11 Cem: "Peşin fiyatına 3 taksit · 3 × 1.195,20 TL (KDV dahil toplam 3.585,60 TL)" — yalnız taksit açıkken (FIYAT.sgs2027.taksit);
    kapalıyken boş dize, hiçbir yerde taksit yazmaz. "Peşin fiyatına" iddiası iyzico taksit sorgusuyla ölçüldü (vade farkı alıcıya yansımıyor);
@@ -553,16 +556,16 @@ function paketler(){
   var ye = yet2027Evre(), Y7 = FIYAT.yet2027;   /* 23.11 Yeterlilik 2027: 0 = 28 Kasım'a kadar eski fiyat · 1 = açılış · 2 = 1 Ocak'tan */
   for(var n = 1; n <= 4; n++){
     L.push({ id:'yeterlilik-' + n, grup:'SMMM Yeterlilik',
-             ad:'Yeterlilik — ' + n + ' ders', ders:n,
+             ad:'Yeterlilik ' + (ye ? '2027 ' : '') + '— ' + n + ' ders', ders:n,   /* 23.11 Cem "2027 diye belirtelim" */
              fiyat:(ye === 0 ? FIYAT.yeterlilik[n].kurulus : ye === 1 ? Y7.acilis[n] : Y7.son[n]),
              liste:(ye === 0 ? FIYAT.yeterlilik[n].liste : Y7.son[n]), sonraYazi:(ye === 1 ? "1 Ocak 2027'den itibaren" : ''),
-             kota:(ye === 0 ? KOTA.yeterlilik : null), erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilik[n].taksit || 0),
+             kota:(ye === 0 ? KOTA.yeterlilik : null), erisim:yetErisim(ye), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilik[n].taksit || 0),
              harcYazi:n + ' dersin harcı ' + tl(HARC.yeterlilik.ders * n) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
   }
-  L.push({ id:'yeterlilik-tum', grup:'SMMM Yeterlilik', ad:'Yeterlilik — tüm dersler', ders:8,
+  L.push({ id:'yeterlilik-tum', grup:'SMMM Yeterlilik', ad:'Yeterlilik ' + (ye ? '2027 ' : '') + '— tüm dersler', ders:8,
            fiyat:(ye === 0 ? FIYAT.yeterlilikTum.kurulus : ye === 1 ? Y7.acilisTum : Y7.sonTum),
            liste:(ye === 0 ? FIYAT.yeterlilikTum.liste : Y7.sonTum), sonraYazi:(ye === 1 ? "1 Ocak 2027'den itibaren" : ''),
-           kota:(ye === 0 ? KOTA.yeterlilik : null), erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilikTum.taksit || 0),
+           kota:(ye === 0 ? KOTA.yeterlilik : null), erisim:yetErisim(ye), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilikTum.taksit || 0),
            harcYazi:'İlk başvuru harcı ' + tl(HARC.yeterlilik.ilkBasvuru) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
 
   /* KGK'da harç çapası kullanılmaz (yukarıdaki nota bak); satır KURS fiyatını
