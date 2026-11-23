@@ -344,8 +344,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <h2>İki dönemlik paket satmıyoruz</h2>
   <p style="margin:0;font-size:14px">Paketin <b>tek bir sınava</b> göre kurulur: girdiğin sınavı geçmen için. Kalacağını varsayıp iki dönemlik paket satmıyoruz.</p><!-- 05.10 Cem "1 ve 2 yap": "piyasadaki paketlerin çoğu... varsayıyorlar" ölçülmemiş genelleme + rakibi küçültme (karşılaştırmalı reklam) - kendi sözümüze çevrildi -->
   <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Sınav gününe kadar.</b></p>
-  <p class="kucuk" style="margin:10px 0 0">Erişimin girdiğin sınavın gününe kadar sürer ve <b>hiçbir zaman 3 aydan kısa olmaz</b>:
-  sınava az kala alsan da en az 3 ay çalışırsın. Sınav ertelenirse süren de uzar.</p>
+  <p class="kucuk" style="margin:10px 0 0">Yeterlilik'te erişimin girdiğin sınavın gününe kadar sürer ve <b>hiçbir zaman 3 aydan kısa olmaz</b>:
+  sınava az kala alsan da en az 3 ay çalışırsın. <b>SGS 2027</b>'de satın alırken gireceğin 2027 sınavını seçersin; erişimin o sınavdan 3 gün sonra biter. Sınav ertelenirse süren de uzar.</p><!-- 23.11 Cem: SGS 2027 erişimi dönem seçimiyle -->
 </div>
 
 <!-- CEM'IN FIKRI, BELGEYLE: bu mesleğin resmi bedeli. Saldirilamaz cunku TESMER'in kendi tarifesi. -->
@@ -517,7 +517,8 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
 var tk = document.getElementById('takvim'), h = '';
 SINAVLAR.forEach(function(s){
   var g = gunFarki(s.tarih);
-  h += '<div class="tk"><div class="ad">' + s.ad + '</div>'
+  if(g < 0) return;   /* 23.11: geçmiş sınav "bugün" diye yazılmaz (SGS 21 Kasım 2026 geçti; 2027 tarihi açıklanınca SINAVLAR'a girer) */
+  h += '<div class="tk" data-an="' + s.anahtar + '"><div class="ad">' + s.ad + '</div>'
      + '<div class="gun">' + (g > 0 ? g + ' gün' : 'bugün') + '</div>'
      + '<div class="tar">' + s.yazi + '</div></div>';
 });
@@ -725,7 +726,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
   /* geri sayım: yalnız seçili sınav (KGK'nın ilanlı tarihi yok -> takvim gizli) */
   if(typeof SINAVLAR!=='undefined'){
     var tks=document.querySelectorAll('#takvim .tk'), var_=false;
-    SINAVLAR.forEach(function(s,i){ if(tks[i]){ var bu=(s.anahtar===sn); gz(tks[i],!bu); if(bu) var_=true; } });
+    [].forEach.call(tks,function(t){ var bu=(t.getAttribute('data-an')===sn); gz(t,!bu); if(bu) var_=true; });   /* 23.11: geçmiş sınav atlandığı için sıra yerine anahtarla */
     gz(document.getElementById('takvim'),!var_); gz(document.querySelector('.kaynakNot'),!var_);
   }
   }
