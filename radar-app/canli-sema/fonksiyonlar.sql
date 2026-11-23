@@ -1924,6 +1924,31 @@ AS $function$
 $function$
 ;
 
+-- kasa_onizleme(text)
+CREATE OR REPLACE FUNCTION public.kasa_onizleme(p_sayfa text)
+ RETURNS TABLE(id text, sira integer, veri jsonb)
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare ip text;
+begin
+  if p_sayfa is null or p_sayfa !~ '^kaydir/(sgs|smmm)/[a-z0-9-]+\.html$' then return; end if;
+  ip := split_part(coalesce(
+          (current_setting('request.headers', true)::json ->> 'x-forwarded-for'),
+          (current_setting('request.headers', true)::json ->> 'x-real-ip'),
+          'bilinmiyor'), ',', 1);
+  if not public.rate_limit_check('onizleme:' || trim(ip), 3000, 600) then
+    raise exception 'ONIZLEME_SINIR' using errcode = 'P0001';
+  end if;
+  return query
+    select s.id, s.sira, s.veri from public.paket_soru s
+     where s.sayfa = p_sayfa
+     order by s.sira asc
+     limit 3;
+end $function$
+;
+
 -- kasa_soru_getir(text,integer,integer)
 CREATE OR REPLACE FUNCTION public.kasa_soru_getir(p_sayfa text, p_bas integer DEFAULT 0, p_adet integer DEFAULT 100)
  RETURNS TABLE(sira integer, veri jsonb, toplam bigint)
