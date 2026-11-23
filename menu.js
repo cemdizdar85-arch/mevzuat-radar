@@ -571,9 +571,66 @@ function ttUlasUygulama(){
   var wp=ic.querySelector('.ulas-wp'); ic.insertBefore(sp, wp || null);
 }
 
+/* ── YENİ ÜST DÜZEN (24.11.2026, Cem: "Amazon, Netflix, YouTube gibi görünmüyor … siteyi tümden bu gözle bakalım" → taslak onayı
+   "YAPALIM"). İki üst yapı da (#ttUst ortak şerit, ana sayfanın #nav'ı) aynı görünüme gelir:
+   · Ara düğmesi (komut.js .kp-dugme) BÜYÜK arama kutusu olur: logodan hemen sonra, kalan genişliği alır, ipucu metniyle.
+   · Sağda yalnız hesap (👤 Giriş yap / Hesabım) + amber ana eylem (ziyaretçide "Üye ol" - 17.10 kararı, üyede "Soru çöz").
+   · Sınavlar / Fiyatlar / Yanlışlarım bağlantıları şeridin altındaki ÇİP satırına iner (YouTube kategori çipleri, yana kayar).
+   · "Bize hemen ulaş" bandı (17.10 / 28.10 kararları) yerinde, daha ince.
+   Satın alma sayfasında çip satırı YOK (Amazon ödeme ekranı kalıbı: dikkat dağıtılmaz). DOM taşınmaz, yalnız sınıf + CSS + çip
+   satırı eklenir; komut.js ve tema düğmesinin yer bulma mantığı aynen çalışır. */
+function yeniUst(){
+  var ust=document.getElementById('ttUst')||document.getElementById('nav'); if(!ust) return;
+  var ad=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  var uye=false; try{ uye=Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){}
+  document.documentElement.classList.add('tt-yu');
+  [].forEach.call(ust.querySelectorAll('.navlinks a.nl'),function(a){
+    if(/ogrenci\.html(#.*)?$/.test(a.getAttribute('href')||'')) a.classList.add('nl-hesap'); else a.classList.add('nl-cipe');
+  });
+  var st=document.createElement('style'); st.id='ttYuStil';
+  st.textContent=
+    'html.tt-yu #ttUlas .ic,html.tt-yu #ulasBant .ic{min-height:30px}html.tt-yu #ttUlas,html.tt-yu #ulasBant{font-size:13px}'+
+    'html.tt-yu #ttUlas a,html.tt-yu #ulasBant a{min-height:30px}'+
+    'html.tt-yu #ttUst .ic,html.tt-yu #nav .ic{max-width:1280px;gap:18px}'+
+    'html.tt-yu #ttUst .navlinks,html.tt-yu #nav .navlinks{flex:1;margin-left:0;gap:10px;justify-content:flex-end}'+
+    'html.tt-yu .navlinks .kp-dugme{order:-1;flex:1 1 auto;max-width:680px;margin-right:auto;height:44px;border-radius:999px;border:1.5px solid var(--line2);background:var(--kagit,var(--bg));padding:0 18px;font-size:15.5px;color:var(--muted);justify-content:flex-start;gap:10px}'+
+    'html.tt-yu .navlinks .kp-dugme::before{width:17px;height:17px}'+
+    'html.tt-yu .navlinks .kp-dugme>span{font-size:0}html.tt-yu .navlinks .kp-dugme>span::after{content:"Ders, konu ya da soru ara…";font-size:15.5px}'+
+    'html.tt-yu .navlinks a.nl-cipe{display:none!important}'+
+    'html body.tt-yu-b .navlinks a.nl-hesap,html.tt-yu body .navlinks a.nl-hesap{display:inline-flex!important;align-items:center;gap:8px;height:42px;padding:0 14px 0 6px;border:1px solid var(--line2);border-radius:999px;color:var(--ink)!important;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}'+
+    'html.tt-yu .navlinks a.nl-hesap::before{content:"👤";width:30px;height:30px;border-radius:50%;background:var(--bg2,var(--line));display:grid;place-items:center;font-size:15px}'+
+    'html.tt-yu body #ttUst .navlinks a.ust-cta,html.tt-yu body #nav .navlinks a#navCta{height:44px;min-height:44px;padding:0 20px;border-radius:999px;background:var(--amber-dolgu)!important;color:var(--amber-uzeri)!important;font-weight:800;font-size:15.5px;display:inline-flex;align-items:center}'+
+    '.tt-cipler{border-bottom:1px solid var(--line);background:var(--bg)}'+
+    '.tt-cipler .ic{max-width:1280px;margin:0 auto;padding:10px 20px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}'+
+    '.tt-cipler .ic::-webkit-scrollbar{display:none}'+
+    'html body .tt-cipler a{flex:none;padding:8px 14px;border-radius:10px;background:var(--bg2,color-mix(in srgb,var(--ink) 6%,var(--bg)));color:var(--ink)!important;font-weight:650;font-size:14.5px;white-space:nowrap;text-decoration:none}'+
+    'html body .tt-cipler a:hover{background:color-mix(in srgb,var(--ink) 12%,var(--bg))}'+
+    'html body .tt-cipler a[aria-current=page]{background:var(--ink);color:var(--bg)!important}'+
+    '@media(max-width:700px){html.tt-yu .navlinks .kp-dugme{flex:0 0 auto;max-width:none;margin-right:0;width:42px;height:42px;padding:0;justify-content:center}'+
+      'html.tt-yu .navlinks .kp-dugme>span::after{content:""}'+
+      'html.tt-yu .navlinks a.nl-hesap{font-size:0!important;padding:0 5px!important;gap:0!important}'+
+      'html.tt-yu body #ttUst .navlinks a.ust-cta,html.tt-yu body #nav .navlinks a#navCta{height:42px;min-height:42px;padding:0 14px;font-size:14.5px}'+
+      '.tt-cipler .ic{padding:8px 14px}}';
+  document.head.appendChild(st);
+  if(ad==='satin-al.html'||document.getElementById('ttCipler')) return;
+  var K=KOK||'';
+  var CIP=[['sorular.html#sgs','Staja Giriş 2027'],['sorular.html#smmm','Yeterlilik 2027'],['en-cok-cikan-konular-sgs.html','🎯 En çok çıkan'],
+           ['sinav-gibi.html','⏱️ Sınav gibi deneme'],['yanlislarim.html','🔁 Yanlışlarım'],['sinav-nobeti.html','📰 Sınav duyuruları'],['fiyat.html','Fiyatlar']];
+  if(!uye) CIP.splice(4,1);   /* ziyaretçide Yanlışlarım boş sayfa (alt menüyle aynı karar) */
+  var h=(location.hash||'').toLowerCase();
+  var c=document.createElement('nav'); c.id='ttCipler'; c.className='tt-cipler'; c.setAttribute('aria-label','Bölümler');
+  c.innerHTML='<div class="ic">'+CIP.map(function(x){
+    var yol=x[0].split('#')[0], hs=x[0].indexOf('#')>-1?'#'+x[0].split('#')[1]:'';
+    var akt=(ad===yol)&&(!hs||h===hs||(!h&&hs==='#sgs'));
+    return '<a href="'+K+x[0]+'"'+(akt?' aria-current="page"':'')+'>'+x[1]+'</a>';
+  }).join('')+'</div>';
+  ust.parentNode.insertBefore(c,ust.nextSibling);
+}
+
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   var ortakSerit=false; try{ ortakSerit=ustSeritKur(); }catch(e){}
+  try{ yeniUst(); }catch(e){}
   try{ ttUlasUygulama(); }catch(e){}
   /* 07.10: tema-bas.js eski .top iz satırını bu ana dek gizliyordu (görünüp kaybolmasın) - şerit kuruldu ya da kurulmayacak, aç */
   document.documentElement.classList.remove('tt-ust-bekle');
