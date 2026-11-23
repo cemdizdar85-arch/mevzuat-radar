@@ -1760,7 +1760,7 @@ begin
           (current_setting('request.headers', true)::json ->> 'x-forwarded-for'),
           (current_setting('request.headers', true)::json ->> 'x-real-ip'),
           'bilinmiyor'), ',', 1);
-  if not public.rate_limit_check('kanit:' || trim(ip), 200, 600) then
+  if not public.rate_limit_check('kanit:' || trim(ip), 3000, 600) then
     return jsonb_build_object('hata','cok fazla istek');
   end if;
   select k.id into sid from public.kanit_soru k where k.liste = left(coalesce(p_liste,''), 40) and k.n = p_n;
