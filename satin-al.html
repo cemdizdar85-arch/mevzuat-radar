@@ -74,7 +74,7 @@
   .akd-ad{ font-weight:800; font-size:16px; letter-spacing:-.2px; }
   .akd-ozet{ display:none; font-size:13px; color:var(--muted); overflow-wrap:anywhere; }
   .akd.tamam:not(.acik) .akd-ozet{ display:block; }
-  .akd-degis{ display:none; font-size:13px; font-weight:700; color:var(--link); }
+  .akd-degis{ display:none; font-size:14px; font-weight:700; color:var(--amber); text-decoration:underline; }   /* 23.11: mavi tek başına kalıyordu */
   .akd.tamam:not(.acik) .akd-degis{ display:inline; }
   .akd-govde{ display:grid; grid-template-rows:0fr; }
   .hazir .akd-govde{ transition:grid-template-rows .32s ease; }
@@ -204,6 +204,8 @@
   @media (max-width:560px){ .kutu{ padding:16px; } .akd-bas{ padding:16px; } .akd-ic{ padding:0 16px; } .s{ padding-left:16px; padding-right:16px; } }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
+<style id="mobil14">/* 23.11 Cem "Amazon gibi" (denetim B12): telefonda en küçük yazı 14 px - ölçülen 14 px altı öğeler */
+@media (max-width:600px){html body .fy>span,html body .kv>b,html body .guven li,html body #odemeYolu,html body .akd-ozet,html body .akd-no,html body .er,html body .harc,html body .mbar-tutar>span{font-size:14px!important}}</style>
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>

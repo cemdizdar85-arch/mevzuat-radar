@@ -703,6 +703,7 @@ function kur(){
   try {
     if (!document.querySelector('a[href$="kvkk.html"]')) {
       var yf = document.createElement('div');
+      yf.className = 'tt-yasal-alt';   /* 23.11: telefonda 14 px (stil-acik.css) */
       yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid var(--line);font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
       yf.innerHTML = '<a href="' + KOK + 'iletisim.html" style="color:var(--muted);text-decoration:none">Hakkımızda ve İletişim</a> · ' +
         '<a href="' + KOK + 'on-bilgilendirme.html" style="color:var(--muted);text-decoration:none">Ön Bilgilendirme</a> · ' +
@@ -773,6 +774,7 @@ function kur(){
              olculdu. Bos kap birakmaktansa hic birakma. */
           if (!yer) {
             var kab = document.createElement('div');
+            kab.className = 'tt-yasal-alt';
             kab.style.cssText = 'max-width:980px;margin:0 auto;padding:0 18px 22px;font-size:12px;color:var(--dim);font-family:inherit;line-height:1.8';
             kab.innerHTML = '<span data-veri-damgasi></span>';
             document.body.appendChild(kab);

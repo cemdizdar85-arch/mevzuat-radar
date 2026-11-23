@@ -96,7 +96,7 @@
   .og-onay a,.og-link{color:var(--amber)}
   .og-btn{font:inherit;font-size:15px;font-weight:750;cursor:pointer;border-radius:10px;padding:11px 18px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);text-decoration:none;display:inline-block}
   .og-btn:hover{border-color:var(--amber)}
-  .og-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .og-btn.ana{background:var(--amber-dolgu);border-color:var(--amber-dolgu);color:var(--amber-uzeri)}   /* 23.11: ana eylem tek renk (amber dolgu) */
   .og-btnler{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
   .hk-satir{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}.hk-satir.hk-tamam{opacity:.75}
   .hk-bas{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;font-size:14.5px}.hk-ders{display:block;color:var(--muted);font-size:12.5px;margin-top:1px}
@@ -273,6 +273,8 @@
   @media(max-width:860px){ .op-karne{grid-template-columns:1fr 1fr} .op-iki{grid-template-columns:1fr} .op-gizle-m{display:none} html body .op-bugun #ogSimdiBtn{width:100%;text-align:center} }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
+<style id="mobil14">/* 23.11 Cem "Amazon gibi" (denetim B12): telefonda en küçük yazı 14 px - ölçülen 14 px altı öğeler */
+@media (max-width:600px){html body .og-guven,html body .og-guven a,html body .og-guven span,html body .og-et,html body .og-oturum-not,html body .og-oturum-not b,html body .og-marka-et,html body #ogSifremi,html body .og-link,html body .og-alt-link,html body .sg-dugme{font-size:14px!important}}</style>
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>

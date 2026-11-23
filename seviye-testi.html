@@ -42,7 +42,7 @@
   .sv-maddeler li:before{content:"✓";position:absolute;left:0;color:var(--amber);font-weight:800}
   .sv-btn{font:inherit;font-size:15px;font-weight:750;cursor:pointer;border-radius:11px;padding:13px 22px;border:1px solid var(--line2);background:var(--panel);color:var(--ink)}
   .sv-btn:hover{border-color:var(--amber)}
-  .sv-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .sv-btn.ana{background:var(--amber-dolgu);border-color:var(--amber-dolgu);color:var(--amber-uzeri)}   /* 23.11: ana eylem tek renk */
   .sv-btn:disabled{opacity:.45;cursor:default}
   .sv-not{font-size:12.5px;color:var(--dim);line-height:1.6;margin-top:14px}
   .sv-onceki{font-size:14px;color:var(--muted);margin:0 0 16px}
@@ -128,6 +128,8 @@
   @media(max-width:640px){ .sv h1{font-size:27px} .sv-yuzde{font-size:52px} .sv-gruplar{grid-template-columns:1fr} }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
+<style id="mobil14">/* 23.11 Cem "Amazon gibi" (denetim B12): telefonda en küçük yazı 14 px - ölçülen 14 px altı öğeler */
+@media (max-width:600px){html body .sv-not{font-size:14px!important}}</style>
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>

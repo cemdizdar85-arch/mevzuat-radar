@@ -77,7 +77,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 .navlinks a.nl:hover{color:var(--ink)}
 @media(max-width:760px){ .navlinks a.nl{display:none} .navlinks{gap:10px} }
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:10px;font-weight:750;font-size:16px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;font-family:inherit;text-align:center;line-height:1.25}
-.btn-ana{background:var(--ink);color:var(--bg)}
+.btn-ana{background:var(--amber-dolgu);color:var(--amber-uzeri)}   /* 23.11: ana eylem tek renk (amber); üst şerit düğmesi lacivert kalır */
 .btn-ana:hover{opacity:.9}
 .btn-vurgu{background:var(--amber-dolgu);color:var(--amber-uzeri)}
 .btn-ikinci{background:transparent;color:var(--ink);border-color:var(--line2)}
@@ -88,7 +88,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
    V2 madde 21 "okunabilir tipografi, tek yazı tipi" + onaylı taslak: başlıklar gövde ailesinde, üst düğme lacivert. */
 html body h1,html body h2,html body h3{font-family:inherit}
 /* stil-acik.css .btn'e amber zemin, nav bağlantılarına !important renk veriyor - bu sayfanın üç düğme türü ve menüsü kendi jetonuyla */
-html body .btn-ana{background:var(--ink);color:var(--bg)!important;border-color:transparent}
+html body .btn-ana{background:var(--amber-dolgu);color:var(--amber-uzeri)!important;border-color:transparent}
+html body #nav .navlinks a.btn-ana{background:var(--ink)}
 html body .btn-vurgu{background:var(--amber-dolgu);color:var(--amber-uzeri)!important;border-color:transparent}
 html body .btn-ikinci{background:transparent;color:var(--ink)!important;border-color:var(--line2)}
 html body .btn-ikinci:hover{border-color:var(--ink)}
@@ -443,6 +444,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 <link rel="stylesheet" href="gkt.css?v=3">
+<style id="mobil14">/* 23.11 Cem "Amazon gibi" (denetim B12): telefonda en küçük yazı 14 px - ölçülen 14 px altı öğeler */
+@media (max-width:600px){html body .no-siklar li b,html body .no-siklar li span,html body .no-soru-ust,html body .no-ipucu,html body .no-sn,html body .no-nobetci,html body .no-bekle,html body .sik-etiket,html body #ekDers,html body button.sinav,html body .sinav.kapali,html body .sinav.kapali small,html body .kah-fiyat small{font-size:14px!important}}</style>
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>

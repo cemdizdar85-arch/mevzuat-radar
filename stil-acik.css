@@ -517,3 +517,7 @@ html body .bz-kah:before{
 html body .bz-kah .bz-cam{background:rgba(255,255,255,.92);border-color:rgba(138,98,36,.22);
   box-shadow:0 20px 48px rgba(22,25,29,.10)}
 html body .bz-kah .bz-dip{border-top-color:rgba(22,25,29,.10)}
+
+/* 23.11 Cem "Amazon gibi" (denetim B12): telefonda en küçük yazı 14 px - ortak parçalar (alt bilgi, ödeme bandı, arama, paket
+   kartları, Google girişi). Alt menü (#ttAltMenu, uygulama sekme çubuğu kalıbı) bilerek 11,5 px kalır. */
+@media (max-width:600px){html body footer p,html body footer a,html body footer span,html body footer li,html body footer small,html body footer div,html body #ttOdemeBandi span,html body .ob-soz,html body .ob-mag span,html body .kp-dugme>span,html body .tt-google-not,html body .tt-google-not a,html body .tt-google-ayrac,html body .pk-sinav,html body .pk-alt,html body .pk-son-gun,html body .secim-bas,html body p.kucuk,html body p.kucuk a,html body p.kucuk b,html body span.kucuk,html body td.kucuk,html body .ekran-not,html body small.kdv-ek,html body .tt-yasal-alt,html body .tt-yasal-alt a{font-size:14px!important}}
