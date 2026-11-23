@@ -303,9 +303,22 @@
     var satinAl = KOK + 'satin-al.html?paket=' + (yet ? 'yeterlilik-1' : 'sgs-2027');
     var giris = KOK + 'ogrenci.html?sonra=' + encodeURIComponent(location.pathname.replace(/^\//, '') + location.search);
     var ornek = KOK + 'kaydir/vitrin/ornek-' + (yet ? 'smmm' : 'sgs') + '.html';
-    var dugAna = function (h, y) { return '<a href="' + esc(h) + '" style="display:block;margin:10px 0 0;padding:14px;border-radius:12px;font-weight:800;font-size:16px;text-decoration:none;background:var(--amber-dolgu,#f5a524);color:var(--amber-uzeri,#0f1b2d)">' + esc(y) + '</a>'; };
-    var dugIki = function (h, y) { return '<a href="' + esc(h) + '" style="display:block;margin:10px 0 0;padding:13px;border-radius:12px;font-weight:750;font-size:15px;text-decoration:none;border:1px solid var(--cizgi);color:var(--yazi)">' + esc(y) + '</a>'; };
-    var dugmeler = dugAna(satinAl, 'Paketi al, bütün soruları aç') + (k.tur === 'giris' ? dugIki(giris, 'Paketim var, giriş yap') : '') + dugIki(ornek, 'Ücretsiz 5 örnek soru çöz');
+    /* 24.11 Cem (GM 2-3): düğmeler sayılır (GoatCounter onizleme/<sınav>/<ders>/<olay>); Yeterlilik'te "Paketi al" o dersi seçili
+       getirir (satin-al ?dersler=, ders adı soru-dizini.json'dan sayfa yoluyla). SGS 2027 tek paket: ders seçimi yok. */
+    var gcYol = 'onizleme/' + (yet ? 'yeterlilik' : 'sgs') + '/' + (location.pathname.split('/').pop() || '').replace(/\.html$/, '') + '/';
+    var olay = function (ad, baslik) {
+      try {
+        if (typeof gcOlay === 'function') gcOlay(gcYol + ad, baslik);
+        else if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: gcYol + ad, title: baslik, event: true });
+      } catch (e) {}
+    };
+    var dersAdP = !yet ? Promise.resolve('') : fetch(KOK + 'veri/soru-dizini.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      var ad = ''; ((d && d.sinavlar) || []).forEach(function (x) { (x.dersler || []).forEach(function (y) { if (y.sayfa === sayfa) ad = y.ad; }); }); return ad;
+    }).catch(function () { return ''; });
+    var dugAna = function (h, y) { return '<a data-olay="paketi-al" href="' + esc(h) + '" style="display:block;margin:10px 0 0;padding:14px;border-radius:12px;font-weight:800;font-size:16px;text-decoration:none;background:var(--amber-dolgu,#f5a524);color:var(--amber-uzeri,#0f1b2d)">' + esc(y) + '</a>'; };
+    var dugIki = function (h, y, o) { return '<a data-olay="' + o + '" href="' + esc(h) + '" style="display:block;margin:10px 0 0;padding:13px;border-radius:12px;font-weight:750;font-size:15px;text-decoration:none;border:1px solid var(--cizgi);color:var(--yazi)">' + esc(y) + '</a>'; };
+    var dugmeler = dugAna(satinAl, 'Paketi al, bütün soruları aç') + (k.tur === 'giris' ? dugIki(giris, 'Paketim var, giriş yap', 'giris') : '') + dugIki(ornek, 'Ücretsiz 5 örnek soru çöz', 'ornek');
+    window.__KASA_ONIZLEME = true;   /* 24.11: icerik-koruma.js telif şeridini önizlemede çizmez (Cem: yalnız paketli üyede) */
     koruma();
     mesaj('Sorular yükleniyor…', 'Bu dersten bir örnek soru açılıyor.');
     var satir = [];
@@ -331,6 +344,9 @@
         + '<p style="margin:0 0 6px;font-size:15px;line-height:1.6;color:var(--dim)">Dersin bütün soruları, yanlış kutun ve denemeler pakette. Paketi aldığın anda kaldığın yerden devam edersin.</p>'
         + dugmeler + '</div>';
       akis.appendChild(s);
+      olay('goster', 'Ders önizlemesi: son kart');
+      dersAdP.then(function (ad) { if (!ad) return; var a = s.querySelector('a[data-olay="paketi-al"]'); if (a) a.href = satinAl + '&dersler=' + encodeURIComponent(ad); });
+      s.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[data-olay]'); if (a) olay(a.getAttribute('data-olay'), 'Ders önizlemesi: ' + a.textContent); });
     }, 150);
   }
 

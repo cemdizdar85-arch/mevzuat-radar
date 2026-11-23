@@ -46,6 +46,7 @@
 
   function serit() {
     if (document.getElementById('ttTelif') || !document.body) return;
+    if (window.__KASA_ONIZLEME) return;   /* 24.11 Cem: telif şeridi yalnız paketli üyede; ders önizlemesindeki ziyaretçiye çizilmez (kopya kilidi kalır) */
     try { if (sessionStorage.getItem('ttTelifKapali') === '1') return; } catch (e) {}
     var d = document.createElement('div'); d.id = 'ttTelif'; d.setAttribute('role', 'contentinfo');
     d.textContent = '© Tetikte · Bu sorular kişisel çalışman içindir. Kopyalanması, kaydedilmesi, ekran görüntüsü alınması ve paylaşılması sözleşmeye aykırıdır; hesap kapatılır.';
