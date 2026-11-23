@@ -145,6 +145,14 @@
   }
   function perde(tur) {
     if (bitti) return; bitti = true;
+    /* 23.11 Cem ("ders sayfasında ziyaretçiye önizleme: kilit yerine ilk 3 soru açık olsun"): SGS / Yeterlilik ders sayfasında
+       girişsiz ya da paketsiz kişiye perde ÇİZİLMEZ; kasa-yukle.js o dersin ilk 3 sorusunu (kasa_onizleme, sunucu) açar ve sonuna
+       "devamı pakette" kartı koyar. Asıl kilit değişmedi: kalan sorular yine yalnız paketliye (paket_erisim_var). KGK ve hata hâli eskisi gibi perde. */
+    if ((tur === 'giris' || tur === 'paket') && kok.hasAttribute('data-kasa-sayfa') && /\/kaydir\/(sgs|smmm)\/[a-z0-9-]+\.html$/i.test(location.pathname) && window.__pkSb) {
+      kok.classList.remove('pk-bekle');
+      kapiCoz({ acik: false, tur: tur, onizleme: true, sb: window.__pkSb });
+      return;
+    }
     /* 07.10 Cem ("pakete dahil dediğimde ücretsiz soru çöz yine 10 soru çıkıyor"): ücretsiz deneme o sınavın 30 soruluk seviye
        testine gider (10 soruluk sabit örnek sayfası değil). Sınav sayfa yolundan: kaydir/smmm = Yeterlilik, öteki SGS. */
     var yetSayfa = /\/kaydir\/smmm\//.test(location.pathname) || /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search);
