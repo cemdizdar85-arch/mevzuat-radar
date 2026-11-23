@@ -279,6 +279,13 @@ var FIYAT = {
   yeterlilik:     [ null, {kurulus:1188,liste:2376,taksit:3}, {kurulus:1908,liste:3816,taksit:3},
                           {kurulus:2508,liste:5016,taksit:3}, {kurulus:2988,liste:5976,taksit:3} ],
   yeterlilikTum:  { kurulus:3468, liste:6936, taksit:3 },
+  /* 23.11.2026 CEM KARARI ("A — SGS'nin aynısı … peşin fiyatına 3 taksit"): YETERLİLİK 2027. 28 Kasım 2026 sınavına kadar yukarıdaki fiyat;
+     29.11.2026 00:00 TR'den 31.12.2026 23:59'a kadar AÇILIŞ (+%20: 1.188 / 1.908 / 2.508 / 2.988 / 3.468 + KDV), 1 Ocak 2027'den
+     açılışın 2,5 katı (2.988 / 4.788 / 6.288 / 7.488 / 8.688 + KDV). KDV dahil tutulur (×1,2). Geçiş TARİHLE kendiliğinden; kota yok.
+     Siparişin OLUŞTUĞU an esas (iyzico-odeme.ts). Dizinler ders sayısı (0 boş). ⚠ Sunucu JSON okur: yalnız sayı. */
+  yet2027:        { baslangic:1795899600000, gecis:1798750800000,
+                    acilis:[0, 1425.6, 2289.6, 3009.6, 3585.6], son:[0, 3585.6, 5745.6, 7545.6, 8985.6],
+                    acilisTum:4161.6, sonTum:10425.6 },
   /* KGK modül merdiveni — çapa e-sınav harcı: 7 konu × 950 = 6.650 TL */
   kgk:            [ null, {kurulus:1490,liste:1990}, {kurulus:2490,liste:3290},
                           {kurulus:3190,liste:4190} ],
@@ -493,6 +500,7 @@ var SGS2027_DONEM = [
 ];
 function sgs2027Fiyat(){ return Date.now() < FIYAT.sgs2027.gecis ? FIYAT.sgs2027.kurulus : FIYAT.sgs2027.liste; }
 function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
+function yet2027Evre(){ var t = Date.now(), y = FIYAT.yet2027; return !y || t < y.baslangic ? 0 : t < y.gecis ? 1 : 2; }
 /* 23.11 Cem: "Peşin fiyatına 3 taksit · 3 × 1.195,20 TL (KDV dahil toplam 3.585,60 TL)" — yalnız taksit açıkken (FIYAT.sgs2027.taksit);
    kapalıyken boş dize, hiçbir yerde taksit yazmaz. "Peşin fiyatına" iddiası iyzico taksit sorgusuyla ölçüldü (vade farkı alıcıya yansımıyor);
    ölçüm: iyzico-odeme ?taksit=1. TAKSIT_KARTLAR = ölçümde 3 taksiti vade farksız gelen kart aileleri (23.11). */
@@ -539,16 +547,19 @@ function paketler(){
            erisim:'28 Kasım 2026 sınavına kadar · denemeler 8 Kasım\'da açılır', sinav:'yeterlilik', acilis:'2026-11-08',
            harcYazi:'8 ders × 5 deneme + konu görevleri · sitedeki diğer Yeterlilik soruları yok', acik:true });
 
+  var ye = yet2027Evre(), Y7 = FIYAT.yet2027;   /* 23.11 Yeterlilik 2027: 0 = 28 Kasım'a kadar eski fiyat · 1 = açılış · 2 = 1 Ocak'tan */
   for(var n = 1; n <= 4; n++){
     L.push({ id:'yeterlilik-' + n, grup:'SMMM Yeterlilik',
              ad:'Yeterlilik — ' + n + ' ders', ders:n,
-             fiyat:FIYAT.yeterlilik[n].kurulus, liste:FIYAT.yeterlilik[n].liste,
-             kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilik[n].taksit || 0),
+             fiyat:(ye === 0 ? FIYAT.yeterlilik[n].kurulus : ye === 1 ? Y7.acilis[n] : Y7.son[n]),
+             liste:(ye === 0 ? FIYAT.yeterlilik[n].liste : Y7.son[n]), sonraYazi:(ye === 1 ? "1 Ocak 2027'den itibaren" : ''),
+             kota:(ye === 0 ? KOTA.yeterlilik : null), erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilik[n].taksit || 0),
              harcYazi:n + ' dersin harcı ' + tl(HARC.yeterlilik.ders * n) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
   }
   L.push({ id:'yeterlilik-tum', grup:'SMMM Yeterlilik', ad:'Yeterlilik — tüm dersler', ders:8,
-           fiyat:FIYAT.yeterlilikTum.kurulus, liste:FIYAT.yeterlilikTum.liste,
-           kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilikTum.taksit || 0),
+           fiyat:(ye === 0 ? FIYAT.yeterlilikTum.kurulus : ye === 1 ? Y7.acilisTum : Y7.sonTum),
+           liste:(ye === 0 ? FIYAT.yeterlilikTum.liste : Y7.sonTum), sonraYazi:(ye === 1 ? "1 Ocak 2027'den itibaren" : ''),
+           kota:(ye === 0 ? KOTA.yeterlilik : null), erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilikTum.taksit || 0),
            harcYazi:'İlk başvuru harcı ' + tl(HARC.yeterlilik.ilkBasvuru) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
 
   /* KGK'da harç çapası kullanılmaz (yukarıdaki nota bak); satır KURS fiyatını
@@ -662,12 +673,14 @@ function yeterlilikAyriEnAz(alan){
     en[d] = Infinity; yol[d] = null;
     for(var k = 1; k <= 4 && k <= d; k++){
       var f = FIYAT.yeterlilik[k] && FIYAT.yeterlilik[k][alan];
+      if(alan === 'kurulus'){ var pk = paketBul('yeterlilik-' + k); if(pk) f = pk.fiyat; }   /* 23.11: bugünkü (tarihli) fiyat */
       /* 28.10 son kontrol: erken kayıtta ders paketleri de indirimli satılıyor (ERKEN_YET.ders); kıyas eski 4.980 TL + KDV'yi yazıyordu */
       if(f && alan === 'kurulus') f -= erkenYetInd('yeterlilik-' + k);
       if(f && en[d - k] + f < en[d]){ en[d] = en[d - k] + f; yol[d] = yol[d - k].concat([k]); }
     }
   }
   var tum = FIYAT.yeterlilikTum[alan] - (alan === 'kurulus' ? erkenYetInd('yeterlilik-tum') : 0);
+  if(alan === 'kurulus' && paketBul('yeterlilik-tum')) tum = paketBul('yeterlilik-tum').fiyat;   /* 23.11 tarihli */
   if(!N || !isFinite(en[N]) || en[N] <= tum) return null;
   return { tutar:en[N], parca:yol[N].sort(function(a, b){ return b - a; }) };
 }

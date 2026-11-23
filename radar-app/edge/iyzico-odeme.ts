@@ -17,7 +17,7 @@
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit yalnız fiyat-motoru.js satırında taksit:3 olan pakette (diğerleri enabledInstallments [1])
 //    · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "fcc84af1d87aa640";
+const KOD_IMZA = "55c069ade8f3c28d";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -84,10 +84,19 @@ function paketFiyat(F: any, paket: string) {
   if (paket === "sgs-2027") return { f: F.sgs2027, sinav: "", tarihli: true };
   // 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı → bekleyen eski siparişe kartla ödeme başlamaz
   if (paket === "sgs" || paket === "son20-sgs") return null;
-  const m = paket.match(/^yeterlilik-([1-4])$/); if (m) return { f: F.yeterlilik[+m[1]], sinav: "yeterlilik" };
-  if (paket === "yeterlilik-tum") return { f: F.yeterlilikTum, sinav: "yeterlilik" };
+  // 23.11 Yeterlilik 2027 (Cem "A"): yet = ders sayısı ("tum" = 8 ders); fiyat siparişin oluştuğu tarihe göre (yetTaban)
+  const m = paket.match(/^yeterlilik-([1-4])$/); if (m) return { f: F.yeterlilik[+m[1]], sinav: "yeterlilik", yet: m[1] };
+  if (paket === "yeterlilik-tum") return { f: F.yeterlilikTum, sinav: "yeterlilik", yet: "tum" };
   if (paket === "son20-yet") return { f: F.son20Yet, sinav: "son20" };   // 28.10 Yeterlilik Son 20 Gün ön satış
   return null;
+}
+
+// 23.11 Yeterlilik 2027: t (ms) anında geçerli KDV dahil fiyat; 29.11.2026 öncesi null (eski kota fiyatı geçerli)
+// deno-lint-ignore no-explicit-any
+function yetTaban(F: any, yet: string, t: number): number | null {
+  const y = F.yet2027; if (!y || !isFinite(t) || !(Number(y.baslangic) > 0) || t < Number(y.baslangic)) return null;
+  const acilis = t < Number(y.gecis);
+  return yet === "tum" ? Number(acilis ? y.acilisTum : y.sonTum) : Number((acilis ? y.acilis : y.son)[Number(yet)]);
 }
 
 function alici(ad: string, eposta: string, adres: string, tckn: string, ip: string, id: string) {
@@ -120,11 +129,13 @@ Deno.serve(async (req) => {
   if (u.searchParams.get("taksit") === "1") {
     // 23.11 (Cem "3 taksit sgs ve bitirmede"): ?paket= ile satıştaki pakette ölçülür (varsayılan sgs-2027); yalnız bilinen paket kimliği
     const pk = (u.searchParams.get("paket") ?? "sgs-2027").trim();
-    const ob = taksitOnbellek[pk]; if (ob && Date.now() - ob.t < 600000) return cevap(200, ob.v);
+    const ob = taksitOnbellek[pk + "|" + (u.searchParams.get("tutar") ?? "")]; if (ob && Date.now() - ob.t < 600000) return cevap(200, ob.v);
     let F; try { F = await fiyatlar(); } catch { return cevap(503, { hata: "fiyat okunamadi" }); }
     const pt = paketFiyat(F.FIYAT, pk); if (!pt || !pt.f) return cevap(400, { hata: "paket bilinmiyor" });
     const f = pt.f;
-    const fiyat = pt.tarihli ? (Date.now() < Number(f.gecis) ? Number(f.kurulus) : Number(f.liste)) : Number(f.kurulus);
+    let fiyat = pt.tarihli ? (Date.now() < Number(f.gecis) ? Number(f.kurulus) : Number(f.liste)) : (pt.yet ? (yetTaban(F.FIYAT, pt.yet, Date.now()) ?? Number(f.kurulus)) : Number(f.kurulus));
+    // ?tutar= (1–20.000 TL): yalnız ölçüm, ileride geçerli olacak tutarı önceden sorgulamak için (para çekmez)
+    const tz = Number(u.searchParams.get("tutar")); if (isFinite(tz) && tz >= 1 && tz <= 20000) fiyat = Math.round(tz * 100) / 100;
     const t = await iyzico("/payment/iyzipos/installment", { locale: "tr", conversationId: "taksit-" + Date.now(), price: para(fiyat) });
     // deno-lint-ignore no-explicit-any
     const aileler = (Array.isArray(t.installmentDetails) ? t.installmentDetails : []).map((x: any) => ({
@@ -133,7 +144,7 @@ Deno.serve(async (req) => {
       secenek: (Array.isArray(x.installmentPrices) ? x.installmentPrices : []).map((y: any) => ({ adet: y.installmentNumber, aylik: y.installmentPrice, toplam: y.totalPrice })),
     }));
     const v = { paket: pk, fiyat, taksit_acik_sitede: Number(f.taksit) === 3, iyzico: { status: t.status ?? null, errorCode: t.errorCode ?? null, errorMessage: t.errorMessage ?? null }, aileler };
-    if (t.status === "success") taksitOnbellek[pk] = { t: Date.now(), v };
+    if (t.status === "success") taksitOnbellek[pk + "|" + (u.searchParams.get("tutar") ?? "")] = { t: Date.now(), v };
     return cevap(200, v);
   }
 
@@ -206,7 +217,10 @@ Deno.serve(async (req) => {
     let F; try { F = await fiyatlar(); } catch { return cevap(503, { hata: "fiyat okunamadi" }); }
     const pf = paketFiyat(F.FIYAT, s.paket); if (!pf) return cevap(400, { hata: "bu paket kartla satilmiyor" });
     let taban: number;
-    if (pf.tarihli) {
+    const yt = pf.yet ? yetTaban(F.FIYAT, pf.yet, Date.parse(String(s.olusturma ?? ""))) : null;
+    if (yt !== null) {
+      taban = yt;
+    } else if (pf.tarihli) {
       const olusma = Date.parse(String(s.olusturma ?? ""));
       if (!(Number(pf.f.gecis) > 0) || !isFinite(olusma)) return cevap(503, { hata: "fiyat okunamadi" });
       taban = olusma < Number(pf.f.gecis) ? Number(pf.f.kurulus) : Number(pf.f.liste);
