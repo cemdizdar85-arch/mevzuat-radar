@@ -2,6 +2,14 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<!-- 23.11 (Cem "uçtan uca denetle"): Google ekranında ~10 dk bekleyen kişiyi Supabase, izin süresi dolunca (bad_oauth_state)
+     izin listesindeki dönüş adresine değil Site URL'ye, yani buraya ?error=… ile atıyordu; ekranda açıklama yoktu, satın almadan
+     kopuyordu (ölçüldü 23.11). Hatayı ogrenci.html'e hash olarak taşırız: google-giris.js "Google girişi tamamlanmadı" der,
+     Google tıklamasında saklanan arama (?sonra=satin-al.html…) geri konur, tekrar denenince aynı ödeme adımına dönülür. -->
+<script>(function(){try{var q=new URLSearchParams(location.search),e=q.get('error'),d=q.get('error_description')||'',c=q.get('error_code')||'';
+if(!e||!(d||c))return;var a='';try{a=sessionStorage.getItem('tt_google_arama')||'';}catch(x){}
+if(!/^\?sonra=[a-z0-9]/i.test(a))a='';
+location.replace('ogrenci.html'+a+'#error='+encodeURIComponent(e)+'&error_code='+encodeURIComponent(c)+'&error_description='+encodeURIComponent(d));}catch(x){}})();</script>
 <!-- 08.10.2026 Meta isletme portfoyu (Dizdar Denetim Danismanlik ve Yazilim A.S.) alan adi dogrulamasi: Brand safety > Domains > tetikte.com. Silme: dogrulama duser. -->
 <meta name="facebook-domain-verification" content="m7ajjxzuc0u03adtbjbq0iu9ibocj6" />
 <script src="tema-bas.js"></script>
