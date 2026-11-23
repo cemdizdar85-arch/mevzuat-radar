@@ -129,6 +129,8 @@
   .og-paket{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .og-paket .og-paket-et{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:6px}
   .og-paket b{display:block;font-size:20px;color:var(--ink)}
+  .op-katla>summary{cursor:pointer;list-style:none}.op-katla>summary::-webkit-details-marker{display:none}
+  .op-katla>summary h3::after{content:" ▾";color:var(--muted);font-size:.85em}.op-katla[open]>summary h3::after{content:" ▴"}
   /* 24.11 Netflix rafları (rafCiz) */
   .op-raf{margin:0 0 18px}
   .op-raf h3{margin:0 0 10px;font-size:19px;letter-spacing:-.3px}
@@ -502,11 +504,13 @@
            Veri aynı: uye_calisma_ozetim (hesaptaki bütün cevaplar) + soru dizini; ilerleme = çözülen farklı soru / dersin sitedeki sorusu. -->
       <div id="opRaf"></div>
       <div class="op-karne" id="opKarne"></div>
-      <div class="og-kutu op-blok">
-        <div class="op-blok-ust"><h3>Derslerim</h3><a class="og-link" id="opTumDersler" href="sorular.html">Tüm dersler →</a></div>
+      <!-- 24.11 Cem ("Netflix gibi", GM 2): raflar üstte; ders ders tablo telefonda KATLI (bilgisayarda açık), içerik ve kimlikler aynı -->
+      <details class="og-kutu op-blok op-katla" id="opDersKatla">
+        <summary class="op-blok-ust"><h3>Derslerim · ders ders ayrıntı</h3><a class="og-link" id="opTumDersler" href="sorular.html">Tüm dersler →</a></summary>
         <div id="opDersler"><p class="og-alt" style="margin:0">Dersler okunuyor…</p></div>
         <p class="og-alt op-not" id="opDersNot"></p>
-      </div>
+      </details>
+      <script>try{ if(window.matchMedia('(min-width:760px)').matches) document.getElementById('opDersKatla').open=true; }catch(e){}</script>
       <div class="og-kutu op-blok op-konubos og-gizli" id="opKonuBos"></div>
       <div class="op-iki" id="opIki">
         <div class="og-kutu op-blok"><h3 class="op-arti">Artıların</h3><div id="opArti"></div></div>

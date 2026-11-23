@@ -608,7 +608,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 @media(max-width:1000px){ .s20b .kutu:has(.s20afis:not([hidden])){grid-template-columns:1fr auto} .s20b .s20afis{grid-column:1/-1;width:100%} }
 @media(max-width:760px){ .s20b{margin-top:0} .s20b .kutu,.s20b .kutu:has(.s20afis:not([hidden])){grid-template-columns:1fr;padding:14px} .s20b h2{font-size:20px} .s20b .dgs{justify-content:stretch} .s20b .dgs a{flex:1;justify-content:center;text-align:center} }
 </style>
-<section class="s20b" id="s20Bolum" aria-labelledby="s20bBas">
+<!-- 24.11: baştan gizli (SGS Son 20 Gün 22.11'de bitti); betik yalnız süren kampanyada açar. Çizilip gizlenince ana sayfa 0,14 kayıyordu (ölçüldü). -->
+<section class="s20b" id="s20Bolum" aria-labelledby="s20bBas" hidden>
   <div class="ic"><div class="kutu">
     <a class="s20afis" id="s20bAfis" href="son-20-gun.html"><img id="s20bAfisImg" src="gorsel/reklam/s20-afis-sgs.jpg" width="1200" height="420" alt="Yine mi 59'da kalacaksın? 130 soruda 77 doğru 59,23, 78 doğru 60. Son 20 Gün denemelerine git."></a>
     <div>
@@ -1107,6 +1108,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
      ücretsizden çıkan / dışlanan soru robotça düşer, boşsa günün sorusu oynar. */
   var VITRIN_HESAP={}, GUNUN=null;
   function ekranCiz(){
+    if(!vitGeldi) return;   /* 24.11: veri gelmeden (geç yükleme) yer tutucu kalır */
     var o=ozetim(), kap=$('ekOynatici'), VL=VITRIN_HESAP[secili]||[]; $('bzIleri').hidden=false;   /* liste boşsa eski 'Kendin çöz' yolu */
     if(VL.length&&window.NobetciOynatici){
       /* 07.10 Cem ("1 yap"): günün sorusu TEK KAYNAK = veri/gunun-sorusu.json (Instagram görseliyle aynı soru). Liste gün içinde
@@ -1180,11 +1182,24 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   dugmeCiz();
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',dugmeCiz);
   fetch('veri/vitrin-kunye.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(k){ if(k&&k.taranan_donem){ TARANAN=k.taranan_donem; if(OZET) ekranCiz(); } }).catch(function(){});
-  Promise.all([
-    fetch('veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; }),
-    fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; }),
-    fetch('veri/gunun-sorusu.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; })
-  ]).then(function(r){ OZET=r[0]; VITRIN_HESAP=(r[1]&&r[1].sinavlar)||{}; GUNUN=r[2]; ekranCiz(); });
+  /* 24.11 Cem "hız" (denetim D28): vitrin-hesap.json 486 KB (ağda ~117 KB) yalnız aşağıdaki Günün sorusu için; açılışta iniyordu
+     (yavaş 4G'de ana sayfa 3,2 sn). Artık bölüm ekrana 900 px yaklaşınca iner; yer tutucu (ek-iskelet) yüksekliği korur, kayma olmaz. */
+  var vitYuklendi=false, vitGeldi=false;
+  function vitYukle(){
+    if(vitYuklendi) return; vitYuklendi=true;
+    Promise.all([
+      fetch('veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; }),
+      fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; }),
+      fetch('veri/gunun-sorusu.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; })
+    ]).then(function(r){ OZET=r[0]; VITRIN_HESAP=(r[1]&&r[1].sinavlar)||{}; GUNUN=r[2]; vitGeldi=true; ekranCiz(); });
+  }
+  try{
+    var ekEl=$('ekran');
+    if(ekEl&&'IntersectionObserver' in window&&!/^#ekran/.test(location.hash)){
+      var vio=new IntersectionObserver(function(g){ if(g.some(function(x){ return x.isIntersecting; })){ vio.disconnect(); vitYukle(); } },{rootMargin:'900px'});
+      vio.observe(ekEl);
+    } else vitYukle();
+  }catch(e){ vitYukle(); }
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
