@@ -244,6 +244,7 @@ html body .dr-kart{flex:0 0 min(172px,40%);scroll-snap-align:start;display:flex;
 html body .dr-kart:hover{border-color:var(--ink)}
 .dr-kart b{font-size:15.5px;line-height:1.3}
 .dr-kart span{font-size:14px;color:var(--muted)}
+.dr-kart .dr-git{color:var(--amber);font-weight:700}
 .dr-kart.dr-tum{background:var(--bg2);justify-content:center;align-items:center;font-weight:800}
 /* 23.11: telefonda uzun anlatım bölümleri katlanır (metin sayfada kalır, arama motoru görür) */
 .katla-ac{display:none}
@@ -1226,7 +1227,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     document.getElementById('dersRafi').hidden=false;
     tum.href='sorular.html#'+ANAH[k];
     raf.innerHTML=s.dersler.map(function(d){
-      return '<a class="dr-kart" href="'+esc(d.sayfa)+'"><b>'+esc(d.ad)+'</b><span>'+Number(d.soru||0).toLocaleString('tr-TR')+' soru</span></a>';
+      return '<a class="dr-kart" href="'+esc(d.sayfa)+'"><b>'+esc(d.ad)+'</b><span class="dr-git">Soru çöz →</span></a>';   /* 23.11 Cem: soru sayısı yazılmaz (164 ile 1.098 yan yana zayıf görünüyordu) */
     }).join('')+'<a class="dr-kart dr-tum" href="sorular.html#'+ANAH[k]+'">Tüm dersler →</a>';
     raf.scrollLeft=0;
   }

@@ -589,13 +589,21 @@ function kur(){
      (ikisi üst üste biniyordu). Masaüstünde hiçbir şey değişmez. */
   (function(){
     var yol=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-    var SAYFALAR=['','index.html','sorular.html','yanlislarim.html','ogrenci.html','fiyat.html','ucretsiz-dene.html'];
+    /* 23.11 Cem "Amazon/YouTube gibi" (denetim C20): sinav-gibi.html eklendi ("Deneme"ye basınca menü kayboluyordu) */
+    var SAYFALAR=['','index.html','sorular.html','yanlislarim.html','ogrenci.html','fiyat.html','ucretsiz-dene.html','sinav-gibi.html'];
     if(SAYFALAR.indexOf(yol)<0) return;
-    var OGELER=[['index.html','Ana sayfa','M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z'],
-                ['sorular.html','Sınavlar','M5 4h14v16H5zM8 8h8M8 12h8M8 16h5'],
-                ['yanlislarim.html','Yanlışlar','M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4'],
-                ['sinav-gibi.html','Deneme','M12 7v5l3 2M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z'],
-                ['ogrenci.html','Hesabım','M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0']];
+    /* 23.11 (denetim C20): ziyaretçi ile üye AYRI sekme görür (YouTube/Amazon kalıbı).
+       Ziyaretçi: "Deneme" tam ekran kilide, "Yanlışlar" boş sayfaya düşüyordu → Örnek sorular + Fiyatlar + Giriş.
+       Üye: "Ana sayfa" (17.10 kararıyla üyenin ana sayfası Hesabım) ile "Hesabım" aynı yerdi → Hesabım başta, 4 sekme. */
+    var uyeAlt=false; try{ uyeAlt=Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){}
+    var ornekYol='kaydir/vitrin/ornek-sgs.html'; try{ if(localStorage.getItem('tt_sinav')==='yeterlilik') ornekYol='kaydir/vitrin/ornek-smmm.html'; }catch(e){}
+    var I={ ev:'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z', sinav:'M5 4h14v16H5zM8 8h8M8 12h8M8 16h5',
+            yanlis:'M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4', saat:'M12 7v5l3 2M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z',
+            kisi:'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0', oynat:'M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM10 8.5v7l6-3.5z',
+            etiket:'M3 12V4h8l10 10-8 8zM7.5 7.5h.01' };
+    var OGELER=uyeAlt
+      ? [['ogrenci.html','Hesabım',I.kisi],['sorular.html','Soru çöz',I.sinav],['yanlislarim.html','Yanlışlar',I.yanlis],['sinav-gibi.html','Deneme',I.saat]]
+      : [['index.html','Ana sayfa',I.ev],['sorular.html','Sınavlar',I.sinav],[ornekYol,'Örnek sorular',I.oynat],['fiyat.html','Fiyatlar',I.etiket],['ogrenci.html','Giriş yap',I.kisi]];
     var aktif=yol===''?'index.html':yol;
     var st2=document.createElement('style');
     st2.textContent='#ttAltMenu{display:none}'
