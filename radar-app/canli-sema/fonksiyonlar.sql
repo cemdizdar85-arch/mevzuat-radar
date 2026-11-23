@@ -1742,6 +1742,44 @@ begin
 end $function$
 ;
 
+-- kanit_sorusu(text,integer)
+CREATE OR REPLACE FUNCTION public.kanit_sorusu(p_liste text, p_n integer)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare
+  ip  text;
+  sid text;
+  p   record;
+  v   jsonb;
+  day text;
+begin
+  ip := split_part(coalesce(
+          (current_setting('request.headers', true)::json ->> 'x-forwarded-for'),
+          (current_setting('request.headers', true)::json ->> 'x-real-ip'),
+          'bilinmiyor'), ',', 1);
+  if not public.rate_limit_check('kanit:' || trim(ip), 200, 600) then
+    return jsonb_build_object('hata','cok fazla istek');
+  end if;
+  select k.id into sid from public.kanit_soru k where k.liste = left(coalesce(p_liste,''), 40) and k.n = p_n;
+  if sid is null then return jsonb_build_object('hata','listede yok'); end if;
+  select ps.id, ps.sinav, ps.ders, ps.konu, ps.veri into p from public.paket_soru ps where ps.id = sid;
+  if p.id is null then return jsonb_build_object('hata','soru yok', 'n', p_n); end if;
+  v := p.veri;
+  day := regexp_replace(coalesce(v->>'dayanak',''), '\s*\(teori notu:[^)]*\)', '', 'gi');
+  if day ~* '(mevzuat maddesi yok|\(kaynak metni?\)|kaynak metne göre|\mkural *[0-9]|\[[0-9]/[0-9]\]|\mambar\M|kaynak paket|teori *par[cç]as|uygulama *: *[a-e]? *ş[ıi]kk|sınav tuzağı *\([0-9]|ders notu.{0,40}madde *[0-9]|teori notu)' then
+    day := null;
+  end if;
+  return jsonb_build_object(
+    'n', p_n, 'id', p.id, 'sinav', p.sinav, 'ders', p.ders, 'konu', p.konu,
+    'soru', v->'soru', 'verilenler', v->'verilenler', 'siklar', v->'siklar', 'dogru', v->'dogru',
+    'aciklama', case when jsonb_typeof(v->'sade') = 'object' then v->'sade'->>'dogru' else v->>'sade' end,
+    'tuzak', v->'tuzak', 'adimlar', v->'adimlar', 'kural', v->>'kural', 'hap', v->>'hap', 'dayanak', nullif(day,''));
+end $function$
+;
+
 -- kart_siparis_odendi(text,text)
 CREATE OR REPLACE FUNCTION public.kart_siparis_odendi(p_no text, p_payment_id text)
  RETURNS jsonb
