@@ -68,6 +68,7 @@ kasa_cekim_izin2	p_sayfa text, p_bas integer, p_adet integer, p_ids text[]	SD	f	
 kasa_cevap_yaz	p_sayfa text, p_id text, p_secim text	SD	f	t	void	depoda
 kasa_ders_fihrist	p_sayfa text	SD	f	t	record	depoda
 kasa_dizin	p_sinav text	SD	t	t	record	depoda
+kasa_onizleme	p_sayfa text	SD	t	t	record	depoda
 kasa_soru_getir	p_sayfa text, p_bas integer, p_adet integer	SD	f	t	record	depoda
 kasa_soru_idler	p_ids text[]	SD	f	t	record	depoda
 kasa_soru_parca	p_sayfa text, p_ids text[]	SD	f	t	record	depoda
