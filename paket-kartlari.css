@@ -59,3 +59,8 @@ html body .pk-one .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!
 /* 23.11 Cem ("satın al tuşlarında Amazon taktiği … hangi renk kullanıyorlarsa"): Amazon'un satın al düğmeleri sarı/turuncu (sayfanın tek
    sıcak rengi, gözün ilk gittiği yer). Bütün paket kartlarında "Satın al" tek renk: amber (satin-al.html ödeme düğmeleriyle aynı). */
 html body .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
+
+/* 24.11 Cem "Amazon gibi" (denetim D27): güven satırı satın al düğmesinin hemen altında (iyzico bandı yalnız satın al sayfasındaydı).
+   Cayma hakkı erişim başlayınca biter (teslimat-iade.html) -> "koşulsuz iade" YAZILMAZ, yalnız koşullara bağlantı. */
+html body .pk-guven{margin:10px 0 0;font-size:14px;line-height:1.45;color:var(--muted);text-align:center}
+html body .pk-guven a{color:inherit;text-decoration:underline}
