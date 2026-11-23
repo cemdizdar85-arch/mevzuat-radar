@@ -233,7 +233,25 @@ html body .ks:hover{border-color:var(--ink)}
 .ks b{display:block;font-size:16.5px;color:var(--ink)}
 .ks span span{display:block;font-size:14px;color:var(--muted);line-height:1.4}
 @media(max-width:900px){ .kisa{grid-template-columns:1fr 1fr;gap:10px} .kisayol{padding:28px 0} }
-@media(max-width:520px){ .kisa{grid-template-columns:1fr} }
+@media(max-width:520px){ .kisa{grid-template-columns:1fr 1fr;gap:8px} html body .ks{padding:12px;gap:10px} .ks i{width:36px;height:36px;font-size:18px} .ks b{font-size:15px} .ks span span{display:none} }   /* 23.11: telefonda 2 sütun, açıklama yok (ana sayfa 7.136 px'ti) */
+/* 23.11 Cem "Amazon/YouTube gibi" (denetim C18): DERS RAFI - seçili sınavın dersleri yatay kaydırılır, kart = ders + soru sayısı,
+   tık = o dersin sayfası. Veri veri/soru-dizini.json (sorular.html ile aynı kaynak), görününce yüklenir. */
+.dr{margin:0 0 22px}
+.dr-bas{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px}
+.dr-bas a{font-size:14.5px;font-weight:700;color:var(--amber);white-space:nowrap}
+.dr-raf{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;margin:0 -2px;scrollbar-width:thin;min-height:96px}
+html body .dr-kart{flex:0 0 min(172px,40%);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:space-between;gap:8px;min-height:92px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--kagit);color:var(--ink);text-decoration:none}
+html body .dr-kart:hover{border-color:var(--ink)}
+.dr-kart b{font-size:15.5px;line-height:1.3}
+.dr-kart span{font-size:14px;color:var(--muted)}
+.dr-kart.dr-tum{background:var(--bg2);justify-content:center;align-items:center;font-weight:800}
+/* 23.11: telefonda uzun anlatım bölümleri katlanır (metin sayfada kalır, arama motoru görür) */
+.katla-ac{display:none}
+@media(max-width:600px){
+  .katla:not(.acik)>.ic{max-height:330px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+  .katla-ac{display:block;margin:6px auto 0;font:inherit;font-size:15px;font-weight:800;color:var(--ink);background:var(--kagit);border:1px solid var(--line2);border-radius:999px;padding:10px 22px;cursor:pointer}
+  .katla.acik .katla-ac{display:none}
+}
 
 /* günün sorusu: kendi bölümü (17.10'a dek kahramanın sağ sütunuydu) */
 .gunun > .ic{display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:48px;align-items:start}
@@ -650,6 +668,10 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
      (dugmeCiz ksCiz); KGK'da ücretsiz katman yok (13.10 ölçüldü) -> konu / seviye / deneme kısayolu KGK seçiliyken gizli. -->
 <section class="kisayol" aria-labelledby="araBas">
   <div class="ic">
+    <div class="dr" id="dersRafi" aria-labelledby="drBas">
+      <div class="dr-bas"><p class="secim-bas" id="drBas" style="margin:0">Dersler</p><a id="drTum" href="sorular.html#sgs">Tümü →</a></div>
+      <div class="dr-raf" id="drRaf"></div>
+    </div>
     <p class="secim-bas" id="araBas">Ne arıyorsun?</p>
     <div class="kisa">
       <a class="ks" id="ksFiyat" href="fiyat.html"><i aria-hidden="true">💳</i><span><b>Fiyatlar</b><span>Paketler ve ne içerdikleri</span></span></a>
@@ -718,7 +740,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   </div>
 </section>
 
-<section class="bolum" id="nasil" aria-labelledby="nasilBas">
+<section class="bolum katla" id="nasil" aria-labelledby="nasilBas">
   <div class="ic">
     <!-- 07.10 Cem ("Nasıl çalışır ile neler var aynı şeyleri anlatıyor" + "ölçmediğin işler var" + "Nöbetçiye sor, Nöbetçi çözsün var"):
          iki bölüm TEK bölüm oldu; kartlarda yalnız ÖLÇÜLMÜŞ özellik:
@@ -752,7 +774,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 </section>
 
 <!-- 07.10 Cem "bence bunu kaldıralım": "üç söz" bloğu (Nöbetçi · Gerçek kaynak · Abonelik) kaldırıldı -->
-<section class="bolum" aria-labelledby="bizBas">
+<section class="bolum katla" aria-labelledby="bizBas">
   <div class="ic biz">
     <img src="kurucu.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Cem Dizdar, Tetikte'nin kurucusu">
     <div>
@@ -1179,6 +1201,46 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   /* sınav değişince başlık/şart satırı değişir; şerit ✕ ile kapanınca yer açılır */
   document.addEventListener('click',function(e){ if(e.target.closest&&e.target.closest('.sinav,#kayanX,#uyeHosX')) sonra(); });
   window.ttSigdir=sigdir;
+})();
+</script>
+<script>
+/* 23.11 ders rafı + telefonda katlanan bölümler (CSS: .dr / .katla) */
+(function(){
+  'use strict';
+  document.querySelectorAll('section.katla').forEach(function(s){
+    var b=document.createElement('button'); b.type='button'; b.className='katla-ac'; b.textContent='Devamını oku ▾';
+    b.addEventListener('click',function(){ s.classList.add('acik'); });
+    s.appendChild(b);
+  });
+  var raf=document.getElementById('drRaf'), tum=document.getElementById('drTum'); if(!raf) return;
+  var VERI=null, ANAH={sgs:'sgs',yeterlilik:'smmm'};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  function secili(){
+    var b=document.querySelector('.sinav[data-sinav][aria-pressed="true"]'); var k=b&&b.getAttribute('data-sinav');
+    return ANAH[k]?k:'sgs';
+  }
+  function ciz(){
+    if(!VERI) return;
+    var k=secili(), s=(VERI.sinavlar||[]).filter(function(x){ return x.kod===ANAH[k]; })[0];
+    if(!s||!s.dersler||!s.dersler.length){ document.getElementById('dersRafi').hidden=true; return; }
+    document.getElementById('dersRafi').hidden=false;
+    tum.href='sorular.html#'+ANAH[k];
+    raf.innerHTML=s.dersler.map(function(d){
+      return '<a class="dr-kart" href="'+esc(d.sayfa)+'"><b>'+esc(d.ad)+'</b><span>'+Number(d.soru||0).toLocaleString('tr-TR')+' soru</span></a>';
+    }).join('')+'<a class="dr-kart dr-tum" href="sorular.html#'+ANAH[k]+'">Tüm dersler →</a>';
+    raf.scrollLeft=0;
+  }
+  function yukle(){
+    if(VERI) return;
+    VERI={};
+    fetch('veri/soru-dizini.json').then(function(r){ return r.ok?r.json():null; }).then(function(j){ VERI=j||{}; ciz(); })
+      .catch(function(){ document.getElementById('dersRafi').hidden=true; });
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(g){ if(g.some(function(x){ return x.isIntersecting; })){ io.disconnect(); yukle(); } },{rootMargin:'600px'});
+    io.observe(raf);
+  } else yukle();
+  document.addEventListener('click',function(e){ if(e.target.closest&&e.target.closest('.sinav[data-sinav]')) setTimeout(ciz,0); });
 })();
 </script>
 <script src="menu.js" defer></script>
