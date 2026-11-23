@@ -1088,6 +1088,8 @@ function davetKodOku(){
     if(!secili) return 'Önce bir paket seç.';
     var n = dersSayisi(secili), s = secilenDersler().length;
     if(n && s !== n) return 'Tam olarak ' + n + ' ' + (secili.id.indexOf('kgk-') === 0 ? 'modül' : 'ders') + ' seçmelisin (' + s + ' seçtin).';
+    /* 23.11 SGS 2027: dönem seçilmeden paket adımı kapanmaz (seçici bu adımın içinde) */
+    if(secili.donemSec && !secilenDonem()) return 'Gireceğin 2027 SGS dönemini seç (Nisan, Temmuz ya da Kasım).';
     return '';
   }
   function adim2Hata(){
@@ -1123,7 +1125,8 @@ function davetKodOku(){
   }
   window.akdOzetCiz = function(){
     if(secili){
-      $('akd1o').textContent = secili.ad + ' — ' + tl(odenecekTutar()) + ' TL (KDV dahil)';   /* paket adı ders sayısını zaten taşır */
+      var dnm = (secili.donemSec && typeof SGS2027_DONEM !== 'undefined') ? SGS2027_DONEM.filter(function(d){ return d.id === secilenDonem(); })[0] : null;   /* 23.11 */
+      $('akd1o').textContent = secili.ad + (dnm ? ' · ' + dnm.ad : '') + ' — ' + tl(odenecekTutar()) + ' TL (KDV dahil)';   /* paket adı ders sayısını zaten taşır */
     } else { $('akd1o').textContent = ''; }
     $('akd2o').textContent = [deger('ad'), deger('mail')].filter(Boolean).join(' · ');
     $('mbTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
@@ -1161,6 +1164,7 @@ function davetKodOku(){
   $('akd2g').addEventListener('input', function(){ hataYaz(2, ''); akdOzetCiz(); });
   $('akd2g').addEventListener('change', function(){ akdOzetCiz(); });
   $('dersListe').addEventListener('change', function(){ hataYaz(1, ''); akdOzetCiz(); });
+  $('donemListe').addEventListener('change', function(){ hataYaz(1, ''); akdOzetCiz(); });   /* 23.11 SGS 2027 */
   ['onSoz','onIfa','onKvkk'].forEach(function(i){ $(i).addEventListener('change', function(){ if(['onSoz','onIfa','onKvkk'].every(function(k){ return $(k).checked; })) adimSay('onaylar'); }); });
   $('paketler').addEventListener('change', function(){ hataYaz(1, ''); });
 
