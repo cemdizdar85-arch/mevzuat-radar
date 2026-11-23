@@ -28,7 +28,9 @@ function JsonYaz([string]$yol, $n){ [IO.File]::WriteAllText($yol, (ConvertTo-Jso
 
 # --- kurum tanimlari: her biri {ad, url, tur} - tur linklerin nasil ayiklanacagini secer
 $KURUMLAR = @(
-  [pscustomobject]@{ ad='TESMER';     tur='wp-rest'; url='https://www.tesmer.org.tr/?rest_route=/wp/v2/posts&per_page=20&_fields=title,link,date' },
+  # 24.11.2026 (Cem "veriler guncel degil"): TESMER sitesini yeniledi; eski WordPress REST 14.10'dan beri JSON yerine HTML donuyordu
+  #   (her kosuda KIRMIZI link 0). Yeni kaynak sitenin duyuru API'si (motor/sinav-nobeti.js ile ayni). Ilk kosu TOHUM (adresler yeni) -> mail seli yok.
+  [pscustomobject]@{ ad='TESMER';     tur='tesmer-api'; url='https://www.tesmer.org.tr/api/announcements/?feed=1' },
   [pscustomobject]@{ ad='KGK';        tur='href';    url='https://kgk.gov.tr/';                    desen='(?i)(duyuru|sinav|standart)'; kokUrl='https://kgk.gov.tr' },
   [pscustomobject]@{ ad='SGK';        tur='href';    url='https://www.sgk.gov.tr/';                desen='^/duyuru/detay/';             kokUrl='https://www.sgk.gov.tr' },
   [pscustomobject]@{ ad='TURKPATENT'; tur='href';    url='https://www.turkpatent.gov.tr/duyurular';desen='^/duyurular/';                kokUrl='https://www.turkpatent.gov.tr' },
@@ -67,7 +69,18 @@ foreach($k in $KURUMLAR){
   try {
     $r = Invoke-WebRequest -Uri $k.url -UseBasicParsing -TimeoutSec 45 -UserAgent $UA
     $ic = "$($r.Content)"
-    if($k.tur -eq 'wp-rest'){
+    if($k.tur -eq 'tesmer-api'){
+      $n = 0
+      # sunucu charset bildirmiyor; PS 5.1 ISO-8859-1 sanip Turkce harfi bozuyordu (24.11 olculdu) -> bayttan UTF-8
+      $ic = [Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray())
+      foreach($p in ($ic | ConvertFrom-Json)){
+        if($n -ge 20){ break }
+        if(-not $p.title -or $p.is_active -eq $false){ continue }
+        $u = if("$($p.link_url)"){ "$($p.link_url)" } else { 'https://www.tesmer.org.tr/duyuru/' + "$($p.slug)" }
+        $linkler += [pscustomobject]@{ url=$u; baslik=([Net.WebUtility]::HtmlDecode("$($p.title)")); tarih="$($p.created_at)" }
+        $n++
+      }
+    } elseif($k.tur -eq 'wp-rest'){
       foreach($p in ($ic | ConvertFrom-Json)){
         $linkler += [pscustomobject]@{ url="$($p.link)"; baslik=([Net.WebUtility]::HtmlDecode("$($p.title.rendered)")); tarih="$($p.date)" }
       }
