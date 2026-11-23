@@ -97,6 +97,7 @@
     if(kuruldu) return; kuruldu = true;
     var kap = document.querySelector('[data-pk-kartlar]');
     if(kap && !kap.children.length) kap.innerHTML = KARTLAR;
+    try{ document.documentElement.classList.add('pk-dolu'); }catch(e){}   /* 24.11: fiyat.html yer tutucusu (min-height) kalkar */
     try{
       [].forEach.call(document.querySelectorAll('.pk-kart[data-paket]'), ciz);
       [].forEach.call(document.querySelectorAll('.pk-ders button'), function(b){ b.addEventListener('click', function(){
