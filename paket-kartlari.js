@@ -32,6 +32,7 @@
   /* kart çizimi (17.10 ana sayfadan taşındı): ana rakam + KDV yazımı, erken kayıt, ön satış */
   function ciz(k){
     var p = paketBul(k.getAttribute('data-paket')); if(!p){ k.hidden = true; return; }
+    if(!p.acik && /^son20-/.test(p.id)){ k.remove(); return; }   /* 23.11: süresi geçen Son 20 Gün kartı hiç görünmez (suz() geri açmasın) */
     var hr = KDV_HARIC_GOSTER[p.id], a = k.querySelector('.pk-al');
     if(p.id === 'son20-sgs' || p.id === 'son20-yet'){   /* Son 20 Gün kartları KDV dahil (kampanya kartlarıyla aynı dil) */
       k.querySelector('[data-fiyat]').innerHTML = tlx(p.fiyat) + ' <small>TL</small>';

@@ -17,7 +17,7 @@
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit yalnız fiyat-motoru.js satırında taksit:3 olan pakette (diğerleri enabledInstallments [1])
 //    · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "55c069ade8f3c28d";
+const KOD_IMZA = "bb48ba0b6e86b211";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -87,7 +87,7 @@ function paketFiyat(F: any, paket: string) {
   // 23.11 Yeterlilik 2027 (Cem "A"): yet = ders sayısı ("tum" = 8 ders); fiyat siparişin oluştuğu tarihe göre (yetTaban)
   const m = paket.match(/^yeterlilik-([1-4])$/); if (m) return { f: F.yeterlilik[+m[1]], sinav: "yeterlilik", yet: m[1] };
   if (paket === "yeterlilik-tum") return { f: F.yeterlilikTum, sinav: "yeterlilik", yet: "tum" };
-  if (paket === "son20-yet") return { f: F.son20Yet, sinav: "son20" };   // 28.10 Yeterlilik Son 20 Gün ön satış
+  if (paket === "son20-yet") return Date.now() < Date.parse("2026-11-29T00:00:00+03:00") ? { f: F.son20Yet, sinav: "son20" } : null;   // 23.11: 28 Kasım sınavından sonra satılmaz   // 28.10 Yeterlilik Son 20 Gün ön satış
   return null;
 }
 
