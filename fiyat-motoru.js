@@ -99,7 +99,7 @@ var TAKSIT_ADET = 3;
    (elci_indirim.sabit_komisyon_tl). dersKomisyon buradaki ekran gösterimidir, sunucuyla birebir olmalı.
    ⚠ SQL basılmadan elci_kodu_kontrol bu paketlerde 0 döner → satın almada 'kod bulunamadı' yazar, indirim uygulanmaz.
 --------------------------------------------------------------------------- */
-var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':50, 'yeterlilik-2':100, 'yeterlilik-3':150, 'yeterlilik-4':200 },
+var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':0, 'yeterlilik-1':0, 'yeterlilik-2':0, 'yeterlilik-3':0, 'yeterlilik-4':0 },   /* 23.11 Cem 'Yeterlilik 2027de elci indirimi kaldiralim, girersek haber veririz' (sunucu: radar-app/sql/2026-11-23-yet-2027-indirimsiz.sql); dersKomisyon degismedi */
              dersKomisyon:{ 'yeterlilik-1':150, 'yeterlilik-2':300, 'yeterlilik-3':450, 'yeterlilik-4':600 },
              bicim:/^[A-Z0-9]{3,12}$/ };
 
@@ -148,7 +148,8 @@ var OZEL_KOD = { bicim:/^OZ[ACDEFHJKLMNPRTUVXYZ2345679]{6}$/ };
 --------------------------------------------------------------------------- */
 /* 12.10 (Cem "evet bunları yapalım"): İKİ seçenek - en zayıf ders tek ders −200 · tüm 8 ders −600 ("önerilen").
    Ara paketler (2/3/4 ders) teklife girmez. Elçi koduyla müşteri lehine TEK indirim (sunucu karar verir). */
-var ANLIK_TEKLIF = { acik:true, paket:{ yeterlilik:'yeterlilik-1' }, tum:{ yeterlilik:'yeterlilik-tum' },
+/* 23.11 Cem: Yeterlilik 2027de anlik teklif KAPALI (sunucu anlik_teklif_ayar acik=false) */
+var ANLIK_TEKLIF = { acik:false, paket:{ yeterlilik:'yeterlilik-1' }, tum:{ yeterlilik:'yeterlilik-tum' },
                      indirim:{ 'yeterlilik-1':200, 'yeterlilik-tum':600 } };
 function anlikTeklifPaket(pid){
   var ind = ANLIK_TEKLIF.indirim[pid], p = paketBul(pid);
