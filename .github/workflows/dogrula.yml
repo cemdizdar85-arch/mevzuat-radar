@@ -991,6 +991,9 @@ jobs:
           # eski fiyat, "ilk 0", tek kuruş hane, soru metni / gizli öğe / resmî harç / büyük tutarlı soru alarmsız); FD_MUTASYON=gecir 1/8, =bozuk 2/8, =tavan 1/8 KIRMIZI (yerelde ölçüldü)
           - { ad: "Fiyat denetimi OZ-SINAVI",
               kabuk: bash, komut: "node motor/fiyat-denetimi.js --sinav" }
+          # 24.11: ders sayfasi paylasim etiketi araci (esleme, idempotent, KGK kapaksiz) - 6 vaka, ag yok
+          - { ad: "Ders og etiketi OZ-SINAVI",
+              kabuk: bash, komut: "node arac/ders-og.js --sinav" }
           # 03.10: sure-nobeti.yml oz-sinavi - 6 vaka (sabit, hizlanma, 2,5 kat ALARM, kucuk adim gurultusu, +16 dk ama 2 kat alti,
           # gecmis yetersiz KOR); 2 mutasyon (kat, esik) KIRMIZI (03.10 yerelde olculdu). Ag gerekmez.
           - { ad: "Sure nobetcisi OZ-SINAVI + MUTASYON",

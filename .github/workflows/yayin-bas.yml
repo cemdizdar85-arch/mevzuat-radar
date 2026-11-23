@@ -236,6 +236,8 @@ jobs:
           if($kod -ne 0){ throw "kasa yukleyici cikis $kod - sayfalar ITILMEYECEK" }
           node motor/kasa-kabuk.js --yaz
           if($LASTEXITCODE -ne 0){ throw "kabuk cikis $LASTEXITCODE - tam sayfa depoya gitmesin diye durdu" }
+          # 24.11 (Cem "ders linki paylasilinca kapak gorunsun"): yeniden basilan ders sayfasina paylasim etiketi (og:image) geri yazilir
+          node arac/ders-og.js --yaz
 
       # 28.10: kasa yeni SGS sirasina yazildiktan HEMEN sonra her hesabin SGS konumu cevrilir (eski i -> kimlik -> yeni i, q yazilir).
       #   Kosullu yazim: arada cihaz esitlediyse satir atlanir. GORMEZ: cihazda seviye sirasiyla gorulen dizilim, esitlenmemis cihaz.
