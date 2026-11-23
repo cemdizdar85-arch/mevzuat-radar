@@ -1,11 +1,11 @@
 {
-  "tarih": "23.11.2026 18:19",
+  "tarih": "23.11.2026 18:33",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 923,
   "riskli_madde": 1322,
   "sayfa": 83,
   "atifli_iddia": 322,
-  "dayanaksiz_iddia": 573,
+  "dayanaksiz_iddia": 572,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -1057,7 +1057,7 @@
       "sayfa": "fiyat.html",
       "satir": 350,
       "iddia": "en az 3",
-      "metin": "sınava az kala alsan da en az 3 ay çalışırsın. SGS 2027 'de satın alırken gireceğin 2027 sınavını seçersin; erişimin o sınavdan 3 gün sonra biter. Sınav ertelenirse süren de uzar."
+      "metin": "sınava az kala alsan da en az 3 ay çalışırsın. SGS 2027 paketi Nisan 2027 SGS'sine göre kurulur; erişimin o sınavdan 3 gün sonra biter. Sınav ertelenirse süren de uzar."
     },
     {
       "sayfa": "fiyat.html",
@@ -2659,7 +2659,7 @@
       "sayfa": "satin-al.html",
       "satir": 269,
       "iddia": "3 gün",
-      "metin": "SGS 2027 'de seçtiğin 2027 sınavından 3 gün sonra biter. Sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için"
+      "metin": "SGS 2027 'de Nisan 2027 SGS'sinden 3 gün sonra biter. Sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için"
     },
     {
       "sayfa": "satin-al.html",
@@ -2975,12 +2975,6 @@
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 943,
-      "iddia": "3 gün",
-      "metin": "$('svTeklifFiyat').innerHTML=' '+fiyatAnaHtml(p7.id,p7.fiyat)+' '+(fiyatDahilHtml(p7.id,p7.fiyat)||' (KDV dahil)')+' · erişim seçtiğin 2027 SGS\\'sinden 3 gün sonra biter'"
-    },
-    {
-      "sayfa": "seviye-testi.html",
       "satir": 1074,
       "iddia": "10 yıl",
       "metin": "$('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaş"
@@ -3007,7 +3001,7 @@
       "sayfa": "sgs-21-kasim-2026-84.html",
       "satir": 267,
       "iddia": "3 gün",
-      "metin": "SGS 2027 paketi: seçtiğin 2027 sınavına kadar bütün dersler, sınavdan 3 gün sonrasına kadar erişim."
+      "metin": "SGS 2027 paketi: Nisan 2027 SGS'sine kadar bütün dersler, sınavdan 3 gün sonrasına kadar erişim."
     },
     {
       "sayfa": "sgs-21-kasim-2026-84.html",
