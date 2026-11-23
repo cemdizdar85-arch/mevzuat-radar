@@ -89,6 +89,11 @@
   .sc-ders{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;
     background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit}
   a.sc-ders:hover{border-color:var(--amber)}
+  /* 24.11 kapaklı ızgara: kartın tepesinde ders kapağı (Netflix/YouTube küçük resmi) */
+  .sc-ders .sc-kapak{grid-column:1 / -1;display:block;margin:-14px -16px 4px;height:130px;border-radius:12px 12px 0 0;overflow:hidden;background:var(--ink)}
+  .sc-ders .sc-kapak img{display:block;width:100%;height:100%;object-fit:cover;object-position:right center;transition:transform .25s}
+  a.sc-ders:hover .sc-kapak img{transform:scale(1.04)}
+  .sc-ders{overflow:hidden}
   .sc-ders .sc-dad{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.3}
   .sc-ders .sc-dalt{font-size:12px;color:var(--dim);margin-top:2px;line-height:1.4}
   /* 13.09 Cem: "kırmızılar tam dolmamış, eksiğimiz var gibi" - ağırlık ÇUBUĞU ilerleme çubuğu gibi
@@ -314,7 +319,12 @@
     var agirlik=(d.sinav_soru>0||d.soru)?'<span class="sc-agirlik">'
         +(d.sinav_soru>0?'<b>Sınavda '+d.sinav_soru+' soru'+pay+'</b>':'<span></span>')
         /* 04.10 Cem: ders kartında soru adedi gösterilmez */+'</span>':'';
-    var ic='<span><span class="sc-dad">'+esc(d.ad)+'</span>'+(d.alt?'<span class="sc-dalt" style="display:block">'+esc(d.alt)+'</span>':'')+'</span>'
+    /* 24.11 Cem (GM 1 "sorular sayfasını kapaklı ızgaraya geçir"): ders kapağı (gorsel/ders, index/ogrenci ile aynı eşleme); KGK'da yok */
+    var KAPAK=['turkce','matematik','ataturk-ilkeleri-ve-inkilap-tarihi','yabanci-dil','finansal-muhasebe','maliyet-muhasebesi','mali-tablolar-analizi','denetim','ekonomi','maliye','meslek-hukuku','is-ve-sosyal-guvenlik-hukuku','vergi-hukuku','ticaret-hukuku','borclar-hukuku','hukuk','sermaye-piyasasi'];
+    var ESLE={'finansal-tablolar':'mali-tablolar-analizi','muhasebe-denetimi':'denetim','vergi':'vergi-hukuku'};
+    var kb=/^kaydir\/(sgs|smmm)\//.test(d.sayfa||'')?String(d.sayfa).split('/').pop().replace(/\.html$/,''):''; kb=ESLE[kb]||kb;
+    var kapak=KAPAK.indexOf(kb)>-1?'<span class="sc-kapak"><img src="gorsel/ders/'+kb+'.webp" alt="" loading="lazy" decoding="async" width="640" height="360"></span>':'';
+    var ic=kapak+'<span><span class="sc-dad">'+esc(d.ad)+'</span>'+(d.alt?'<span class="sc-dalt" style="display:block">'+esc(d.alt)+'</span>':'')+'</span>'
       /* 14.09: ders sayfaları pakete dahil (paket-kapisi.js); kartta açıkça yazılır */
       +'<span class="sc-git">'+(d.sayfa?(dersAcik(SECILI,d.ad)?'Çöz →':'🔒 Pakete dahil →'):'Hazırlanıyor')+'</span>'+agirlik;
     return d.sayfa&&acik?'<a class="sc-ders" href="'+esc(d.sayfa)+'">'+ic+'</a>':'<div class="sc-ders kapali">'+ic+'</div>';
