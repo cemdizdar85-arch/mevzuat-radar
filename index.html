@@ -89,6 +89,8 @@ html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 18.10 Cem ("telefonda çarpıya basamadığı yer olmasın"): şerit ✕'i 30x28 ölçüldü -> en az 44x44 dokunma alanı */
 /* 18.10 Cem ("üst şeritleri sadeleştir"): telefonda tek şerit - kayan duyuru görünürken Android indirme ve prova şeritleri çıkmaz (✕ ile duyuru kapanınca geri gelir) */
 body:has(#kayanSerit:not([hidden])) #uygSerit,body:has(#kayanSerit:not([hidden])) #provaSerit{display:none!important}
+/* 23.11 Cem ("hiçbir yerde üst üste gelmesin, çarpı basma olmasın"): ekranın üstünde aynı anda EN FAZLA BİR şerit — üye karşılama satırı görünüyorsa satış şeridi hiç çıkmaz */
+body:has(#uyeHos:not([hidden])) #kayanSerit,body:has(#uyeHos:not([hidden])) #uygSerit,body:has(#uyeHos:not([hidden])) #provaSerit{display:none!important}
 .uyg-serit [data-kapat]{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .uyg-indir{margin:12px 0 0;font-size:14.5px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px}
 html body .uyg-indir a{display:block;line-height:0}
@@ -209,7 +211,7 @@ html body .kah-linkler .kah-link{display:inline-flex;align-items:center;min-heig
   .alt{margin:0 auto 20px;font-size:16.5px}
 }
 
-</style><link rel="stylesheet" href="paket-kartlari.css?v=2"><style>
+</style><link rel="stylesheet" href="paket-kartlari.css?v=3"><style>
 /* 28.10: sınav seçici + paket kartları ortak dosyada (fiyat.html de kullanır) */
 
 /* kısayollar: fiyat · ders · konu · deneme · seviye · duyuru (Cem: "fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım") */

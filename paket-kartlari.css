@@ -56,3 +56,6 @@ html body .pk-one .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!
 .pk-artis{margin:10px 0 2px;padding:9px 12px;border-radius:10px;border-left:4px solid var(--red);background:color-mix(in srgb,var(--red) 9%,transparent);color:var(--ink);font-size:14.5px;line-height:1.45}
 .pk-artis b{color:var(--red);font-weight:850;white-space:nowrap}
 .pk-artis[hidden]{display:none!important}
+/* 23.11 Cem ("satın al tuşlarında Amazon taktiği … hangi renk kullanıyorlarsa"): Amazon'un satın al düğmeleri sarı/turuncu (sayfanın tek
+   sıcak rengi, gözün ilk gittiği yer). Bütün paket kartlarında "Satın al" tek renk: amber (satin-al.html ödeme düğmeleriyle aynı). */
+html body .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
