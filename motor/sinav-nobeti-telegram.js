@@ -58,10 +58,16 @@ function gorselYolu(d) {
 }
 
 /** Aday süzgeci: damgasız + başlangıç tarihinden sonra görülmüş (ya da --url ile zorlanmış). */
+/* 24.11.2026 (Cem "GM önerileri yap", Telegram açılmadan önce): kanal haber akışıdır → duyuru tarihi bugünden 3 günden eskiyse
+   GİTMEZ (anahtar girildiği gün 13–14 Ekim'den bekleyen 6 duyuru kanala 6 hafta geç düşmesin). Bugün: SN_BUGUN, öz-sınavda sabit. */
+const TAZE_GUN = 3;
+function bugunTr() { return process.env.SN_BUGUN || (process.argv.includes('--sinav') ? '2026-10-10' : new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10)); }
 function adaylar(duyurular, zorUrl) {
+  const sinir = new Date(Date.parse(bugunTr()) - TAZE_GUN * 864e5).toISOString().slice(0, 10);
   return duyurular.filter(d => {
     if (MUT !== 'kutuk' && d.telegram) return false;
     if (zorUrl) return d.url === zorUrl;
+    if (MUT !== 'taze' && String(d.tarih || '') < sinir) return false;
     return MUT === 'baslangic' ? true : String(d.gorulme || '') >= TELEGRAM_BASLANGIC;
   }).slice(0, KOSU_TAVANI);
 }
@@ -112,7 +118,7 @@ async function sinav() {
   // 2) kütük: iki koşu — ilkinde 1 gider, ikincisinde 0; tohum (eski) duyuru hiç gitmez; düşen gönderim damgalanmaz
   let sayac = 0;
   const sahte = { anahtarVar: () => true, metinGonder: async () => ({ message_id: 100 + (++sayac) }), fotoGonder: async () => ({ message_id: 100 + (++sayac) }) };
-  const kayit = [{ ...vaka }, { kurum: 'TÜRMOB', url: 'https://www.turmob.org.tr/haberler/x/eski', baslik: 'Eski tohum duyuru', tarih: '2026-10-01', gorulme: '2026-10-05' }];
+  const kayit = [{ ...vaka }, { kurum: 'TÜRMOB', url: 'https://www.turmob.org.tr/haberler/x/eski', baslik: 'Eski tohum duyuru', tarih: '2026-10-08', gorulme: '2026-10-05' }];
   const k1 = await telegramGonder(kayit, { gonderici: sahte, bugun: '2026-10-09', sessiz: true });
   ok(k1.gonderilen.length === 1 && k1.gonderilen[0].url === vaka.url, `1. koşu 1 gönderim beklendi, ${k1.gonderilen.length}`);
   ok(kayit[0].telegram && kayit[0].telegram.mesaj === 101 && kayit[0].telegram.tarih === '2026-10-09', 'damga yazılmadı');
@@ -140,13 +146,17 @@ async function sinav() {
   const k7 = await telegramGonder(kayit7, { gonderici: sahte, zorUrl: kayit7[0].url, sessiz: true });
   const k7b = await telegramGonder(kayit7, { gonderici: sahte, zorUrl: kayit7[0].url, sessiz: true });
   ok(k7.gonderilen.length === 1 && k7b.gonderilen.length === 0, '--url zorlaması: ilk 1, ikinci 0 beklendi');
+  // 8) 24.11: duyuru tarihi bugünden 3 günden eski -> gitmez (kanal haber akışı; anahtar sonradan girilince eski yığın düşmesin)
+  const kayit8 = [{ kurum: 'TESMER', url: 'https://www.tesmer.org.tr/duyuru/eski', baslik: 'Eski sınav duyurusu', tarih: '2026-10-01', gorulme: '2026-10-09' }];
+  const k8 = await telegramGonder(kayit8, { gonderici: sahte, sessiz: true });
+  ok(k8.gonderilen.length === 0 && !kayit8[0].telegram, '3 günden eski duyuru gönderildi');
   return hatalar;
 }
 async function mutasyon() {
   // her mutasyonda öz-sınav KIRMIZI düşmeli; düşmüyorsa sınav kör
   const { spawnSync } = require('child_process');
   const sonuc = [];
-  for (const mut of ['kutuk', 'kaynak', 'yasak', 'baslangic']) {
+  for (const mut of ['kutuk', 'kaynak', 'yasak', 'baslangic', 'taze']) {
     const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, SN_MUTASYON: mut }, encoding: 'utf8' });
     sonuc.push({ mut, dustu: r.status !== 0 });
     console.log(`mutasyon ${mut.padEnd(10)} → ${r.status !== 0 ? 'KIRMIZI (beklenen)' : 'YEŞİL — SINAV KÖR'}`);
@@ -158,9 +168,9 @@ if (require.main === module) (async () => {
   if (process.argv.includes('--sinav')) {
     const h = await sinav();
     h.forEach(x => console.error('  KIRMIZI: ' + x));
-    console.log(`sinav-nobeti-telegram öz-sınav: ${h.length ? 'KIRMIZI ' + h.length + ' hata' : 'YEŞİL (7 vaka)'}`);
+    console.log(`sinav-nobeti-telegram öz-sınav: ${h.length ? 'KIRMIZI ' + h.length + ' hata' : 'YEŞİL (8 vaka)'}`);
     if (h.length) process.exit(1);
-    if (process.argv.includes('--mutasyon')) { const kor = await mutasyon(); if (kor.length) { console.error('KIRMIZI: mutasyon yakalanmadı: ' + kor.join(', ')); process.exit(1); } console.log('mutasyon: 4/4 KIRMIZI'); }
+    if (process.argv.includes('--mutasyon')) { const kor = await mutasyon(); if (kor.length) { console.error('KIRMIZI: mutasyon yakalanmadı: ' + kor.join(', ')); process.exit(1); } console.log('mutasyon: 5/5 KIRMIZI'); }
     return;
   }
   if (process.argv.includes('--kuru')) {
