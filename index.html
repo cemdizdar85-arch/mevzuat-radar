@@ -902,7 +902,16 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   function kayanCiz(sec){
     var iz=document.querySelector('#kayanSerit .kayan-iz'), a=$('kayanA'); if(!iz||!a) return;
     var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), m, href;
-    if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs-2027'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
+    /* 23.11 Cem ("sgs açılış yazsak … senin önerin" → "tamam yapalım"): SGS sekmesinde SGS 2027 açılış şeridi. Rakamlar fiyat-motoru.js'ten;
+       "31 Aralık'a kadar" gerçek tarih (FIYAT.sgs2027.gecis), 1 Ocak'ta kendiliğinden yeni fiyata döner. Paketli üyede şerit hiç çizilmez (dugmeCiz). */
+    var p7=(sec==='sgs'&&typeof paketBul==='function')?paketBul('sgs-2027'):null;
+    if(p7&&p7.acik){
+      var n7=p7.taksitAdet||0, tk7=n7?' · peşin fiyatına '+n7+' × '+tl(Math.round(p7.fiyat/n7*100)/100)+' TL':'';
+      m='🎯 <b>'+(p7.sonraYazi?'SGS 2027 AÇILIŞ':'SGS 2027 PAKETİ')+'</b> · '+(p7.sonraYazi?'31 Aralık\'a kadar ':'')+fiyatAna(p7.id,p7.fiyat)+tk7
+        +(p7.sonraYazi?' · 1 Ocak\'tan '+fiyatAna(p7.id,p7.liste):'')+' · <u>Paketi gör →</u>';
+      href='satin-al.html?paket=sgs-2027'; a.setAttribute('aria-label','SGS 2027 paketi: '+fiyatAna(p7.id,p7.fiyat)+(p7.sonraYazi?', 31 Aralık\'a kadar':'')+'. Paketi gör.');
+    }
+    else if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs-2027'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
     else if(sec==='yeterlilik'&&typeof erkenYetAcik==='function'&&erkenYetAcik()){   /* 28.10: Yeterlilik erken kayıt (7 Kasım 23:59) */
       var yt=paketBul('yeterlilik-tum'), yn=erkenNet(yt);
       m='🎯 <b>SMMM YETERLİLİK ERKEN KAYIT</b> · 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL ('+tl(yt.fiyat)+' TL yerine) · Son 20 Gün 8 Kasım\'da · <u>Hemen al →</u>'; href='satin-al.html?paket=yeterlilik-tum'; a.setAttribute('aria-label','Yeterlilik erken kayıt: 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL. Satın al.'); }
@@ -948,7 +957,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
     /* 18.10 kayan duyuru: seçili sınavın sekmesine götürür; ✕ bu oturumda kapatır */
     try{ var ks=$('kayanSerit'), kk=false; try{ kk=sessionStorage.getItem('kayan_kapat')==='1'; }catch(e){}
-      if(ks){ if(kk||kgkSec) ks.hidden=true; else { ks.hidden=false; kayanCiz(secili);   /* 28.10: seçili sınavın kampanyası */
+      var paketli=!!(UYE&&UYE.sinavlar&&UYE.sinavlar[secili]&&UYE.sinavlar[secili].durum==='aktif');   /* 23.11: paketi açık üyeye satış şeridi yok */
+      if(ks){ if(kk||kgkSec||paketli) ks.hidden=true; else { ks.hidden=false; kayanCiz(secili);   /* 28.10: seçili sınavın kampanyası */
         $('kayanX').onclick=function(){ ks.hidden=true; try{ sessionStorage.setItem('kayan_kapat','1'); }catch(e){} }; } } }catch(e){}
     /* 18.10 üye karşılama şeridi */
     try{ var hz=$('uyeHos'), oz=null, kapali=false; try{ oz=JSON.parse(localStorage.getItem('sc_son_ozet_'+OZET_ANAHTAR[secili])||'null'); kapali=sessionStorage.getItem('uye_hos_kapat')==='1'; }catch(e){}
