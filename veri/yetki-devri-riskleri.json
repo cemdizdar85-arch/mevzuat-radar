@@ -1,5 +1,5 @@
 {
-  "tarih": "23.11.2026 23:15",
+  "tarih": "23.11.2026 23:27",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 923,
   "riskli_madde": 1322,
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 258,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -3197,85 +3197,85 @@
     },
     {
       "sayfa": "sorular.html",
-      "satir": 168,
+      "satir": 173,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Son 20 Gün dönemi: büyük kart tek (Son 20 Gün); devam ve sık konu ince satır */"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 234,
+      "satir": 239,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek, sitede başka şeye ulaşamayacak\"): yalnız Son 20 Gün paketi olan üye ({tur:'sgs'|'yet'})"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 245,
+      "satir": 250,
       "iddia": "20 Gün",
       "metin": "+' '+(k?esc(k.dugme):(yet?'Hesabıma git →':'Son 20 Gün sayfam →'))+' '"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 248,
+      "satir": 253,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (\"Soru çöz sayfası sadeleşsin, Son 20 Gün kartı eklensin\"): 1–21 Kasım SGS paketi olan HERKES (Tam Paket dahil), 8–28 Kasım"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 249,
+      "satir": 254,
       "iddia": "20 Gün",
       "metin": "Yeterlilik paketi olan herkes en üstte Son 20 Gün kartını görür; açılıştan önce \"açılıyor\" der. Veri son20-kart.js (s20_liste)."
     },
     {
       "sayfa": "sorular.html",
-      "satir": 251,
+      "satir": 256,
       "iddia": "20 Gün",
       "metin": "açılıştan önce tersi: Son 20 Gün ince bilgi satırı, günlük çalışma büyük kart (Hesabım'la aynı kural). */"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 267,
+      "satir": 272,
       "iddia": "20 Gün",
       "metin": "/* Deneme bölümünün başı: Son 20 Gün'ün 7 denemesi (SGS'de durumlu çip; Yeterlilik'te tek bağlantı) */"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 273,
+      "satir": 278,
       "iddia": "20 Gün",
       "metin": "return ' Son 20 Gün · söze sayılır '+(k.tur==='yet'?'Yeterlilik denemeleri':'7 deneme')+' '"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 333,
+      "satir": 343,
       "iddia": "20 Gün",
       "metin": "/* 28.10: Son 20 Gün kartı varken ikinci büyük turuncu kart olmaz; aynı hedef ince satır */"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 423,
+      "satir": 433,
       "iddia": "10 yıl",
       "metin": "+' Sınavda en çok çıkan konulardan sorular Son 10 yılın çıkmış sorularını tek tek okuduk; '+(sikSinav==='sgs'?'en sık 20 konudan':'her dersin en sık 5 konusundan')+' ders ders 20 s"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 426,
+      "satir": 436,
       "iddia": "20 Gün",
       "metin": "kart yalnız devam (ya da Son 20 Gün) olur. Ziyaretçide büyük kalır (paketin içini gösteren kanca). */"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 441,
+      "satir": 451,
       "iddia": "2 gün",
       "metin": "?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 502,
+      "satir": 512,
       "iddia": "20 Gün",
       "metin": "+(S20D.sgs?' Alıştırma denemesi, Son 20 Gün sözüne sayılmaz. ':'')+son"
     },
     {
       "sayfa": "sorular.html",
-      "satir": 528,
+      "satir": 538,
       "iddia": "20 Gün",
       "metin": "+(S20D.yet?' Alıştırma denemesi, Son 20 Gün sözüne sayılmaz. ':'')+son2"
     },
