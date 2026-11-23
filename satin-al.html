@@ -471,7 +471,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261123a"></script>
+<script src="fiyat-motoru.js?v=20261123b"></script>
 <script>
 /* 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı; eski bağlantı (reklam, uygulama, e-posta: ?paket=sgs / son20-sgs)
    SGS 2027 paketine iner. Sayfanın öteki betikleri adresi bundan SONRA okur. */
@@ -552,7 +552,7 @@ function pkFiyatHtml(p){
   var tk = (typeof taksitGoster === 'function') ? taksitGoster(p) : '';
   return '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
     + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
-    + (tk ? '<span style="color:var(--ink);font-weight:700">Kartla ' + tk + '</span>' : '')
+    + (tk ? '<span style="color:var(--ink);font-weight:700">' + tk + '</span><span>kartla, ' + TAKSIT_KARTLAR + ' kartlarında</span>' : '')
     + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
     + ayr;
 }

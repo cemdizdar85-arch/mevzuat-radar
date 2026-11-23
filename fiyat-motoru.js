@@ -260,7 +260,7 @@ var FIYAT = {
      taksit: 3 = kartla 3 taksit gösterimi ("3 × 1.195,20 TL") + iyzico'da 3 taksit açık. 0 = kapalı. Cem ödeme firmasıyla taksit
      anlaşmasını yapınca 3 yapılır; iyzico-odeme.ts aynı alanı okur (taksitsiz ödeme sayfası taksit göstermez, gösterim de kalkar).
      ⚠ Bu nesneyi sunucu (radar-app/edge/iyzico-odeme.ts fiyatlar()) JSON diye okur: değer yalnız sayı, ifade/fonksiyon YAZILMAZ. */
-  sgs2027:        { kurulus:3585.6, liste:8985.6, gecis:1798750800000, taksit:0 },
+  sgs2027:        { kurulus:3585.6, liste:8985.6, gecis:1798750800000, taksit:3 },   /* 23.11 Cem "peşin fiyatına 3 taksit imkânı var diyelim": AÇIK. iyzico ölçümü (?taksit=1, para çekmez) 7 kart ailesinde 3 × 1.195,20 = 3.585,60 */
   /* 27.10.2026 CEM KARARI ("sadece soru alana 999 tl"): Son 20 Gün "Sadece 7 Deneme" — 7 deneme + konu görevleri,
      sitedeki diğer SGS soruları YOK. KDV dahil 999 (832,50 + KDV). Kotasız; elçi/erken kayıt kodu işlemez. */
   son20Sgs:       { kurulus:999, liste:999 },
@@ -490,10 +490,13 @@ var SGS2027_DONEM = [
 ];
 function sgs2027Fiyat(){ return Date.now() < FIYAT.sgs2027.gecis ? FIYAT.sgs2027.kurulus : FIYAT.sgs2027.liste; }
 function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
-/* "3 × 1.195,20 TL" — yalnız taksit açıkken (FIYAT.sgs2027.taksit); kapalıyken boş dize, hiçbir yerde taksit yazmaz */
+/* 23.11 Cem: "Peşin fiyatına 3 taksit · 3 × 1.195,20 TL (KDV dahil toplam 3.585,60 TL)" — yalnız taksit açıkken (FIYAT.sgs2027.taksit);
+   kapalıyken boş dize, hiçbir yerde taksit yazmaz. "Peşin fiyatına" iddiası iyzico taksit sorgusuyla ölçüldü (vade farkı alıcıya yansımıyor);
+   ölçüm: iyzico-odeme ?taksit=1. TAKSIT_KARTLAR = ölçümde 3 taksiti vade farksız gelen kart aileleri (23.11). */
+var TAKSIT_KARTLAR = 'Bankkart, Paraf, World, Axess, QNB, Bonus, SağlamKart';
 function taksitGoster(p){
   var n = p && p.taksitAdet; if(!n) return '';
-  return n + ' × ' + (Math.round(p.fiyat / n * 100) / 100).toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' TL';
+  return 'Peşin fiyatına ' + n + ' taksit · ' + n + ' × ' + (Math.round(p.fiyat / n * 100) / 100).toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' TL (KDV dahil toplam ' + tl(p.fiyat) + ' TL)';
 }
 function sgs2027DonemYazi(id){
   var d = SGS2027_DONEM.filter(function(x){ return x.id === id; })[0]; if(!d) return '';

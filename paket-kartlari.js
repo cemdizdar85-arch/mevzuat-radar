@@ -62,7 +62,7 @@
     k.querySelector('[data-dahil]').textContent = (hr ? fiyatDahilNot(p.id, p.fiyat) : '') + (p.kota && p.liste > p.fiyat ? (hr ? ' · ' : '') + 'açılış fiyatı · ilk ' + tlx(p.kota) + ' üye' : '')
       + (p.sonraYazi ? (hr ? ' · ' : '') + p.not : '');   /* 23.11 SGS 2027: "31 Aralık 2026 23:59'a kadar" */
     var kt = k.querySelector('[data-taksit]'), tks = (typeof taksitGoster === 'function') ? taksitGoster(p) : '';
-    if(kt){ kt.textContent = tks ? 'Kartla ' + tks : ''; kt.hidden = !tks; }   /* 23.11: yalnız taksit açıkken (FIYAT.sgs2027.taksit) */
+    if(kt){ kt.textContent = tks; kt.hidden = !tks; }   /* 23.11: yalnız taksit açıkken (FIYAT.sgs2027.taksit) */
     /* 23.11: üstü çizili eski fiyat YOK; tarihli paket "1 Ocak 2027'den itibaren …" der */
     k.querySelector('[data-sonra]').innerHTML = p.liste > p.fiyat ? (p.kota ? 'İlk ' + tlx(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'Sonra ') + fiyatAnaHtml(p.id, p.liste) + fiyatDahilHtml(p.id, p.liste) : '';
     if(!p.acik){ a.textContent = 'Yakında'; a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); }

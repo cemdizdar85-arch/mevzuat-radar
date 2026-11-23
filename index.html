@@ -776,8 +776,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261123a"></script>
-<script src="paket-kartlari.js?v=8"></script>
+<script src="fiyat-motoru.js?v=20261123b"></script>
+<script src="paket-kartlari.js?v=9"></script>
 <script src="gkt.js?v=20261101g5"></script>
 <script src="uye-durumu.js?v=20261123a"></script>
 <script src="son20-kart.js?v=20261116b"></script>
@@ -886,7 +886,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     try{
       if(sec==='sgs'){ var s7=paketBul('sgs-2027'), tk=(typeof taksitGoster==='function')?taksitGoster(s7):'';
         /* 23.11 Cem: SGS 2027 paketi; Son 20 Gün satıştan kalktı. Üstü çizili fiyat yok, geçiş ileriye dönük yazılır. */
-        h='SGS 2027 paketi <b>'+fiyatAna(s7.id,s7.fiyat)+'</b><small>'+fiyatDahilNot(s7.id,s7.fiyat)+(tk?' · kartla '+tk:'')
+        h='SGS 2027 paketi <b>'+fiyatAna(s7.id,s7.fiyat)+'</b><small>'+fiyatDahilNot(s7.id,s7.fiyat)+(tk?' · '+tk:'')
           +(s7.sonraYazi?' · '+s7.not+', '+s7.sonraYazi+' '+fiyatAna(s7.id,s7.liste):'')+'</small>'; }
       else if(sec==='yeterlilik'){ var a0=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0,
           a={fiyat:(typeof erkenNet==='function'&&erkenNet(a0))||a0.fiyat};   /* 28.10: ders merdiveni de erken kayıtta ders başı 120 TL */

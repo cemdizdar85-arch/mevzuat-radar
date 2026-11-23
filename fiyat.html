@@ -510,8 +510,8 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
 <!-- GERCEK TAKVIM — uydurma geri sayim yok. Takvim ve fiyat verisi 21.08'de
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
-<script src="fiyat-motoru.js?v=20261123a"></script>
-<script src="paket-kartlari.js?v=8"></script>
+<script src="fiyat-motoru.js?v=20261123b"></script>
+<script src="paket-kartlari.js?v=9"></script>
 <script src="gkt.js?v=20261101g5" defer></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';
@@ -558,7 +558,7 @@ function kart(id, p){
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
   else if(kt && p.sonraYazi){ kt.textContent = p.not; }   /* 23.11 SGS 2027: "31 Aralık 2026 23:59'a kadar" */
   var tkE = document.getElementById('tk' + id), tks = (typeof taksitGoster === 'function') ? taksitGoster(p) : '';
-  if(tkE){ tkE.textContent = tks ? 'Kartla ' + tks : ''; tkE.hidden = !tks; }
+  if(tkE){ tkE.textContent = tks; tkE.hidden = !tks; }
   // 27.09 Cem: '+KDV' gosterimi kalkti (Yon. m.13/2). Bu satir artik GERCEK kalan kurucu yerini yazar;
   // sunucu sayiyi vermezse bos kalir (uydurma sayi yazilmaz).
   var kh = document.getElementById('kh' + id);
