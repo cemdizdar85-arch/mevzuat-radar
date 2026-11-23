@@ -1615,6 +1615,19 @@
               kayit:{form:'ogFormKayit',baslik:'Hesabını oluştur',sekme:true,aciklama:'Ücretsiz hesap aç; çözdüklerin, yanlışların ve deneme sonuçların hesabına kaydedilsin. Paket aldıysan aynı e-postayı yaz.'},   /* 13.10: eski metin "Paketi aldığın (ya da alacağın) e-postayla" ücretsiz deneyene "bu sayfa ödeyenler için" diyordu */
               sifremi:{form:'ogFormSifremi',baslik:'Şifreni sıfırla',sekme:false,aciklama:'Hesabının e-posta adresine bir bağlantı göndeririz; bağlantıdan yeni şifreni belirlersin. Sonuçların ve paketin olduğu gibi kalır.'},
               yeni:{form:'ogFormYeni',baslik:'Yeni şifre belirle',sekme:false,aciklama:'Yeni şifreni iki kez yaz ve kaydet. Kaydettikten sonra doğrudan hesabına geçersin.'} };
+  /* 23.11 (Cem "YouTube ve Amazon gibi: kolay üyelik", denetim bulgusu 4): satin-al.html'deki "Önce hesabına gir" kapısından gelen
+     alıcı bu sayfada satın almayı anan tek bir satır bile görmüyordu. ?sonra=satin-al… ise başlık ve açıklama siparişi anar;
+     hesap açılınca/girilince sonraGit() onu aynı ödeme adımına geri götürür. Fiyat yazılmaz (fiyatın tek kaynağı satin-al). */
+  (function(){
+    try{
+      var s=new URLSearchParams(location.search).get('sonra')||''; if(!/^satin-al\.html/i.test(s)) return;
+      var pk=(new URLSearchParams(s.split('?')[1]||'').get('paket')||'').toLowerCase();
+      var ad=/^sgs/.test(pk)?'SGS 2027 paketi':/^son20/.test(pk)?'Son 20 Gün paketi':/^yeterlilik/.test(pk)?'Yeterlilik paketi':/^kgk/.test(pk)?'KGK paketi':'paketin';
+      var cumle=(ad==='paketin'?'Siparişine':ad+' siparişine')+' devam ediyorsun. Paket bu hesaba açılır; hesabın açılınca ödeme adımına kaldığın yerden dönersin. Onay maili yok.';
+      EKRAN.kayit.baslik='Siparişin için hesabını aç'; EKRAN.kayit.aciklama=cumle;
+      EKRAN.giris.aciklama=cumle.replace('hesabın açılınca','giriş yapınca');
+    }catch(e){}
+  })();
   var EPOSTA_DESEN=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, SIFRE_EN_AZ=8;
   function ekranAc(ad,odak){
     var e=EKRAN[ad]||EKRAN.giris;

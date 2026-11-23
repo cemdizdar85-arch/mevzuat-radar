@@ -408,9 +408,14 @@
     <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
     <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></label>
 
-  <button class="btn" id="gonder">Siparişi tamamla</button>
+  <!-- 23.11 (Cem "YouTube ve Amazon gibi: kolay alım", denetim bulgusu 3): "Siparişi tamamla" → ayrı "Siparişin alındı" ekranı → ayrıca
+       "Kartla öde" idi; 24.10–23.11'de 10 alıcı bu ara ekranda kaldı (sipariş verdi, karta hiç basmadı, havale de gelmedi). Artık ödeme
+       yolu burada seçilir: "Kartla öde" siparişi kaydeder ve doğrudan iyzico'ya gider; havale düğmesi siparişi kaydedip IBAN ekranını açar.
+       Kart kapalıysa (kartAcik false) tek düğme "Siparişi tamamla" kalır, havale düğmesi gizlenir. -->
+  <button class="btn" id="gonder">💳 Kartla öde</button>
+  <button type="button" class="btn" id="gonderHavale" style="margin-top:10px;background:transparent;color:var(--ink);border:1px solid var(--line2);font-weight:700">🏦 Havale/EFT ile öde</button>
   <div class="sonuc" id="sonuc"></div>
-  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. Kartla ödeyince paketin hemen açılır.</p>
+  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Kart bilgisi bu sayfada istenmez: "Kartla öde"ye basınca iyzico'nun güvenli ödeme sayfası açılır (kart bilgin bize gelmez), ödeme bitince paketin hemen açılır. Havale/EFT'de hesap bilgisi bir sonraki ekranda görünür.</p>
 </div>
 </aside>
 </div><!-- /duzen -->
@@ -631,7 +636,9 @@ function donemCiz(){
   if(!secili || !secili.donemSec || typeof SGS2027_DONEM === 'undefined'){ kutu.style.display = 'none'; return; }
   var secSatir = document.querySelector('#paketler .pk.sec');
   if(secSatir && secSatir.nextElementSibling !== kutu) secSatir.insertAdjacentElement('afterend', kutu);
+  /* 23.11 (bulgu 4): girişten/üyelikten ?sonra= ile dönen alıcının seçtiği dönem adreste gelir (?donem=), yeniden seçtirilmez */
   var once = secilenDonem();
+  if(!once){ try{ var ud = new URLSearchParams(location.search).get('donem') || ''; if(SGS2027_DONEM.some(function(d){ return d.id === ud; })) once = ud; }catch(e){} }
   liste.innerHTML = SGS2027_DONEM.map(function(d){
     return '<label><input type="radio" name="sgsDonem" value="' + d.id + '"' + (d.id === once ? ' checked' : '') + '><span>' + donemSatir(d) + '</span></label>';
   }).join('');
@@ -754,7 +761,7 @@ function ifaYaziCiz(){
     : IFA_YAZI_ESKI;
   if(e.innerHTML !== yeni){ e.innerHTML = yeni; document.getElementById('onIfa').checked = false; }   /* metin değişince eski onay geçmez */
   var o = document.getElementById('odemeNot');   /* ön satışta "paketin hemen açılır" yazılmaz */
-  if(o && kartAcik()) o.textContent = 'Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. '
+  if(o && kartAcik()) o.textContent = 'Kart bilgisi bu sayfada istenmez: "Kartla öde"ye basınca iyzico\'nun güvenli ödeme sayfası açılır (kart bilgin bize gelmez). Havale/EFT\'de hesap bilgisi bir sonraki ekranda görünür. '
     + (a ? 'Ön siparişin ödemeyle kayda geçer; denemeler ' + a + '\'da hesabında açılır.' : 'Kartla ödeyince paketin hemen açılır.');
 }
 function ozetCiz(){
@@ -1137,7 +1144,7 @@ function davetKodOku(){
   };
   /* 03.10: alt çubuk düğmesi 3. adıma gelinene kadar "Devam" der ve açık adımın Devam'ı gibi çalışır */
   function acikAdim(){ return adimlar[1].classList.contains('acik') ? 1 : adimlar[2].classList.contains('acik') ? 2 : 0; }
-  function mbEtiket(){ $('mbGit').textContent = (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : 'Siparişi tamamla'; }
+  function mbEtiket(){ $('mbGit').textContent = (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : (kartAcik() ? 'Kartla öde' : 'Siparişi tamamla'); }
   window.akdHata = function(n, m){ akdOzetCiz(); ac(n, true); hataYaz(n, m); };
   function devam(n){
     var m = n === 1 ? adim1Hata() : adim2Hata();
@@ -1233,6 +1240,12 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
 (function(){ var o = document.getElementById('odemeYolu'); if(o && !kartAcik()) o.textContent = 'Havale/EFT ile ödeme'; })();
 /* 07.10 Cem ('banka havale EFT diyor, biz kartı kurduk'): sipariş düğmesinin altındaki not da karta göre konuşur */
 (function(){ var o = document.getElementById('odemeNot'); if(o && !kartAcik()) o.textContent = 'Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra göreceğin hesaba banka havalesi/EFT ile yapılır.'; })();
+/* 23.11 (bulgu 3): ödeme yolu 3. adımda seçilir; kart kapalıysa tek düğme "Siparişi tamamla" (havale) */
+var ODEME_TERCIH = 'kart';
+(function(){ var g = document.getElementById('gonder'), h = document.getElementById('gonderHavale'); if(!g || !h) return;
+  if(!kartAcik()){ g.textContent = 'Siparişi tamamla'; h.hidden = true; return; }
+  h.addEventListener('click', function(){ if(g.disabled) return; ODEME_TERCIH = 'havale'; g.click(); });
+})();
 function kartHazirla(no){
   var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
   k.hidden = false;
@@ -1390,7 +1403,9 @@ function deger(id){ return (document.getElementById(id).value || '').trim(); }
 function hata(m, adim){ if(adim && typeof window.akdHata === 'function') window.akdHata(adim, m); goster(m, false); }
 
 btn.addEventListener('click', function(){
-  adimSay('gonder');
+  var tercih = ODEME_TERCIH; ODEME_TERCIH = 'kart';   /* 23.11: havale düğmesi bayrağı bir kez kullanılır */
+  if(tercih === 'havale' && btn.disabled) return;
+  btn.dataset.tercih = tercih; adimSay(tercih === 'havale' ? 'gonder-havale' : 'gonder');
   if(!KURULUM_TAMAM){ goster('Sipariş alımı şu an kapalı.', false); return; }
   if(!secili){ hata('Önce bir paket seç.', 1); return; }
   var ad = deger('ad'), mail = deger('mail'), tel = deger('tel'), adres = deger('adres');
@@ -1485,6 +1500,10 @@ btn.addEventListener('click', function(){
     document.getElementById('duzen').style.display = 'none'; document.getElementById('mbar').hidden = true; document.body.classList.remove('mbar-var');
     document.getElementById('tamam').scrollIntoView({behavior:'smooth', block:'start'});
     s.style.display = 'none'; btn.disabled = false;
+    /* 23.11 (bulgu 3): "Kartla öde" ile gelen alıcı ara ekranda ikinci kez düğmeye basmaz, doğrudan iyzico'ya gider.
+       iyzico başlatılamazsa bu ekran kalır: hata yazısı kart düğmesinin altında, IBAN onun altında açık. */
+    var kb = document.getElementById('kartOde');
+    if(btn.dataset.tercih !== 'havale' && kartAcik() && kb && typeof kb.onclick === 'function'){ adimSay('kart-dogrudan'); kb.click(); }
   }
   function basarisiz(){ btn.disabled = false; goster('Sipariş kaydedilemedi. Birazdan tekrar dene ya da <a href="iletisim.html">bize yaz</a>.', false); }
 
@@ -1640,6 +1659,13 @@ if(!KURULUM_TAMAM){
       document.getElementById('girisKapiUye').href = 'ogrenci.html?sonra=' + geri + '#uye-ol';
       document.getElementById('girisKapiGiris').href = 'ogrenci.html?sonra=' + geri;
       document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok');
+      /* 23.11 (bulgu 4): seçilen SGS dönemi dönüş adresine eklenir; dönen alıcı dönemi yeniden seçmez */
+      ['girisKapiUye', 'girisKapiGiris'].forEach(function(id){ var a = document.getElementById(id); a.addEventListener('click', function(){
+        var dn = secilenDonem(); if(!dn) return;
+        var q = new URLSearchParams(location.search); q.set('donem', dn);
+        var g2 = encodeURIComponent((location.pathname.split('/').pop() || 'satin-al.html') + '?' + q.toString());
+        a.href = 'ogrenci.html?sonra=' + g2 + (id === 'girisKapiUye' ? '#uye-ol' : '');
+      }); });
       return;
     }
     /* 06.11 (Cem "alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın"): son 14 günde 80 kart siparişinin 18'inde kart geçmedi, 16'sı
