@@ -129,6 +129,11 @@
   .og-paket{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .og-paket .og-paket-et{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:6px}
   .og-paket b{display:block;font-size:20px;color:var(--ink)}
+  .og-odeme-kart{margin:0 0 16px;padding:18px 18px 16px;border-radius:14px;border:2px solid var(--green);background:color-mix(in srgb,var(--green) 7%,var(--kagit))}
+  .og-odeme-bas{margin:0 0 8px;font-size:19px;font-weight:800;color:var(--green)}
+  .og-odeme-liste{margin:0 0 14px;padding-left:18px;font-size:15px;line-height:1.55}
+  .og-odeme-git{display:flex!important;justify-content:center;align-items:center;width:100%;box-sizing:border-box;font-size:17px;min-height:50px}
+  .og-odeme-alt{margin:10px 0 0;font-size:14px;color:var(--muted)}
   .og-paket .og-paket-alt{font-size:13.5px;color:var(--muted)}
   .og-paket .og-btnler{margin-top:10px}
   .og-uyari{background:color-mix(in srgb,var(--amber) 10%,transparent);border:1px solid var(--amber);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink);margin:14px 0 0}
@@ -696,6 +701,21 @@
     });
   }
 
+  function odemeKartCiz(d,S,aktifler){
+    var q=new URLSearchParams(location.search), e=$('odemeSonuc'), U=window.TetikteUye;
+    if(q.get('odeme')!=='ok'||!e||!aktifler.length) return;
+    var no=window.__ttOdemeNo||'';
+    var satir=aktifler.map(function(k){ var s=S[k], bit=U.tarihYazi(d.sinavlar[k].bitis);
+      return '<li><b>'+esc(s.uzun)+'</b>'+(bit?' · erişim <b>'+esc(bit)+'</b> tarihine kadar':'')+'</li>'; }).join('');
+    var ilk=S[aktifler[0]], git=ilk.icerik?(ilk.devam||ilk.gir):'';
+    e.className='og-odeme-kart'; e.removeAttribute('style');
+    e.innerHTML='<p class="og-odeme-bas">✓ Ödemen alındı, paketin açıldı</p>'
+      +'<ul class="og-odeme-liste">'+satir+'</ul>'
+      +(git?'<a class="og-btn ana og-odeme-git" href="'+git+'">Hemen soru çöz →</a>':'<p class="og-alt" style="margin:8px 0 0">Soruları yayına hazırlıyoruz; açıldığı gün e-postana haber gelir.</p>')
+      +'<p class="og-odeme-alt">Sipariş no <b>'+esc(no)+'</b> · onay e-postan yolda · sonraki girişlerde aynı e-postayı kullan.</p>';
+    e.hidden=false;
+    try{ window.scrollTo(0,0); }catch(x){}
+  }
   /* 15.09 PAKETLERİM: sınav başına kart. Sınav adları/sayfaları uye-durumu.js SINAVLAR'dan (tek kaynak). */
   async function paketlerCiz(user){
     var kap=$('ogPaketler'), U=window.TetikteUye;
@@ -707,6 +727,9 @@
     var sinavlar=U.SIRA.filter(function(k){ var x=d.sinavlar[k].durum; return x==='aktif'||x==='bitmis'; });
     /* 02.10: Cihazlarım yalnız aktif pakette; ilerleme kartının bağları paketin sınavına göre */
     var aktifler=U.SIRA.filter(function(k){ return d.sinavlar[k].durum==='aktif'; });
+    /* 23.11 Cem ("Amazon gibi"): ödeme dönüşünde (?odeme=ok) üstteki kutu sipariş onay kartına döner - hangi paket, ne zamana
+       kadar, tek ana düğme "Hemen soru çöz". Paket henüz açılmadıysa (havale/gecikme) eski metin kalır. */
+    try{ odemeKartCiz(d,S,aktifler); }catch(e){}
     /* 18.10 pano: paket durumu panonun üst satırına; paket yoksa ya da ödeme bekliyorsa "Paketim" açık gelir */
     window.OP_PKT=d; try{ panoCiz(); }catch(e){}
     try{ if(!aktifler.length||$('ogSiparis').innerHTML.trim()) $('opPaketKatli').open=true; }catch(e){}
@@ -1076,6 +1099,7 @@
   function yeniUyeyiTesteGotur(user){
     try{
       if(new URLSearchParams(location.search).get('sonra')) return false;
+      if(new URLSearchParams(location.search).get('odeme')) return false;   /* 23.11: ödeme dönüşü onay kartında kalır (Google'la yeni açılan hesap 30 dk içinde öder) */
       if(!user||!user.created_at||Date.now()-Date.parse(user.created_at)>30*60000) return false;
       if(localStorage.getItem('tt_ilk_test_'+user.id)==='1') return false;
       localStorage.setItem('tt_ilk_test_'+user.id,'1');
