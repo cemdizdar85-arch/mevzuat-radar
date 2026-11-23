@@ -1,5 +1,5 @@
 {
-  "tarih": "23.11.2026 15:32",
+  "tarih": "23.11.2026 15:44",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 923,
   "riskli_madde": 1322,
@@ -1535,43 +1535,43 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 909,
+      "satir": 918,
       "iddia": "20 Gün",
       "metin": "else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){ /* 28.10: Yeterlilik Son 20 Gün ön kaydı */"
     },
     {
       "sayfa": "index.html",
-      "satir": 955,
+      "satir": 965,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (\"7 deneme alan sadece onu görecek\"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */"
     },
     {
       "sayfa": "index.html",
-      "satir": 958,
+      "satir": 968,
       "iddia": "20 Gün",
       "metin": "$('uyeHosMetin').innerHTML='👋 Senin paketin: '+(y20?'Yeterlilik Son 20 Gün':'Sadece 7 Deneme')+'. '+(once20?'Denemelerin '+(y20?'8':'1')+' Kasım\\'da açılır.':'Denemelerin seni bek"
     },
     {
       "sayfa": "index.html",
-      "satir": 967,
+      "satir": 977,
       "iddia": "20 Gün",
       "metin": "/* 28.10 Cem (GM önerisi 2 \"yap\"): Son 20 Gün denemeleri AÇIKKEN paketli üyenin karşılama şeridi Son 20 Gün olur (Hesabım ve Soru çöz"
     },
     {
       "sayfa": "index.html",
-      "satir": 1042,
+      "satir": 1052,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1107,
+      "satir": 1117,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
     {
       "sayfa": "index.html",
-      "satir": 1145,
+      "satir": 1155,
       "iddia": "20 Gün",
       "metin": "/* 02.11 Cem (\"staja girişte altındaki çizgi görünüyor, bitirme gibi olsun\"): ilk ekran büyük düğmelerle biter; Son 20 Gün"
     },
