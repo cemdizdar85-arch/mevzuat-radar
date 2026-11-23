@@ -30,9 +30,17 @@ const isoTr = s => { const m = String(s).match(/^(\d{2})\.(\d{2})\.(\d{4})$/); r
 const trTarih = iso => { const [y, a, g] = iso.split('-'); return `${g}.${a}.${y}`; };
 
 async function tesmer() {
-  const r = await fetch('https://www.tesmer.org.tr/?rest_route=/wp/v2/posts&per_page=50&_fields=title,link,date', { headers: { 'User-Agent': UA } });
+  /* 24.11 (Cem "buradaki veriler güncel değil"): TESMER sitesini yeniledi; eski WordPress REST adresi 14.10'dan sonra JSON yerine
+     sitenin HTML'ini döndürüyordu → TESMER her koşuda KIRMIZI, TÜRMOB yeşil olduğu için iş "başarılı" bitiyor, 6 hafta duyuru gelmedi.
+     Yeni kaynak: sitenin kendi duyuru API'si /api/announcements/?feed=1 (en yeni önce, 442 kayıt ölçüldü 24.11). Tarih created_at (UTC) → TR günü.
+     Bağlantı: link_url (dış adres) yoksa https://www.tesmer.org.tr/duyuru/<slug>. Yalnız etkin (is_active) duyurular. */
+  const r = await fetch('https://www.tesmer.org.tr/api/announcements/?feed=1', { headers: { 'User-Agent': UA, Accept: 'application/json' } });
   if (!r.ok) throw new Error('TESMER ' + r.status);
-  return (await r.json()).map(p => ({ kurum: 'TESMER', url: p.link, baslik: decode(p.title.rendered), tarih: String(p.date).slice(0, 10) }));
+  const j = await r.json();
+  if (!Array.isArray(j)) throw new Error('TESMER: beklenmeyen yanıt (dizi değil)');
+  const trGun = iso => new Date(Date.parse(iso) + 3 * 3600e3).toISOString().slice(0, 10);
+  return j.filter(p => p && p.title && p.is_active !== false && p.created_at).slice(0, 80)
+    .map(p => ({ kurum: 'TESMER', url: p.link_url || ('https://www.tesmer.org.tr/duyuru/' + p.slug), baslik: decode(p.title), tarih: trGun(p.created_at) }));
 }
 async function turmob() {
   const r = await fetch('https://www.turmob.org.tr/Haberler', { headers: { 'User-Agent': UA } });
@@ -52,11 +60,25 @@ async function turmob() {
     catch (e) { durum.push({ kurum: ad, okunan: 0, durum: 'KIRMIZI', hata: e.message }); }
   }
   const var_ = new Set(kayit.duyurular.map(d => d.url));
-  const yeni = gelen.filter(d => sinavMi(d.baslik) && !var_.has(d.url));
-  const tum = kayit.duyurular.concat(yeni.map(d => ({ ...d, gorulme: new Date().toISOString().slice(0, 10) })))
+  /* 24.11: TESMER adresleri değişti (eski WordPress linki → /duyuru/<slug>) → aynı duyuru yeni linkle "yeni" sayılmasın: kurum + başlık
+     + tarih de anahtardır. Eski duyurular (kayıttaki en yeni tarihin öncesi) yeniden EKLENMEZ: API 442 kaydın tamamını veriyor. */
+  const bas = s => String(s).toLocaleLowerCase('tr').replace(/\s+/g, ' ').trim();
+  const varBas = new Set(kayit.duyurular.map(d => d.kurum + '|' + bas(d.baslik) + '|' + d.tarih));
+  const sonTarih = {}; kayit.duyurular.forEach(d => { if (!sonTarih[d.kurum] || d.tarih > sonTarih[d.kurum]) sonTarih[d.kurum] = d.tarih; });
+  const bugun = new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10);
+  const uc = new Date(Date.now() + 3 * 3600e3 - 3 * 864e5).toISOString().slice(0, 10);
+  const yeni = gelen.filter(d => sinavMi(d.baslik) && !var_.has(d.url) && !varBas.has(d.kurum + '|' + bas(d.baslik) + '|' + d.tarih)
+    && !(sonTarih[d.kurum] && d.tarih < sonTarih[d.kurum]));
+  /* kaçırılmış eski duyuru (3 günden eski) Telegram'a toplu GİTMESİN: damgası "gecikmeli" diye baştan yazılır (kanal haber akışıdır) */
+  /* 24.11 tek seferlik yakalama: 14.10–23.11 arası kaçan duyurular bugün kayda girer; kanala toplu gitmez (yayın Cem'in onayıyla) */
+  const yakala = bugun === '2026-11-24' || bugun === '2026-11-25';
+  const tum = kayit.duyurular.concat(yeni.map(d => ({ ...d, gorulme: bugun, ...((d.tarih < uc || (yakala && d.tarih < '2026-11-24')) ? { telegram: { atlandi: 'gecikmeli-kayit', tarih: bugun } } : {}) })))
     .sort((p, q) => q.tarih.localeCompare(p.tarih) || p.baslik.localeCompare(q.baslik, 'tr'));
   durum.forEach(d => console.log(`${d.kurum.padEnd(7)} ${d.durum} okunan ${d.okunan}${d.hata ? ' HATA ' + d.hata : ''}`));
   console.log(`sınav duyurusu: yeni ${yeni.length} · toplam ${tum.length}`);
+  /* 24.11: TESMER 6 hafta KIRMIZI okundu ama TÜRMOB yeşil olduğu için iş başarılı bitti, kimse görmedi. Artık tek kaynak bile düşerse
+     iş KIRMIZI biter (kayıt ve sayfa yine yazılır; ci-kirmizi-nobeti maili). 🚫 GÖRMEZ: kaynak okunup sınav duyurusu süzgecinden geçmeyen yeni biçim. */
+  if (durum.some(d => d.durum === 'KIRMIZI')) { console.error('KIRMIZI: okunamayan kaynak var: ' + durum.filter(d => d.durum === 'KIRMIZI').map(d => d.kurum).join(', ')); process.exitCode = 2; }
   if (durum.every(d => d.durum === 'KIRMIZI')) { console.error('KIRMIZI: hiçbir kaynak okunamadı — sayfa ve kayıt değiştirilmedi'); process.exitCode = 3; return; }
   // 09.10 TELEGRAM AYAĞI: yeni (damgasız, 09.10 sonrası görülen) duyuru kanala gider; damga kayda yazılır → aynı duyuru iki kez gitmez.
   // Anahtar yoksa KÖR yazar, robot düşmez. --telegram-url <link>: belirli duyuruyu (prova) zorla; damgalıysa yine gitmez.
