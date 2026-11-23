@@ -47,13 +47,39 @@
   function serit() {
     if (document.getElementById('ttTelif') || !document.body) return;
     if (window.__KASA_ONIZLEME) return;   /* 24.11 Cem: telif şeridi yalnız paketli üyede; ders önizlemesindeki ziyaretçiye çizilmez (kopya kilidi kalır) */
-    try { if (sessionStorage.getItem('ttTelifKapali') === '1') return; } catch (e) {}
+    /* 24.11 Cem (denetim D26 + D29): ✕ yalnız o oturumu hatırlıyordu, ödeyen üyeye her girişte "hesap kapatılır" diyordu.
+       Artık kapatınca bu cihazda 30 gün çıkmaz (localStorage ttTelifKapali2 = kapatma anı); 30 günde bir hatırlatılır.
+       Kural metni üyelik sözleşmesinde durur; kopya/yazdırma kilidi şeritten bağımsız, aynen çalışır. */
+    try {
+      if (sessionStorage.getItem('ttTelifKapali') === '1') return;
+      var kt = Number(localStorage.getItem('ttTelifKapali2') || 0); if (kt && Date.now() - kt < 30 * 86400000) return;
+    } catch (e) {}
     var d = document.createElement('div'); d.id = 'ttTelif'; d.setAttribute('role', 'contentinfo');
     d.textContent = '© Tetikte · Bu sorular kişisel çalışman içindir. Kopyalanması, kaydedilmesi, ekran görüntüsü alınması ve paylaşılması sözleşmeye aykırıdır; hesap kapatılır.';
     var x = document.createElement('button'); x.type = 'button'; x.className = 'ttTelifX'; x.textContent = '✕'; x.setAttribute('aria-label', 'Kapat');
-    x.addEventListener('click', function () { d.remove(); try { sessionStorage.setItem('ttTelifKapali', '1'); } catch (e) {} });
+    x.addEventListener('click', function () { d.remove(); try { sessionStorage.setItem('ttTelifKapali', '1'); localStorage.setItem('ttTelifKapali2', String(Date.now())); } catch (e) {} });
     d.appendChild(x);
     document.body.appendChild(d);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', serit); else serit();
+
+  /* 24.11 Cem "Amazon gibi" (denetim D24): ders sayfasında üyeye aynı anda 3 ✕'li şerit + filigran düşebiliyordu ("en fazla bir" kuralı
+     yalnız ana sayfadaydı). Burada da EN FAZLA BİR şerit: öncelik sırasıyla ilk görünen kalır, ötekiler o kapanana dek BEKLER (silinmez);
+     üst üste açılan "tekrar" şeritlerinden yalnız sonuncusu kalır. Filigran (cihaz koruması) şerit değil, dokunulmaz.
+     🚫 GÖRMEZ: bu listede olmayan yeni şerit. */
+  var ONCELIK = ['#kasaUyari', '#ttEkipBildirim', '.tekrarUyari', '#ttTelif'];
+  function tekSerit() {
+    if (!document.body) return;
+    var goren = false;
+    ONCELIK.forEach(function (sec) {
+      var l = document.querySelectorAll(sec);
+      [].forEach.call(l, function (e, i) {
+        if (sec === '.tekrarUyari' && i < l.length - 1) { e.remove(); return; }
+        if (goren) { if (!e.hasAttribute('data-tt-bekle')) { e.setAttribute('data-tt-bekle', e.style.display || ''); e.style.display = 'none'; } }
+        else { if (e.hasAttribute('data-tt-bekle')) { e.style.display = e.getAttribute('data-tt-bekle'); e.removeAttribute('data-tt-bekle'); } goren = true; }
+      });
+    });
+  }
+  function gozle() { try { tekSerit(); new MutationObserver(tekSerit).observe(document.body, { childList: true }); } catch (e) {} }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', gozle); else gozle();
 })();

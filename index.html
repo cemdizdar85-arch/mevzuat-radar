@@ -993,10 +993,15 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       $('ksDeneme').href=yetK?'deneme.html?sinav=SMMM':'sinav-gibi.html';
       $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
     /* 18.10 kayan duyuru: seçili sınavın sekmesine götürür; ✕ bu oturumda kapatır */
-    try{ var ks=$('kayanSerit'), kk=false; try{ kk=sessionStorage.getItem('kayan_kapat')==='1'; }catch(e){}
+    /* 24.11 Cem "Amazon gibi" (denetim D26): ✕ yalnız o oturumu hatırlıyordu, her yeni ziyarette geri geliyordu. Artık cihazda
+       KAPATILAN METİN hatırlanır (localStorage kayan_kapat2 = sınav + metin); duyuru metni değişince şerit yeniden görünür. */
+    try{ var ks=$('kayanSerit');
       var paketli=!!(UYE&&UYE.sinavlar&&UYE.sinavlar[secili]&&UYE.sinavlar[secili].durum==='aktif');   /* 23.11: paketi açık üyeye satış şeridi yok */
-      if(ks){ if(kk||kgkSec||paketli) ks.hidden=true; else { ks.hidden=false; kayanCiz(secili);   /* 28.10: seçili sınavın kampanyası */
-        $('kayanX').onclick=function(){ ks.hidden=true; try{ sessionStorage.setItem('kayan_kapat','1'); }catch(e){} }; } } }catch(e){}
+      if(ks){ if(kgkSec||paketli) ks.hidden=true; else { kayanCiz(secili);   /* 28.10: seçili sınavın kampanyası */
+        var kAnah=secili+'|'+String(ks.textContent||'').replace(/\s+/g,' ').trim().slice(0,120), kk=false;
+        try{ kk=localStorage.getItem('kayan_kapat2')===kAnah || sessionStorage.getItem('kayan_kapat')==='1'; }catch(e){}
+        ks.hidden=kk;
+        $('kayanX').onclick=function(){ ks.hidden=true; try{ localStorage.setItem('kayan_kapat2',kAnah); sessionStorage.setItem('kayan_kapat','1'); }catch(e){} }; } } }catch(e){}
     /* 18.10 üye karşılama şeridi */
     try{ var hz=$('uyeHos'), oz=null, kapali=false; try{ oz=JSON.parse(localStorage.getItem('sc_son_ozet_'+OZET_ANAHTAR[secili])||'null'); kapali=sessionStorage.getItem('uye_hos_kapat')==='1'; }catch(e){}
       /* 28.10 Cem ("7 deneme alan sadece onu görecek"): yalnız Son 20 Gün paketi olan üyeye kendi paketi (şerit ✕ ile kapanır) */
