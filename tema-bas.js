@@ -50,9 +50,12 @@ try {
     var ustBekleStil = document.createElement('style');
     /* .top yer KAPLAMAZ, gövdenin tepesinde ortak şeridin yüksekliği (64 + 1 px çizgi) kadar yer ayrılır: şerit geldiğinde
        içerik kımıldamaz (canlı ölçüm 07.10: şerit 2-5 sn'de gelip içeriği 65 px itiyordu - satin-al 0,24, yanlislarim 0,03-0,09). */
-    ustBekleStil.textContent = 'html.tt-ust-bekle .top{display:none}html.tt-ust-bekle body{padding-top:65px}';
+    /* 24.11 yeni üst düzen: iletişim bandı 36 + şerit 65 + çip satırı 57 (satın alda çip yok) = gerçek yükseklik; eskiden yalnız 65 ayrılıyordu,
+       bant + çipler geç gelince içerik itiliyordu (zıplama). */
+    var ustBoy = /satin-al\.html$/i.test(location.pathname) ? 101 : 158;   /* bant 36 + şerit 65 (+ çip 57) */
+    ustBekleStil.textContent = 'html.tt-ust-bekle .top{display:none}html.tt-ust-bekle body{padding-top:' + ustBoy + 'px}';
     (document.head || document.documentElement).appendChild(ustBekleStil);
-    setTimeout(function(){ document.documentElement.classList.remove('tt-ust-bekle'); }, 2500);
+    setTimeout(function(){ document.documentElement.classList.remove('tt-ust-bekle'); }, 12000);   /* 24.11: 2,5 sn yavaş 4G'de menu.js'ten önce doluyordu (önce yukarı sonra aşağı zıplama, ölçüldü); yedek yalnız menu.js hiç gelmezse */
   }
 } catch (e) {}
 

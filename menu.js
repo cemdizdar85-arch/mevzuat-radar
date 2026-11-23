@@ -589,8 +589,7 @@ function yeniUst(){
   });
   var st=document.createElement('style'); st.id='ttYuStil';
   st.textContent=
-    'html.tt-yu #ttUlas .ic,html.tt-yu #ulasBant .ic{min-height:30px}html.tt-yu #ttUlas,html.tt-yu #ulasBant{font-size:13px}'+
-    'html.tt-yu #ttUlas a,html.tt-yu #ulasBant a{min-height:30px}'+
+    'html.tt-yu #ttUlas,html.tt-yu #ulasBant{font-size:13px}'+   /* 24.11: bant yüksekliği (36) değişmez - ana sayfada geç gelen incelme içeriği kaydırıyordu (ölçüldü) */
     'html.tt-yu #ttUst .ic,html.tt-yu #nav .ic{max-width:1280px;gap:18px}'+
     'html.tt-yu #ttUst .navlinks,html.tt-yu #nav .navlinks{flex:1;margin-left:0;gap:10px;justify-content:flex-end}'+
     'html.tt-yu .navlinks .kp-dugme{order:-1;flex:1 1 auto;max-width:680px;margin-right:auto;height:44px;border-radius:999px;border:1.5px solid var(--line2);background:var(--kagit,var(--bg));padding:0 18px;font-size:15.5px;color:var(--muted);justify-content:flex-start;gap:10px}'+
@@ -600,17 +599,17 @@ function yeniUst(){
     'html body.tt-yu-b .navlinks a.nl-hesap,html.tt-yu body .navlinks a.nl-hesap{display:inline-flex!important;align-items:center;gap:8px;height:42px;padding:0 14px 0 6px;border:1px solid var(--line2);border-radius:999px;color:var(--ink)!important;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}'+
     'html.tt-yu .navlinks a.nl-hesap::before{content:"👤";width:30px;height:30px;border-radius:50%;background:var(--bg2,var(--line));display:grid;place-items:center;font-size:15px}'+
     'html.tt-yu body #ttUst .navlinks a.ust-cta,html.tt-yu body #nav .navlinks a#navCta{height:44px;min-height:44px;padding:0 20px;border-radius:999px;background:var(--amber-dolgu)!important;color:var(--amber-uzeri)!important;font-weight:800;font-size:15.5px;display:inline-flex;align-items:center}'+
-    '.tt-cipler{border-bottom:1px solid var(--line);background:var(--bg)}'+
-    '.tt-cipler .ic{max-width:1280px;margin:0 auto;padding:10px 20px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}'+
+    '.tt-cipler{border-bottom:1px solid var(--line);background:var(--bg);height:57px;box-sizing:border-box;overflow:hidden}'+   /* 24.11 sabit boy: tema-bas.js yer tutucusu 30+65+57 */
+    '.tt-cipler .ic{max-width:1280px;margin:0 auto;padding:0 20px;height:56px;align-items:center;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}'+
     '.tt-cipler .ic::-webkit-scrollbar{display:none}'+
-    'html body .tt-cipler a{flex:none;padding:8px 14px;border-radius:10px;background:var(--bg2,color-mix(in srgb,var(--ink) 6%,var(--bg)));color:var(--ink)!important;font-weight:650;font-size:14.5px;white-space:nowrap;text-decoration:none}'+
+    'html body .tt-cipler a{flex:none;padding:8px 14px;border-radius:10px;background:var(--bg2,color-mix(in srgb,var(--ink) 6%,var(--bg)));color:var(--ink)!important;font-weight:650;font-size:14.5px;white-space:nowrap;text-decoration:none;line-height:20px}'+
     'html body .tt-cipler a:hover{background:color-mix(in srgb,var(--ink) 12%,var(--bg))}'+
     'html body .tt-cipler a[aria-current=page]{background:var(--ink);color:var(--bg)!important}'+
     '@media(max-width:700px){html.tt-yu .navlinks .kp-dugme{flex:0 0 auto;max-width:none;margin-right:0;width:42px;height:42px;padding:0;justify-content:center}'+
       'html.tt-yu .navlinks .kp-dugme>span{display:none!important}'+
       'html.tt-yu .navlinks a.nl-hesap{font-size:0!important;padding:0 5px!important;gap:0!important}'+
       'html.tt-yu body #ttUst .navlinks a.ust-cta,html.tt-yu body #nav .navlinks a#navCta{height:42px;min-height:42px;padding:0 14px;font-size:14.5px}'+
-      '.tt-cipler .ic{padding:8px 14px}}';
+      '.tt-cipler .ic{padding:0 14px}}';
   document.head.appendChild(st);
   if(ad==='satin-al.html'||document.getElementById('ttCipler')) return;
   var K=KOK||'';

@@ -69,6 +69,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 /* üst şerit (menu.js tema düğmesini, komut.js "Ara"yı .navlinks içine koyar) */
 #nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+html:not(.tt-yu) #nav{margin-bottom:57px}   /* 24.11: menu.js çip satırını (57 px) sonradan ekler; yeri baştan ayrılır, içerik zıplamaz */
 #nav .ic{display:flex;align-items:center;gap:22px;height:64px}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:28px;letter-spacing:-.4px;color:var(--ink)}
 .logo i{width:11px;height:11px;border-radius:50%;background:var(--amber-dolgu);display:inline-block}
