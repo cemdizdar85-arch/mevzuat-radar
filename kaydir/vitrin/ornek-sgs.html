@@ -8,6 +8,10 @@
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 :root[data-vitrin] .temaB{display:none}
+/* 24.11 Cem "Amazon gibi" (denetim C22): reklamdan gelen kişi yalnız geri tuşuyla çıkabiliyordu → sol altta ana sayfa düğmesi (temaB yanında) */
+.evB{position:fixed;left:52px;bottom:10px;z-index:45;height:34px;display:inline-flex;align-items:center;gap:6px;padding:0 12px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:700 14px/1 inherit;text-decoration:none}
+.evB b{font-weight:800;letter-spacing:-.2px}
+:root[data-vitrin] .evB{display:none}
 /* 13.09 Cem: "nöbetçi çöz dediğinde sadece ekrandaki soru çözsün, başka alt alta soru olmasın."
    ?tek=1 = ana sayfa çerçevesi: YALNIZ #s=<sıra> kartı görünür, akış kaydırılamaz,
    "Sonraki" ve "yukarı kaydır" ipucu gizlenir (sonraki kart yokken yanıltır). */
@@ -316,7 +320,7 @@ details.konuTani,details.soruGoster{margin:12px 0 0;border:1px solid var(--cizgi
 </style><script src="../../paket-kapisi.js"></script><script src="../../cizerek-coz.js?v=9" defer></script><style id="mobil14">/* 23.11 Cem "Amazon gibi" (denetim B12): telefonda en küçük yazı 14 px - ölçülen 14 px altı öğeler */
 @media (max-width:600px){html body .ust>span,html body .setSay,html body .czIpucu,html body .kagitAc{font-size:14px!important}}</style>
 </head><body>
-<div id="akis"></div><button id="temaB" class="temaB" type="button" aria-label="Koyu temaya geç">☾</button>
+<div id="akis"></div><a id="evB" class="evB" href="../../index.html?ana=1" aria-label="Tetikte ana sayfa">⌂ <b>tetikte</b></a><button id="temaB" class="temaB" type="button" aria-label="Koyu temaya geç">☾</button>
 <script>
 // 09.09 tema + vitrin: varsayılan açık (site), koyu yalnız düğmeyle; ?tema=koyu|acik zorlar; ?vitrin=1 = ana sayfa vitrini
 // (düğme gizli, kasaya cevap/kâğıt YAZMAZ ki "en çok yanıltan soru" ölçümü vitrin tıklamasıyla kirlenmesin).

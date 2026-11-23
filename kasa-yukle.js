@@ -134,11 +134,25 @@
     satir.sort(function (a, b) { return a.sira - b.sira; });
     return satir.map(function (x) { return x.veri; });
   }
-  function uyar(metin) {
-    var u = document.createElement('div'); u.setAttribute('role', 'status');
-    u.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:2147480000;max-width:92%;padding:10px 16px;' +
-      'border-radius:12px;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);font-size:14px';
-    u.textContent = metin; document.body.appendChild(u); setTimeout(function () { u.remove(); }, 9000);
+  /* 24.11 Cem "Amazon gibi" (denetim C25): uyarı 9 sn sonra kendiliğinden kayboluyordu, ✕ ve "Tekrar dene" yoktu (kural: her
+     bildirim ✕ ile kapanır). Artık kişi kapatana dek durur; tekrar denenebilir hatada "Tekrar dene" kalan soruları yeniden ister
+     (__kasaSonraki), o yoksa sayfayı yeniler. Tek uyarı: yenisi eskisinin yerine geçer. */
+  function uyar(metin, tekrar) {
+    var eski = document.getElementById('kasaUyari'); if (eski) eski.remove();
+    var u = document.createElement('div'); u.id = 'kasaUyari'; u.setAttribute('role', 'alert');
+    u.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:2147480000;width:min(460px,92%);box-sizing:border-box;padding:12px 48px 12px 16px;' +
+      'border-radius:12px;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);font-size:14.5px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.18)';
+    var m = document.createElement('div'); m.textContent = metin; u.appendChild(m);
+    if (tekrar) {
+      var t = document.createElement('button'); t.type = 'button'; t.textContent = 'Tekrar dene';
+      t.style.cssText = 'margin-top:8px;padding:8px 14px;border-radius:10px;border:0;font:inherit;font-weight:800;cursor:pointer;background:var(--amber-dolgu,#f5a524);color:var(--amber-uzeri,#0f1b2d)';
+      t.addEventListener('click', function () { u.remove(); if (typeof window.__kasaSonraki === 'function' && window.__KASA_DEVAM) window.__kasaSonraki(); else location.reload(); });
+      u.appendChild(t);
+    }
+    var x = document.createElement('button'); x.type = 'button'; x.setAttribute('aria-label', 'Kapat'); x.textContent = '✕';
+    x.style.cssText = 'position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:none;color:inherit;font-size:20px;cursor:pointer';
+    x.addEventListener('click', function () { u.remove(); });
+    u.appendChild(x); document.body.appendChild(u);
   }
 
   /* 11.10 SET + ARKA PLAN CEVAP KAYDI (Cem "askıya almadan önce doğru ölçüyor muyuz emin olmamız lazım" → "set + arka plan
@@ -263,7 +277,7 @@
     function isle(sorular) { sorular.forEach(function (s) { yuklu[s.id] = 1; }); return sorular; }
     function hata(e) {
       if (tavanMi(e)) { tavanBildir(k.sb, e); durdu = true; uyar('Soru sınırına ulaştın: kalan sorular şimdilik getirilmedi.'); }
-      else uyar('Sorular getirilemedi. Bağlantını kontrol edip sayfayı yenile.');
+      else uyar('Sorular getirilemedi. Bağlantını kontrol et.', true);
     }
     var ilk = isle(await parcaCek(k.sb, siradakiIdler(SET_ILK)));
     window.__KASA_FIHRIST = fih;
@@ -380,7 +394,7 @@
         if (!devam) return;
         var kalan = [];
         try { kalan = await kalaniCek(k.sb, toplam); }
-        catch (e) { if (tavanMi(e)) tavanBildir(k.sb, e); uyar(tavanMi(e) ? 'Soru sınırına ulaştın: kalan sorular bugün getirilmedi.' : 'Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.'); }
+        catch (e) { if (tavanMi(e)) tavanBildir(k.sb, e); uyar(tavanMi(e) ? 'Soru sınırına ulaştın: kalan sorular bugün getirilmedi.' : 'Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.', !tavanMi(e)); }
         if (typeof window.__kasaEkle === 'function') window.__kasaEkle(kalan); else window.__KASA_DEVAM = false;
       } catch (e) {
         if (tavanMi(e)) { tavanBildir(k.sb, e); return tavanMesaji(e); }
