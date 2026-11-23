@@ -886,8 +886,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     try{
       if(sec==='sgs'){ var s7=paketBul('sgs-2027'), tk=(typeof taksitGoster==='function')?taksitGoster(s7):'';
         /* 23.11 Cem: SGS 2027 paketi; Son 20 Gün satıştan kalktı. Üstü çizili fiyat yok, geçiş ileriye dönük yazılır. */
-        h='SGS 2027 paketi <b>'+fiyatAna(s7.id,s7.fiyat)+'</b><small>'+fiyatDahilNot(s7.id,s7.fiyat)+(tk?' · '+tk:'')
-          +(s7.sonraYazi?' · '+s7.not+', '+s7.sonraYazi+' '+fiyatAna(s7.id,s7.liste):'')+'</small>'; }
+        /* 23.11 Cem ("kısalt ama artı KDV kalsın, peşin fiyatına üç taksit diyelim"): son gün + 1 Ocak fiyatı kayan şeritte; burada ana rakam,
+           KDV dahil toplam (Fiyat Etiketi Yön.: tüketiciye toplam görünür kalır) ve taksit */
+        h='SGS 2027 paketi <b>'+fiyatAna(s7.id,s7.fiyat)+'</b><small>'+fiyatDahilNot(s7.id,s7.fiyat)+(s7.taksitAdet?' · peşin fiyatına '+s7.taksitAdet+' taksit':'')+'</small>'; }
       else if(sec==='yeterlilik'){ var a0=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0,
           a={fiyat:(typeof erkenNet==='function'&&erkenNet(a0))||a0.fiyat};   /* 28.10: ders merdiveni de erken kayıtta ders başı 120 TL */
         /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda.
