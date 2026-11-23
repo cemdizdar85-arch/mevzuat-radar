@@ -2,7 +2,7 @@
 /* KANIT SAYFASI ÖLÇÜMÜ (23.11.2026) — sgs-21-kasim-2026-84.html'in 84 düğmesinin HEPSİ (örneklem değil) doğru soruyu açıyor mu.
  * Anonim anahtarla (ziyaretçinin gördüğü yol) rpc/kanit_sorusu: sayfadaki her data-n için dönen id = eşleşme dosyasındaki İLK id,
  * soru + 5 şık + doğru şık + açıklama (sade, yoksa hap — sayfa da öyle gösterir) (çözüm adımı olmayan sözel sorular ayrıca sayılır). Ayrıca: dışarıda kalan 16 numara ve 1–30 açılmıyor · anon paket_soru'yu okuyamıyor.
- * Bir koşu 105 çağrı yapar; IP sınırı 200 / 10 dk → iki koşu arasında 10 dakika bekle.
+ * Bir koşu 105 çağrı yapar; IP sınırı 3.000 / 10 dk (2026-11-23-sgs-kanit-84-sinir.sql).
  * Kullanım: node arac/kanit-84-olc.js [eşleşme.json]  (varsayılan ../_yerel-veri-kasasi/sgs-2026-3-eslesme-84.json)
  * Ekrana soru metni basılmaz; yalnız numara, kimlik, sonuç. */
 'use strict';
@@ -41,7 +41,7 @@ const rpc = n => fetch(SB + '/rest/v1/rpc/kanit_sorusu', { method: 'POST', heade
   console.log('  liste dışı numara kapalı: ' + kapali + ' / ' + (J.disarida.length + 5) + (acilan.length ? ' · AÇILAN: ' + acilan.join(',') : ''));
   console.log('  anon paket_soru okuması: HTTP ' + ps.status + ' · ' + (Array.isArray(psG) ? psG.length : '?') + ' satır');
   console.log('  çözüm adımı olmayan (sözel; şık şık tuzak + kural gösterilir): ' + (adimsiz.join(', ') || 'yok'));
-  if ([...hata, ...acilan].some(x => /cok fazla istek/.test(x))) console.log('  ⚠ IP sınırına takıldı (200 / 10 dk) — 10 dakika sonra yeniden koş; bu koşu ÖLÇÜLEMEDİ sayılır');
+  if ([...hata, ...acilan].some(x => /cok fazla istek/.test(x))) console.log('  ⚠ IP sınırına takıldı (3.000 / 10 dk) — 10 dakika sonra yeniden koş; bu koşu ÖLÇÜLEMEDİ sayılır');
   hata.forEach(h => console.log('  ✗ ' + h));
   const gecti = ok === 84 && sayfaN.length === 84 && !acilan.length && !(Array.isArray(psG) && psG.length);
   console.log(gecti ? 'SONUÇ: GEÇTİ' : 'SONUÇ: KALDI'); process.exit(gecti ? 0 : 1);
