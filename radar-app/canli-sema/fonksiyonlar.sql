@@ -80,6 +80,8 @@ begin
   if lower(btrim(coalesce(p_yeni, ''))) in ('son20-sgs', 'son20-yet') then          -- 27.10 + 28.10 Son 20 Gün ön satış
     return v in ('son20-sgs', 'son20-yet', 'tam', 'kurucu') or public._paket_sinavi(v) is not null;
   end if;
+  -- 23.11 SGS 2027: 2026 SGS paketi (süren 92 günlük erişim) yeni yılın paketini KAPSAMAZ; kalan aday 2027'yi alabilsin
+  if lower(btrim(coalesce(p_yeni, ''))) = 'sgs-2027' then return v in ('sgs-2027', 'tam', 'kurucu'); end if;
   if v in ('tam', 'kurucu') then return true; end if;
   if s is null or public._paket_sinavi(v) is distinct from s then return false; end if;
   if s = 'sgs' then return true; end if;
@@ -330,6 +332,70 @@ begin
 end $function$
 ;
 
+-- _sgs2027_kapi()
+CREATE OR REPLACE FUNCTION public._sgs2027_kapi()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare p text := lower(btrim(coalesce(new.paket, '')));
+begin
+  if tg_op = 'INSERT' and p in ('sgs', 'son20-sgs') then
+    raise exception 'PAKET_SATISTA_DEGIL' using hint = 'Bu paket satıştan kalktı; SGS 2027 paketini seç.';
+  end if;
+  if p = 'sgs-2027' then
+    if new.sgs_donem is null or not exists (select 1 from public.sgs_donem_tarih d where d.donem = new.sgs_donem) then
+      raise exception 'SGS_DONEM_GEREKLI' using hint = 'Gireceğin 2027 SGS dönemini seç (Nisan, Temmuz ya da Kasım).';
+    end if;
+    if coalesce(new.indirim_tl, 0) > 0 or coalesce(new.ozel_kod_tl, 0) > 0 or coalesce(new.anlik_teklif_tl, 0) > 0 then
+      raise exception 'INDIRIM_YOK_SGS2027' using hint = 'SGS 2027 paketinde indirim kodu kullanılamaz.';
+    end if;
+  end if;
+  return new;
+end
+$function$
+;
+
+-- _sgs_donem_bitis(text)
+CREATE OR REPLACE FUNCTION public._sgs_donem_bitis(p_donem text)
+ RETURNS date
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select coalesce(d.sinav_tarihi + 3, d.gecici_bitis) from public.sgs_donem_tarih d where d.donem = p_donem;
+$function$
+;
+
+-- _sgs_donem_tarih_uygula(text,date)
+CREATE OR REPLACE FUNCTION public._sgs_donem_tarih_uygula(p_donem text, p_tarih date)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare v_s int; v_u int;
+begin
+  if not exists (select 1 from public.sgs_donem_tarih where donem = p_donem) then raise exception 'DONEM_YOK'; end if;
+  if p_tarih is not null and (p_tarih < date '2027-01-01' or p_tarih > date '2027-12-31') then raise exception 'TARIH_GECERSIZ'; end if;
+  update public.sgs_donem_tarih set sinav_tarihi = p_tarih, guncelleme = now() where donem = p_donem;
+  update public.siparisler set paket_bitis = public._sgs_donem_bitis(p_donem)
+   where paket = 'sgs-2027' and sgs_donem = p_donem and durum = 'odendi';
+  get diagnostics v_s = row_count;
+  update public.paket_uyeler pu set bitis = m.b
+    from (select s.bagli_kullanici u, max(public._sgs_donem_bitis(s.sgs_donem)) b
+            from public.siparisler s
+           where s.paket = 'sgs-2027' and s.durum = 'odendi' and s.bagli_kullanici is not null
+           group by s.bagli_kullanici) m
+   where pu.user_id = m.u and pu.paket = 'sgs-2027' and pu.bitis is distinct from m.b
+     and m.u in (select bagli_kullanici from public.siparisler where paket = 'sgs-2027' and sgs_donem = p_donem and durum = 'odendi');
+  get diagnostics v_u = row_count;
+  return jsonb_build_object('donem', p_donem, 'sinav_tarihi', p_tarih, 'bitis', public._sgs_donem_bitis(p_donem),
+                            'siparis', v_s, 'hesap', v_u);
+end $function$
+;
+
 -- _siparis_isle(bigint,uuid,text)
 CREATE OR REPLACE FUNCTION public._siparis_isle(p_sid bigint, p_uid uuid, p_yol text)
  RETURNS text
@@ -348,7 +414,8 @@ begin
   if not found or s.durum <> 'odendi' then return 'SIPARIS_YOK'; end if;
   if s.bagli_kullanici is not null and s.bagli_kullanici <> p_uid then return 'BASKA_HESAPTA'; end if;
   v_bitis := coalesce(s.paket_bitis,
-                      greatest(case when s.paket ~ '^sgs' then date '2026-11-21' else date '2026-11-28' end, current_date + 92));
+                      case when s.paket = 'sgs-2027' then public._sgs_donem_bitis(s.sgs_donem)   -- 23.11 SGS 2027: seçilen dönem + 3 gün
+                           else greatest(case when s.paket ~ '^sgs' then date '2026-11-21' else date '2026-11-28' end, current_date + 92) end);
   if v_bitis < current_date then return 'SURESI_GECMIS'; end if;
   v_ders := case when s.paket ~ '^(yeterlilik-[1-4]|kgk-[1-3])$' then s.secilen_dersler else null end;
   -- KGK modül paketinde boş seçim = kasada "hepsi"; tek konu parasına dört konu açılmasın
@@ -1689,7 +1756,8 @@ begin
   if s.durum = 'odendi' then return jsonb_build_object('siparis', 'ZATEN_ODENDI'); end if;
   if s.durum <> 'odeme_bekliyor' then raise exception 'DURUM_%', upper(s.durum); end if;
 
-  v_bitis := greatest(case when s.paket ~ '^sgs' then date '2026-11-21' else date '2026-11-28' end, current_date + 92);
+  v_bitis := case when s.paket = 'sgs-2027' then public._sgs_donem_bitis(s.sgs_donem)   -- 23.11 SGS 2027: seçilen dönem + 3 gün
+                  else greatest(case when s.paket ~ '^sgs' then date '2026-11-21' else date '2026-11-28' end, current_date + 92) end;
   update public.siparisler set durum = 'odendi', odeme = 'kart', paket_bitis = v_bitis where id = s.id;   -- odendi_tarihi tetikleyicide
 
   select id into v_uid from auth.users where lower(email) = lower(s.email) limit 1;
@@ -3640,6 +3708,17 @@ begin
 end $function$
 ;
 
+-- sgs_donem_tarihleri()
+CREATE OR REPLACE FUNCTION public.sgs_donem_tarihleri()
+ RETURNS TABLE(donem text, ad text, sinav_tarihi date, bitis date)
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select d.donem, d.ad, d.sinav_tarihi, coalesce(d.sinav_tarihi + 3, d.gecici_bitis) from public.sgs_donem_tarih d order by d.gecici_bitis;
+$function$
+;
+
 -- sik_yuzdesi(text)
 CREATE OR REPLACE FUNCTION public.sik_yuzdesi(p_soru_id text)
  RETURNS TABLE(secim text, n bigint)
@@ -4991,6 +5070,19 @@ begin
 end $function$
 ;
 
+-- yonetim_sgs_donem_tarih(text,date)
+CREATE OR REPLACE FUNCTION public.yonetim_sgs_donem_tarih(p_donem text, p_tarih date)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+begin
+  if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
+  return public._sgs_donem_tarih_uygula(p_donem, p_tarih);
+end $function$
+;
+
 -- yonetim_siparis_hesaba_bagla(text,text)
 CREATE OR REPLACE FUNCTION public.yonetim_siparis_hesaba_bagla(p_no text, p_eposta text)
  RETURNS jsonb
@@ -5069,7 +5161,7 @@ CREATE OR REPLACE FUNCTION public.yonetim_siparis_onayla(p_no text, p_bitis date
  SECURITY DEFINER
  SET search_path TO 'public', 'auth'
 AS $function$
-declare s public.siparisler%rowtype; v_uid uuid; v_sonuc text;
+declare s public.siparisler%rowtype; v_uid uuid; v_sonuc text; v_bitis date := p_bitis;
 begin
   if not public.yonetici_mi() then raise exception 'YETKI_YOK' using errcode = '42501'; end if;
   if p_bitis is null or p_bitis <= current_date then raise exception 'BITIS_GECERSIZ'; end if;
@@ -5079,7 +5171,9 @@ begin
   if s.durum <> 'odeme_bekliyor' and not (s.durum = 'iptal' and coalesce(s.iptal_neden, '') = 'otomatik') then
     raise exception 'DURUM_%', upper(s.durum); end if;
 
-  update public.siparisler set durum = 'odendi', paket_bitis = p_bitis where id = s.id;   -- odendi_tarihi tetikleyicide
+  -- 23.11 SGS 2027: bitişi yönetici değil siparişteki dönem belirler (seçilen 2027 SGS'si + 3 gün)
+  if s.paket = 'sgs-2027' then v_bitis := public._sgs_donem_bitis(s.sgs_donem); end if;
+  update public.siparisler set durum = 'odendi', paket_bitis = v_bitis where id = s.id;   -- odendi_tarihi tetikleyicide
 
   select id into v_uid from auth.users where lower(email) = lower(s.email) limit 1;
   if v_uid is null then
@@ -5087,7 +5181,7 @@ begin
       'not', s.email || ' henüz üye değil. Bu e-postayla üye olduğu anda paketi KENDİLİĞİNDEN açılır.');
   end if;
   v_sonuc := public.siparis_paket_bagla(v_uid, s.email);
-  return jsonb_build_object('siparis', 'odendi', 'paket', s.paket, 'bitis', p_bitis, 'eposta', s.email, 'sonuc', v_sonuc);
+  return jsonb_build_object('siparis', 'odendi', 'paket', s.paket, 'bitis', v_bitis, 'eposta', s.email, 'sonuc', v_sonuc);
 end $function$
 ;
 
