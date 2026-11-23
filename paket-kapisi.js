@@ -146,7 +146,7 @@
   function perde(tur) {
     if (bitti) return; bitti = true;
     /* 23.11 Cem ("ders sayfasında ziyaretçiye önizleme: kilit yerine ilk 3 soru açık olsun"): SGS / Yeterlilik ders sayfasında
-       girişsiz ya da paketsiz kişiye perde ÇİZİLMEZ; kasa-yukle.js o dersin ilk 3 sorusunu (kasa_onizleme, sunucu) açar ve sonuna
+       girişsiz ya da paketsiz kişiye perde ÇİZİLMEZ; kasa-yukle.js o dersin ilk sorusunu (kasa_onizleme, sunucu; Cem 23.11 'dersi başına 1 soru') açar ve sonuna
        "devamı pakette" kartı koyar. Asıl kilit değişmedi: kalan sorular yine yalnız paketliye (paket_erisim_var). KGK ve hata hâli eskisi gibi perde. */
     if ((tur === 'giris' || tur === 'paket') && kok.hasAttribute('data-kasa-sayfa') && /\/kaydir\/(sgs|smmm)\/[a-z0-9-]+\.html$/i.test(location.pathname) && window.__pkSb) {
       kok.classList.remove('pk-bekle');

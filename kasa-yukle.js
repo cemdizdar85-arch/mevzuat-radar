@@ -296,7 +296,7 @@
     calistir(ilk);
   }
 
-  /* 23.11 DERS ÖNİZLEMESİ (paket-kapisi.js perde() 'onizleme'): ilk 3 soru + sonda "devamı pakette" kartı. Kartlar sayfa motoruyla
+  /* 23.11 DERS ÖNİZLEMESİ (paket-kapisi.js perde() 'onizleme'): dersin ilk sorusu (Cem 23.11 'dersi başına 1 soru') + sonda "devamı pakette" kartı. Kartlar sayfa motoruyla
      (calistir) çizilir; cevap kasaya yazılmaz (__kasaCevap yok), sayaç 3. Sunucu boş dönerse ya da hata verirse eski kilit metni. */
   async function onizlemeAc(k) {
     var yet = /\/smmm\//.test(location.pathname), KOK = '../../';
@@ -307,7 +307,7 @@
     var dugIki = function (h, y) { return '<a href="' + esc(h) + '" style="display:block;margin:10px 0 0;padding:13px;border-radius:12px;font-weight:750;font-size:15px;text-decoration:none;border:1px solid var(--cizgi);color:var(--yazi)">' + esc(y) + '</a>'; };
     var dugmeler = dugAna(satinAl, 'Paketi al, bütün soruları aç') + (k.tur === 'giris' ? dugIki(giris, 'Paketim var, giriş yap') : '') + dugIki(ornek, 'Ücretsiz 5 örnek soru çöz');
     koruma();
-    mesaj('Sorular yükleniyor…', 'Bu dersin ilk 3 sorusu açılıyor.');
+    mesaj('Sorular yükleniyor…', 'Bu dersten bir örnek soru açılıyor.');
     var satir = [];
     try { var r = await k.sb.rpc('kasa_onizleme', { p_sayfa: sayfa }); if (r.error) throw r.error; satir = r.data || []; } catch (e) { satir = []; }
     if (!satir.length) {
@@ -327,7 +327,7 @@
       var s = document.createElement('section'); s.id = 'onizSon';
       s.setAttribute('style', 'height:100%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box;max-width:560px;margin:0 auto');
       s.innerHTML = '<div style="width:100%;text-align:center;background:var(--kart);border:1px solid var(--cizgi);border-radius:16px;padding:26px 20px;color:var(--yazi)">'
-        + '<div style="font-size:28px" aria-hidden="true">🔓</div><h2 style="margin:6px 0 8px;font-size:21px">Bu dersin ilk 3 sorusunu gördün</h2>'
+        + '<div style="font-size:28px" aria-hidden="true">🔓</div><h2 style="margin:6px 0 8px;font-size:21px">Bu dersten bir örnek soru gördün</h2>'
         + '<p style="margin:0 0 6px;font-size:15px;line-height:1.6;color:var(--dim)">Dersin bütün soruları, yanlış kutun ve denemeler pakette. Paketi aldığın anda kaldığın yerden devam edersin.</p>'
         + dugmeler + '</div>';
       akis.appendChild(s);
