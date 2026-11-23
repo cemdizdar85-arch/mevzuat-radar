@@ -1945,7 +1945,7 @@ begin
     select s.id, s.sira, s.veri from public.paket_soru s
      where s.sayfa = p_sayfa
      order by s.sira asc
-     limit 3;
+     limit 1;
 end $function$
 ;
 
