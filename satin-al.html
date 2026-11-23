@@ -1248,6 +1248,11 @@ function davetKodOku(){
     /* 28.10 Cem ("iki tane çıkması lazım"): seçilen paketin kardeşi varsa (Tam Paket ↔ 7 Deneme) paket adımı AÇIK başlar,
        iki seçenek görünür; kişi seçip "Devam"a basar. Kardeşsiz pakette eski akış (bilgiler adımı açılır). */
     if(adim1Hata() || document.querySelector('#paketler.odak .pk.kardes')){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
+    /* 24.11 (ders önizlemesinden "Paketi al", ?dersler=): paket adımı açık kalır (28.10 kardeş kararı) ama seçili tek ders kartı ve
+       işaretli ders görünür yere kayar; kişi en üstte "tüm dersler"i görüp kendi dersini kaybetmez. */
+    try{ if(new URLSearchParams(location.search).get('dersler')){ setTimeout(function(){
+      var h = document.getElementById('dersKutu'); if(!h || h.offsetParent === null) h = document.querySelector('#paketler .pk.sec');
+      if(h) h.scrollIntoView({ block:'center' }); }, 450); } }catch(e){}
     barGuncelle();
     /* 07.10 (titreme): sipariş alanı adımlar kurulunca görünür. Sayfa betiğinin sonunda açılıyordu; canlı telefonda baslat ~1,9 sn'de
        1. adımı kapatıp 2.'yi açınca alan zıplıyordu (kayma 0,26). 5 sn yedek head'de. */
