@@ -141,6 +141,10 @@
   .op-rk-kapak b{font-size:16.5px;line-height:1.25}
   .op-rk-bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.28)}.op-rk-bar i{display:block;height:100%;background:#ffc24b}
   .op-rk-alt{display:block;padding:7px 2px 0;font-size:14px;color:var(--muted)}.op-rk-alt b{color:var(--ink)}
+  .op-rk-kapak .kp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center}
+  .op-rk-kapak .kp-ort{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 65%),linear-gradient(0deg,rgba(0,0,0,.45),transparent 55%)}
+  .op-rk-kapak .kp-img,.op-rk-kapak .kp-ort{z-index:0}.op-rk-kapak small,.op-rk-kapak b,.op-rk-bar{z-index:2}
+  .op-rk-kapak b{position:relative;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}.op-rk-kapak small{color:#fff;opacity:1;text-shadow:0 1px 3px rgba(0,0,0,.6)}
   .og-odeme-kart{margin:0 0 16px;padding:18px 18px 16px;border-radius:14px;border:2px solid var(--green);background:color-mix(in srgb,var(--green) 7%,var(--kagit))}
   .og-odeme-bas{margin:0 0 8px;font-size:19px;font-weight:800;color:var(--green)}
   .og-odeme-liste{margin:0 0 14px;padding-left:18px;font-size:15px;line-height:1.55}
@@ -1401,11 +1405,16 @@
     var kap=$('opRaf'); if(!kap) return;
     var ETK={ sgs:'STAJA GİRİŞ', yeterlilik:'YETERLİLİK', kgk:'KGK' }[s]||'';
     var REN=['#1d3a5f,#0f1b2d','#7a4b12,#3b2507','#1e5b4a,#0c2a22','#5a2a52,#2a1026','#2f4b7a,#14223b','#6a5a17,#2f2706','#5b3a1e,#26160a','#24526b,#0e2430'];
+    /* 24.11 ders kapakları (index.html ders rafıyla aynı liste ve eşleme) */
+    var KAPAK=['turkce','matematik','ataturk-ilkeleri-ve-inkilap-tarihi','yabanci-dil','finansal-muhasebe','maliyet-muhasebesi','mali-tablolar-analizi','denetim','ekonomi','maliye','meslek-hukuku','is-ve-sosyal-guvenlik-hukuku','vergi-hukuku','ticaret-hukuku','borclar-hukuku','hukuk','sermaye-piyasasi'];
+    var ESLE={'finansal-tablolar':'mali-tablolar-analizi','muhasebe-denetimi':'denetim','vergi':'vergi-hukuku'};
+    var kapakImg=function(sayfa){ if(!/^kaydir\/(sgs|smmm)\//.test(sayfa||'')) return ''; var b=String(sayfa).split('/').pop().replace(/\.html$/,''); b=ESLE[b]||b;
+      return KAPAK.indexOf(b)>-1?'<img class="kp-img" src="gorsel/ders/'+b+'.webp" alt="" loading="lazy" decoding="async" width="480" height="270"><span class="kp-ort"></span>':''; };
     var kart=function(r,i,devam){
       var coz=r.d&&r.d.cozulen?+r.d.cozulen:0, yz=r.banka?Math.min(100,Math.round(100*coz/r.banka)):0;
       if(coz>0&&yz<1) yz=1;
       var alt=devam?('<b>%'+yz+'</b>'+(r.d&&r.d.son?' · son çalışma '+esc(opTarih(r.d.son)):'')):'Başla →';
-      return '<a class="op-rk" href="'+esc(r.sayfa||'sorular.html')+'"><span class="op-rk-kapak" style="background:linear-gradient(135deg,'+REN[i%REN.length]+')"><small>'+ETK+'</small><b>'+esc(r.ad)+'</b>'
+      return '<a class="op-rk" href="'+esc(r.sayfa||'sorular.html')+'"><span class="op-rk-kapak" style="background:linear-gradient(135deg,'+REN[i%REN.length]+')">'+kapakImg(r.sayfa)+'<small>'+ETK+'</small><b>'+esc(r.ad)+'</b>'
         +(devam?'<span class="op-rk-bar"><i style="width:'+yz+'%"></i></span>':'')+'</span><span class="op-rk-alt">'+alt+'</span></a>';
     };
     var sirali=satir.map(function(r,i){ return {r:r,i:i}; }).filter(function(x){ return x.r.sayfa; });

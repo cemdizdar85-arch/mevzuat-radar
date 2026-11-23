@@ -254,6 +254,9 @@ html body .dr-kart.dr-k{flex-basis:min(230px,62%);padding:0;border:0;background:
 .dr-k .dr-kapak b{font-size:16.5px;color:#fff}
 .dr-k .dr-bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.28)}.dr-k .dr-bar i{display:block;height:100%;background:#ffc24b}
 .dr-k .dr-git{display:block;padding:7px 2px 0}
+.dr-k .kp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center}
+.dr-k .kp-ort{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 65%),linear-gradient(0deg,rgba(0,0,0,.45),transparent 55%)}
+.dr-k .kp-img,.dr-k .kp-ort{z-index:0}.dr-k .dr-kapak small,.dr-k .dr-kapak b,.dr-k .dr-bar{z-index:2}.dr-k .dr-kapak b{position:relative;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}.dr-k .dr-kapak small{position:absolute;color:#fff;opacity:1;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 /* 23.11: telefonda uzun anlatım bölümleri katlanır (metin sayfada kalır, arama motoru görür) */
 .katla-ac{display:none}
 @media(max-width:600px){
@@ -1256,9 +1259,15 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     tum.href='sorular.html#'+ANAH[k];
     var REN=['#1d3a5f,#0f1b2d','#7a4b12,#3b2507','#1e5b4a,#0c2a22','#5a2a52,#2a1026','#2f4b7a,#14223b','#6a5a17,#2f2706','#5b3a1e,#26160a','#24526b,#0e2430'];
     var ilr={}; try{ var o=JSON.parse(localStorage.getItem('tt_raf_ozet')||'null'); if(o&&o.d&&Date.now()-o.t<30*86400000) o.d.forEach(function(x){ ilr[x[0]]=x[1]; }); }catch(e){}
+    /* 24.11 Cem ("dersler kısmına resim", deneme onayı "Evet, üret"): Nöbetçi kâğıt tarzı ders kapakları gorsel/ders/<ad>.webp
+       (Gemini görsel, 17 kapak; aynı konudaki iki sınav dersi tek kapağı paylaşır). Kapak yoksa (KGK) renk geçişi kalır. */
+    var KAPAK=['turkce','matematik','ataturk-ilkeleri-ve-inkilap-tarihi','yabanci-dil','finansal-muhasebe','maliyet-muhasebesi','mali-tablolar-analizi','denetim','ekonomi','maliye','meslek-hukuku','is-ve-sosyal-guvenlik-hukuku','vergi-hukuku','ticaret-hukuku','borclar-hukuku','hukuk','sermaye-piyasasi'];
+    var ESLE={'finansal-tablolar':'mali-tablolar-analizi','muhasebe-denetimi':'denetim','vergi':'vergi-hukuku'};
+    var kapakImg=function(sayfa){ if(!/^kaydir\/(sgs|smmm)\//.test(sayfa||'')) return ''; var b=String(sayfa).split('/').pop().replace(/\.html$/,''); b=ESLE[b]||b;
+      return KAPAK.indexOf(b)>-1?'<img class="kp-img" src="gorsel/ders/'+b+'.webp" alt="" loading="lazy" decoding="async" width="480" height="270"><span class="kp-ort"></span>':''; };
     raf.innerHTML=s.dersler.map(function(d,i){
       var y=ilr[d.sayfa], bol=String(d.bolum||'').replace(/^Yeterlilik$/,'').toLocaleUpperCase('tr-TR');
-      return '<a class="dr-kart dr-k" href="'+esc(d.sayfa)+'"><span class="dr-kapak" style="background:linear-gradient(135deg,'+REN[i%REN.length]+')"><small>'+esc(bol)+'</small><b>'+esc(d.ad)+'</b>'
+      return '<a class="dr-kart dr-k" href="'+esc(d.sayfa)+'"><span class="dr-kapak" style="background:linear-gradient(135deg,'+REN[i%REN.length]+')">'+kapakImg(d.sayfa)+'<small>'+esc(bol)+'</small><b>'+esc(d.ad)+'</b>'
         +(y>0?'<span class="dr-bar"><i style="width:'+y+'%"></i></span>':'')+'</span><span class="dr-git">'+(y>0?'%'+y+' · devam et →':'Soru çöz →')+'</span></a>';   /* 23.11 Cem: soru sayısı yazılmaz */
     }).join('')+'<a class="dr-kart dr-tum" href="sorular.html#'+ANAH[k]+'">Tüm dersler →</a>';
     raf.scrollLeft=0;
