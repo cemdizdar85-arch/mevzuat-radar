@@ -62,12 +62,18 @@
     /* 23.11 Cem "2027 diye belirtelim": Yeterlilik kartı da yılı söyler (SGS kartındaki gibi) */
     var psn = k.querySelector('.pk-sinav'); if(psn && /^yeterlilik-/.test(p.id) && typeof yet2027Evre === 'function' && yet2027Evre() > 0) psn.textContent = 'SMMM Yeterlilik · 2027';
     k.querySelector('[data-fiyat]').innerHTML = hr ? tlx(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' <small>TL + KDV</small>' : tlx(p.fiyat) + ' <small>TL</small>';
-    k.querySelector('[data-dahil]').textContent = (hr ? fiyatDahilNot(p.id, p.fiyat) : '') + (p.kota && p.liste > p.fiyat ? (hr ? ' · ' : '') + 'açılış fiyatı · ilk ' + tlx(p.kota) + ' üye' : '')
-      + (p.sonraYazi ? (hr ? ' · ' : '') + p.not : '');   /* 23.11 SGS 2027: "31 Aralık 2026 23:59'a kadar" */
+    k.querySelector('[data-dahil]').textContent = (hr ? fiyatDahilNot(p.id, p.fiyat) : '') + (p.kota && p.liste > p.fiyat ? (hr ? ' · ' : '') + 'açılış fiyatı · ilk ' + tlx(p.kota) + ' üye' : '');
+    /* 23.11 Cem "Yasal güçlü kart": tarihli pakette fiyatın yanında "31 Aralık'a kadar" rozeti + altında büyük artış satırı (üstü çizili YOK) */
+    var ar = (typeof artisBilgi === 'function') ? artisBilgi(p) : null, fy = k.querySelector('[data-fiyat]');
+    if(ar) fy.innerHTML += ' <span class="pk-son-gun">31 Aralık\'a kadar</span>';
+    var arE = k.querySelector('[data-artis]');
+    if(!arE){ arE = document.createElement('p'); arE.className = 'pk-artis'; arE.setAttribute('data-artis', ''); fy.insertAdjacentElement('afterend', arE); }
+    arE.innerHTML = ar ? '🔺 ' + ar.tarih + ' <b>' + ar.yeni + '</b> oluyor · şimdi alırsan <b>' + ar.fark + ' daha az</b> ödersin' : '';
+    arE.hidden = !ar;
     var kt = k.querySelector('[data-taksit]'), tks = (typeof taksitGoster === 'function') ? taksitGoster(p) : '';
     if(kt){ kt.textContent = tks; kt.hidden = !tks; }   /* 23.11: yalnız taksit açıkken (FIYAT.sgs2027.taksit) */
     /* 23.11: üstü çizili eski fiyat YOK; tarihli paket "1 Ocak 2027'den itibaren …" der */
-    k.querySelector('[data-sonra]').innerHTML = p.liste > p.fiyat ? (p.kota ? 'İlk ' + tlx(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'Sonra ') + fiyatAnaHtml(p.id, p.liste) + fiyatDahilHtml(p.id, p.liste) : '';
+    k.querySelector('[data-sonra]').innerHTML = (p.liste > p.fiyat && !ar) ? (p.kota ? 'İlk ' + tlx(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'Sonra ') + fiyatAnaHtml(p.id, p.liste) + fiyatDahilHtml(p.id, p.liste) : '';
     if(!p.acik){ a.textContent = 'Yakında'; a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); }
     else { a.textContent = 'Satın al'; a.setAttribute('href', 'satin-al.html?paket=' + p.id); a.removeAttribute('aria-disabled'); }
   }

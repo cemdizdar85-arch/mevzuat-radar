@@ -505,6 +505,14 @@ function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
 /* 23.11: 2027 paketinin erişim yazısı. Sunucu bitişi = en geç(28 Kasım 2026, satın alma + 92 gün) (kart_siparis_odendi) → 28 Kasım dahil, en az 3 ay */
 function yetErisim(ye){ var s = sinav('yeterlilik'); if(!ye) return erisimYazi('yeterlilik');
   return (s && new Date(s.tarih + 'T09:00:00+03:00') >= new Date()) ? 'En az 3 ay · ' + s.yazi + ' sınavı da dahil' : erisimYazi('yeterlilik'); }
+/* 23.11 Cem ("fiyatların üstünü çizerek … pazarlama" → "Yasal güçlü kart"): üstü çizili fiyat YOK (o fiyattan hiç satılmadı, Fiyat
+   İndirimi / Ticari Reklam Yön. m.14). Yerine gerçekten uygulanacak 1 Ocak fiyatı ve aradaki fark ileriye dönük, büyük yazılır.
+   Dönen: { yeni:'7.488 TL + KDV', fark:'4.500 TL + KDV', tarih:"1 Ocak'ta" } — tarihli olmayan pakette null. */
+function artisBilgi(p){
+  if(!p || !p.sonraYazi || !(p.liste > p.fiyat)) return null;
+  var f = Math.round((p.liste - p.fiyat) * 100) / 100;
+  return { tarih:"1 Ocak'ta", yeni:fiyatAna(p.id, p.liste), fark:(KDV_HARIC_GOSTER[p.id] ? kdvHaric(f) + ' TL + KDV' : tl(f) + ' TL') };
+}
 function yet2027Evre(){ var t = Date.now(), y = FIYAT.yet2027; return !y || t < y.baslangic ? 0 : t < y.gecis ? 1 : 2; }
 /* 23.11 Cem: "Peşin fiyatına 3 taksit · 3 × 1.195,20 TL (KDV dahil toplam 3.585,60 TL)" — yalnız taksit açıkken (FIYAT.sgs2027.taksit);
    kapalıyken boş dize, hiçbir yerde taksit yazmaz. "Peşin fiyatına" iddiası iyzico taksit sorgusuyla ölçüldü (vade farkı alıcıya yansımıyor);
