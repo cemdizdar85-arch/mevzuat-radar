@@ -283,7 +283,9 @@ var FIYAT = {
      29.11.2026 00:00 TR'den 31.12.2026 23:59'a kadar AÇILIŞ (+%20: 1.188 / 1.908 / 2.508 / 2.988 / 3.468 + KDV), 1 Ocak 2027'den
      açılışın 2,5 katı (2.988 / 4.788 / 6.288 / 7.488 / 8.688 + KDV). KDV dahil tutulur (×1,2). Geçiş TARİHLE kendiliğinden; kota yok.
      Siparişin OLUŞTUĞU an esas (iyzico-odeme.ts). Dizinler ders sayısı (0 boş). ⚠ Sunucu JSON okur: yalnız sayı. */
-  yet2027:        { baslangic:1795899600000, gecis:1798750800000,
+  /* 23.11 akşam Cem ("fiyatları yeni fiyat yap, bir gün içinde kimse almaz, site yeni fiyatlar olsun sadece"): başlangıç 29.11 yerine
+     23.11.2026 20:50 TR (bu değişikliğin canlıya çıktığı an); öncesinde verilmiş ödeme bekleyen sipariş eski fiyatından ödenir. */
+  yet2027:        { baslangic:1795456200000, gecis:1798750800000,
                     acilis:[0, 1425.6, 2289.6, 3009.6, 3585.6], son:[0, 3585.6, 5745.6, 7545.6, 8985.6],
                     acilisTum:4161.6, sonTum:10425.6 },
   /* KGK modül merdiveni — çapa e-sınav harcı: 7 konu × 950 = 6.650 TL */
