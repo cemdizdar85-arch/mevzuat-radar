@@ -345,8 +345,18 @@ begin
     raise exception 'PAKET_SATISTA_DEGIL' using hint = 'Bu paket satıştan kalktı; SGS 2027 paketini seç.';
   end if;
   if p = 'sgs-2027' then
-    if new.sgs_donem is null or not exists (select 1 from public.sgs_donem_tarih d where d.donem = new.sgs_donem) then
-      raise exception 'SGS_DONEM_GEREKLI' using hint = 'Gireceğin 2027 SGS dönemini seç (Nisan, Temmuz ya da Kasım).';
+    if new.sgs_donem is null then
+      -- 23.11 Cem: dönem sorulmaz → en yakın, süresi geçmemiş 2027 SGS'si
+      select d.donem into new.sgs_donem
+        from public.sgs_donem_tarih d
+       where coalesce(d.sinav_tarihi + 3, d.gecici_bitis) >= current_date
+       order by coalesce(d.sinav_tarihi, d.gecici_bitis)
+       limit 1;
+      if new.sgs_donem is null then
+        raise exception 'SGS_DONEM_YOK' using hint = '2027 SGS dönemleri bitti; yeni yılın paketi henüz kurulmadı.';
+      end if;
+    elsif not exists (select 1 from public.sgs_donem_tarih d where d.donem = new.sgs_donem) then
+      raise exception 'SGS_DONEM_GEREKLI' using hint = 'Bilinmeyen 2027 SGS dönemi.';
     end if;
     if coalesce(new.indirim_tl, 0) > 0 or coalesce(new.ozel_kod_tl, 0) > 0 or coalesce(new.anlik_teklif_tl, 0) > 0 then
       raise exception 'INDIRIM_YOK_SGS2027' using hint = 'SGS 2027 paketinde indirim kodu kullanılamaz.';
