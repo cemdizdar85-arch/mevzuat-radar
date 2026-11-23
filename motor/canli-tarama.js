@@ -34,7 +34,7 @@ const SAYFALAR = [
   ['index.html', ['#nav', '#ekran', '#nasil .ozellik'], true, false],   // 07.10: "üç söz" (.uc) bloğu Cem kararıyla kalktı · 07.10: Nasıl çalışır adımları kartlara birleşti   // 04.10: yeni ana sayfa (V2 madde 4)
   ['sorular.html', ['.sc-sinav'], true, false],
   ['yanlislarim.html', ['#ylKutu', '#durum'], true, false],
-  ['satin-al.html?paket=sgs', ['#akd1', '#akd2', '#ozetKart', '#kodAc'], false, false],
+  ['satin-al.html?paket=sgs-2027', ['#akd1', '#akd2', '#ozetKart', '#kodAc'], false, false],
   ['seviye-testi.html', ['#svBasla'], false, false],
   ['fiyat.html', ['body'], true, false],
   ['ogrenci.html', ['#ogGiris'], true, false],

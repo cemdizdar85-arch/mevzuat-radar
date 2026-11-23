@@ -23,7 +23,7 @@
   function fiyatCiz(s){
     var f=$('ecFiyat'), a=$('ecAlA');
     if(typeof paketBul!=='function'||typeof fiyatAna!=='function'){ f.hidden=true; a.hidden=true; return; }
-    var id=s==='sgs'?'sgs':'yeterlilik-1', p=paketBul(id); if(!p||!p.acik){ f.hidden=true; a.hidden=true; return; }
+    var id=s==='sgs'?'sgs-2027':'yeterlilik-1', p=paketBul(id);   /* 23.11 SGS 2027 */ if(!p||!p.acik){ f.hidden=true; a.hidden=true; return; }
     /* 28.10: SGS sayfasında iki paket kartı (ecGkt) görünürken fiyat ve satın al orada; kutuda tekrar yazılmaz */
     var gk=$('ecGkt'); if(s==='sgs'&&gk&&!gk.hidden){ f.hidden=true; a.hidden=true; return; }
     var dahil=function(i,n){ var d=fiyatDahilNot(i,n); return d?' <small>('+esc(d)+')</small>':''; };

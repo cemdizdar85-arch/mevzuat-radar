@@ -90,7 +90,7 @@
     var fiyatYaz = function () {
       var k = document.querySelector('#sonSkor .ornekFiyat');
       if (!k || k.childNodes.length || typeof paketBul !== 'function' || typeof fiyatAna !== 'function') return;
-      var yet = ornekS === 'smmm', id = yet ? 'yeterlilik-1' : 'sgs', p = paketBul(id); if (!p || !p.acik) return;
+      var yet = ornekS === 'smmm', id = yet ? 'yeterlilik-1' : 'sgs-2027', p = paketBul(id);   /* 23.11 SGS 2027 */ if (!p || !p.acik) return;
       var dahil = function (i, n) { var x = fiyatDahilNot(i, n); return x ? ' <span style="font-size:13px;opacity:.75">(' + x + ')</span>' : ''; };
       var satir = yet
         ? 'Bu sorular ve daha fazlası, seçtiğin derste sınavına kadar:<br><b style="font-size:20px">1 ders ' + fiyatAna(id, p.fiyat) + '</b>' + dahil(id, p.fiyat) +
@@ -154,7 +154,7 @@
     var ucretsizA = kgkSayfa ? '' : '<a href="' + KOK + 'kaydir/vitrin/ornek-' + (yetSayfa ? 'smmm' : 'sgs') + '.html">Önce ücretsiz 5 örnek soru çöz</a>';
     /* 08.10 Cem ("Staja Giriş sayfasındaysam bitirme fiyatları gelmesin"): satın alma ve fiyat bulunulan sınava odaklı
        (satin-al ?paket= o sınavın grubunu açar; fiyat ?sinav= tek sınavı gösterir). */
-    var satinAl = KOK + 'satin-al.html?paket=' + (yetSayfa ? 'yeterlilik-1' : 'sgs');
+    var satinAl = KOK + 'satin-al.html?paket=' + (yetSayfa ? 'yeterlilik-1' : 'sgs-2027');
     var fiyatAdr = KOK + 'fiyat.html?sinav=' + (yetSayfa ? 'yeterlilik' : 'sgs');
     kapiCoz({ acik: false, tur: tur });
     var baslik, metin, dugmeler;

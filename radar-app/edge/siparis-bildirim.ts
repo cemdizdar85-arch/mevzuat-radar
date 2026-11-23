@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "0f00f2fd49084aef";
+const KOD_IMZA = "fabbcd2b7f7792ee";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -129,7 +129,10 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const durumAd = onSiparis ? "ön siparişin kayda geçti" : "paketin açıldı";
   const konu = tekMail ? `Siparişin onaylandı: ${s.siparis_no} · ${durumAd}` : `Ödemen onaylandı, ${durumAd}: ${s.paket_ad || s.paket}`;
   const odemeAd = s.odeme === "kart" ? "Kart (iyzico)" : s.odeme === "havale" ? "Havale/EFT" : "";
-  const bitis = s.paket_bitis ? tarih(s.paket_bitis) : "";
+  // 23.11 SGS 2027: 2027 sınav tarihi açıklanmadan paket_bitis GEÇİCİ üst sınırdır (sgs_donem_tarih.gecici_bitis); mail tarih yazmaz,
+  // kuralı yazar ("tarihine kadar" kalıbına oturur: "seçtiğin 2027 SGS'sinden 3 gün sonrası tarihine kadar" olmasın diye paket adına eklenir)
+  const bitis = s.paket === "sgs-2027" ? "" : s.paket_bitis ? tarih(s.paket_bitis) : "";
+  if (s.paket === "sgs-2027") s = { ...s, paket_ad: `${s.paket_ad || "SGS 2027 paketi"} · erişim seçtiğin 2027 SGS'sinden 3 gün sonra biter` };
   const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : s20 ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
   // 31.10: hesabı ödeme anında biz açtıysak (yeniHesap) alıcı "üye ol" demez; Google ya da şifre belirleyerek girer.
   const yeniGiris = `Hesabın bu e-postayla açıldı, ayrıca üye olman gerekmiyor. tetikte.com → Giriş → "Google ile gir" deyip bu e-postanın Google hesabını seç; Google kullanmıyorsan bu e-postayı yazıp "Şifremi unuttum" ile kendine şifre belirle.`;
