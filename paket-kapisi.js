@@ -171,9 +171,9 @@
       var yet20 = tur === 'son20-yet', acilT = Date.parse(yet20 ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
       baslik = 'Senin paketin: ' + (yet20 ? 'Yeterlilik Son 20 Gün' : 'Sadece 7 Deneme');
       metin = 'Bu sayfa paketinde yok. ' + (Date.now() < acilT ? (yet20 ? 'İlk denemelerin 8' : 'Denemelerin 1') + ' Kasım 2026\'da açılır.' : 'Denemelerin seni bekliyor.')
-        + ' Bütün soru bankası için Tam Pakete geçebilirsin; ödediğin 999 TL düşülür.';
+        + (yet20 ? ' Bütün soru bankası için tüm derslere geçebilirsin; ödediğin 999 TL düşülür.' : ' 2027 sınavları için SGS 2027 paketi bütün bankayı açar.');   /* 23.11: SGS Tam Paket satıştan kalktı */
       dugmeler = '<a class="pk-ana" href="' + KOK + (yet20 ? 'son-20-gun.html?sinav=yeterlilik' : 'son-20-gun.html') + '">Son 20 Gün sayfam' + '</a>' +
-        '<a href="' + KOK + 'iletisim.html">Tam Pakete geç</a>';
+        (yet20 ? '<a href="' + KOK + 'iletisim.html">Tüm derslere geç</a>' : '<a href="' + KOK + 'satin-al.html?paket=sgs-2027">SGS 2027 paketi</a>');
     } else {
       baslik = 'Bağlantı kurulamadı';
       metin = 'Paket bilgin kontrol edilemedi. İnternet bağlantını kontrol edip yeniden dene.';
