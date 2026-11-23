@@ -987,6 +987,10 @@ jobs:
           # Nobetci akisi saglam/kancasiz); 7 mutasyonun 7'si KIRMIZI (03.10 yerelde olculdu). data: sayfalar, ag gerekmez.
           - { ad: "Canli tarama OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node motor/canli-tarama.js --sinav --mutasyon" }
+          # 23.11 (Cem "fiyat başka yerde çıkmasın"): haftalık fiyat denetiminin (fiyat-denetimi.yml) öz-sınavı - 8 vaka (geçerli temiz,
+          # eski fiyat, "ilk 0", tek kuruş hane, soru metni / gizli öğe / resmî harç / büyük tutarlı soru alarmsız); FD_MUTASYON=gecir 1/8, =bozuk 2/8, =tavan 1/8 KIRMIZI (yerelde ölçüldü)
+          - { ad: "Fiyat denetimi OZ-SINAVI",
+              kabuk: bash, komut: "node motor/fiyat-denetimi.js --sinav" }
           # 03.10: sure-nobeti.yml oz-sinavi - 6 vaka (sabit, hizlanma, 2,5 kat ALARM, kucuk adim gurultusu, +16 dk ama 2 kat alti,
           # gecmis yetersiz KOR); 2 mutasyon (kat, esik) KIRMIZI (03.10 yerelde olculdu). Ag gerekmez.
           - { ad: "Sure nobetcisi OZ-SINAVI + MUTASYON",

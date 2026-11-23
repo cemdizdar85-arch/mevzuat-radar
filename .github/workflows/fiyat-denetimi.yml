@@ -1,0 +1,46 @@
+# .github/workflows/fiyat-denetimi.yml — HAFTALIK FİYAT DENETİMİ (23.11.2026, Cem "haftada bir otomatik koştur; bir yerde farklı
+# fiyat çıkarsa mail gelsin … fiyat başka yerde çıkmasın, aynı")
+#
+# Ne yapar: motor/fiyat-denetimi.js canlı fiyat-motoru.js'ten geçerli tutarları hesaplar, sitedeki her sayfayı (kök + sayfalar/ +
+# kaydir/, ~140) açar, görünen TL tutarlarında ESKI (paket bağlamında geçersiz tutar) ve BOZUK ("ilk 0 ödeyene", tek kuruş hane)
+# arar. KIRMIZI ise Cem'e e-posta (arac/alarm-maili.ps1). Depoya yazmaz, artifact yüklemez; günlükte yalnız sayfa adı + tutar.
+# Öz-sınav dogrula.yml'de (node motor/fiyat-denetimi.js --sinav; bozma FD_MUTASYON=gecir|bozuk → KIRMIZI, 23.11 ölçüldü).
+# 🚫 GÖRMEZ: motor/fiyat-denetimi.js başındaki liste (soru metni, oturumlu sayfa, telefon genişliği, uygulama, reklam, mail).
+name: Fiyat Denetimi (haftalik)
+on:
+  schedule:
+    - cron: '0 6 * * 1'      # her pazartesi 09:00 TR
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: fiyat-denetimi
+  cancel-in-progress: true
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Oz-sinav
+        run: node motor/fiyat-denetimi.js --sinav
+      - name: Canli fiyat denetimi
+        id: denet
+        continue-on-error: true
+        run: node motor/fiyat-denetimi.js --cikti "$RUNNER_TEMP/fiyat.txt"
+      - name: KIRMIZI ise Cem'e gonder
+        if: steps.denet.outcome == 'failure'
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          $f = Join-Path $env:RUNNER_TEMP 'fiyat.txt'
+          $m = if (Test-Path $f) { Get-Content $f -Raw -Encoding utf8 } else { 'Fiyat denetimi KOR: rapor dosyasi yok (tarayici acilmadi ya da betik dustu). Gunluge bak.' }
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE fiyat denetimi KIRMIZI - sitede farkli fiyat var' -Mesaj ($m + "`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+      - name: Sonuc
+        if: steps.denet.outcome == 'failure'
+        run: exit 1
