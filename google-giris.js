@@ -126,9 +126,11 @@
       h.textContent = ''; b.disabled = true;
       ss.koy(ONAY, new Date().toISOString());
       try { localStorage.setItem(ONAY, JSON.stringify({ t: new Date().toISOString() })); } catch (e) {}
-      ss.koy(ARAMA, location.search || '');
+      /* 23.11 (satın alma kolaylığı): o.donusSayfa + o.donusArama verilirse Google dönüşü o sayfaya (izin listesinde olduğu bilinen
+         ogrenci.html) ve o aramaya (?sonra=satin-al.html…) gider; ogrenci.html girişten sonra ?sonra= adresine yollar. Verilmezse eskisi gibi. */
+      ss.koy(ARAMA, (o.donusArama != null ? o.donusArama : location.search) || '');
       try {
-        var r = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+        var r = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + (o.donusSayfa ? '/' + o.donusSayfa : location.pathname) } });
         if (r && r.error) throw r.error;
         /* başarılıysa sayfa Google'a gider; buraya dönülmez */
       } catch(e) {

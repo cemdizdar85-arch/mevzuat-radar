@@ -292,10 +292,27 @@
   <div id="girisKapi" hidden style="text-align:center;padding:6px 0 4px">
     <p style="margin:0 0 6px;font-weight:800;font-size:17px">Önce hesabına gir</p>
     <p class="kucuk" style="margin:0 0 14px">Paketin hesabına açılır; ödeme bitince doğrudan soru çözmeye başlarsın. Üye olmak 30 saniye, onay maili yok. Google ile tek dokunuş.</p>
-    <a class="btn" id="girisKapiUye" style="text-decoration:none;margin:0 0 8px;display:block;box-sizing:border-box" href="ogrenci.html#uye-ol">Üye ol</a>
+    <!-- 23.11 (Cem "Amazon gibi kolay", denetim: "Google ile tek dokunuş" yazıyordu ama düğme bu sayfada yoktu): Google düğmesi burada;
+         dönüş ogrenci.html?sonra=<bu sayfa> (izin listesinde), giriş bitince bu sayfaya döner. E-posta yolu ikincil. -->
+    <div id="girisGoogle" style="margin:0 0 10px;text-align:left"></div>
+    <a class="btn" id="girisKapiUye" style="text-decoration:none;margin:0 0 8px;display:block;box-sizing:border-box;background:transparent;color:var(--ink);border:1.5px solid var(--line2)" href="ogrenci.html#uye-ol">E-postayla üye ol</a>
     <a class="btn" id="girisKapiGiris" style="text-decoration:none;margin:0;display:block;box-sizing:border-box;background:transparent;color:var(--ink);border:1.5px solid var(--line2)" href="ogrenci.html">Giriş yap</a>
   </div>
   <style>#akd2g.giris-yok .akd-ic > :not(#girisKapi):not(style){display:none!important}</style>
+  <script>
+  /* 23.11 (denetim: yavaş ağda CLS 0,555 — en büyük kayma 12. sn'de 0,324: sayfa betiği geç çalışınca paket adımı kapanıyor, giriş kapısı
+     sonradan açılıyordu): sayfa İLK ÇİZİMDE son hâlinde. Paket adresten geldiyse 1. adım kapalı, 2. adım açık; cihazda oturum izi yoksa
+     (uye-durumu.js ile aynı ölçüt: localStorage'da *-auth-token) giriş kapısı baştan görünür. Asıl karar yine baslat()/getSession'da. */
+  (function(){ try{
+    var q = new URLSearchParams(location.search), oturum = false;
+    try{ oturum = Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token') > -1; }); }catch(e){}
+    if(q.get('paket') && !q.get('ode') && !q.get('kartla') && !q.get('odeme')){
+      var a1 = document.getElementById('akd1'), a2 = document.getElementById('akd2');
+      if(a1) a1.classList.remove('acik'); if(a2) a2.classList.add('acik');
+    }
+    if(!oturum){ document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok'); document.body.classList.add('giris-yok'); }
+  }catch(e){} })();
+  </script>
   <div class="satir">
     <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
     <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"><div class="kucuk" id="oturumNot" hidden style="margin-top:4px;color:var(--green)"></div>
@@ -360,6 +377,7 @@
     <tr id="ozIndSatir" style="display:none"><td id="ozIndAd">Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
     <tr id="ozTeklifSatir" style="display:none"><td>Anlık teklif (sana özel)</td><td class="sag" id="ozTeklif">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
+    <tr id="ozTaksitSatir" style="display:none"><td class="kucuk" colspan="2" id="ozTaksit" style="color:var(--ink);font-weight:700"></td></tr><!-- 23.11 denetim: taksit ödeme anında görünmüyordu -->
     <tr id="ozFatSatir" style="display:none"><td class="kucuk" colspan="2" id="ozFat"></td></tr>
   </table>
   <!-- 08.10 Cem ("satın alda elçi kodu gelmiyor"): kutu 2. adımın ("Bilgilerin") dibindeydi; adım tamamlanınca kapanıyor,
@@ -395,6 +413,13 @@
   <!-- 14.09: Mesafeli Sözleşmeler Yönetmeliği m.5-6 ön bilgilendirme teyidi + m.15 anında ifa onayı
        AÇIKÇA alınır (sözleşme "Üye anında ifaya onay verir" diyordu ama ekranda bu onay yoktu).
        KVKK kutusu rıza değil bilgilendirme teyidi: sipariş verisinin dayanağı sözleşmedir (m.5/2-c). -->
+  <!-- 23.11 (denetim: girişsiz alıcı onay kutularını + etkin "Kartla öde"yi görüyordu, basınca olmayan ad alanını istiyordu):
+       girişsizde onaylar ve ödeme düğmeleri gizli, yerine tek satır + "Hesabına gir" (2. adımı açar) -->
+  <div id="ozGirisNot" style="display:none;margin:6px 0 4px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--amber-dolgu);background:color-mix(in srgb,var(--amber-dolgu) 10%,transparent)">
+    <p style="margin:0 0 10px;font-size:15px;line-height:1.45"><b>Ödeme için önce hesabına gir.</b> Paketin bu hesaba açılır; Google ile tek dokunuş.</p>
+    <button type="button" class="btn" id="ozGirisBtn" style="margin:0">Hesabına gir</button>
+  </div>
+  <style>body.giris-yok #ozetKart label.onay,body.giris-yok #gonder,body.giris-yok #gonderHavale,body.giris-yok #odemeNot{display:none!important}body.giris-yok #ozGirisNot{display:block!important}</style>
   <label class="onay"><input type="checkbox" id="onSoz">
     <span><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
     <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
@@ -782,6 +807,9 @@ function ozetCiz(){
   document.getElementById('ozTeklifSatir').style.display = tk > 0 ? '' : 'none';
   document.getElementById('ozTeklif').textContent = tk > 0 ? '− ' + tl(tk) + ' TL' : '—';
   document.getElementById('ozTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
+  /* 23.11: peşin fiyatına 3 taksit özette de (indirimsiz tutarda; indirimli siparişte taksit tutarı iyzico'da hesaplanır) */
+  var tkO = (secili && typeof taksitGoster === 'function' && odenecekTutar() === secili.fiyat) ? taksitGoster(secili) : '';
+  document.getElementById('ozTaksitSatir').style.display = tkO ? '' : 'none'; document.getElementById('ozTaksit').textContent = tkO;
   /* 08.10: KDV dökümü (oran fiyat-motoru.js KDV_ORAN) - liste fiyatı '+ KDV' gösterilen paketlerde; faturada kalem = ödenen tutarın matrahı */
   var oran = (typeof KDV_ORAN === 'number') ? KDV_ORAN : 0.2, iki = function(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}); };
   var kdvGoster = !!(secili && typeof KDV_HARIC_GOSTER !== 'undefined' && KDV_HARIC_GOSTER[secili.id]);
@@ -1146,7 +1174,7 @@ function davetKodOku(){
   };
   /* 03.10: alt çubuk düğmesi 3. adıma gelinene kadar "Devam" der ve açık adımın Devam'ı gibi çalışır */
   function acikAdim(){ return adimlar[1].classList.contains('acik') ? 1 : adimlar[2].classList.contains('acik') ? 2 : 0; }
-  function mbEtiket(){ $('mbGit').textContent = (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : (kartAcik() ? 'Kartla öde' : 'Siparişi tamamla'); }
+  function mbEtiket(){ $('mbGit').textContent = document.body.classList.contains('giris-yok') ? 'Hesabına gir' : (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : (kartAcik() ? 'Kartla öde' : 'Siparişi tamamla'); }   /* 23.11: girişsizde alt çubuk giriş kapısına götürür */
   window.akdHata = function(n, m){ akdOzetCiz(); ac(n, true); hataYaz(n, m); };
   function devam(n){
     var m = n === 1 ? adim1Hata() : adim2Hata();
@@ -1192,7 +1220,11 @@ function davetKodOku(){
     new IntersectionObserver(function(e){ kartGorunur = e[0].isIntersecting; barGuncelle(); }, { threshold:0.15 }).observe($('ozetKart'));
   }
   if(mobil.addEventListener){ mobil.addEventListener('change', barGuncelle); } else if(mobil.addListener){ mobil.addListener(barGuncelle); }
+  /* 23.11 (denetim: girişsizde alt "Devam" hiçbir şey yapmıyordu — hata gizli alana yazılıyordu) */
+  function giriseGit(){ if(adim1Hata()){ akdHata(1, adim1Hata()); return; } ac(2, true); }
+  var ozgb = $('ozGirisBtn'); if(ozgb) ozgb.addEventListener('click', giriseGit);
   $('mbGit').addEventListener('click', function(){
+    if(document.body.classList.contains('giris-yok')){ giriseGit(); return; }
     var acik = acikAdim(); if(acik){ devam(acik); return; }
     var m1 = adim1Hata(); if(m1){ akdHata(1, m1); return; }
     var m2 = adim2Hata(); if(m2){ akdHata(2, m2); return; }
@@ -1645,6 +1677,7 @@ if(!KURULUM_TAMAM){
   btn.disabled = true;
 }
 </script>
+<script src="google-giris.js?v=20261123a"></script><!-- 23.11: Google ile devam et bu sayfada -->
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script>
 (function(){
@@ -1661,6 +1694,10 @@ if(!KURULUM_TAMAM){
       document.getElementById('girisKapiUye').href = 'ogrenci.html?sonra=' + geri + '#uye-ol';
       document.getElementById('girisKapiGiris').href = 'ogrenci.html?sonra=' + geri;
       document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok');
+      document.body.classList.add('giris-yok');   /* 23.11: özet kilit + alt çubuk "Hesabına gir" */
+      try{ if(window.akdOzetCiz) window.akdOzetCiz(); }catch(e){}
+      /* 23.11: Google ile devam et doğrudan bu sayfada; dönüş ogrenci.html?sonra=<bu sayfa> */
+      try{ if(window.ttGoogle) window.ttGoogle.kur({ sb: window.sb, kap: document.getElementById('girisGoogle'), donusSayfa: 'ogrenci.html', donusArama: '?sonra=' + geri }); }catch(e){}
       /* 23.11 (bulgu 4): seçilen SGS dönemi dönüş adresine eklenir; dönen alıcı dönemi yeniden seçmez */
       ['girisKapiUye', 'girisKapiGiris'].forEach(function(id){ var a = document.getElementById(id); a.addEventListener('click', function(){
         var dn = secilenDonem(); if(!dn) return;
@@ -1670,6 +1707,9 @@ if(!KURULUM_TAMAM){
       }); });
       return;
     }
+    /* 23.11: ilk çizimdeki tahmin yanlışsa (oturum izi vardı ama oturum yok ya da tersi) gerçek duruma dön */
+    document.getElementById('girisKapi').hidden = true; document.getElementById('akd2g').classList.remove('giris-yok'); document.body.classList.remove('giris-yok');
+    try{ if(window.akdOzetCiz) window.akdOzetCiz(); }catch(e){}
     /* 06.11 (Cem "alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın"): son 14 günde 80 kart siparişinin 18'inde kart geçmedi, 16'sı
        iyzico sayfasında kaldı. Yarım siparişi olan üye, hangi cihazdan gelirse gelsin formu doldurup "siparişin var" uyarısı görmeden
        en üstte devam düğmesini görür. Sunucu sonradan ödenmiş siparişi saymaz (radar-app/sql/2026-11-06-yarim-siparis.sql). */
