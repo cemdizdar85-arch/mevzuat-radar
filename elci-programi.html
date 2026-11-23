@@ -161,11 +161,12 @@
   var EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
   var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   function $(id){ return document.getElementById(id); }
-  function tlx(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
+  function tlx(n){ return (typeof tl === 'function' ? tl(Number(n) || 0) : (Number(n) || 0).toLocaleString('tr-TR')) + ' TL'; }   /* 23.11: kuruş iki hane (4.161,60) */
 
   /* İndirim tablosu fiyat-motoru.js'ten: ELCI.indirim + paketBul(id).fiyat */
   try {
-    var satir = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); }).map(function(id){
+    /* 23.11 fiyat denetimi: satıştan kalkan paket (2026 SGS) listede kalıyordu; yalnız satıştaki paketler */
+    var satir = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id) && paketBul(id).acik; }).map(function(id){
       var p = paketBul(id), ind = ELCI.indirim[id];
       return '<tr><td>' + p.ad + '</td><td class="sag">' + tlx(p.fiyat) + '</td><td class="sag"><b>' + tlx(Math.max(0, p.fiyat - ind)) + '</b></td></tr>';
     }).join('');

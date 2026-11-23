@@ -50,7 +50,10 @@
         +(t&&t.acik?' · tüm dersler '+esc(fiyatAna('yeterlilik-tum',tn||t.fiyat))+dahil('yeterlilik-tum',tn||t.fiyat)
           +(tn?' <small>(erken kayıt, 7 Kasım 23:59\'a kadar · sonra '+tl(t.fiyat)+' TL)</small>':''):'');
     }
-    h+='<br><small>Açılış fiyatı ilk '+tl(p.kota)+' ödeyene; sonra '+esc(fiyatAna(id,p.liste))+'. Kartla ödersen paketin hemen açılır.</small>';
+    /* 23.11 fiyat denetimi: tarihli pakette "ilk 0 ödeyene" yazıyordu (kota yok) → 1 Ocak artışı; kotalıda eski cümle */
+    var ar7=(typeof artisBilgi==='function')?artisBilgi(p):null;
+    h+='<br><small>'+(ar7?"31 Aralık'a kadar bu fiyat; "+ar7.tarih+' '+esc(ar7.yeni)+' oluyor. ':p.kota?'Açılış fiyatı ilk '+tl(p.kota)+' ödeyene; sonra '+esc(fiyatAna(id,p.liste))+'. ':'')
+      +((typeof taksitGoster==='function'&&taksitGoster(p))?'Peşin fiyatına 3 taksit. ':'')+'Kartla ödersen paketin hemen açılır.</small>';
     f.innerHTML=h; f.hidden=false;
     a.href='satin-al.html?paket='+id+K; a.textContent=s==='sgs'?'Satın al →':'Dersini seç, satın al →'; a.hidden=false;
   }
