@@ -62,6 +62,7 @@ ihale_sayi		SD	f	f	record	depoda
 ihale_yaz	p_kayitlar jsonb	SD	f	f	integer	depoda
 istek_getir	p_token uuid	SD	f	f	json	depoda
 kalip_parti_damga		inv	t	t	trigger	DEPODA-YOK
+kanit_sorusu	p_liste text, p_n integer	SD	t	t	jsonb	depoda
 kart_siparis_odendi	p_no text, p_payment_id text	SD	f	f	jsonb	depoda
 kasa_cekim_izin2	p_sayfa text, p_bas integer, p_adet integer, p_ids text[]	SD	f	f	text	depoda
 kasa_cevap_yaz	p_sayfa text, p_id text, p_secim text	SD	f	t	void	depoda
