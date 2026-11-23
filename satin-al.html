@@ -433,7 +433,7 @@
     <!-- 05.10 iyzico KART: düğme yalnız kartAcik() iken görünür (bugün ?kart=1 ile; deneme geçince KART_ACIK=true) -->
     <div id="kartKutu" hidden style="margin:0 0 14px;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:var(--kagit)">
       <button type="button" id="kartOde" class="btn" style="width:100%;font-weight:800">💳 Kartla öde — paketin hemen açılsın</button>
-      <p class="kucuk" style="margin:8px 0 0">Ödeme iyzico'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. SGS 2027 paketinde anlaşmalı kartlarla peşin fiyatına 3 taksit; öteki paketlerde taksit yok.</p>
+      <p class="kucuk" style="margin:8px 0 0">Ödeme iyzico'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. SGS 2027 ve Yeterlilik paketlerinde anlaşmalı kartlarla peşin fiyatına 3 taksit; Son 20 Gün paketinde taksit yok.</p>
       <p class="kucuk" id="kartHata" style="margin:6px 0 0;color:var(--red)"></p>
     </div>
     <!-- 05.10 Cem ("kolay üyelik ve ödeme"): hesabı olmayan alıcı aynı ekranda hesabını açsın; e-posta ogrenci.html'e localStorage ile gider -->
@@ -476,7 +476,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261123b"></script>
+<script src="fiyat-motoru.js?v=20261123c"></script>
 <script>
 /* 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı; eski bağlantı (reklam, uygulama, e-posta: ?paket=sgs / son20-sgs)
    SGS 2027 paketine iner. Sayfanın öteki betikleri adresi bundan SONRA okur. */
@@ -1345,7 +1345,7 @@ function havaleKur(no){
   d.innerHTML = '<h2 style="margin:0 0 6px">Siparişini tamamla</h2>'
     + '<p style="margin:0 0 12px;font-size:14px"><b>' + no + '</b> numaralı siparişin ödeme bekliyor. Yeniden sipariş vermene gerek yok.</p>'
     + (kartAcik() ? '<a class="btn" id="odeKart" href="satin-al.html?kartla=' + no + '" style="display:block;text-align:center;text-decoration:none;font-weight:800;margin:0 0 6px">💳 Kartla öde — paketin hemen açılsın</a>'
-      + '<p class="kucuk" style="margin:0 0 14px">Ödeme iyzico\'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. SGS 2027 paketinde anlaşmalı kartlarla peşin fiyatına 3 taksit; öteki paketlerde taksit yok.</p>' : '')
+      + '<p class="kucuk" style="margin:0 0 14px">Ödeme iyzico\'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. SGS 2027 ve Yeterlilik paketlerinde anlaşmalı kartlarla peşin fiyatına 3 taksit; Son 20 Gün paketinde taksit yok.</p>' : '')
     + '<p style="margin:0 0 6px;font-size:15px"><b>' + (kartAcik() ? 'Ya da havale/EFT ile öde' : 'Havale/EFT ile öde') + '</b></p>'
     + '<p style="margin:0 0 10px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün paketin açılır.</p>'
     + kv('Alıcı', 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.') + kv('Banka', BANKA.ad)

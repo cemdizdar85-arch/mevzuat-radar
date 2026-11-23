@@ -274,10 +274,11 @@ var FIYAT = {
      Ekranda: 990 / 1.590 / 2.090 / 2.490 / tüm 2.890 + KDV · liste ×2 (1.980 / 3.180 / 4.180 / 4.980 / 5.780 + KDV).
      Elçi indirimi KDV dahil aynı (tüm 400, ders başı 50) → sunucu elci_indirim değişmedi. */
   /* 23.11 Cem ("taksit 3 taksit yapıyoruz sgs ve bitirmede 2027 için"): Yeterlilik paketlerinde de peşin fiyatına 3 taksit — taksit:3.
-     Açmadan önce iyzico-odeme ?taksit=1&paket=<id> ile her tutar ölçülür (vade farkı alıcıya yansımamalı). */
-  yeterlilik:     [ null, {kurulus:1188,liste:2376,taksit:0}, {kurulus:1908,liste:3816,taksit:0},
-                          {kurulus:2508,liste:5016,taksit:0}, {kurulus:2988,liste:5976,taksit:0} ],
-  yeterlilikTum:  { kurulus:3468, liste:6936, taksit:0 },
+     Ölçüldü 23.11 (iyzico-odeme ?taksit=1&paket=<id>, para çekmez): beş tutarın beşinde 7 kart ailesinde 3 taksit toplamı = peşin
+     (396×3=1.188 · 636×3=1.908 · 836×3=2.508 · 996×3=2.988 · 1.156×3=3.468). AÇIK. */
+  yeterlilik:     [ null, {kurulus:1188,liste:2376,taksit:3}, {kurulus:1908,liste:3816,taksit:3},
+                          {kurulus:2508,liste:5016,taksit:3}, {kurulus:2988,liste:5976,taksit:3} ],
+  yeterlilikTum:  { kurulus:3468, liste:6936, taksit:3 },
   /* KGK modül merdiveni — çapa e-sınav harcı: 7 konu × 950 = 6.650 TL */
   kgk:            [ null, {kurulus:1490,liste:1990}, {kurulus:2490,liste:3290},
                           {kurulus:3190,liste:4190} ],
@@ -498,7 +499,7 @@ function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
 var TAKSIT_KARTLAR = 'Bankkart, Paraf, World, Axess, QNB, Bonus, SağlamKart';
 function taksitGoster(p){
   var n = p && p.taksitAdet; if(!n) return '';
-  return 'Peşin fiyatına ' + n + ' taksit · ' + n + ' × ' + (Math.round(p.fiyat / n * 100) / 100).toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' TL (KDV dahil toplam ' + tl(p.fiyat) + ' TL)';
+  return 'Peşin fiyatına ' + n + ' taksit · ' + n + ' × ' + tl(Math.round(p.fiyat / n * 100) / 100) + ' TL (KDV dahil toplam ' + tl(p.fiyat) + ' TL)';
 }
 function sgs2027DonemYazi(id){
   var d = SGS2027_DONEM.filter(function(x){ return x.id === id; })[0]; if(!d) return '';
