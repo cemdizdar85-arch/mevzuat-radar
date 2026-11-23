@@ -51,7 +51,7 @@ jobs:
             cp "radar-app/edge/$dosya" "supabase/functions/$ad/index.ts"
             bayrak=""; [ "$jwt" = "0" ] && bayrak="--no-verify-jwt"
             echo "yukleniyor: $ad"
-            supabase functions deploy "$ad" --project-ref "$REF" $bayrak --use-api
+            supabase functions deploy "$ad" --project-ref "$REF" $bayrak --use-api --yes   # 23.11: CLI latest onay istiyor, onaysız "Nothing was changed" der
             beklenen=$(grep -oE 'const KOD_IMZA = "[0-9a-f]{16}"' "radar-app/edge/$dosya" | grep -oE '[0-9a-f]{16}' || true)
             canli=""
             for i in 1 2 3 4 5 6; do
