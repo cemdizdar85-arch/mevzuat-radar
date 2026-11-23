@@ -27,7 +27,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "fabbcd2b7f7792ee";
+const KOD_IMZA = "cc23067025f0704f";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -116,7 +116,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 // 21.10 (Cem "iki kere mail gitmesin, günde binlerce sipariş alanlar ne yapıyorsa onu yap"): kartla ödeyene 'alindi' (IBAN)
 // maili GİTMEZ; tek mail budur → tekMail=true iken sipariş özeti (no, paket, tutar, ödeme) + sözleşme ekleri de burada.
 // Havale seçene 'alindi' (ödeme bilgisi) gitmiştir; bu mail o zaman yalnız "ödemen geldi, paketin açıldı" der.
-export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; paket_bitis: string | null; tutar?: number; odeme?: string | null }, hesapVar: boolean, tekMail = false, yeniHesap = false) {
+export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; paket_bitis: string | null; tutar?: number; odeme?: string | null; sgs_donem?: string | null }, hesapVar: boolean, tekMail = false, yeniHesap = false) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   // 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme ön satış — "paketin açıldı, hemen başla" YAZILMAZ; denemeler 1 Kasım'da
   // son-20-gun.html'de açılır. Öteki paketlerin maili birebir aynı.
@@ -132,7 +132,9 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   // 23.11 SGS 2027: 2027 sınav tarihi açıklanmadan paket_bitis GEÇİCİ üst sınırdır (sgs_donem_tarih.gecici_bitis); mail tarih yazmaz,
   // kuralı yazar ("tarihine kadar" kalıbına oturur: "seçtiğin 2027 SGS'sinden 3 gün sonrası tarihine kadar" olmasın diye paket adına eklenir)
   const bitis = s.paket === "sgs-2027" ? "" : s.paket_bitis ? tarih(s.paket_bitis) : "";
-  if (s.paket === "sgs-2027") s = { ...s, paket_ad: `${s.paket_ad || "SGS 2027 paketi"} · erişim seçtiğin 2027 SGS'sinden 3 gün sonra biter` };
+  // 23.11 tek dönem: dönem sunucuda siparişe yazılır (sgs_donem); mail dönemin adını söyler
+  const donemAd: Record<string, string> = { "2027-nisan": "Nisan 2027 SGS", "2027-temmuz": "Temmuz 2027 SGS", "2027-kasim": "Kasım 2027 SGS" };
+  if (s.paket === "sgs-2027") s = { ...s, paket_ad: `${s.paket_ad || "SGS 2027 paketi"} · erişim ${donemAd[String(s.sgs_donem ?? "")] ?? "Nisan 2027 SGS"}'sinden 3 gün sonra biter` };
   const adres = onYet ? "https://tetikte.com/son-20-gun.html?sinav=yeterlilik" : s20 ? "https://tetikte.com/son-20-gun.html" : "https://tetikte.com/ogrenci.html";
   // 31.10: hesabı ödeme anında biz açtıysak (yeniHesap) alıcı "üye ol" demez; Google ya da şifre belirleyerek girer.
   const yeniGiris = `Hesabın bu e-postayla açıldı, ayrıca üye olman gerekmiyor. tetikte.com → Giriş → "Google ile gir" deyip bu e-postanın Google hesabını seç; Google kullanmıyorsan bu e-postayı yazıp "Şifremi unuttum" ile kendine şifre belirle.`;
@@ -207,7 +209,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
 
   const sb = (yol: string, sec?: RequestInit) => fetch(`${SB_URL}/rest/v1/${yol}`, Object.assign({
     headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" } }, sec || {}));
-  const r = await sb(`siparisler?select=id,siparis_no,ad_soyad,email,paket,paket_ad,tutar,odeme,durum,olusturma,paket_bitis,alindi_mail,acildi_mail,bagli_kullanici&siparis_no=eq.${encodeURIComponent(no)}&limit=1`);
+  const r = await sb(`siparisler?select=id,siparis_no,ad_soyad,email,paket,paket_ad,tutar,odeme,durum,olusturma,paket_bitis,sgs_donem,alindi_mail,acildi_mail,bagli_kullanici&siparis_no=eq.${encodeURIComponent(no)}&limit=1`);
   if (!r.ok) return cevap(502, { hata: "siparis okunamadi" });
   const s = (await r.json())[0];
   if (!s) return cevap(404, { hata: "siparis yok" });

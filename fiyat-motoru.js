@@ -500,6 +500,11 @@ var SGS2027_DONEM = [
   { id:'2027-temmuz', ad:'Temmuz 2027 SGS', tarih:null },
   { id:'2027-kasim',  ad:'Kasım 2027 SGS',  tarih:null }
 ];
+/* 23.11: en yakın, süresi geçmemiş 2027 SGS'si (tarih yoksa sırayla ilki) — sunucudaki _sgs2027_kapi ile aynı sıra */
+function sgs2027EnYakin(){ var b = new Date().toLocaleDateString('en-CA', { timeZone:'Europe/Istanbul' });
+  for(var i = 0; i < SGS2027_DONEM.length; i++){ var d = SGS2027_DONEM[i]; if(!d.tarih) return d;
+    var son = new Date(Date.parse(d.tarih + 'T00:00:00Z') + 3 * 86400000).toISOString().slice(0, 10); if(son >= b) return d; }
+  return SGS2027_DONEM[SGS2027_DONEM.length - 1]; }
 function sgs2027Fiyat(){ return Date.now() < FIYAT.sgs2027.gecis ? FIYAT.sgs2027.kurulus : FIYAT.sgs2027.liste; }
 function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
 /* 23.11: 2027 paketinin erişim yazısı. Sunucu bitişi = en geç(28 Kasım 2026, satın alma + 92 gün) (kart_siparis_odendi) → 28 Kasım dahil, en az 3 ay */
@@ -535,11 +540,13 @@ function paketler(){
 
   /* 23.11 SGS 2027. Kimlik bilerek 'sgs-' ile BAŞLAR: sgs-öneki (uye-durumu paketSinavlari, kasa paket_erisim_var,
      _paket_sinavi) bütün SGS bankasını açar — paket bankanın tamamını satıyor. Bitiş siparişteki sgs_donem'den (sunucu). */
+  /* 23.11 Cem ("biz 3 aylık paket satıyoruz, nisana kadar"): dönem SORULMAZ (donemSec:false); paket en yakın 2027 SGS'sini kapsar,
+     sunucu siparişe yazar (radar-app/sql/2026-11-23-sgs-2027-tek-donem.sql). Bugün en yakın = Nisan 2027. */
   L.push({ id:'sgs-2027', grup:'Staja Giriş (SGS)', ad:'SGS 2027 paketi',
-           fiyat:sgs2027Fiyat(), liste:FIYAT.sgs2027.liste, kota:null, donemSec:true,
+           fiyat:sgs2027Fiyat(), liste:FIYAT.sgs2027.liste, kota:null, donemSec:false,
            taksitAdet:(FIYAT.sgs2027.taksit || 0),
            sonraYazi:(sgs2027ErkenMi() ? '1 Ocak 2027\'den itibaren' : ''),
-           erisim:'Seçtiğin 2027 SGS\'sinden 3 gün sonra biter', sinav:'sgs',
+           erisim:sgs2027EnYakin().ad + '\'sinden 3 gün sonra biter', sinav:'sgs',
            harcYazi:'Sınav başvuru bedeli ' + tl(HARC.sgs.basvuru) + ' TL', acik:true });
 
   L.push({ id:'sgs', grup:'Staja Giriş (SGS)', ad:'Staja Giriş — soru bankası',

@@ -329,7 +329,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
   </div>
 </div>
 
-<script src="fiyat-motoru.js?v=20261123h"></script>
+<script src="fiyat-motoru.js?v=20261123i"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script>
 (function(){
@@ -747,7 +747,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     if(b.dataset.onay){
       var bit=satisBitis(b.dataset.paket);
       if(b.dataset.paket==='sgs-2027') bit=gunEkle(1);   /* 23.11: sunucu dönemden yazar; bu yalnız "bugünden sonra" kapısını geçer */
-      if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+(b.dataset.paket==='sgs-2027'?'seçtiği 2027 SGS\x27sinden 3 gün sonrasına kadar açılır.':bit+' tarihine kadar açılır.'))) return;
+      if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+(b.dataset.paket==='sgs-2027'?'siparişteki 2027 SGS döneminden (bugün Nisan) 3 gün sonrasına kadar açılır.':bit+' tarihine kadar açılır.'))) return;
       b.disabled=true; var onayNo=b.dataset.onay;
       var sonuc=await islem('yonetim_siparis_onayla', { p_no:b.dataset.onay, p_bitis:bit }, function(d){
         return (d.paket==='ACILAMADI'||d.paket==='BEKLIYOR') ? '✓ Sipariş ödendi. '+(d.not||'Kişi üye olunca paketi kendiliğinden açılır.')

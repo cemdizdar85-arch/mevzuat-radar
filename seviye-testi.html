@@ -329,7 +329,7 @@
 
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js?v=20261012a"></script>
-<script src="fiyat-motoru.js?v=20261123h"></script>
+<script src="fiyat-motoru.js?v=20261123i"></script>
 <script src="anlik-teklif.js?v=20261012c"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
@@ -940,7 +940,7 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
     try{
       var p7=(typeof paketBul==='function')?paketBul('sgs-2027'):null;   /* 23.11 Cem: SGS 2027 paketi */
       if(p7&&p7.acik){
-        $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml(p7.id,p7.fiyat)+'</b>'+(fiyatDahilHtml(p7.id,p7.fiyat)||' (KDV dahil)')+' · erişim seçtiğin 2027 SGS\'sinden 3 gün sonra biter'
+        $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml(p7.id,p7.fiyat)+'</b>'+(fiyatDahilHtml(p7.id,p7.fiyat)||' (KDV dahil)')+' · erişim '+(typeof sgs2027EnYakin==='function'?sgs2027EnYakin().ad:'Nisan 2027 SGS')+'\'sinden 3 gün sonra biter'
           +(p7.sonraYazi?' · '+p7.not+' (' + p7.sonraYazi+' '+fiyatAna(p7.id,p7.liste)+(fiyatDahilNot(p7.id,p7.liste)?', '+fiyatDahilNot(p7.id,p7.liste):'')+')':'')
           ;   /* 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" */
         $('svTeklifFiyat').hidden=false;

@@ -266,7 +266,7 @@
       <div id="donemListe" class="dersListe"></div>
     </div>
     <p class="kucuk" style="margin-top:2px">Yeterlilik'te erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
-    <b>SGS 2027</b>'de seçtiğin 2027 sınavından 3 gün sonra biter. Sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
+    <b>SGS 2027</b>'de Nisan 2027 SGS'sinden 3 gün sonra biter. Sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
     <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
     <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
     <p class="kucuk" style="margin-top:6px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da bilgisayarda da
@@ -476,7 +476,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261123h"></script>
+<script src="fiyat-motoru.js?v=20261123i"></script>
 <script>
 /* 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı; eski bağlantı (reklam, uygulama, e-posta: ?paket=sgs / son20-sgs)
    SGS 2027 paketine iner. Sayfanın öteki betikleri adresi bundan SONRA okur. */
@@ -1592,7 +1592,7 @@ btn.addEventListener('click', function(){
         /* 23.11 SGS 2027 kapısı (radar-app/sql/2026-11-23-sgs-2027-paket.sql) */
         if(kapiHatasi(r.error, 'SGS_DONEM_GEREKLI') || kapiHatasi(r.error, 'PAKET_SATISTA_DEGIL') || kapiHatasi(r.error, 'INDIRIM_YOK_SGS2027')){
           btn.disabled = false; adimSay('sgs2027-kapi');
-          goster(kapiHatasi(r.error, 'SGS_DONEM_GEREKLI') ? 'Sipariş verilmedi: <b>gireceğin 2027 SGS dönemini seç</b> (Nisan, Temmuz ya da Kasım).'
+          goster(kapiHatasi(r.error, 'SGS_DONEM_GEREKLI') ? 'Sipariş verilmedi: <b>2027 SGS dönemi bulunamadı</b>. Sayfayı yenileyip yeniden dene; sürerse destek@tetikte.com\'a yaz.'
             : kapiHatasi(r.error, 'PAKET_SATISTA_DEGIL') ? 'Sipariş verilmedi: <b>bu paket satıştan kalktı</b>. Sayfayı yenileyip SGS 2027 paketini seç.'
             : 'Sipariş verilmedi: <b>SGS 2027 paketinde indirim kodu kullanılmaz</b>. Kod alanını boşaltıp yeniden dene.', false);
           return;

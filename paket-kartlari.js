@@ -11,7 +11,7 @@
     /* 23.11 Cem: Tam Paket kartı SGS 2027 paketi olur, "Son 20 Gün: 7 deneme" maddesi ve "Sadece 7 Deneme" kartı kalkar */
     '<article class="pk-kart" data-paket="sgs-2027"><p class="pk-sinav">SMMM Staja Giriş · 2027</p><h3>SGS 2027 Paketi</h3>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p><p class="pk-alt pk-taksit" data-taksit hidden></p>'
-  + '<ul><li>Sınırsız soru: bankanın tamamı</li><li>Her sorunun dayandığı madde altında yazar</li><li>Gireceğin 2027 SGS\'sinden 3 gün sonrasına kadar</li></ul>'
+  + '<ul><li>Sınırsız soru: bankanın tamamı</li><li>Her sorunun dayandığı madde altında yazar</li><li>Nisan 2027 SGS\'sinden 3 gün sonrasına kadar</li></ul>'
   + '<a class="pk-al" href="satin-al.html?paket=sgs-2027">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart" data-paket="yeterlilik-1"><p class="pk-sinav">SMMM Yeterlilik</p><h3>Seçtiğin dersler</h3>'
   + '<div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>'
