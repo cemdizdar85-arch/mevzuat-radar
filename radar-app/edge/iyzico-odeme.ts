@@ -12,12 +12,12 @@
 // ⛔ Kart bilgisi bize HİÇ gelmez (iyzico sayfası). Anahtar/imza/yetki başlığı hiçbir cevapta ve günlükte yok.
 // iyzico yetkisi IYZWSv2: imza = HMAC-SHA256(gizli, rastgele + uri yolu + gövde) hex;
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
-//   GET  ?taksit=1      → (23.11, herkese açık, PARA ÇEKMEZ) SGS 2027'nin bugünkü fiyatıyla iyzico taksit sorgusu: hangi kart
+//   GET  ?taksit=1[&paket=X] → (23.11, herkese açık, PARA ÇEKMEZ) paketin bugünkü fiyatıyla (vars. sgs-2027) iyzico taksit sorgusu: hangi kart
 //                          ailesinde kaç taksit, toplam kaç TL (kart/kişi verisi yok; 10 dk önbellek). Taksit desteğini ÖLÇER.
-// 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit yalnız SGS 2027'de ve FIYAT.sgs2027.taksit açıkken (diğerleri enabledInstallments [1])
+// 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit yalnız fiyat-motoru.js satırında taksit:3 olan pakette (diğerleri enabledInstallments [1])
 //    · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "7ba15fcb807f60fc";
+const KOD_IMZA = "fcc84af1d87aa640";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -25,7 +25,7 @@ const IYZ = "https://api.iyzipay.com";
 const SITE = "https://tetikte.com";
 const DONUS = `${SB_URL}/functions/v1/iyzico-odeme?islem=donus`;
 const DENEME_TL = 5;
-let taksitOnbellek: { t: number; v: unknown } | null = null;
+const taksitOnbellek: Record<string, { t: number; v: unknown }> = {};
 
 function cevap(kod: number, govde: unknown) {
   return new Response(kod === 204 ? null : JSON.stringify(govde), { status: kod, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, apikey" } });
@@ -118,10 +118,13 @@ Deno.serve(async (req) => {
 
   // ---------------------------------------------------------------- 23.11 taksit ölçümü (herkese açık, para çekmez)
   if (u.searchParams.get("taksit") === "1") {
-    if (taksitOnbellek && Date.now() - taksitOnbellek.t < 600000) return cevap(200, taksitOnbellek.v);
+    // 23.11 (Cem "3 taksit sgs ve bitirmede"): ?paket= ile satıştaki pakette ölçülür (varsayılan sgs-2027); yalnız bilinen paket kimliği
+    const pk = (u.searchParams.get("paket") ?? "sgs-2027").trim();
+    const ob = taksitOnbellek[pk]; if (ob && Date.now() - ob.t < 600000) return cevap(200, ob.v);
     let F; try { F = await fiyatlar(); } catch { return cevap(503, { hata: "fiyat okunamadi" }); }
-    const f = F.FIYAT.sgs2027; if (!f) return cevap(503, { hata: "fiyat okunamadi" });
-    const fiyat = Date.now() < Number(f.gecis) ? Number(f.kurulus) : Number(f.liste);
+    const pt = paketFiyat(F.FIYAT, pk); if (!pt || !pt.f) return cevap(400, { hata: "paket bilinmiyor" });
+    const f = pt.f;
+    const fiyat = pt.tarihli ? (Date.now() < Number(f.gecis) ? Number(f.kurulus) : Number(f.liste)) : Number(f.kurulus);
     const t = await iyzico("/payment/iyzipos/installment", { locale: "tr", conversationId: "taksit-" + Date.now(), price: para(fiyat) });
     // deno-lint-ignore no-explicit-any
     const aileler = (Array.isArray(t.installmentDetails) ? t.installmentDetails : []).map((x: any) => ({
@@ -129,8 +132,8 @@ Deno.serve(async (req) => {
       // deno-lint-ignore no-explicit-any
       secenek: (Array.isArray(x.installmentPrices) ? x.installmentPrices : []).map((y: any) => ({ adet: y.installmentNumber, aylik: y.installmentPrice, toplam: y.totalPrice })),
     }));
-    const v = { fiyat, taksit_acik_sitede: Number(f.taksit) === 3, iyzico: { status: t.status ?? null, errorCode: t.errorCode ?? null, errorMessage: t.errorMessage ?? null }, aileler };
-    if (t.status === "success") taksitOnbellek = { t: Date.now(), v };
+    const v = { paket: pk, fiyat, taksit_acik_sitede: Number(f.taksit) === 3, iyzico: { status: t.status ?? null, errorCode: t.errorCode ?? null, errorMessage: t.errorMessage ?? null }, aileler };
+    if (t.status === "success") taksitOnbellek[pk] = { t: Date.now(), v };
     return cevap(200, v);
   }
 
@@ -217,8 +220,8 @@ Deno.serve(async (req) => {
     // 19.10 özel indirim kodu: siparisler.ozel_kod_tl (sunucu damgası; üç indirimden yalnız biri dolu olur)
     const beklenen = taban - (Number(s.indirim_tl) || 0) - (Number(s.anlik_teklif_tl) || 0) - (Number(s.ozel_kod_tl) || 0);
     if (Math.abs(Number(s.tutar) - beklenen) > 0.005) return cevap(409, { hata: "tutar guncel fiyatla uyusmuyor", siparis: s.tutar, guncel: beklenen });
-    // 23.11: 3 taksit yalnız SGS 2027'de ve fiyat-motoru.js FIYAT.sgs2027.taksit açıkken (Cem ödeme firmasıyla anlaşınca)
-    const taksit = pf.tarihli && Number(pf.f.taksit) === 3 ? [1, 3] : [1];
+    // 23.11: 3 taksit paketin fiyat-motoru.js satırında taksit:3 açıkken (SGS 2027 + Yeterlilik, Cem "3 taksit sgs ve bitirmede")
+    const taksit = Number(pf.f.taksit) === 3 ? [1, 3] : [1];
     const r = await odemeBaslat(beklenen, no, s.paket_ad || s.paket, alici(s.ad_soyad, s.email, s.adres, String(s.fatura?.tckn ?? ""), ip, no), taksit);
     if (r.status !== "success" || !r.token) return cevap(502, { hata: "iyzico baslatmadi", errorCode: r.errorCode ?? null, errorMessage: r.errorMessage ?? null });
     await sb("kart_odemeleri", { method: "POST", body: JSON.stringify({ siparis_no: no, deneme: false, tutar: beklenen, conversation_id: no, token: r.token }) });

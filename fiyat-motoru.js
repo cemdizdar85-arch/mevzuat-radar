@@ -273,9 +273,11 @@ var FIYAT = {
      tutarlar 1,2'nin katı; hepsi eski fiyatın altında, hepsi hâlâ harçtan ucuz (1.188 < 1.260 …).
      Ekranda: 990 / 1.590 / 2.090 / 2.490 / tüm 2.890 + KDV · liste ×2 (1.980 / 3.180 / 4.180 / 4.980 / 5.780 + KDV).
      Elçi indirimi KDV dahil aynı (tüm 400, ders başı 50) → sunucu elci_indirim değişmedi. */
-  yeterlilik:     [ null, {kurulus:1188,liste:2376}, {kurulus:1908,liste:3816},
-                          {kurulus:2508,liste:5016}, {kurulus:2988,liste:5976} ],
-  yeterlilikTum:  { kurulus:3468, liste:6936 },
+  /* 23.11 Cem ("taksit 3 taksit yapıyoruz sgs ve bitirmede 2027 için"): Yeterlilik paketlerinde de peşin fiyatına 3 taksit — taksit:3.
+     Açmadan önce iyzico-odeme ?taksit=1&paket=<id> ile her tutar ölçülür (vade farkı alıcıya yansımamalı). */
+  yeterlilik:     [ null, {kurulus:1188,liste:2376,taksit:0}, {kurulus:1908,liste:3816,taksit:0},
+                          {kurulus:2508,liste:5016,taksit:0}, {kurulus:2988,liste:5976,taksit:0} ],
+  yeterlilikTum:  { kurulus:3468, liste:6936, taksit:0 },
   /* KGK modül merdiveni — çapa e-sınav harcı: 7 konu × 950 = 6.650 TL */
   kgk:            [ null, {kurulus:1490,liste:1990}, {kurulus:2490,liste:3290},
                           {kurulus:3190,liste:4190} ],
@@ -540,12 +542,12 @@ function paketler(){
     L.push({ id:'yeterlilik-' + n, grup:'SMMM Yeterlilik',
              ad:'Yeterlilik — ' + n + ' ders', ders:n,
              fiyat:FIYAT.yeterlilik[n].kurulus, liste:FIYAT.yeterlilik[n].liste,
-             kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik',
+             kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilik[n].taksit || 0),
              harcYazi:n + ' dersin harcı ' + tl(HARC.yeterlilik.ders * n) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
   }
   L.push({ id:'yeterlilik-tum', grup:'SMMM Yeterlilik', ad:'Yeterlilik — tüm dersler', ders:8,
            fiyat:FIYAT.yeterlilikTum.kurulus, liste:FIYAT.yeterlilikTum.liste,
-           kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik',
+           kota:KOTA.yeterlilik, erisim:erisimYazi('yeterlilik'), sinav:'yeterlilik', taksitAdet:(FIYAT.yeterlilikTum.taksit || 0),
            harcYazi:'İlk başvuru harcı ' + tl(HARC.yeterlilik.ilkBasvuru) + ' TL', acik:ICERIK_HAZIR.yeterlilik });
 
   /* KGK'da harç çapası kullanılmaz (yukarıdaki nota bak); satır KURS fiyatını
