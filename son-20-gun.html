@@ -276,7 +276,7 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
     } else gk.hidden=true;
     var k=$('kapi');
     if(!L.oturum){ k.hidden=false; k.innerHTML='<h2>Giriş yap, denemelerine başla</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a></div>'; }
-    else if(!L.erisim){ k.hidden=false; k.innerHTML='<h2>Denemeler paketinde yok</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a></div>'; }
+    else if(!L.erisim){ k.hidden=false; k.innerHTML='<h2>Denemeler paketinde yok</h2><p>Son 20 Gün denemeleri 2026/3 dönemi üyelerine açıktı; satışı bitti. 2027 sınavları için <b>SGS 2027 paketi</b> bankanın tamamını açar.</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=sgs-2027">SGS 2027 paketi</a></div>'; }   /* 23.11 Cem: Son 20 Gün satıştan kalktı */
     else k.hidden=true;
     var h='', eksik=null;   /* 31.10 önceki deneme kilidi (sunucu _s20_gorev_kapi ile aynı): açılmış bir önceki denemede bitmemiş ders varsa */
     for(var no=1; no<=DENEME_SAYI; no++){

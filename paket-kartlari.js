@@ -8,14 +8,11 @@
      (son20-yet, 8 Kasım = 28 Kasım − 20; kalan gün [data-yet20-gun]). Üstü çizili fiyat YOK (25.09 kararı).
      28.10 Cem şart onayı: Yeterlilik kartlarında ders ders devam sözü satırları (kampanya-son-20-gun.html 5. madde). */
   var KARTLAR =
-    '<article class="pk-kart" data-paket="sgs"><p class="pk-sinav">SMMM Staja Giriş</p><h3>Tam Paket</h3>'
-  + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
-  + '<ul><li>Sınırsız soru: bankanın tamamı</li><li>Son 20 Gün: 7 deneme + konu görevleri</li><li>Her sorunun dayandığı madde altında yazar</li></ul>'
-  + '<a class="pk-al" href="satin-al.html?paket=sgs">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
-  + '<article class="pk-kart" data-paket="son20-sgs"><p class="pk-sinav">SMMM Staja Giriş · Son 20 Gün</p><h3>Sadece 7 Deneme</h3>'
-  + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
-  + '<ul><li>7 deneme, ders ders testler</li><li>Konu görevleri ve açıklamalar</li>'+(Date.now()<=Date.UTC(2026,10,1,21,4,59)?'<li>Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz</li>':'')+'</ul>'   /* 01.11 Cem: söz 23:59'da bitti */
-  + '<a class="pk-al" href="satin-al.html?paket=son20-sgs">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
+    /* 23.11 Cem: Tam Paket kartı SGS 2027 paketi olur, "Son 20 Gün: 7 deneme" maddesi ve "Sadece 7 Deneme" kartı kalkar */
+    '<article class="pk-kart" data-paket="sgs-2027"><p class="pk-sinav">SMMM Staja Giriş · 2027</p><h3>SGS 2027 Paketi</h3>'
+  + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p><p class="pk-alt pk-taksit" data-taksit hidden></p>'
+  + '<ul><li>Sınırsız soru: bankanın tamamı</li><li>Her sorunun dayandığı madde altında yazar</li><li>Gireceğin 2027 SGS\'sinden 3 gün sonrasına kadar</li></ul>'
+  + '<a class="pk-al" href="satin-al.html?paket=sgs-2027">Satın al</a><p class="pk-sonra" data-sonra></p></article>'
   + '<article class="pk-kart" data-paket="yeterlilik-1"><p class="pk-sinav">SMMM Yeterlilik</p><h3>Seçtiğin dersler</h3>'
   + '<div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>'
   + '<p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>'
@@ -62,13 +59,17 @@
       return;
     }
     k.querySelector('[data-fiyat]').innerHTML = hr ? tlx(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' <small>TL + KDV</small>' : tlx(p.fiyat) + ' <small>TL</small>';
-    k.querySelector('[data-dahil]').textContent = (hr ? fiyatDahilNot(p.id, p.fiyat) : '') + (p.kota && p.liste > p.fiyat ? (hr ? ' · ' : '') + 'açılış fiyatı · ilk ' + tlx(p.kota) + ' üye' : '');
-    k.querySelector('[data-sonra]').innerHTML = p.liste > p.fiyat ? (p.kota ? 'İlk ' + tlx(p.kota) + ' üyeden sonra ' : 'Sonra ') + fiyatAnaHtml(p.id, p.liste) + fiyatDahilHtml(p.id, p.liste) : '';
+    k.querySelector('[data-dahil]').textContent = (hr ? fiyatDahilNot(p.id, p.fiyat) : '') + (p.kota && p.liste > p.fiyat ? (hr ? ' · ' : '') + 'açılış fiyatı · ilk ' + tlx(p.kota) + ' üye' : '')
+      + (p.sonraYazi ? (hr ? ' · ' : '') + p.not : '');   /* 23.11 SGS 2027: "31 Aralık 2026 23:59'a kadar" */
+    var kt = k.querySelector('[data-taksit]'), tks = (typeof taksitGoster === 'function') ? taksitGoster(p) : '';
+    if(kt){ kt.textContent = tks ? 'Kartla ' + tks : ''; kt.hidden = !tks; }   /* 23.11: yalnız taksit açıkken (FIYAT.sgs2027.taksit) */
+    /* 23.11: üstü çizili eski fiyat YOK; tarihli paket "1 Ocak 2027'den itibaren …" der */
+    k.querySelector('[data-sonra]').innerHTML = p.liste > p.fiyat ? (p.kota ? 'İlk ' + tlx(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'Sonra ') + fiyatAnaHtml(p.id, p.liste) + fiyatDahilHtml(p.id, p.liste) : '';
     if(!p.acik){ a.textContent = 'Yakında'; a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); }
     else { a.textContent = 'Satın al'; a.setAttribute('href', 'satin-al.html?paket=' + p.id); a.removeAttribute('aria-disabled'); }
   }
 
-  function sinavi(id){ return (id === 'sgs' || id === 'son20-sgs') ? 'sgs' : (id.indexOf('yeterlilik') === 0 || id === 'son20-yet') ? 'yeterlilik' : 'kgk'; }
+  function sinavi(id){ return (/^sgs/.test(id) || id === 'son20-sgs') ? 'sgs' : (id.indexOf('yeterlilik') === 0 || id === 'son20-yet') ? 'yeterlilik' : 'kgk'; }
 
   /* seçili sınavın kartları; başlık ve Yeterlilik Son 20 Gün kalan günü */
   function suz(sec){

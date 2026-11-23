@@ -486,7 +486,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            tamamen görünür (kahraman o yüzden alçak). İkisi aynı seçimi yapar (bütün .sinav[data-sinav] dinlenir). -->
       <div class="kah-secim"><p class="kah-secim-bas" id="secimBas">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas">
-        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="" aria-pressed="true">SMMM Staja Giriş <small>2027 dönemleri · Nisan · Temmuz · Kasım</small></button>
         <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
         <span class="sinav kapali" id="kgkKapali" aria-disabled="true" title="KGK Bağımsız Denetçilik · hazırlanıyor">KGK <small>hazırlanıyor</small></span>
         <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
@@ -532,7 +532,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <div class="ic">
       <p class="secim-bas" id="secimBas2">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas2">
-        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="" aria-pressed="true">SMMM Staja Giriş <small>2027 dönemleri · Nisan · Temmuz · Kasım</small></button>
         <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
         <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
              (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
@@ -776,10 +776,10 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261102z"></script>
-<script src="paket-kartlari.js?v=7"></script>
+<script src="fiyat-motoru.js?v=20261123a"></script>
+<script src="paket-kartlari.js?v=8"></script>
 <script src="gkt.js?v=20261101g5"></script>
-<script src="uye-durumu.js?v=20261028z"></script>
+<script src="uye-durumu.js?v=20261123a"></script>
 <script src="son20-kart.js?v=20261116b"></script>
 <script src="uygulama-indir.js?v=20261028m"></script>
 <script>
@@ -880,13 +880,14 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   }
   /* 28.10 Cem ("dersi seç, başka yerden fiyatını gör, çok kullanışsız"; UWorld/Becker düzeni): seçili sınavın fiyatı açılış
      ekranında, paket kartları yalnız o sınavın, kayan şerit o sınavın kampanyası. Rakamlar fiyat-motoru.js'ten. */
-  function sgsTam(){ var p=paketBul('sgs'); return p? p.fiyat-((typeof erkenKayitAcik==='function'&&erkenKayitAcik())?ERKEN_KAYIT.indirim:0) : 0; }
+  function sgsTam(){ var p=paketBul('sgs-2027'); return p? p.fiyat : 0; }   /* 23.11: SGS 2027 paketi (Cem) */
   function kahFiyatCiz(sec, aktif){
     var e=$('kahFiyat'); if(!e) return; var h='';
     try{
-      if(sec==='sgs'){ var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), y=paketBul('son20-sgs');
-        /* 28.10 Cem ("7 deneme 1 Kasım'da gelecek, onu belli edelim; 1 Kasım sonraki fiyatları da yazsak"): sonraki fiyat + açılış günü */
-        h='Tam Paket <b>'+tl(sgsTam())+' TL</b>'+(y?' · Sadece 7 Deneme <b>'+tl(y.fiyat)+' TL</b>':'')+'<small>KDV dahil'+(erken?' · erken kayıt 1 Kasım 23:59\'a kadar, sonra Tam Paket '+tl(paketBul('sgs').fiyat)+' TL':'')+(Date.now()<Date.parse('2026-11-01T00:00:00+03:00')?' · 7 deneme 1 Kasım\'da açılıyor':' · 7 deneme açık')+'</small>'; }   /* 02.11: açılış geçti */
+      if(sec==='sgs'){ var s7=paketBul('sgs-2027'), tk=(typeof taksitGoster==='function')?taksitGoster(s7):'';
+        /* 23.11 Cem: SGS 2027 paketi; Son 20 Gün satıştan kalktı. Üstü çizili fiyat yok, geçiş ileriye dönük yazılır. */
+        h='SGS 2027 paketi <b>'+fiyatAna(s7.id,s7.fiyat)+'</b><small>'+fiyatDahilNot(s7.id,s7.fiyat)+(tk?' · kartla '+tk:'')
+          +(s7.sonraYazi?' · '+s7.not+', '+s7.sonraYazi+' '+fiyatAna(s7.id,s7.liste):'')+'</small>'; }
       else if(sec==='yeterlilik'){ var a0=paketBul('yeterlilik-1'), t=paketBul('yeterlilik-tum'), tn=(typeof erkenNet==='function'&&erkenNet(t))||0,
           a={fiyat:(typeof erkenNet==='function'&&erkenNet(a0))||a0.fiyat};   /* 28.10: ders merdiveni de erken kayıtta ders başı 120 TL */
         /* kartlarla aynı yazım: Yeterlilik kartları "+ KDV" gösterir (V2 kararı) → büyük rakam + KDV, KDV dahil küçük satırda.
@@ -901,7 +902,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   function kayanCiz(sec){
     var iz=document.querySelector('#kayanSerit .kayan-iz'), a=$('kayanA'); if(!iz||!a) return;
     var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), m, href;
-    if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
+    if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs-2027'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
     else if(sec==='yeterlilik'&&typeof erkenYetAcik==='function'&&erkenYetAcik()){   /* 28.10: Yeterlilik erken kayıt (7 Kasım 23:59) */
       var yt=paketBul('yeterlilik-tum'), yn=erkenNet(yt);
       m='🎯 <b>SMMM YETERLİLİK ERKEN KAYIT</b> · 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL ('+tl(yt.fiyat)+' TL yerine) · Son 20 Gün 8 Kasım\'da · <u>Hemen al →</u>'; href='satin-al.html?paket=yeterlilik-tum'; a.setAttribute('aria-label','Yeterlilik erken kayıt: 7 Kasım 23:59\'a kadar tüm dersler '+tl(yn)+' TL. Satın al.'); }
@@ -912,7 +913,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   }
   function dugmeCiz(){
     provaSerit(); kahUstCiz();
-    var S=U?U.SINAVLAR[secili]:{olc:'kaydir/vitrin/ornek-sgs.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
+    var S=U?U.SINAVLAR[secili]:{olc:'kaydir/vitrin/ornek-sgs.html',al:'satin-al.html?paket=sgs-2027',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
     var c1=$('cta1'), c2=$('cta2'), du=$('durum');
@@ -1005,7 +1006,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
          Süre seviye-testi.html'de yazar; ana sayfada süre işi zahmetli gösteriyordu. */
       du.innerHTML='Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.';
     }
-    try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
+    try{ var p27=paketBul('sgs-2027'); if(p27) $('abonelikMetin').textContent='Bütün soru bankası, Nöbetçi ve deneme setleri. SGS 2027 paketi '+fiyatAna(p27.id,p27.fiyat)+' ('+fiyatDahilNot(p27.id,p27.fiyat)+').'; }catch(e){}   /* 23.11 SGS 2027 */
     /* 07.10 Cem ("1 yap"): "neler var" kartları seçili sınava göre - Yeterlilik'te deneme = deneme.html Birebir Prova (gerçek 2026 düzeni),
        seviye ölçümü = Yeterlilik seti. Metin deneme.html'deki Birebir Prova açıklamasıyla aynı. */
     setTimeout(function(){ var z=document.getElementById('ozDeneme'); if(z) z.classList.remove('oz-bekle'); },3000);   /* 07.10 yedek */

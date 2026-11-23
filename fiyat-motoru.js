@@ -213,7 +213,7 @@ var KGK_PAKET_MERDIVENI = false;
    yazılmışken bizimkini hariç yazmak farklı temelde kıyas olurdu (karşılaştırmalı reklam).
 --------------------------------------------------------------------------- */
 /* 01.10 (aynı gece) Cem "bitirme artı kdv olarak göster": Yeterlilik paketleri de '+ KDV' (anahtar paket kimliğiyle). */
-var KDV_HARIC_GOSTER = { sgs:true, 'son20-sgs':true, 'son20-yet':true,'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
+var KDV_HARIC_GOSTER = { sgs:true, 'sgs-2027':true, 'son20-sgs':true, 'son20-yet':true,'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
 /* 27.10: 999 TL'nin KDV hariç tutarı 832,50 (yuvarlanırsa 833 + KDV = 999,60 olurdu); kuruşlu tutar iki haneyle yazılır. */
 function kdvHaric(n){ var h = Math.round(n / (1 + KDV_ORAN) * 100) / 100; return h % 1 ? h.toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) : tl(h); }
 function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? kdvHaric(n) + ' TL + KDV' : tl(n) + ' TL'; }
@@ -252,7 +252,15 @@ var FIYAT = {
      liste 4.990 + KDV = 5.988. Ekranda '+ KDV' tam sayı çıksın diye KDV dahil tutar 1,2'nin katı. Elçi kodu 400 TL KDV dahil
      DEĞİŞMEDİ → takipçi 2.588 öder (Cem'in elçilere ilk paylaşımı "2.590, 400 TL indirim"; söz tutulur).
      Kalan (tahmin, 750 komisyon, %25 KV): elçili havale ~1.055 / kart ~900. Fiyat düştü → m.14 sahte indirim riski yok. */
-  sgs:            { kurulus:2988, liste:5988 },
+  sgs:            { kurulus:2988, liste:5988 },   /* 23.11: 2026 SGS paketi SATIŞTAN KALKTI (acik:false); eski alıcının erişimi aynen */
+  /* 23.11.2026 CEM KARARI — SGS 2027 PAKETİ: 31.12.2026 23:59 (TR) dahil 2.988 TL + KDV = KDV dahil 3.585,60; 1 Ocak 2027 00:00'dan
+     7.488 TL + KDV = KDV dahil 8.985,60. Geçiş KOTA değil TARİH: gecis = 1 Ocak 2027 00:00 TR (epoch ms). Üstü çizili eski fiyat YOK
+     (Fiyat İndirimi Yön.); ekranda "1 Ocak 2027'den itibaren 7.488 TL + KDV" yazar. Bugünkü Tam Paketten (2.490 + KDV) %20 YÜKSEK
+     → reklamda "2026 fiyatıyla" DENMEZ. Kotasız; elçi / özel kod / erken kayıt kodu işlemez (sunucu da reddeder).
+     taksit: 3 = kartla 3 taksit gösterimi ("3 × 1.195,20 TL") + iyzico'da 3 taksit açık. 0 = kapalı. Cem ödeme firmasıyla taksit
+     anlaşmasını yapınca 3 yapılır; iyzico-odeme.ts aynı alanı okur (taksitsiz ödeme sayfası taksit göstermez, gösterim de kalkar).
+     ⚠ Bu nesneyi sunucu (radar-app/edge/iyzico-odeme.ts fiyatlar()) JSON diye okur: değer yalnız sayı, ifade/fonksiyon YAZILMAZ. */
+  sgs2027:        { kurulus:3585.6, liste:8985.6, gecis:1798750800000, taksit:0 },
   /* 27.10.2026 CEM KARARI ("sadece soru alana 999 tl"): Son 20 Gün "Sadece 7 Deneme" — 7 deneme + konu görevleri,
      sitedeki diğer SGS soruları YOK. KDV dahil 999 (832,50 + KDV). Kotasız; elçi/erken kayıt kodu işlemez. */
   son20Sgs:       { kurulus:999, liste:999 },
@@ -403,7 +411,8 @@ var KGK_SORUMLULUK = [
 /* ---------------------------------------------------------------------------
    YARDIMCILAR
 --------------------------------------------------------------------------- */
-function tl(n){ return Number(n).toLocaleString('tr-TR'); }
+/* 23.11: kuruşlu tutar iki haneyle (3.585,60 — eskiden "3.585,6" yazardı); tam sayı eskisi gibi */
+function tl(n){ n = Number(n); return (Math.round(n * 100) % 100) ? n.toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) : n.toLocaleString('tr-TR'); }
 function kdvDahil(net){ return Math.round(net * (1 + KDV_ORAN) * 100) / 100; }
 function kdvDahilYazi(net){
   var d = kdvDahil(net);
@@ -467,20 +476,56 @@ function erisimYazi(anahtar){
    `acik:false` olan paket listede görünür ama satın alınamaz — içeriği
    hazır olmayan paket satılmaz (dolu görünen boş paket satmayız).
 --------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------
+   SGS 2027 DÖNEMLERİ — 23.11.2026 Cem: öğrenci satın alırken gireceği 2027 SGS'sini seçer, erişim o sınavdan 3 GÜN SONRA biter.
+   2027 TÜRMOB takvimi 23.11.2026'da YAYIMLANMADI → tarih:null. Yayımlanınca TEK YERDEN girilir: yönetim panelinden
+   (sunucu: yonetim_sgs_donem_tarih, radar-app/sql/2026-11-23-sgs-2027-paket.sql — bütün alıcıların bitişini de günceller)
+   ve buraya aynı tarih yazılır (ekran). Tarih yokken sunucu geçici bitiş verir (gecici, sınav açıklanınca sınav + 3 güne iner).
+   Kimlikler sunucudaki sgs_donem_tarih.donem ile AYNI olmalı.
+--------------------------------------------------------------------------- */
+var SGS2027_DONEM = [
+  { id:'2027-nisan',  ad:'Nisan 2027 SGS',  tarih:null },
+  { id:'2027-temmuz', ad:'Temmuz 2027 SGS', tarih:null },
+  { id:'2027-kasim',  ad:'Kasım 2027 SGS',  tarih:null }
+];
+function sgs2027Fiyat(){ return Date.now() < FIYAT.sgs2027.gecis ? FIYAT.sgs2027.kurulus : FIYAT.sgs2027.liste; }
+function sgs2027ErkenMi(){ return Date.now() < FIYAT.sgs2027.gecis; }
+/* "3 × 1.195,20 TL" — yalnız taksit açıkken (FIYAT.sgs2027.taksit); kapalıyken boş dize, hiçbir yerde taksit yazmaz */
+function taksitGoster(p){
+  var n = p && p.taksitAdet; if(!n) return '';
+  return n + ' × ' + (Math.round(p.fiyat / n * 100) / 100).toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' TL';
+}
+function sgs2027DonemYazi(id){
+  var d = SGS2027_DONEM.filter(function(x){ return x.id === id; })[0]; if(!d) return '';
+  if(!d.tarih) return d.ad + ' · erişim o sınavdan 3 gün sonra biter';
+  var b = new Date(Date.parse(d.tarih + 'T12:00:00+03:00') + 3 * 86400000);
+  return d.ad + ' (' + new Date(d.tarih + 'T12:00:00+03:00').toLocaleDateString('tr-TR', { day:'numeric', month:'long' }) + ') · erişimin son günü '
+    + b.toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' });
+}
+
 function paketler(){
   var L = [];
+
+  /* 23.11 SGS 2027. Kimlik bilerek 'sgs-' ile BAŞLAR: sgs-öneki (uye-durumu paketSinavlari, kasa paket_erisim_var,
+     _paket_sinavi) bütün SGS bankasını açar — paket bankanın tamamını satıyor. Bitiş siparişteki sgs_donem'den (sunucu). */
+  L.push({ id:'sgs-2027', grup:'Staja Giriş (SGS)', ad:'SGS 2027 paketi',
+           fiyat:sgs2027Fiyat(), liste:FIYAT.sgs2027.liste, kota:null, donemSec:true,
+           taksitAdet:(FIYAT.sgs2027.taksit || 0),
+           sonraYazi:(sgs2027ErkenMi() ? '1 Ocak 2027\'den itibaren' : ''),
+           erisim:'Seçtiğin 2027 SGS\'sinden 3 gün sonra biter', sinav:'sgs',
+           harcYazi:'Sınav başvuru bedeli ' + tl(HARC.sgs.basvuru) + ' TL', acik:true });
 
   L.push({ id:'sgs', grup:'Staja Giriş (SGS)', ad:'Staja Giriş — soru bankası',
            fiyat:FIYAT.sgs.kurulus, liste:FIYAT.sgs.liste, kota:KOTA.sgs,
            erisim:erisimYazi('sgs'), sinav:'sgs',
-           harcYazi:'Sınav başvuru bedeli ' + tl(HARC.sgs.basvuru) + ' TL', acik:true });
+           harcYazi:'Sınav başvuru bedeli ' + tl(HARC.sgs.basvuru) + ' TL', acik:false });   /* 23.11: yerini SGS 2027 aldı */
 
   /* 27.10 Geçene Kadar Tetikte. Kimlik 'sgs' ile BAŞLAMAZ (sgs-öneki her yerde bütün SGS bankasını açar).
      acilis: denemeler bu gün açılır; o güne kadar ön satış (arac/fiyat-urun-kapisi.js FU-ONSATIS). */
   L.push({ id:'son20-sgs', grup:'Staja Giriş (SGS)', ad:'Son 20 Gün — Sadece 7 Deneme',
            fiyat:FIYAT.son20Sgs.kurulus, liste:FIYAT.son20Sgs.liste, kota:null,
            erisim:'21 Kasım 2026 sınavına kadar · denemeler açık', sinav:'sgs', acilis:'2026-11-01',   /* 02.11: 1 Kasım'da açıldı */
-           harcYazi:'7 deneme + konu görevleri · sitedeki diğer SGS soruları yok', acik:true });
+           harcYazi:'7 deneme + konu görevleri · sitedeki diğer SGS soruları yok', acik:false });   /* 23.11 Cem: Son 20 Gün satıştan kalktı; eski alıcının deneme/sonuç verisi aynen */
   /* 28.10 Cem ("satın al diyeceğiz, 20 gün kala o gün açılacak diye yaz"): Yeterlilik Son 20 Gün ön satış. Kimlik bilerek
      'yeterlilik' ile BAŞLAMAZ (paket_erisim_var 'yeterlilik-%' bütün bankayı açar). Sunucu: radar-app/sql/2026-10-28-son20-yet.sql. */
   L.push({ id:'son20-yet', grup:'SMMM Yeterlilik', ad:'Son 20 Gün — Yeterlilik Sadece Denemeler',
@@ -545,7 +590,7 @@ function paketler(){
     p.indirim = indirimYuzde(p.fiyat, p.liste);
     /* 25.09 Cem: yüzde rozeti kaldırıldı. Liste fiyatı ÜSTÜ ÇİZİLİ de gösterilmez: o fiyattan hiç satış yapılmadı,
      çizili 'eski fiyat' İndirimli Satış mevzuatında sahte indirim sayılır (29.08 dersi 6). Liste ileriye dönük yazılır. */
-  p.not     = (p.liste > p.fiyat && p.kota) ? 'açılış fiyatı · ilk ' + tl(p.kota) + ' üye' : (p.indirim ? 'açılış fiyatı' : 'sabit fiyat');   /* 08.10 Cem: "kurucu fiyatı" yerine "açılış fiyatı" */
+  p.not     = (p.liste > p.fiyat && p.kota) ? 'açılış fiyatı · ilk ' + tl(p.kota) + ' üye' : (p.sonraYazi ? '31 Aralık 2026 23:59\'a kadar' : p.indirim ? 'açılış fiyatı' : 'sabit fiyat');   /* 08.10 Cem: "kurucu fiyatı" yerine "açılış fiyatı" · 23.11 SGS 2027 tarihli */
     p.taksit  = taksitYazi(p.fiyat);
   });
   return L;

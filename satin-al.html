@@ -259,8 +259,14 @@
       <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
       erişim süren içinde bir kez ücretsiz değiştiririz.</p>
     </div>
-    <p class="kucuk" style="margin-top:2px">Erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
-    sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
+    <!-- 23.11 SGS 2027: dönem seçimi (bitiş = seçilen 2027 SGS'si + 3 gün; tarih sunucuda tek yerden, sgs_donem_tarihleri) -->
+    <div class="kutu ic" id="donemKutu" style="display:none">
+      <h2>Hangi 2027 SGS'sine gireceksin?</h2>
+      <p class="kucuk" style="margin:0 0 10px">Erişimin seçtiğin sınavdan <b>3 gün sonra</b> biter. 2027 sınav tarihleri TÜRMOB'ca açıklanınca burada yazar.</p>
+      <div id="donemListe" class="dersListe"></div>
+    </div>
+    <p class="kucuk" style="margin-top:2px">Yeterlilik'te erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
+    <b>SGS 2027</b>'de seçtiğin 2027 sınavından 3 gün sonra biter. Sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
     <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
     <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
     <p class="kucuk" style="margin-top:6px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da bilgisayarda da
@@ -465,7 +471,13 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261102z"></script>
+<script src="fiyat-motoru.js?v=20261123a"></script>
+<script>
+/* 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı; eski bağlantı (reklam, uygulama, e-posta: ?paket=sgs / son20-sgs)
+   SGS 2027 paketine iner. Sayfanın öteki betikleri adresi bundan SONRA okur. */
+(function(){ try{ var u = new URL(location.href), q = u.searchParams.get('paket');
+  if(q === 'sgs' || q === 'son20-sgs'){ u.searchParams.set('paket', 'sgs-2027'); history.replaceState(null, '', u.toString()); } }catch(e){} })();
+</script>
 <script>
 /* 06.11 (Cem "alamayan kişi bir daha böyle sıkıntıyla karşılaşmasın"): fiyat dosyası 503 alınca paket listesi boş kalıyor, alıcı
    nedenini görmüyordu (06.11 canlıda bir yüklemede ölçüldü). İki kez kendiliğinden yenilenir; olmazsa yol gösteren kutu çıkar. */
@@ -536,9 +548,12 @@ function pkFiyatHtml(p){
   if(net)
     return '<span class="fy"><b>' + kdvHaric(net) + ' TL + KDV</b><span style="color:var(--ink);font-weight:700">KDV dahil ' + tl(net) + ' TL · ' + tl(p.fiyat) + ' TL yerine</span>'
       + '<span>erken kayıt · ' + erkenBitisYazi(p.id) + '</span>' + ayr;
+  /* 23.11 SGS 2027: üstü çizili eski fiyat YOK; geçiş ileriye dönük "1 Ocak 2027'den itibaren …" · taksit yalnız açıkken */
+  var tk = (typeof taksitGoster === 'function') ? taksitGoster(p) : '';
   return '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
     + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
-    + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
+    + (tk ? '<span style="color:var(--ink);font-weight:700">Kartla ' + tk + '</span>' : '')
+    + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
     + ayr;
 }
 (function(){
@@ -599,6 +614,40 @@ function dersSayisi(p){
 function dersHavuzu(p){
   return p && p.id.indexOf('kgk-') === 0 ? DERSLER.kgk : DERSLER.yeterlilik;
 }
+/* ---- SGS 2027 DÖNEM SEÇİCİ (23.11) ----
+   Liste fiyat-motoru.js SGS2027_DONEM; sınav tarihi sunucudan (sgs_donem_tarihleri, tek yer: yonetim_sgs_donem_tarih).
+   Sunucu yanıt vermezse tarih yazılmaz, "o sınavdan 3 gün sonra biter" yazar (tahmini tarih yazılmaz). */
+var DONEM_TARIH = {};
+function secilenDonem(){ var i = document.querySelector('#donemListe input:checked'); return i ? i.value : ''; }
+function donemSatir(d){
+  var t = DONEM_TARIH[d.id];
+  if(!t) return d.ad + '<small style="display:block;color:var(--muted);font-weight:400">Tarih henüz açıklanmadı · erişim sınavdan 3 gün sonra biter</small>';
+  var gun = function(s, y){ return new Date(s + 'T12:00:00+03:00').toLocaleDateString('tr-TR', y ? { day:'numeric', month:'long', year:'numeric' } : { day:'numeric', month:'long' }); };
+  return d.ad + ' · ' + gun(t.sinav) + '<small style="display:block;color:var(--muted);font-weight:400">Erişimin son günü ' + gun(t.bitis, 1) + '</small>';
+}
+function donemCiz(){
+  var kutu = document.getElementById('donemKutu'), liste = document.getElementById('donemListe');
+  if(!kutu || !liste) return;
+  if(!secili || !secili.donemSec || typeof SGS2027_DONEM === 'undefined'){ kutu.style.display = 'none'; return; }
+  var secSatir = document.querySelector('#paketler .pk.sec');
+  if(secSatir && secSatir.nextElementSibling !== kutu) secSatir.insertAdjacentElement('afterend', kutu);
+  var once = secilenDonem();
+  liste.innerHTML = SGS2027_DONEM.map(function(d){
+    return '<label><input type="radio" name="sgsDonem" value="' + d.id + '"' + (d.id === once ? ' checked' : '') + '><span>' + donemSatir(d) + '</span></label>';
+  }).join('');
+  kutu.style.display = 'block';
+}
+window.addEventListener('load', function(){   /* supabase istemcisi (window.sb) sayfa sonunda kurulur */
+  try{
+    var sb = window.sb; if(!sb || typeof sb.rpc !== 'function') return;
+    sb.rpc('sgs_donem_tarihleri').then(function(r){
+      if(!r || r.error || !Array.isArray(r.data)) return;
+      r.data.forEach(function(x){ if(x && x.donem && x.sinav_tarihi) DONEM_TARIH[x.donem] = { sinav:x.sinav_tarihi, bitis:x.bitis }; });
+      donemCiz();
+    }, function(){});
+  }catch(e){}
+});
+
 function secilenDersler(){
   return Array.prototype.slice.call(
     document.querySelectorAll('#dersListe input:checked')).map(function(i){ return i.value; });
@@ -736,6 +785,7 @@ function ozetCiz(){
   if(secili && (ind > 0 || tk > 0)){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
     document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : (otoKod ? 'Normalde ' + tl(secili.fiyat) + ' TL; erken kayıtla ' + tl(ind) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind))) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
   dersCiz();
+  donemCiz();
   if(typeof teklifCiz === 'function') teklifCiz();
   if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
 }
@@ -848,11 +898,13 @@ function elciDenetle(){
   elciIndirim = 0; kodTur = ''; otoKod = '';
   /* 02.11 Cem ("999 TL tekliflerde hiçbir indirim kodu kullanılamasın"): Son 20 Gün paketlerinde kod kutusu yok, girilmiş kod
      uygulanmaz (sunucu da reddeder: radar-app/sql/2026-11-02-son20-indirimsiz.sql) */
-  var s20 = !!(secili && /^son20-/.test(secili.id)), ka = document.getElementById('kodAc'), kk = document.getElementById('kodKutu');
+  /* 23.11 SGS 2027 de kodsuz (Cem: reklam fiyatı tek; sunucu INDIRIM_YOK_SGS2027 ile reddeder) */
+  var s27 = !!(secili && secili.id === 'sgs-2027');
+  var s20 = !!(secili && (/^son20-/.test(secili.id) || s27)), ka = document.getElementById('kodAc'), kk = document.getElementById('kodKutu');
   if(ka) ka.hidden = s20 || (kk && !kk.hidden);
   if(kk && s20) kk.hidden = true;
   var kr = document.getElementById('kodRozet'); if(kr) kr.hidden = s20;
-  if(s20){ elciDurumYaz(ham.trim() ? '999 TL Son 20 Gün paketlerinde indirim kodu kullanılmaz.' : '', 'var(--amber)'); ozetCiz(); return; }
+  if(s20){ elciDurumYaz(ham.trim() ? (s27 ? 'SGS 2027 paketinde indirim kodu kullanılmaz.' : '999 TL Son 20 Gün paketlerinde indirim kodu kullanılmaz.') : '', 'var(--amber)'); ozetCiz(); return; }
   if(!ham.trim()){
     var ek = (secili && typeof erkenKod === 'function') ? erkenKod(secili.id) : '';   /* 28.10: SGS Tam Paket + Yeterlilik tüm dersler */
     if(ek){ kod = otoKod = ek; }
@@ -937,7 +989,7 @@ ozetCiz();
        1 ders; sayı ders seçicisinden değişir) · Son 20 Gün. Seçilen en üstte; kardeşler her seçimde yeniden kurulur. */
     function kardesKur(){
       var id = secili ? secili.id : q, liste;
-      if(id === 'sgs') liste = ['son20-sgs']; else if(id === 'son20-sgs') liste = ['sgs'];
+      if(/^sgs/.test(id) || id === 'son20-sgs') liste = [];   /* 23.11: SGS'de tek paket (SGS 2027); Son 20 Gün satıştan kalktı */
       else if(/^yeterlilik-|^son20-yet$/.test(id)) liste = ['yeterlilik-tum', /^yeterlilik-\d$/.test(id) ? id : 'yeterlilik-1', 'son20-yet'];
       else liste = [];
       Array.prototype.forEach.call(kap.querySelectorAll('.pk'), function(el){ el.classList.toggle('kardes', liste.indexOf(el.getAttribute('data-id')) > -1); });
@@ -1354,6 +1406,9 @@ btn.addEventListener('click', function(){
   /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
      bilmeden para almak, tutamayacagimiz bir soz vermek olur. */
   var gerekenDers = dersSayisi(secili), secilenD = secilenDersler();
+  /* 23.11 SGS 2027: dönem seçilmeden sipariş alınmaz (erişimin biteceği gün buna bağlı; sunucu SGS_DONEM_GEREKLI) */
+  var sgsDonem = secili.donemSec ? secilenDonem() : '';
+  if(secili.donemSec && !sgsDonem){ hata('Gireceğin 2027 SGS dönemini seç (Nisan, Temmuz ya da Kasım).', 1); return; }
   if(gerekenDers && secilenD.length !== gerekenDers){
     hata('Tam olarak ' + gerekenDers + ' ders/modül seçmelisin (' + secilenD.length + ' seçtin).', 1);
     return;
@@ -1382,6 +1437,7 @@ btn.addEventListener('click', function(){
                 ad_soyad:ad, email:mail, telefon:tel, adres:adres, fatura:fatura,
                 davet_kodu:(davet || null),
                 odeme:'havale', durum:'odeme_bekliyor' };
+  if(sgsDonem) kayit.sgs_donem = sgsDonem;   /* 23.11 SGS 2027 (radar-app/sql/2026-11-23-sgs-2027-paket.sql) */
   /* Elçi kolonları yalnız ELCI.acik iken gönderilir: SQL basılmadan bu anahtarlar
      gitseydi tablo bilinmeyen kolonu reddeder, sipariş yalnız e-postaya düşerdi. */
   if(elciAcik()){ kayit.elci_kodu = elciKod || null; kayit.indirim_tl = elciKod ? elciIndirim : 0; }
@@ -1439,6 +1495,7 @@ btn.addEventListener('click', function(){
         'Kaynak etiketi':(kayit.kaynak_etiket || '—'),
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
+        'SGS dönemi':(sgsDonem || '—'),
         'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
         'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · ' + (acilisYazi(secili) ? 'ön satış cayma onayı · açılış ' + secili.acilis : 'anında ifa onayı') + ' · aydınlatma okundu · ' + new Date().toISOString() })});
   }
@@ -1500,6 +1557,14 @@ btn.addEventListener('click', function(){
           btn.disabled = false; adimSay('cift-ders');
           goster('Sipariş verilmedi: <b>seçtiğin derslerden biri hesabında zaten açık</b>, onun için ikinci kez ödeme almıyoruz. ' +
             'Listede "✓ zaten açık" yazan dersi bırakıp yalnız yeni dersi seç. Takılırsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com.', false);
+          return;
+        }
+        /* 23.11 SGS 2027 kapısı (radar-app/sql/2026-11-23-sgs-2027-paket.sql) */
+        if(kapiHatasi(r.error, 'SGS_DONEM_GEREKLI') || kapiHatasi(r.error, 'PAKET_SATISTA_DEGIL') || kapiHatasi(r.error, 'INDIRIM_YOK_SGS2027')){
+          btn.disabled = false; adimSay('sgs2027-kapi');
+          goster(kapiHatasi(r.error, 'SGS_DONEM_GEREKLI') ? 'Sipariş verilmedi: <b>gireceğin 2027 SGS dönemini seç</b> (Nisan, Temmuz ya da Kasım).'
+            : kapiHatasi(r.error, 'PAKET_SATISTA_DEGIL') ? 'Sipariş verilmedi: <b>bu paket satıştan kalktı</b>. Sayfayı yenileyip SGS 2027 paketini seç.'
+            : 'Sipariş verilmedi: <b>SGS 2027 paketinde indirim kodu kullanılmaz</b>. Kod alanını boşaltıp yeniden dene.', false);
           return;
         }
         if(kapiHatasi(r.error, 'BASKA_SINAV_ACIK')){

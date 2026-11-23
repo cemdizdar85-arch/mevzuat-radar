@@ -158,7 +158,7 @@
       <h2>Bu haftaki ölçümünü yaptın</h2>
       <p class="sv-alt" id="svHaftaMetin" style="margin:0 0 12px"></p>
       <div class="sv-dugmeler">
-        <a class="sv-btn ana" id="svHaftaPaket" href="satin-al.html?paket=sgs" style="text-decoration:none">Paketle her gün çalış →</a>
+        <a class="sv-btn ana" id="svHaftaPaket" href="satin-al.html?paket=sgs-2027" style="text-decoration:none">Paketle her gün çalış →</a>
         <a class="sv-btn" href="seviye-testi.html?rapor=1" id="svHaftaRapor" style="text-decoration:none">Son raporumu gör</a>
       </div>
       <!-- 07.10 Cem "1 ve 2 yap": haftalık hakkını kullanmış üyeye de yarının günün sorusu (her gün geri gelme sebebi) -->
@@ -277,7 +277,7 @@
       <p class="sv-alt" id="svTeklifMetin" style="margin:0 0 12px"></p>
       <p class="sv-not" id="svTeklifFiyat" style="margin:0 0 12px" hidden></p>
       <div class="sv-dugmeler">
-        <a class="sv-btn ana" id="svTeklifAna" href="satin-al.html?paket=sgs" style="text-decoration:none">Tam bankayı aç →</a>
+        <a class="sv-btn ana" id="svTeklifAna" href="satin-al.html?paket=sgs-2027" style="text-decoration:none">Tam bankayı aç →</a>
         <a class="sv-btn" id="svTeklifIkinci" href="index.html?sinav=sgs#ekran" style="text-decoration:none">Günün sorusunu çöz</a>
       </div>
     </div>
@@ -329,11 +329,11 @@
 
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js?v=20261012a"></script>
-<script src="fiyat-motoru.js?v=20261102z"></script>
+<script src="fiyat-motoru.js?v=20261123a"></script>
 <script src="anlik-teklif.js?v=20261012c"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="uye-durumu.js?v=20261028z"></script>
+<script src="uye-durumu.js?v=20261123a"></script>
 <script>/* 13.10 KGK açılış hazırlığı: sonuç formundaki sınav seçeneği içerik açılınca görünür (uye-durumu.js SINAVLAR.kgk.icerik) */
 try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icerik){ var o=document.getElementById('svSinavKgk'); if(o){ o.hidden=false; o.disabled=false; } } }catch(e){}</script>
 <script src="kutu-esitle.js"></script>
@@ -396,7 +396,7 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
       var acilis=new Date(son.getTime()+HAFTA_GUN*86400000), fark=acilis-new Date(); return fark>0?Math.ceil(fark/86400000):0; }catch(e){ return 0; } }
   function haftaKilitGoster(){ var n=haftaKalan(); if(!n) return false; var t=new Date(Date.now()+n*86400000);
     $('svHaftaMetin').innerHTML='Bir sonraki ölçümün <b>'+n+' gün sonra</b> ('+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+') açılır; hatırlatmalara izin verdiysen o gün e-postan da gelir. Haftada bir ölçmek gidişatını gösterir; her gün ölçülen 30 soru şansı ölçer. O zamana kadar paketle her gün soru çöz: bütün yanlışlarını Nöbetçi anlatır.';
-    $('svHaftaPaket').setAttribute('href', YET?'satin-al.html?paket=yeterlilik-tum':'satin-al.html?paket=sgs');
+    $('svHaftaPaket').setAttribute('href', YET?'satin-al.html?paket=yeterlilik-tum':'satin-al.html?paket=sgs-2027');
     $('svHaftaKilit').hidden=false; $('svBasla').hidden=true; say('hafta-kilit'); return true; }
   function hakKullanildi(){ try{ if(localStorage.getItem(ANAH_HAK)!=='1') return false;
     var a=sonIkiHafta(); if(!a) return true;
@@ -937,10 +937,10 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
     };
     $('svTeklifMetin').innerHTML=metin(null,null);
     try{
-      if(typeof FIYAT!=='undefined'&&FIYAT.sgs){
-        var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
-        $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml('sgs',f.kurulus)+'</b>'+(fiyatDahilHtml('sgs',f.kurulus)||' (KDV dahil)')+' · sınava kadar erişim (en az '+ay+' ay)'
-          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye açılış fiyatı (sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?', '+fiyatDahilNot('sgs',f.liste):'')+')':'')
+      var p7=(typeof paketBul==='function')?paketBul('sgs-2027'):null;   /* 23.11 Cem: SGS 2027 paketi */
+      if(p7&&p7.acik){
+        $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml(p7.id,p7.fiyat)+'</b>'+(fiyatDahilHtml(p7.id,p7.fiyat)||' (KDV dahil)')+' · erişim seçtiğin 2027 SGS\'sinden 3 gün sonra biter'
+          +(p7.sonraYazi?' · '+p7.not+' (' + p7.sonraYazi+' '+fiyatAna(p7.id,p7.liste)+(fiyatDahilNot(p7.id,p7.liste)?', '+fiyatDahilNot(p7.id,p7.liste):'')+')':'')
           ;   /* 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" */
         $('svTeklifFiyat').hidden=false;
       }

@@ -260,6 +260,12 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
 
     <section class="bolum" data-bolum="siparisler" hidden>
     <h2>Siparişler</h2>
+    <!-- 23.11 SGS 2027 (Cem): TÜRMOB 2027 SGS tarihlerini açıklayınca TEK YER burası. Kaydet → o dönemin bütün ödenmiş sgs-2027
+         siparişlerinin ve hesaplarının bitişi sınav + 3 gün olur (radar-app/sql/2026-11-23-sgs-2027-paket.sql yonetim_sgs_donem_tarih). -->
+    <div class="kutu" id="sgsDonemKutu" style="margin-bottom:10px">
+      <b>SGS 2027 sınav tarihleri</b> <span class="not">tarih boşken erişim geçici olarak dönemin üst sınırına kadar açık (Nisan 30.06 · Temmuz 30.09 · Kasım 31.12.2027)</span>
+      <div id="sgsDonemListe" style="margin-top:8px"></div>
+    </div>
     <!-- 12.10 (Cem "1.2.3"): ödendi ama hiçbir hesapta açılmadı - alıcı siteye başka e-postayla (çoğu Google) girdiyse
          paket görünmez. "Hesaba bağla" → hesap gösterilir → onayla. SQL: 2026-10-12-siparis-hesap-bagla.sql -->
     <div class="kutu" id="bagsizKutu" style="margin-bottom:10px">
@@ -323,7 +329,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
   </div>
 </div>
 
-<script src="fiyat-motoru.js?v=20261102z"></script>
+<script src="fiyat-motoru.js?v=20261123a"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script>
 (function(){
@@ -679,7 +685,15 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
   function gunEkle(n){ return new Date(Date.now()+n*86400000).toISOString().slice(0,10); }
   function enGec(a,b){ return a>b?a:b; }
   /* satın alma bitişi: sınav günü, ama hiçbir zaman 3 aydan kısa değil (fiyat.html sözü) */
-  function satisBitis(paket){ var g=/^sgs/.test(paket)?SINAV_GUNU.sgs:SINAV_GUNU.yeterlilik; return enGec(g, gunEkle(92)); }
+  function satisBitis(paket){ var g=/^sgs/.test(paket)?SINAV_GUNU.sgs:SINAV_GUNU.yeterlilik; return enGec(g, gunEkle(92)); }   /* 23.11: sgs-2027'de sunucu bunu yok sayar, seçilen dönem + 3 gün yazar */
+  /* 23.11 SGS 2027 dönem tarihleri (tek yer) */
+  async function sgsDonemCiz(){
+    var yer=$('sgsDonemListe'); if(!yer) return;
+    var r=await sb.rpc('sgs_donem_tarihleri'); if(r.error||!Array.isArray(r.data)){ yer.textContent='Okunamadı (göç basıldı mı?)'; return; }
+    yer.innerHTML=r.data.map(function(d){ return '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0"><span style="min-width:130px">'+esc(d.ad)+'</span>'
+      +'<input type="date" min="2027-01-01" max="2027-12-31" value="'+esc(d.sinav_tarihi||'')+'" data-sgsdt="'+esc(d.donem)+'">'
+      +'<button class="btn" data-sgsdonem="'+esc(d.donem)+'">Kaydet</button><span class="not">bitiş: '+esc(d.bitis||'—')+(d.sinav_tarihi?'':' (geçici)')+'</span></div>'; }).join('');
+  }
   var HATA={ YETKI_YOK:'Yetkin yok.', EPOSTA_GECERSIZ:'E-posta biçimi geçersiz.', EPOSTA_BASKA_KODDA:'Bu e-posta başka bir elçi kodunda yazılı.', HESAP_BASKA_KODDA:'Bu hesap başka bir elçi koduna bağlı; önce oradan bağı çöz.', KOD_YOK:'Elçi kodu bulunamadı.', SIPARIS_YOK:'Sipariş bulunamadı.', HESAP_YOK:'Bu e-postayla açılmış hesap yok; kişi önce sitede üye olmalı.',
     AKTIF_PAKET_VAR:'Bu kişinin zaten aktif (muhtemelen parayla alınmış) paketi var.', HEDIYE_DEGIL:'Bu paket hediye kaydında yok; parayla alınmış olabilir.',
     PAKET_YOK:'Bu kişide paket yok.', KOD_VAR:'Bu kod zaten var; başka kod üret.', KOD_GECERSIZ:'Kod 6-12 harf/rakam olmalı.', NEDEN_GEREKLI:'Neden yaz.',
@@ -724,9 +738,16 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
   }
   document.addEventListener('click', async function(ev){
     var b=ev.target.closest&&ev.target.closest('button'); if(!b) return;
+    if(b.dataset.sgsdonem){
+      var dn=b.dataset.sgsdonem, inp=document.querySelector('[data-sgsdt="'+dn+'"]'), tv=(inp&&inp.value)||null;
+      if(!confirm(dn+' sınav tarihi: '+(tv||'BOŞ (geçici bitişe döner)')+' · Bu dönemi seçen bütün SGS 2027 alıcılarının erişim bitişi '+(tv?'sınav + 3 gün':'geçici üst sınır')+' olur. Devam?')) return;
+      await islem('yonetim_sgs_donem_tarih', { p_donem:dn, p_tarih:tv }, function(d){ return '✓ '+d.donem+' · bitiş '+d.bitis+' · '+d.siparis+' sipariş, '+d.hesap+' hesap güncellendi'; });
+      sgsDonemCiz(); return;
+    }
     if(b.dataset.onay){
       var bit=satisBitis(b.dataset.paket);
-      if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+bit+' tarihine kadar açılır.')) return;
+      if(b.dataset.paket==='sgs-2027') bit=gunEkle(1);   /* 23.11: sunucu dönemden yazar; bu yalnız "bugünden sonra" kapısını geçer */
+      if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+(b.dataset.paket==='sgs-2027'?'seçtiği 2027 SGS\x27sinden 3 gün sonrasına kadar açılır.':bit+' tarihine kadar açılır.'))) return;
       b.disabled=true; var onayNo=b.dataset.onay;
       var sonuc=await islem('yonetim_siparis_onayla', { p_no:b.dataset.onay, p_bitis:bit }, function(d){
         return (d.paket==='ACILAMADI'||d.paket==='BEKLIYOR') ? '✓ Sipariş ödendi. '+(d.not||'Kişi üye olunca paketi kendiliğinden açılır.')
@@ -961,6 +982,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
       +L.map(function(s){ return '<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.odendi)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket_ad||s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.hesap_var?'var (paket açılmamış)':'<b style="color:var(--red)">yok</b>')+'</td><td><button class="btn ana" data-sipbag="'+esc(s.no)+'" data-ep="'+esc(s.eposta)+'" data-ad="'+esc(s.ad)+'">Hesaba bağla</button></td></tr>'; }).join('');
   }
   YUKLE=yukle;
+  try{ sgsDonemCiz(); }catch(e){}   /* 23.11 SGS 2027 */
   yukle().catch(function(e){ durum('Veri okunamadı: '+esc(e&&e.message)); });
 
   /* 04.10 Nöbetçi kullanımı + Ekibe gelen sorular (radar-app/sql/2026-10-05-nobetci-sor.sql; yalnız yönetici) */
