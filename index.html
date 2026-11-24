@@ -471,6 +471,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   html.sig6 body .kah .kah-alt .dg{min-height:44px}
   html.sig6 body .secim-bolum .sinav{min-height:46px}
 }
+[data-uye-gizli][hidden]{display:none!important}   /* 24.11 paketli üyeye gizlenen satış bölümleri (dugmeCiz) */
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 <link rel="stylesheet" href="gkt.css?v=3">
@@ -1009,6 +1010,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
        KAPATILAN METİN hatırlanır (localStorage kayan_kapat2 = sınav + metin); duyuru metni değişince şerit yeniden görünür. */
     try{ var ks=$('kayanSerit');
       var paketli=!!(UYE&&UYE.sinavlar&&UYE.sinavlar[secili]&&UYE.sinavlar[secili].durum==='aktif');   /* 23.11: paketi açık üyeye satış şeridi yok */
+      /* 24.11 Cem ("kesinlikle üye ayrı ekran, üye olmayana ayrı ekran"; "paketi alan ana sayfada fiyatları, ona ait olmayanı görmesin"):
+         üye 17.10'dan beri ana sayfadan Hesabım'a gider; logo / alt menü "Ana sayfa" (?ana=1, 18.10 kararı) ise bu sayfayı açıyordu ve
+         paketi açık üye paket-fiyat kartlarını, "Fiyatlar" kısayolunu, "🔒 Pakete dahil" kilidini ve tanıtım bölümlerini görüyordu
+         (24.11 paketli hesapla canlıda ölçüldü). Seçili sınavda paketi açıksa bunlar gizlenir; sık konular kilitsiz, Yeterlilik'te
+         konu ekranına bağ. Ziyaretçi ve paketi bitmiş üye için sayfa aynen. */
+      try{ var biz=$('bizBas'), gz=[$('paketler'),$('nasil'),$('dene30'),biz&&biz.closest('section'),$('ksFiyat')];
+        /* yalnız bu kodun gizlediği geri açılır (öteki kuralların gizlediğine dokunulmaz) */
+        gz.forEach(function(e){ if(!e) return; if(paketli){ if(!e.hidden){ e.hidden=true; e.dataset.uyeGizli='1'; } } else if(e.dataset.uyeGizli){ e.hidden=false; delete e.dataset.uyeGizli; } });
+        var se=document.querySelector('#sikKart .sik-etiket'); if(se){ if(!se.dataset.ilk) se.dataset.ilk=se.textContent; se.textContent=paketli?'Paketinde · yeni':se.dataset.ilk; }
+        var kk=$('uyeKonuA'); if(paketli&&secili==='yeterlilik'){ if(!kk){ kk=document.createElement('a'); kk.id='uyeKonuA'; kk.className='sik-liste'; kk.href='konular.html'; kk.textContent='📚 Konu konu çöz →'; var sd=document.querySelector('#sikKart .sik-dugme'); if(sd) sd.appendChild(kk); } kk.hidden=false; } else if(kk) kk.hidden=true;
+      }catch(e){}
       if(ks){ if(kgkSec||paketli) ks.hidden=true; else { kayanCiz(secili);   /* 28.10: seçili sınavın kampanyası */
         var kAnah=secili+'|'+String(ks.textContent||'').replace(/\s+/g,' ').trim().slice(0,120), kk=false;
         try{ kk=localStorage.getItem('kayan_kapat2')===kAnah || sessionStorage.getItem('kayan_kapat')==='1'; }catch(e){}
