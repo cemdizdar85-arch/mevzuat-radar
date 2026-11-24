@@ -184,6 +184,8 @@ h1{font-size:clamp(24px,4vw,31px);letter-spacing:-.5px;margin:4px 0 4px}
      kaç soru sorar; ders sayfası ?adet= ile o boyda set kurar (şablon SET), set bitince set raporu (puan, doğru/yanlış, Nöbetçi). */
   /* 24.11 Cem "sınav gibi denemelerimizde olsun": aynı seçimde ikinci yol — sinav-gibi.html konulu deneme (?tur=ders&ders=&konu=&adet=;
      12.10'dan beri var: süre işler, cevaplar sonda, bitince puan + konu karnesi). Süre: Yeterlilik'te 20 soru 45 dk → soru başı 2,25 dk. */
+  /* 24.11 Cem 'sayacı ekle': seçim penceresi açıldı / hangi yol + kaç soru seçildi / kapatıldı (goatcounter olayı; kişi verisi yok) */
+  var say=function(yol,bas){ try{ var gc=window.goatcounter; if(gc&&typeof gc.count==='function') gc.count({path:yol,title:bas,event:true}); }catch(e){} };
   var SECIM={href:'',ad:'',ders:'',mod:'ogren'}; try{ if(localStorage.getItem('kn_mod')==='sinav') SECIM.mod='sinav'; }catch(e){}
   function secimCiz(){ var son='10'; try{ son=localStorage.getItem('kn_adet')||'10'; }catch(e){}
     var sn=SECIM.mod==='sinav';
@@ -195,10 +197,10 @@ h1{font-size:clamp(24px,4vw,31px);letter-spacing:-.5px;margin:4px 0 4px}
       return '<a href="'+esc(h)+'" data-a="'+n+'"'+(n===son?' class="son"':'')+'><b>'+n+'</b><small>soru · '+alt+'</small></a>'; }).join(''); }
   function secimAc(href,ad){ SECIM.href=href; SECIM.ad=ad; SECIM.ders=($('kBas').textContent||'');
     $('kSecimBas').textContent=ad?buyuk(ad)+' · kaç soru çözelim?':'Kaç soru çözelim?';
-    secimCiz(); $('kSecim').hidden=false; try{ $('kSecimSay').querySelector('.son').focus(); }catch(e){} }
+    secimCiz(); $('kSecim').hidden=false; say('konu/secim/acildi','Konu: kaç soru penceresi açıldı'); try{ $('kSecimSay').querySelector('.son').focus(); }catch(e){} }
   document.querySelector('#kSecim .mod').addEventListener('click',function(e){ var b=e.target.closest('button[data-m]'); if(!b) return; SECIM.mod=b.getAttribute('data-m'); try{ localStorage.setItem('kn_mod',SECIM.mod); }catch(x){} secimCiz(); });
-  $('kSecimSay').addEventListener('click',function(e){ var a=e.target.closest('a[data-a]'); if(a) try{ localStorage.setItem('kn_adet',a.getAttribute('data-a')); }catch(x){} });
-  $('kSecimX').addEventListener('click',function(){ $('kSecim').hidden=true; });
+  $('kSecimSay').addEventListener('click',function(e){ var a=e.target.closest('a[data-a]'); if(a){ try{ localStorage.setItem('kn_adet',a.getAttribute('data-a')); }catch(x){} say('konu/secim/'+SECIM.mod+'/'+a.getAttribute('data-a'),'Konu: '+(SECIM.mod==='sinav'?'sınav gibi':'öğrenerek')+' '+a.getAttribute('data-a')+' soru'); } });
+  $('kSecimX').addEventListener('click',function(){ $('kSecim').hidden=true; say('konu/secim/kapatildi','Konu: seçim kapatıldı'); });
   $('kSecim').addEventListener('click',function(e){ if(e.target===$('kSecim')) $('kSecim').hidden=true; });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') $('kSecim').hidden=true; });
   document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('a[data-konu]'); if(!a||e.ctrlKey||e.metaKey) return; e.preventDefault(); secimAc(a.getAttribute('href'),a.getAttribute('data-konu')); });

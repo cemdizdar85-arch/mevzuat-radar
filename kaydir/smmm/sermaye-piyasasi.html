@@ -533,7 +533,7 @@ function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bi
     sb.from('ogrenci_sonuc').upsert([{tur:'set',sinav:sn,anahtar:('set-'+sy).slice(0,50)+'-'+(no+1)+'-'+Date.now().toString(36),
       veri:{ders:String((SORULAR[a]||{}).ders||''),set:no+1,dogru:ok,yanlis:yan,bos:bos,boy:boy,puan:puan,eksik:eksik.slice(0,5).map(k=>String(k).slice(0,80)),tarih:new Date().toISOString()}}],
       {onConflict:'user_id,tur,anahtar',ignoreDuplicates:true}).then(()=>{},()=>{}); },()=>{}); }catch(e){}
-  gcOlay('set-kutusu/'+GC_YOL+'/goster','Set kutusu gösterildi');
+  gcOlay('set-kutusu/'+GC_YOL+'/goster','Set kutusu gösterildi');   if(KONU_AKTIF) gcOlay('konu-set/bitti/'+SET+'/'+(c===boy?'tam':'yarim'),'Konu seti bitti ('+SET+' soru)');   /* 24.11 Cem 'sayacı ekle': konu ekranındaki 5/10/20 seçiminden sonra set bitiyor mu */
   const renk=oran>=70?'var(--yesil)':oran>=50?'var(--altin)':'var(--kirmizi)';
   const satir=ks.slice(0,6).map(k=>{ const r=K[k], tam=r.d===r.t; return '<tr><td>'+esc(k)+'</td><td class="srS">'+r.d+' / '+r.t+'</td><td class="srS"><span class="srEt '+(tam?'iyi':r.d?'orta':'kotu')+'">'+(tam?'Tamam':r.d?'Eksik var':'Eksik')+'</span></td></tr>'; }).join('');
   const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' raporu');
