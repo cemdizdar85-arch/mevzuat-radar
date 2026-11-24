@@ -180,6 +180,7 @@
   .onay input{ margin-top:3px; accent-color:var(--amber); width:16px; height:16px; flex:none; }
   .onay.onay-eksik{ outline:2px solid var(--red); outline-offset:4px; border-radius:10px; color:var(--ink); }   /* 24.11: işaretlenmemiş onay */
   #onayHata{ margin:14px 0 0; }
+  .onay-m{ display:block; } .onay-m + .onay-m{ margin-top:7px; }
 
   /* --- ozet --- */
   .ozet{ border-color:rgba(245,165,36,.4); }
@@ -447,18 +448,21 @@
     <button type="button" class="btn" id="ozGirisBtn" style="margin:0">Hesabına gir</button>
   </div>
   <style>body.giris-yok #ozetKart label.onay,body.giris-yok #gonder,body.giris-yok #gonderHavale,body.giris-yok #odemeNot{display:none!important}body.giris-yok #ozGirisNot{display:block!important}</style>
-  <label class="onay"><input type="checkbox" id="onSoz">
-    <span><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
-    <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
-    <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını onaylıyorum.</span></label>
+  <!-- 24.11 (Cem "üç onay kutusu tek kutuya inebilir mi … yapabilirsin"): üç beyan TEK kutuda. Üç metin AYNEN duruyor (ön bilgilendirme +
+       mesafeli satış + teslimat/iade · hemen ifa / cayma · aydınlatma metni); alıcı üçünü birlikte tek işaretle onaylar. Eski üç kutu gizli
+       olarak duruyor ve tek kutuyla birlikte işaretlenir: doğrulama, sayaç ve sipariş kaydındaki "Onaylar" satırı DEĞİŞMEDİ.
+       Ön satışta ifa metni değişince (ifaYaziCiz) tek kutunun işareti de kalkar. -->
   <!-- 28.10 Cem onayı: ön satış paketlerinde (fiyat-motoru acilis alanı) cayma açılış gününe kadar sürer; metin ifaYaziCiz ile değişir.
        Aynı madde on-bilgilendirme / mesafeli-satis / teslimat-iade "Ön satış paketleri" paragrafında. -->
-  <label class="onay"><input type="checkbox" id="onIfa">
-    <span id="onIfaYazi">Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
-    yasal cayma hakkı olmadığını biliyorum.</span></label>
-  <label class="onay"><input type="checkbox" id="onKvkk">
-    <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
-    <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></label>
+  <label class="onay" id="onayTek"><input type="checkbox" id="onTek">
+    <span><span class="onay-m"><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
+    <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni ve
+    <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını onaylıyorum.</span>
+    <span class="onay-m" id="onIfaYazi">Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
+    yasal cayma hakkı olmadığını biliyorum.</span>
+    <span class="onay-m">Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
+    <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></span></label>
+  <span hidden><input type="checkbox" id="onSoz" tabindex="-1" aria-hidden="true"><input type="checkbox" id="onIfa" tabindex="-1" aria-hidden="true"><input type="checkbox" id="onKvkk" tabindex="-1" aria-hidden="true"></span>
   <!-- 24.11 (denetim): onay eksiğinde hata iki düğmenin ALTINDA çıkıyordu, kutu işaretlenmiyordu, üç kutu tek tek soruluyordu, telefonda alt
        çubuktan basınca hiç mesaj yoktu. Artık eksik kutuların hepsi birden kırmızı çerçevelenir, mesaj kutuların hemen altında. -->
   <p class="akd-hata" id="onayHata" role="alert"></p>
@@ -531,7 +535,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261123j"></script>
+<script src="fiyat-motoru.js?v=20261124a"></script>
 <script>
 /* 23.11 Cem: 2026 SGS paketi ve Son 20 Gün satıştan kalktı; eski bağlantı (reklam, uygulama, e-posta: ?paket=sgs / son20-sgs)
    SGS 2027 paketine iner. Sayfanın öteki betikleri adresi bundan SONRA okur. */
@@ -816,7 +820,7 @@ function ifaYaziCiz(){
   var a = acilisYazi(secili), yeni = a
     ? 'Denemelerin <b>' + a + '\'da</b> hesabımda açılmasını istiyorum. O güne kadar destek@tetikte.com\'a yazarak cayabileceğimi ve ödediğim tutarın tamamının iade edileceğini, denemeler hesabımda açıldığı anda cayma hakkımın sona ereceğini biliyorum.'
     : IFA_YAZI_ESKI;
-  if(e.innerHTML !== yeni){ e.innerHTML = yeni; document.getElementById('onIfa').checked = false; }   /* metin değişince eski onay geçmez */
+  if(e.innerHTML !== yeni){ e.innerHTML = yeni; ['onIfa','onSoz','onKvkk','onTek'].forEach(function(i){ var k = document.getElementById(i); if(k) k.checked = false; }); }   /* metin değişince eski onay geçmez */
   var o = document.getElementById('odemeNot');   /* ön satışta "paketin hemen açılır" yazılmaz */
   if(o && kartAcik()) o.textContent = 'Kart bilgin iyzico\'nun güvenli sayfasında girilir, bize gelmez; '   /* 24.11: 290 → ≈150 karakter */
     + (a ? 'ön siparişin ödemeyle kayda geçer, denemeler ' + a + '\'da hesabında açılır.' : 'ödeme bitince paketin hemen açılır.') + ' Havale/EFT\'de hesap bilgisi sonraki ekranda.';
@@ -1190,7 +1194,7 @@ function davetKodOku(){
   function ozeteGit(){
     var kart = $('ozetKart');
     if(mobil.matches){ kart.scrollIntoView({ behavior:azHareket() ? 'auto' : 'smooth', block:'start' }); }
-    var bos = ['onSoz','onIfa','onKvkk'].map($).filter(function(x){ return !x.checked; })[0];
+    var bos = $('onTek').checked ? null : $('onTek');   /* 24.11: tek onay kutusu */
     if(bos){ setTimeout(function(){ bos.focus({ preventScroll:true }); }, mobil.matches ? 450 : 0); }
   }
   window.akdOzetCiz = function(){
@@ -1480,20 +1484,22 @@ function hata(m, adim){ if(adim && typeof window.akdHata === 'function') window.
    Dönüş: eksik var mı. Kutu işaretlendikçe çerçeve ve mesaj kendiliğinden kalkar (aşağıdaki change dinleyicisi). */
 var ONAY_KUTU = ['onSoz','onIfa','onKvkk'];
 function onayEksik(goturVeYaz){
-  var bos = ONAY_KUTU.map(function(i){ return document.getElementById(i); }).filter(function(x){ return !x.checked; });
-  var h = document.getElementById('onayHata');
-  ONAY_KUTU.forEach(function(i){ var k = document.getElementById(i); k.parentNode.classList.toggle('onay-eksik', !!goturVeYaz && !k.checked); });
-  if(!bos.length || !goturVeYaz){ h.textContent = ''; h.style.display = 'none'; if(bos.length === 0) s.style.display = 'none'; return bos.length > 0; }
-  h.textContent = bos.length === 1 ? 'Devam etmek için kırmızı çerçeveli kutuyu işaretle.' : 'Devam etmek için kırmızı çerçeveli ' + bos.length + ' kutuyu işaretle.';
+  var tek = document.getElementById('onTek'), et = document.getElementById('onayTek'), h = document.getElementById('onayHata');
+  var eksik = ONAY_KUTU.some(function(i){ return !document.getElementById(i).checked; });
+  et.classList.toggle('onay-eksik', !!goturVeYaz && eksik);
+  if(!eksik || !goturVeYaz){ h.textContent = ''; h.style.display = 'none'; if(!eksik) s.style.display = 'none'; return eksik; }
+  h.textContent = 'Devam etmek için kırmızı çerçeveli kutuyu işaretle.';
   h.style.display = 'block'; s.style.display = 'none';
-  try{ bos[0].parentNode.scrollIntoView({ behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center' }); bos[0].focus({ preventScroll:true }); }catch(e){}
+  try{ et.scrollIntoView({ behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center' }); tek.focus({ preventScroll:true }); }catch(e){}
   return true;
 }
 window.onayEksik = onayEksik;
-ONAY_KUTU.forEach(function(i){ document.getElementById(i).addEventListener('change', function(){
-  this.parentNode.classList.remove('onay-eksik');
-  if(ONAY_KUTU.every(function(k){ return !document.getElementById(k).parentNode.classList.contains('onay-eksik'); })){ var h = document.getElementById('onayHata'); h.textContent = ''; h.style.display = 'none'; }
-}); });
+/* 24.11 tek kutu: işaret üç gizli kutuya aynen geçer (her birinin change olayı da atılır: "onaylar" sayacı eskisi gibi çalışır) */
+document.getElementById('onTek').addEventListener('change', function(){
+  var v = this.checked;
+  ONAY_KUTU.forEach(function(i){ var k = document.getElementById(i); k.checked = v; k.dispatchEvent(new Event('change')); });
+  if(v){ document.getElementById('onayTek').classList.remove('onay-eksik'); var h = document.getElementById('onayHata'); h.textContent = ''; h.style.display = 'none'; }
+});
 
 btn.addEventListener('click', function(){
   var tercih = ODEME_TERCIH; ODEME_TERCIH = 'kart';   /* 23.11: havale düğmesi bayrağı bir kez kullanılır */
