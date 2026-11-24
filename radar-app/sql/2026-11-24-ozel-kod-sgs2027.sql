@@ -63,14 +63,14 @@ begin
   select user_id into y from public.yoneticiler limit 1;
   begin
     insert into public.ozel_kod (kod, indirim_tl, paketler, son, kime, olusturan, indirim_paket, aciklama)
-    values ('OZOLCU24', 300, array['sgs-2027'], now() + interval '1 day', 'OLCU', y, jsonb_build_object('sgs-2027', 300), 'olcu');
-    v := public._ozel_kod_gecerli('OZOLCU24', 'sgs-2027');
+    values ('OZACDEFH', 300, array['sgs-2027'], now() + interval '1 day', 'OLCU', y, jsonb_build_object('sgs-2027', 300), 'olcu');
+    v := public._ozel_kod_gecerli('OZACDEFH', 'sgs-2027');
     if v is distinct from 300 then raise exception 'OLCU: b %', v; end if;
     n := n + 1;
-    v := public._ozel_kod_gecerli('OZOLCU24', 'yeterlilik-tum');
+    v := public._ozel_kod_gecerli('OZACDEFH', 'yeterlilik-tum');
     if v is not null then raise exception 'OLCU: c %', v; end if;
     n := n + 1;
-    v := public._ozel_kod_gecerli('OZOLCU24', 'son20-sgs');
+    v := public._ozel_kod_gecerli('OZACDEFH', 'son20-sgs');
     if v is not null then raise exception 'OLCU: d %', v; end if;
     n := n + 1;
     raise exception 'OLCU_TAMAM %', n;
@@ -78,6 +78,6 @@ begin
     if sqlerrm not like 'OLCU_TAMAM %' then raise; end if;
     n := split_part(sqlerrm, ' ', 2)::int;
   end;
-  if exists (select 1 from public.ozel_kod where kod = 'OZOLCU24') then raise exception 'OLCU: geri alma iz birakti'; end if;
+  if exists (select 1 from public.ozel_kod where kod = 'OZACDEFH') then raise exception 'OLCU: geri alma iz birakti'; end if;
   raise notice 'OZEL KOD SGS2027 OZ-SINAV: % vaka TAMAM', n;
 end $olcu$;
