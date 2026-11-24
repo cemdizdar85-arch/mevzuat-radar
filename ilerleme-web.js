@@ -90,7 +90,7 @@
 
     var ks = kartlar(), a = akis();
     /* 12.10 NÖBETÇİ NOTU (nobetci-notu.js): bitirme ders sayfasında her 10 cevapta bir kart. Tek kartta yok. İnmezse sayfa aynen. */
-    if (/^kaydir\/smmm\//.test(YOL) && !tek && !yalnizKutu) yukle(KOK + 'nobetci-notu.js?v=20261015y').then(function () {
+    if (/^kaydir\/smmm\//.test(YOL) && !tek && !yalnizKutu) yukle(KOK + 'nobetci-notu.js?v=20261124a').then(function () {
       var s0 = (typeof SORULAR !== 'undefined' && SORULAR[0]) || {};
       if (window.ttNobetciNotu) window.ttNobetciNotu.kur({ yol: YOL, kok: KOK, ders: String(s0.ders || ''), tekrar: typeof kutuEkraniAc === 'function' ? kutuEkraniAc : null });
     }).catch(function () {});
