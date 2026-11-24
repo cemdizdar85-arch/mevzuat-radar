@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: mevzuatradar.goatcounter.com; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co mevzuatradar.goatcounter.com; form-action 'self'; base-uri 'self'; object-src 'none'">
+<script src="tema-bas.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konu konu çöz | Tetikte</title>
+<meta name="description" content="Dersin konuları, çıkmış sınavlarda kaç kez sorulduklarına göre sıralı; her konuda senin durumun ve tek dokunuşla çözmeye başla.">
+<meta name="robots" content="noindex">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<!-- 24.11 Cem ("ders ders çözebiliyor, dersin altında konu konu da çözebilsin · ne kadar sınavda çıktığını çözmeye başlamadan
+     gösterelim, sınavda çıkma sayısına göre sıralayalım, istediği yerden başlasın · eksik olduğu konuyu hoca gibi uyaralım";
+     rakip kalıbı: UWorld konu listesi + Khan Academy ustalık çubuğu). Veri:
+       konu listesi   veri/deneme/smmm-ders-havuz.json (sitedeki sorular, konu sırası; soru METNİ yok)
+       sınav sayısı   veri/deneme/smmm-konu-kanit.json (çıkmış soru metni okunarak: dönem + soru no; 2016/1–2026/2)
+       senin durumun  uye_calisma_ozetim() (hesaptaki bütün cevaplar, her cihaz) — girişsizse yalnız liste
+     Rakam kuralı: "2016'dan bu yana Yeterlilik'te N sınavda soruldu" (dönem sayısı, kanıtı satırın içinde). Bankadaki soru adedi
+     YAZILMAZ (10.10 kararı); yalnız "gördüğün %". Çöz düğmesi ders sayfasını ?konu= ile açar (kasa-yukle.js konuSuz).
+     🚫 GÖRMEZ: ücretsiz örnek sayfadaki cevaplar (hesaba yazılmıyor) · SGS ve KGK (bu sürümde yalnız Yeterlilik). -->
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55}
+a{color:var(--link)}
+.wrap{max-width:860px;margin:0 auto;padding:22px 16px 90px}
+.top{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:13px;margin-bottom:14px;color:var(--dim)}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}
+h1{font-size:clamp(24px,4vw,31px);letter-spacing:-.5px;margin:4px 0 4px}
+.alt{color:var(--muted);font-size:15px;margin:0 0 14px}
+.dersler{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 0 6px;scrollbar-width:thin}
+.dersler a{flex:0 0 auto;padding:7px 12px;border:1.5px solid var(--line);border-radius:99px;text-decoration:none;color:var(--ink);font-size:14px;font-weight:600;background:var(--kagit)}
+.dersler a[aria-current="page"]{border-color:var(--amber-dolgu,#f3a52a);background:var(--amber-dolgu,#f3a52a);color:#1b1408}
+.hoca{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--kagit);border:1.5px solid var(--amber-dolgu,#f3a52a);border-radius:14px;padding:14px 16px;margin:6px 0 16px}
+.hoca[hidden],.sirala button[hidden]{display:none}
+.hoca .hoca-et{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--amber,#b8740c)}
+.hoca p{margin:4px 0 0;font-size:15.5px}
+.kbtn{display:inline-block;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;font-size:15px;white-space:nowrap;border:1.5px solid var(--line2,#d8ccb8);color:var(--ink);background:var(--kagit)}
+.kbtn.ana{background:var(--amber-dolgu,#f3a52a);border-color:var(--amber-dolgu,#f3a52a);color:#1b1408}
+.ozet{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;font-size:14px}
+.cip{padding:4px 10px;border-radius:99px;background:var(--panel,rgba(0,0,0,.04));border:1px solid var(--line)}
+.cip.z{border-color:var(--red);color:var(--red)} .cip.o{border-color:var(--amber-dolgu)} .cip.g{border-color:var(--green);color:var(--green)}
+.sirala{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--muted)}
+.sirala button{font:inherit;font-weight:600;padding:6px 12px;border-radius:99px;border:1.5px solid var(--line);background:var(--kagit);color:var(--ink);cursor:pointer}
+.sirala button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.liste{display:flex;flex-direction:column;gap:10px}
+.konu{background:var(--kagit);border:1px solid var(--line);border-radius:14px;padding:13px 15px;display:grid;grid-template-columns:34px 1fr auto;gap:4px 12px;align-items:center}
+.konu .no{font-weight:800;font-size:15px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.konu .ad{font-weight:700;font-size:16px;line-height:1.3}
+.konu .sinav{font-size:13.5px;color:var(--muted);margin-top:2px}
+.konu .sinav b{color:var(--ink)}
+.konu .durum{grid-column:2/4;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13.5px;margin-top:4px}
+.cubuk{flex:1 1 160px;max-width:300px;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+.cubuk i{display:block;height:100%;border-radius:99px}
+.et{font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid var(--line)}
+.et.z{color:var(--red);border-color:var(--red)} .et.o{color:var(--amber,#b8740c);border-color:var(--amber-dolgu)} .et.g{color:var(--green);border-color:var(--green)} .et.b{color:var(--muted)}
+.konu details{grid-column:2/4;font-size:13px;color:var(--muted)}
+.konu summary{cursor:pointer;font-weight:600;color:var(--link);list-style:none;display:inline-block;padding:4px 0}
+.konu summary::-webkit-details-marker{display:none}
+.konu .donemler{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.konu .donemler span{padding:2px 7px;border:1px solid var(--line);border-radius:6px;font-variant-numeric:tabular-nums}
+.konu.z{border-left:4px solid var(--red)}
+.not{color:var(--muted);font-size:13px;margin-top:18px;line-height:1.5}
+.bos{color:var(--muted);padding:18px 0}
+@media(max-width:560px){
+  .konu{grid-template-columns:26px 1fr;padding:12px 12px}
+  .konu .git{grid-column:1/3;justify-self:stretch;text-align:center}
+  .konu .durum,.konu details{grid-column:1/3}
+  .hoca .kbtn{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="wrap" id="icerik" role="main">
+  <div class="top"><span class="marka-rozet" style="--rozet-olcu:16px" aria-hidden="true"></span><a href="index.html">Tetikte</a> · <a href="ogrenci.html">Hesabım</a> · <a href="sorular.html#smmm">Sorular</a> · <span id="kTop">Konular</span></div>
+  <h1 id="kBas">Konu konu çöz</h1>
+  <p class="alt" id="kAlt">Konular, çıkmış Yeterlilik sınavlarında kaç kez sorulduklarına göre sıralı. İstediğin konudan başla.</p>
+  <nav class="dersler" id="kDersler" aria-label="Dersler"></nav>
+  <div class="hoca" id="kHoca" hidden></div>
+  <div class="ozet" id="kOzet"></div>
+  <div class="sirala" id="kSirala" role="group" aria-label="Sıralama"><span>Sırala:</span>
+    <button type="button" data-s="sinav" aria-pressed="true">Sınavda en çok çıkan</button>
+    <button type="button" data-s="zayif" aria-pressed="false">Eksiklerim önce</button>
+    <button type="button" data-s="baslamadi" aria-pressed="false">Başlamadıklarım</button>
+  </div>
+  <div class="liste" id="kListe"><p class="bos">Konular okunuyor…</p></div>
+  <p class="not" id="kNot"></p>
+</div>
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $=function(i){ return document.getElementById(i); };
+  var esc=function(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var nrm=function(t){ return String(t||'').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim(); };
+  var buyuk=function(s){ s=String(s||''); return s.charAt(0).toLocaleUpperCase('tr-TR')+s.slice(1); };
+  var q=new URLSearchParams(location.search), dersQ=(q.get('ders')||'').replace(/[^a-z0-9-]/g,'');
+  var SIRA='sinav'; try{ var ks=localStorage.getItem('kn_sira'); if(/^(sinav|zayif|baslamadi)$/.test(ks||'')) SIRA=ks; }catch(e){}
+  var getir=function(u){ return fetch(u,{cache:'no-cache'}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); };
+  var HAVUZ=null, KANIT=null, OZET=null, GIRIS=null;
+  var sb=null; try{ sb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg'); }catch(e){}
+
+  /* ders listesi: havuzdaki sayfa adı → ders */
+  function dersler(){ return Object.keys(HAVUZ.dersler).map(function(ad){ var d=HAVUZ.dersler[ad]; return { ad:ad, sayfa:d.sayfa, kod:String(d.sayfa||'').split('/').pop().replace(/\.html$/,'') }; }); }
+
+  function durum(k){ if(!k||!+k.cevap) return ['b','Başlamadın']; if(+k.cevap<5) return ['b','Az veri']; var o=k.dogru/k.cevap; return o>=0.7?['g','Güçlü']:o>=0.55?['o','Orta']:['z','Zayıf']; }
+  var RENK={ g:'var(--green)', o:'var(--amber-dolgu,#f3a52a)', z:'var(--red)', b:'var(--line2,#bbb)' };
+
+  function ciz(){
+    if(!HAVUZ||!KANIT){ $('kListe').innerHTML='<p class="bos">Konu listesi şu an okunamadı. Sayfayı yenile.</p>'; return; }
+    var DL=dersler(), D=DL.filter(function(x){ return x.kod===dersQ; })[0]||DL[0];
+    $('kDersler').innerHTML=DL.map(function(x){ return '<a href="konular.html?ders='+esc(x.kod)+'"'+(x===D?' aria-current="page"':'')+'>'+esc(x.ad)+'</a>'; }).join('');
+    try{ var ac=$('kDersler').querySelector('[aria-current]'); if(ac) ac.scrollIntoView({block:'nearest',inline:'center'}); }catch(e){}
+    document.title=D.ad+' · konu konu çöz | Tetikte';
+    $('kBas').textContent=D.ad; if($('kTop')) $('kTop').textContent=D.ad+' · konular';   /* menu.js üst satırı kendi menüsüyle değiştirebiliyor */
+    var H=HAVUZ.dersler[D.ad], KN=(KANIT.dersler&&KANIT.dersler[D.ad])||{};
+    var say={}; (H.sorular||[]).forEach(function(s){ say[s[1]]=(say[s[1]]||0)+1; });
+    var BEN={}; ((OZET&&OZET.konular)||[]).forEach(function(x){ if(x.sinav==='smmm'&&nrm(x.ders)===nrm(D.ad)) BEN[nrm(x.konu)]=x; });
+    var pencereBas=String(KANIT.pencere||'2016/1').split('/')[0];
+    var L=(H.konular||[]).map(function(ad,i){ if(!ad||!say[i]) return null;
+      var kn=KN[ad]||[], dm={}, sira=[]; kn.forEach(function(p){ if(!dm[p[0]]){ dm[p[0]]=[]; sira.push(p[0]); } dm[p[0]].push(p[1]); });
+      sira.sort(function(a,b){ return b.localeCompare(a,'tr',{numeric:true}); });
+      var b=BEN[nrm(ad)]||null, du=durum(b), oran=b&&+b.cevap?Math.round(100*b.dogru/b.cevap):null, gor=b?Math.min(100,Math.round(100*(+b.cozulen||0)/say[i])):0;
+      if(b&&+b.cozulen>0&&gor<1) gor=1;
+      return { ad:ad, i:i, donem:sira.length, son:sira[0]||'', dm:dm, sira:sira, b:b, du:du, oran:oran, gor:gor }; }).filter(Boolean);
+    /* hoca önerisi: sınavda çok çıkan ve senin zayıf (ya da hiç başlamadığın) konu — ağırlık: dönem sayısı × eksiklik */
+    var hoca=null;
+    if(GIRIS){ var puan=function(x){ if(x.du[0]==='z') return x.donem*(1-(x.oran||0)/100)*1.5; if(x.du[0]==='b'&&!(x.b&&+x.b.cevap)) return x.donem*0.9; if(x.du[0]==='o') return x.donem*0.5; return 0; };
+      hoca=L.filter(function(x){ return x.donem>0&&puan(x)>0; }).sort(function(a,b){ return puan(b)-puan(a); })[0]||null; }
+    var adres=function(x){ return D.sayfa+'?konu='+encodeURIComponent(x.ad); };
+    var sinavYazi=function(x){ return x.donem?pencereBas+'\'dan bu yana Yeterlilik\'te <b>'+x.donem+' sınavda</b> soruldu · en son '+esc(x.son):pencereBas+'\'dan bu yana sınavda sorulmadı'; };
+    if(hoca){
+      var neden=hoca.du[0]==='z'?'Doğru oranın <b>%'+hoca.oran+'</b>; bu konu '+sinavYazi(hoca)+'.':hoca.du[0]==='o'?'Doğru oranın <b>%'+hoca.oran+'</b>, güçlü sayılmak için %70 gerek; bu konu '+sinavYazi(hoca)+'.':'Bu konudan henüz soru çözmedin; '+sinavYazi(hoca)+'.';
+      $('kHoca').innerHTML='<div><span class="hoca-et">Nöbetçi diyor ki: şimdi bunu çöz</span><p><b>'+esc(buyuk(hoca.ad))+'</b>. '+neden+'</p></div><a class="kbtn ana" href="'+esc(adres(hoca))+'">Bu konuyu çöz →</a>';
+      $('kHoca').hidden=false;
+    } else $('kHoca').hidden=true;
+    if(GIRIS){ var c={z:0,o:0,g:0,b:0}; L.forEach(function(x){ c[x.b&&+x.b.cevap?x.du[0]:'b']++; });
+      $('kOzet').innerHTML='<span class="cip">'+L.length+' konu</span>'+(c.z?'<span class="cip z">'+c.z+' zayıf</span>':'')+(c.o?'<span class="cip o">'+c.o+' orta</span>':'')+(c.g?'<span class="cip g">'+c.g+' güçlü</span>':'')+'<span class="cip">'+c.b+' konuya başlamadın</span>'; }
+    else if(GIRIS===false) $('kOzet').innerHTML='<span class="cip">'+L.length+' konu</span><span style="align-self:center"><a href="ogrenci.html?sonra=konular.html%3Fders%3D'+esc(D.kod)+'">Giriş yap</a>, her konuda doğru oranını ve eksiklerini gör.</span>';
+    var sirali=L.slice();
+    if(SIRA==='zayif'){ var w={z:0,o:1,b:2,g:3}; sirali.sort(function(a,b){ var ab=a.b&&+a.b.cevap>=5?a.du[0]:'b', bb=b.b&&+b.b.cevap>=5?b.du[0]:'b'; return (w[ab]-w[bb])||((a.oran==null?101:a.oran)-(b.oran==null?101:b.oran))||(b.donem-a.donem); }); }
+    else if(SIRA==='baslamadi'){ sirali=sirali.filter(function(x){ return !(x.b&&+x.b.cevap); }).sort(function(a,b){ return (b.donem-a.donem)||(a.i-b.i); }); }
+    else sirali.sort(function(a,b){ return (b.donem-a.donem)||(a.i-b.i); });
+    document.querySelectorAll('#kSirala button').forEach(function(b){ b.setAttribute('aria-pressed',String(b.getAttribute('data-s')===SIRA)); b.hidden=!GIRIS&&b.getAttribute('data-s')!=='sinav'; });
+    $('kListe').innerHTML=!sirali.length?'<p class="bos">'+(SIRA==='baslamadi'?'Bu dersin bütün konularına en az bir kez dokundun.':'Bu derste konu yok.')+'</p>'
+      :sirali.map(function(x,j){
+        var bVar=x.b&&+x.b.cevap, dk=bVar?x.du[0]:'b';
+        var drm=!GIRIS?'':'<div class="durum">'+(bVar?'<span class="cubuk" title="Doğru oranı"><i style="width:'+Math.max(3,x.oran)+'%;background:'+RENK[x.du[0]]+'"></i></span><span><b>%'+x.oran+'</b> doğru · '+(+x.b.cevap)+' cevap · konunun %'+x.gor+'\'ini gördün</span>':'<span class="cubuk"><i style="width:0"></i></span><span>Henüz soru çözmedin</span>')
+          +' <span class="et '+dk+'">'+(bVar?x.du[1]:'Başlamadın')+'</span></div>';
+        var kan=x.donem?'<details><summary>Hangi sınavlarda? ›</summary><div class="donemler">'+x.sira.map(function(d){ return '<span>'+esc(d)+' · S'+esc(x.dm[d].join(', S'))+'</span>'; }).join('')+'</div></details>':'';
+        return '<div class="konu'+(GIRIS&&dk==='z'?' z':'')+'"><span class="no">'+(j+1)+'</span><div><div class="ad">'+esc(buyuk(x.ad))+'</div><div class="sinav">'+sinavYazi(x)+'</div></div>'
+          +'<a class="kbtn'+(x===hoca?' ana':'')+' git" href="'+esc(adres(x))+'">'+(bVar?'Devam et →':'Çöz →')+'</a>'+drm+kan+'</div>'; }).join('');
+    $('kNot').textContent='Sınav sayısı: '+String(KANIT.pencere||'').replace('-','–')+' arasındaki Yeterlilik sınavlarının soruları tek tek okunarak sayıldı (her konunun altında dönem ve soru no). '
+      +(GIRIS?'Durum: hesabındaki bütün cevaplar, telefon ve bilgisayar birlikte. Güçlü: doğru ≥ %70 · Orta: %55–69 · Zayıf: %55 altı (konuda en az 5 cevap). Çöz düğmesi yalnız o konunun sorularını açar, önce çözmediklerin gelir.':'Çöz düğmesi yalnız o konunun sorularını açar.');
+  }
+  document.getElementById('kSirala').addEventListener('click',function(e){ var b=e.target.closest('button[data-s]'); if(!b) return; SIRA=b.getAttribute('data-s'); try{ localStorage.setItem('kn_sira',SIRA); }catch(e2){} ciz(); });
+  /* yalnız yerel sınama: 127.0.0.1/localhost + ?sahte=1 → hesap yerine uydurma özet (canlıda çalışmaz) */
+  var SAHTE=/^(127\.0\.0\.1|localhost)$/.test(location.hostname)&&q.get('sahte')==='1';
+  var uye=SAHTE?new Promise(function(ok){ var bekle=function(){ if(!HAVUZ) return setTimeout(bekle,100); var L=[]; Object.keys(HAVUZ.dersler).forEach(function(d){ HAVUZ.dersler[d].konular.forEach(function(k,i){ if(!k||i%3===2) return; var c=3+((i*7)%15), dg=Math.round(c*[0.3,0.5,0.62,0.8,0.9][i%5]); L.push({sinav:'smmm',ders:d,konu:k,cevap:c,dogru:dg,cozulen:c-1}); }); }); OZET={konular:L}; ok(true); }; bekle(); })
+    :!sb?Promise.resolve(false):sb.auth.getSession().then(function(r){ var s=r&&r.data&&r.data.session; if(!s) return false;
+    return sb.rpc('uye_calisma_ozetim').then(function(x){ OZET=(x&&!x.error&&x.data)?x.data:null; return true; },function(){ return true; }); },function(){ return false; });
+  Promise.all([getir('veri/deneme/smmm-ders-havuz.json'),getir('veri/deneme/smmm-konu-kanit.json')]).then(function(r){ HAVUZ=r[0]; KANIT=r[1]; ciz();
+    uye.then(function(g){ GIRIS=g; ciz(); }); });
+})();
+</script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="komut.css">
+<script src="komut.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

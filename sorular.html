@@ -435,7 +435,11 @@
     /* 28.10 (Cem: "üstte birbirine benzeyen iki turuncu kart, hangisi önemli anlaşılmıyor"): paketli üyede bu bant ince satır, büyük
        kart yalnız devam (ya da Son 20 Gün) olur. Ziyaretçide büyük kalır (paketin içini gösteren kanca). */
     if((s20Ana||PAKET[s.kod])&&sikKart) sikKart='<a class="sc-ince" href="en-cok-cikan-sorular.html?sinav='+sikSinav+'"><span>🎯 <b>Sınavda en çok çıkan konulardan sorular</b> · ders ders</span><span class="sc-ince-git">Gör →</span></a>';
-    var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'+(sikSinav?'<a href="en-cok-cikan-sorular.html?sinav='+sikSinav+'">🎯 En çok çıkanlar</a>':'')
+    /* 24.11 Cem ("dersin altında konu konu çözebilsin; sınavda kaç kez çıktığını çözmeden göster, sıklığa göre sırala"): konular.html
+       (Yeterlilik; SGS/KGK sonra). Ders kartlarının üstünde ince satır + alanlar satırında kısayol. */
+    var konuKart=(acik&&s.kod==='smmm')?'<a class="sc-ince" href="konular.html"><span>📚 <b>Konu konu çöz</b> · her konu sınavda kaç kez çıktı, sen hangisinde eksiksin</span><span class="sc-ince-git">Konular →</span></a>':'';
+    sikKart+=konuKart;
+    var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'+(s.kod==='smmm'?'<a href="konular.html">📚 Konu konu</a>':'')+(sikSinav?'<a href="en-cok-cikan-sorular.html?sinav='+sikSinav+'">🎯 En çok çıkanlar</a>':'')
       +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')
       +(s.kod==='smmm'&&PAKET[s.kod]?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm#kisa">⚡ Kısa sınav</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
     var kars=karsilamaKart(s, acik);   /* ders seçimli pakette karşılama devam + deneme kartının yerine geçer */

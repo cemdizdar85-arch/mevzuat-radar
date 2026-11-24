@@ -1550,7 +1550,8 @@
         var ust='<div class="op-dt-ust"><div>'+(r.ss?'<b>Sınavda '+r.ss+' soru</b> çıkıyor'+(ssTop?' · '+ssTop+' soruluk sınavda payı %'+Math.round(100*r.ss/ssTop):'')+'. '
               :yet?'<b>Bu ders sınavda ayrı oturumda</b> sınanır; geçmek için 50 puan gerekir. ':'')
             +(KK.length?'Çözdüğün <b>'+KK.length+' konu</b>: <span class="op-et z">'+say.z+' zayıf</span> <span class="op-et o">'+say.o+' orta</span> <span class="op-et g">'+say.g+' güçlü</span>'+(say.b?' <span class="op-et b">'+say.b+' az veri</span>':''):'')+'</div>'
-            +(r.sayfa?'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Bu dersten çöz →</a>':'')+'</div>';
+            +(r.sayfa?'<span>'+(/^kaydir\/smmm\//.test(r.sayfa)?'<a class="og-btn op-coz" href="konular.html?ders='+esc(String(r.sayfa).split('/').pop().replace(/\.html$/,''))+'">Konu konu →</a> ':'')   /* 24.11 Cem "dersin altında konu konu" */
+              +'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Bu dersten çöz →</a></span>':'')+'</div>';
         /* 18.10 (Cem "1.2.3" madde 2): bu dersin sık çıkıp hiç dokunulmamış konuları da burada (calisma-ozet.js dokunulmamis → OP_DOK;
            dönem sayısı çıkmış soru metni okunarak, kanıtı "Sık çıkıp…" bölümünde). */
         var DK=(window.OP_DOK&&OP_DOK.tur==='konu'&&OP_DOK.sinav===s?OP_DOK.liste||[]:[]).filter(function(x){ return ad(x.ders)===ad(r.ad); });
@@ -1598,7 +1599,7 @@
           +(ssTop?' "Sınavda N soru": TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi ders dağılımı.':'');
       /* artılar / eksiler: en az 5 cevaplı konular (18.10: sunucu artık 1 cevaplı konuyu da döndürüyor; eşik burada) */
       var kon=K.filter(function(x){ return +x.cevap>=5&&x.konu!=='Konusu işaretlenmemiş'; }).map(function(x){ return { konu:x.konu, ders:x.ders, cv:+x.cevap, o:x.dogru/x.cevap, sayfa:(M[ad(x.ders)]||{}).sayfa }; });
-      var li=function(x,coz){ return '<li><span>'+esc(opBuyuk(x.konu))+'</span><small>%'+Math.round(100*x.o)+' · '+x.cv+' soru'+(coz&&x.sayfa?' · <a class="og-link" href="'+esc(x.sayfa)+'">çöz →</a>':'')+'</small></li>'; };
+      var li=function(x,coz){ return '<li><span>'+esc(opBuyuk(x.konu))+'</span><small>%'+Math.round(100*x.o)+' · '+x.cv+' soru'+(coz&&x.sayfa?' · <a class="og-link" href="'+esc(x.sayfa+'?konu='+encodeURIComponent(x.konu))+'">çöz →</a>':'')   /* 24.11: yalnız o konunun soruları (kasa-yukle.js konuSuz) */+'</small></li>'; };
       var arti=kon.filter(function(x){ return x.o>=0.7; }).sort(function(a,b){ return (b.o-a.o)||(b.cv-a.cv); }).slice(0,3);
       var eksi=kon.filter(function(x){ return x.o<0.6; }).sort(function(a,b){ return (a.o-b.o)||(b.cv-a.cv); }).slice(0,3);
       var bos=OZET===null?'Okunuyor…':!kon.length?'Bir konuda en az 5 soru çözünce burada görünür.':'';
