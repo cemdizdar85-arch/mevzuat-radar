@@ -306,6 +306,17 @@
          "aktif paketin yok · paketi al" DENMEZ; perde kendi paketini söyler ve oraya götürür (asıl kilit kasada, değişmedi). */
       var s20 = (r.data || []).filter(function (x) { return (!x.bitis || x.bitis >= bugun) && /^son20-(sgs|yet)$/.test(String(x.paket || '').trim().toLowerCase()); })[0];
       if (s20) return perde(String(s20.paket).trim().toLowerCase() === 'son20-yet' ? 'son20-yet' : 'son20-sgs');
+      /* 24.11 Cem ("hataların hepsini düzeltelim"): menüdeki "Sınav gibi deneme" hep Staja Giriş denemesine gidiyordu; paketi
+         açık Yeterlilik üyesi "Hesabında aktif paket yok" görüyordu (canlıda ölçüldü). Deneme sayfasında üyenin ÖTEKİ sınava
+         geçerli paketi varsa kendi sınavının denemesine götürülür. Asıl kilit kasada, değişmedi.
+         🚫 GÖRMEZ: #set=N ile gelen (belirli SGS seti) ve ?tur=sik bağlantıları; onlar eskisi gibi perde görür. */
+      if (/sinav-gibi\.html$/.test(location.pathname) && !/[?&]tur=/.test(location.search) && !/^#set=/.test(location.hash) && sinavi === 'sgs') {
+        var yetVar = (r.data || []).some(function (x) {
+          var p = String(x.paket == null ? '' : x.paket).trim().toLowerCase();
+          return (!x.bitis || x.bitis >= bugun) && (p === 'yeterlilik' || p.indexOf('yeterlilik-') === 0 || p === 'smmm');
+        });
+        if (yetVar) { location.replace(KOK + 'sinav-gibi.html?tur=ders&sinav=smmm'); return; }
+      }
       perde('paket');
     } catch (e) { clearTimeout(zaman); perde('hata'); }
   });

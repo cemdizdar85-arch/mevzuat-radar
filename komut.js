@@ -29,7 +29,13 @@
     ['SMMM sınavları', [
       ['Soru çöz', 'sorular.html', 'soru coz banka sgs staja giris yeterlilik bitirme ders'],
       ['5 örnek soru çöz', 'kaydir/vitrin/ornek-sgs.html', 'ornek soru ucretsiz seviye test olcum'],   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
-      ['Deneme sınavı', 'deneme.html', 'deneme soru test cozum ogrenci stajyer sinav'],
+      /* 24.11 Cem ("iki kere arattıran şeyleri düzelt"): menüde olup aramada çıkmayan sayfalar eklendi; 'Deneme' artık
+         sınav gibi deneme sayfasına gider (paket kapısı üyeyi kendi sınavının denemesine götürür). */
+      ['Sınav gibi deneme', 'sinav-gibi.html', 'deneme sinavi sureli test karne sinav gibi'],
+      ['Yanlışlarım', 'yanlislarim.html', 'yanlis yanlislarim hata tekrar kutu yanlis kutusu'],
+      ['Konu konu çöz', 'konular.html', 'konu konular konu listesi'],
+      ['En çok çıkan konular', 'en-cok-cikan-sorular.html', 'cikmis cikmis sorular en cok cikan sik sorulan gecmis sinav'],
+      ['Sınav duyuruları', 'sinav-nobeti.html', 'duyuru tesmer turmob sinav tarihi basvuru takvim'],
       /* 08.10 Cem "canlı deneme kaldır": arama satırı çıktı (sayfa GİZLİ) */
       /* 02.10 gizli: ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'], */
       /* 07.10 Cem ("ulaşamasın bunlara"): genc · donem-plani · songun · karsilastirma GİZLİ; sayfalar silinmedi. */
@@ -37,6 +43,11 @@
     ['Hesap ve sayfalar', [
       ['Hesabım / öğrenci girişi', 'ogrenci.html', 'giris uye kayit hesap oturum'],
       ['Fiyatlar ve paketler', 'fiyat.html', 'fiyat paket ucret kac para'],
+      ['Satın al', 'satin-al.html', 'satin al paket al siparis odeme yap'],
+      ['Ödeme, taksit ve fatura', 'fiyat.html', 'taksit odeme kart kredi karti havale eft iyzico fatura e-arsiv'],
+      ['İade ve iptal koşulları', 'teslimat-iade.html', 'iade iptal cayma vazgec geri odeme teslimat'],
+      ['Şifremi unuttum / şifre değiştir', 'ogrenci.html', 'sifre sifremi unuttum parola degistir sifirla giremiyorum'],
+      ['Cihazlarım', 'ogrenci.html', 'cihaz cihazlarim telefon bilgisayar cihaz siniri cikar'],
       ['İletişim', 'iletisim.html', 'iletisim mail telefon ulas destek yardim'],
       ['Aydınlatma metni (KVKK)', 'kvkk.html', 'kvkk gizlilik veri guvenlik aydinlatma kisisel']
     ]]
@@ -78,13 +89,13 @@
           (s.dersler || []).forEach(function (x) {
             if (!x.sayfa) return;
             var konular = (x.konular || []).map(function (k) { return k.ad; }).join(' ');
-            KAYIT.push({ ad: x.ad, yol: '/' + x.sayfa, konu: s.ad + ' dersleri', ara: katla(x.ad + ' ' + konular + ' ' + (x.ara || '') + ' ' + s.ad + ' ' + (s.uzun || '')) });
+            KAYIT.push({ sinav: s.kod, ad: x.ad, yol: '/' + x.sayfa, konu: s.ad + ' dersleri', ara: katla(x.ad + ' ' + konular + ' ' + (x.ara || '') + ' ' + s.ad + ' ' + (s.uzun || '')) });
             /* 23.11 Cem "Amazon/YouTube gibi" (denetim C19 "arama konu bulmuyor"): konu da ayrı sonuç olur; tık = ders sayfası
                ?konu=<ad> (kasa-yukle.js sırayı o konuya indirir; ad tutmazsa bütün ders açılır). Konu adı ders adından önce gelir. */
             (x.konular || []).forEach(function (k) {
               if (!k || !k.ad) return;
               var ad = k.ad.charAt(0).toLocaleUpperCase('tr-TR') + k.ad.slice(1);
-              KAYIT.push({ ad: ad, yol: '/' + x.sayfa + '?konu=' + encodeURIComponent(k.ad), konu: x.ad + ' · ' + s.ad + ' konusu', ara: katla(k.ad + ' ' + x.ad), tur: 'konu' });
+              KAYIT.push({ sinav: s.kod, ad: ad, yol: '/' + x.sayfa + '?konu=' + encodeURIComponent(k.ad), konu: x.ad + ' · ' + s.ad + ' konusu', ara: katla(k.ad + ' ' + x.ad), tur: 'konu' });
             });
           });
         });
@@ -97,9 +108,37 @@
      Puanlama: adin basindan eslesme > ad icinde > ek kelimelerde.
      Boylece "marka" yazinca "Marka Radari" once, "Markanla ne
      yapabilirsin" sonra gelir.                                            */
+  /* 24.11 Cem ("iki kere arattıran"): Yeterlilik üyesi "kıdem tazminatı" yazınca ilk sonuç Staja Giriş dersiydi (paketinde yok).
+     Cihazda seçili sınavın (tt_sinav; Hesabım ve ana sayfadaki sekme yazar) dersleri ve konuları öne alınır; öteki sınav
+     listeden ÇIKMAZ, arkaya düşer. 🚫 GÖRMEZ: paketi; yalnız cihazdaki sınav seçimine bakar. */
+  function benimSinav() { try { var v = localStorage.getItem('tt_sinav'); return v === 'yeterlilik' ? 'smmm' : (v === 'sgs' || v === 'kgk' ? v : ''); } catch (e) { return ''; } }
+  /* harf hatası: iki kelime arasındaki düzeltme uzaklığı (ekle / sil / değiştir); 'en' aşılınca erken çıkar */
+  function uzaklik(a, b, en) {
+    if (Math.abs(a.length - b.length) > en) return en + 1;
+    var o = [], i, j; for (j = 0; j <= b.length; j++) o[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var sol = o[0], kucuk = i; o[0] = i;
+      for (j = 1; j <= b.length; j++) { var t2 = o[j]; o[j] = Math.min(o[j] + 1, o[j - 1] + 1, sol + (a[i - 1] === b[j - 1] ? 0 : 1)); sol = t2; if (o[j] < kucuk) kucuk = o[j]; }
+      if (kucuk > en) return en + 1;
+    }
+    return o[b.length];
+  }
+  function yakinAra(parca) {
+    var ben = benimSinav();
+    return KAYIT.map(function (r) {
+      var kel = r.kel || (r.kel = r.ara.split(/[^a-z0-9]+/).filter(function (w) { return w.length >= 4; })), adk = katla(r.ad), puan = 0, tutan = 0;
+      parca.forEach(function (p) {
+        if (p.length < 5) return;
+        var en = p.length >= 8 ? 2 : 1, iyi = en + 1, adda = false;
+        for (var i = 0; i < kel.length; i++) { var u = uzaklik(p, kel[i], en); if (u < iyi) { iyi = u; adda = adk.indexOf(kel[i]) > -1; if (!u) break; } }
+        if (iyi <= en) { tutan++; puan += (adda ? 50 : 10) - iyi; }
+      });
+      return tutan === parca.length ? { r: r, puan: puan + (r.tur === 'konu' ? 30 : 0) + (r.sinav && r.sinav === ben ? 60 : 0) } : null;
+    }).filter(Boolean).sort(function (a, b) { return b.puan - a.puan; }).map(function (x) { return x.r; });
+  }
   function ara(q) {
-    var t = katla(q).trim();
-    if (!t) return KAYIT.slice();
+    var t = katla(q).trim(), ben = benimSinav();
+    if (!t) return KAYIT.filter(function (r) { return !r.sinav || !ben || r.sinav === ben; }).concat(KAYIT.filter(function (r) { return r.sinav && ben && r.sinav !== ben; }));
     var parca = t.split(/\s+/);
     /* 23.11: Türkçe ek toleransı - kelimenin sonundaki TEK ek atılmış hâli de aranır, kök en az 4 harf
        ("iadesi" -> "iade", "amortismani" -> "amortisman"; "turkce" -> "turkc", "ataturk"e düşmez) */
@@ -119,14 +158,18 @@
           else if (ad.indexOf(q) > -1) puan += 50;
           else puan += 10;
         });
-        if (r.tur === 'konu' && puan >= 50) puan += 30;   /* adında geçen konu, aynı kelimeyi yalnız anahtar listesinde taşıyan dersten önce */
+        if (r.tur === 'konu' && puan >= 50) puan += 30;
+        if (puan && r.sinav && r.sinav === ben) puan += 30;   /* 24.11: üyenin kendi sınavı önce */   /* adında geçen konu, aynı kelimeyi yalnız anahtar listesinde taşıyan dersten önce */
         return (tumu ? tutan === parca.length : tutan > 0) ? { r: r, puan: puan + tutan * 5 } : null;
       }).filter(Boolean).sort(function (a, b) { return b.puan - a.puan; })
         .map(function (x) { return x.r; });
     }
     var tam = puanla(true);
     /* hiçbir sonuç bütün kelimeleri taşımıyorsa en az birini taşıyanlar ("kdv iadesi" -> KDV geçen dersler) */
-    return tam.length ? tam : puanla(false);
+    if (tam.length) return tam;
+    var bir = puanla(false);
+    /* 24.11: hiç eşleşme yoksa harf hatasına bak ("amortsman" -> Amortisman; 5+ harfte 1, 8+ harfte 2 harf) */
+    return bir.length ? bir : yakinAra(parca);
   }
 
   /* GTIP kodu yazildiysa dogrudan sorguya goturen ozel satir uretilir.

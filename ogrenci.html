@@ -865,7 +865,8 @@
     window.ttCalisma.oneri(function(s,o,ev){
       $('ogSimdiBas').textContent=s.baslik; $('ogSimdiMetin').textContent=s.metin; $('ogSimdiBtn').textContent=s.dugme+' →'; $('ogSimdiBtn').href=s.adres;
       var p=[];
-      if(o.cozulen) p.push('Çözülen '+o.cozulen+' · doğru %'+o.dogruYuzde);   /* 28.10 sade: "yanlış N" çözülen + oran ile zaten belli */
+      /* 24.11 Cem ("hataların hepsini düzeltelim"): bu satır cihazdaki son 500 cevaptan 'Çözülen 29 · doğru %14' diyordu, hemen
+         altındaki karne kutusu hesap özetinden '10 çözülen soru · %10'. Aynı ekranda tek sayı: hesap özeti. Satırda yalnız tekrar kalır. */   /* 28.10 sade: "yanlış N" çözülen + oran ile zaten belli */
       p.push('tekrar bekleyen '+o.kutuToplam);
       $('ogSonDurum').innerHTML=esc(p.join(' · '))+' · <a class="og-link" href="yanlislarim.html">Yanlışlarım →</a>';
       $('ogSimdi').classList.remove('og-gizli');
@@ -937,7 +938,7 @@
     var ust=L.slice(0,5), alt=L.slice(5);
     $('ogHedefKListe').innerHTML=ust.map(function(z,j){ return satir(z,j===ilkAcik); }).join('')
       +(alt.length?'<details class="hk-tum"><summary>Tüm sık konular ('+L.length+')</summary>'+alt.map(function(z){ return satir(z,false); }).join('')+'</details>':'');
-    $('ogHedefKAlt').textContent='Hedef nereden: doğru oranı %'+HEDEF_ORAN+' sınavın geçme kuralı ('+(ys?'SMMM/YMM Sınav Yönetmeliği m.16: her dersten en az 50, ortalama en az 60':'SMMM Staj Yönetmeliği m.7: en az 60 puan')+'). Soru hedefi: her sık konudan '+HEDEF_SORU+' soru (bankada daha az varsa hepsi). Konular, '+(r.pencere?r.pencere.replace('-','–')+' arasındaki ':'')+(r.donem?r.donem+' sınavda ':'çıkmış sınavlarda ')+'en sık sorulanlar. Oran, en az 5 cevaptan sonra görünür.';
+    $('ogHedefKAlt').textContent='Hedef nereden: doğru oranı %'+HEDEF_ORAN+' sınavın geçme kuralı ('+(ys?'SMMM/YMM Sınav Yönetmeliği m.16: her dersten en az 50, ortalama en az 60':'SMMM Staj Yönetmeliği m.7: en az 60 puan')+'). Soru hedefi: her sık konudan '+HEDEF_SORU+' soru (bankada daha az varsa hepsi). Konular, '+(r.pencere?r.pencere.slice(0,4)+"'dan bu yana ":'')+'çıkmış sınavlarda en sık sorulanlar. Oran, en az 5 cevaptan sonra görünür.';
     kap.classList.remove('og-gizli');
     try{ if(window.ttSay&&!window.__hkSay){ window.__hkSay=1; ttSay('hesabim/konu-hedef','Hesabım: konu hedefleri görüldü'); } }catch(e){}
   }
@@ -974,7 +975,7 @@
           var enCok=g.k.reduce(function(m,x){ return Math.max(m,+x.donSay||0); },0);
           return '<details class="op-dk"'+(j?'':' open')+'><summary><span class="op-dk-ad"><b>'+esc(g.ders)+'</b><small>'+g.k.length+' sık konuya hiç dokunmadın · en sık olanı '+r.donem+' dönemin '+enCok+' tanesinde soruldu</small></span><span class="op-et z">'+g.k.length+' konu</span></summary>'
             +g.k.map(function(x){
-              return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(r.pencere.replace('-','–'))+' arasındaki '+r.donem+' dönemin '+x.donSay+' tanesinde soruldu, en son '+esc(x.son)+'</span>'
+              return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(r.pencere.slice(0,4))+"'dan bu yana "+x.donSay+' sınavda soruldu, en son '+esc(x.son)+'</span>'
                 +'<details style="font-size:12.5px;color:var(--muted);margin-top:2px"><summary style="cursor:pointer;color:var(--link)">Kanıt: hangi sınav, kaçıncı soru</summary>'+esc(x.kanit.map(function(z){ return z.donem+' s.'+z.soru; }).join(' · '))+'</details></div>'
                 +'<a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('')+'</details>'; }).join('');
       } else {

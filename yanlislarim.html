@@ -119,10 +119,15 @@ h2{font-size:17px;margin:30px 0 10px}
   document.addEventListener('tetikte-kutu',ciz);
   ciz();
   function ciz(){
-  var C=window.ttCalisma, o=C.ozet();
+  /* 24.11 Cem ("hataların hepsini düzeltelim"): Hesabım seçili sınavın kutusunu sayıyordu (Yeterlilik 63), bu sayfa bütün sınavları
+     (177; Staja Giriş'in örnek sorularından kalanlar dahil). Artık ikisi de seçili sınavı sayar; öteki sınavda bekleyen varsa
+     altta tek satırla söylenir ve oraya geçilir. 🚫 GÖRMEZ: önekle (sgs-/smmm-/kgk-) başlamayan eski kayıtlar hiçbir sınava düşmez. */
+  var C=window.ttCalisma, U=window.TetikteUye, SEC=U?U.seciliSinav():null, o=C.ozet(SEC||undefined);
+  var AD={sgs:'Staja Giriş',yeterlilik:'Yeterlilik',kgk:'KGK'}, oteki='';
+  if(SEC){ ['sgs','yeterlilik','kgk'].forEach(function(k){ if(k===SEC) return; var n=C.ozet(k).kutuToplam; if(n) oteki+=' <a href="yanlislarim.html?sinav='+k+'">'+AD[k]+' kutunda '+n+' soru daha var →</a>'; }); }
   $('ylOzet').innerHTML = o.kutuToplam
-    ? '<b>'+o.kutuToplam+'</b> soru tekrar bekliyor'+(o.vadeli?' · <span class="bugun">bugün '+o.vadeli+' tanesinin sırası</span>':' · bugün sırası gelen yok')+'.'
-    : 'Yanlış kutun boş. Ders sayfalarında yanlış yaptığın her soru buraya düşer; 2 gün sonra yeniden karşına çıkar, o gün de bilirsen 7 gün sonra bir kez daha.';
+    ? (SEC?'<b>'+AD[SEC]+'</b> · ':'')+'<b>'+o.kutuToplam+'</b> soru tekrar bekliyor'+(o.vadeli?' · <span class="bugun">bugün '+o.vadeli+' tanesinin sırası</span>':' · bugün sırası gelen yok')+'.'+oteki
+    : 'Yanlış kutun boş. Ders sayfalarında yanlış yaptığın her soru buraya düşer; 2 gün sonra yeniden karşına çıkar, o gün de bilirsen 7 gün sonra bir kez daha.'+oteki;
   $('ylCoz').textContent=o.cozulen; $('ylDog').textContent=o.dogruYuzde==null?'–':'%'+o.dogruYuzde; $('ylYan').textContent=o.yanlis; $('ylBek').textContent=o.kutuToplam;
   C.dizin().then(function(d){
     if(o.kutuDers.length){
@@ -150,7 +155,7 @@ h2{font-size:17px;margin:30px 0 10px}
   C.oneri(function(s){
     $('ylSimdiBas').textContent=s.baslik; $('ylSimdiMetin').textContent=s.metin; $('ylSimdiBtn').textContent=s.dugme+' →'; $('ylSimdiBtn').href=s.adres; $('ylSimdi').hidden=false;
     document.documentElement.classList.remove('yl-bekle');   /* 07.10: ilk çizim tamam, alan görünür */
-  });
+  }, SEC?{sinav:SEC}:undefined);
   }
 })();
 </script>
