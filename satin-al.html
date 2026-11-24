@@ -42,10 +42,10 @@
         font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
   .s{ max-width:1100px; margin:0 auto; padding:30px 20px 96px; }
   h1{ font-size:clamp(25px,4vw,32px); margin:0 0 8px; letter-spacing:-.6px; }
-  .alt{ color:var(--muted); font-size:15.5px; margin:0 0 12px; max-width:62ch; }
+  .alt{ color:var(--muted); font-size:16px; margin:0 0 12px; max-width:62ch; }
   a{ color:var(--link); }
   .bas{ margin:8px 0 26px; }
-  .guven{ list-style:none; display:flex; flex-wrap:wrap; gap:8px 18px; margin:0; padding:0; font-size:12.5px; color:var(--muted); }
+  .guven{ list-style:none; display:flex; flex-wrap:wrap; gap:8px 18px; margin:0; padding:0; font-size:13px; color:var(--muted); }
   .guven li{ display:flex; align-items:center; gap:7px; }
   .guven li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--amber-dolgu); flex:none; }
 
@@ -81,7 +81,7 @@
   .akd.acik .akd-govde{ grid-template-rows:1fr; }
   .akd-ic{ overflow:hidden; min-height:0; padding:0 22px; }
   .akd.acik .akd-ic{ padding-bottom:22px; }
-  .akd-hata{ display:none; margin:12px 0 0; font-size:13.5px; font-weight:600; color:var(--red); }
+  .akd-hata{ display:none; margin:12px 0 0; font-size:14px; font-weight:600; color:var(--red); }
   .akd-devam{ margin-top:16px; }
   @media (min-width:560px){ .akd-devam{ width:auto; min-width:180px; padding-left:28px; padding-right:28px; } }
   .ozet-bas{ display:flex; align-items:center; gap:12px; font-weight:800; font-size:16px; margin:0 0 12px; }
@@ -94,7 +94,7 @@
          border-top:1px solid var(--line); box-shadow:0 -8px 24px -12px color-mix(in srgb,var(--ink) 30%,transparent); }
   .mbar[hidden]{ display:none; }
   .mbar-tutar{ display:flex; flex-direction:column; line-height:1.25; min-width:0; }
-  .mbar-tutar span{ font-size:11.5px; color:var(--dim); }
+  .mbar-tutar span{ font-size:12px; color:var(--dim); }
   .mbar-tutar b{ font-size:18px; font-variant-numeric:tabular-nums; white-space:nowrap; }
   .mbar .btn{ margin:0; flex:1; padding:12px; }
   @media (min-width:960px){ .mbar{ display:none !important; } }
@@ -103,7 +103,7 @@
   .kucuk{ font-size:12px; color:var(--dim); }
 
   /* --- paket secimi --- */
-  .grup{ font-size:12.5px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
+  .grup{ font-size:13px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
   /* 17.10: ?paket= ile seçilerek gelinince yalnız o paket (öteki paketler "Başka paket seç" ile) */
   #paketler.odak .pk:not(.sec):not(.kardes), #paketler.odak .grup, #paketler.odak > p{ display:none; }
   /* 28.10: sabit sıra (tıklayınca satır kaymasın) — SGS: Tam Paket · 7 Deneme (PAKETLER sırası) · Yeterlilik: tüm dersler · ders ders · Son 20 Gün */
@@ -117,8 +117,8 @@
   .ders-sayi[hidden]{ display:none; }
   .ders-sayi > span{ grid-column:1 / -1; font-weight:800; font-size:15px; }
   @media (max-width:560px){ .ders-sayi{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  .ders-sayi button{ min-height:52px; padding:6px 6px; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-weight:800; font-size:14.5px; cursor:pointer; line-height:1.2; }
-  .ders-sayi button small{ display:block; font-weight:600; font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .ders-sayi button{ min-height:52px; padding:6px 6px; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-weight:800; font-size:15px; cursor:pointer; line-height:1.2; }
+  .ders-sayi button small{ display:block; font-weight:600; font-size:12px; color:var(--muted); margin-top:2px; }
   .ders-sayi button:hover{ border-color:var(--ink); }
   .ders-sayi button[aria-pressed="true"]{ border-color:var(--amber-dolgu); box-shadow:inset 0 0 0 1px var(--amber-dolgu); background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--kart)); }
   .pk-tumu{ display:inline-flex; align-items:center; min-height:40px; margin:2px 0 6px; padding:0; background:none; border:0; font:inherit; font-size:14px; font-weight:700; color:var(--link); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
@@ -128,7 +128,7 @@
   .pk.sec{ border-color:rgba(245,165,36,.6); box-shadow:0 0 0 1px rgba(245,165,36,.2); }
   .pk input{ margin-top:4px; accent-color:var(--amber); width:17px; height:17px; flex:none; }
   .pk .ad{ font-weight:700; font-size:15px; }
-  .pk .er{ font-size:12.5px; color:var(--muted); }
+  .pk .er{ font-size:13px; color:var(--muted); }
   /* 01.10 telefon ölçümü (375px): fiyat sütunu flex:none idi; "1.000 kurucudan sonra … (KDV dahil …)" satırı
      gelince sütun sayfadan taştı (fiyat 441px'te kesik), paket adı tek kelimelik sütuna sıkıştı. Ad sütunu
      esner, fiyat sütunu daralır; dar ekranda fiyat adın ALTINA iner. */
@@ -139,16 +139,16 @@
     .pk{ flex-wrap:wrap; }
     .pk .fy{ flex-basis:100%; max-width:none; margin-left:0; text-align:left; padding-left:29px; }
   }
-  .pk .fy span{ display:block; font-size:12.5px; color:var(--dim); }   /* 28.10 görüntü turu: 11 px telefonda okunmuyordu */
+  .pk .fy span{ display:block; font-size:13px; color:var(--dim); }   /* 28.10 görüntü turu: 11 px telefonda okunmuyordu */
   /* 28.10 Cem ("1 ders görünüyor, basınca diğerleri çıkıyor, basmayabilir; ders sayısı yukarıda olsun"): ders sayısı satırın içinde */
   .pk-ds{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:8px 0 2px; max-width:340px; }
   .pk-ds button{ min-height:40px; padding:0 4px; white-space:nowrap; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-size:14px; font-weight:750; cursor:pointer; }
   .pk-ds button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
   .pk .fy s{ display:block; font-size:12px; color:var(--dim); }
-  .pk .harc{ display:block; font-size:12.5px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
+  .pk .harc{ display:block; font-size:13px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
   .dersListe{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:7px; }
   .dersListe label{ display:flex; align-items:center; gap:9px; background:color-mix(in srgb,var(--ink) 5%,var(--kart));
-       border:1px solid transparent; border-radius:10px; padding:9px 12px; font-size:13.5px; cursor:pointer; }
+       border:1px solid transparent; border-radius:10px; padding:9px 12px; font-size:14px; cursor:pointer; }
   .dersListe label.sec{ border-color:rgba(245,165,36,.6); }
   .dersListe input{ accent-color:var(--amber); width:16px; height:16px; flex:none; }
   .dersListe label.kapali{ opacity:.45; cursor:not-allowed; }
@@ -156,7 +156,7 @@
   /* --- form --- */
   .satir{ display:flex; gap:12px; flex-wrap:wrap; }
   .alan{ flex:1; min-width:220px; margin-bottom:16px; }
-  label.et{ display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+  label.et{ display:block; font-size:13px; font-weight:600; color:var(--muted); margin-bottom:6px; }
   /* 03.10: sert ince kenarlık yerine dolgulu alan; odakta marka sarısı alt çizgi + yumuşak parlama */
   input[type=text],input[type=email],input[type=tel],textarea,select{
       width:100%; background:color-mix(in srgb,var(--ink) 6%,var(--kart)); border:1px solid transparent;
@@ -174,6 +174,8 @@
   .tip input{ accent-color:var(--amber); width:16px; height:16px; }
   .onay{ display:flex; gap:9px; align-items:flex-start; font-size:13px; color:var(--muted); margin-top:10px; }
   .onay input{ margin-top:3px; accent-color:var(--amber); width:16px; height:16px; flex:none; }
+  .onay.onay-eksik{ outline:2px solid var(--red); outline-offset:4px; border-radius:10px; color:var(--ink); }   /* 24.11: işaretlenmemiş onay */
+  #onayHata{ margin:14px 0 0; }
 
   /* --- ozet --- */
   .ozet{ border-color:rgba(245,165,36,.4); }
@@ -183,7 +185,7 @@
   .ozet tr:last-child td{ border-bottom:none; font-weight:800; font-size:16px; }
   .ozet tr:last-child td.sag{ color:var(--amber); }
   .btn{ display:block; width:100%; text-align:center; background:var(--amber-dolgu); color:#0a0c10;
-        font-weight:800; font-size:15px; padding:14px; border:none; border-radius:11px; cursor:pointer; margin-top:14px; }
+        font-weight:800; font-size:15px; padding:14px; border:none; border-radius:12px; cursor:pointer; margin-top:14px; }
   .btn[disabled]{ opacity:.55; cursor:not-allowed; }
   .sonuc{ display:none; margin-top:12px; font-size:14px; font-weight:600; }
 
@@ -192,9 +194,9 @@
   .iban{ font:800 19px/1.4 ui-monospace,Consolas,monospace; letter-spacing:.5px; color:var(--amber);
          word-break:break-all; user-select:all; }
   .kv{ display:flex; gap:10px; padding:7px 0; border-bottom:1px solid var(--line2); font-size:14px; flex-wrap:wrap; }
-  .kv b{ min-width:150px; color:var(--muted); font-weight:600; font-size:12.5px; }
+  .kv b{ min-width:150px; color:var(--muted); font-weight:600; font-size:13px; }
   .uyari{ background:rgba(255,107,107,.08); border:1px solid rgba(255,107,107,.45); border-radius:12px;
-          padding:14px 18px; margin-bottom:20px; color:var(--red); font-size:13.5px; font-weight:700; }
+          padding:14px 18px; margin-bottom:20px; color:var(--red); font-size:14px; font-weight:700; }
   /* 24.09 mobil denetim: form yazısı 14 px idi -> iPhone Safari 16 px altındaki kutuya dokununca sayfayı
      zorla yakınlaştırır (ödeme formunda kopuş). Telefonda 16 px; yatay taşma 0, paket satırı 154 px tıklanır. */
   @media (max-width:700px){ input[type=text],input[type=email],input[type=tel],textarea,select{ font-size:16px; } }
@@ -434,6 +436,9 @@
   <label class="onay"><input type="checkbox" id="onKvkk">
     <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
     <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></label>
+  <!-- 24.11 (denetim): onay eksiğinde hata iki düğmenin ALTINDA çıkıyordu, kutu işaretlenmiyordu, üç kutu tek tek soruluyordu, telefonda alt
+       çubuktan basınca hiç mesaj yoktu. Artık eksik kutuların hepsi birden kırmızı çerçevelenir, mesaj kutuların hemen altında. -->
+  <p class="akd-hata" id="onayHata" role="alert"></p>
 
   <!-- 23.11 (Cem "YouTube ve Amazon gibi: kolay alım", denetim bulgusu 3): "Siparişi tamamla" → ayrı "Siparişin alındı" ekranı → ayrıca
        "Kartla öde" idi; 24.10–23.11'de 10 alıcı bu ara ekranda kaldı (sipariş verdi, karta hiç basmadı, havale de gelmedi). Artık ödeme
@@ -586,7 +591,7 @@ function pkFiyatHtml(p){
     + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
     + (tk ? '<span style="color:var(--ink);font-weight:700">' + tk + '</span><span>kartla, ' + TAKSIT_KARTLAR + ' kartlarında</span>' : '')
     /* 23.11 Cem "Yasal güçlü kart": tarihli pakette 1 Ocak fiyatı + fark büyük ve renkli (üstü çizili YOK) */
-    + ((typeof artisBilgi === 'function' && artisBilgi(p)) ? (function(ar){ return '<span style="display:block;margin:6px 0 2px;padding:7px 10px;border-radius:9px;border-left:4px solid var(--red);background:color-mix(in srgb,var(--red) 9%,transparent);color:var(--ink);font-weight:600;line-height:1.4">🔺 ' + ar.tarih + ' <b style="color:var(--red)">' + ar.yeni + '</b> oluyor · şimdi alırsan <b style="color:var(--red)">' + ar.fark + ' daha az</b> ödersin</span>'; })(artisBilgi(p))
+    + ((typeof artisBilgi === 'function' && artisBilgi(p)) ? (function(ar){ return '<span style="display:block;margin:6px 0 2px;padding:7px 10px;border-radius:10px;border-left:4px solid var(--red);background:color-mix(in srgb,var(--red) 9%,transparent);color:var(--ink);font-weight:600;line-height:1.4">🔺 ' + ar.tarih + ' <b style="color:var(--red)">' + ar.yeni + '</b> oluyor · şimdi alırsan <b style="color:var(--red)">' + ar.fark + ' daha az</b> ödersin</span>'; })(artisBilgi(p))
       : p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : p.sonraYazi ? p.sonraYazi + ' ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
     + ayr;
 }
@@ -1231,8 +1236,9 @@ function davetKodOku(){
     var m1 = adim1Hata(); if(m1){ akdHata(1, m1); return; }
     var m2 = adim2Hata(); if(m2){ akdHata(2, m2); return; }
     var hepsi = ['onSoz','onIfa','onKvkk'].every(function(i){ return $(i).checked; });
-    ozeteGit();
-    if(hepsi){ $('gonder').click(); }
+    if(hepsi){ ozeteGit(); $('gonder').click(); }
+    else if(typeof window.onayEksik === 'function'){ window.onayEksik(true); }   /* 24.11: alt çubuktan basınca da mesaj + kırmızı çerçeve */
+    else { ozeteGit(); }
   });
 
   function baslat(){
@@ -1442,6 +1448,24 @@ function goster(m, ok){ s.style.display='block'; s.innerHTML=m; s.style.color = 
 function deger(id){ return (document.getElementById(id).value || '').trim(); }
 /* 03.10: doğrulama hatası kapanmış adımdaysa o adım yeniden açılır, mesaj adımın içinde de yazılır */
 function hata(m, adim){ if(adim && typeof window.akdHata === 'function') window.akdHata(adim, m); goster(m, false); }
+/* 24.11 onay kutuları: eksik olanlar kırmızı çerçevelenir, mesaj kutuların hemen altına yazılır, ilk eksik kutuya gidilir.
+   Dönüş: eksik var mı. Kutu işaretlendikçe çerçeve ve mesaj kendiliğinden kalkar (aşağıdaki change dinleyicisi). */
+var ONAY_KUTU = ['onSoz','onIfa','onKvkk'];
+function onayEksik(goturVeYaz){
+  var bos = ONAY_KUTU.map(function(i){ return document.getElementById(i); }).filter(function(x){ return !x.checked; });
+  var h = document.getElementById('onayHata');
+  ONAY_KUTU.forEach(function(i){ var k = document.getElementById(i); k.parentNode.classList.toggle('onay-eksik', !!goturVeYaz && !k.checked); });
+  if(!bos.length || !goturVeYaz){ h.textContent = ''; h.style.display = 'none'; if(bos.length === 0) s.style.display = 'none'; return bos.length > 0; }
+  h.textContent = bos.length === 1 ? 'Devam etmek için kırmızı çerçeveli kutuyu işaretle.' : 'Devam etmek için kırmızı çerçeveli ' + bos.length + ' kutuyu işaretle.';
+  h.style.display = 'block'; s.style.display = 'none';
+  try{ bos[0].parentNode.scrollIntoView({ behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center' }); bos[0].focus({ preventScroll:true }); }catch(e){}
+  return true;
+}
+window.onayEksik = onayEksik;
+ONAY_KUTU.forEach(function(i){ document.getElementById(i).addEventListener('change', function(){
+  this.parentNode.classList.remove('onay-eksik');
+  if(ONAY_KUTU.every(function(k){ return !document.getElementById(k).parentNode.classList.contains('onay-eksik'); })){ var h = document.getElementById('onayHata'); h.textContent = ''; h.style.display = 'none'; }
+}); });
 
 btn.addEventListener('click', function(){
   var tercih = ODEME_TERCIH; ODEME_TERCIH = 'kart';   /* 23.11: havale düğmesi bayrağı bir kez kullanılır */
@@ -1464,9 +1488,7 @@ btn.addEventListener('click', function(){
     fatura.tckn = deger('tckn');
     if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ hata('T.C. kimlik no 11 hane olmalı.', 2); return; }
   }
-  if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
-  if(!document.getElementById('onIfa').checked){ goster(acilisYazi(secili) ? 'Denemelerin açılış günü ve cayma onayını işaretle.' : 'Hizmetin hemen başlatılması onayını işaretle.', false); return; }
-  if(!document.getElementById('onKvkk').checked){ goster('Aydınlatma metnini okuduğunu işaretle.', false); return; }
+  if(onayEksik(true)) return;   /* 24.11: eksik kutuların hepsi birden, mesaj kutuların altında */
 
   /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
      bilmeden para almak, tutamayacagimiz bir soz vermek olur. */
@@ -1743,6 +1765,20 @@ if(!KURULUM_TAMAM){
     }, function(){}); }catch(e){}
     var m = document.getElementById('mail'); if(m){ m.value = u.email; m.readOnly = true; m.style.opacity = '.75'; }   /* sipariş e-postası = hesap e-postası */
     var md = u.user_metadata || {}, ad = md.full_name || md.name || ''; var a = document.getElementById('ad'); if(a && !a.value.trim() && ad) a.value = ad;
+    /* 24.11 (Cem "alımı çok kolay olsun"; denetim: telefon + adres her alımda elle): üyenin KENDİ son siparişindeki telefon, fatura adresi
+       ve fatura tipi boş alanlara dolar. Kaynak sunucu (siparis_fatura_benim, radar-app/sql/2026-11-24-siparis-fatura-benim.sql); cihaza
+       yazılmaz, T.C. kimlik dönmez. Üyenin bu arada yazdığı alan EZİLMEZ. Göç basılmadıysa/hata olursa sessizce geçilir. */
+    try{ window.sb.rpc('siparis_fatura_benim').then(function(y){
+      var f = y && !y.error && y.data && y.data[0]; if(!f) return;
+      function doldur(id, v){ var e = document.getElementById(id); if(e && !e.value.trim() && v) { e.value = String(v); return true; } return false; }
+      var doldu = doldur('tel', f.telefon); doldu = doldur('adres', f.adres) || doldu;
+      if(f.fatura_tip === 'kurumsal' && f.unvan && !document.getElementById('unvan').value.trim()){
+        var kr = document.querySelector('input[name=ftip][value=kurumsal]');
+        if(kr){ kr.checked = true; kr.dispatchEvent(new Event('change', { bubbles:true })); }
+        doldur('unvan', f.unvan); doldur('vkn', f.vkn); doldur('vd', f.vd); doldu = true;
+      }
+      if(doldu){ adimSay('fatura-doldu'); if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz(); }
+    }, function(){}); }catch(e){}
     var n = document.getElementById('oturumNot'); if(n){ n.textContent = '✓ Giriş yaptın: paketin ' + u.email + ' hesabına açılır.'; n.hidden = false; }
     /* 12.10: girişli alıcı e-postayı başka adrese çevirirse paket o adrese gider, bu hesapta görünmez → açık uyarı */
     var mu = document.getElementById('mailUyari');

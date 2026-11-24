@@ -69,11 +69,11 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   /* --- CANLI DONEM TAKVIMI: sahte geri sayim degil, GERCEK sinav takvimi --- */
   .takvim{ display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 8px; }
   .tk{ flex:1; min-width:230px; background:var(--kart); border:1px solid var(--line);
-       border-left:3px solid var(--amber); border-radius:11px; padding:13px 15px; }
+       border-left:3px solid var(--amber); border-radius:12px; padding:13px 15px; }
   .tk .ad{ font-size:12px; letter-spacing:.8px; text-transform:uppercase; color:var(--muted); }
   .tk .gun{ font:700 27px/1.15 ui-monospace,Consolas,monospace; color:var(--amber); margin:4px 0 2px; }
-  .tk .tar{ font-size:12.5px; color:var(--dim); }
-  .kaynakNot{ font-size:11.5px; color:var(--dim); margin:2px 0 26px; }
+  .tk .tar{ font-size:13px; color:var(--dim); }
+  .kaynakNot{ font-size:12px; color:var(--dim); margin:2px 0 26px; }
   .kaynakNot a{ color:var(--link); }
 
   .kartlar{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin:8px 0 30px; }
@@ -87,11 +87,11 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   @media(max-width:760px){
     .fozet{ display:grid; gap:8px; margin:14px 0 22px; }
     .fozet .fz{ display:flex; align-items:center; gap:10px; padding:12px 12px 12px 14px; background:var(--kart); border:1px solid var(--line2); border-radius:12px; text-decoration:none; color:var(--ink); }
-    .fozet .fz span{ flex:1; min-width:0; font-size:14.5px; line-height:1.3; }
-    .fozet .fz strong{ font-size:15.5px; white-space:nowrap; }
+    .fozet .fz span{ flex:1; min-width:0; font-size:15px; line-height:1.3; }
+    .fozet .fz strong{ font-size:16px; white-space:nowrap; }
     .fozet .fz strong small{ font-size:11px; font-weight:600; color:var(--muted); }
-    .fozet .fz i{ font-style:normal; font-weight:800; font-size:14px; padding:8px 14px; border-radius:9px; background:var(--amber-dolgu); color:var(--amber-uzeri); }
-    .fozet p{ margin:2px 0 0; font-size:12.5px; color:var(--muted); text-align:center; }
+    .fozet .fz i{ font-style:normal; font-weight:800; font-size:14px; padding:8px 14px; border-radius:10px; background:var(--amber-dolgu); color:var(--amber-uzeri); }
+    .fozet p{ margin:2px 0 0; font-size:13px; color:var(--muted); text-align:center; }
   }
   .kartlar.tek{ grid-template-columns:minmax(0,460px); justify-content:center; }
   .p{ background:var(--kart); border:1px solid var(--line); border-radius:14px;
@@ -100,7 +100,7 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   .rozet{ position:absolute; top:-11px; left:20px; background:var(--amber-dolgu); color:#0a0c10;
           font-size:11px; font-weight:800; letter-spacing:.6px; padding:4px 10px; border-radius:20px; }
   .p h3{ margin:0 0 2px; font-size:17px; }
-  .p .kim{ font-size:12.5px; color:var(--muted); margin-bottom:14px; }
+  .p .kim{ font-size:13px; color:var(--muted); margin-bottom:14px; }
   /* 29.08: "X TL/gun" ve "3 taksitle" satirlari KALDIRILDI. Fiyati gunluge
      bolmek ucuz marka refleksidir; rakiplerin hicbiri yapmiyor. Tek rakam. */
   .gunluk{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
@@ -108,20 +108,20 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   .liste{ font-size:13px; color:var(--dim); margin-top:6px; }
   .liste b{ text-decoration:none; display:inline-block; color:var(--green); font-weight:800;
             font-size:12px; letter-spacing:.3px; margin-left:6px; }
-  .tutar{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
-  .kdv{ font-size:11.5px; color:var(--dim); margin-top:2px; }
-  .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
+  .tutar{ font-size:15px; font-weight:700; color:var(--muted); margin-top:6px; }
+  .kdv{ font-size:12px; color:var(--dim); margin-top:2px; }
+  .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:14px; }
   /* 07.10 Cem: "yeterlilik fiyatlarına girdiğinde tek ders ve 2, 3 fiyatlarını görse iyi olur" */
   .dersMerdiven{ margin:16px 0 0; }
-  .dersMerdiven > b{ display:block; font-size:13.5px; margin:0 0 8px; }
+  .dersMerdiven > b{ display:block; font-size:14px; margin:0 0 8px; }
   .dersMerdiven .dm{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
   .dersMerdiven a{ display:block; padding:10px 8px; border:1px solid var(--line); border-radius:10px; text-align:center; text-decoration:none; color:var(--ink); }
   .dersMerdiven a:hover{ border-color:var(--ink); }
-  .dersMerdiven a span{ display:block; font-size:12.5px; color:var(--muted); }
+  .dersMerdiven a span{ display:block; font-size:13px; color:var(--muted); }
   .dersMerdiven a strong{ display:block; font-size:16px; margin-top:2px; }
   .dersMerdiven a strong{ white-space:nowrap; }
   .dersMerdiven a strong small{ display:block; font-size:11px; font-weight:600; color:var(--muted); }   /* "+ KDV" fiyatın altında: dar (3 sütun) görünümde kelime kelime kırılmasın */
-  .dersMerdiven p{ margin:8px 0 0; font-size:12.5px; color:var(--muted); }
+  .dersMerdiven p{ margin:8px 0 0; font-size:13px; color:var(--muted); }
   .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
   .p li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
   .p li.yok{ color:var(--dim); } .p li.yok::before{ content:"—"; color:var(--dim); }
@@ -133,9 +133,9 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   .kutu h2{ font-size:16px; margin:0 0 8px; }
   .kutu b.a{ color:var(--amber); }
   .kutu.vurgu{ border-color:rgba(245,165,36,.4); }
-  table{ border-collapse:collapse; width:100%; font-size:13.5px; margin-top:8px; }
+  table{ border-collapse:collapse; width:100%; font-size:14px; margin-top:8px; }
   th,td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--line2); }
-  th{ color:var(--muted); font-size:11.5px; text-transform:uppercase; letter-spacing:.6px; }
+  th{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.6px; }
   td.sag,th.sag{ text-align:right; font-variant-numeric:tabular-nums; }
   .simdi{ color:var(--amber); font-weight:700; }
   .kucuk{ font-size:12px; color:var(--dim); }
@@ -144,7 +144,7 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 <link rel="stylesheet" href="gkt.css?v=3">
-<link rel="stylesheet" href="paket-kartlari.css?v=4">
+<link rel="stylesheet" href="paket-kartlari.css?v=5">
 <style>/* 28.10 Cem ("tüm fiyatlar sekmesi ilk sayfadaki gibi olsun"): üstte ana sayfanın sınav seçicisi + kartları (paket-kartlari.js).
    Eski kart ızgarası ve telefon özeti GİZLİ (betikler kimliklerini arıyor, silinmedi). */
 #fozet,.kartlar,#secSatir{display:none!important}
