@@ -757,7 +757,7 @@
     DIZIN=d;
     if(d.karne==='konu') $('sgKarneBaslik').textContent='Konu konu';
     if(d.baslik) $('sgGirisBaslik').textContent=d.baslik;
-    if(d.deneme_ad){ $('sgUstAd').textContent=d.deneme_ad; document.title=(d.ad?d.ad+' · ':'')+d.deneme_ad+' | Tetikte'; }
+    if(d.deneme_ad){ if($('sgUstAd')) $('sgUstAd').textContent=d.deneme_ad;   /* 24.11: menu.js üst satırı (sgUstAd) kendi menüsüyle değiştiriyor; öğe yoksa burada düşüp kural, konulu deneme (?konu=) ve kayıtlı set açılmıyordu */ document.title=(d.ad?d.ad+' · ':'')+d.deneme_ad+' | Tetikte'; }
     if(d.alt) $('sgGirisAlt').textContent=d.alt;
     $('sgKural').innerHTML=d.kural?d.kural.map(function(k){return '<span>'+esc(k)+'</span>';}).join('')
       :'<span>'+d.toplam_soru+' soru</span><span>'+d.sure_dk+' dakika</span><span>5 seçenek</span><span>Yanlış doğruyu götürmez</span><span>'+d.set_sayisi+' set, setler arası tekrar yok</span>';
