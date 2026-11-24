@@ -45,11 +45,17 @@ const DUGME = 'background:#f5a524;color:#1b1206;text-decoration:none;font-weight
 const NEDEN = "Bu e-posta, tetikte.com'da başlattığın kart ödemesi üzerine gönderilmiştir.";
 /* son20-sgs / son20-yet de sayılır (havale-hatirlatma.mjs sinavOf yalnız baştan bakar) */
 export const sinavOf = paket => /sgs/.test(paket) ? 'sgs' : /yet/.test(paket) ? 'yeterlilik' : null;
+/* 24.11.2026 (UED9): 'sgs-2027' Nisan 2027 sınavının paketi. SINAVLAR.sgs 21.11.2026'da kaldığı için robot bu paketi
+   "sınavı geçmiş" sayıp atladı; kartı takılan alıcıya hiç mail gitmedi. Yıl ekli paket (sgs-2027, yeterlilik-2027…)
+   sonraki dönemindir: sınav günü kapısından geçer, mailde sınav tarihi cümlesi YAZILMAZ (tarih tabloda yok).
+   🚫 GÖRMEZ: sonraki dönemin sınav günü geçince de göndermeyi sürdürür (tabloya o dönemin tarihi girene kadar). */
+export const sonrakiDonem = paket => /-20\d\d(-|$)/.test(String(paket || ''));
+const sinavi = paket => sonrakiDonem(paket) ? null : (SINAVLAR[sinavOf(paket)] || null);
 
 /* s: { siparis_no, ad_soyad, paket, paket_ad, tutar } */
 export function mailKur(s) {
   const ad = String(s.ad_soyad || '').trim().split(/\s+/)[0] || '';
-  const S = SINAVLAR[sinavOf(s.paket)] || null;
+  const S = sinavi(s.paket);
   const kart = `${SITE}/satin-al.html?kartla=${encodeURIComponent(s.siparis_no)}&k=mail-kart-takildi`;
   const konu = `Kart ödemen tamamlanmadı: ${s.siparis_no} · ${tl(s.tutar)}`;
   const p1 = `${s.paket_ad || s.paket} için başlattığın kart ödemesi tamamlanmadı. Kartından para çekilmedi; siparişin seni bekliyor, yeniden sipariş vermene gerek yok.`;
@@ -105,7 +111,7 @@ export function sec(L, K, gitti, simdi) {
     if (simdi - son < 30 * DK) { say.yeni++; continue; }
     if (simdi - son > 24 * 60 * DK) { say.eski++; continue; }
     const S = SINAVLAR[sinavOf(s.paket)];
-    if (!S || simdi >= new Date(S.tarih + 'T00:00:00+03:00')) { say.sinavGecti++; continue; }
+    if (!sonrakiDonem(s.paket) && (!S || simdi >= new Date(S.tarih + 'T00:00:00+03:00'))) { say.sinavGecti++; continue; }
     const e = String(s.email || '').toLowerCase(); if (!e) continue;
     if (odenen.some(o => String(o.email || '').toLowerCase() === e && new Date(o.olusturma) >= new Date(s.olusturma))) { say.sonraOdedi++; continue; }
     if (s.alindi_mail && new Date(s.alindi_mail).getTime() >= ilk) { say.sayfadaAldi++; continue; }
@@ -189,6 +195,9 @@ function sinav() {
   b('aynı kişinin iki takılanı -> yalnız en yenisi, ikisi kapsanır', (() => { const r = sec([S('A'), S('B', { olusturma: '2026-10-29T10:30:00Z' })], [D('A', { olusturma: '2026-10-29T10:40:00Z' }), D('B')], new Set(), T); return ids(r) === 'B' && r.out[0].kapsar.join() === 'B,A'; })());
   b('son20-sgs / son20-yet sınava bağlanır', sinavOf('son20-sgs') === 'sgs' && sinavOf('son20-yet') === 'yeterlilik' && sinavOf('yeterlilik-3') === 'yeterlilik');
   b('sınav günü geçmiş -> gitmez', ids(sec([S('A', { olusturma: '2026-11-21T08:00:00Z' })], [D('A', { olusturma: '2026-11-21T09:00:00Z' })], new Set(), new Date('2026-11-21T12:00:00Z').getTime())) === '');
+  b('sgs-2027: SGS sınav günü geçmiş olsa da gider (UED9)', ids(sec([S('A', { paket: 'sgs-2027', olusturma: '2026-11-24T14:16:00Z' })], [D('A', { durum: 'basarisiz', olusturma: '2026-11-24T14:16:03Z' })], new Set(), new Date('2026-11-24T18:00:00Z').getTime())) === 'A');
+  b('sgs-2027 mailinde geçmiş sınav tarihi yok', (() => { const t = mailKur({ siparis_no: 'TT-20261124-ABCD', ad_soyad: 'Ayşe Örnek', paket: 'sgs-2027', paket_ad: 'SGS 2027 paketi', tutar: 3585.6 }); return !/21 Kasım|sınavı .*'da/.test(t.metin + t.html) && t.metin.includes('satin-al.html?kartla=TT-20261124-ABCD') && t.metin.includes('3.585,6'); })());
+  b('yılsız sgs sınav günü geçince yine gitmez', ids(sec([S('A', { olusturma: '2026-11-24T14:16:00Z' })], [D('A', { olusturma: '2026-11-24T14:16:03Z' })], new Set(), new Date('2026-11-24T18:00:00Z').getTime())) === '');
   b('KGK / tanımsız paket -> gitmez', ids(sec([S('A', { paket: 'kgk-1' })], [D('A')], new Set(), T)) === '');
   const m = mailKur(ORNEKLER[0]);
   b('yeniden dene bağlantısı sipariş no ile', m.html.includes('satin-al.html?kartla=TT-20261029-ABCD') && m.metin.includes('satin-al.html?kartla=TT-20261029-ABCD'));
