@@ -248,6 +248,7 @@
     if ((K.sayfalar || []).indexOf('son-20-gun.html') < 0) return null;
     if (window.TT && window.TT.yalnizUcretsiz && window.TT.yalnizUcretsiz()) return null;
     var yet = seciliSinav() === 'yeterlilik', acT = Date.parse(yet ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
+    if (!yet && Date.now() >= Date.parse('2026-11-22T00:00:00+03:00')) return null;   /* 24.11 Cem: SGS Son 20 Gün kapandı */
     return { href: 'son-20-gun.html' + (yet ? '?sinav=yeterlilik' : ''),
       alt: Date.now() < acT ? (yet ? '8' : '1') + ' Kasım\'da açılıyor · takvimin hazır' : (yet ? 'Ders ders denemeler' : '7 deneme') + ', çalışma görevleri, takvimin' };
   }

@@ -197,6 +197,12 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
   function $(i){ return document.getElementById(i); }
   /* 28.10 Cem ("1 Kasım açılacak orası; hem staja giriş hem bitirmede"): açılış öncesi kartı. Yeterlilik (?sinav=yeterlilik) 8 Kasım. */
   var YET=/[?&]sinav=(yeterlilik|smmm)\b/.test(location.search), ACILIS=Date.parse(YET?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00');
+  /* 24.11 Cem ("Kapat, sonuçlar kalsın"): SGS 21 Kasım'da bitti. Satış ve yeni gelen için akış kalkar; paketi olan üye denemelerini,
+     puanlarını, yeniden çözümü ve açıklamaları görmeye devam eder. Yeterlilik (?sinav=yeterlilik) bu değişiklikten etkilenmez. */
+  var SGS_BITTI=!YET && Date.now()>=Date.parse('2026-11-22T00:00:00+03:00');
+  if(SGS_BITTI){ $('s20Bas').textContent='Son 20 Gün · SGS 2026/3 kapandı';
+    $('s20Alt').textContent='SMMM Staja Giriş sınavı 21 Kasım 2026\'da yapıldı; Son 20 Gün denemeleri kapandı. Paketini almış olan üyeler denemelerini, puanlarını ve açıklamalarını burada görmeye devam eder.';
+    $('akis').style.display='none'; }
   function kalanGun(){ return Math.max(0, Math.ceil((ACILIS-Date.now())/864e5)); }
   function acilisCiz(){
     var k=$('acilisKart'); if(!k) return; if(Date.now()>=ACILIS){ k.hidden=true; return; }
@@ -277,9 +283,12 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
       [].forEach.call(gk.querySelectorAll('button[data-gkonu]'),function(b){ b.addEventListener('click',function(){ gorevAc(+b.getAttribute('data-gd'), b.getAttribute('data-gders'), b.getAttribute('data-gkonu')); }); });
     } else gk.hidden=true;
     var k=$('kapi');
-    if(!L.oturum){ k.hidden=false; k.innerHTML='<h2>Giriş yap, denemelerine başla</h2><p>Son 20 Gün denemeleri <b>Sadece 7 Deneme</b> ve <b>Staja Giriş Tam Paket</b> üyelerine açık.</p><div class="dg-sira"><a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a></div>'; }
-    else if(!L.erisim){ k.hidden=false; k.innerHTML='<h2>Denemeler paketinde yok</h2><p>Son 20 Gün denemeleri 2026/3 dönemi üyelerine açıktı; satışı bitti. 2027 sınavları için <b>SGS 2027 paketi</b> bankanın tamamını açar.</p><div class="dg-sira"><a class="dg" href="satin-al.html?paket=sgs-2027">SGS 2027 paketi</a></div>'; }   /* 23.11 Cem: Son 20 Gün satıştan kalktı */
+    /* 24.11 Cem: SGS Son 20 Gün kapandı → satın alma düğmesi yok; giriş (sonuçlar için) + SGS 2027 hazırlık sayfası */
+    if(!L.oturum){ k.hidden=false; k.innerHTML='<h2>SGS Son 20 Gün kapandı</h2><p>Denemeler 2026/3 dönemi içindi. Paketini almış olanlar giriş yapınca denemelerini, puanlarını ve açıklamalarını görmeye devam eder.</p><div class="dg-sira"><a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html">SGS 2027\'ye hazırlan →</a></div>'; }
+    else if(!L.erisim){ k.hidden=false; k.innerHTML='<h2>SGS Son 20 Gün kapandı</h2><p>Denemeler 2026/3 dönemi içindi; sınav 21 Kasım\'da yapıldı.</p><div class="dg-sira"><a class="dg" href="smmm-staja-giris-sorulari.html">SGS 2027\'ye hazırlan →</a></div>'; }
     else k.hidden=true;
+    var uyeDegil=!(L.oturum&&L.erisim);   /* kapanınca paketsize boş deneme listesi ve söz sayacı gösterilmez */
+    $('soz').style.display=SGS_BITTI&&uyeDegil?'none':''; $('denemeler').style.display=SGS_BITTI&&uyeDegil?'none':'';
     var h='', eksik=null;   /* 31.10 önceki deneme kilidi (sunucu _s20_gorev_kapi ile aynı): açılmış bir önceki denemede bitmemiş ders varsa */
     for(var no=1; no<=DENEME_SAYI; no++){
       var d=byNo[no], onceki=eksik;

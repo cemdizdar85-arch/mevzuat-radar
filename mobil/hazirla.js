@@ -71,9 +71,9 @@ const SITE_SAYFALARI = [
      Site ürünleri (son20-sgs/son20-yet) mağazada yok → düğmeler uygulamanın Paketler bölümüne; "Paketleri gör" sitenin satış
      sayfasına gidiyordu. Giriş bağı ?sonra='+encodeURIComponent(...)+' biçiminde: genel ogrenci.html çevirisi "#giris" ekini bozar. */
   { yol: 'son-20-gun.html', sok: ['canonical'], degis: [
-    [/<a class="dg iki" href="smmm-staja-giris-sorulari\.html#gktPaket">Paketleri gör<\/a>/g, '<a class="dg iki" href="index.html#paketler">Paketler</a>', 1],
-    /* 24.11: SGS Son 20 Gün satıştan kalktı (23.11), iki düğme tek "SGS 2027 paketi" oldu (son-20-gun.html) */
-    [/<a class="dg" href="satin-al\.html\?paket=sgs-2027">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    /* 24.11 Cem ("Kapat, sonuçlar kalsın"): SGS Son 20 Gün kapandı; satış düğmeleri yerine iki "SGS 2027'ye hazırlan" bağı
+       (sitede SGS tanıtım sayfası, uygulamada yok) → uygulamanın ana ekranı */
+    [/<a class="(dg(?: iki)?)" href="smmm-staja-giris-sorulari\.html">[^<]*<\/a>/g, '<a class="$1" href="index.html">SGS 2027\'ye hazırlan →</a>', 2],
     /* 09.11: 08.11 Yeterlilik ders ders ekranı ikinci "Sadece Denemeler" düğmesini ekledi (girişsiz + paketsiz) → 2 */
     [/<a class="dg" href="satin-al\.html\?paket=son20-yet">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 2],
     [/ogrenci\.html\?sonra='\+encodeURIComponent\('[^']*'\)\+'/g, 'index.html#giris', 2]

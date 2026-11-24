@@ -74,8 +74,8 @@ const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" h
 const ONIZLEME = " var satinAl = KOK + 'satin-al.html?paket=' + (yet ? 'yeterlilik-1' : 'sgs-2027'); /* Yeterlilik'te \"Paketi al\" o dersi seçili; (satin-al ?dersler=) */ var d = dugAna(satinAl, 'Paketi al, bütün soruları aç'); var m = 'Paketi aldığın anda devam';";
 const SON20 = () => '<!doctype html><html lang="tr"><head><link rel="canonical" href="https://tetikte.com/son-20-gun.html"><link rel="stylesheet" href="stil.css"></head><body>' +
   '<a href="kampanya-son-20-gun.html">Koşullar</a><script>' + String.raw`
-  k.innerHTML='<a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a>';
-  k.innerHTML='<a class="dg" href="satin-al.html?paket=sgs-2027">SGS 2027 paketi</a>';
+  k.innerHTML='<a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html">SGS 2027\'ye hazırlan →</a>';
+  k.innerHTML='<a class="dg" href="smmm-staja-giris-sorulari.html">SGS 2027\'ye hazırlan →</a>';
   k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a>';
   k.innerHTML='<h2>Denemeler paketinde yok</h2><a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a>';
 ` + '</script></body></html>';
@@ -173,8 +173,8 @@ const VAKALAR = [
   { ad: 'canlı deneme yardımcısı (tema.js) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*tema\.js yok/, d: { 'tema.js': null } },
   /* 31.10 1.9.1 Son 20 Gün */
   { ad: 'Son 20 Gün sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html yok/, d: { 'son-20-gun.html': null } },
-  { ad: 'Son 20 Gün "Paketleri gör" bağı değişmiş (site satış sayfasına gider) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*değişim deseni/,
-    d: { 'son-20-gun.html': SON20().replace('#gktPaket', '#gktPaketYeni') } },
+  { ad: 'Son 20 Gün "SGS 2027\'ye hazırlan" bağı değişmiş (site sayfasına gider) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*değişim deseni/,
+    d: { 'son-20-gun.html': SON20().replace('smmm-staja-giris-sorulari.html">', 'smmm-staja-giris-sorulari.html#yeni">') } },
   { ad: 'Son 20 Gün giriş bağı tek kalmış (adet 2 bekleniyor) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*son-20-gun\.html.*bulunan 1/,
     d: { 'son-20-gun.html': SON20().replace("ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'", 'index.html') } }
 ];

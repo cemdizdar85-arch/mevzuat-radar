@@ -477,7 +477,8 @@
     <script>
     (function(){ var g=document.getElementById('ogSinavSec'), a=document.getElementById('opYolS20'); if(!g||!a) return;
       function yaz(){ var b=g.querySelector('[aria-pressed="true"]'), s=b?b.getAttribute('data-sinav'):'sgs';
-        a.href=s==='yeterlilik'?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html'; a.hidden=s==='kgk'; }
+        a.href=s==='yeterlilik'?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html';
+        a.hidden=s==='kgk'||(s!=='yeterlilik'&&Date.now()>=Date.parse('2026-11-22T00:00:00+03:00')); }   /* 24.11 Cem: SGS Son 20 Gün kapandı, kısa yol kalkar */
       g.addEventListener('click',function(){ setTimeout(yaz,0); }); window.addEventListener('load',yaz); yaz(); })();
     </script>
     <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())

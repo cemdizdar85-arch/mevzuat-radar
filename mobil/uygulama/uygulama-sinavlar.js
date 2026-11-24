@@ -183,7 +183,8 @@
     h += '<div class="satirlar" style="margin-top:14px">';
     /* 31.10 1.9.1: Son 20 Gün denemeleri (son-20-gun.html; SGS 1 Kasım, Yeterlilik 8 Kasım). Erişimi sayfa sunucudan okur
        (s20_erisim: "Sadece 7 Deneme" alan da açılır, uygulamada paketsiz görünse bile) → satır kilitsiz. */
-    if (s !== 'kgk' && sayfaVar('son-20-gun.html')) {
+    /* 24.11 Cem: SGS Son 20 Gün kapandı (sınav 21 Kasım) → SGS'de satır yok */
+    if (s !== 'kgk' && sayfaVar('son-20-gun.html') && !(s !== 'yeterlilik' && Date.now() >= Date.parse('2026-11-22T00:00:00+03:00'))) {
       var yetS = s === 'yeterlilik', acT = Date.parse(yetS ? '2026-11-08T00:00:00+03:00' : '2026-11-01T00:00:00+03:00');
       h += '<a class="srt" href="son-20-gun.html' + (yetS ? '?sinav=yeterlilik' : '') + '">' + ik('takvim') + '<span class="ad">Son 20 Gün denemeleri<small>' +
         (Date.now() < acT ? (yetS ? '8' : '1') + ' Kasım\'da açılıyor · takvimin hazır' : (yetS ? 'Ders ders denemeler' : '7 deneme') + ', çalışma görevleri, takvimin') + '</small></span>' + OK + '</a>';
