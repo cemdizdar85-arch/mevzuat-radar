@@ -124,23 +124,45 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     </nav>
 
     <section class="bolum" data-bolum="ozet">
+    <!-- 24.11 Cem ("üye sayım ayrı, satış yaptığım ayrı, hediye verdiğim ayrı olarak görmek istiyorum" + GM 1-2-3): özet üç bölüm.
+         Veri aynı (rpc/yonetim_ozet); yalnız sayım ayrıştı. Satışa TL tutarı geldi; "elçili" satış gerçek elçi / kanal (erken kayıt) kodu diye bölündü.
+         🚫 GÖRMEZ: iade edilen siparişin kısmi tutarı (sipariş tutarının tamamı iade sayılır) · siparişsiz elle açılmış paketin bedeli. -->
+    <h2 style="margin-top:0">Üyeler</h2>
     <div class="sayilar">
       <div class="kutu"><b id="sToplam">0</b><span>toplam üye</span></div>
       <div class="kutu"><b id="sYedi">0</b><span>son 7 günde yeni üye</span></div>
-      <div class="kutu"><b id="sPaketli">0</b><span>aktif paketli</span></div>
+      <div class="kutu"><b id="sSatinAlan">0</b><span>satın alan üye (paketi açık)</span></div>
+      <div class="kutu"><b id="sPaketsiz">0</b><span>paketsiz (ücretsiz) üye</span></div>
+    </div>
+
+    <h2>Satış</h2>
+    <div class="sayilar">
+      <div class="kutu"><b id="sCiro">0</b><span>bugüne kadar satış, KDV dahil <small id="sCiroHaric"></small></span></div>
       <div class="kutu"><b id="sOdenen">0</b><span>ödenmiş sipariş (iade hariç)</span></div>
+      <div class="kutu"><b id="sAy">0</b><span>bu ay <small id="sAyAdet"></small></span></div>
+      <div class="kutu"><b id="sHafta">0</b><span>son 7 gün <small id="sHaftaAdet"></small></span></div>
+      <div class="kutu"><b id="sIade">0</b><span>iade edilen <small id="sIadeAdet"></small></span></div>
       <!-- 02.11 Cem ("sözü 1 Kasım 23:59'a kadar alanları ayrıca işaretleyelim, yönetimde göreyim; açılıştan sonra hep açıkta tutacağız") -->
       <div class="kutu"><b id="sSoz">0</b><span>Geçene kadar — 1 Kasım'a kadar ödeyen üye <small id="sSozAyr"></small></span></div>
-      <div class="kutu"><b id="sHediye">0</b><span>hediye verilen üye (Geçene kadar listesinde değil)</span></div>
     </div>
+
+    <h2>Satış nereden geldi</h2>
+    <!-- 12.10 (Cem "elçi harici nasıl satış yapacağımızı takip edeceğiz"): satış ayrımı - indirim kaynağı (sunucu yazar) + kaynak etiketi (?k=) -->
+    <div class="kaydir"><table id="tSatisAyrim"></table></div>
+    <p class="not">Yalnız ödenmiş sipariş sayılır. "Erken kayıt / kanal kodu" = kodsuz kendiliğinden uygulanan erken kayıt indirimi ve kanal kodları (ERKEN…, INSTA…, GOOGLE…, TELEGRAM…); bunlar bir elçinin satışı değildir.</p>
+
+    <h2>Hediye</h2>
+    <div class="sayilar">
+      <div class="kutu"><b id="sHediye">0</b><span>hediye verilen üye (paketi açık)</span></div>
+      <div class="kutu"><b id="sElle">0</b><span>elle açılmış paket (sipariş ve hediye kaydı yok)</span></div>
+      <div class="kutu"><b id="sPaketli">0</b><span>paketi açık toplam (satın alan + hediye + elle)</span></div>
+    </div>
+    <div class="kaydir" style="margin-top:12px"><table id="tHediye"></table></div>
 
     <h2>Kim nereden geldi, hangi sınava</h2>
     <div class="kaydir"><table id="tCapraz"></table></div>
     <p class="not">Sınav: paketten; paket yoksa son siparişten; o da yoksa çözdüğü seviye testinden. Elçi: siparişteki kod ya da üye olurken taşıdığı elçi linki.</p>
 
-    <h2>Satış ayrımı</h2>
-    <!-- 12.10 (Cem "elçi harici nasıl satış yapacağımızı takip edeceğiz"): satış ayrımı - indirim kaynağı (sunucu yazar) + kaynak etiketi (?k=) -->
-    <div class="kaydir"><table id="tSatisAyrim"></table></div>
     </section>
 
     <!-- 30.10 (Cem "öğrenciler kullanıyor mu, kim nerede soru çözüyor"): radar-app/sql/2026-10-30-uye-ayrinti.sql yonetim_kullanim -->
@@ -338,6 +360,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function tarih(t){ if(!t) return '—'; try{ return new Date(t).toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }catch(e){ return String(t).slice(0,10); } }
   function tl(n){ return Number(n||0).toLocaleString('tr-TR')+' TL'; }
+  function tl2(n){ n=Number(n||0); return n.toLocaleString('tr-TR', n%1?{minimumFractionDigits:2,maximumFractionDigits:2}:{})+' TL'; }   /* 24.11: kuruşlu toplam iki haneyle */
   var ELCI_SURUM = '2026-10-13';   /* = elci.html KOSUL_SURUM; KAPI-ET (arac/elci-tutar-kapisi.js) ayrışırsa KIRMIZI */
   /* 05.10 iyzico 5 TL kart denemesi (radar-app/edge/iyzico-odeme.ts ?islem=deneme; sunucu yöneticiyi ayrıca doğrular) */
   (function(){
@@ -401,6 +424,18 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     $('sToplam').textContent=uyeler.length;
     $('sYedi').textContent=uyeler.filter(function(u){ return new Date(u.kayit).getTime()>=yedi; }).length;
     $('sPaketli').textContent=uyeler.filter(function(u){ return u.kaynak!=='Ücretsiz üye'; }).length;
+    /* 24.11 üç bölüm: satın alan / paketsiz ayrı; satış TL */
+    $('sSatinAlan').textContent=uyeler.filter(function(u){ return u.kaynak==='Ücretli'||u.kaynak==='Elçi ile ücretli'; }).length;
+    $('sPaketsiz').textContent=uyeler.filter(function(u){ return u.kaynak==='Ücretsiz üye'; }).length;
+    var OD=VERI.siparisler.filter(function(s){ return s.durum==='odendi'; }), IA=VERI.siparisler.filter(function(s){ return s.durum==='iade'; });
+    var topla=function(L){ return Math.round(L.reduce(function(a,s){ return a+(Number(s.tutar)||0); },0)*100)/100; };
+    var odT=function(s){ return new Date(s.odendi||s.tarih).getTime(); }, simdi=new Date(), ayBas=new Date(simdi.getFullYear(),simdi.getMonth(),1).getTime();
+    var ayL=OD.filter(function(s){ return odT(s)>=ayBas; }), haL=OD.filter(function(s){ return odT(s)>=yedi; });
+    var kdvOran=(typeof KDV_ORAN==='number')?KDV_ORAN:0.20;
+    $('sCiro').textContent=tl2(topla(OD)); $('sCiroHaric').textContent='(KDV hariç '+tl(Math.round(topla(OD)/(1+kdvOran)))+')';
+    $('sAy').textContent=tl2(topla(ayL)); $('sAyAdet').textContent='('+ayL.length+' sipariş)';
+    $('sHafta').textContent=tl2(topla(haL)); $('sHaftaAdet').textContent='('+haL.length+' sipariş)';
+    $('sIade').textContent=tl2(topla(IA)); $('sIadeAdet').textContent='('+IA.length+' sipariş)';
     /* 30.10 Cem ("parası gelmeyenleri koymayalım, onlar geliyor sanki"): özet ve liste yalnız ÖDENENİ sayar */
     $('sOdenen').textContent=VERI.siparisler.filter(function(s){ return s.durum==='odendi'; }).length;
     /* 02.11 söz hakkı: 1 Kasım 23:59'a kadar (5 dk payla 00:04:59) verilmiş, ödenmiş SGS/Yeterlilik siparişi olan hesap */
@@ -408,7 +443,14 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     $('sSoz').textContent=sozlu.length;
     $('sSozAyr').textContent='(Staja Giriş '+sozP(/sgs/)+' · Yeterlilik '+sozP(/yeterlilik|son20-yet/)+')';
     /* 02.11 Cem ("hediye verdiklerimiz hediye olarak görünsün, onlar ayrı"): hediye/elle verilmiş paketli hesaplar ayrı sayılır */
-    $('sHediye').textContent=uyeler.filter(function(u){ return u.kaynak==='Hediye'||u.kaynak==='Elle verilmiş'; }).length;
+    $('sHediye').textContent=uyeler.filter(function(u){ return u.kaynak==='Hediye'; }).length;
+    $('sElle').textContent=uyeler.filter(function(u){ return u.kaynak==='Elle verilmiş'; }).length;
+    /* 24.11 hediye tablosu: sınav kırılımı (satış sayılarına karışmaz) */
+    (function(){ var SN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'];
+      var hh='<tr><th>Tür</th>'+SN.map(function(s){ return '<th>'+s+'</th>'; }).join('')+'<th>Toplam</th></tr>';
+      ['Hediye','Elle verilmiş'].forEach(function(k){ var L=uyeler.filter(function(u){ return u.kaynak===k; });
+        hh+='<tr><td><b>'+k+'</b></td>'+SN.map(function(s){ return '<td class="s">'+L.filter(function(u){ return u.sinav===s; }).length+'</td>'; }).join('')+'<td class="s"><b>'+L.length+'</b></td></tr>'; });
+      $('tHediye').innerHTML=hh; })();
 
     /* çapraz tablo: satır = kaynak, sütun = sınav */
     var SIN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'], KAY=['Ücretli','Elçi ile ücretli','Hediye','Elle verilmiş','Ücretsiz üye'];
@@ -483,12 +525,20 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     $('tSiparis').innerHTML=sh; $('tBekleyen').innerHTML=bh;
     $('bekSay').textContent='— '+nBek+' sipariş (açmak için tıkla)';
     /* 12.10 satış ayrımı: elçili · anlık teklif · doğrudan (indirimsiz) - iptal hariç; ödenen ayrıca. Eski kayıtta indirim_kaynak yoksa elçi/teklif alanından çıkarılır. */
-    var tur=function(s){ var k=s.indirim_kaynak||''; if(k.indexOf('ozel:')===0||s.ozel_kod_tl) return 'Özel kod'; if(k==='anlik-teklif'||s.anlik_teklif) return 'Anlık teklif'; if(k.indexOf('elci:')===0||s.elci) return 'Elçili'; return 'Doğrudan (indirimsiz)'; };
+    var KANAL_KOD=/^(ERKEN|ERKENYET|INSTA|GOOGLE|TELEGRAM)\d+$/;
+    var tur=function(s){ var k=s.indirim_kaynak||''; if(k.indexOf('ozel:')===0||s.ozel_kod_tl) return 'Özel kod'; if(k==='anlik-teklif'||s.anlik_teklif) return 'Anlık teklif'; if(k.indexOf('elci:')===0||s.elci){ var kd=String(s.elci||k.slice(5)||'').toUpperCase(); return KANAL_KOD.test(kd) ? 'Erken kayıt / kanal kodu' : 'Elçi koduyla'; } return 'Doğrudan (indirimsiz)'; };
+    /* 24.11 (GM1): erken kayıt indirimi elçi altyapısında kanal kodlarıyla verildi (2026-10-27-gecene-kadar-tetikte.sql, ERKENYET600);
+       bunlar bir elçinin satışı değil. 🚫 GÖRMEZ: bu kalıba uymayan adla açılmış yeni kanal kodu "Elçi koduyla" sayılır. */
     /* 30.10: yalnız ÖDENEN satış sayılır (ödenmeyen sipariş "geliyor" gibi görünmesin) */
     var ay={}, ke={}; VERI.siparisler.forEach(function(s){ if(s.durum!=='odendi') return; var t=tur(s), e=s.kaynak_etiket||'(etiketsiz)';
       [[ay,t],[ke,e]].forEach(function(x){ var o=x[0][x[1]]||(x[0][x[1]]={od:0,tl:0}); o.od++; o.tl+=(s.tutar||0); }); });
     var ah='<tr><th>Satış türü</th><th>Ödenen satış</th><th>Tutar</th></tr>';
-    ['Elçili','Anlık teklif','Özel kod','Doğrudan (indirimsiz)'].forEach(function(t){ var o=ay[t]||{od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
+    ['Doğrudan (indirimsiz)','Elçi koduyla','Erken kayıt / kanal kodu','Özel kod','Anlık teklif'].forEach(function(t){ var o=ay[t]||{od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.od+'</td><td class="s">'+tl2(Math.round(o.tl*100)/100)+'</td></tr>'; });
+    ah+='<tr><td><b>Toplam</b></td><td class="s"><b>'+OD.length+'</b></td><td class="s"><b>'+tl2(topla(OD))+'</b></td></tr>';
+    /* sınav kırılımı (paketten) */
+    var sk={}; OD.forEach(function(s){ var n=(/^son20/.test(String(s.paket||''))?'Son 20 Gün':sinavAd(s.paket))||'Diğer'; var o=sk[n]||(sk[n]={od:0,tl:0}); o.od++; o.tl+=(Number(s.tutar)||0); });
+    ah+='<tr><th>Sınav</th><th>Ödenen satış</th><th>Tutar</th></tr>';
+    Object.keys(sk).sort().forEach(function(n){ var o=sk[n]; ah+='<tr><td>'+esc(n)+'</td><td class="s">'+o.od+'</td><td class="s">'+tl2(Math.round(o.tl*100)/100)+'</td></tr>'; });
     ah+='<tr><th>Kaynak etiketi (?k=)</th><th>Ödenen satış</th><th>Tutar</th></tr>';
     Object.keys(ke).sort().forEach(function(e){ var o=ke[e]; ah+='<tr><td>'+esc(e)+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
     $('tSatisAyrim').innerHTML=ah;
