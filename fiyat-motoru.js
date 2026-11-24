@@ -567,7 +567,7 @@ function paketler(){
            fiyat:FIYAT.son20Yet.kurulus, liste:FIYAT.son20Yet.liste, kota:null,
            erisim:'28 Kasım 2026 sınavına kadar · denemeler 8 Kasım\'da açılır', sinav:'yeterlilik', acilis:'2026-11-08',
            harcYazi:'8 ders × 5 deneme + konu görevleri · sitedeki diğer Yeterlilik soruları yok',
-           acik:(Date.now() < Date.parse('2026-11-29T00:00:00+03:00')) });   /* 23.11: 28 Kasım sınavı geçince kendiliğinden satıştan kalkar (iyzico-odeme.ts de reddeder) */
+           acik:false });   /* 24.11 Cem ("son 20 gün denemesini kaldır, o da kalmasın"): satıştan kalktı; alanın denemeleri ve Hesabım kartı aynen (son20-kart.js 28 Kasım sonuna kadar). Eski: 29.11 00:00'da kendiliğinden kalkacaktı; iyzico-odeme.ts yarım kalan siparişi 29.11'e kadar kabul eder */
 
   var ye = yet2027Evre(), Y7 = FIYAT.yet2027;   /* 23.11 Yeterlilik 2027: 0 = 28 Kasım'a kadar eski fiyat · 1 = açılış · 2 = 1 Ocak'tan */
   for(var n = 1; n <= 4; n++){
