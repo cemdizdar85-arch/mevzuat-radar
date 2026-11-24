@@ -775,9 +775,8 @@ function kur(){
         '<a href="' + KOK + 'teslimat-iade.html" style="color:var(--muted);text-decoration:none">Teslimat & İade</a> · ' +
         '<a href="' + KOK + 'gizlilik-politikasi.html" style="color:var(--muted);text-decoration:none">Gizlilik ve Çerez</a> · ' +
         '<a href="' + KOK + 'uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
-        '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
-        /* 01.10 Cem: elçi programı herkese açık başvuru (Trendyol influencer deseni) */
-        '<a href="' + KOK + 'elci-programi.html" style="color:var(--muted);text-decoration:none">Elçi Programı</a>' +
+        '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a>' +
+        /* 24.11 Cem ("sadece bizim gördüğümüz yerde olsun, başka yerde olmasın şu an"): alt bilgideki "Elçi Programı" bağlantısı kalktı (01.10'da konmuştu). Sayfa (elci-programi.html) duruyor, arama dışı. */
         '<br>' + TT_KIMLIK +
         '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);

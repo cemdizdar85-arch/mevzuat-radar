@@ -402,7 +402,7 @@
          yazıyordu -> liste fiyatının KDV dökümü + kodla ne kadar az ödendiği + faturadaki matrah/KDV. -->
     <tr id="ozKdvSatir" style="display:none"><td class="kucuk" colspan="2" id="ozKdv"></td></tr>
     <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
-    <tr id="ozIndSatir" style="display:none"><td id="ozIndAd">Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
+    <tr id="ozIndSatir" style="display:none"><td id="ozIndAd">Kod indirimi</td><td class="sag" id="ozInd">—</td></tr>
     <tr id="ozTeklifSatir" style="display:none"><td>Anlık teklif (sana özel)</td><td class="sag" id="ozTeklif">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
     <tr id="ozTaksitSatir" style="display:none"><td class="kucuk" colspan="2" id="ozTaksit" style="color:var(--ink);font-weight:700"></td></tr><!-- 23.11 denetim: taksit ödeme anında görünmüyordu -->
@@ -423,9 +423,9 @@
     <script>/* 28.10: SGS kutusu yalnız SGS paketi seçiliyken (Yeterlilik seçene SGS kampanyası yazılmaz); ozetCiz her seçimde yeniden çağırır */
       function erkenKutuCiz(id){ try { document.getElementById('erkenKayit').hidden = !(Date.now() < Date.UTC(2026,10,1,21,4,59) && (!id || id === 'sgs' || id === 'son20-sgs')); } catch(e){} }
       erkenKutuCiz(new URLSearchParams(location.search).get('paket'));</script>
-    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
+    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">İndirim kodun var mı?</a>
     <div id="kodKutu" hidden>
-      <label class="et" for="kod">Elçi / indirim kodu</label>
+      <label class="et" for="kod">İndirim kodu</label>
       <div style="display:flex;gap:8px;align-items:stretch">
         <input type="text" id="kod" maxlength="12" placeholder="Kodunu yaz" style="text-transform:uppercase;flex:1;min-width:0" autocomplete="off">
         <button type="button" class="btn" id="kodUygula" style="margin:0;width:auto;padding-left:16px;padding-right:16px;white-space:nowrap">Uygula</button>
@@ -836,7 +836,7 @@ function ozetCiz(){
   var tk = secili ? teklifIndirim() : 0;
   var ind = (secili && !tk) ? elciIndirim : 0;
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
-  document.getElementById('ozIndAd').textContent = kodTur === 'ozel' ? 'Özel indirim kodu' : otoKod ? 'Erken kayıt indirimi' : 'Elçi kodu indirimi';   /* 19.10 · 28.10 */
+  document.getElementById('ozIndAd').textContent = kodTur === 'ozel' ? 'Özel indirim kodu' : otoKod ? 'Erken kayıt indirimi' : 'Kod indirimi';   /* 24.11 Cem ("sadece bizim gördüğümüz yerde olsun, başka yerde olmasın şu an"): alıcıya "elçi" yazılmaz; elçi kodu aynen çalışır */   /* 19.10 · 28.10 */
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
   document.getElementById('ozTeklifSatir').style.display = tk > 0 ? '' : 'none';
   document.getElementById('ozTeklif').textContent = tk > 0 ? '− ' + tl(tk) + ' TL' : '—';
@@ -854,7 +854,7 @@ function ozetCiz(){
     document.getElementById('ozKdv').textContent = '= ' + yaz(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + yaz(kd) + ' TL) · liste fiyatı'; }
   document.getElementById('ozFatSatir').style.display = (secili && (ind > 0 || tk > 0)) ? '' : 'none';
   if(secili && (ind > 0 || tk > 0)){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
-    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : (otoKod ? 'Normalde ' + tl(secili.fiyat) + ' TL; erken kayıtla ' + tl(ind) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind))) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
+    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : (otoKod ? 'Normalde ' + tl(secili.fiyat) + ' TL; erken kayıtla ' + tl(ind) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'indirim koduyla ') + tl(ind))) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
   dersCiz();
   donemCiz();
   if(typeof teklifCiz === 'function') teklifCiz();
@@ -929,7 +929,7 @@ function teklifCiz(){
   k.innerHTML = '<p style="margin:0;font-weight:800">Sana özel anlık teklif</p>'
     + '<ul class="kucuk" style="margin:4px 0 0;padding-left:18px">' + satir('yeterlilik-1', ders + ' dersi (tek ders)') + satir('yeterlilik-tum', 'Tüm 8 ders (önerilen)') + '</ul>'
     + '<p class="kucuk" style="margin:6px 0 0">' + (tk > 0 ? '✓ Teklif özete işlendi.'
-       : ham > 0 ? (kodTur === 'ozel' ? 'İndirim kodun' : 'Elçi kodun') + ' bu pakette daha avantajlı; tek indirim uygulanır, kod geçerli.'
+       : ham > 0 ? 'İndirim kodun' + ' bu pakette daha avantajlı; tek indirim uygulanır, kod geçerli.'
        : 'Teklif yalnız tek ders paketinde (' + ders + ' seçiliyken) ya da tüm derslerde geçerli; diğer paketlerde uygulanmaz.') + '</p>';
   k.hidden = false;
 }
@@ -989,7 +989,7 @@ function elciDenetle(){
     var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id) && paketBul(id).acik !== false; })   /* 24.11: satışta olmayan paket önerilmez */
                    
                     .map(function(id){ return paketBul(id).ad; });
-    elciDurumYaz('Elçi kodu bu pakette indirim sağlamıyor' + (gecerli.length ? '; geçerli olduğu paketler: ' + gecerli.join(' · ') + '.' : '.'), 'var(--amber)');
+    elciDurumYaz('Bu kod bu pakette indirim sağlamıyor' + (gecerli.length ? '; geçerli olduğu paketler: ' + gecerli.join(' · ') + '.' : '.'), 'var(--amber)');
     ozetCiz(); return;
   }
   if(!window.sb){ elciDurumYaz('Kod şu an doğrulanamadı; siparişten sonra bize yazarsan kontrol ederiz.', 'var(--amber)'); ozetCiz(); return; }
@@ -1110,7 +1110,7 @@ function davetKodOku(){
   function rozetCiz(){
     var h = '', d = $('davet').value, e = $('elci').value;
     if(d){ h += '<p class="kucuk" style="margin:6px 0 0;color:var(--green)">✓ Davet kodu <b>' + d + '</b>: ikinize de +1 ay · <a href="#" data-sil="davet">kaldır</a></p>'; }
-    if(e){ h += '<p class="kucuk" style="margin:6px 0 0">' + (ozelKodMu(e) ? 'İndirim kodu' : 'Elçi kodu') + ' <b>' + e + '</b> · <a href="#" data-sil="elci">kaldır</a></p>'; }
+    if(e){ h += '<p class="kucuk" style="margin:6px 0 0">' + 'İndirim kodu' + ' <b>' + e + '</b> · <a href="#" data-sil="elci">kaldır</a></p>'; }
     roz.innerHTML = h;
   }
   window.kodRozetCiz = rozetCiz;
@@ -1877,7 +1877,7 @@ if(!KURULUM_TAMAM){
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script src="menu.js?v=20261124a" defer></script>
+<script src="menu.js?v=20261124b" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>
