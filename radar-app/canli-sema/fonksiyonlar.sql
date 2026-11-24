@@ -3958,6 +3958,26 @@ begin
 end $function$
 ;
 
+-- siparis_fatura_benim()
+CREATE OR REPLACE FUNCTION public.siparis_fatura_benim()
+ RETURNS TABLE(telefon text, adres text, fatura_tip text, unvan text, vkn text, vd text)
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public', 'auth'
+AS $function$
+  select s.telefon::text, s.adres::text,
+         coalesce(s.fatura ->> 'tip', 'bireysel'),
+         s.fatura ->> 'unvan', s.fatura ->> 'vkn', s.fatura ->> 'vd'
+    from public.siparisler s
+    join auth.users u on u.id = auth.uid()
+   where (s.bagli_kullanici = u.id
+          or (lower(s.email) = lower(btrim(u.email)) and s.olusturma >= u.created_at))
+     and coalesce(btrim(s.adres), '') <> ''
+   order by s.olusturma desc
+   limit 1
+$function$
+;
+
 -- siparis_gads_tiklama_suz()
 CREATE OR REPLACE FUNCTION public.siparis_gads_tiklama_suz()
  RETURNS trigger
