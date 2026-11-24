@@ -71,6 +71,15 @@ h2{font-size:17px;margin:30px 0 10px}
     <a href="sorular.html" style="margin-left:12px;font-size:14px">İstersen başka bir konu seç</a>
   </div>
 
+  <!-- 24.11 (Cem "bunları yapalım"): 5 örnek sorunun sonundan üye olan buraya düşüyor, satın almaya giden bir yol yoktu.
+       Paketi OLMAYAN üyeye tek satır + satın alma düğmesi (adres uye-durumu.js SINAVLAR[..].al; fiyat yazılmaz, tek yerde dursun).
+       Paketli üyede, ziyaretçide ve paket okunamadığında (hata) GİZLİ kalır. -->
+  <div class="kutu" id="ylPaket" hidden>
+    <b style="font-size:16px">Yanlışların hesabında.</b>
+    <p style="margin:6px 0 12px;color:var(--muted)">Bunlar ücretsiz örnek sorulardı. Sınavın bütün soruları pakette.</p>
+    <a class="btn" id="ylPaketBtn" href="fiyat.html">Paketi gör, satın al →</a>
+  </div>
+
   <h2>Tekrar bekleyenler</h2>
   <div class="kutu" id="ylKutu"></div>
 
@@ -98,6 +107,15 @@ h2{font-size:17px;margin:30px 0 10px}
   var $=function(i){ return document.getElementById(i); };
   var esc=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
   if(!window.ttCalisma){ $('ylOzet').textContent='Bu sayfa şu an yüklenemedi.'; return; }
+  /* 24.11 paketsiz üyeye satın alma satırı */
+  try{ if(window.TetikteUye) window.TetikteUye.hazir.then(function(d){
+    if(!d || !d.oturum || d.hata) return;
+    var U=window.TetikteUye, aktif=U.SIRA.some(function(k){ return d.sinavlar[k] && d.sinavlar[k].durum!=='uye' && d.sinavlar[k].durum!=='ziyaretci'; });
+    if(aktif) return;   /* paketi olan ya da olmuş (bitmiş) üyeye gösterilmez */
+    var s=U.seciliSinav(), al=(U.SINAVLAR[s]&&(U.SINAVLAR[s].alTek||U.SINAVLAR[s].al))||'fiyat.html';
+    $('ylPaketBtn').href=al; $('ylPaket').hidden=false;
+    $('ylPaketBtn').addEventListener('click',function(){ try{ if(window.goatcounter&&window.goatcounter.count) window.goatcounter.count({path:'yanlislarim/paket',title:'Yanlışlarım: paket düğmesi',event:true}); }catch(e){} });
+  }); }catch(e){}
   document.addEventListener('tetikte-kutu',ciz);
   ciz();
   function ciz(){

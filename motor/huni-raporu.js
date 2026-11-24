@@ -82,7 +82,18 @@ const EK = [
   ['Örnek: son ekran',          /^ornek\/(sgs|yeterlilik)\/son$/],
   ['Örnek: Paketleri gör',      /^ornek\/(sgs|yeterlilik)\/paket$/],
   ['Örnek: Seviyeni ölç',       /^ornek\/(sgs|yeterlilik)\/olc$/],
-  ['Örnek: ara sorular',        /^ornek\/(sgs|yeterlilik)\/kart-[234]$/],
+  /* 24.11 Cem "huniden üç sayı": örnek soru -> üyelik -> satın alma yolunun eksik adımları */
+  ['Örnek: üye ol düğmesi',     /^ornek\/(sgs|yeterlilik)\/uye-ol$/],
+  ['Yeni üye: satın almaya',    /^hesap\/yeni-uye-satin-al$/],
+  ['Yanlışlarım: paket düğmesi', /^yanlislarim\/paket$/],
+  ['Satın al: hesabı sayfada açtı', /^satin-al\/adim\/hesap-(ac|giris)-sayfada$/],
+  ['Satın al: bilgileri doldurdu', /^satin-al\/adim\/bilgiler$/],
+  ['Satın al: onayı işaretledi', /^satin-al\/adim\/onaylar$/],
+  ['Satın al: Kartla öde bastı', /^satin-al\/adim\/(kart|kart-dogrudan)$/],
+  ['Satın al: ödeme sayfası açıldı', /^satin-al\/adim\/ode-sayfa$/],
+  ['Satın al: sipariş bitti',   /^satin-al\/adim\/siparis-bitti$/],
+  ['Satın al: kart hatası',     /^satin-al\/adim\/kart-hata(-tekrar)?$/],
+  ['Örnek: ara sorular',       /^ornek\/(sgs|yeterlilik)\/kart-[234]$/],
   // 20.10 Cem "1.2.3" GM3: "Nöbetçi çizerek çözsün" (cizerek-coz.js olay(): ciz/<sgs|yeterlilik|kgk>/<ac|son>)
   ['Çizim: açtı',               /^ciz\/(sgs|yeterlilik|kgk)\/ac$/],
   ['Çizim: sonuna kadar izledi', /^ciz\/(sgs|yeterlilik|kgk)\/son$/],
@@ -121,6 +132,10 @@ function tablo(dun, hafta) {
   /* 08.10: örnek sayfası ders şablonuna geçti; cevap adımları cevap_kayit'te (kaynak 'ornek-soru'), sayaçta açılış + paket tıklaması */
   const oa = hafta.say['Örnek: sayfa açıldı'] || 0, op = hafta.say['Örnek: Paketleri gör'] || 0;
   satir.push('ÖRNEK SORU DÖNÜŞÜMÜ (7 gün): sayfayı açan ' + oa + ' → pakete tıklayan ' + op + ' (' + yuzde(op, oa) + ') · kaç kişi kaç soru cevapladı: cevap_kayit kaynak=ornek-soru');
+  /* 24.11 Cem ("5 soruyu bitiren, Satın al'a basan, ödeyen"): tek satır. Sayaç kişiyi izlemez: "siparişi biten" örnek sorudan
+     gelenle SINIRLI DEĞİL, satın alma sayfasındaki bütün alıcılardır. "Son ekran" sayacı 24.11'de eklendi; öncesi 0 görünür. */
+  const o5 = hafta.say['Örnek: son ekran'] || 0, kb = hafta.say['Satın al: Kartla öde bastı'] || 0, sb2 = hafta.say['Satın al: sipariş bitti'] || 0;
+  satir.push('ÜÇ SAYI (7 gün): 5 örnek soruyu bitiren ' + o5 + ' → oradan pakete tıklayan ' + op + ' (' + yuzde(op, o5) + ') · sitede Kartla öde basan ' + kb + ' → siparişi biten ' + sb2 + ' (' + yuzde(sb2, kb) + ')');
   return satir.join('\n');
 }
 

@@ -84,6 +84,8 @@
         try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: 'ornek/' + (yet ? 'yeterlilik' : 'sgs') + '/uye-ol', title: '5 örnek soru: üye ol', event: true }); } catch (x) {}
       });
       s.insertBefore(d, s.firstChild);
+      /* 24.11 Cem "huniden üç sayı": son ekran sayacı yoktu (huni-raporu.js 'Örnek: son ekran' hep 0'dı); ekran çizilince bir kez */
+      try { if (!window.__ornekSonSayildi && window.goatcounter && window.goatcounter.count) { window.__ornekSonSayildi = 1; window.goatcounter.count({ path: 'ornek/' + (yet ? 'yeterlilik' : 'sgs') + '/son', title: '5 örnek soru: son ekran', event: true }); } } catch (x) {}
       var h = s.querySelector('.skorBuyuk'); if (h) h.style.display = 'none';
       fiyatYaz();
     };
