@@ -971,7 +971,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     kayitYukle().catch(function(){});
   }
   /* 19.10 özel kod 2: paket kutuları + önizleme. Fiyat fiyat-motoru.js paketBul (satın alma sayfasıyla aynı rakam). */
-  var OZEL_PAKET=['sgs','yeterlilik-tum','yeterlilik-1','yeterlilik-2','yeterlilik-3','yeterlilik-4'];   /* = SQL yonetim_ozel_kod_uret2 izinli */
+  var OZEL_PAKET=['sgs-2027','yeterlilik-tum','yeterlilik-1','yeterlilik-2','yeterlilik-3','yeterlilik-4'];   /* 24.11: SGS 2027 eklendi (2026-11-24-ozel-kod-sgs2027.sql); eski 'sgs' paketi satışta değil, kutusu kalktı */   /* = SQL yonetim_ozel_kod_uret2 izinli */
   function ozelHesap(){
     var tur=$('oTur').value, deger=Number($('oDeger').value), satirlar=[], harita={}, hata='';
     if(!(deger>0) || Math.round(deger)!==deger) hata = tur==='oran' ? 'Oran 1 ile 99 arasında tam sayı olmalı.' : 'Tutar tam TL olmalı.';
@@ -996,7 +996,7 @@ a.uye-ac{color:var(--link);cursor:pointer;text-decoration:underline;text-underli
     var k=$('oPaketler'); if(!k) return;
     if(typeof paketBul!=='function'){ k.innerHTML='<span class="not" style="color:var(--red)">Fiyat dosyası yüklenemedi; sayfayı yenile.</span>'; return; }
     k.innerHTML=OZEL_PAKET.map(function(id){ var p=paketBul(id); if(!p) return '';
-      return '<label style="display:flex;gap:6px;align-items:center;font-weight:400"><input type="checkbox" value="'+esc(id)+'"'+((id==='sgs'||id==='yeterlilik-tum')?' checked':'')+'> '+esc(p.ad)+' <span class="not">('+tl(p.fiyat)+')</span></label>'; }).join('');
+      return '<label style="display:flex;gap:6px;align-items:center;font-weight:400"><input type="checkbox" value="'+esc(id)+'"'+((id==='sgs-2027'||id==='yeterlilik-tum')?' checked':'')+'> '+esc(p.ad)+' <span class="not">('+tl(p.fiyat)+')</span></label>'; }).join('');
     ['oTur','oDeger'].forEach(function(i){ $(i).addEventListener('input', ozelOnizle); });
     $('oTur').addEventListener('change', function(){ $('oDeger').value = $('oTur').value==='oran' ? 20 : 600; ozelOnizle(); });
     k.addEventListener('change', ozelOnizle);
