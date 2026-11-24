@@ -1,6 +1,47 @@
 {
-  "tarih": "2026-11-24 18:14:38",
-  "durum": "KOR",
-  "sebep": "port-yok",
-  "ci": true
+  "tarih": "2026-11-24 20:29:00",
+  "durum": "KIRMIZI",
+  "ci": true,
+  "ekranlar": [
+    "telefon 390x844",
+    "bilgisayar 1366x860"
+  ],
+  "olcum_toplam": 180,
+  "KOR": 0,
+  "senaryolar": [
+    "ders-sgs",
+    "ders-smmm",
+    "cihaz-baska",
+    "cihaz-sinir",
+    "ekip",
+    "duvar"
+  ],
+  "katman_sayisi": 21,
+  "kusurlu": 2,
+  "kapanan_katman_cesidi": {
+    "div#pkPerde": 2,
+    "div#ttTelif": 4,
+    "div#ttNn.acik": 3,
+    "div#ckPerde": 4,
+    "div#ttEkipBildirim": 2,
+    "div#ttDuvar": 2,
+    "div.setOzet": 2
+  },
+  "kusurlar": [
+    {
+      "yer": "telefon [ders-sgs] kaydir/sgs/turkce.html [22. cevap sonrası]",
+      "oge": "div.setOzet",
+      "yazi": "✕ SET 1 RAPORU · Finansal Muhasebe %20 doğru 4 doğru 16 yanlış 0 boş \ud83e",
+      "kusur": "E",
+      "neden": "✕ küçük 44×22 px (en az 40)"
+    },
+    {
+      "yer": "telefon [ders-smmm] kaydir/smmm/finansal-muhasebe.html [22. cevap sonrası]",
+      "oge": "div.setOzet",
+      "yazi": "✕ SET 1 RAPORU · Finansal Muhasebe %20 doğru 4 doğru 16 yanlış 0 boş 0",
+      "kusur": "E",
+      "neden": "✕ küçük 44×22 px (en az 40)"
+    }
+  ],
+  "olculemeyenler": []
 }
