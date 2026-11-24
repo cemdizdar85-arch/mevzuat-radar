@@ -474,6 +474,21 @@
     .op-yol b{display:block;font-size:15.5px}.op-yol small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
     @media(max-width:640px){ .op-yol{grid-template-columns:1fr 1fr} }
     </style>
+    <!-- 25.11 HATALARIN ÖNDE (Cem "öğrenci hatalarını önüne çıkaracaktık; sınavda en çok çıkan konular bunlar, bizde var deyip gösterelim"):
+         Konu hedeflerin kartının verisi (calisma-ozet.js dokunulmamis() r.tumu) sayfanın 5. ekranındaydı; aynı veriden en üstte tek kart:
+         sık çıkan konulardan doğru oranı %60'ın altında olanlar (en az 5 cevap), çıkma sıklığına göre ilk 3; her birinde "Çöz".
+         Zayıf konu yoksa sık çıkıp hiç dokunulmamış ilk 3 konu. İkisi de yoksa kart çizilmez. Çizen: hedefKonuCiz().
+         🚫 GÖRMEZ: 5'ten az cevaplı konuyu (oran yok) · sık konu listesinde olmayan konudaki hatayı · KGK. -->
+    <div class="og-kutu og-gizli" id="ogHataK" style="margin:0 0 16px">
+      <span class="og-paket-et" id="ogHataKBas">Önce bunlar</span>
+      <p class="og-alt" id="ogHataKUst" style="margin:6px 0 8px;font-size:14.5px"></p>
+      <div id="ogHataKListe"></div>
+    </div>
+    <style>
+    .hx-satir{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+    .hx-satir b{display:block;font-size:15.5px}.hx-satir small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+    .hx-satir .og-btn{flex:none;min-height:44px;display:inline-flex;align-items:center}
+    </style>
     <script>
     (function(){ var g=document.getElementById('ogSinavSec'), a=document.getElementById('opYolS20'); if(!g||!a) return;
       function yaz(){ var b=g.querySelector('[aria-pressed="true"]'), s=b?b.getAttribute('data-sinav'):'sgs';
@@ -917,6 +932,27 @@
      🚫 GÖRMEZ: ücretsiz örnek cevapları hesapta yok (yalnız bu cihazdaki kc_kayit) · 2026-10-28 SQL'inden önce hesaptan gelen
        cevabın doğruluğu (o=null, orana girmez) · KGK (konu bağı yok, bölüm gizli). */
   var HEDEF_ORAN=60, HEDEF_SORU=20;
+  /* 25.11 HATALARIN ÖNDE: L = hedefKonuCiz'in satırları ({x:{konu,ders,coz,olc,dog,donSay,sayfa}, oran, tamam}) */
+  function hataOndeCiz(L, r, ys){
+    var kap=$('ogHataK'); if(!kap) return;
+    var sik=function(a,b){ return (b.x.donSay||0)-(a.x.donSay||0); };
+    var zayif=L.filter(function(z){ return z.oran!==null&&z.oran<HEDEF_ORAN; }).sort(sik);
+    var hic=L.filter(function(z){ return !z.x.coz; }).sort(sik);
+    var liste=zayif.length?zayif:hic;
+    if(!liste.length){ kap.classList.add('og-gizli'); return; }
+    var yil=r.pencere?r.pencere.slice(0,4):'';
+    var kanit=function(x){ return x.donSay?(yil?yil+"'dan bu yana ":'')+x.donSay+' sınavda soruldu':'sınavda sık soruluyor'; };
+    $('ogHataKBas').textContent=zayif.length?'Hataların · sınavda en çok çıkan konularda':'Sınavda en çok çıkan, senin hiç çözmediğin konular';
+    $('ogHataKUst').textContent=zayif.length
+      ? 'Sınavda en sık çıkan '+L.length+' konunun '+zayif.length+' tanesinde doğru oranın %'+HEDEF_ORAN+'\'ın altında. Hepsinin sorusu bizde var; en sık çıkandan başla.'
+      : 'Sınavda en sık çıkan '+L.length+' konunun '+hic.length+' tanesine henüz hiç dokunmadın. Hepsinin sorusu bizde var; en sık çıkandan başla.';
+    $('ogHataKListe').innerHTML=liste.slice(0,3).map(function(z,j){ var x=z.x;
+      var durum=zayif.length?(x.olc+' soruda '+(x.dog||0)+' doğru · '):'';
+      return '<div class="hx-satir"><div><b>'+esc(x.konu)+'</b><small>'+(ys&&x.ders?esc(x.ders)+' · ':'')+esc(durum+kanit(x))+'</small></div>'
+        +'<a class="og-btn og-kucuk'+(j===0?' ana':'')+'" href="'+esc(String(x.sayfa).indexOf('kaydir/')===0?x.sayfa+'?konu='+encodeURIComponent(String(x.konu).replace(/ — /g,' › ')):x.sayfa)+'">'+(zayif.length?'Çöz →':'Başla →')+'</a></div>'; }).join('')
+      +(liste.length>3?'<p class="og-alt" style="margin:8px 0 0;font-size:13px"><a class="og-link" href="#ogHedefK">Kalan '+(liste.length-3)+' konu →</a></p>':'');
+    kap.classList.remove('og-gizli');
+  }
   function hedefKonuCiz(r){
     var kap=$('ogHedefK'); if(!kap) return;
     if(!r||r.tur!=='konu'||!Array.isArray(r.tumu)||!r.tumu.length){ kap.classList.add('og-gizli'); return; }
@@ -940,6 +976,7 @@
       +(alt.length?'<details class="hk-tum"><summary>Tüm sık konular ('+L.length+')</summary>'+alt.map(function(z){ return satir(z,false); }).join('')+'</details>':'');
     $('ogHedefKAlt').textContent='Hedef nereden: doğru oranı %'+HEDEF_ORAN+' sınavın geçme kuralı ('+(ys?'SMMM/YMM Sınav Yönetmeliği m.16: her dersten en az 50, ortalama en az 60':'SMMM Staj Yönetmeliği m.7: en az 60 puan')+'). Soru hedefi: her sık konudan '+HEDEF_SORU+' soru (bankada daha az varsa hepsi). Konular, '+(r.pencere?r.pencere.slice(0,4)+"'dan bu yana ":'')+'çıkmış sınavlarda en sık sorulanlar. Oran, en az 5 cevaptan sonra görünür.';
     kap.classList.remove('og-gizli');
+    try{ hataOndeCiz(L, r, ys); }catch(e){}
     try{ if(window.ttSay&&!window.__hkSay){ window.__hkSay=1; ttSay('hesabim/konu-hedef','Hesabım: konu hedefleri görüldü'); } }catch(e){}
   }
   function dokunmaCiz(s){
