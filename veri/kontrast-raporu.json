@@ -1,7 +1,47 @@
 {
-  "durum": "KOR",
-  "sebep": "devtools-portu-acilmadi",
+  "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "chrome_stderr": "[2193:2226:1124/033330.549872:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2193:2226:1124/033331.129183:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2193:2226:1124/033332.222219:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2193:2231:1124/033333.697146:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2193:2231:1124/033333.697178:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2193:2231:1124/033333.697188:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2193:2226:1124/033335.841751:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
+  "sayfa": 249,
+  "koyu_gecis": 84,
+  "koyu_bekleyen": [],
+  "temiz_sayfa": 248,
+  "denetlenen_metin": 24617,
+  "toplam_kirik": 2,
+  "denetlenen_sinir": 6785,
+  "toplam_gorunmez_sinir": 0,
+  "olculemeyen": 0,
+  "esik": {
+    "normal": 4.5,
+    "buyuk": 3,
+    "sinir": 1.12
+  },
+  "gorunmez_sinir_sayfalar": [],
+  "olculemeyenler": [],
+  "kirik_sayfalar": [
+    {
+      "sayfa": "sgs-sifirdan-hazirlik.html [koyu]",
+      "adet": 2,
+      "ornekler": [
+        {
+          "oge": "a.ana",
+          "yazi": "5 örnek soru çöz",
+          "oran": 1.43,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<a class=\"ana\" href=\"kaydir/vitrin/ornek-sgs.html?k=sifirdan\">5 örnek soru çöz</a>"
+        },
+        {
+          "oge": "a.ana",
+          "yazi": "5 örnek soru çöz",
+          "oran": 1.43,
+          "esik": 4.5,
+          "renk": "rgb(238, 242, 247)",
+          "zemin": "rgb(255,194,75)",
+          "iz": "<a class=\"ana\" href=\"kaydir/vitrin/ornek-sgs.html?k=sifirdan\">5 örnek soru çöz</a>"
+        }
+      ]
+    }
+  ]
 }
