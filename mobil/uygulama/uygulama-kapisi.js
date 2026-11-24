@@ -33,12 +33,13 @@
     '#pkPerde{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:22px;' +
     'background:var(--bg,var(--taban));color:var(--yazi,var(--ink));font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;visibility:visible}' +
     '#pkPerde .pk-kutu{max-width:440px;width:100%;text-align:center;background:var(--kart,var(--panel));border:1px solid var(--cizgi,var(--line));border-radius:16px;padding:28px 22px}' +
+    '#pkPerde a.pk-x{position:absolute;top:calc(10px + env(safe-area-inset-top));right:calc(10px + env(safe-area-inset-right));width:44px;height:44px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;border:0;font:22px/1 system-ui,sans-serif;color:var(--yazi,var(--ink))}' +
     '#pkPerde h2{margin:0 0 8px;font-size:21px;letter-spacing:-.3px}' +
     '#pkPerde p{margin:0 0 18px;font-size:14.5px;line-height:1.6;color:var(--dim)}' +
     '#pkPerde a{display:block;margin:8px 0 0;padding:12px 14px;border-radius:11px;font-weight:750;font-size:15px;text-decoration:none;' +
     'border:1px solid var(--cizgi,var(--line2));color:var(--yazi,var(--ink))}' +
     '#pkPerde a.pk-ana{background:var(--mavi,var(--accent2));border-color:transparent;color:var(--ustYazi,var(--taban))}' +
-    '#ttGeri{position:fixed;z-index:2147482000;left:calc(10px + env(safe-area-inset-left));top:calc(10px + env(safe-area-inset-top));' +
+    '#ttGeri{position:fixed;z-index:2147483001;left:calc(10px + env(safe-area-inset-left));top:calc(10px + env(safe-area-inset-top));' +
     'padding:7px 12px;border-radius:999px;font:700 13px/1.2 -apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;text-decoration:none;' +
     'background:var(--kart,var(--panel));color:var(--yazi,var(--ink));border:1px solid var(--cizgi,var(--line));visibility:visible}' +
     /* Kaydır-Çöz kartının üst satırı (.ust: konu etiketi + seviye) düğmenin altında kalmasın. */
@@ -139,7 +140,8 @@
       var d = document.createElement('div');
       d.id = 'pkPerde';
       d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
-      d.innerHTML = '<div class="pk-kutu"><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
+      /* 24.11 Cem "X işareti görünmeyen, çıkılmayan olmasın": kilit perdesine ✕ (ana ekran); geri düğmesi de perdenin üstünde */
+      d.innerHTML = '<a class="pk-x" href="' + KOK + 'index.html" aria-label="Kapat">✕</a><div class="pk-kutu"><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
       document.body.appendChild(d);
       document.body.style.overflow = 'hidden';
     };
