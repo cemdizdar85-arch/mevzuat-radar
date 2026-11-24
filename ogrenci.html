@@ -1130,6 +1130,14 @@
       /* 13.10 KGK: seviye testi yok -> KGK seçmiş yeni üye soru bankasına (sorular.html#kgk); içerik kapalıysa SGS testi */
       if(sec==='kgk' && kgkAcik()){ location.replace('sorular.html#kgk'); return true; }
       /* 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): yeni üye 30 soruluk test yerine 5 örnek soruya */
+      /* 24.11 Cem ("Evet, öyle yap"): örnek soruları bu cihazda ZATEN çözmüş (kc_kayit'te en az 3 cevap) yeni üye aynı 5 soruya
+         yeniden gönderilmez, doğrudan satın alma sayfasına gider. Hiç çözmemiş yeni üye için 17.10 kararı aynen (5 örnek soru).
+         GÖRMEZ: başka cihazda/gizli pencerede çözülmüş soru (kayıt yalnız bu tarayıcıda). */
+      var cozdu=0; try{ var kk=JSON.parse(localStorage.getItem('kc_kayit')||'[]'); cozdu=Array.isArray(kk)?kk.length:0; }catch(e){}
+      if(cozdu>=3){
+        try{ if(window.goatcounter&&window.goatcounter.count) window.goatcounter.count({path:'hesap/yeni-uye-satin-al',title:'Yeni üye: örnek çözmüş, satın almaya',event:true}); }catch(e){}
+        location.replace('satin-al.html?paket='+(sec==='yeterlilik'?'yeterlilik-1':'sgs-2027')); return true;
+      }
       location.replace('kaydir/vitrin/ornek-'+(sec==='yeterlilik'?'smmm':'sgs')+'.html'); return true;
     }catch(e){ return false; }
   }
