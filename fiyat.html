@@ -145,7 +145,14 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 <link rel="stylesheet" href="gkt.css?v=3">
 <link rel="stylesheet" href="paket-kartlari.css?v=5">
-<style>/* 28.10 Cem ("tüm fiyatlar sekmesi ilk sayfadaki gibi olsun"): üstte ana sayfanın sınav seçicisi + kartları (paket-kartlari.js).
+<style>/* 24.11 (Cem "uzun açıklamalarımız varsa"; Netflix/Amazon: uzun açıklama kapalı soru-cevapta): kutular kapalı gelir, metin AYNEN içinde */
+.sss summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sss summary::-webkit-details-marker{display:none}
+.sss summary h2{margin:0}
+.sss summary::after{content:"+";flex:none;font-size:24px;font-weight:700;line-height:1;color:var(--muted)}
+.sss[open] summary::after{content:"3"}
+.sss[open] summary{margin-bottom:12px}
+/* 28.10 Cem ("tüm fiyatlar sekmesi ilk sayfadaki gibi olsun"): üstte ana sayfanın sınav seçicisi + kartları (paket-kartlari.js).
    Eski kart ızgarası ve telefon özeti GİZLİ (betikler kimliklerini arıyor, silinmedi). */
 #fozet,.kartlar,#secSatir{display:none!important}
 html.fy-bekle #paketler{visibility:hidden}
@@ -193,8 +200,8 @@ html:not(.pk-dolu) #paketler{min-height:515px}@media(max-width:600px){html:not(.
 <section class="secim-bolum" aria-labelledby="fsBas">
   <p class="secim-bas" id="fsBas">Sınavını seç</p>
   <div class="secim" role="group" aria-labelledby="fsBas">
-    <button class="sinav" type="button" data-fs="sgs" aria-pressed="true">SMMM Staja Giriş <small>2027 dönemleri · Nisan · Temmuz · Kasım</small></button>
-    <button class="sinav" type="button" data-fs="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+    <button class="sinav" type="button" data-fs="sgs" aria-pressed="true">SMMM Staja Giriş <small>2027 · Nisan 2027 sınavına kadar</small></button>
+    <button class="sinav" type="button" data-fs="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>2027 · 28 Kasım 2026 sınavı da dahil</small></button>
     <span class="sinav kapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
   </div>
 </section>
@@ -347,17 +354,17 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 
 <!-- 29.08 KARARI: iki donemlik paket KALDIRILDI. Piyasanin tamami adayin
      kalacagini varsayan paketi satiyor; biz varsaymiyoruz. -->
-<div class="kutu vurgu">
-  <h2>İki dönemlik paket satmıyoruz</h2>
+<details class="kutu vurgu sss">
+  <summary><h2>İki dönemlik paket satmıyoruz</h2></summary>
   <p style="margin:0;font-size:14px">Paketin <b>tek bir sınava</b> göre kurulur: girdiğin sınavı geçmen için. Kalacağını varsayıp iki dönemlik paket satmıyoruz.</p><!-- 05.10 Cem "1 ve 2 yap": "piyasadaki paketlerin çoğu... varsayıyorlar" ölçülmemiş genelleme + rakibi küçültme (karşılaştırmalı reklam) - kendi sözümüze çevrildi -->
   <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Sınav gününe kadar.</b></p>
   <p class="kucuk" style="margin:10px 0 0">Yeterlilik'te erişimin girdiğin sınavın gününe kadar sürer ve <b>hiçbir zaman 3 aydan kısa olmaz</b>:
   sınava az kala alsan da en az 3 ay çalışırsın. <b>SGS 2027</b> paketi Nisan 2027 SGS'sine göre kurulur; erişimin o sınavdan 3 gün sonra biter. Sınav ertelenirse süren de uzar.</p><!-- 23.11 Cem: SGS 2027 erişimi dönem seçimiyle -->
-</div>
+</details>
 
 <!-- CEM'IN FIKRI, BELGEYLE: bu mesleğin resmi bedeli. Saldirilamaz cunku TESMER'in kendi tarifesi. -->
-<div class="kutu vurgu">
-  <h2>Bu mesleğin resmî bedeli, daha tek kitap almadan</h2>
+<details class="kutu vurgu sss">
+  <summary><h2>Bu mesleğin resmî bedeli, daha tek kitap almadan</h2></summary>
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table>
     <tr><th>TESMER 2026 resmî ücreti</th><th class="sag">Tutar</th></tr>
     <tr data-sinav="sgs" data-toplam="10500"><td>Staj dosya ve başvuru bedeli</td><td class="sag">10.500 TL</td></tr>
@@ -370,18 +377,18 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   </table></div>
   <p class="kucuk" style="margin-top:10px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Yılı Sınav ve Eğitim Ücretleri</a> (kendi PDF'i, 29.08.2026'da okundu).
   Bu tabloyu satış için değil, <b>kararını rakamla verebilesin</b> diye koyduk.</p>
-</div>
+</details>
 
 <!-- 29.08: HARC KARSILASTIRMASI. Rakiplerin hicbiri bunu kuramaz cunku onlarin
      fiyatlari harcin 3-5 kati. Rakamlar fiyat-motoru.js'teki HARC'tan gelir. -->
-<div class="kutu vurgu" data-sinav="yeterlilik">
-  <h2 id="harcYetBas">Yeterlilik: resmî harçla karşılaştır</h2><!-- 23.11: başlık tablodan hesaplanır; "her basamak harçtan ucuz" yalnız gerçekten öyleyse yazar -->
+<details class="kutu vurgu sss" data-sinav="yeterlilik">
+  <summary><h2 id="harcYetBas">Yeterlilik: resmî harçla karşılaştır</h2></summary><!-- 23.11: başlık tablodan hesaplanır; "her basamak harçtan ucuz" yalnız gerçekten öyleyse yazar -->
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table id="harcYet">
     <tr><th>Kaç dersten sorumlusun</th><th class="sag">Devlete ödeyeceğin harç</th><th class="sag">Tetikte</th></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Harç kaynağı: TESMER 2026 tarifesi — kalınan her ders için
   <b>1.260 TL</b>, ilk başvuruda sekiz ders <b>10.080 TL</b>.</p>
-</div>
+</details>
 
 <!-- KGK'da harc CAPA OLARAK KULLANILMAZ: temel alan 4 konu, e-sinav harci
      4x950 = 3.800 TL; bizim tum moduller 3.990 TL, yani harctan UCUZ DEGIL.
@@ -429,35 +436,35 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><th>Paket</th><th class="sag">Açılış fiyatı</th><th class="sag">Sonrası</th><th>Kota / süre</th></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px"><b>Sahte indirim yapmıyoruz:</b> "Sonrası" sütunundaki rakam,
-  açılış kontenjanı dolduğunda (SGS 2027'de 1 Ocak 2027'den itibaren) gerçekten uygulayacağımız fiyattır. Kontenjan ödeme kayıtlarımızla izlenir, dolduğunda
-  burada yazar; "son 3 saat" sayacı, üstü çizili uydurma fiyat ya da kampanya tiyatrosu yok. Ödeyeceğin KDV dahil toplam her fiyatın yanında yazar.</p><!-- 05.10 Cem: "bir yıl değil, iki sınavda ayrı ayrı ilk 1.000 dedik" - "bir yıl boyunca o fiyatta kalır" sözü verilmedi, kalktı -->
+  açılış süresi bitince (1 Ocak 2027'den itibaren) gerçekten uygulayacağımız fiyattır;
+  "son 3 saat" sayacı ya da üstü çizili uydurma fiyat yok. Ödeyeceğin KDV dahil toplam her fiyatın yanında yazar.</p><!-- 05.10 Cem: "bir yıl değil, iki sınavda ayrı ayrı ilk 1.000 dedik" - "bir yıl boyunca o fiyatta kalır" sözü verilmedi, kalktı -->
 </div>
 
 <!-- KATEGORI AYRIMI: eski "piyasadan yirmi kat ucuzuz" cumlesi KALDIRILDI (02.08).
      "Ucuz" demek kendi kalitemizi inkar etmekti; artik ayri kategori oldugumuzu soyluyoruz. -->
-<div class="kutu">
-  <h2>Biz kurs değiliz, kursun yapmadığını yapıyoruz</h2>
+<details class="kutu sss">
+  <summary><h2>Biz kurs değiliz, kursun yapmadığını yapıyoruz</h2></summary>
   <!-- 02.10: eski "8.400 – 39.900 TL (29.08, yedi kurum)" sayfanın manşetindeki 15.09 ölçümüyle (8.500'den) çelişiyordu; tek ölçüme indirildi -->
   <p style="margin:0;font-size:14px">Hazırlık kursları iyi iş yapıyor: konuyu anlatıyorlar.
   Ama sınav, konuyu <b>bilmekle</b> değil, soruyu <b>çözmekle</b> kazanılıyor.</p>
   <p style="margin:10px 0 0;font-size:14px">Kursa gidiyorsan Tetikte antrenman salonun olur.
   Kursa gitmiyorsan konuyu soruyla öğrenirsin. <b class="a">Saatlerce ders dinleyecek vaktin yoksa,
   soruyu çözerek öğrenirsin</b>; her sorunun altında dayandığı madde yazıyor.</p><!-- 05.10 Cem "1 ve 2 yap": "tek ihtiyacın bu" karsilastirma.html ("konuyu hiç bilmiyorsan önce kurs/kitap") ile çelişiyordu; "208 saat" bir kursun programından (rakip rakamı kullanılmaz) -->
-</div>
+</details>
 
 <!-- 02.10 Cem "değer tablosunu sil": "Bir sorunun kaç para ettiği" değer yığını SİLİNDİ. Tek ayrı satılan kalemi
      Son 15 Gün'dü; o kalkınca kalan "tek başına" fiyatlar ayrı satılmayan uydurma değer olurdu (29.08 dersi 6, 6502). -->
 
-<div class="kutu vurgu">
+<details class="kutu vurgu sss">
   <!-- 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" - "7 gün koşulsuz iade" paragrafı kalktı; erteleme sözü kaldı. -->
-  <h2>Sınav ertelenirse süren uzar</h2>
+  <summary><h2>Sınav ertelenirse süren uzar</h2></summary>
   <p style="margin:0;font-size:14px">TESMER sınav tarihini değiştirirse
   erişimin yeni sınav gününe kadar kendiliğinden uzatılır, ek ücret istemeyiz.</p>
   <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
   <p style="margin:8px 0 0;font-size:14px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da
   bilgisayarda da çalışırsın; yalnız iki ekranda aynı anda açık olmaz.</p>
   <p class="kucuk" style="margin:10px 0 0">"Geçemezsen bedava" gibi bir söz vermiyoruz; tutamayacağımız sözü vermeyiz.</p><!-- 05.10: "adayların büyük çoğunluğu kalıyor" kaynaksız rakam iddiasıydı, kalktı -->
-</div>
+</details>
 
 <!-- 04.10 Cem ("1 ve 2 yap"): "Çalışma Arkadaşım" bölümü KALDIRILDI - söz karşılıksızdı (04.10 kodda ölçüldü):
      · üye kendi davet kodunu hiçbir sayfada göremiyor (ogrenci.html'de davet_kodu yok)
@@ -469,8 +476,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 
 <!-- 02.10 Cem "son 15 gün planımız yok": "Son 15 Gün" kutusu (890 TL, paketlere dahil) kaldırıldı. -->
 
-<div class="kutu">
-  <h2>Kalite iddiamızın karşılığı</h2>
+<details class="kutu sss">
+  <summary><h2>Kalite iddiamızın karşılığı</h2></summary>
   <p style="margin:0;font-size:14px">"Kaliteli soru bankası" demek kolay. Bizde her sorunun bir mevzuat
   maddesine ya da standart paragrafına dayanması <b>şart</b>; her soru yayına çıkmadan önce birden fazla denetimden geçiyor.</p><!-- 05.10: iç mutfak dili ("makine", "kapı") kalktı; cümle ana sayfa ile aynı --><!-- 30.09: 'Açıklamalarımız yapay zekâya sorulmuyor, kanun metninden doğrulanıyor' KALKTI: açıklamaları model yazıyor, 30.09 tam okuma kusurlu açıklama buldu; söz ispatlanamaz (6502 m.61, Ticari Reklam Yön. m.9). -->
   <!-- 02.10 Cem "1 yap": eski "466 soruyu yayından çektik" (kaynaksız) + "öğrenciye gitmeden yakalıyoruz" (01.10 açıklama hakemi ölçümüyle çelişiyor) kalktı -->
@@ -478,7 +485,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   Hata yapmadığımızı iddia etmiyoruz.</p>
   <p class="kucuk" style="margin:10px 0 0">Bir hata görürsen soru ekranındaki ⚑ düğmesiyle bildir:
   kaynağıyla bakarız, haklıysan soru düzeltilir ya da yayından iner.</p><!-- 05.10: "açıkça duyururuz" kalktı (düzeltmeler sayfası yok; iletisim/karsilastirma ile aynı) -->
-</div>
+</details>
 
 <!-- 21.08: eski "Ödeme altyapısı kurulum aşamasında" kutusu KALDIRILDI. Sayfa
      satılabilir ürün göstermek zorunda; o kutu satın almanın önünü kapatıyordu. -->
@@ -494,8 +501,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   çöz; üyelik ve kart bilgisi istemiyoruz.</p>
 </div>
 
-<div class="kutu">
-  <h2>Satıcı bilgileri</h2>
+<details class="kutu sss">
+  <summary><h2>Satıcı bilgileri</h2></summary>
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table>
     <tr><td>Ticaret unvanı</td><td>Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi</td></tr>
     <tr><td>MERSİS No</td><td>0301130343200001</td></tr>
@@ -507,7 +514,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> ·
   <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> ·
   <a href="kvkk.html">KVKK Aydınlatma Metni</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></p>
-</div>
+</details>
 
 <p class="kucuk">Fiyatlar Türk Lirasıdır. Staja Giriş ve SMMM Yeterlilik fiyatları KDV hariç gösterilir, KDV dahil toplamı hemen yanında yazar; resmî harç kıyas tablosu KDV dahildir. Ödenecek tutar her zaman KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
 deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>

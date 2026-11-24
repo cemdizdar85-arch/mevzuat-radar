@@ -82,7 +82,7 @@
   .akd-ic{ overflow:hidden; min-height:0; padding:0 22px; }
   .akd.acik .akd-ic{ padding-bottom:22px; }
   .akd-hata{ display:none; margin:12px 0 0; font-size:14px; font-weight:600; color:var(--red); }
-  .akd-devam{ margin-top:16px; }
+  .akd-devam{ margin-top:16px; } .akd-devam[hidden]{ display:none; }
   @media (min-width:560px){ .akd-devam{ width:auto; min-width:180px; padding-left:28px; padding-right:28px; } }
   .ozet-bas{ display:flex; align-items:center; gap:12px; font-weight:800; font-size:16px; margin:0 0 12px; }
   .ozet .akd-no{ background:color-mix(in srgb,var(--amber-dolgu) 30%,transparent); color:var(--ink); }
@@ -158,7 +158,7 @@
   .alan{ flex:1; min-width:220px; margin-bottom:16px; }
   label.et{ display:block; font-size:13px; font-weight:600; color:var(--muted); margin-bottom:6px; }
   /* 03.10: sert ince kenarlık yerine dolgulu alan; odakta marka sarısı alt çizgi + yumuşak parlama */
-  input[type=text],input[type=email],input[type=tel],textarea,select{
+  input[type=text],input[type=email],input[type=tel],input[type=password],textarea,select{
       width:100%; background:color-mix(in srgb,var(--ink) 6%,var(--kart)); border:1px solid transparent;
       border-bottom-color:color-mix(in srgb,var(--ink) 16%,transparent); border-radius:10px;
       color:var(--ink); font:inherit; font-size:14px; padding:12px 14px;
@@ -172,6 +172,10 @@
               border-radius:10px; padding:11px 14px; font-size:14px; cursor:pointer; }
   .tip label:has(input:checked){ border-color:color-mix(in srgb,var(--amber-dolgu) 70%,transparent); }
   .tip input{ accent-color:var(--amber); width:16px; height:16px; }
+  .fatura-ek{ margin:0 0 16px; } .fatura-ek summary{ cursor:pointer; font-size:14px; font-weight:700; color:var(--muted); padding:6px 0; }
+  .fatura-ek[open] summary{ margin-bottom:10px; }
+  .gk-ayrac{ display:flex; align-items:center; gap:10px; margin:14px 0 12px; font-size:13px; color:var(--muted); }
+  .gk-ayrac::before,.gk-ayrac::after{ content:""; flex:1; height:1px; background:var(--line2); }
   .onay{ display:flex; gap:9px; align-items:flex-start; font-size:13px; color:var(--muted); margin-top:10px; }
   .onay input{ margin-top:3px; accent-color:var(--amber); width:16px; height:16px; flex:none; }
   .onay.onay-eksik{ outline:2px solid var(--red); outline-offset:4px; border-radius:10px; color:var(--ink); }   /* 24.11: işaretlenmemiş onay */
@@ -269,9 +273,9 @@
       <p class="kucuk" style="margin:0 0 10px">Erişimin seçtiğin sınavdan <b>3 gün sonra</b> biter. 2027 sınav tarihleri TÜRMOB'ca açıklanınca burada yazar.</p>
       <div id="donemListe" class="dersListe"></div>
     </div>
-    <p class="kucuk" style="margin-top:2px">Yeterlilik'te erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
-    <b>SGS 2027</b>'de Nisan 2027 SGS'sinden 3 gün sonra biter. Sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
-    <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
+    <!-- 24.11 (denetim: SGS alıcısına Yeterlilik kuralı okunuyordu): yalnız seçili sınavın cümlesi görünür (akdOzetCiz); paket seçilmeden ikisi de -->
+    <p class="kucuk" style="margin-top:2px"><span data-ern="yet">Yeterlilik'te erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz. </span><span data-ern="sgs"><b>SGS 2027</b>'de erişim Nisan 2027 SGS'sinden 3 gün sonra biter. </span>Sınav ertelenirse süren uzar. Harç satırı, aynı kapsam için
+    <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntı: <a href="fiyat.html">fiyat sayfası</a>.</p>
     <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
     <p class="kucuk" style="margin-top:6px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da bilgisayarda da
     çalışırsın; cihazlarını <a href="ogrenci.html#cihazlarim">Hesabım → Cihazlarım</a>'dan yönetirsin.</p>
@@ -295,12 +299,24 @@
        alıcıya bilgi formu yerine bu kapı görünür; giriş/üyelikten sonra ?sonra= ile bu sayfaya döner, e-posta hesaptan gelir. -->
   <div id="girisKapi" hidden style="text-align:center;padding:6px 0 4px">
     <p style="margin:0 0 6px;font-weight:800;font-size:17px">Önce hesabına gir</p>
-    <p class="kucuk" style="margin:0 0 14px">Paketin hesabına açılır; ödeme bitince doğrudan soru çözmeye başlarsın. Üye olmak 30 saniye, onay maili yok. Google ile tek dokunuş.</p>
+    <p class="kucuk" style="margin:0 0 14px">Paketin hesabına açılır; ödeme bitince doğrudan soru çözmeye başlarsın.</p>
     <!-- 23.11 (Cem "Amazon gibi kolay", denetim: "Google ile tek dokunuş" yazıyordu ama düğme bu sayfada yoktu): Google düğmesi burada;
          dönüş ogrenci.html?sonra=<bu sayfa> (izin listesinde), giriş bitince bu sayfaya döner. E-posta yolu ikincil. -->
     <div id="girisGoogle" style="margin:0 0 10px;text-align:left"></div>
-    <a class="btn" id="girisKapiUye" style="text-decoration:none;margin:0 0 8px;display:block;box-sizing:border-box;background:transparent;color:var(--ink);border:1.5px solid var(--line2)" href="ogrenci.html#uye-ol">E-postayla üye ol</a>
-    <a class="btn" id="girisKapiGiris" style="text-decoration:none;margin:0;display:block;box-sizing:border-box;background:transparent;color:var(--ink);border:1.5px solid var(--line2)" href="ogrenci.html">Giriş yap</a>
+    <!-- 24.11 (Cem "alımı çok kolay olsun"; Netflix: e-posta + parola aynı ekranda): üyelik ve giriş BU SAYFADA. Eskiden iki düğme
+         ogrenci.html'e götürüp geri getiriyordu. Kayıt çağrısı ogrenci.html "ÜYE OL" ile aynı veri (hesap_turu, kosul_kabul, elçi izi,
+         kaynak etiketi); zorunlu koşul kutusu aynen. Oturum açılınca sayfa yenilenir, form hesap e-postasıyla gelir.
+         🚫 GÖRMEZ: e-posta doğrulaması yeniden açılırsa oturum dönmez → "e-postanı kontrol et" yazar (o yol ölçülmedi). -->
+    <form id="gkForm" novalidate onsubmit="return false" style="text-align:left"><!-- onsubmit: betik bağlanmadan basılırsa şifre adrese düşmesin -->
+      <p class="gk-ayrac">ya da e-postayla</p>
+      <div class="alan" style="min-width:0"><label class="et" for="gkEposta">E-posta</label><input type="email" id="gkEposta" name="email" autocomplete="email" inputmode="email"></div>
+      <div class="alan" style="min-width:0;margin-bottom:10px"><label class="et" for="gkSifre"><span id="gkSifreEt">Şifre belirle</span> <span id="gkSifreIpucu" style="color:var(--dim)">— en az 8 karakter</span></label><input type="password" id="gkSifre" name="new-password" autocomplete="new-password" minlength="8"></div>
+      <label class="onay" id="gkKosulSatir" style="margin-top:0"><input type="checkbox" id="gkKosul"><span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum.</span></label>
+      <p class="akd-hata" id="gkHata" role="alert"></p>
+      <button type="submit" class="btn" id="gkGonder" style="margin-top:14px">Hesabımı aç ve devam et</button>
+      <p class="kucuk" style="margin:12px 0 0;text-align:center"><a href="#" id="gkDegis">Zaten hesabım var: giriş yap</a></p>
+    </form>
+    <p class="kucuk" style="margin:10px 0 0;text-align:center">Olmadıysa: <a id="girisKapiUye" href="ogrenci.html#uye-ol">üyelik sayfası</a> · <a id="girisKapiGiris" href="ogrenci.html">giriş / şifremi unuttum</a></p>
   </div>
   <style>#akd2g.giris-yok .akd-ic > :not(#girisKapi):not(style){display:none!important}</style>
   <script>
@@ -328,6 +344,9 @@
   </div>
   <!-- 08.10: elçi / indirim kodu kutusu "Özet ve onay" kartına taşındı (aşağıda) -->
 
+  <!-- 24.11 (Netflix/Amazon + Baymard: isteğe bağlı alan bağlantı arkasında): fatura tipi + T.C. kimlik / kurumsal alanlar kapalı gelir.
+       Varsayılan aynen "Bireysel", T.C. kimlik aynen isteğe bağlı; alanlar, doğrulama ve sipariş kaydı DEĞİŞMEDİ. Kurumsal seçilince açık durur. -->
+  <details id="faturaEk" class="fatura-ek"><summary>Kurumsal fatura ya da T.C. kimlik no ekle <span style="font-weight:500">(isteğe bağlı)</span></summary>
   <label class="et">Fatura tipi *</label>
   <div class="tip">
     <label><input type="radio" name="ftip" value="bireysel" checked> Bireysel</label>
@@ -351,10 +370,14 @@
     </div>
     <div class="alan"><label class="et" for="vd">Vergi dairesi *</label><input type="text" id="vd"></div>
   </div>
+  </details>
 
   <div class="alan" style="margin-bottom:0"><label class="et" for="adres">Fatura adresi * <span style="color:var(--dim)">— il/ilçe dahil</span></label><textarea id="adres" autocomplete="street-address"></textarea></div>
     <p class="akd-hata" id="akd2h" role="alert"></p>
-    <button type="button" class="btn akd-devam" data-devam="2">Devam</button>
+    <!-- 24.11 (denetim: iki "Devam" ara tıklaması): 2. adımın Devam düğmesi gizli. Bilgiler tamamsa telefonda alt çubuk doğrudan "Kartla öde"
+         olur; bilgisayarda özet kartı yanda zaten açık. Eksik bilgi "Kartla öde"de adımın içinde yazılır (hata()). 1. adımın Devam'ı duruyor
+         (28.10 kararı: kardeş paket / ders seçimi görünsün). -->
+    <button type="button" class="btn akd-devam" data-devam="2" hidden>Devam</button>
   </div></div>
 </section>
 
@@ -420,7 +443,7 @@
   <!-- 23.11 (denetim: girişsiz alıcı onay kutularını + etkin "Kartla öde"yi görüyordu, basınca olmayan ad alanını istiyordu):
        girişsizde onaylar ve ödeme düğmeleri gizli, yerine tek satır + "Hesabına gir" (2. adımı açar) -->
   <div id="ozGirisNot" style="display:none;margin:6px 0 4px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--amber-dolgu);background:color-mix(in srgb,var(--amber-dolgu) 10%,transparent)">
-    <p style="margin:0 0 10px;font-size:15px;line-height:1.45"><b>Ödeme için önce hesabına gir.</b> Paketin bu hesaba açılır; Google ile tek dokunuş.</p>
+    <p style="margin:0 0 10px;font-size:15px;line-height:1.45"><b>Ödeme için önce hesabına gir.</b> Paketin bu hesaba açılır.</p>
     <button type="button" class="btn" id="ozGirisBtn" style="margin:0">Hesabına gir</button>
   </div>
   <style>body.giris-yok #ozetKart label.onay,body.giris-yok #gonder,body.giris-yok #gonderHavale,body.giris-yok #odemeNot{display:none!important}body.giris-yok #ozGirisNot{display:block!important}</style>
@@ -447,7 +470,7 @@
   <button class="btn" id="gonder">💳 Kartla öde</button>
   <button type="button" class="btn" id="gonderHavale" style="margin-top:10px;background:transparent;color:var(--ink);border:1px solid var(--line2);font-weight:700">🏦 Havale/EFT ile öde</button>
   <div class="sonuc" id="sonuc"></div>
-  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Kart bilgisi bu sayfada istenmez: "Kartla öde"ye basınca iyzico'nun güvenli ödeme sayfası açılır (kart bilgin bize gelmez), ödeme bitince paketin hemen açılır. Havale/EFT'de hesap bilgisi bir sonraki ekranda görünür.</p>
+  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Kart bilgin iyzico'nun güvenli sayfasında girilir, bize gelmez; ödeme bitince paketin hemen açılır. Havale/EFT'de hesap bilgisi sonraki ekranda.</p>
 </div>
 </aside>
 </div><!-- /duzen -->
@@ -795,8 +818,8 @@ function ifaYaziCiz(){
     : IFA_YAZI_ESKI;
   if(e.innerHTML !== yeni){ e.innerHTML = yeni; document.getElementById('onIfa').checked = false; }   /* metin değişince eski onay geçmez */
   var o = document.getElementById('odemeNot');   /* ön satışta "paketin hemen açılır" yazılmaz */
-  if(o && kartAcik()) o.textContent = 'Kart bilgisi bu sayfada istenmez: "Kartla öde"ye basınca iyzico\'nun güvenli ödeme sayfası açılır (kart bilgin bize gelmez). Havale/EFT\'de hesap bilgisi bir sonraki ekranda görünür. '
-    + (a ? 'Ön siparişin ödemeyle kayda geçer; denemeler ' + a + '\'da hesabında açılır.' : 'Kartla ödeyince paketin hemen açılır.');
+  if(o && kartAcik()) o.textContent = 'Kart bilgin iyzico\'nun güvenli sayfasında girilir, bize gelmez; '   /* 24.11: 290 → ≈150 karakter */
+    + (a ? 'ön siparişin ödemeyle kayda geçer, denemeler ' + a + '\'da hesabında açılır.' : 'ödeme bitince paketin hemen açılır.') + ' Havale/EFT\'de hesap bilgisi sonraki ekranda.';
 }
 function ozetCiz(){
   if(typeof erkenKutuCiz === 'function') erkenKutuCiz(secili ? secili.id : '');
@@ -959,7 +982,8 @@ function elciDenetle(){
   if(!otoKod){ try{ localStorage.setItem('tt_elci', kod); }catch(e){} }
   if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
   if(!(ELCI.indirim[secili.id] > 0)){
-    var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); })
+    var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id) && paketBul(id).acik !== false; })   /* 24.11: satışta olmayan paket önerilmez */
+                   
                     .map(function(id){ return paketBul(id).ad; });
     elciDurumYaz('Elçi kodu bu pakette indirim sağlamıyor' + (gecerli.length ? '; geçerli olduğu paketler: ' + gecerli.join(' · ') + '.' : '.'), 'var(--amber)');
     ozetCiz(); return;
@@ -1148,7 +1172,8 @@ function davetKodOku(){
     if(deger('adres').length < 10) return 'Fatura adresini yaz.';
     return '';
   }
-  function hataYaz(n, m){ var h = $('akd' + n + 'h'); h.textContent = m || ''; h.style.display = m ? 'block' : 'none'; }
+  function hataYaz(n, m){ var h = $('akd' + n + 'h'); h.textContent = m || ''; h.style.display = m ? 'block' : 'none';
+    if(n === 2 && m && /Kurumsal|kimlik/.test(m)){ var fe = $('faturaEk'); if(fe) fe.open = true; } }   /* 24.11: hata katlı bölümdeyse açılır */
   function ac(n, kaydir){
     for(var i = 1; i <= 2; i++){
       var a = adimlar[i], acik = (i === n), g = a.querySelector('.akd-govde');
@@ -1169,6 +1194,8 @@ function davetKodOku(){
     if(bos){ setTimeout(function(){ bos.focus({ preventScroll:true }); }, mobil.matches ? 450 : 0); }
   }
   window.akdOzetCiz = function(){
+    try{ var ern = !secili ? '' : /sgs/.test(secili.id) ? 'sgs' : /yet/.test(secili.id) ? 'yet' : 'yok';   /* 24.11: erişim cümlesi seçili sınava göre */
+      Array.prototype.forEach.call(document.querySelectorAll('[data-ern]'), function(e){ e.hidden = !!ern && e.getAttribute('data-ern') !== ern; }); }catch(e){}
     if(secili){
       var dnm = (secili.donemSec && typeof SGS2027_DONEM !== 'undefined') ? SGS2027_DONEM.filter(function(d){ return d.id === secilenDonem(); })[0] : null;   /* 23.11 */
       $('akd1o').textContent = secili.ad + (dnm ? ' · ' + dnm.ad : '') + ' — ' + tl(odenecekTutar()) + ' TL (KDV dahil)';   /* paket adı ders sayısını zaten taşır */
@@ -1181,7 +1208,7 @@ function davetKodOku(){
   };
   /* 03.10: alt çubuk düğmesi 3. adıma gelinene kadar "Devam" der ve açık adımın Devam'ı gibi çalışır */
   function acikAdim(){ return adimlar[1].classList.contains('acik') ? 1 : adimlar[2].classList.contains('acik') ? 2 : 0; }
-  function mbEtiket(){ $('mbGit').textContent = document.body.classList.contains('giris-yok') ? 'Hesabına gir' : (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : (kartAcik() ? 'Kartla öde' : 'Siparişi tamamla'); }   /* 23.11: girişsizde alt çubuk giriş kapısına götürür */
+  function mbEtiket(){ $('mbGit').textContent = document.body.classList.contains('giris-yok') ? 'Hesabına gir' : (acikAdim() === 1 || adim1Hata() || adim2Hata()) ? 'Devam' : (kartAcik() ? 'Kartla öde' : 'Siparişi tamamla'); }   /* 23.11: girişsizde alt çubuk giriş kapısına götürür */
   window.akdHata = function(n, m){ akdOzetCiz(); ac(n, true); hataYaz(n, m); };
   function devam(n){
     var m = n === 1 ? adim1Hata() : adim2Hata();
@@ -1232,7 +1259,7 @@ function davetKodOku(){
   var ozgb = $('ozGirisBtn'); if(ozgb) ozgb.addEventListener('click', giriseGit);
   $('mbGit').addEventListener('click', function(){
     if(document.body.classList.contains('giris-yok')){ giriseGit(); return; }
-    var acik = acikAdim(); if(acik){ devam(acik); return; }
+    var acik = acikAdim(); if(acik === 1 || (acik === 2 && adim2Hata())){ devam(acik); return; }   /* 24.11: bilgiler tamamsa 2. adım "Devam" istemez */
     var m1 = adim1Hata(); if(m1){ akdHata(1, m1); return; }
     var m2 = adim2Hata(); if(m2){ akdHata(2, m2); return; }
     var hepsi = ['onSoz','onIfa','onKvkk'].every(function(i){ return $(i).checked; });
@@ -1273,6 +1300,7 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
   r.addEventListener('change', function(){
     var k = this.value === 'kurumsal';
     document.getElementById('kurumsalAlan').style.display = k ? 'block' : 'none';
+    if(k){ var fe = document.getElementById('faturaEk'); if(fe) fe.open = true; }   /* 24.11 */
     document.getElementById('bireyselAlan').style.display = k ? 'none' : 'block';
   });
 });
@@ -1488,6 +1516,7 @@ btn.addEventListener('click', function(){
     fatura.tckn = deger('tckn');
     if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ hata('T.C. kimlik no 11 hane olmalı.', 2); return; }
   }
+  adimSay('bilgiler');   /* 24.11: 2. adımın Devam'ı kalktı; "bilgiler geçti" sayımı burada */
   if(onayEksik(true)) return;   /* 24.11: eksik kutuların hepsi birden, mesaj kutuların altında */
 
   /* Ders bazli pakette secim EKSIKSE siparis alinmaz: erisimi neye acacagimizi
@@ -1713,6 +1742,53 @@ if(!KURULUM_TAMAM){
   var c = (window.supabase||{}).createClient;
   if(!c){ teklifYukle(null); return; }   /* kutuphane inmezse siparis e-posta yoluyla yine alinir (teklif hesapsız uygulanmaz) */
   window.sb = c(SB_URL, SB_ANON);
+  /* 24.11 sayfa içi üyelik / giriş (girisKapi içindeki gkForm). Başarıda sayfa yenilenir: oturumlu kurulumun tamamı tek yoldan koşar. */
+  function gkKur(){
+    var f = document.getElementById('gkForm'); if(!f || f.dataset.kur) return; f.dataset.kur = '1';
+    var mod = 'kayit'; function G(i){ return document.getElementById(i); }
+    function hy(m){ var h = G('gkHata'); h.textContent = m || ''; h.style.display = m ? 'block' : 'none'; }
+    function modYap(m){
+      mod = m; var k = (m === 'kayit');
+      G('gkSifreEt').textContent = k ? 'Şifre belirle' : 'Şifre'; G('gkSifreIpucu').hidden = !k; G('gkKosulSatir').style.display = k ? '' : 'none';
+      G('gkSifre').setAttribute('autocomplete', k ? 'new-password' : 'current-password'); G('gkSifre').name = k ? 'new-password' : 'password';
+      G('gkGonder').textContent = k ? 'Hesabımı aç ve devam et' : 'Giriş yap ve devam et';
+      G('gkDegis').textContent = k ? 'Zaten hesabım var: giriş yap' : 'Hesabım yok: üye ol';
+    }
+    G('gkDegis').addEventListener('click', function(e){ e.preventDefault(); hy(''); modYap(mod === 'kayit' ? 'giris' : 'kayit'); });
+    G('gkKosul').addEventListener('change', function(){ this.parentNode.classList.remove('onay-eksik'); hy(''); });
+    f.addEventListener('submit', function(ev){
+      ev.preventDefault(); hy('');
+      var ep = G('gkEposta').value.trim(), sf = G('gkSifre').value, b = G('gkGonder');
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ep)){ hy('E-posta adresini yaz.'); G('gkEposta').focus(); return; }
+      if(sf.length < 8){ hy(mod === 'kayit' ? 'Şifre en az 8 karakter olmalı.' : 'Şifreni yaz (en az 8 karakter).'); G('gkSifre').focus(); return; }
+      if(mod === 'kayit' && !G('gkKosul').checked){ G('gkKosul').parentNode.classList.add('onay-eksik'); hy('Hesap açmak için kırmızı çerçeveli kutuyu işaretle.'); return; }
+      if(b.disabled) return;
+      b.disabled = true; b.textContent = mod === 'kayit' ? 'Hesabın oluşturuluyor…' : 'Giriş yapılıyor…';
+      function bitti(){ b.disabled = false; modYap(mod); }
+      function tamam(olay){ adimSay(olay); location.reload(); }
+      var jeton; try{ jeton = window.ttCaptchaToken ? window.ttCaptchaToken() : undefined; }catch(e){ jeton = undefined; }
+      Promise.resolve(jeton).then(function(j){
+        if(mod === 'giris'){
+          return window.sb.auth.signInWithPassword({ email:ep, password:sf, options:{ captchaToken:j } }).then(function(r){
+            if(r.error){ bitti(); hy(/invalid/i.test(String(r.error.code || '') + String(r.error.message || '')) ? 'E-posta veya şifre hatalı. Hatırlamıyorsan alttaki "giriş / şifremi unuttum" bağlantısını kullan.' : 'Giriş yapılamadı; biraz sonra yeniden dene.'); return; }
+            tamam('hesap-giris-sayfada');
+          });
+        }
+        var an = new Date().toISOString();
+        var elci = null, kay = null; try{ elci = localStorage.getItem('tt_elci') || null; }catch(e){} try{ kay = (window.ttKaynak && window.ttKaynak.etiket()) || null; }catch(e){}
+        return window.sb.auth.signUp({ email:ep, password:sf, options:{ captchaToken:j, emailRedirectTo:location.origin + '/ogrenci.html',
+          data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:false, riza_tarihi:null, elci_kodu:elci, kaynak_etiket:kay } } }).then(function(r){
+          var kayitli = r.error ? (/user_already_exists/i.test(r.error.code || '') || /already registered/i.test(r.error.message || ''))
+                                : !!(r.data && r.data.user && Array.isArray(r.data.user.identities) && r.data.user.identities.length === 0);
+          if(kayitli){ mod = 'giris'; bitti(); G('gkSifre').value = ''; hy('Bu e-postayla zaten hesabın var. Şifreni yazıp giriş yap; hatırlamıyorsan alttaki "giriş / şifremi unuttum" bağlantısını kullan.'); G('gkSifre').focus(); return; }
+          if(r.error){ bitti(); hy(/weak_password|at least \d/i.test(String(r.error.code || '') + String(r.error.message || '')) ? 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.' : 'Hesap açılamadı; biraz sonra yeniden dene ya da Google ile devam et.'); return; }
+          try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'hesap/kayit', title:'Üye oldu', event:true }); }catch(x){}
+          if(r.data && r.data.session){ tamam('hesap-ac-sayfada'); return; }
+          bitti(); hy(''); var h = G('gkHata'); h.textContent = ep + ' adresine doğrulama bağlantısı gönderdik. Bağlantıya tıklayıp giriş yaptıktan sonra bu sayfaya dön.'; h.style.display = 'block';
+        });
+      }).catch(function(){ bitti(); hy('Bağlantı kurulamadı; internetini kontrol edip yeniden dene.'); });
+    });
+  }
   /* 05.10 Cem ("kolay üyelik ve ödeme"): giriş yapmış kişi ad/e-postayı yeniden yazmasın; paket bu hesaba açılır */
   try{ window.sb.auth.getSession().then(function(r){
     var u = r && r.data && r.data.session && r.data.session.user; window.ttOturumEposta = (u && u.email) || '';
@@ -1724,6 +1800,7 @@ if(!KURULUM_TAMAM){
       document.getElementById('girisKapiGiris').href = 'ogrenci.html?sonra=' + geri;
       document.getElementById('girisKapi').hidden = false; document.getElementById('akd2g').classList.add('giris-yok');
       document.body.classList.add('giris-yok');   /* 23.11: özet kilit + alt çubuk "Hesabına gir" */
+      try{ gkKur(); }catch(e){}   /* 24.11: sayfa içi üyelik / giriş */
       try{ if(window.akdOzetCiz) window.akdOzetCiz(); }catch(e){}
       /* 23.11: Google ile devam et doğrudan bu sayfada; dönüş ogrenci.html?sonra=<bu sayfa> */
       try{ if(window.ttGoogle) window.ttGoogle.kur({ sb: window.sb, kap: document.getElementById('girisGoogle'), donusSayfa: 'ogrenci.html', donusArama: '?sonra=' + geri }); }catch(e){}
