@@ -4981,7 +4981,7 @@ CREATE OR REPLACE FUNCTION public.yonetim_ozel_kod_uret2(p_kime text, p_gun inte
 AS $function$
 declare
   abc constant text := 'ACDEFHJKLMNPRTUVXYZ2345679';
-  izinli constant text[] := array['sgs', 'yeterlilik-tum', 'yeterlilik-1', 'yeterlilik-2', 'yeterlilik-3', 'yeterlilik-4'];
+  izinli constant text[] := array['sgs', 'sgs-2027', 'yeterlilik-tum', 'yeterlilik-1', 'yeterlilik-2', 'yeterlilik-3', 'yeterlilik-4'];
   v_kod text; v_b bytea; i int; n int := 0; v_son timestamptz;
   v_paketler text[]; v_en integer := 0; k text; v text;
 begin
