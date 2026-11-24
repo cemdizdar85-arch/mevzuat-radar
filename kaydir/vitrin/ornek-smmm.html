@@ -489,7 +489,7 @@ const fmt=n=>n.toLocaleString('tr-TR');
 /* 10.10 SET (Cem "1. yap · sorular gizlensin, biz sürekli soru basacağız"): ders 20'lik setlere bölünür; sayaç "Set 3 · 12/20" yazar,
    bankanın toplamı çözme ekranında görünmez (önce ilk 40 kart "x / 40" yazıp 41. kartta "41 / 1.100"e sıçrıyordu). Son setin boyu
    ancak bütün sorular gelince (__KASA_DEVAM false) bilinir; o ana dek 20 yazar, __kasaEkle sayaçları tazeler. Set bitince ara özet. */
-const SET=20;
+const SET=(()=>{ const m=location.search.match(/[?&]adet=(5|10|15|20)(?!\d)/); return m?+m[1]:20; })();   /* 24.11 Cem "bir anda 20 soru değil, kişiye soralım 5 mi 10 mu": konu ekranı ?adet= ile gelir, set o boyda, sonunda set raporu */
 /* 11.10: setli yüklemede dersin toplamı fihristten bilinir (window.__KASA_TOPLAM) → son setin boyu baştan doğru; ekranda yazılmaz. */
 function setBilgi(i){ const T=window.__KASA_TOPLAM||0, N=T||SORULAR.length, a=Math.floor(i/SET)*SET, son=T?a+SET>=T:(!window.__KASA_DEVAM&&a+SET>=N), b=son?N:a+SET; return {no:a/SET+1,a:a,b:b,j:i-a+1,boy:b-a,son:son,cok:N>SET||!!window.__KASA_DEVAM}; }
 function sayacYazi(i){ const t=setBilgi(i); return (t.cok?'Set '+t.no+' · ':'')+t.j+'/'+t.boy; }
