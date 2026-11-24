@@ -230,9 +230,9 @@
     var gun=DIZIN.uretim?String(DIZIN.uretim).slice(0,10).split('-'):null, AY=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
     el.innerHTML='<p><b>Setler '+(gun?(+gun[2])+' '+AY[+gun[1]-1]+'\'de ':'')+'yenilendi:</b> sorular güncellendi, yeni setler aşağıda. '
       +(yarimN?'Yarım kalan '+yarimN+' denemen saklı; «Kaldığın yerden devam» bölümünden aynı sorudan sürdürebilirsin. ':'')
-      +'Bitirdiğin denemelerin sonuçları <a href="ogrenci.html">Hesabım</a>\'da duruyor.</p><button type="button" class="sg-btn" id="sgYenilendiTamam">Anladım</button>';
+      +'Bitirdiğin denemelerin sonuçları <a href="ogrenci.html">Hesabım</a>\'da duruyor.</p><button type="button" class="sg-btn" id="sgYenilendiTamam">Anladım</button><button type="button" id="sgYenilendiX" aria-label="Kapat" style="position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:none;color:inherit;font:20px/1 system-ui,sans-serif;cursor:pointer">✕</button>'; el.style.position='relative';
     el.hidden=false;
-    $('sgYenilendiTamam').addEventListener('click', surumGoruldu);
+    $('sgYenilendiTamam').addEventListener('click', surumGoruldu); $('sgYenilendiX').addEventListener('click', surumGoruldu);   /* 24.11 ✕ denetimi: yalnız Anladım vardı */
   }
   function anahtar(no){ if(/^oz-/.test(String(no))) return 'sg_'+SINAV+'_'+no;   /* özel set dizin sürümüne bağlı değil */
     var es=/^es-(\d+)-([0-9a-f]{10})$/.exec(String(no)); if(es) return KAYIT_ON+es[1]+'_'+es[2];

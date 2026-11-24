@@ -105,7 +105,7 @@
       '#ttNn .d a,#ttNn .d button{display:block;width:100%;box-sizing:border-box;text-align:center;font:inherit;font-weight:700;font-size:15px;padding:12px 14px;border-radius:12px;border:1px solid var(--cizgi);background:transparent;color:var(--yazi);text-decoration:none;cursor:pointer}',
       '#ttNn .d .ana{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}',
       /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): sağ üstte ✕, 44 px dokunma alanı */
-      '#ttNn .k{position:relative}#ttNn .nnX{position:absolute;top:6px;right:6px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:none;color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}#ttNn .etk{padding-right:44px}'
+      '#ttNn .k{position:relative}#ttNn .nnX{position:sticky;float:right;top:0;margin:-6px -6px 0 0;z-index:2;border-radius:999px;background:var(--kart);width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:none;color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}#ttNn .etk{padding-right:44px}'
     ].join('\n');
     document.head.appendChild(s);
   }
