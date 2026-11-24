@@ -72,7 +72,8 @@ const SITE_SAYFALARI = [
      sayfasına gidiyordu. Giriş bağı ?sonra='+encodeURIComponent(...)+' biçiminde: genel ogrenci.html çevirisi "#giris" ekini bozar. */
   { yol: 'son-20-gun.html', sok: ['canonical'], degis: [
     [/<a class="dg iki" href="smmm-staja-giris-sorulari\.html#gktPaket">Paketleri gör<\/a>/g, '<a class="dg iki" href="index.html#paketler">Paketler</a>', 1],
-    [/<a class="dg" href="satin-al\.html\?paket=son20-sgs">[^<]*<\/a><a class="dg iki" href="satin-al\.html\?paket=sgs">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
+    /* 24.11: SGS Son 20 Gün satıştan kalktı (23.11), iki düğme tek "SGS 2027 paketi" oldu (son-20-gun.html) */
+    [/<a class="dg" href="satin-al\.html\?paket=sgs-2027">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 1],
     /* 09.11: 08.11 Yeterlilik ders ders ekranı ikinci "Sadece Denemeler" düğmesini ekledi (girişsiz + paketsiz) → 2 */
     [/<a class="dg" href="satin-al\.html\?paket=son20-yet">[^<]*<\/a>/g, '<a class="dg" href="index.html#paketler">Paketler</a>', 2],
     [/ogrenci\.html\?sonra='\+encodeURIComponent\('[^']*'\)\+'/g, 'index.html#giris', 2]
@@ -309,6 +310,17 @@ if (MUTASYON !== 'yama') kasaYukle = kasaYukle.split(KASA_YAMA_ESKI).join(KASA_Y
 /* 09.10: site aynı düğmeyi birden çok yerde kullanabilir (88f4f4bb: "Bu ders paketinde yok" + "paketini güncelle"); yama hepsini
    siler (split/join), kapı yalnız HİÇ bulunmadıysa düşer. Kalıntı metni 5. bölümdeki SATIS_METNI taraması ayrıca yakalar. */
 kapi('KAPI-SATIS', yamaSayisi >= 1, 'kasa-yukle.js satın alma düğmesi yaması tutmadı (beklenen ≥1, bulunan ' + yamaSayisi + ') — dosya değişmiş, hazirla.js güncellenmeli');
+/* 24.11: 23.11 ders önizlemesi (onizlemeAc) siteye "Paketi al" düğmesi + satin-al bağı ekledi; uygulamada önizleme açılmaz (paket-kapisi
+   yerine uygulama-kapisi) ama metin pakette durur → mağaza kuralı için her parça tam 1 kez değiştirilir, tutmazsa KAPI-SATIS. */
+[[`KOK + 'satin-al.html?paket=' + (yet ? 'yeterlilik-1' : 'sgs-2027')`, `KOK + 'index.html#paketler'`],
+ [`'Paketi al, bütün soruları aç'`, `'Paketler'`],
+ [`"Paketi al" o dersi`, `ana düğme o dersi`],
+ [`(satin-al ?dersler=`, `(satış sayfası ?dersler=`],
+ [`Paketi aldığın anda`, `Paketin açıldığı anda`]].forEach(function (y) {
+  const n = kasaYukle.split(y[0]).length - 1;
+  kapi('KAPI-SATIS', n === 1, 'kasa-yukle.js önizleme yaması tutmadı (' + y[0].slice(0, 40) + ': beklenen 1, bulunan ' + n + ')');
+  kasaYukle = kasaYukle.split(y[0]).join(y[1]);
+});
 const karmaSayisi = kasaYukle.split(KARMA_YAMA_ESKI).length - 1;
 kasaYukle = kasaYukle.split(KARMA_YAMA_ESKI).join(KARMA_YAMA_YENI);
 kapi('KAPI-KASA', karmaSayisi === 1, 'kasa-yukle.js karma kancası tutmadı (beklenen 1, bulunan ' + karmaSayisi + ') — cek() imzası değişmiş');

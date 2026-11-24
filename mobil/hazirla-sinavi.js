@@ -71,10 +71,11 @@ const SITE_DIGER = ['yanlislarim.html', 'canli-deneme.html', 'en-cok-cikan-konul
 const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" href="stil.css">', kapisiz ? '' : '<script src="paket-kapisi.js"></script>')
   .replace('<a href="ogrenci.html', '<a href="sorular.html#sgs">Soru çöz</a><a href="ogrenci.html');
 /* 31.10 1.9.1 Son 20 Gün: yalnız canonical sökülür; sayfaya özgü satış/giriş bağları hazirla.js `degis` ile çevrilir (gerçek sayfanın biçimi) */
+const ONIZLEME = " var satinAl = KOK + 'satin-al.html?paket=' + (yet ? 'yeterlilik-1' : 'sgs-2027'); /* Yeterlilik'te \"Paketi al\" o dersi seçili; (satin-al ?dersler=) */ var d = dugAna(satinAl, 'Paketi al, bütün soruları aç'); var m = 'Paketi aldığın anda devam';";
 const SON20 = () => '<!doctype html><html lang="tr"><head><link rel="canonical" href="https://tetikte.com/son-20-gun.html"><link rel="stylesheet" href="stil.css"></head><body>' +
   '<a href="kampanya-son-20-gun.html">Koşullar</a><script>' + String.raw`
   k.innerHTML='<a class="dg" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html')+'">Giriş yap</a><a class="dg iki" href="smmm-staja-giris-sorulari.html#gktPaket">Paketleri gör</a>';
-  k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-sgs">Sadece 7 Deneme</a><a class="dg iki" href="satin-al.html?paket=sgs">Tam Paket</a>';
+  k.innerHTML='<a class="dg" href="satin-al.html?paket=sgs-2027">SGS 2027 paketi</a>';
   k.innerHTML='<a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a><a class="dg iki" href="ogrenci.html?sonra='+encodeURIComponent('son-20-gun.html?sinav=yeterlilik')+'">Giriş yap</a>';
   k.innerHTML='<h2>Denemeler paketinde yok</h2><a class="dg" href="satin-al.html?paket=son20-yet">Sadece Denemeler</a>';
 ` + '</script></body></html>';
@@ -94,7 +95,8 @@ function kur(degisiklik) {
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",
     'kutuphane/supabase-9.9.9.js': '/* kütüphane */',
-    'kasa-yukle.js': "var PARCA = 100; async function cek(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));",
+    /* 24.11: önizleme kartı (onizlemeAc) parçaları da gerçek dosyadaki gibi tam 1 kez */
+    'kasa-yukle.js': "var PARCA = 100; async function cek(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));" + ONIZLEME,
     'cihaz-kapisi.js': '/* cihaz */',
     'icerik-koruma.js': '/* koruma (09.10) */',
     'captcha.js': '/* captcha */',
