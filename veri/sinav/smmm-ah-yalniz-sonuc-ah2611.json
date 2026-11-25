@@ -1,0 +1,167 @@
+{
+ "ad": "ah2611",
+ "tarih": "2026-11-25T22:28:10.717Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh45712934037",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.6,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 10,
+  "gonderilen": 10,
+  "temiz": 4,
+  "kusurlu": 6,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 10,
+  "kaynaksiz": 10,
+  "kaynaksiz_kusurlu": 6,
+  "usd": 0.387
+ },
+ "kararlar": {
+  "smmm-4k-a-maliyet-kolay-r3/kp-05": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "ikiz.ikiz_soru"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-4k-a-maliyet-zor-r3/kp-23": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yspk-zor-r9/kp-02": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.kavramlar.kaynak",
+    "konu_ozeti.desen"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-gm3-3-yhukuk-zor/kp-03": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.siklar.E",
+    "adimlar"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-olc2-b-vergi/kp-65": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.nedir",
+    "hap"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w1-yvergi-cokzor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "teshis.D"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w13-3-fmuh-cokzor/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w3-fmuh-kolay/kp-12": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w4-fmuh-zor-2/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w5-fmuh-zor/kp-12": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "konu_ozeti.terimler.Vade tarihi"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  }
+ },
+ "incelenecek": [
+  "smmm-4k-a-maliyet-kolay-r3/kp-05",
+  "smmm-4k-a-yspk-zor-r9/kp-02",
+  "smmm-gm3-3-yhukuk-zor/kp-03",
+  "smmm-olc2-b-vergi/kp-65",
+  "smmm-w1-yvergi-cokzor/kp-06",
+  "smmm-w5-fmuh-zor/kp-12"
+ ],
+ "kaynaksiz": [
+  "smmm-4k-a-maliyet-kolay-r3/kp-05",
+  "smmm-4k-a-maliyet-zor-r3/kp-23",
+  "smmm-4k-a-yspk-zor-r9/kp-02",
+  "smmm-gm3-3-yhukuk-zor/kp-03",
+  "smmm-olc2-b-vergi/kp-65",
+  "smmm-w1-yvergi-cokzor/kp-06",
+  "smmm-w13-3-fmuh-cokzor/kp-02",
+  "smmm-w3-fmuh-kolay/kp-12",
+  "smmm-w4-fmuh-zor-2/kp-05",
+  "smmm-w5-fmuh-zor/kp-12"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-4k-a-maliyet-kolay-r3/kp-05",
+  "smmm-4k-a-yspk-zor-r9/kp-02",
+  "smmm-gm3-3-yhukuk-zor/kp-03",
+  "smmm-olc2-b-vergi/kp-65",
+  "smmm-w1-yvergi-cokzor/kp-06",
+  "smmm-w5-fmuh-zor/kp-12"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
