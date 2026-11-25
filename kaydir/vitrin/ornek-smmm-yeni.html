@@ -1094,6 +1094,18 @@ const ORNM=(location.search.match(/[?&]ornek=([12])/)||[])[1]||'';const ORNEK=!!
 const sonMu=()=>POS>=SIRA.length-1,geriMi=()=>POS>=TURN||POS===RVP||OZL;
 function turKur(){SIRA=SORULAR.map((_,i)=>i);POS=0;YNL=[];COZ=[];TURN=SIRA.length;RVP=-1;OZL=false;TNO=0;}
 const OLC=/[?&]olc=1/.test(location.search),olcV={};
+/* 25.11 Cem ("sitedeki 5 örnek soruda sesli anlatsın; hem tam konu hem eksik konu"): ?gom=1&ders=<kimlik>[&sec=<harf>] yalnız o sorunun sesli
+   Nöbetçi dersini, ?gom=1&konu=<konu kimliği> yalnız konu dersini açar. Örnek soru sayfası (ornek-sesli.js) bunu tam ekran çerçevede açar;
+   dersi kapatmak / sonraki soru çerçeveyi kapatır (postMessage). Kayıt yazmaz. */
+const GOM=/[?&]gom=1/.test(location.search),GOMP=new URLSearchParams(location.search);
+if(GOM){const st=document.createElement('style');st.textContent='.dnm{display:none!important}';document.head.appendChild(st);}
+function gomKapat(){try{sesDur();}catch(e){}try{drsDur();}catch(e){}try{window.parent.postMessage({tetikte:'gom-kapat'},location.origin);}catch(e){}}
+function gomAc(){const id=GOMP.get('ders'),kid=GOMP.get('konu'),sc=String(GOMP.get('sec')||'').toUpperCase();
+ if(kid){const K=KONU[kid];if(!K){gomKapat();return;}const o=Object.assign(yeniSoru(),{i:0,e:'sonuc',sec:'A'});S=Object.assign(yeniSoru(),{i:0,e:'sonuc',sec:'A',drs:true,kq:K.q,onceki:o});drsT0=0;drsKagAcik=false;ciz();gomBaslat();return;}
+ const i=SORULAR.findIndex(q=>q.id===id);if(i<0||!drsVar(SORULAR[i])){gomKapat();return;}const q=SORULAR[i];
+ S=Object.assign(yeniSoru(),{i,e:'sonuc',sec:/^[A-E]$/.test(sc)&&q.siklar[sc]!=null?sc:q.dogru});dersOnYukle(q,true);S.drs=true;drsT0=0;drsKagAcik=false;ciz();gomBaslat();}
+function gomBaslat(){try{if(drsKur()){drsT0=drsBas();drsCiz(drsT0);window.scrollTo(0,0);drsOynat();drsDugme();}}catch(e){}gomHazir();}
+function gomHazir(){try{window.parent.postMessage({tetikte:'gom-hazir'},location.origin);}catch(e){}}
 function olcYaz(k,v){if(!OLC)return;olcV[k]=v;let e=document.getElementById('olcp');if(!e){e=document.createElement('pre');e.id='olcp';document.body.appendChild(e);}e.textContent=Object.keys(olcV).map(x=>x+': '+olcV[x]).join('\n');}
 function kareOlc(ad){if(!OLC)return;let n=0,tak=0,enU=0,son=performance.now();const bas=son;const adim=z=>{const d=z-son;son=z;n++;if(d>34)tak++;enU=Math.max(enU,d);if(z-bas<900)requestAnimationFrame(adim);else olcYaz('hareket · '+ad,Math.round(n/((z-bas)/1000))+' kare/sn · en uzun kare '+Math.round(enU)+' ms · takılan '+tak);};requestAnimationFrame(adim);}
 const onY={};
@@ -1297,6 +1309,7 @@ document.addEventListener('pointerdown',e=>{const b=e.target.closest('button.op[
 document.addEventListener('contextmenu',e=>{if(e.target.closest('button.op[data-o]'))e.preventDefault();});
 document.addEventListener('click',e=>{
  if(!S)return;if(uzYut){uzYut=false;return;}
+ if(GOM){const gb=e.target.closest('button[data-a]');if(gb&&(gb.dataset.a==='sonraki'||(gb.dataset.a==='dersKapat'&&!(S.kq&&S.onceki&&S.onceki.drs)))){e.preventDefault();e.stopPropagation();gomKapat();return;}}
  if(S.fb)return;
  if(snGeriT&&!(e.target.closest&&e.target.closest('#snb')))snGeriDur();
  const dd=e.target.closest('[data-d]');if(dd){drsTik(dd.dataset.d,dd);return;}
@@ -1385,7 +1398,7 @@ function baslat(metin,metin2){
  if(!SINAMA&&metin2){const B=ayikla(metin2).filter(q=>!SORULAR.some(x=>x.id===q.id));B.sort((x,y)=>kp(y)-kp(x));B.forEach(q=>{q.konu=basH(q.konu);});SORULAR=SORULAR.concat(B);}
  DURAK=[SORULAR.slice(0,n0).map((_,i)=>i)];for(let i=n0;i<SORULAR.length;i+=3)DURAK.push(SORULAR.slice(i,i+3).map((_,j)=>i+j));
  araDuzelt();
- turKur();hesAc();S=Object.assign(yeniSoru(),{i:0,e:SINAMA?'soru':'gir'});ciz();
+ turKur();if(!GOM)hesAc();S=Object.assign(yeniSoru(),{i:0,e:SINAMA?'soru':'gir'});if(GOM){gomAc();return;}ciz();
  if(location.hash==='#sinama')sinama();if(location.hash==='#sinama2')sinama2();
 }
 function hata(m){kokEl.innerHTML=`<div class="sahne"><div class="ph"><div class="bit"><h1>Açılamadı</h1><p>${kac(m)}</p><a class="cta koyu" style="width:auto;padding:0 28px" href="ornek-smmm.html">Bugünkü ekrana git</a></div></div></div>`;}

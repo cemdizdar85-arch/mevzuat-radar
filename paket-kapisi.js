@@ -19,6 +19,11 @@
  */
 (function () {
   if (/\/kaydir\/vitrin\//.test(location.pathname)) {
+    /* 25.11 Cem ("5 örnek soruda sesli anlatsın, hem tam konu hem eksik konu"): yalnız Yeterlilik örnek soru sayfası sesli soru dersi +
+       konu dersi düğmelerini yükler (ornek-sesli.js). Başka vitrin sayfası etkilenmez. */
+    if (/\/kaydir\/vitrin\/ornek-smmm(\.html)?$/.test(location.pathname)) {
+      var osJs = document.createElement('script'); osJs.src = '../../ornek-sesli.js?v=1'; osJs.defer = true; document.head.appendChild(osJs);
+    }
     /* 08.10 Cem ("5 örnek soru bizim soru paketi gibi değil" -> seçenek a): ücretsiz sayfada "Nöbetçi'ye sor" (ücretli yapay zekâ
        çağrısı) YÜKLENMEZ; yerinde pakete götüren yazı durur. Kart araç satırı (.soruArac) kasa/basım sonrası gelebilir -> izlenir. */
     var nbYaz = function () {
