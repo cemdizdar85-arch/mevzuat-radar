@@ -256,6 +256,16 @@
   .kart .kagitGovde{min-height:240px}
   .kart:not(.cevaplandi) .kagitKapat,.kart .kagitAc{display:none}
   .kart.cevaplandi .kagit{display:none}.kart.cevaplandi .kagit.acik{display:flex;position:absolute;top:60px;right:32px;bottom:20px;width:min(46%,640px);z-index:7;background:var(--kart);border-style:solid}
+  /* 26.11 Cem ("telefonda zor görünüyor olabilir mi, Amazon/YouTube gibi" -> "önce 1 ve 2'yi yap"): YALNIZ 5 örnek soru sayfasında
+     (data-ornek) cevaptan önce tek sütun, ortada; boş çizgili hesap kâğıdı sağ kolonu kaplamaz, "✏️ Kâğıt" düğmesiyle açılır
+     (açılınca eski iki kolon). Cevaptan sonra 03.09 düzeni aynen: solda soru, sağda cevap paneli. Ders sayfaları değişmez. */
+  :root[data-ornek] .kart:not(.cevaplandi):not(:has(.kagit.acik)){grid-template-columns:minmax(0,1fr);max-width:880px}
+  :root[data-ornek] .kart:not(.cevaplandi):not(:has(.kagit.acik)) .ust{grid-column:1/-1}
+  :root[data-ornek] .kart:not(.cevaplandi):not(:has(.kagit.acik)) .ipucu{width:calc(100% - 64px)}
+  :root[data-ornek] .kart:not(.cevaplandi) .panel{display:none}
+  :root[data-ornek] .kart:not(.cevaplandi) .kagit:not(.acik){display:none}
+  :root[data-ornek] .kart:not(.cevaplandi):not(:has(.kagit.acik)) .kagitAc{display:inline-flex}
+  :root[data-ornek] .kart:not(.cevaplandi) .kagit.acik .kagitKapat{display:inline-flex}
 }
 /* 06.09 HESAP KÂĞIDI (Cem "yan tarafa kâğıt kalem", "1.2.3 yap, telefona uysun"): TESMER SGS kılavuzu hesap makinesini ve
    müsvedde kâğıdını sınava sokmayı yasaklıyor → kâğıt HESAPLAMAZ, kitapçık kenarı gibidir. Telefon: alt sayfa, parmakla çizim + yazı
@@ -316,7 +326,7 @@ details.konuTani,details.soruGoster{margin:12px 0 0;border:1px solid var(--cizgi
 .son{justify-content:center;text-align:center}.son .buyuk{font-size:2.6em;font-weight:900;margin:8px 0}.son .seri{font-size:1.1em;color:var(--altin);font-weight:800}
 .paylas{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:14px;margin:14px auto;max-width:320px;text-align:left;font-size:.9em}
 </style><script src="../../paket-kapisi.js"></script><script src="../../cizerek-coz.js?v=10" defer></script></head><body>
-<div id="akis"></div><button id="temaB" class="temaB" type="button" aria-label="Koyu temaya geç">☾</button><a id="evB" class="evB" href="../../sorular.html" aria-label="Derslere dön">← Dersler</a><script>/* 24.11 Cem "çok kolay girilen çok kolay çıkılan site": ders sayfasında menü yoktu, tarayıcının geri tuşundan başka çıkış yoktu (✕ denetimi). Konu çalışmasında konu ekranına, yoksa sınavın ders listesine döner. */try{var evm=location.pathname.match(/\/kaydir\/(sgs|smmm|kgk)\/([a-z0-9-]+)\.html/),evB=document.getElementById('evB');if(evm){if(evm[1]==='smmm'&&/[?&]konu=/.test(location.search)){evB.href='../../konular.html?ders='+evm[2];evB.textContent='← Konular';evB.setAttribute('aria-label','Konulara dön');}else evB.href='../../sorular.html#'+evm[1];}}catch(e){}</script>
+<div id="akis"></div><button id="temaB" class="temaB" type="button" aria-label="Koyu temaya geç">☾</button><a id="evB" class="evB" href="../../sorular.html" aria-label="Derslere dön">← Dersler</a><script>/* 24.11 Cem "çok kolay girilen çok kolay çıkılan site": ders sayfasında menü yoktu, tarayıcının geri tuşundan başka çıkış yoktu (✕ denetimi). Konu çalışmasında konu ekranına, yoksa sınavın ders listesine döner. */try{var evm=location.pathname.match(/\/kaydir\/(sgs|smmm|kgk)\/([a-z0-9-]+)\.html/),evB=document.getElementById('evB');if(/\/vitrin\/ornek-/.test(location.pathname)){evB.href='../../index.html?ana=1';evB.innerHTML='⌂ <b>tetikte</b>';evB.setAttribute('aria-label','Tetikte ana sayfa');}/* 26.11: 5 örnek soru sayfası ana sayfaya döner (24.11 C22 elle sayfaya yazılmıştı, şablona taşındı) */if(evm){if(evm[1]==='smmm'&&/[?&]konu=/.test(location.search)){evB.href='../../konular.html?ders='+evm[2];evB.textContent='← Konular';evB.setAttribute('aria-label','Konulara dön');}else evB.href='../../sorular.html#'+evm[1];}}catch(e){}</script>
 <script>
 // 09.09 tema + vitrin: varsayılan açık (site), koyu yalnız düğmeyle; ?tema=koyu|acik zorlar; ?vitrin=1 = ana sayfa vitrini
 // (düğme gizli, kasaya cevap/kâğıt YAZMAZ ki "en çok yanıltan soru" ölçümü vitrin tıklamasıyla kirlenmesin).
@@ -339,6 +349,7 @@ function gcOlay(yol,baslik){ try{ const gc=window.goatcounter; if(gc&&typeof gc.
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
   if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 04.10 Cem (V2 madde 21): varsayılan AÇIK, site ile aynı (tema-bas.js); 24.09 'koyu' kararının yerine */
   if(VITRIN) d.setAttribute('data-vitrin','1');
+  if(/\/vitrin\/ornek-/.test(location.pathname)) d.setAttribute('data-ornek','1');   /* 26.11: 5 örnek soru sayfası (masaüstü tek sütun) */
   if(TEK) d.setAttribute('data-tek','1');
   { let g=null; try{ g=localStorage.getItem('kc_gorunum'); }catch(e){} if(g!=='ayrintili') d.setAttribute('data-sade','1'); }   /* 27.10 SADE KİP varsayılan (CSS notu) */
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;
@@ -478,7 +489,7 @@ function kutuEkraniAc(){
 if(KONU_AKTIF&&!TEK) setTimeout(()=>{ try{ gcOlay('konu-calis/'+GC_YOL+'/ac','Konu çalışması açıldı'); const u=document.createElement('div'); u.className='tekrarUyari konuSerit'; u.style.bottom='auto'; u.style.top='64px';
   u.innerHTML='<span class="tuMetin">🎯 <b>Konu çalışması:</b> '+esc(KONU_AKTIF)+' · önce çözmediklerin geliyor</span><a class="tuAc" href="'+esc(location.pathname)+'">Tüm ders</a><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
   document.body.appendChild(u); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },300);
-setTimeout(()=>{ try{ if(VITRIN||KONU_AKTIF) return; const ids=new Set((window.__KASA_FIHRIST||SORULAR).map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
+setTimeout(()=>{ try{ if(VITRIN||KONU_AKTIF||/\/vitrin\/ornek-/.test(location.pathname)) return; /* 26.11 Cem: örnek sayfaya gelen ziyaretçiye üye uyarısı ("Bugün tekrar zamanı") çıkmaz */ const ids=new Set((window.__KASA_FIHRIST||SORULAR).map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
   const u=document.createElement('div'); u.className='tekrarUyari'; u.innerHTML='<span class="tuMetin">🔁 <b>Bugün tekrar zamanı:</b> bu derste '+v+' soru</span><button type="button" class="tuAc">Şimdi çöz</button><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
   document.body.appendChild(u); u.querySelector('.tuAc').addEventListener('click',()=>{ u.remove(); kutuEkraniAc(); }); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },1200);
 const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
