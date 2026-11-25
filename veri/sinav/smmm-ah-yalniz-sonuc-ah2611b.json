@@ -1,0 +1,103 @@
+{
+ "ad": "ah2611b",
+ "tarih": "2026-11-25T22:53:18.305Z",
+ "yol": "smmm-ah-yalniz",
+ "kosu": "gh45716451292",
+ "hakem": {
+  "model": "model-c",
+  "effort": "medium",
+  "maxTok": 3200,
+  "onbelleksiz": true,
+  "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
+ },
+ "butce_usd": 0.35,
+ "yazim": "yazildi",
+ "sayim": {
+  "istenen": 6,
+  "gonderilen": 6,
+  "temiz": 5,
+  "kusurlu": 1,
+  "olculemedi": 0,
+  "onceki": 0,
+  "atlanan": 0,
+  "yazilan": 6,
+  "kaynaksiz": 6,
+  "kaynaksiz_kusurlu": 1,
+  "usd": 0.225
+ },
+ "kararlar": {
+  "smmm-4k-a-maliyet-kolay-r3/kp-05": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-4k-a-yspk-zor-r9/kp-02": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-gm3-3-yhukuk-zor/kp-03": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-olc2-b-vergi/kp-65": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  },
+  "smmm-w1-yvergi-cokzor/kp-06": {
+   "karar": "KUSURLU",
+   "kusur_alanlari": [
+    "sade.dogru"
+   ],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true,
+   "kaynak_okundu": false
+  },
+  "smmm-w5-fmuh-zor/kp-12": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  }
+ },
+ "incelenecek": [
+  "smmm-w1-yvergi-cokzor/kp-06"
+ ],
+ "kaynaksiz": [
+  "smmm-4k-a-maliyet-kolay-r3/kp-05",
+  "smmm-4k-a-yspk-zor-r9/kp-02",
+  "smmm-gm3-3-yhukuk-zor/kp-03",
+  "smmm-olc2-b-vergi/kp-65",
+  "smmm-w1-yvergi-cokzor/kp-06",
+  "smmm-w5-fmuh-zor/kp-12"
+ ],
+ "kaynaksiz_kusurlu": [
+  "smmm-w1-yvergi-cokzor/kp-06"
+ ],
+ "atlanan": {},
+ "yaris": [],
+ "uyusmaz": [],
+ "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
+ "not": "KUSURLU = incelenecek: resmî metinle okunmadan kesin \"geçmedi\" sayılmaz (kayıtta kaynak_okundu:false). Bu yol yayını değiştirmez.",
+ "olculemedi": [],
+ "kayit_degisti": [],
+ "hata": []
+}
