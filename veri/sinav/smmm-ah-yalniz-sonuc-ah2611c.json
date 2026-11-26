@@ -1,8 +1,8 @@
 {
  "ad": "ah2611c",
- "tarih": "2026-11-26T16:05:44.653Z",
+ "tarih": "2026-11-26T16:11:22.813Z",
  "yol": "smmm-ah-yalniz",
- "kosu": "gh45855135604",
+ "kosu": "gh45855874319",
  "hakem": {
   "model": "model-c",
   "effort": "medium",
@@ -11,27 +11,36 @@
   "ek": "RESMÎ MADDE METNİ bölümü (ambardan)"
  },
  "butce_usd": 0.1,
- "yazim": "bos",
+ "yazim": "yazildi",
  "sayim": {
   "istenen": 1,
-  "gonderilen": 0,
-  "temiz": 0,
+  "gonderilen": 1,
+  "temiz": 1,
   "kusurlu": 0,
   "olculemedi": 0,
   "onceki": 0,
-  "atlanan": 1,
-  "yazilan": 0,
-  "kaynaksiz": 0,
+  "atlanan": 0,
+  "yazilan": 1,
+  "kaynaksiz": 1,
   "kaynaksiz_kusurlu": 0,
-  "usd": 0
+  "usd": 0.047
  },
- "kararlar": {},
+ "kararlar": {
+  "smmm-w1-yvergi-cokzor/kp-06": {
+   "karar": "TEMIZ",
+   "kusur_alanlari": [],
+   "madde_kaynak": "kaynaksiz",
+   "madde_adlari": [],
+   "alinti_dogrulandi": null,
+   "kayda_yazildi": true
+  }
+ },
  "incelenecek": [],
- "kaynaksiz": [],
+ "kaynaksiz": [
+  "smmm-w1-yvergi-cokzor/kp-06"
+ ],
  "kaynaksiz_kusurlu": [],
- "atlanan": {
-  "smmm-w1-yvergi-cokzor/kp-06": "ambar ≠ taslak (onarım teslimi bitmemiş ya da kayıt sonradan değişmiş) — eski metin hakemlenmez"
- },
+ "atlanan": {},
  "yaris": [],
  "uyusmaz": [],
  "gerekce": "kusur gerekçeleri yalnız ambardaki kayıtta: kalip_parti icerik-><kp>->aciklama_hakem.kusurlar (depo PUBLIC, buraya yazılmaz)",
