@@ -4,9 +4,9 @@
 Bekleyen not = ambardaki resmî metinde YENİ görülen değişiklik notu; okunup `--onayla <kimlik> --not "…"` ile kapanana kadar `--kati` KIRMIZI.
 Okuma sırası: madde metnini oku → eski kural / yeni kural → bankada etkilenen soru var mı (`veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md` yöntemi) → gerekirse `arac/eski-kurallar.json` + onarım kuyruğu.
 
-Son tarama: 2026-11-26T03:43:51.784Z
+Son tarama: 2026-11-27T07:35:15.257Z
 
-DEĞİŞİKLİK NÖBETİ: 923 dosya · 44473 belge · 7876 not · yeni 0 · bekleyen 5 · eski tarihli yeniden görünen (otomatik bilinen) 0 · kütükte olup metinde artık görülmeyen 224
+DEĞİŞİKLİK NÖBETİ: 923 dosya · 44473 belge · 7877 not · yeni 0 · bekleyen 5 · eski tarihli yeniden görünen (otomatik bilinen) 1 · kütükte olup metinde artık görülmeyen 224
 
 Bankada atıf: **KÖR** (veri/fabrika bu makinede/koşucuda yok — yerelde `--tara` koşunca dolar).
 

@@ -1,7 +1,16 @@
 {
-  "olcum": "2026-11-08T07:43:46",
+  "olcum": "2026-11-27T07:00:13",
   "aciklama": "motor/mevzuat-yut.ps1 BAG KAPISI: ad degisimi soru bagini (kalip_parti kaynak_adlar; SMMM/SGS/KGK) koparacagi icin YAZILMAYAN kaynaklar ve ayni kosuda bag tasinan kaynaklar (son kosu).",
   "duran": [
+    {
+      "slug": "vuk",
+      "ad": "VUK (213 s.K.)",
+      "neden": "92 kopan ada 2689 soru kaydi bagli (BAG_TASI yok)",
+      "kopan": 116,
+      "bagli_ad": 92,
+      "kayit": 2689,
+      "eslesmeyen": 9
+    },
     {
       "slug": "otv",
       "ad": "ÖTV K. (4760 s.K.)",
