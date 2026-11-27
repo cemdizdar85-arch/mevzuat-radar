@@ -4156,6 +4156,34 @@ AS $function$
 $function$
 ;
 
+-- soru_dersi_getir(text)
+CREATE OR REPLACE FUNCTION public.soru_dersi_getir(p_id text)
+ RETURNS jsonb
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select d.veri
+  from public.soru_dersi d
+  join public.paket_soru s on s.id = d.id
+  where d.id = p_id and auth.uid() is not null and public.paket_erisim_var(s.sinav, s.ders);
+$function$
+;
+
+-- soru_dersi_liste(text)
+CREATE OR REPLACE FUNCTION public.soru_dersi_liste(p_sayfa text)
+ RETURNS text[]
+ LANGUAGE sql
+ STABLE SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+  select coalesce(array_agg(d.id), '{}'::text[])
+  from public.soru_dersi d
+  join public.paket_soru s on s.id = d.id
+  where s.sayfa = p_sayfa and auth.uid() is not null and public.paket_erisim_var(s.sinav, s.ders);
+$function$
+;
+
 -- tr_fold(text)
 CREATE OR REPLACE FUNCTION public.tr_fold(t text)
  RETURNS text

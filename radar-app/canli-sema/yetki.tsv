@@ -148,6 +148,8 @@ siparis_otomatik_iptal	p_nolar text[]	SD	f	f	integer	depoda
 siparis_paket_bagla	p_uid uuid, p_eposta text	SD	f	f	text	depoda
 siparis_teklif_damga		SD	t	t	trigger	depoda
 siparis_yarim_benim		SD	f	t	record	depoda
+soru_dersi_getir	p_id text	SD	f	t	jsonb	depoda
+soru_dersi_liste	p_sayfa text	SD	f	t	text[]	depoda
 tr_fold	t text	inv	t	t	text	depoda
 uyari_teyit	p_token uuid	SD	t	t	jsonb	depoda
 uyari_teyit_durum	p_token uuid	SD	t	t	jsonb	depoda
