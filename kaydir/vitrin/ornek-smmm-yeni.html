@@ -1101,7 +1101,7 @@ const OLC=/[?&]olc=1/.test(location.search),olcV={};
 const GOM=/[?&]gom=1/.test(location.search),GOMP=new URLSearchParams(location.search);
 if(GOM){const st=document.createElement('style');st.textContent='.dnm{display:none!important}';document.head.appendChild(st);}
 function gomKapat(){try{sesDur();}catch(e){}try{drsDur();}catch(e){}try{window.parent.postMessage({tetikte:'gom-kapat'},location.origin);}catch(e){}}
-function gomAc(){const id=GOMP.get('ders'),kid=GOMP.get('konu'),sc=String(GOMP.get('sec')||'').toUpperCase();
+function gomAc(){const id=GOMP.get('ders')||window.__uyeDers,kid=GOMP.get('konu'),sc=String(GOMP.get('sec')||'').toUpperCase();
  if(kid){const K=KONU[kid];if(!K){gomKapat();return;}const o=Object.assign(yeniSoru(),{i:0,e:'sonuc',sec:'A'});S=Object.assign(yeniSoru(),{i:0,e:'sonuc',sec:'A',drs:true,kq:K.q,onceki:o});drsT0=0;drsKagAcik=false;ciz();gomBaslat();return;}
  const i=SORULAR.findIndex(q=>q.id===id);if(i<0||!drsVar(SORULAR[i])){gomKapat();return;}const q=SORULAR[i];
  S=Object.assign(yeniSoru(),{i,e:'sonuc',sec:/^[A-E]$/.test(sc)&&q.siklar[sc]!=null?sc:q.dogru});dersOnYukle(q,true);S.drs=true;drsT0=0;drsKagAcik=false;ciz();gomBaslat();}
@@ -1403,7 +1403,9 @@ function baslat(metin,metin2){
  if(location.hash==='#sinama')sinama();if(location.hash==='#sinama2')sinama2();
 }
 function hata(m){kokEl.innerHTML=`<div class="sahne"><div class="ph"><div class="bit"><h1>Açılamadı</h1><p>${kac(m)}</p><a class="cta koyu" style="width:auto;padding:0 28px" href="ornek-smmm.html">Bugünkü ekrana git</a></div></div></div>`;}
-(function(){let acildi=false;const K='tk_sorular_2';const kes=t=>{const a=t.indexOf('const SORULAR=');if(a<0)return '';const b=t.indexOf('\n',a);return t.slice(a,b<0?undefined:b)+'\n';};
+(function(){let acildi=false;const K='tk_sorular_2';
+ /* 27.11 uye sayfasi: ?gom=1&uye=1 ile acilinca soru ve ders verisi sayfada DURMAZ; ust pencere (soru-dersi.js) kapili kasadan alip postMessage ile yollar. */
+ if(GOM&&GOMP.get('uye')==='1'){{const st=document.createElement('style');st.textContent='.dgs{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}';document.head.appendChild(st);}window.addEventListener('message',e=>{if(e.origin!==location.origin||!e.data||e.data.tetikte!=='gom-ders'||acildi)return;try{const q=e.data.soru;DRS[q.id]=e.data.drs;window.__uyeDers=q.id;acildi=true;baslat('const SORULAR='+JSON.stringify([q])+'\n','');}catch(x){hata(x.message);}});try{window.parent.postMessage({tetikte:'gom-bekliyor'},location.origin);}catch(e){}return;}const kes=t=>{const a=t.indexOf('const SORULAR=');if(a<0)return '';const b=t.indexOf('\n',a);return t.slice(a,b<0?undefined:b)+'\n';};
  if(ORNEK){try{baslat('const SORULAR='+JSON.stringify(ORNM==='2'?ORNS:ORN)+'\n','');}catch(e){hata(e.message);}return;}
  try{const c=JSON.parse(localStorage.getItem(K)||'null');if(c&&c.m&&Date.now()-c.t<864e5&&!SINAMA){baslat(c.m,c.m2||'');acildi=true;olcYaz('sorular','hafızadan · '+Math.round(performance.now())+' ms');}}catch(e){}
  let m1=null,m2=null,bitti=0;

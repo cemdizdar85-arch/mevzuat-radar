@@ -353,6 +353,14 @@
   document.addEventListener('input', function (e) { if (e.target && e.target.classList && e.target.classList.contains('notumAlan')) say('notum-yaz'); }, true);
 })();
 
+/* 27.11 prova: dersi yazılıp sesi basılmış sorularda sesli Nöbetçi dersi (soru-dersi.js). Yalnız Yeterlilik üye ders
+   sayfaları (kaydir/smmm/<ders>.html); kart şablonuna dokunmaz, basım gerekmez. Dersi olmayan soruda bir şey değişmez. */
+(function () {
+  if (!/\/kaydir\/smmm\/[a-z-]+(\.html)?$/.test(location.pathname) || /\/index(\.html)?$/.test(location.pathname) || window.__soruDersiYuk) return; window.__soruDersiYuk = true;
+  var bu = document.querySelector('script[src*="paket-kapisi.js"]'), kok = bu ? bu.src.replace(/paket-kapisi\.js.*$/, '') : '/';
+  var s = document.createElement('script'); s.src = kok + 'soru-dersi.js?v=1'; s.defer = true; document.head.appendChild(s);
+})();
+
 /* 04.10 "💬 Nöbetçiye sor": soru sayfalarında nobetci-sor.js yüklenir (kart şablonuna dokunmadan; basım gerekmez).
    Sayaç: Nöbetçi düğmesi de yukarıdaki kart sayacına katılır (kart/nobetci-ac). */
 (function () {
